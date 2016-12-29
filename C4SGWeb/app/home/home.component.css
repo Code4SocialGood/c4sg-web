@@ -1,0 +1,17 @@
+a:hover { 
+    background-color: grey;
+}
+
+.action { 
+    background: url("app/images/image3.jpg") no-repeat 50% 50% fixed; 
+	background-size: cover;
+
+    background-color: black;
+    background-blend-mode: screen multiply;
+
+    width: 1600px;
+    height: 700px;
+
+    padding-top: 200px;
+    padding-left: 850px;
+}

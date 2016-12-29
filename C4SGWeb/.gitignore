@@ -1,0 +1,11 @@
+# Typescript
+*.js
+*.map
+
+# node modules
+/node_modules
+
+# log file
+*.log.*
+
+# IDE (none if use Sublime)
