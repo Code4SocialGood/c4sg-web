@@ -1,0 +1,27 @@
+<!-- Top menu -->
+<nav class="black">
+    <div class="nav-wrapper">
+        <a href="" class="brand-logo"><img src="app/images/logo.png" height="60" width="380"></a>
+        <ul class="right hide-on-med-and-down">
+            <li>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownvolunteer">Volunteers<i class="material-icons right">arrow_drop_down</i></a>
+                <ul id="dropdownvolunteer" class="dropdown-content">
+                    <li><a routerLink="/volunteers" routerLinkActive="active">Projects</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownorganization">Nonprofits<i class="material-icons right">arrow_drop_down</i></a>
+                <ul id="dropdownorganization" class="dropdown-content">
+                    <li><a routerLink="/nonprofits" routerLinkActive="active">Projects</a></li>
+                </ul>
+            </li>    
+
+            <li><a routerLink="/resources" routerLinkActive="active">Resources</a></li>
+            <li><a routerLink="/login" routerLinkActive="active" >Login</a></li>
+            <li><a routerLink="/register" routerLinkActive="active">Register</a></li>      
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
