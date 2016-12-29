@@ -1,22 +1,23 @@
 # Java
 *.class
-.mtj.tmp/
 *.jar
 *.war
 *.ear
 bin
-target/
+.mtj.tmp/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# mvn
+# Maven
+log/
+target/
 !.mvn/wrapper/maven-wrapper.jar
 
 # Eclipse
+.classpath
 .project
 .settings/
-.classpath
 
 # STS
 .apt_generated
@@ -27,7 +28,7 @@ hs_err_pid*
 .springBeans
 
 # IntelliJ IDEA
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr

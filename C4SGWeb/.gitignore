@@ -2,6 +2,9 @@
 *.js
 *.map
 
+# Don't ignore systemjs.config.js
+!systemjs.config.js
+
 # node modules
 /node_modules
 
