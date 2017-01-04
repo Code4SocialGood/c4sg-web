@@ -3,7 +3,7 @@ a:hover {
 }
 
 .action { 
-    background: url("app/images/image3.jpg") no-repeat 50% 50% fixed; 
+    background: linear-gradient(rgba(53, 54, 56, 0.5), rgba(53, 54, 56, 0.5)), url("app/images/image3.jpg") no-repeat 50% 50% fixed; 
 	background-size: cover;
 
     background-color: black;
