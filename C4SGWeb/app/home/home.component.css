@@ -4,17 +4,17 @@ a:hover {
 
 .action {
     background: linear-gradient(rgba(53, 54, 56, 0.2), rgba(53, 54, 56, 0.2)), url("app/images/image3.jpg") no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-	background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
     max-width: 100%;
     display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: 94vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 94vh;
     text-align: center;
 
     color: white;
