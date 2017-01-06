@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `testc4sg` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `testc4sg`;
+﻿CREATE DATABASE  IF NOT EXISTS `c4sg` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `c4sg`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: testc4sg
+-- Host: localhost    Database: c4sg
 -- ------------------------------------------------------
 -- Server version	5.7.16-log
 
