@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-public class OrganizationResource {
+public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
