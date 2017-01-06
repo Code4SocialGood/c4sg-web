@@ -2,9 +2,12 @@ package org.c4sg.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.c4sg.dao.ProjectDao;
-import org.c4sg.domain.Project;
+import org.c4sg.dto.ProjectDto;
+import org.c4sg.entity.Project;
+import org.c4sg.mapper.ProjectMapper;
 import org.c4sg.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +18,26 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectDao projectDao;
 	
+	@Autowired
+	private ProjectMapper projectMapper;
+	
 	public void save(Project project) {
 		projectDao.save(project);
     }
 
-    public List<Project> findProjects() {
-        return projectDao.findAll();
-    }
+	public List<ProjectDto> findProjects() {
+		List<Project> projects = projectDao.findAll();
+		List<ProjectDto> projectDtos = projects.stream()
+									.map(p -> projectMapper.getProjectDtoFromEntity(p))
+									.collect(Collectors.toList());
+		return projectDtos;
+	}
+	
+	/*public List<Project> findProjects() {
+		List<Project> projects = projectDao.findAll();
+		//projects.forEach(p -> p.setOrganizationName(p.getOrganization().getName()));
+		return projects;
+	}*/
 	
     public Project findById(int id) {
         return projectDao.findById(id);

@@ -3,7 +3,7 @@ package org.c4sg.service.impl;
 import java.util.List;
 
 import org.c4sg.dao.OrganizationDao;
-import org.c4sg.domain.Organization;
+import org.c4sg.entity.Organization;
 import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
