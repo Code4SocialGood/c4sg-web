@@ -1,4 +1,4 @@
-package org.c4sg.domain;
+package org.c4sg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,10 +1,12 @@
-package org.c4sg.domain;
+package org.c4sg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Project {
@@ -33,6 +35,12 @@ public class Project {
 	
 	@Column(name = "create_time", nullable = false)
 	private String createTime;
+	
+	@ManyToOne
+	@JoinColumn(name="organization_id", insertable=false, updatable=false)
+	private Organization organization;
+	
+	/*private String organizationName;*/
 	
 	public String getOrganizationId() {
 		return organizationId;
@@ -77,4 +85,17 @@ public class Project {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Organization getOrganization() {
+		return organization;
+	}
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+	/*public String getOrganizationName() {
+		return organizationName;
+	}
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}*/	
+	
 }

@@ -1,6 +1,6 @@
 package org.c4sg.controller;
 
-import org.c4sg.domain.Organization;
+import org.c4sg.entity.Organization;
 import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

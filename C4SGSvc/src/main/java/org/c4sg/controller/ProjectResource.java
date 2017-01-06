@@ -1,4 +1,4 @@
-package org.c4sg.resource;
+package org.c4sg.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,7 +7,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.c4sg.domain.Project;
+import org.c4sg.dto.ProjectDto;
+import org.c4sg.entity.Project;
 import org.c4sg.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +27,7 @@ public class ProjectResource {
 
     @CrossOrigin
     @RequestMapping(value = "/api/project/all", method = RequestMethod.GET)
-    public List<Project> getProjects() {
+    public List<ProjectDto> getProjects() {
     	
     	System.out.println("**************All**************");
         return projectService.findProjects();

@@ -2,7 +2,7 @@ package org.c4sg.service;
 
 import java.util.List;
 
-import org.c4sg.domain.Organization;
+import org.c4sg.entity.Organization;
 
 public interface OrganizationService {
 
