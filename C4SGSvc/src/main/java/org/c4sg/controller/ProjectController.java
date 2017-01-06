@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-public class ProjectResource {
+public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
