@@ -33,12 +33,6 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDtos;
 	}
 	
-	/*public List<Project> findProjects() {
-		List<Project> projects = projectDao.findAll();
-		//projects.forEach(p -> p.setOrganizationName(p.getOrganization().getName()));
-		return projects;
-	}*/
-	
     public Project findById(int id) {
         return projectDao.findById(id);
     }

@@ -40,8 +40,6 @@ public class Project {
 	@JoinColumn(name="organization_id", insertable=false, updatable=false)
 	private Organization organization;
 	
-	/*private String organizationName;*/
-	
 	public String getOrganizationId() {
 		return organizationId;
 	}
@@ -91,11 +89,5 @@ public class Project {
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
-	/*public String getOrganizationName() {
-		return organizationName;
-	}
-	public void setOrganizationName(String organizationName) {
-		this.organizationName = organizationName;
-	}*/	
 	
 }
