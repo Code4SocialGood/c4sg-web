@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrganizationMapper extends ModelMapper {
 
-	public OrganizationDto getOrganzationDtoFromEntity(Organization organization){
+	public OrganizationDto getOrganizationDtoFromEntity(Organization organization){
 		OrganizationDto organizationDto = map(organization, OrganizationDto.class);
 		return organizationDto;
 	}

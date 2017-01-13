@@ -2,15 +2,21 @@ package org.c4sg.service;
 
 import java.util.List;
 
-import org.c4sg.entity.Organization;
+import org.c4sg.dto.OrganizationDto;
 
 public interface OrganizationService {
 
-	public void save(Organization organization);
+	public void save(OrganizationDto organizationDto);
 
-    public List<Organization> findOrganizations();
+    public List<OrganizationDto> findOrganizations();
     
-    public Organization findByName(String name);
+    public OrganizationDto findById(int id);
     
-    public Organization createOrganization(Organization organization);
+    public List<OrganizationDto> findByKeyword(String name);
+    
+    public OrganizationDto createOrganization(OrganizationDto organizationDto);
+    
+    public OrganizationDto updateOrganization(int id, OrganizationDto organizationDto);
+    
+    public void deleteOrganization(int id);
 }
