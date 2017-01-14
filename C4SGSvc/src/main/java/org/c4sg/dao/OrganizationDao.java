@@ -13,5 +13,5 @@ public interface OrganizationDao extends CrudRepository<Organization, Long> {
 	Organization findById(int id);
 	/*@Query("SELECT o FROM Organization o WHERE LOWER(o.name) LIKE LOWER(CONCAT('%',:keyword,'%')) OR LOWER(o.briefDescription) LIKE LOWER(CONCAT('%',:keyword,'%'))  OR LOWER(o.detailedDescription) LIKE LOWER(CONCAT('%',:keyword,'%'))")
 	List<Organization> findByKeyword(String keyword);*/
-	List<Organization> findByNameLikeOrBriefDescriptionLikeOrDetailedDescriptionLike(String keyWord);
+	List<Organization> findByNameLikeOrBriefDescriptionLikeOrDetailedDescriptionLikeAllIgnoreCase(String keyWord);
 }
