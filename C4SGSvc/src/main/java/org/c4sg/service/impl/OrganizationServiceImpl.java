@@ -39,7 +39,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     public List<OrganizationDto> findByKeyword(String keyWord) {
-    	List<Organization> organizations = organizationDao.findByNameLikeOrBriefDescriptionLikeOrDetailedDescriptionLikeAllIgnoreCase(keyWord);
+    	List<Organization> organizations = organizationDao.findByNameLikeOrBriefDescriptionLikeOrDetailedDescriptionLikeAllIgnoreCase(keyWord, keyWord, keyWord);
     	if(organizations == null || organizations.isEmpty()){
     		return null;
     	}
