@@ -15,6 +15,7 @@ const routes: Routes = [
 
     { path: '', component: HomeComponent },
 
+    { path: 'projects', component: OrganizationProjectComponent },
     { path: 'volunteers', component: VolunteerProjectComponent },
     { path: 'nonprofits', component: OrganizationProjectComponent },
     { path: 'view-project/:id', component: ViewProjectComponent },
