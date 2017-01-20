@@ -16,6 +16,7 @@ import { VolunteerProjectComponent }  from './project/volunteer/volunteer-projec
 import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
 import { ViewProjectComponent }  from './project/view/view-project.component';
 import { SearchProjectComponent }  from './project/search/search-project.component';
+import { CreateProjectComponent }  from './project/create/create.component';
 import { ProjectService }  from './project/project.service';
 
 import { AboutComponent }  from './about/about.component';
@@ -38,6 +39,7 @@ import { ContactComponent }  from './contact/contact.component';
     ViewProjectComponent,
     SearchProjectComponent,    
     MaterializeDirective,
+    CreateProjectComponent,
   ],
   providers: [ ProjectService ],
   bootstrap: [ AppComponent ]
