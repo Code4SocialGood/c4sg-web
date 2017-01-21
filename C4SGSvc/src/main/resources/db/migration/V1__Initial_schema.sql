@@ -1,6 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `c4sg` ;
-USE `c4sg`;
-
 -- Table structure for table `application`
 DROP TABLE IF EXISTS `application`;
 CREATE TABLE `application` (
