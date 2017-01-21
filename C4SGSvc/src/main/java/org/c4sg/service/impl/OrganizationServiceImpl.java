@@ -77,7 +77,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     		organization.setStatus(ApplicationConstants.ORGANIZATION_STATUS_DELETED);
     		//TODO: Local or Timezone?
     		//TODO: Format date
-    		organization.setDeleteTime(LocalDateTime.now().toString());
+    		//organization.setDeleteTime(LocalDateTime.now().toString());
     		//organization.setDeleteBy(user.getUsername());
     		organizationDao.save(organization);
     	}
