@@ -7,7 +7,6 @@ CREATE TABLE `application` (
   `id`          int(11)   NOT NULL AUTO_INCREMENT,
   `user_id`     int(11)   NOT NULL,
   `project_id`  int(11)   NOT NULL,
-  `status`      char(1)   NOT NULL,
   PRIMARY KEY (`id`)
 );
 
