@@ -22,6 +22,8 @@ import { ProjectService }  from './project/project.service';
 import { AboutComponent }  from './about/about.component';
 import { ContactComponent }  from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -37,6 +39,8 @@ import { LoginComponent } from './login/login.component';
     AboutComponent,
     ContactComponent,
     LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     VolunteerProjectComponent,
     OrganizationProjectComponent,
     ViewProjectComponent,
