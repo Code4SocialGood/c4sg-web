@@ -1,7 +1,7 @@
 import './rxjs-extensions';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 
 import {MaterializeDirective} from "angular2-materialize";
@@ -21,11 +21,15 @@ import { ProjectService }  from './project/project.service';
 
 import { AboutComponent }  from './about/about.component';
 import { ContactComponent }  from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -34,6 +38,9 @@ import { ContactComponent }  from './contact/contact.component';
     HomeComponent,
     AboutComponent,
     ContactComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     VolunteerProjectComponent,
     OrganizationProjectComponent,
     ViewProjectComponent,
