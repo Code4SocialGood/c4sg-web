@@ -24,6 +24,7 @@ import { ContactComponent }  from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { ResetPasswordComponent } from './forgot-password/reset-password/reset-p
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    RegistrationComponent,
     VolunteerProjectComponent,
     OrganizationProjectComponent,
     ViewProjectComponent,
