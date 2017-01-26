@@ -16,11 +16,6 @@ public class ApplicationLogger {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	/*@Before("execution(* org.c4sg.controller.ProjectController+.*(..))")
-	public void logProjectController(){
-		logger.info("Calling Before Logger By Aspect");
-	}*/
-	
 	@Pointcut("execution(* org.c4sg.*.*.*(..))")
     public void defineEntryPoint() {
     }
