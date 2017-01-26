@@ -1,12 +1,11 @@
 package org.c4sg.util;
 public class Address {
-	
-	String doorNo;
-	String streetName;
-	String cityName;
-	String state;
-	String zip;
-	String country;
+	private String doorNo;
+	private String streetName;
+	private String cityName;
+	private String state;
+	private String zip;
+	private String country;
 	public String getCountry() {
 		return country;
 	}
@@ -43,9 +42,4 @@ public class Address {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
-	
-	
-	
-
 }

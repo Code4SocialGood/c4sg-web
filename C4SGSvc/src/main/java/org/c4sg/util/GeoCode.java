@@ -1,8 +1,7 @@
 package org.c4sg.util;
 public class GeoCode {
-	
-	String latitude;
-	String longitude;
+	private String latitude;
+	private String longitude;
 	public String getLatitude() {
 		return latitude;
 	}
@@ -15,7 +14,4 @@ public class GeoCode {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	
-	
-
 }
