@@ -33,7 +33,7 @@ CREATE TABLE `organization` (
   `contact_name`         varchar(100) DEFAULT NULL,
   `contact_phone`        varchar(20)  DEFAULT NULL,
   `contact_email`        varchar(30)  DEFAULT NULL,
-  `status`               int(1)       NOT NULL DEFAULT 0,
+  `status`               char(1)      NOT NULL DEFAULT 'A',
   PRIMARY KEY (`id`)
 );
 
