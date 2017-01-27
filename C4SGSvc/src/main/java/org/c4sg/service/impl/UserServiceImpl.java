@@ -1,6 +1,5 @@
 package org.c4sg.service.impl;
 
-import org.c4sg.constant.ApplicationConstants;
 import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
 import org.c4sg.dao.UserDao;
