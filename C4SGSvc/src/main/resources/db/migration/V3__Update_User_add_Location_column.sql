@@ -1,5 +1,5 @@
 ALTER TABLE user
   ADD location POINT,
-  ADD role CHAR(1),
+  ADD role INTEGER,
   ADD github INTEGER,
-  ADD display_flag CHAR(1)
+  ADD display_flag INTEGER

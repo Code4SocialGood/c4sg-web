@@ -1,6 +1,8 @@
 package org.c4sg.service.impl;
 
 import org.c4sg.constant.ApplicationConstants;
+import org.c4sg.constant.UserDisplay;
+import org.c4sg.constant.UserRole;
 import org.c4sg.dao.UserDao;
 import org.c4sg.entity.User;
 import org.c4sg.service.UserService;
@@ -32,6 +34,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findDevelopers() {
-        return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(ApplicationConstants.C4SG_DEVELOPER, ApplicationConstants.DISPLAY_USER);
+        return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, UserDisplay.DISPLAY_USER);
     }
 }

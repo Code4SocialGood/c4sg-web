@@ -4,6 +4,8 @@ package org.c4sg.entity;
 
 
 import com.vividsolutions.jts.geom.Point;
+import org.c4sg.constant.UserDisplay;
+import org.c4sg.constant.UserRole;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,29 +28,31 @@ public class User implements Serializable {
     private String zip;
     @Column(name = "status", columnDefinition = "char(1)", nullable = false)
     private String status;
-    @Column(name = "role", columnDefinition = "char(1)", nullable = false)
-    private String role;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private UserRole role;
     @Column(name = "github", columnDefinition = "char(1)", nullable = false)
     private Integer github;
-    @Column(name = "display_flag", columnDefinition = "char(1)")
-    private String displayFlag;
+    @Column(name = "display_flag")
+    @Enumerated(EnumType.ORDINAL)
+    private UserDisplay displayFlag;
     @Column(name = "location", columnDefinition = "point")
     private Point location;
 
 
-    public String getDisplayFlag() {
+    public UserDisplay getDisplayFlag() {
         return displayFlag;
     }
 
-    public void setDisplayFlag(String displayFlag) {
+    public void setDisplayFlag(UserDisplay displayFlag) {
         this.displayFlag = displayFlag;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

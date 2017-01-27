@@ -1,5 +1,7 @@
 package org.c4sg.dao;
 
+import org.c4sg.constant.UserDisplay;
+import org.c4sg.constant.UserRole;
 import org.c4sg.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
@@ -9,5 +11,5 @@ public interface UserDao extends CrudRepository<User, Long> {
     List<User> findAll();
     User findById(int id);
 
-    List<User> findByRoleAndDisplayFlagOrderByGithubDesc(String role, String display);
+    List<User> findByRoleAndDisplayFlagOrderByGithubDesc(UserRole role, UserDisplay display);
 }
