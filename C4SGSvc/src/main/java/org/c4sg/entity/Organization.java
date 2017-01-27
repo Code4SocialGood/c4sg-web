@@ -1,10 +1,8 @@
 package org.c4sg.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.c4sg.constant.OrganizationStatus;
+
+import javax.persistence.*;
 
 @Entity
 public class Organization {
@@ -41,8 +39,9 @@ public class Organization {
 	@Column(name = "country", nullable = false)
 	private String country;
 
-	@Column(name = "status", columnDefinition="char(1)",nullable = false)
-	private String status;
+	@Column(name = "status",nullable = false)
+	@Enumerated(EnumType.ORDINAL)
+	private OrganizationStatus status;
 
 	public Integer getId() {
 		return id;
@@ -124,11 +123,11 @@ public class Organization {
 		this.country = country;
 	}
 
-	public String getStatus() {
+	public OrganizationStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(OrganizationStatus status) {
 		this.status = status;
 	}
 }
