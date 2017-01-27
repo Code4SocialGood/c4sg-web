@@ -15,13 +15,13 @@ public class UserController {
 
 
     @CrossOrigin
-    @RequestMapping(value = "/api/user/search/byId/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable("id") int id) {
         return userService.findById(id);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/api/user/developers", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/developers", method = RequestMethod.GET)
     public List<User> getDevelopers() {
         return userService.findDevelopers();
     }
