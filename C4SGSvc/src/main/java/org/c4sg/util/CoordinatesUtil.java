@@ -1,4 +1,5 @@
 package org.c4sg.util;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -8,11 +9,10 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
-import org.springframework.util.StringUtils;
 import org.w3c.dom.Document;
 
 public abstract class CoordinatesUtil {
-   //String Google map Constants
+	//String Google map Constants
 	public static final String GMAPADDRESS = "http://maps.googleapis.com/maps/api/geocode/xml?address=";
 	public static final String UTF =  "UTF-8";
 	public static final String SENSOR = "&sensor=true";
@@ -27,20 +27,13 @@ public abstract class CoordinatesUtil {
 	  */ 
 	public static GeoCode getCoordinates(Address address) throws Exception
 	 {
-	  GeoCode geo = new GeoCode();
-	  String address1="";
-	  String address2="";
-	  String cityName="";
-	  String state="";
-	  String zip="";
-	  String country="";
-	  if(!StringUtils.isEmpty(address.getAddress1())){address1=address.getAddress1();}
-	  if(!StringUtils.isEmpty(address.getAddress2())){address2=address.getAddress2();}
-	  if(!StringUtils.isEmpty(address.getCityName())){cityName=address.getCityName();}
-	  if(!StringUtils.isEmpty(address.getState())){state=address.getState();}
-	  if(!StringUtils.isEmpty(address.getZip())){zip=address.getZip();}
-	  if(!StringUtils.isEmpty(address.getCountry())){country=address.getCountry();}
-	  String physicalAddress = address1+","+address2+","+cityName+","+state+","+zip+","+country;
+	  GeoCode geo= new GeoCode();
+	  String physicalAddress = (address.getAddress1() == null ? "" : address.getAddress1() + ",")
+			  + (address.getAddress2() == null ? "" : address.getAddress2() + ",")
+			  + (address.getCityName() == null ? "" : address.getCityName() + ",")
+			  + (address.getState()    == null ? "" : address.getState() + "-")
+			  + (address.getZip()      == null ? "" : address.getZip() + ",")
+			  + (address.getCountry()  == null ? "" :  address.getCountry());
 	  String api = GMAPADDRESS + URLEncoder.encode(physicalAddress, "UTF-8") + SENSOR;
 	  URL url = new URL(api);
 	  HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
@@ -70,4 +63,67 @@ public abstract class CoordinatesUtil {
 	    }
 		return geo;
 	  }
+	//GeoCode Coordinates
+	static class GeoCode {
+		private String latitude;
+		private String longitude;
+		public String getLatitude() {
+			return latitude;
+		}
+		public void setLatitude(String latitude) {
+			this.latitude = latitude;
+		}
+		public String getLongitude() {
+			return longitude;
+		}
+		public void setLongitude(String longitude) {
+			this.longitude = longitude;
+		}
+	}
+	//Address values
+	static class Address {
+		private String address1;
+		private String address2;
+		private String cityName;
+		private String state;
+		private String zip;
+		private String country;
+		public String getAddress1() {
+			return address1;
+		}
+		public void setAddress1(String address1) {
+			this.address1 = address1;
+		}
+		public String getAddress2() {
+			return address2;
+		}
+		public void setAddress2(String address2) {
+			this.address2 = address2;
+		}
+		public String getCountry() {
+			return country;
+		}
+		public void setCountry(String country) {
+			this.country = country;
+		}
+			public String getCityName() {
+			return cityName;
+		}
+		public void setCityName(String cityName) {
+			this.cityName = cityName;
+		}
+		public String getState() {
+			return state;
+		}
+		public void setState(String state) {
+			this.state = state;
+		}
+		public String getZip() {
+			return zip;
+		}
+		public void setZip(String zip) {
+			this.zip = zip;
+		}
+	}
 }
+
