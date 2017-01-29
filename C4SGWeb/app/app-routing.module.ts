@@ -16,6 +16,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
+import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
+import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+
 const routes: Routes = [
 
     { path: '', component: HomeComponent },
@@ -27,7 +31,10 @@ const routes: Routes = [
     { path: 'volunteers', component: VolunteerProjectComponent },
     { path: 'nonprofits', component: OrganizationProjectComponent },
 
-
+    { path: 'volunteerUser', component: VolunteerUserComponent },
+    { path: 'nonprofitUser', component: NonprofitUserComponent },
+    { path: 'c4sgUser', component: C4SGUserComponent },
+    
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'login', component: LoginComponent },

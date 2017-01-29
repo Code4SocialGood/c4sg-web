@@ -26,6 +26,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+// Dashboard
+import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
+import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
+import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -49,6 +54,9 @@ import { RegistrationComponent } from './registration/registration.component';
     SearchProjectComponent,    
     MaterializeDirective,
     CreateProjectComponent,
+    VolunteerUserComponent,
+    NonprofitUserComponent,
+    C4SGUserComponent,
   ],
   providers: [ ProjectService ],
   bootstrap: [ AppComponent ]
