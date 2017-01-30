@@ -1,13 +1,14 @@
-Code for Social Good is a global platform to connet nonprofits and open source projects with tech volunteers. The project was initiated after we saw the need for such a platform from our own volunteering experiences. We are building this platform to address specific needs such as:
+# Code for Social Good
+Code for Social Good is a global platform to connet nonprofits and open source projects with tech volunteers. The project was initiated after we saw the need for such a platform from our own volunteering experiences. We are building this platform to address specific needs such as: 
 
-# Technical Volunteering
+**Technical Volunteering**
 Most volunteer networks host opportunities that are generic in nature. There currently are a lack of accessible volunteering platforms that are aimed at the huge tech volunteering market, especially in the areas beyond the popular CMS website constructions.
 
-# Open Volunteering
+**Open Volunteering**
 Our platform is open to all non-profit organizations seeking technical volunteers and requires no screening on projects.
 Our platform is open to all technical volunteers and requires no minimum experience level or commitment hours.
 
-# Junior Volunteering
+**Junior Volunteering**
 Volunteering opportunities usually target individuals with significant experience (pro bono volunteers). Junior volunteers find it difficult to seek an opportunity to gain experience and grow into skilled volunteers. We hope to smooth this transition by encouraging team projects with senior professionals mentor junior developers.
 
 The application architecture is briefly described below:
