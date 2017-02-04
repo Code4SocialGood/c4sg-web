@@ -40,11 +40,7 @@ public class UserServiceImpl implements UserService {
         return userDao.findById(id);
     }
 
-    @Override
-    public User findByName(String name) {
-        return null;
-    }
-
+  
     @Override
     public List<User> findDevelopers() {
         return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, UserDisplay.DISPLAY_USER);

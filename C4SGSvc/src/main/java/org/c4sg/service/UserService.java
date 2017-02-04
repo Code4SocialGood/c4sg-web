@@ -13,7 +13,7 @@ public interface UserService {
   
   List<User> findAll();
   User findById(int id);
-  User findByName(String name);
+  UserDto findByName(String name);
 
   List<User> findDevelopers();
 
