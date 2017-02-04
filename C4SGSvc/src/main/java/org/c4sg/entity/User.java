@@ -2,6 +2,7 @@ package org.c4sg.entity;
 
 
 
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.vividsolutions.jts.geom.Point;
+import org.c4sg.constant.UserDisplay;
+import org.c4sg.constant.UserRole;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
 
 
 
@@ -45,6 +54,38 @@ public class User {
 	private String status;
 	
 	
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+
+	public Integer getGithub() {
+		return github;
+	}
+
+	public void setGithub(Integer github) {
+		this.github = github;
+	}
+
+	public UserDisplay getDisplayFlag() {
+		return displayFlag;
+	}
+
+	public void setDisplayFlag(UserDisplay displayFlag) {
+		this.displayFlag = displayFlag;
+	}
+
+	public Point getLocation() {
+		return location;
+	}
+
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+
 	@Column(name = "create_time")
 	private Date create_time;
 	
@@ -54,7 +95,18 @@ public class User {
 	@Column(name = "delete_time")
 	private Date delete_time;
 	
-	
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private UserRole role;
+    @Column(name = "github", columnDefinition = "char(1)", nullable = false)
+    private Integer github;
+    @Column(name = "display_flag")
+    @Enumerated(EnumType.ORDINAL)
+    private UserDisplay displayFlag;
+    @Column(name = "location", columnDefinition = "point")
+    private Point location;
+
+
 	public String getName() {
 		return name;
 	}

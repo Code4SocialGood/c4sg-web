@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper extends ModelMapper {
+
 	public UserDto getUserDtoFromEntity(User user){
 		UserDto userDto = map(user, UserDto.class);
 		return userDto;

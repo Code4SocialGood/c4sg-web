@@ -1,6 +1,8 @@
 package org.c4sg.dto;
 
+
 import java.util.Date;
+import org.springframework.data.geo.Point;
 
 public class UserDto {
    private int id;
@@ -16,6 +18,13 @@ public class UserDto {
    private Date create_time;
    private Date change_time;
    private Date delete_time;
+   
+
+	private String role;
+	private Integer github;
+	private String displayFlag;
+	private Point location;
+
    
    
    
@@ -68,9 +77,7 @@ public void setDelete_time(Date delete_time) {
 	this.delete_time = delete_time;
 }
 
-   
-   
-   public int getId() {
+public int getId() {
 	return id;
 }
 public void setId(int id) {
@@ -101,6 +108,35 @@ public void setRpassword(String rpassword) {
 	this.rpassword = rpassword;
 }
 
-   
-   
+public Integer getGithub() {
+	return github;
+}
+
+public void setGithub(Integer github) {
+	this.github = github;
+}
+
+public String getDisplayFlag() {
+	return displayFlag;
+}
+
+public void setDisplayFlag(String displayFlag) {
+	this.displayFlag = displayFlag;
+}
+
+public Point getLocation() {
+	return location;
+}
+
+public void setLocation(Point location) {
+	this.location = location;
+}
+public String getRole() {
+	return role;
+}
+public void setRole(String role) {
+	this.role = role;
+}
+  
+
 }

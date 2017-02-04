@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.c4sg.entity.User;
+import org.c4sg.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
 public class UserController {
-
-	
-
 
 	@Autowired
 	 UserService  userService;
@@ -67,6 +70,18 @@ public class UserController {
 	    	}
 	    	return responseData;
 	    	}
+		
+		@CrossOrigin
+	    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
+	    public User getUser(@PathVariable("id") int id) {
+	        return userService.findById(id);
+	    }
+
+	    @CrossOrigin
+	    @RequestMapping(value = "/api/developers", method = RequestMethod.GET)
+	    public List<User> getDevelopers() {
+	        return userService.findDevelopers();
+	    }
  
   /*  @RequestMapping(value="/api/user/signout", method = RequestMethod.GET)
     public  Map<String, Object> signOutUser(@RequestBody @Valid UserDto userDto){
