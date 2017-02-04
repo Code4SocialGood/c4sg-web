@@ -3,14 +3,6 @@ package org.c4sg.entity;
 
 
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import com.vividsolutions.jts.geom.Point;
 import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
@@ -18,83 +10,24 @@ import org.c4sg.constant.UserRole;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
-
-
 @Entity
-public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false, updatable = false)
-	private int id;
-	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "password")
-	private String password;
-	
-	@Column(name = "phone")
-	private String phone;
-	
-	@Column(name = "state")
-	private String state;
-	
-	@Column(name = "country")
-	private String country;
-	
-	@Column(name = "zip")
-	private String zip;
-	
-	@Column(name = "status")
-	private String status;
-	
-	
-	public UserRole getRole() {
-		return role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
-
-	public Integer getGithub() {
-		return github;
-	}
-
-	public void setGithub(Integer github) {
-		this.github = github;
-	}
-
-	public UserDisplay getDisplayFlag() {
-		return displayFlag;
-	}
-
-	public void setDisplayFlag(UserDisplay displayFlag) {
-		this.displayFlag = displayFlag;
-	}
-
-	public Point getLocation() {
-		return location;
-	}
-
-	public void setLocation(Point location) {
-		this.location = location;
-	}
-
-	@Column(name = "create_time")
-	private Date create_time;
-	
-	@Column(name = "change_time")
-	private Date change_time;
-	
-	@Column(name = "delete_time")
-	private Date delete_time;
-	
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Integer id;
+    @Column(name = "email", nullable = false)
+    private String email;
+    @Column(name = "phone", nullable = false)
+    private String phone;
+    @Column(name = "state", nullable = false)
+    private String state;
+    @Column(name = "country", nullable = false)
+    private String country;
+    @Column(name = "zip", nullable = false)
+    private String zip;
+    @Column(name = "status", columnDefinition = "char(1)", nullable = false)
+    private String status;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private UserRole role;
@@ -107,118 +40,93 @@ public class User {
     private Point location;
 
 
-	public String getName() {
-		return name;
-	}
+    public UserDisplay getDisplayFlag() {
+        return displayFlag;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setDisplayFlag(UserDisplay displayFlag) {
+        this.displayFlag = displayFlag;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public UserRole getRole() {
+        return role;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public Integer getGithub() {
+        return github;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setGithub(Integer github) {
+        this.github = github;
+    }
 
-	public String getCountry() {
-		return country;
-	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public Point getLocation() {
+        return location;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Date getCreate_time() {
-		return create_time;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public Date getChange_time() {
-		return change_time;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setChange_time(Date change_time) {
-		this.change_time = change_time;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public Date getDelete_time() {
-		return delete_time;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setDelete_time(Date delete_time) {
-		this.delete_time = delete_time;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	
-	   
-	
-	public int getId() {
-		return id;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getZip() {
+        return zip;
+    }
 
-	public String getUserName() {
-		return name;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	public void setUserName(String name) {
-		this.name = name;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	
-	/* @ManyToMany(fetch = FetchType.LAZY)
-	    @JoinTable(name = "user_organization", joinColumns = { @JoinColumn(name = "user_id") },
-	            inverseJoinColumns = { @JoinColumn(name = "organization_id") })*/
-	  
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 }
