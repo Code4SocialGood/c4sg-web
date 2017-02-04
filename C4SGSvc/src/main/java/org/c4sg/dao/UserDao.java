@@ -1,16 +1,13 @@
 package org.c4sg.dao;
 
+import org.c4sg.constant.UserDisplay;
+import org.c4sg.constant.UserRole;
 import org.c4sg.entity.User;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-import org.c4sg.constant.UserDisplay;
-import org.c4sg.constant.UserRole;
-import org.springframework.data.repository.CrudRepository;
-
-public interface UserDao extends CrudRepository<User, Long>{
-	
-	public User findByName(String name);
+public interface UserDao extends CrudRepository<User, Long> {
     List<User> findAll();
     User findById(int id);
 
