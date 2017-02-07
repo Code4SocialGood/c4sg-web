@@ -1,15 +1,92 @@
 <!-- Add Project-->
 <div class="container">
-    <h3>Add Project</h3>
-    <div>
-        <label>Project Name:</label> 
-        <input #projectName /> 
-        <label>Project Description:</label> 
-        <input #projectDescription /> 
-        <label>Project Image:</label> 
-        <button>Upload</button>
-        <br><br>
-        <button (click)="add(projectName.value); projectName.value=''">Create</button>
-        <button>Cancel</button>
+    <h3 class="header">Add Project</h3>
+
+    <div class="form">
+        <div class="row">
+            <div class="col s4">
+                <label>Project Image</label> 
+                <button class="btn waves-effect waves-light">
+                    Upload
+                </button>
+            </div>
+
+            <div class="col s8">
+                <div class="input-field">
+                    <label for="project_name">Project Name</label> 
+                    <input id="projectName"
+                           type="text"
+                           class="validate" /> 
+                </div>
+
+                <div class="input-field">
+                    <label for="project_description">Project Description</label> 
+                    <textarea id="projectDescription"
+                              class="validate materialize-textarea">
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10 offset-s1">
+                    <p>
+                        <input type="checkbox"
+                            id="remote" 
+                            class="filled-in" />
+                        <label for="remote">Remote</label>
+                    </p>
+
+                    <p>
+                        <input type="checkbox"
+                            id="address" 
+                            class="filled-in" />
+                        <label for="address">Physical Address</label>
+                    </p>
+
+                    <!-- Address -->
+                    <div class="input-field address">
+                        <label for="address_line1">Address 1</label>
+                        <input type="text" />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="address_line2">Address 2</label>
+                        <input type="text" />
+                    </div>
+                    
+                    <div class="input-field">
+                        <label for="city">City</label>
+                        <input type="text" />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="city">State</label>
+                        <input type="text" />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="city">Country</label>
+                        <input type="text" />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="zip">Zip</label>
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row btns">
+            <div class="col s6">
+                <button class="btn waves-effect waves-light" 
+                        (click)="add(projectName.value); projectName.value=''">
+                        Create
+                </button>
+            </div>
+            <div class="col s6">
+                <button class="btn waves-effect waves-light">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
