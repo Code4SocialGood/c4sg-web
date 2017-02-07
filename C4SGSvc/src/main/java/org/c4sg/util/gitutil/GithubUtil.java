@@ -1,0 +1,33 @@
+package org.c4sg.util.gitutil;
+
+import org.kohsuke.github.GitHub;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GithubUtil {
+
+    private static final String githubUsername = "Code4SocialGood";
+    private static final String githubReponame = "C4SG";
+
+
+
+    public static List<Stat.Author> getContributorsByCommitsDesc() throws IOException {
+            GitHub.connectAnonymously();
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Stat[]> exchange = restTemplate.
+                    exchange("https://api.github.com/repos/"
+                            + githubUsername + "/" + githubReponame + "/stats/contributors", HttpMethod.GET, null, Stat[].class);
+            Stat[] stats = exchange.getBody();
+            List<Stat.Author> contributors = new ArrayList<>(stats.length);
+            for (Stat s : stats) {
+               contributors.add(0, s.getAuthor());
+            }
+            return contributors;
+    }
+
+}
