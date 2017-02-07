@@ -82,7 +82,12 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		
+        <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+        <dependency>
+            <groupId>org.kohsuke</groupId>
+            <artifactId>github-api</artifactId>
+            <version>1.84</version>
+        </dependency>
 		<dependency>
  		   <groupId>org.slf4j</groupId>
  		   <artifactId>slf4j-api</artifactId>
@@ -108,7 +113,7 @@
  		   <artifactId>log4j-jcl</artifactId>
  		   <version>2.6.2</version>
  		</dependency>
- 		
+
 		<dependency>
     		   <groupId>io.springfox</groupId>
    	 	   <artifactId>springfox-swagger2</artifactId>
@@ -131,5 +136,15 @@
 		</plugins>
 	</build>
 
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>
