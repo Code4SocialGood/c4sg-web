@@ -10,4 +10,24 @@ public enum UserRole {
         this.value = value;
     }
 
+    public static UserRole getUserRole(String role) {
+        String currentRole = role.toUpperCase();
+        switch (currentRole) {
+            case "V":
+                return VOLUNTEER;
+            case "O":
+                return ORGANIZATION;
+            case "C":
+                return C4SG_ADMIN;
+            case "D":
+                return C4SG_DEVELOPER;
+            default:
+                return VOLUNTEER;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

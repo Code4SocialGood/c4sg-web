@@ -1,9 +1,7 @@
 package org.c4sg.entity;
 
-
-
-
 import com.vividsolutions.jts.geom.Point;
+import org.c4sg.constant.Status;
 import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
 
@@ -16,6 +14,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     private Integer id;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "email", nullable = false)
     private String email;
     @Column(name = "phone", nullable = false)
@@ -26,8 +30,9 @@ public class User implements Serializable {
     private String country;
     @Column(name = "zip", nullable = false)
     private String zip;
-    @Column(name = "status", columnDefinition = "char(1)", nullable = false)
-    private String status;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private UserRole role;
@@ -39,46 +44,36 @@ public class User implements Serializable {
     @Column(name = "location", columnDefinition = "point")
     private Point location;
 
-
-    public UserDisplay getDisplayFlag() {
-        return displayFlag;
-    }
-
-    public void setDisplayFlag(UserDisplay displayFlag) {
-        this.displayFlag = displayFlag;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public Integer getGithub() {
-        return github;
-    }
-
-    public void setGithub(Integer github) {
-        this.github = github;
-    }
-
-
-    public Point getLocation() {
-        return location;
-    }
-
-    public void setLocation(Point location) {
-        this.location = location;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -121,12 +116,43 @@ public class User implements Serializable {
         this.zip = zip;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public Integer getGithub() {
+        return github;
+    }
+
+    public void setGithub(Integer github) {
+        this.github = github;
+    }
+
+    public UserDisplay getDisplayFlag() {
+        return displayFlag;
+    }
+
+    public void setDisplayFlag(UserDisplay displayFlag) {
+        this.displayFlag = displayFlag;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 }
