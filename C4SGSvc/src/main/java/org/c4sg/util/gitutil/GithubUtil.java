@@ -1,6 +1,5 @@
 package org.c4sg.util.gitutil;
 
-import org.kohsuke.github.GitHub;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +15,6 @@ public class GithubUtil {
 
 
     public static List<Stat.Author> getContributorsByCommitsDesc() throws IOException {
-        GitHub.connectAnonymously();
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Stat[]> exchange = restTemplate.
                 exchange("https://api.github.com/repos/"
