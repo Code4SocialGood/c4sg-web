@@ -1,5 +1,6 @@
 package org.c4sg.util.gitutil;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Stat {
@@ -94,6 +95,16 @@ public class Stat {
         private String type;
         @JsonProperty(value = "site_admin")
         private boolean siteAdmin;
+        @JsonIgnore
+        private int commits;
+
+        public int getCommits() {
+            return commits;
+        }
+
+        public void setCommits(int commits) {
+            this.commits = commits;
+        }
 
         public String getLogin() {
             return login;
