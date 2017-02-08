@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { CreateProjectComponent } from '../../project/create/create.component';
 
 
 @Component({
@@ -45,22 +46,6 @@ export class NonprofitUserComponent implements OnInit {
 
 	})
 
-	public createProject = new FormGroup({
-		projectName: new FormControl("", Validators.required),
-		organizationName: new FormControl("", Validators.required),
-		shortDescription: new FormControl("", Validators.required),
-		detailedDescription: new FormControl("", Validators.required),
-		remote: new FormControl({value: "", disabled: true}, Validators.required),
-		physicalAddress: new FormControl({value: "", disabled: true}, Validators.required),
-		address1: new FormControl("", Validators.required),
-		address2: new FormControl("", Validators.required),
-		city: new FormControl("", Validators.required),
-		state: new FormControl({value: "", disabled: true}, Validators.required),
-		country: new FormControl({value: "", disabled: true}, Validators.required),
-		zip: new FormControl("", Validators.required)
-
-	})
-
 	updateAccount(event) {
 		let accountData = this.myAccount.value;
 		console.log(event);
@@ -71,12 +56,6 @@ export class NonprofitUserComponent implements OnInit {
 		let organizationData = this.myOrganization.value;
 		console.log(event);
 		console.log(organizationData);
-	}
-
-	doCreateProject(event) {
-		let projectData = this.createProject.value;
-		console.log(event);
-		console.log(projectData);
 	}
 
     ngOnInit(): void {

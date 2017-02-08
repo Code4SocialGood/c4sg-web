@@ -12,6 +12,7 @@
       </ul>
     </div>
 
+
     <div id="account" class="col s12">My Account
     	<div class="container">
     		<div class="row">
@@ -155,48 +156,9 @@
         </div>
     </div>
 
-    <div id="createProject" class="col s12">Create Project
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <form [formGroup]="createProject" (ngSubmit)="doCreateProject($event)">
-                        <div class="col s2">
-                        <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                        <button type="button">Upload</button>
-                        </div>
-                        <div class="col s10">
-                            <div class="col s8">
-                            <input formControlName="projectName" type="text" placeholder="Project Name">
-                            <input formControlName="organizationName" type="text" placeholder="Organization Name">
-                            <textarea formControlName="shortDescription" type="text" maxlength="100" placeholder="Short Description (limit to 100 characters)"></textarea>
-                            <textarea formControlName="detailedDescription" type="text" maxlength="100" placeholder="Detailed Description"></textarea>
-                            </div>
-                            <div class="col s4">
-                            <!--"remote" and "physicalAddress" should be radio type <input> tags-->
-                            <input formControlName="remote" type="text" placeholder="Remote">
-                            <input formControlName="physicalAddress" type="text" Placeholder="Physical Address">
-                            <!--"address1", "address2", "city", "state", "country", and "zip" inputs should be disabled until the "physicalAddress" radio <input> tag is toggled-->
-                            <input formControlName="address1" type="text" placeholder="Address 1">
-                            <input formControlName="address2" type="text" placeholder="Address 2">
-                            <input formControlName="city" type="text" placeholder="City">
-                            <!-- "state" should be a <select> tag. specific <option> tags can be determined at a later date-->
-                            <input formControlName="state" type="text" placeholder="State">
-                            <!-- "country" should be a <select> tag. specific <option> tags can be determined at a later date-->
-                            <input formControlName="country" type="text" placeholder="Country">
-                            <input formControlName="zip" type="text" placeholder="Zip">
-                            </div>
-                            <div class="col s12">
-                                <div class="col s6">
-                                    <button type="submit">Create</button>
-                                </div>
-                                <div class="col s6">
-                                    <button type="reset">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
+    <div id="createProject">
+        <create-project></create-project>
     </div>
+
 </div>
