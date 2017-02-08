@@ -1,6 +1,7 @@
 export class Project {
 
     constructor(
+        public id: number,
         public name: string,
         public organizationName: string,
         public shortDescription: string,

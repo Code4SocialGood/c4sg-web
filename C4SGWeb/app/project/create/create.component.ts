@@ -60,21 +60,18 @@ export class CreateProjectComponent {
             form.zip
         );
 
-        // send if this.createProjectForm._status = "VALID"
-        if(this.createProjectForm._status = "VALID"){
-            this.projectService
-                .add(project)
-                .subscribe(
-                    response => {
-                        this.router.navigate(['/projects']);
-                    },
-                    error => console.log(error)
-                );
+        this.projectService
+            .add(project)
+            .subscribe(
+                response => {
+                    this.router.navigate(['/projects']);
+                },
+                error => console.log(error)
+            );
         }
-    }
 
     cancel(): void {
-       this.router.navigate(['projects']);
+       this.router.navigate(['/projects']);
     }
 
 }
