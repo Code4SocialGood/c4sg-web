@@ -1,19 +1,18 @@
 package org.c4sg.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
 import org.c4sg.constant.UserStatus;
 import org.c4sg.dao.UserDao;
 import org.c4sg.dto.UserDto;
-import org.c4sg.entity.Project;
 import org.c4sg.entity.User;
 import org.c4sg.mapper.UserMapper;
 import org.c4sg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
