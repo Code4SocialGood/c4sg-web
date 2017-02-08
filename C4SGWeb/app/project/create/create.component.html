@@ -2,7 +2,7 @@
 <div class="container">
     <h3 class="header">Add Project</h3>
 
-    <div class="form">
+    <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
         <div class="row">
             <div class="col s4">
                 <label>Project Image</label> 
@@ -13,65 +13,97 @@
 
             <div class="col s8">
                 <div class="input-field">
-                    <label for="project_name">Project Name</label> 
+                    <label for="projectName">Project Name</label> 
                     <input id="projectName"
-                           type="text"
-                           class="validate" /> 
+                           formControlName="name"
+                           type="text" /> 
                 </div>
 
                 <div class="input-field">
-                    <label for="project_description">Project Description</label> 
-                    <textarea id="projectDescription"
-                              class="validate materialize-textarea">
+                    <label for="orgName">Organization Name</label> 
+                    <input id="orgName"
+                           formControlName="orgName"
+                           type="text" /> 
+                </div>
+
+                <div class="input-field">
+                    <label for="shortDescription">Short Description</label> 
+                    <textarea id="shortDescription"
+                              formControlName="shortDescription"
+                              class="materialize-textarea">
+                    </textarea>
+                </div>
+
+                <div class="input-field">
+                    <label for="description">Detailed Description</label> 
+                    <textarea id="description"
+                              formControlName="description"
+                              class="materialize-textarea">
                     </textarea>
                 </div>
             </div>
 
             <div class="row">
-                <div class="input-field col s10 offset-s1">
-                    <p>
+                <div class="col s10 offset-s1">
+                    <p *ngIf="!createProjectForm.value.address">
                         <input type="checkbox"
-                            id="remote" 
-                            class="filled-in" />
+                               id="remote"
+                               class="filled-in"
+                               formControlName="remote" />
                         <label for="remote">Remote</label>
                     </p>
 
-                    <p>
+                    <p *ngIf="!createProjectForm.value.remote">
                         <input type="checkbox"
-                            id="address" 
-                            class="filled-in" />
+                               id="address"
+                               class="filled-in"
+                               formControlName="address" />
                         <label for="address">Physical Address</label>
                     </p>
 
                     <!-- Address -->
+                    <div *ngIf="createProjectForm.value.address">
                     <div class="input-field address">
-                        <label for="address_line1">Address 1</label>
-                        <input type="text" />
+                        <label for="line1">Address Line 1</label>
+                        <input id="line1"
+                               type="text"
+                               formControlName="line1" />
                     </div>
 
                     <div class="input-field">
-                        <label for="address_line2">Address 2</label>
-                        <input type="text" />
+                        <label for="line2">Address Line 2</label>
+                        <input id="line2"
+                               type="text"
+                               formControlName="line2" />
                     </div>
                     
                     <div class="input-field">
                         <label for="city">City</label>
-                        <input type="text" />
+                        <input id="city"
+                               type="text"
+                               formControlName="city" />
                     </div>
 
                     <div class="input-field">
-                        <label for="city">State</label>
-                        <input type="text" />
+                        <label for="state">State</label>
+                        <input id="state"
+                               type="text"
+                               formControlName="state" />
                     </div>
 
                     <div class="input-field">
-                        <label for="city">Country</label>
-                        <input type="text" />
+                        <label for="country">Country</label>
+                        <input id="country"
+                               type="text"
+                               formControlName="country" />
                     </div>
 
                     <div class="input-field">
                         <label for="zip">Zip</label>
-                        <input type="text" />
+                        <input id="zip"
+                               type="text"
+                               formControlName="zip" />
+                    </div>
                     </div>
                 </div>
             </div>
@@ -80,7 +112,8 @@
         <div class="row btns">
             <div class="col s6">
                 <button class="btn waves-effect waves-light" 
-                        (click)="add(projectName.value); projectName.value=''">
+                        type="submit"
+                        [disabled]="!createProjectForm.valid">
                         Create
                 </button>
             </div>
@@ -88,5 +121,5 @@
                 <button class="btn waves-effect waves-light">Cancel</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>

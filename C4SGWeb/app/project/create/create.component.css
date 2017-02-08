@@ -8,3 +8,8 @@
 .btns {
     text-align: center;
 }
+.image {
+    width: 70%;
+    height: 5em;
+    background-color: gray;
+}
