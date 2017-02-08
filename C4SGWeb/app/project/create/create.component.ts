@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
@@ -20,25 +21,57 @@ export class CreateProjectComponent {
         private projectService: ProjectService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location
+        private location: Location,
+        public fb: FormBuilder
     ) {}
 
-    create(): void {
+    // create form and validation
+    createProjectForm = this.fb.group({
+        name: ["", Validators.required],
+        orgName: ["", Validators.required],
+        shortDescription: ["", [
+                Validators.required,
+                Validators.maxLength(200)
+            ]],
+        description: ["", Validators.required],
+        remote: [false],
+        address: [false],
+        line1: "",
+        line2: "",
+        city: "",
+        state: "",
+        country: "",
+        zip: ""
+    });
 
-        let project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
+    // retrieve info from form 
+    createProject(): void {
+        let form = this.createProjectForm.value;
+    
+        let project = new Project(
+            form.name, 
+            form.organization, 
+            form.shortDescription, 
+            form.description,
+            form.line1,
+            form.line2,
+            form.city,
+            form.country,
+            form.zip
+        );
 
         this.projectService
             .add(project)
             .subscribe(
                 response => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/projects']);
                 },
                 error => console.log(error)
             );
-    }
+        }
 
     cancel(): void {
-       this.location.back();
+       this.router.navigate(['/projects']);
     }
 
 }
