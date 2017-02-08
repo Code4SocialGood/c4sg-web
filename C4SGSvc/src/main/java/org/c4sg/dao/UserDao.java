@@ -12,4 +12,5 @@ public interface UserDao extends CrudRepository<User, Long> {
     User findById(int id);
 
     List<User> findByRoleAndDisplayFlagOrderByGithubDesc(UserRole role, UserDisplay display);
+    
 }

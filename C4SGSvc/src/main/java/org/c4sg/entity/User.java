@@ -38,7 +38,12 @@ public class User implements Serializable {
     private UserDisplay displayFlag;
     @Column(name = "location", columnDefinition = "point")
     private Point location;
-
+    @Column(name = "username", nullable = false)
+    private String username;
+    @Column(name = "firstname")
+    private String firstname;
+    @Column(name = "lastname")
+    private String lastname;
 
     public UserDisplay getDisplayFlag() {
         return displayFlag;
@@ -128,5 +133,29 @@ public class User implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
 }

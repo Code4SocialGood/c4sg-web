@@ -31,6 +31,11 @@ import { VolunteerUserComponent } from './user/volunteer/volunteer-user.componen
 import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
 import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
 
+//Volunteers
+import { UserListComponent }  from './user/list/list.component';
+import { UserViewComponent }  from './user/view/user-view.component';
+import { UserService }  from './user/common/user.service';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -57,8 +62,10 @@ import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
     VolunteerUserComponent,
     NonprofitUserComponent,
     C4SGUserComponent,
+    UserListComponent,
+    UserViewComponent,
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService, UserService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

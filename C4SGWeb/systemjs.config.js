@@ -27,7 +27,8 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'materialize-css': 'node_modules/materialize-css',
-      'angular2-materialize': 'node_modules/angular2-materialize'
+      'angular2-materialize': 'node_modules/angular2-materialize',
+      'jquery': 'node_modules/jquery'
     },
 
     // packages tells the System loader how to load when no filename and/or no extension
@@ -47,6 +48,11 @@
         format: 'global',
         main: 'dist/js/materialize',
         defaultExtension: 'js'
+      },
+      'jquery': {
+        format: 'global',
+        main: 'dist/jquery',
+        defaultExtension: 'js'        
       }
     }
   });

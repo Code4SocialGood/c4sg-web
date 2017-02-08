@@ -1,7 +1,9 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { VolunteerProjectComponent }  from './project/volunteer/volunteer-project.component';
+import { UserListComponent }  from './user/list/list.component';
+import { UserViewComponent }  from './user/view/user-view.component';
+
 import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
 import { ViewProjectComponent }  from './project/view/view-project.component';
 import { SearchProjectComponent }  from './project/search/search-project.component';
@@ -28,7 +30,9 @@ const routes: Routes = [
     { path: 'create_project', component: CreateProjectComponent },
     { path: 'view-project/:id', component: ViewProjectComponent },
 
-    { path: 'volunteers', component: VolunteerProjectComponent },
+    { path: 'user/list', component: UserListComponent },
+    { path: 'user/view/:id', component: UserViewComponent },
+
     { path: 'nonprofits', component: OrganizationProjectComponent },
 
     { path: 'volunteerUser', component: VolunteerUserComponent },
