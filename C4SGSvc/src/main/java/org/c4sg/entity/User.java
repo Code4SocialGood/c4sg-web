@@ -2,7 +2,6 @@ package org.c4sg.entity;
 
 import com.vividsolutions.jts.geom.Point;
 import org.c4sg.constant.Status;
-import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
 
 import javax.persistence.*;
@@ -39,8 +38,7 @@ public class User implements Serializable {
     @Column(name = "github", columnDefinition = "char(1)", nullable = false)
     private Integer github;
     @Column(name = "display_flag")
-    @Enumerated(EnumType.ORDINAL)
-    private UserDisplay displayFlag;
+    private Boolean displayFlag;
     @Column(name = "location", columnDefinition = "point")
     private Point location;
 
@@ -140,11 +138,11 @@ public class User implements Serializable {
         this.github = github;
     }
 
-    public UserDisplay getDisplayFlag() {
+    public Boolean getDisplayFlag() {
         return displayFlag;
     }
 
-    public void setDisplayFlag(UserDisplay displayFlag) {
+    public void setDisplayFlag(Boolean displayFlag) {
         this.displayFlag = displayFlag;
     }
 

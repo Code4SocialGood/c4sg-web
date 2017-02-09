@@ -72,7 +72,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void deleteOrganization(int id){
     	Organization organization = organizationDao.findById(id);
     	if(organization != null){
-    		organization.setStatus(Status.STATUS_DELETED);
+    		organization.setStatus(Status.DELETED);
     		//TODO: Local or Timezone?
     		//TODO: Format date
     		//organization.setDeleteTime(LocalDateTime.now().toString());

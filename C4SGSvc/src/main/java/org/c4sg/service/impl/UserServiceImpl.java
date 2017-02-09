@@ -1,7 +1,6 @@
 package org.c4sg.service.impl;
 
 import org.c4sg.constant.Status;
-import org.c4sg.constant.UserDisplay;
 import org.c4sg.constant.UserRole;
 import org.c4sg.dao.UserDao;
 import org.c4sg.dto.UserDto;
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findDevelopers() {
-        return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, UserDisplay.DISPLAY_USER);
+        return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, true);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         User user = userDao.findById(id);
-        user.setStatus(Status.STATUS_DELETED);
+        user.setStatus(Status.DELETED);
 
         userDao.save(user);
     }

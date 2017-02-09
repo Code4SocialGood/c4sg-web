@@ -2,7 +2,7 @@ package org.c4sg.constant;
 
 public enum Status {
 
-    STATUS_ACTIVE("A"), STATUS_PENDING("P"), STATUS_DELETED("D");
+    ACTIVE("A"), PENDING("P"), DELETED("D");
 
     private String value;
 
@@ -14,13 +14,13 @@ public enum Status {
         String currentStatus = status.toUpperCase();
         switch (currentStatus) {
             case "A":
-                return STATUS_ACTIVE;
+                return ACTIVE;
             case "P":
-                return STATUS_PENDING;
+                return PENDING;
             case "D":
-                return STATUS_DELETED;
+                return DELETED;
             default:
-                return STATUS_ACTIVE;
+                return ACTIVE;
         }
     }
 
