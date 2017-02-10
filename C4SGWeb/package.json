@@ -5,7 +5,25 @@
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "clean": "rimraf node_modules doc dist && npm cache clean",
+    "clean-install": "npm run clean && npm install",
+    "clean-start": "npm run clean-install && npm start",
+    "watch": "webpack --watch --progress --profile",
+    "build": "rimraf dist && webpack --progress --profile --bail",
+    "server": "webpack-dev-server --inline --progress --port 8080",
+    "webdriver-update": "webdriver-manager update",
+    "webdriver-start": "webdriver-manager start",
+    "lint": "tslint --force \"src/**/*.ts\"",
+    "e2e": "protractor",
+    "e2e-live": "protractor --elementExplorer",
+    "pretest": "npm run lint",
+    "test": "karma start",
+    "posttest": "remap-istanbul -i coverage/json/coverage-final.json -o coverage/html -t html",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "ci": "npm run e2e && npm run test",
+    "docs": "typedoc --options typedoc.json src/app/app.component.ts",
+    "start:hmr": "npm run server -- --hot"
   },
   "licenses": [
     {
@@ -14,32 +32,30 @@
     }
   ],
   "dependencies": {
-    "@angular/common": "~2.1.1",
-    "@angular/compiler": "~2.1.1",
-    "@angular/core": "~2.1.1",
-    "@angular/forms": "~2.1.1",
-    "@angular/http": "~2.1.1",
-    "@angular/platform-browser": "~2.1.1",
-    "@angular/platform-browser-dynamic": "~2.1.1",
-    "@angular/router": "~3.1.1",
-    "@angular/upgrade": "~2.1.1",
-    "@angular/material": "^2.0.0-alpha.8-2",
+    "@angular/common": "~2.4.2",
+    "@angular/compiler": "~2.4.2",
+    "@angular/core": "~2.4.2",
+    "@angular/forms": "~2.4.2",
+    "@angular/http": "~2.4.2",
+    "@angular/platform-browser": "~2.4.2",
+    "@angular/platform-browser-dynamic": "~2.4.2",
+    "@angular/router": "~3.4.2",
+    "@angular/upgrade": "^2.4.7",
+    "angular2-materialize": "6.3.0",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "jquery": "^2.2.4",
-    "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "systemjs": "0.19.39",
-    "zone.js": "^0.6.25",
     "materialize-css": "^0.97.8",
-    "angular2-materialize": "6.3.0",
-    "mdi": "1.8.36"
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "~5.0.1",
+    "systemjs": "0.19.39",
+    "zone.js": "^0.7.2"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
     "concurrently": "^3.0.0",
     "lite-server": "^2.2.2",
-    "typescript": "^2.0.3"
+    "typescript": "^2.1.6"
   }
 }

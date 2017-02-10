@@ -5,10 +5,12 @@
 # Don't ignore systemjs.config.js
 !systemjs.config.js
 
-# node modules
+# node modules and npm
 /node_modules
+npm-debug.log
 
-# log file
+# log files
 *.log.*
 
 # IDE (none if use Sublime)
+.idea/
