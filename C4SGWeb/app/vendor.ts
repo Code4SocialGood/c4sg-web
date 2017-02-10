@@ -14,6 +14,6 @@ import 'rxjs';
 // You can import js, ts, css, sass, ...
 import 'hammerjs';
 import 'jquery';
-import 'materialize-css';
+import 'materialize-css/dist/js/materialize.min';
 import 'angular2-materialize';
 
