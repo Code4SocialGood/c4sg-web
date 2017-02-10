@@ -15,3 +15,6 @@ npm-debug.log
 
 # IDE (none if use Sublime)
 .idea/
+
+# Release
+dist/
