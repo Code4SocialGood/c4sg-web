@@ -4,10 +4,10 @@ import { Project } from '../project';
 import { ProjectService } from '../project.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'volunteer-project.component.html',
-    styleUrls: ['volunteer-project.component.css']
+    templateUrl: './volunteer-project.component.html',
+    styleUrls: ['./volunteer-project.component.css']
 })
 
 export class VolunteerProjectComponent implements OnInit {

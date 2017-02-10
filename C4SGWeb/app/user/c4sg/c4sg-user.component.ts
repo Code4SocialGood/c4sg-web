@@ -2,19 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CreateProjectComponent } from '../../project/create/create.component';
-import {OrganizationService} from "./organization.service";
 
 
 @Component({
     //moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'dashboard.component.html',
-    styleUrls: ['dashboard.component.css']
+    templateUrl: './c4sg-user.component.html',
+    styleUrls: ['./c4sg-user.component.css']
 })
 
-export class DashboardComponent implements OnInit {
+export class C4SGUserComponent implements OnInit {
 
-	constructor(public fb: FormBuilder, private organizationService: OrganizationService) { }
+	constructor(public fb: FormBuilder) { }
 
 	public myAccount = new FormGroup({
 		username: new FormControl("", Validators.required),
@@ -28,17 +27,8 @@ export class DashboardComponent implements OnInit {
 		zip: new FormControl("", Validators.required),
 		confirmPassword: new FormControl("", Validators.required)
 	})
-
-	public myProfile = new FormGroup({
-		linkedin: new FormControl("", Validators.required),
-		github: new FormControl("", Validators.required),
-		website: new FormControl("", Validators.required),
-		resume: new FormControl("", Validators.required),
-		skills: new FormControl("", Validators.required)
-	})
-
 	public myOrganization = new FormGroup({
-		organizationName: new FormControl(""),
+		organizationName: new FormControl("", Validators.required),
 		website: new FormControl("", Validators.required),
 		email: new FormControl("", Validators.required),
 		phone: new FormControl("", Validators.required),
@@ -50,46 +40,23 @@ export class DashboardComponent implements OnInit {
 		state: new FormControl({value :"", disabled: true}, Validators.required),
 		country: new FormControl({value :"", disabled: true}, Validators.required),
 		zip: new FormControl("", Validators.required),
-		shortDescription: new FormControl("", Validators.required),
-		detailedDescription: new FormControl("", Validators.required)
-	})
+		shortDescription: new FormControl(""),
+		detailedDescription: new FormControl("")
 
+	})
 	updateAccount(event) {
 		let accountData = this.myAccount.value;
 		console.log(event);
 		console.log(accountData);
 	}
-
 	updateOrganization(event) {
 		let organizationData = this.myOrganization.value;
 		console.log(event);
 		console.log(organizationData);
 	}
-
+	
     ngOnInit(): void {
-		this.organizationService.getOrganization(2).subscribe(
-			(res) => {
-				const organization = res.json();
 
-				this.myOrganization.setValue({organizationName: organization.name,
-					website: organization.website || '',
-					email: organization.email || '',
-					phone: organization.phone || '',
-					ein:organization.ein || '',
-					category:organization.category || '',
-					address1: organization.address1 || '',
-					address2: organization.address2 || '',
-					city: organization.city || '',
-					state: organization.state || '',
-					country:organization.country || '',
-					zip: organization.zip || '',
-					shortDescription: organization.briefDescription || '',
-					detailedDescription:organization.detailedDescription || ''
-				});
-			}, (err) => {
-				console.error('An error occurred', err); // for demo purposes only
-			}
-		)
     }
 
 }

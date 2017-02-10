@@ -2,10 +2,7 @@
   "name": "code-for-social-good",
   "version": "0.0.1",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "lite": "lite-server",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
+    "start": "webpack-dev-server --inline --progress --port 8080",
     "clean": "rimraf node_modules doc dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
@@ -68,6 +65,7 @@
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
     "lite-server": "^2.2.2",
+    "null-loader": "^0.1.1",
     "postcss-loader": "^1.2.2",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
@@ -77,6 +75,7 @@
     "typescript": "^2.1.6",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "webpack-merge": "^2.6.1"
   }
 }

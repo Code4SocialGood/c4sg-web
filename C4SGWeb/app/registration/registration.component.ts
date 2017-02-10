@@ -2,10 +2,10 @@ import  { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-	moduleId: module.id,
+	//moduleId: module.id,
 	selector: 'my-registration',
-	templateUrl: 'registration.component.html',
-	styleUrls: [ 'registration.component.css' ]
+	templateUrl: './registration.component.html',
+	styleUrls: [ './registration.component.css' ]
 })
 
 export class RegistrationComponent {
