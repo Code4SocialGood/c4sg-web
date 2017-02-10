@@ -35,12 +35,15 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: helpers.root('app'),  // skip component specific styles
-        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?sourceMap'
+        })
       },
       {
         test: /\.css$/,
         include: helpers.root('app'),  // component specific styles via styleUrls metadata property
-        loader: 'raw-loader'
+        loader: 'css-to-string-loader!css-loader'
       }
     ]
   },
