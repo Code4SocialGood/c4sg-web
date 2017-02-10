@@ -4,6 +4,7 @@
 
 # Don't ignore systemjs.config.js
 !systemjs.config.js
+!webpack.config.js
 
 # node modules and npm
 /node_modules
