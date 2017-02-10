@@ -4,10 +4,9 @@
     <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
         <div class="row">
             <div class="col s4">
-                <label>Project Image</label> 
-                <button class="btn waves-effect waves-light">
-                    Upload
-                </button>
+                <label>Project Image</label>
+                <img [attr.src]='file_srcs[0]' class = "image"  id = "projimg"/> <br>
+                <input type="file"  id="file" accept="image/gif, image/jpeg, image/png" (change)="fileChange(input)" #input />
             </div>
 
             <div class="col s8">
@@ -45,7 +44,7 @@
             <div class="row">
                 <div class="col s10 offset-s1">
                     <p *ngIf="!createProjectForm.value.address">
-                        <input type="checkbox"
+                        <input type="radio"
                                id="remote"
                                class="filled-in"
                                formControlName="remote" />
@@ -53,7 +52,7 @@
                     </p>
 
                     <p *ngIf="!createProjectForm.value.remote">
-                        <input type="checkbox"
+                        <input type="radio"
                                id="address"
                                class="filled-in"
                                formControlName="address" />
@@ -85,16 +84,16 @@
 
                     <div class="input-field">
                         <label for="state">State</label>
-                        <input id="state"
+                        <select id="state"
                                type="text"
-                               formControlName="state" />
+                                formControlName="state" > </select>
                     </div>
 
                     <div class="input-field">
                         <label for="country">Country</label>
-                        <input id="country"
+                        <select id="country"
                                type="text"
-                               formControlName="country" />
+                                formControlName="country" ></select>
                     </div>
 
                     <div class="input-field">
