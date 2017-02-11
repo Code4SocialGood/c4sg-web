@@ -1,5 +1,6 @@
 package org.c4sg.controller;
 
+import org.c4sg.constant.UserStatus;
 import org.c4sg.dto.UserDto;
 import org.c4sg.entity.User;
 import org.c4sg.service.UserService;
@@ -17,10 +18,10 @@ public class UserController {
     //Added on feb-2
     @CrossOrigin
     @RequestMapping(value = "/api/user/all", method = RequestMethod.GET)
-    public List<UserDto> getUsers() {
+    public List<UserDto> getActiveUsers() {
     	
     	System.out.println("**************All**************");
-        return userService.findAll();
+        return userService.findActiveUsers();
     }
 
     @CrossOrigin

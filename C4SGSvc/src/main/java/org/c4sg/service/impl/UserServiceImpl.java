@@ -30,7 +30,14 @@ public class UserServiceImpl implements UserService{
 									.collect(Collectors.toList());
 		return userDtos;
     }
-
+    @Override
+    public List<UserDto> findActiveUsers() {
+        List<User> users = userDao.findByStatusOrderByUsernameAsc(UserStatus.ACTIVE.getValue());
+		List<UserDto> userDtos = users.stream()
+									.map(p -> userMapper.getUserDtoFromEntity(p))
+									.collect(Collectors.toList());
+		return userDtos;
+    }
     @Override
     public User findById(int id) {
         return userDao.findById(id);

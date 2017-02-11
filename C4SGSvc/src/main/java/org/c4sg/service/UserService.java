@@ -8,6 +8,7 @@ import org.c4sg.entity.User;
 public interface UserService {
 	
     List<UserDto> findAll();
+    List<UserDto> findActiveUsers();
     User findById(int id);
     User findByName(String name);
 
