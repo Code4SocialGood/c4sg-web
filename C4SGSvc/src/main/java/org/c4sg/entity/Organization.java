@@ -1,6 +1,6 @@
 package org.c4sg.entity;
 
-import org.c4sg.constant.OrganizationStatus;
+import org.c4sg.constant.Status;
 
 import javax.persistence.*;
 
@@ -41,7 +41,7 @@ public class Organization {
 
 	@Column(name = "status",nullable = false)
 	@Enumerated(EnumType.ORDINAL)
-	private OrganizationStatus status;
+	private Status status;
 
 	public Integer getId() {
 		return id;
@@ -123,11 +123,11 @@ public class Organization {
 		this.country = country;
 	}
 
-	public OrganizationStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(OrganizationStatus status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 }
