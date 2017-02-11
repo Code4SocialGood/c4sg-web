@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 
 import {MaterializeDirective} from "angular2-materialize";
-import { MaterialModule } from '@angular/material'
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
