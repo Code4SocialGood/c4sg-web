@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'org.cs4g'
+version = '0.0.1-SNAPSHOT'
+
+description = """C4SG"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+configurations.all {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'org.springframework.boot', module: 'logback-classic'
+}
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.2.RELEASE') {
+exclude(module: 'logback-classic')
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version:'1.4.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.4.2.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.40'
+    compile group: 'org.modelmapper', name: 'modelmapper', version:'0.7.5'
+    compile group: 'com.vividsolutions', name: 'jts', version:'1.13'
+    compile group: 'com.bedatadriven', name: 'jackson-datatype-jts', version:'2.3'
+    compile group: 'org.hibernate', name: 'hibernate-spatial', version:'5.0.11.Final'
+    compile group: 'org.flywaydb', name: 'flyway-core', version:'3.2.1'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version:'2.6.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version:'2.6.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.6.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version:'2.6.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.4.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.4.0'
+    
+    
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.2.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+}
+
+
+

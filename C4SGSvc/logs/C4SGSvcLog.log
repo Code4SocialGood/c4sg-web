@@ -1,3 +1,409 @@
+<<<<<<< HEAD
 [INFO ] 2017-02-16 18:52:26.066 [main] C4SgApplication - Starting C4SgApplication on WIN-IGTOHLTMPQT with PID 2164 (C:\Users\Administrator\Desktop\C4SG\C4SGSvc\target\classes started by Administrator in C:\Users\Administrator\Desktop\C4SG\C4SGSvc)
 [INFO ] 2017-02-16 18:52:26.104 [main] C4SgApplication - No active profile set, falling back to default profiles: default
 [INFO ] 2017-02-16 18:52:39.940 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 13684 ms
+=======
+[INFO ] 2017-02-10 13:56:01.419 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 1448 (D:\Desktop\GitHub\C4SG\C4SGSvc\target\classes started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 13:56:01.422 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 13:56:03.390 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 1916 ms
+[INFO ] 2017-02-10 13:56:28.146 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 3836 (D:\Desktop\GitHub\C4SG\C4SGSvc\target\classes started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 13:56:28.148 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 13:56:30.205 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2009 ms
+[INFO ] 2017-02-10 13:56:32.555 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5c4cd94c.jtsModule
+[INFO ] 2017-02-10 13:56:32.567 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5c4cd94c.jtsModule
+[INFO ] 2017-02-10 13:56:32.766 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 13:56:32.768 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 13:56:32.770 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 13:56:32.770 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 13:56:32.770 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 13:56:32.771 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 13:56:32.771 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 13:56:32.772 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 13:56:32.772 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 13:56:32.773 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 13:56:32.773 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 13:56:32.773 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 13:56:32.774 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 13:56:32.774 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 13:56:32.776 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 13:56:32.776 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 13:56:32.777 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 13:56:32.779 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 13:56:32.779 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 13:56:32.780 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 13:56:32.782 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 13:56:32.782 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 13:56:32.915 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$72823c23.api
+[INFO ] 2017-02-10 13:56:32.929 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$72823c23.api
+[INFO ] 2017-02-10 13:56:33.015 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@659499f1: startup date [Fri Feb 10 13:56:28 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 13:56:33.077 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 13:56:33.077 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 13:56:33.115 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 13:56:33.645 [main] C4SgApplication - Started C4SgApplication in 5.806 seconds (JVM running for 6.451)
+[INFO ] 2017-02-10 13:57:07.230 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+[INFO ] 2017-02-10 13:57:07.254 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 23 ms
+[INFO ] 2017-02-10 13:57:07.294 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 13:57:07.298 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 13:57:07.627 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.651 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.652 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.652 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.652 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 13:57:07.652 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 13:57:07.652 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectController.getProjects
+[INFO ] 2017-02-10 14:29:26.937 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 2516 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:29:26.953 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:31:38.210 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 4580 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:31:38.210 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:34:43.008 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 2696 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:34:43.008 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:38:52.772 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 4448 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:38:52.772 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:41:01.535 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 2200 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:41:01.535 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:43:18.881 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 6100 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:43:18.881 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:45:11.217 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 6692 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:45:11.217 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:48:44.109 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 6304 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:48:44.125 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:55:20.154 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 7216 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:55:20.154 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 14:57:16.397 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 8992 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 14:57:16.397 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:00:50.059 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 7268 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:00:50.060 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:02:28.285 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 5948 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:02:28.285 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:05:06.141 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 4180 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:05:06.141 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:07:20.917 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 7412 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:07:20.919 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:09:07.946 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 7716 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:09:07.948 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:11:58.935 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 8480 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:11:58.937 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:12:01.964 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2986 ms
+[INFO ] 2017-02-10 15:12:04.342 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:12:04.381 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:12:04.584 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 15:12:04.585 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 15:12:04.587 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 15:12:04.588 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 15:12:04.588 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:12:04.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 15:12:04.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:12:04.590 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 15:12:04.590 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 15:12:04.592 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:12:04.592 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 15:12:04.592 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:12:04.593 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 15:12:04.593 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 15:12:04.595 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 15:12:04.595 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 15:12:04.596 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:12:04.597 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 15:12:04.598 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 15:12:04.599 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 15:12:04.601 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:12:04.601 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 15:12:04.717 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:12:04.729 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:12:04.832 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 15:11:58 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 15:12:04.893 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:12:04.893 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:12:04.936 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:12:05.477 [main] C4SgApplication - Started C4SgApplication in 6.86 seconds (JVM running for 7.507)
+[INFO ] 2017-02-10 15:12:14.712 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+[INFO ] 2017-02-10 15:12:14.729 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 17 ms
+[INFO ] 2017-02-10 15:12:14.754 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 15:12:14.758 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:12:15.082 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.105 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:12:15.106 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectController.getProjects
+[INFO ] 2017-02-10 15:17:48.425 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 3708 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:17:48.426 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:17:51.088 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2619 ms
+[INFO ] 2017-02-10 15:17:53.360 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:17:53.374 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:17:53.580 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 15:17:53.581 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 15:17:53.583 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:17:53.584 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:17:53.584 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 15:17:53.584 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 15:17:53.584 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 15:17:53.585 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:17:53.587 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 15:17:53.588 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 15:17:53.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 15:17:53.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:17:53.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 15:17:53.589 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 15:17:53.591 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 15:17:53.591 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 15:17:53.592 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:17:53.593 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 15:17:53.594 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 15:17:53.594 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 15:17:53.596 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:17:53.596 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 15:17:53.701 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:17:53.712 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:17:53.812 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 15:17:48 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 15:17:53.866 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:17:53.866 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:17:53.904 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:18:11.009 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 15:18:11.009 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:18:11.018 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.019 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.019 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.019 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.020 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.020 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.020 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.020 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.021 [http-nio-8080-exec-4] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.021 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:18:11.021 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:18:11.021 [http-nio-8080-exec-4] ApplicationLogger - After: ProjectController.getProjects
+[INFO ] 2017-02-10 15:18:39.561 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 6320 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:18:39.562 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:18:42.262 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2638 ms
+[INFO ] 2017-02-10 15:18:44.577 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:18:44.611 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:18:44.802 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 15:18:44.804 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:18:44.806 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:18:44.806 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 15:18:44.806 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 15:18:44.807 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 15:18:44.807 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 15:18:44.808 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 15:18:44.810 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 15:18:44.811 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:18:44.811 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 15:18:44.811 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 15:18:44.812 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:18:44.812 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 15:18:44.816 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 15:18:44.816 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 15:18:44.817 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:18:44.818 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 15:18:44.819 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 15:18:44.819 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 15:18:44.821 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:18:44.822 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 15:18:44.927 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:18:44.938 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:18:45.026 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 15:18:39 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 15:18:45.085 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:18:45.085 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:18:45.125 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:19:25.425 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 1444 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:19:25.427 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:19:28.165 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2695 ms
+[INFO ] 2017-02-10 15:19:30.396 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:19:30.409 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:19:30.627 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 15:19:30.629 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:19:30.631 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 15:19:30.631 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:19:30.632 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 15:19:30.632 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 15:19:30.632 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 15:19:30.633 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:19:30.634 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 15:19:30.634 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:19:30.635 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 15:19:30.635 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 15:19:30.635 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 15:19:30.636 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 15:19:30.637 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 15:19:30.637 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 15:19:30.638 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:19:30.640 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 15:19:30.640 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 15:19:30.641 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 15:19:30.642 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:19:30.643 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 15:19:30.753 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:19:30.764 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:19:30.853 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 15:19:25 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 15:19:30.910 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:19:30.910 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:19:30.950 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:19:31.472 [main] C4SgApplication - Started C4SgApplication in 6.36 seconds (JVM running for 7.006)
+[INFO ] 2017-02-10 15:19:37.548 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+[INFO ] 2017-02-10 15:19:37.564 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 16 ms
+[INFO ] 2017-02-10 15:19:37.589 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 15:19:37.593 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:19:37.750 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.928 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.928 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 15:19:37.929 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectController.getProjects
+[INFO ] 2017-02-10 15:25:54.088 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 5992 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:25:54.090 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:28:19.552 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 4784 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 15:28:19.554 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 15:28:22.221 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 2630 ms
+[INFO ] 2017-02-10 15:28:24.669 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:28:24.683 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 15:28:24.891 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 15:28:24.892 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 15:28:24.895 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:28:24.895 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 15:28:24.895 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 15:28:24.896 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 15:28:24.896 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 15:28:24.897 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 15:28:24.897 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 15:28:24.898 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:28:24.898 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 15:28:24.899 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 15:28:24.899 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 15:28:24.899 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 15:28:24.901 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 15:28:24.901 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 15:28:24.902 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:28:24.904 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 15:28:24.904 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 15:28:24.905 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 15:28:24.907 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 15:28:24.907 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 15:28:25.026 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:28:25.037 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 15:28:25.134 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 15:28:19 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 15:28:25.195 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:28:25.195 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:28:25.238 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 15:28:25.777 [main] C4SgApplication - Started C4SgApplication in 6.543 seconds (JVM running for 7.193)
+[INFO ] 2017-02-10 16:13:04.940 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 8168 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 16:13:04.941 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 16:13:08.236 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 3241 ms
+[INFO ] 2017-02-10 16:13:10.537 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 16:13:10.551 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 16:13:10.794 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 16:13:10.796 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 16:13:10.798 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 16:13:10.798 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 16:13:10.799 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 16:13:10.799 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 16:13:10.799 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 16:13:10.800 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 16:13:10.800 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 16:13:10.801 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 16:13:10.801 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 16:13:10.802 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 16:13:10.802 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 16:13:10.802 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 16:13:10.804 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 16:13:10.804 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 16:13:10.805 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 16:13:10.807 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 16:13:10.808 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 16:13:10.808 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 16:13:10.810 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 16:13:10.811 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 16:13:10.923 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 16:13:10.935 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 16:13:11.040 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 16:13:04 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 16:13:11.099 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:13:11.100 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:13:11.140 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:13:11.692 [main] C4SgApplication - Started C4SgApplication in 7.084 seconds (JVM running for 7.831)
+[INFO ] 2017-02-10 16:20:52.687 [main] C4SgApplication - Starting C4SgApplication on DESKTOP-587L5LK with PID 4920 (D:\Desktop\GitHub\C4SG\C4SGSvc\bin started by dahal in D:\Desktop\GitHub\C4SG\C4SGSvc)
+[INFO ] 2017-02-10 16:20:52.688 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-10 16:20:56.173 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 3439 ms
+[INFO ] 2017-02-10 16:20:59.572 [main] ApplicationLogger - Before: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 16:20:59.644 [main] ApplicationLogger - After: JacksonConfig$$EnhancerBySpringCGLIB$$5e351d38.jtsModule
+[INFO ] 2017-02-10 16:20:59.935 [main] RequestMappingHandlerMapping - Mapped "{[/home]}" onto public java.lang.String org.c4sg.controller.HomeController.home()
+[INFO ] 2017-02-10 16:20:59.936 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/create],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.createOrganization(org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 16:20:59.938 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/update/{id}],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.OrganizationController.updateOrganization(int,org.c4sg.dto.OrganizationDto)
+[INFO ] 2017-02-10 16:20:59.938 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.OrganizationController.deleteOrganization(int)
+[INFO ] 2017-02-10 16:20:59.938 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byId/{id}],methods=[GET],produces=[application/json]}" onto public org.c4sg.dto.OrganizationDto org.c4sg.controller.OrganizationController.getOrganization(int)
+[INFO ] 2017-02-10 16:20:59.939 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/search/byKeyword/{keyWord}],methods=[GET],produces=[application/json]}" onto public java.util.List<java.lang.Object> org.c4sg.controller.OrganizationController.getOrganization(java.lang.String)
+[INFO ] 2017-02-10 16:20:59.939 [main] RequestMappingHandlerMapping - Mapped "{[/api/organization/all],methods=[GET],produces=[application/json]}" onto public java.util.List<org.c4sg.dto.OrganizationDto> org.c4sg.controller.OrganizationController.getOrganizations()
+[INFO ] 2017-02-10 16:20:59.940 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/delete/{id}],methods=[DELETE]}" onto public void org.c4sg.controller.ProjectController.deleteProject(int)
+[INFO ] 2017-02-10 16:20:59.940 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/update],methods=[PUT]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.updateProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 16:20:59.941 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/add],methods=[POST]}" onto public java.util.Map<java.lang.Object, java.lang.Object> org.c4sg.controller.ProjectController.createProject(org.c4sg.entity.Project)
+[INFO ] 2017-02-10 16:20:59.941 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/all],methods=[GET]}" onto public java.util.List<org.c4sg.dto.ProjectDto> org.c4sg.controller.ProjectController.getProjects()
+[INFO ] 2017-02-10 16:20:59.941 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byKeyword/{keyWord}],methods=[GET]}" onto public java.util.List<org.c4sg.entity.Project> org.c4sg.controller.ProjectController.getProjects(java.lang.String)
+[INFO ] 2017-02-10 16:20:59.941 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byId/{id}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(int)
+[INFO ] 2017-02-10 16:20:59.942 [main] RequestMappingHandlerMapping - Mapped "{[/api/project/search/byName/{name}],methods=[GET]}" onto public org.c4sg.entity.Project org.c4sg.controller.ProjectController.getProject(java.lang.String)
+[INFO ] 2017-02-10 16:20:59.944 [main] RequestMappingHandlerMapping - Mapped "{[/api/users/{id}],methods=[GET]}" onto public org.c4sg.entity.User org.c4sg.controller.UserController.getUser(int)
+[INFO ] 2017-02-10 16:20:59.945 [main] RequestMappingHandlerMapping - Mapped "{[/api/developers],methods=[GET]}" onto public java.util.List<org.c4sg.entity.User> org.c4sg.controller.UserController.getDevelopers()
+[INFO ] 2017-02-10 16:20:59.945 [main] RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 16:20:59.947 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+[INFO ] 2017-02-10 16:20:59.948 [main] RequestMappingHandlerMapping - Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+[INFO ] 2017-02-10 16:20:59.948 [main] RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+[INFO ] 2017-02-10 16:20:59.950 [main] RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] 2017-02-10 16:20:59.950 [main] RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] 2017-02-10 16:21:00.151 [main] ApplicationLogger - Before: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 16:21:00.164 [main] ApplicationLogger - After: SwaggerConfig$$EnhancerBySpringCGLIB$$746a800f.api
+[INFO ] 2017-02-10 16:21:00.261 [main] RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@38cee291: startup date [Fri Feb 10 16:20:52 PST 2017]; root of context hierarchy
+[INFO ] 2017-02-10 16:21:00.373 [main] SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:21:00.373 [main] SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:21:00.451 [main] SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] 2017-02-10 16:21:01.059 [main] C4SgApplication - Started C4SgApplication in 8.702 seconds (JVM running for 9.412)
+[INFO ] 2017-02-10 16:21:08.029 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+[INFO ] 2017-02-10 16:21:08.044 [http-nio-8080-exec-1] DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 15 ms
+[INFO ] 2017-02-10 16:21:08.077 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 16:21:08.149 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 16:21:08.445 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.471 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.472 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.472 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.472 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.472 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.472 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.474 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.474 [http-nio-8080-exec-1] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.474 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:08.475 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 16:21:08.475 [http-nio-8080-exec-1] ApplicationLogger - After: ProjectController.getProjects
+[INFO ] 2017-02-10 16:21:10.861 [http-nio-8080-exec-2] ApplicationLogger - Before: ProjectController.getProject
+[INFO ] 2017-02-10 16:21:10.862 [http-nio-8080-exec-2] ApplicationLogger - Before: ProjectServiceImpl.findById
+[INFO ] 2017-02-10 16:21:10.863 [http-nio-8080-exec-2] ApplicationLogger - Before: $Proxy108.findById
+[INFO ] 2017-02-10 16:21:10.879 [http-nio-8080-exec-2] ApplicationLogger - After: $Proxy108.findById
+[INFO ] 2017-02-10 16:21:10.880 [http-nio-8080-exec-2] ApplicationLogger - After: ProjectServiceImpl.findById
+[INFO ] 2017-02-10 16:21:10.880 [http-nio-8080-exec-2] ApplicationLogger - After: ProjectController.getProject
+[INFO ] 2017-02-10 16:21:13.022 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectController.getProjects
+[INFO ] 2017-02-10 16:21:13.022 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 16:21:13.033 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.033 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.034 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.034 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.034 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.035 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.035 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.035 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.035 [http-nio-8080-exec-3] ApplicationLogger - Before: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.036 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectMapper.getProjectDtoFromEntity
+[INFO ] 2017-02-10 16:21:13.036 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectServiceImpl.findProjects
+[INFO ] 2017-02-10 16:21:13.036 [http-nio-8080-exec-3] ApplicationLogger - After: ProjectController.getProjects
+>>>>>>> 2b0de5d... Gradle Implementation
