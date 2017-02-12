@@ -7,11 +7,11 @@ import { CreateProjectComponent } from '../../project/create/create.component';
 @Component({
     moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'nonprofit-user.component.html',
-    styleUrls: ['nonprofit-user.component.css']
+    templateUrl: 'dashboard.component.html',
+    styleUrls: ['dashboard.component.css']
 })
 
-export class NonprofitUserComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
 	constructor(public fb: FormBuilder) { }
 
@@ -26,6 +26,14 @@ export class NonprofitUserComponent implements OnInit {
 		country: new FormControl("", Validators.required),
 		zip: new FormControl("", Validators.required),
 		confirmPassword: new FormControl("", Validators.required)
+	})
+
+	public myProfile = new FormGroup({
+		linkedin: new FormControl("", Validators.required),
+		github: new FormControl("", Validators.required),
+		website: new FormControl("", Validators.required),
+		resume: new FormControl("", Validators.required),
+		skills: new FormControl("", Validators.required)
 	})
 
 	public myOrganization = new FormGroup({
