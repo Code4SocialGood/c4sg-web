@@ -24,4 +24,5 @@ Github: https://github.com/Code4SocialGood/C4SG
 
 Go to Documentation folder for Setup Instructions.
 
+# Collaborators are Welcome!
 Contact: info@code4socialgood.org
