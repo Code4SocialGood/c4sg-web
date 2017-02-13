@@ -2,7 +2,7 @@
   "name": "code-for-social-good",
   "version": "0.0.1",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 8000",
+    "start": "webpack-dev-server --progress",
     "clean": "rimraf node_modules doc dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
