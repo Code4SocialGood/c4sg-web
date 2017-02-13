@@ -8,8 +8,8 @@ import {OrganizationService} from "./organization.service";
 @Component({
     //moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'dashboard.component.html',
-    styleUrls: ['dashboard.component.css']
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit {
