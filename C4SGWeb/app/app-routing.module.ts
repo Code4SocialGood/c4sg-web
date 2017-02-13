@@ -1,9 +1,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UserListComponent }  from './user/list/list.component';
-import { UserViewComponent }  from './user/view/user-view.component';
-
+import { VolunteerProjectComponent }  from './project/volunteer/volunteer-project.component';
 import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
 import { ViewProjectComponent }  from './project/view/view-project.component';
 import { SearchProjectComponent }  from './project/search/search-project.component';
@@ -18,9 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
-import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
-import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 const routes: Routes = [
 
@@ -30,14 +26,9 @@ const routes: Routes = [
     { path: 'create_project', component: CreateProjectComponent },
     { path: 'view-project/:id', component: ViewProjectComponent },
 
-    { path: 'user/list', component: UserListComponent },
-    { path: 'user/view/:id', component: UserViewComponent },
-
+    { path: 'volunteers', component: VolunteerProjectComponent },
     { path: 'nonprofits', component: OrganizationProjectComponent },
-
-    { path: 'volunteerUser', component: VolunteerUserComponent },
-    { path: 'nonprofitUser', component: NonprofitUserComponent },
-    { path: 'c4sgUser', component: C4SGUserComponent },
+    { path: 'dashboard', component: DashboardComponent },
     
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
