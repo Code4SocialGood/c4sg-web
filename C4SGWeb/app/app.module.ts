@@ -29,12 +29,14 @@ import { RegistrationComponent } from './registration/registration.component';
 
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { OrganizationService} from './user/dashboard/organization.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+      MaterialModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -55,7 +57,7 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
     CreateProjectComponent,
     DashboardComponent,
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService, OrganizationService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
