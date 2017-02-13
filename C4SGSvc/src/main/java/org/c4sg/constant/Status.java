@@ -2,37 +2,36 @@ package org.c4sg.constant;
 
 import java.util.Optional;
 
-public enum UserRole {
+public enum Status {
 
-    VOLUNTEER("V"), ORGANIZATION("O"), C4SG_ADMIN("C"), C4SG_DEVELOPER("D");
+    ACTIVE("A"), PENDING("P"), DELETED("D");
 
     private String value;
 
-    UserRole(String value) {
+    Status(String value) {
         this.value = value;
     }
-    
-	public String getValue(){
-		return value;
-	}
+
+    public String getValue() {
+    	return value;
+    }
 
     public static String getUserRole(String role) {
         if(!Optional.ofNullable(role).isPresent()) 
         {
-            return VOLUNTEER.name();
+            return PENDING.name();
         }
         else
         {
-    		for (UserRole e : UserRole.values()) {
+    		for (Status e : Status.values()) {
     			if (e.getValue() == role)
     			{
     				return e.name();
     			}	
     		}
-    		return VOLUNTEER.name();
+    		return PENDING.name();
         }
      }
-
     @Override
     public String toString() {
         return value;

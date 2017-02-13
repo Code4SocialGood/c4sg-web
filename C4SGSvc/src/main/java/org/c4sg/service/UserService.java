@@ -1,5 +1,6 @@
 package org.c4sg.service;
 
+
 import java.util.List;
 
 import org.c4sg.dto.UserDto;
@@ -9,10 +10,12 @@ public interface UserService {
 	
     List<UserDto> findAll();
     List<UserDto> findActiveUsers();
-    User findById(int id);
+    UserDto findById(int id);
     User findByName(String name);
 
     List<User> findDevelopers();
-    void deleteUser(int id);
-    User updateUser(User user);
+    
+    UserDto saveUser(UserDto userDto);
+    
+    void deleteUser(Integer id);
 }

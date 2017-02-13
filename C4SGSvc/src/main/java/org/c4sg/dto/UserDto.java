@@ -1,132 +1,141 @@
 package org.c4sg.dto;
 
-import org.springframework.data.geo.Point;
-
 public class UserDto {
-	private Integer id;
-	private String email;
-	private String phone;
-	private String state;
-	private String country;
-	private String zip;
-	private String status;
-	private String role;
-	private Integer github;
-	private String displayFlag;
-	private Point location;
-	private String username;
-	private String firstname;
-	private String lastname;
 
-	public Integer getId() {
-		return id;
-	}
+    private Integer id;
+    private String userName;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String state;
+    private String country;
+    private String zip;
+    private String status;
+    private String role;
+    private Integer github;
+    private String displayFlag;
+    private String latitude;
+    private String longitude;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public Integer getGithub() {
-		return github;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setGithub(Integer github) {
-		this.github = github;
-	}
+    public String getZip() {
+        return zip;
+    }
 
-	public String getDisplayFlag() {
-		return displayFlag;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	public void setDisplayFlag(String displayFlag) {
-		this.displayFlag = displayFlag;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Point getLocation() {
-		return location;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setLocation(Point location) {
-		this.location = location;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public Integer getGithub() {
+        return github;
+    }
 
-	public String getFirstname() {
-		return firstname;
-	}
+    public void setGithub(Integer github) {
+        this.github = github;
+    }
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+    public String getDisplayFlag() {
+        return displayFlag;
+    }
 
-	public String getLastname() {
-		return lastname;
-	}
+    public void setDisplayFlag(String displayFlag) {
+        this.displayFlag = displayFlag;
+    }
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
 }
