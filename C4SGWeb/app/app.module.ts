@@ -28,15 +28,15 @@ import { ResetPasswordComponent } from './forgot-password/reset-password/reset-p
 import { RegistrationComponent } from './registration/registration.component';
 
 // Dashboard
-import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
-import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
-import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { OrganizationService} from './user/dashboard/organization.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+      MaterialModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -55,11 +55,9 @@ import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
     SearchProjectComponent,    
     MaterializeDirective,
     CreateProjectComponent,
-    VolunteerUserComponent,
-    NonprofitUserComponent,
-    C4SGUserComponent,
+    DashboardComponent,
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService, OrganizationService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
