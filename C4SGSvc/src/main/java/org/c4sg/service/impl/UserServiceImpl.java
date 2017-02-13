@@ -3,7 +3,6 @@ package org.c4sg.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.c4sg.constant.Status;
 import org.c4sg.constant.UserRole;
 import org.c4sg.dao.UserDao;
@@ -14,21 +13,19 @@ import org.c4sg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
     @Autowired
-	private UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public List<UserDto> findAll() {
         List<UserDto> usersDto = new ArrayList<>();
         userDao.findAll().stream().forEach(user -> usersDto.add(userMapper.getUserDtoFromEntity(user)));
         return usersDto;
-
     }
     
     @Override

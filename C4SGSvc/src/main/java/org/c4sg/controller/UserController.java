@@ -1,6 +1,5 @@
 package org.c4sg.controller;
 
-
 import java.util.List;
 
 import org.c4sg.dto.UserDto;
@@ -70,4 +69,9 @@ public class UserController {
         return userService.saveUser(userDto);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUser(id);
+    }
 }

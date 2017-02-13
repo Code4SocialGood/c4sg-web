@@ -1,7 +1,7 @@
 package org.c4sg.dao;
 
-import java.util.List;
 
+import java.util.List;
 import org.c4sg.constant.UserRole;
 import org.c4sg.entity.User;
 import org.springframework.data.repository.CrudRepository;

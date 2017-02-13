@@ -153,5 +153,4 @@ public class User implements Serializable {
     public void setLocation(Point location) {
         this.location = location;
     }
-
 }

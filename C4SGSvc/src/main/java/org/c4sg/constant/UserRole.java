@@ -17,24 +17,12 @@ public enum UserRole {
 	}
 
     public static String getUserRole(String role) {
-        if(!Optional.ofNullable(role).isPresent()) 
-        {
-            return VOLUNTEER.name();
-        }
-        else
-        {
-    		for (UserRole e : UserRole.values()) {
-    			if (e.getValue() == role)
-    			{
-    				return e.name();
-    			}	
-    		}
-    		return VOLUNTEER.name();
-        }
-     }
-
-    @Override
-    public String toString() {
-        return value;
+		for (UserRole e : UserRole.values()) {
+			if (e.getValue() == role.toUpperCase())
+			{
+				return e.name();
+			}	
+		}
+		return VOLUNTEER.name();
     }
 }
