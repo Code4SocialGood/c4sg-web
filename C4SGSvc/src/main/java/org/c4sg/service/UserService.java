@@ -12,6 +12,8 @@ public interface UserService {
     User findByName(String name);
 
     List<User> findDevelopers();
+
     UserDto saveUser(UserDto userDto);
+
     void deleteUser(Integer id);
 }

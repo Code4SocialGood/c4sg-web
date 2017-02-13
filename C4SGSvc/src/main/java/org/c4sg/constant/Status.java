@@ -1,8 +1,6 @@
 package org.c4sg.constant;
 
 import java.util.Optional;
-
-
 public enum Status {
 
     ACTIVE("A"), PENDING("P"), DELETED("D");

@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         List<UserDto> usersDto = new ArrayList<>();
         userDao.findAll().stream().forEach(user -> usersDto.add(userMapper.getUserDtoFromEntity(user)));
         return usersDto;
+
     }
     
     @Override

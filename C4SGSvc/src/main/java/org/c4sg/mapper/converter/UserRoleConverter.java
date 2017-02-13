@@ -1,7 +1,6 @@
 package org.c4sg.mapper.converter;
 
 import java.util.Optional;
-
 import org.c4sg.constant.UserRole;
 import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
