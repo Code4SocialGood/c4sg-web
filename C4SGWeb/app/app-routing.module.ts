@@ -19,7 +19,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-//import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 const routes: Routes = [
 
@@ -33,7 +33,7 @@ const routes: Routes = [
     { path: 'user/view/:id', component: UserViewComponent },
     
     { path: 'nonprofits', component: OrganizationProjectComponent },
-    //{ path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent },
     
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
