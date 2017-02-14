@@ -1,9 +1,46 @@
 <div class="container">
-	<form [formGroup]="signUpForm" (ngSubmit)="doSignUp($event)">
-		<input formControlName="username" type="text" placeholder="Username">
-		<input formControlName="email" type="text" placeholder="Email Address">
-		<input formControlName="password" type="text" placeholder="Password">
-		<input formControlName="rpassword" type="text" placeholder="Repeat Password">
-		<button type="submit">Sign Up</button>
-	</form>
+	<div class="row">
+		<form [formGroup]="signUpForm" (ngSubmit)="doSignUp($event)">
+
+			<div class="input-field">
+				<input formControlName="username" type="text" placeholder="Username">
+			</div>
+
+			<div class="input-field">
+				<input formControlName="email" type="text" placeholder="Email Address">
+			</div>
+
+			<div class="input-field">
+				<input formControlName="password" type="text" placeholder="Password">
+			</div>
+
+			<div class="input-field">
+				<input formControlName="rpassword" type="text" placeholder="Repeat Password">
+			</div>
+
+			<div class="input-field">
+				<input name="group"
+					type="radio"
+					value="volunteer"
+					id="volunteer" 
+					class="filled-in"
+					(click)="updateUser('volunteer')" />
+				<label for="volunteer">Volunteer</label>
+
+				<input name="group"
+					type="radio"
+					value="nonprofit"
+					id="nonprofit" 
+					class="filled-in"
+					(click)="updateUser('nonprofit')" />
+				<label for="nonprofit">Non Profit</label>
+			</div>
+
+			<div class="input-field sign-up">
+				<button class="btn waves-effect waves-light" type="submit">Sign Up</button>
+			</div>
+		</form>
+	</div>
+	<!-- For debugging. Remove for production -->
+	{{ signUpForm.value | json}}
 </div>
