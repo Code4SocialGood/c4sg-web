@@ -4,10 +4,10 @@ import { Project } from '../project';
 import { ProjectService } from '../project.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'organization-project.component.html',
-    styleUrls: ['organization-project.component.css']
+    templateUrl: './organization-project.component.html',
+    styleUrls: ['./organization-project.component.css']
 })
 
 export class OrganizationProjectComponent implements OnInit {
@@ -57,7 +57,7 @@ export class OrganizationProjectComponent implements OnInit {
                 response => { // An error occurred SyntaxError: Unexpected end of JSON input
                     this.getProjects();
                     this.router.navigate(['/nonprofits']);
-                },                           
+                },
                 error => console.log(error)
             );
     }

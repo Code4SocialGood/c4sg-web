@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-    moduleId: module.id,
-    selector: 'my-app',
-    templateUrl: 'app.component.html'
+  // moduleId: module.id,  // For webpack, remove this
+  selector: 'my-app',
+  templateUrl: './app.component.html'
 })
 
 export class AppComponent {
