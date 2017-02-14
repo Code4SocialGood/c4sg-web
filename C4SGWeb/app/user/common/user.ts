@@ -12,9 +12,10 @@ export class User {
         public role: string,
         public github: string,
         public displayFlag: string,
-        public location: Point,
-        public username: string,
-        public firstname: string,
-        public lastname: string        
+        public longitude: string,
+        public latitude: string,
+        public userName: string,
+        public firstName: string,
+        public lastName: string        
     ){}
 }

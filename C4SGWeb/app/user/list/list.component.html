@@ -29,20 +29,20 @@
                                     <label class="right-align usrlabel">UserName:</label>
                                 </div>    
                                 <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.username}} </span><br>
+                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
                                 </div>
    
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">FirstName:</label>
                                 </div>          
                                  <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstname">{{user.firstname}}</span>&nbsp;<br>
+                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
                                 </div>
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">LastName:</label>
                                 </div>                                  
                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastname">{{user.lastname}}</span><br>
+                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
                                 </div>
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">Location:</label>
@@ -72,20 +72,20 @@
                                     <label class="right-align usrlabel">UserName:</label>
                                 </div>    
                                 <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.username}} </span><br>
+                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
                                 </div>
    
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">FirstName:</label>
                                 </div>          
                                  <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstname">{{user.firstname}}</span>&nbsp;<br>
+                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
                                 </div>
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">LastName:</label>
                                 </div>                                  
                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastname">{{user.lastname}}</span><br>
+                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
                                 </div>
                                 <div class="col s3 valign">                        
                                     <label class="right-align usrlabel">Location:</label>
@@ -115,7 +115,7 @@
       <hr>
       <br>
       <div class="col s12">
-          <p class="h3 valign col s12" *ngIf="selectedUser">     {{selectedUser.username}}</p>
+          <p class="h3 valign col s12" *ngIf="selectedUser">     {{selectedUser.userName}}</p>
       </div> 
     </div>
     <div class="modal-footer" *ngIf="selectedUser">

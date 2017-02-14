@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public List<UserDto> findActiveUsers() {
-        List<User> users = userDao.findByStatusOrderByUserNameAsc(Status.ACTIVE.getValue());
+        List<User> users = userDao.findByStatusOrderByUserNameAsc(Status.ACTIVE);
 		List<UserDto> userDtos = users.stream()
 									.map(p -> userMapper.getUserDtoFromEntity(p))
 									.collect(Collectors.toList());

@@ -1,6 +1,7 @@
 package org.c4sg.entity;
 
 import org.c4sg.constant.Status;
+import org.c4sg.converter.StatusConverter;
 
 import javax.persistence.*;
 
@@ -38,9 +39,9 @@ public class Organization {
 
 	@Column(name = "country", nullable = false)
 	private String country;
-
+	
+	@Convert(converter = StatusConverter.class)
 	@Column(name = "status",nullable = false)
-	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 
 	public Integer getId() {

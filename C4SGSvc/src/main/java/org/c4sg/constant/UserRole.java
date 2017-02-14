@@ -1,7 +1,5 @@
 package org.c4sg.constant;
 
-import java.util.Optional;
-
 public enum UserRole {
 
     VOLUNTEER("V"), ORGANIZATION("O"), C4SG_ADMIN("C"), C4SG_DEVELOPER("D");

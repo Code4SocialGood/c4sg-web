@@ -13,7 +13,7 @@ export class UserService {
     constructor (private http:Http){}
 
     getUsers() {
-        const url = this.userUrl +"/all"; 
+        const url = this.userUrl +"/all/active"; 
         return this.http.get(url);
     }
 
