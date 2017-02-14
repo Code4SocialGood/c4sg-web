@@ -5,10 +5,10 @@ import { CreateProjectComponent } from '../../project/create/create.component';
 
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'my-projects',
-    templateUrl: 'nonprofit-user.component.html',
-    styleUrls: ['nonprofit-user.component.css']
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 
 export class NonprofitUserComponent implements OnInit {

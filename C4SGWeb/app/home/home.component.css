@@ -3,7 +3,7 @@ a:hover {
 }
 
 .action {
-    background: linear-gradient(rgba(53, 54, 56, 0.2), rgba(53, 54, 56, 0.2)), url("app/images/image3.jpg") no-repeat center center;
+    background: linear-gradient(rgba(53, 54, 56, 0.2), rgba(53, 54, 56, 0.2)), url("../images/image3.jpg") no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

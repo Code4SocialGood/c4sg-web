@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 declare var google: any;
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'my-about',
-  templateUrl: 'about.component.html',
-  styleUrls: [ 'about.component.css' ]
+  templateUrl: './about.component.html',
+  styleUrls: [ './about.component.css' ]
 })
 export class AboutComponent implements OnInit
  {

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'my-reset-password',
-    templateUrl: 'reset-password.component.html',
-    styleUrls: [ 'reset-password.component.css' ]
+    templateUrl: './reset-password.component.html',
+    styleUrls: [ './reset-password.component.css' ]
 })
 
 export class ResetPasswordComponent {
@@ -16,7 +16,7 @@ export class ResetPasswordComponent {
         newpassword: ["", Validators.required],
         confirmpassword: ["", Validators.required]
     });
-    
+
     doResetPassword(event) {
         console.log(event);
         console.log(this.resetPasswordForm.value);
