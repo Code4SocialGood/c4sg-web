@@ -5,10 +5,10 @@ import { Project } from '../project';
 import { ProjectService } from '../project.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'view-project',
-    templateUrl: 'view-project.component.html',
-    styleUrls: [ 'view-project.component.css' ]
+    templateUrl: './view-project.component.html',
+    styleUrls: [ './view-project.component.css' ]
 })
 
 export class ViewProjectComponent implements OnInit {
@@ -25,7 +25,7 @@ export class ViewProjectComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.route.params.forEach((params: Params) => { 
+        this.route.params.forEach((params: Params) => {
 
             let id = +params['id'] - 1;
 
@@ -45,7 +45,7 @@ export class ViewProjectComponent implements OnInit {
             .subscribe(
                 response => {
                     this.router.navigate(['/nonprofits']);
-                },                           
+                },
                 error => console.log(error)
             );
     }

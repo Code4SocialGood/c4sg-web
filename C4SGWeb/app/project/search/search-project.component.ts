@@ -6,10 +6,10 @@ import { SearchProjectService } from './search-project.service';
 import { Project } from '../project';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'project-search',
-    templateUrl: 'search-project.component.html',
-    styleUrls: [ 'search-project.component.css' ],
+    templateUrl: './search-project.component.html',
+    styleUrls: [ './search-project.component.css' ],
     providers: [SearchProjectService]
 })
 export class SearchProjectComponent implements OnInit {

@@ -5,14 +5,14 @@ import { ProjectService } from '../project/project.service';
 import { MaterializeDirective} from "angular2-materialize";
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'my-home',
-  templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.css' ]
+  templateUrl: './home.component.html',
+  styleUrls: [ './home.component.css' ]
 })
 
 export class HomeComponent implements OnInit {
-   
+
     projects: Project[] = [];
 
     constructor(private projectService: ProjectService, private router: Router) {

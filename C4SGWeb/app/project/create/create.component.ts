@@ -6,10 +6,10 @@ import { Project } from '../project';
 import { ProjectService } from '../project.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'create-project',
-    templateUrl: 'create.component.html',
-    styleUrls: [ 'create.component.css' ]
+    templateUrl: './create.component.html',
+    styleUrls: [ './create.component.css' ]
 })
 
 export class CreateProjectComponent {
@@ -123,14 +123,14 @@ export class CreateProjectComponent {
         zip: ""
     });
 
-    // retrieve info from form 
+    // retrieve info from form
     createProject(): void {
         let form = this.createProjectForm.value;
-    
+
         let project = new Project(
-            form.name, 
-            form.organization, 
-            form.shortDescription, 
+            form.name,
+            form.organization,
+            form.shortDescription,
             form.description,
             form.line1,
             form.line2,
