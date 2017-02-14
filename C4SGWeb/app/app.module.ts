@@ -28,9 +28,8 @@ import { ResetPasswordComponent } from './forgot-password/reset-password/reset-p
 import { RegistrationComponent } from './registration/registration.component';
 
 // Dashboard
-import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
-import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
-import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { OrganizationService } from './user/dashboard/organization.service';
 
 //Volunteers
 import { UserListComponent }  from './user/list/list.component';
@@ -42,6 +41,7 @@ import { UserService }  from './user/common/user.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -60,13 +60,11 @@ import { UserService }  from './user/common/user.service';
     SearchProjectComponent,    
     MaterializeDirective,
     CreateProjectComponent,
-    VolunteerUserComponent,
-    NonprofitUserComponent,
-    C4SGUserComponent,
+    DashboardComponent,
     UserListComponent,
     UserViewComponent,
   ],
-  providers: [ ProjectService, UserService ],
+  providers: [ ProjectService, OrganizationService, UserService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
