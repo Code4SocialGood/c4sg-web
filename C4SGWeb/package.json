@@ -8,7 +8,8 @@
     "clean-start": "npm run clean-install && npm start",
     "watch": "webpack --watch --progress --profile",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "server": "npm start"
+    "server": "npm start",
+    "lint": "tslint \"app/**/*.ts\""
   },
   "licenses": [
     {
@@ -40,6 +41,7 @@
     "@types/node": "^6.0.45",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.0.4-rc.0",
+    "codelyzer": "^2.0.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "css-to-string-loader": "^0.1.2",

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-    //moduleId: module.id,
     selector: 'my-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: [ './forgot-password.component.css' ]
@@ -11,7 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class ForgotPasswordComponent {
     constructor(public fb: FormBuilder) {}
     public fPasswordForm = this.fb.group({
-        username: ["", Validators.required]
+        username: ['', Validators.required]
     });
 
     dofPassword(event) {
