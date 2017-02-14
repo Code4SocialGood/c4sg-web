@@ -3,19 +3,23 @@
 		<form [formGroup]="signUpForm" (ngSubmit)="doSignUp($event)">
 
 			<div class="input-field">
-				<input formControlName="username" type="text" placeholder="Username">
+				<label for="username">User Name</label>
+				<input formControlName="username" type="text">
 			</div>
 
 			<div class="input-field">
-				<input formControlName="email" type="text" placeholder="Email Address">
+				<label for="email">Email</label>
+				<input formControlName="email" type="email">
 			</div>
 
 			<div class="input-field">
-				<input formControlName="password" type="text" placeholder="Password">
+				<label for="password">Password</label>
+				<input formControlName="password" type="password">
 			</div>
 
 			<div class="input-field">
-				<input formControlName="rpassword" type="text" placeholder="Repeat Password">
+				<label for="rpassword">Repeat Password</label>
+				<input formControlName="rpassword" type="password">
 			</div>
 
 			<div class="input-field">
