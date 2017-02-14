@@ -46,7 +46,7 @@ public class UserMapper extends ModelMapper {
 			userDto.setLongitude(Double.toString(point.getX()));
 			userDto.setLatitude(Double.toString(point.getY()));
 		}
-		userDto.setDisplayFlag(user.getDisplayFlag() ? "Y" : "N"); 
+		userDto.setDisplayFlag((user.getDisplayFlag() != null && user.getDisplayFlag().booleanValue()) ? "Y" : "N"); 
 		return userDto;
 	}
 	
