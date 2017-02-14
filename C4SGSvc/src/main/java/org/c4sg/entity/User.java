@@ -11,7 +11,6 @@ import javax.persistence.Id;
 
 import org.c4sg.constant.Status;
 import org.c4sg.constant.UserRole;
-import org.c4sg.converter.PointConverter;
 import org.c4sg.converter.StatusConverter;
 import org.c4sg.converter.UserRoleConverter;
 
