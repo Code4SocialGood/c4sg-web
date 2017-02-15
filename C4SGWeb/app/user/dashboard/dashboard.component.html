@@ -27,8 +27,8 @@
     					</div>
     					<div class="col s4">
     						<input formControlName="city"type="text" placeholder="City">
-    						<input formControlName="state" type="text" placeholder="State">
-    						<input formControlName="country" type="text" placeholder="Country *">
+                <select formControlName="state"><option value="#">State</option></select>
+                <select formControlName="country"><option value="#">Country</option></select>
     						<input formControlName="zip" type="text" placeholder="Zip">
     						<input formControlName="confirmPassword" type="text" placeholder="Confirm Password">
     					</div>
@@ -98,17 +98,14 @@
     							<input formControlName="email" type="text" placeholder="Email Address">
     							<input formControlName="phone" type="text" placeholder="Phone">
     							<input formControlName="ein" type="text" placeholder="EIN">
-                                <!-- "category" should be a <select> tag. specific <option> tags can be determined at a later date-->
-    							<input formControlName="category" type="text" placeholder="Category">
+    							<select formControlName="category"><option value="#">Category</option></select>
     						</div>
     						<div class="col s6">
     							<input formControlName="address1" type="text" placeholder="Address 1">
     							<input formControlName="address2" type="text" placeholder="Address 2">
     							<input formControlName="city" type="text" placeholder="City">
-                                <!-- "state" should be a <select> tag. specific <option> tags can be determined at a later date-->
-    							<input formControlName="state" type="text" placeholder="State">
-                                <!-- "country" should be a <select> tag. specific <option> tags can be determined at a later date-->
-    							<input formControlName="country" type="text" placeholder="Country">
+    							<select formControlName="state"><option value="#">State</option></select>
+    							<select formControlName="country"><option value="#">Country</option></select>
     							<input formControlName="zip" type="text" placeholder="Zip">
     						</div>
     						<div class="col s12">
