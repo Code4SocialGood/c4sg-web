@@ -34,6 +34,7 @@ import { ProfileComponent } from './user/dashboard/profile/profile.component';
 import { OrganizationComponent } from './user/dashboard/organization/organization.component';
 import { OrganizationService} from './user/dashboard/organization/organization.service';
 import {ProjectComponent} from './user/dashboard/projects/project.component';
+import {CreateProjectTabComponent} from './user/dashboard/create-project/create-project.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import {ProjectComponent} from './user/dashboard/projects/project.component';
     ProfileComponent,
     OrganizationComponent,
     ProjectComponent,
+    CreateProjectTabComponent,
   ],
   providers: [ ProjectService, OrganizationService ],
   bootstrap: [ AppComponent ]
