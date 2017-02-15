@@ -19,6 +19,7 @@ import { ViewProjectComponent }  from './project/view/view-project.component';
 import { SearchProjectComponent }  from './project/search/search-project.component';
 import { CreateProjectComponent }  from './project/create/create.component';
 import { ProjectService }  from './project/project.service';
+import { CreateService } from './project/create/create.service';
 
 import { AboutComponent }  from './about/about.component';
 import { ContactComponent }  from './contact/contact.component';
@@ -60,7 +61,10 @@ import { OrganizationService } from './user/dashboard/organization.service';
     CreateProjectComponent,
     DashboardComponent,
   ],
-  providers: [ ProjectService, OrganizationService, VolunteerService ],
+  providers: [ ProjectService,
+               OrganizationService,
+               VolunteerService,
+               CreateService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

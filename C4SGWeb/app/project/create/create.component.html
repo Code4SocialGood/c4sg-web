@@ -86,17 +86,17 @@
                     </div>
 
                     <div class="input-field">
-                        <label for="state">State</label>
-                        <select id="state"
-                               type="text"
-                                formControlName="state" > </select>
+                        <select materialize="material_select" [materializeSelectOptions]="states">
+                            <option disabled="true">State</option>
+                            <option *ngFor="let state of states">{{state}}</option>
+                        </select>
                     </div>
 
                     <div class="input-field">
-                        <label for="country">Country</label>
-                        <select id="country"
-                               type="text"
-                                formControlName="country" ></select>
+                        <select materialize="material_select" [materializeSelectOptions]="countries">
+                            <option disabled="true">Country</option>
+                            <option *ngFor="let country of countries">{{country}}</option>
+                        </select>
                     </div>
 
                     <div class="input-field">
