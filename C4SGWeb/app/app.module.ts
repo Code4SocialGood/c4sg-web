@@ -30,6 +30,7 @@ import { RegistrationComponent } from './registration/registration.component';
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { AccountComponent } from './user/dashboard/account/account.component';
+import { ProfileComponent } from './user/dashboard/profile/profile.component';
 import { OrganizationService} from './user/dashboard/organization.service';
 
 @NgModule({
@@ -58,6 +59,7 @@ import { OrganizationService} from './user/dashboard/organization.service';
     CreateProjectComponent,
     DashboardComponent,
     AccountComponent,
+    ProfileComponent,
   ],
   providers: [ ProjectService, OrganizationService ],
   bootstrap: [ AppComponent ]
