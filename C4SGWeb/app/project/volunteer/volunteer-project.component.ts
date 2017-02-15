@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
+import {VolunteerService} from './volunteer.service';
 
 @Component({
     //moduleId: module.id,
@@ -15,11 +16,20 @@ export class VolunteerProjectComponent implements OnInit {
     projects: Object[];
 	selectedProject: Project;
 
-	constructor(private projectService: ProjectService, private router: Router) {
+	constructor(private projectService: ProjectService, private volunteerService: VolunteerService, private router: Router) {
 	}
 
     ngOnInit(): void {
        this.getProjects();
+       this.volunteerService.getUsers().subscribe(
+        (res) => {
+          const users = res.json();
+          console.log(users);
+        },
+         (err) => {
+          console.error('An error occurred', err); // for demo purposes only
+        }
+      )
     }
 
 	getProjects() {

@@ -27,6 +27,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+//Volunteers
+import {VolunteerService} from './project/volunteer/volunteer.service';
+
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { OrganizationService} from './user/dashboard/organization.service';
@@ -52,12 +55,12 @@ import { OrganizationService} from './user/dashboard/organization.service';
     VolunteerProjectComponent,
     OrganizationProjectComponent,
     ViewProjectComponent,
-    SearchProjectComponent,    
+    SearchProjectComponent,
     MaterializeDirective,
     CreateProjectComponent,
     DashboardComponent,
   ],
-  providers: [ ProjectService, OrganizationService ],
+  providers: [ ProjectService, OrganizationService, VolunteerService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
