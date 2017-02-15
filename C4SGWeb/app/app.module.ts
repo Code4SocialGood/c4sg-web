@@ -27,8 +27,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-//Volunteers
-import {VolunteerService} from './project/volunteer/volunteer.service';
+// Volunteers
+import { VolunteerService } from './project/volunteer/volunteer.service';
 
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
