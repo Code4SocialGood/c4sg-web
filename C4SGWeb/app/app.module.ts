@@ -1,17 +1,10 @@
 import './rxjs-extensions';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-<<<<<<< HEAD
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-
-import {MaterializeDirective} from 'angular2-materialize';
-=======
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
 import { MaterializeDirective } from 'angular2-materialize';
->>>>>>> upstream/master
 import { MaterialModule } from '@angular/material';
 
 // Home
@@ -39,16 +32,12 @@ import { VolunteerService } from './project/volunteer/volunteer.service';
 
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
-<<<<<<< HEAD
 import { AccountComponent } from './user/dashboard/account/account.component';
 import { ProfileComponent } from './user/dashboard/profile/profile.component';
 import { OrganizationComponent } from './user/dashboard/organization/organization.component';
-import { OrganizationService} from './user/dashboard/organization/organization.service';
+import { OrganizationService } from './user/dashboard/organization/organization.service';
 import {ProjectComponent} from './user/dashboard/projects/project.component';
 import {CreateProjectTabComponent} from './user/dashboard/create-project/create-project.component';
-=======
-import { OrganizationService } from './user/dashboard/organization.service';
->>>>>>> upstream/master
 
 @NgModule({
   imports: [
