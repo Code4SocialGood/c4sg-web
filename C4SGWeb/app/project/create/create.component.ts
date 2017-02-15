@@ -16,6 +16,7 @@ export class CreateProjectComponent {
 
     project: Project;
     params: Params;
+    showAddress: boolean = false;
     public file_srcs: string[] = [];
     public debug_size_before: string[]= [];
     public debug_size_after: string[]=[];
@@ -151,6 +152,10 @@ export class CreateProjectComponent {
 
     cancel(): void {
        this.router.navigate(['/projects']);
+    }
+
+    toggleAddress(value):void {
+        this.showAddress = value;
     }
 
 }
