@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
+import { CreateService } from './create.service';
 
 @Component({
   selector: 'create-project',
@@ -16,16 +17,20 @@ export class CreateProjectComponent {
     project: Project;
     params: Params;
     showAddress: boolean = false;
+    selectedState: string = '';
     public file_srcs: string[] = [];
     public debug_size_before: string[] = [];
     public debug_size_after: string[] = [];
+    states: any = this.createService.states;
+    countries: any = this.createService.countries;
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location,
               public fb: FormBuilder,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private changeDetectorRef: ChangeDetectorRef,
+              private createService: CreateService) {
   }
 
   // Upload image
@@ -109,7 +114,6 @@ export class CreateProjectComponent {
     ]],
     description: ['', Validators.required],
     remote: [false],
-    address: [false],
     line1: '',
     line2: '',
     city: '',
@@ -120,19 +124,9 @@ export class CreateProjectComponent {
 
   // retrieve info from form
   createProject(): void {
-    let form = this.createProjectForm.value;
 
-    let project = new Project(
-      form.name,
-      form.organization,
-      form.shortDescription,
-      form.description,
-      form.line1,
-      form.line2,
-      form.city,
-      form.country,
-      form.zip
-    );
+    let project = this.createProjectForm.value;
+    console.log(project);
 
     this.projectService
       .add(project)
@@ -150,6 +144,7 @@ export class CreateProjectComponent {
 
   toggleAddress(value): void {
     this.showAddress = value;
+    this.createProjectForm.value.remote = !value;
   }
 
 }
