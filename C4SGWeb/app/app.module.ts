@@ -33,6 +33,7 @@ import { AccountComponent } from './user/dashboard/account/account.component';
 import { ProfileComponent } from './user/dashboard/profile/profile.component';
 import { OrganizationComponent } from './user/dashboard/organization/organization.component';
 import { OrganizationService} from './user/dashboard/organization/organization.service';
+import {ProjectComponent} from './user/dashboard/projects/project.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { OrganizationService} from './user/dashboard/organization/organization.s
     AccountComponent,
     ProfileComponent,
     OrganizationComponent,
+    ProjectComponent,
   ],
   providers: [ ProjectService, OrganizationService ],
   bootstrap: [ AppComponent ]
