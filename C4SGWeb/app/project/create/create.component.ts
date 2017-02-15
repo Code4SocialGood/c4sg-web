@@ -13,11 +13,13 @@ import { ProjectService } from '../project.service';
 
 export class CreateProjectComponent {
 
-  project: Project;
-  params: Params;
-  public file_srcs: string[] = [];
-  public debug_size_before: string[] = [];
-  public debug_size_after: string[] = [];
+
+    project: Project;
+    params: Params;
+    showAddress: boolean = false;
+    public file_srcs: string[] = [];
+    public debug_size_before: string[]= [];
+    public debug_size_after: string[]=[];
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
@@ -146,5 +148,9 @@ export class CreateProjectComponent {
   cancel(): void {
     this.router.navigate(['/projects']);
   }
+
+    toggleAddress(value):void {
+        this.showAddress = value;
+    }
 
 }

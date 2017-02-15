@@ -42,25 +42,28 @@
             </div>
 
             <div class="row">
+
+            <div class="input-field" class="col s10 offset-s1">
+				<input name="group"
+					type="radio"
+					value="remote"
+					id="remote" 
+					class="filled-in"
+                    (click)="toggleAddress(false)" />
+				<label for="remote">Remote</label>
+
+				<input name="group"
+					type="radio"
+					value="address"
+					id="address" 
+					class="filled-in"
+                    (click)="toggleAddress(true)" />
+				<label for="address">Physical Address</label>
+			</div>
+
                 <div class="col s10 offset-s1">
-                    <p *ngIf="!createProjectForm.value.address">
-                        <input type="radio"
-                               id="remote"
-                               class="filled-in"
-                               formControlName="remote" />
-                        <label for="remote">Remote</label>
-                    </p>
-
-                    <p *ngIf="!createProjectForm.value.remote">
-                        <input type="radio"
-                               id="address"
-                               class="filled-in"
-                               formControlName="address" />
-                        <label for="address">Physical Address</label>
-                    </p>
-
                     <!-- Address -->
-                    <div *ngIf="createProjectForm.value.address">
+                    <div *ngIf="showAddress">
                     <div class="input-field address">
                         <label for="line1">Address Line 1</label>
                         <input id="line1"
