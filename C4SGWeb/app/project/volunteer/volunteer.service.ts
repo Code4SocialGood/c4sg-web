@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class VolunteerService {
 
-  private volunteerUrl = "http://localhost:8080/api/users";
-  constructor (private http:Http){
+  private volunteerUrl = 'http://localhost:8080/api/users';
+    constructor (private http: Http) {
   }
   getUsers(): Observable<Response> {
     const url = this.volunteerUrl;

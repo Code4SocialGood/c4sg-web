@@ -8,22 +8,22 @@ import { FormBuilder, Validators, FormsModule } from '@angular/forms';
 })
 
 export class RegistrationComponent {
-	constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder) {}
 
-	public signUpForm = this.fb.group({
-		username: ["", Validators.required],
-        email: ["", Validators.required],
-        password: ["", Validators.required],
-        rpassword: ["", Validators.required],
-		user: ["", Validators.required]
-	})
+  public signUpForm = this.fb.group({
+    username: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    rpassword: ['', Validators.required],
+    user: ['', Validators.required]
+  });
 
-	doSignUp(event) {
-		console.log(event);
-		console.log(this.signUpForm.value)
-	}
+  doSignUp(event) {
+    console.log(event);
+    console.log(this.signUpForm.value);
+  }
 
-	updateUser(value): void {
-		this.signUpForm.value.user = value;
-	}
+  updateUser(value): void {
+    this.signUpForm.value.user = value;
+  }
 }
