@@ -2,10 +2,10 @@ import './rxjs-extensions';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpModule, JsonpModule }    from '@angular/http';
+import { HttpModule }    from '@angular/http';
 
-import {MaterializeDirective} from "angular2-materialize";
-import { MaterialModule } from '@angular/material'
+import { MaterializeDirective } from 'angular2-materialize';
+import { MaterialModule } from '@angular/material';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -32,14 +32,14 @@ import {VolunteerService} from './project/volunteer/volunteer.service';
 
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
-import { OrganizationService} from './user/dashboard/organization.service';
+import { OrganizationService } from './user/dashboard/organization.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-      MaterialModule,
+    MaterialModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -63,4 +63,5 @@ import { OrganizationService} from './user/dashboard/organization.service';
   providers: [ ProjectService, OrganizationService, VolunteerService ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
