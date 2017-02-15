@@ -29,35 +29,37 @@ import { RegistrationComponent } from './registration/registration.component';
 
 // Dashboard
 import { DashboardComponent } from './user/dashboard/dashboard.component';
+import { AccountComponent } from './user/dashboard/account/account.component';
 import { OrganizationService} from './user/dashboard/organization.service';
 
 @NgModule({
- imports: [
-  BrowserModule,
-  FormsModule,
-  ReactiveFormsModule,
-   MaterialModule,
-  HttpModule,
-  AppRoutingModule
- ],
- declarations: [
-  AppComponent,
-  HomeComponent,
-  AboutComponent,
-  ContactComponent,
-  LoginComponent,
-  ForgotPasswordComponent,
-  ResetPasswordComponent,
-  RegistrationComponent,
-  VolunteerProjectComponent,
-  OrganizationProjectComponent,
-  ViewProjectComponent,
-  SearchProjectComponent,
-  MaterializeDirective,
-  CreateProjectComponent,
-  DashboardComponent,
- ],
- providers: [ ProjectService, OrganizationService ],
- bootstrap: [ AppComponent ]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    HttpModule,
+    AppRoutingModule
+  ],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    RegistrationComponent,
+    VolunteerProjectComponent,
+    OrganizationProjectComponent,
+    ViewProjectComponent,
+    SearchProjectComponent,
+    MaterializeDirective,
+    CreateProjectComponent,
+    DashboardComponent,
+    AccountComponent,
+  ],
+  providers: [ ProjectService, OrganizationService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
