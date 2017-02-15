@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-    //moduleId: module.id,
     selector: 'my-signin',
     templateUrl: './login.component.html',
     styleUrls: [ './login.component.css' ]
@@ -10,8 +9,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent {
     constructor(public fb: FormBuilder) {}
     public loginForm = this.fb.group({
-        username: ["", Validators.required],
-        password: ["", Validators.required]
+        username: ['', Validators.required],
+        password: ['', Validators.required]
     });
 
     doLogin(event) {
