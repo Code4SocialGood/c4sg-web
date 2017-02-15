@@ -16,4 +16,3 @@ import 'hammerjs';
 import 'jquery';
 import 'materialize-css/dist/js/materialize.min';
 import 'angular2-materialize';
-

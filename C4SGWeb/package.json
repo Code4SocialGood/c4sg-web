@@ -7,8 +7,9 @@
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
     "watch": "webpack --watch --progress --profile",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "server": "npm start"
+    "build": "rimraf dist && npm run lint && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "server": "npm start",
+    "lint": "tslint \"app/**/*.ts\""
   },
   "licenses": [
     {
@@ -40,6 +41,7 @@
     "@types/node": "^6.0.45",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.0.4-rc.0",
+    "codelyzer": "^2.0.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "css-to-string-loader": "^0.1.2",
@@ -50,7 +52,7 @@
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "tslint": "^4.4.2",
-    "tslint-loader": "^3.3.0",
+    "tslint-loader": "^3.4.2",
     "typescript": "^2.1.6",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",

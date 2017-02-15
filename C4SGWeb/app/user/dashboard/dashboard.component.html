@@ -1,11 +1,12 @@
 <div class="row">
+
     <div class="col s12 nav">
       <ul materialize="tabs" class="tabs">
         <li class="tab col s2"><a href="#account">My Account</a></li>
         <li class="tab col s2"><a href="#profile">My Profile</a></li>
         <li class="tab col s2"><a href="#projects">My Projects</a></li>
         <li class="tab col s2"><a href="#organization">My Organization</a></li>
-        <li class="tab col s2"><a href="#createProject">Create Project</a></li>
+        <li class="tab col s2"><a routerLink="/create_project">Create Project</a></li>
       </ul>
     </div>
 
@@ -48,39 +49,42 @@
     		</div>
     	</div>
     </div>
+  </div>
 
-    <div id="profile" class="col s12">My Profile
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
-                        <div class="col s4">
-                            <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                            <button type="button">Upload</button>
-                        </div>
-                        <div class="col s4">
-                            <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
-                            <input formControlName="github" type="text" placeholder="Github URL">
-                            <input formControlName="website" type="text" placeholder="Personal Website">
-                            <input formControlName="resume" type="text" placeholder="Resume">
-                            <input formControlName="skills" type="text" placeholder="Skills">
-                        </div>
-                        <div class="col s12">
-                            <div class="col s4">
-                                <button type="submit">Save</button>
-                            </div>
-                            <div class="col s4">
-                                <button type="button">Delete</button>
-                            </div>
-                            <div class="col s4">
-                                <button type="reset">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+  <div id="profile" class="col s12">My Profile
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
+            <div class="col s4">
+              <img class="responsive-img"
+                   src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+              <button type="button">Upload</button>
             </div>
+            <div class="col s4">
+              <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
+              <input formControlName="github" type="text" placeholder="Github URL">
+              <input formControlName="website" type="text" placeholder="Personal Website">
+              <input formControlName="resume" type="text" placeholder="Resume">
+              <input formControlName="skills" type="text" placeholder="Skills">
+            </div>
+            <div class="col s12">
+              <div class="col s4">
+                <button type="submit">Save</button>
+              </div>
+              <div class="col s4">
+                <button type="button">Delete</button>
+              </div>
+              <div class="col s4">
+                <button type="reset">Cancel</button>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
+
 
     <div id="organization" class="col s12">My Organization
     	<div class="container">
@@ -130,107 +134,125 @@
     			</div>
     		</div>
     	</div>
-    </div>
 
-    <div id="projects" class="col s12">My Projects
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <a href="#createProject"><button type="button">Create Project</button></a>
-                    <ul>
-                        <div class="col s6">
-                            <li>
-                                <div class="col s2">
-                                    <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                                </div>
-                                <div class="col s8">
-                                    <p id="projectName">Project Name</p>
-                                    <br>
-                                    <p id="projectShortDescription">Project Short Description</p>
-                                    <p id="Location">Location</p>
-                                    <p id="postDate">Post Date</p>
-                                </div>
-                                <div class="col s2">
-                                    <a href="#createProject"><button type="button">Edit</button></a>
-                                    <br>
-                                    <button type="button">Delete</button>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col s6">
-                            <li>
-                                <div class="col s2">
-                                    <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                                </div>
-                                <div class="col s8">
-                                    <p id="projectName">Project Name</p>
-                                    <br>
-                                    <p id="projectShortDescription">Project Short Description</p>
-                                    <p id="Location">Location</p>
-                                    <p id="postDate">Post Date</p>
-                                </div>
-                                <div class="col s2">
-                                    <a href="#createProject"><button type="button">Edit</button></a>
-                                    <br>
-                                    <button type="button">Delete</button>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
+    </div>
+  </div>
+
+  <div id="projects" class="col s12">My Projects
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <a href="#createProject">
+            <button type="button">Create Project</button>
+          </a>
+          <ul>
+            <div class="col s6">
+              <li>
+                <div class="col s2">
+                  <img class="responsive-img"
+                       src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
                 </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="createProject" class="col s12">Create Projects
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <a href="#createProject"><button type="button">Create Project</button></a>
-                    <ul>
-                        <div class="col s6">
-                            <li>
-                                <div class="col s2">
-                                    <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                                </div>
-                                <div class="col s8">
-                                    <p id="projectName">Project Name</p>
-                                    <br>
-                                    <p id="projectShortDescription">Project Short Description</p>
-                                    <p id="Location">Location</p>
-                                    <p id="postDate">Post Date</p>
-                                </div>
-                                <div class="col s2">
-                                    <a href="#createProject"><button type="button">Edit</button></a>
-                                    <br>
-                                    <button type="button">Delete</button>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col s6">
-                            <li>
-                                <div class="col s2">
-                                    <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                                </div>
-                                <div class="col s8">
-                                    <p id="projectName">Project Name</p>
-                                    <br>
-                                    <p id="projectShortDescription">Project Short Description</p>
-                                    <p id="Location">Location</p>
-                                    <p id="postDate">Post Date</p>
-                                </div>
-                                <div class="col s2">
-                                    <a href="#createProject"><button type="button">Edit</button></a>
-                                    <br>
-                                    <button type="button">Delete</button>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
+                <div class="col s8">
+                  <p id="projectName">Project Name</p>
+                  <br>
+                  <p id="projectShortDescription">Project Short Description</p>
+                  <p id="Location">Location</p>
+                  <p id="postDate">Post Date</p>
                 </div>
+                <div class="col s2">
+                  <a href="#createProject">
+                    <button type="button">Edit</button>
+                  </a>
+                  <br>
+                  <button type="button">Delete</button>
+                </div>
+              </li>
             </div>
+            <div class="col s6">
+              <li>
+                <div class="col s2">
+                  <img class="responsive-img"
+                       src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                </div>
+                <div class="col s8">
+                  <p id="projectName">Project Name</p>
+                  <br>
+                  <p id="projectShortDescription">Project Short Description</p>
+                  <p id="Location">Location</p>
+                  <p id="postDate">Post Date</p>
+                </div>
+                <div class="col s2">
+                  <a href="#createProject">
+                    <button type="button">Edit</button>
+                  </a>
+                  <br>
+                  <button type="button">Delete</button>
+                </div>
+              </li>
+            </div>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
+
+
+  <div id="createProject" class="col s12">Create Projects
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <a href="#createProject">
+            <button type="button">Create Project</button>
+          </a>
+          <ul>
+            <div class="col s6">
+              <li>
+                <div class="col s2">
+                  <img class="responsive-img"
+                       src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                </div>
+                <div class="col s8">
+                  <p id="projectName">Project Name</p>
+                  <br>
+                  <p id="projectShortDescription">Project Short Description</p>
+                  <p id="Location">Location</p>
+                  <p id="postDate">Post Date</p>
+                </div>
+                <div class="col s2">
+                  <a href="#createProject">
+                    <button type="button">Edit</button>
+                  </a>
+                  <br>
+                  <button type="button">Delete</button>
+                </div>
+              </li>
+            </div>
+            <div class="col s6">
+              <li>
+                <div class="col s2">
+                  <img class="responsive-img"
+                       src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                </div>
+                <div class="col s8">
+                  <p id="projectName">Project Name</p>
+                  <br>
+                  <p id="projectShortDescription">Project Short Description</p>
+                  <p id="Location">Location</p>
+                  <p id="postDate">Post Date</p>
+                </div>
+                <div class="col s2">
+                  <a href="#createProject">
+                    <button type="button">Edit</button>
+                  </a>
+                  <br>
+                  <button type="button">Delete</button>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

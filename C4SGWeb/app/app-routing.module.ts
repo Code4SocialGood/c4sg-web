@@ -20,25 +20,26 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 const routes: Routes = [
 
-    { path: '', component: HomeComponent },
+  {path: '', component: HomeComponent},
 
-    { path: 'projects', component: OrganizationProjectComponent },
-    { path: 'create_project', component: CreateProjectComponent },
-    { path: 'view-project/:id', component: ViewProjectComponent },
+  {path: 'projects', component: OrganizationProjectComponent},
+  {path: 'create_project', component: CreateProjectComponent},
+  {path: 'view-project/:id', component: ViewProjectComponent},
 
-    { path: 'volunteers', component: VolunteerProjectComponent },
-    { path: 'nonprofits', component: OrganizationProjectComponent },
-    { path: 'dashboard', component: DashboardComponent },
-    
-    { path: 'about', component: AboutComponent },
-    { path: 'contact', component: ContactComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'reset-password', component: ResetPasswordComponent },
-    { path: 'register' , component: RegistrationComponent }
+  {path: 'volunteers', component: VolunteerProjectComponent},
+  {path: 'nonprofits', component: OrganizationProjectComponent},
+  {path: 'dashboard', component: DashboardComponent},
+
+  {path: 'about', component: AboutComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
+  {path: 'register', component: RegistrationComponent}
 ];
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
-    exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
