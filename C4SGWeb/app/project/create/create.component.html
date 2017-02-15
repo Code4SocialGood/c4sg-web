@@ -86,14 +86,18 @@
                     </div>
 
                     <div class="input-field">
-                        <select materialize="material_select" [materializeSelectOptions]="states">
+                        <select materialize="material_select" 
+                            [materializeSelectOptions]="states" 
+                            formControlName="state">
                             <option disabled="true">State</option>
                             <option *ngFor="let state of states">{{state}}</option>
                         </select>
                     </div>
 
                     <div class="input-field">
-                        <select materialize="material_select" [materializeSelectOptions]="countries">
+                        <select materialize="material_select" 
+                            [materializeSelectOptions]="countries" 
+                            formControlName="country">
                             <option disabled="true">Country</option>
                             <option *ngFor="let country of countries">{{country}}</option>
                         </select>
@@ -123,4 +127,6 @@
             </div>
         </div>
     </form>
+    <!-- For debugging. Remove for production -->
+	{{ createProjectForm.value | json}}
 </div>

@@ -114,7 +114,6 @@ export class CreateProjectComponent {
     ]],
     description: ['', Validators.required],
     remote: [false],
-    address: [false],
     line1: '',
     line2: '',
     city: '',
@@ -125,19 +124,9 @@ export class CreateProjectComponent {
 
   // retrieve info from form
   createProject(): void {
-    let form = this.createProjectForm.value;
 
-    let project = new Project(
-      form.name,
-      form.organization,
-      form.shortDescription,
-      form.description,
-      form.line1,
-      form.line2,
-      form.city,
-      form.country,
-      form.zip
-    );
+    let project = this.createProjectForm.value;
+    console.log(project);
 
     this.projectService
       .add(project)
@@ -155,6 +144,7 @@ export class CreateProjectComponent {
 
   toggleAddress(value): void {
     this.showAddress = value;
+    this.createProjectForm.value.remote = !value;
   }
 
 }
