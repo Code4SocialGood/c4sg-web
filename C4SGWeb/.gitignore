@@ -12,5 +12,8 @@ npm-debug.log
 # IDE (none if use Sublime)
 .idea/
 
+# Testing
+coverage/
+
 # Release
 dist/
