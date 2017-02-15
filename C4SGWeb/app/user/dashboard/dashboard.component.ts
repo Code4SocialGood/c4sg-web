@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CreateProjectComponent } from '../../project/create/create.component';
-import {OrganizationService} from "./organization.service";
+import {OrganizationService} from "./organization/organization.service";
 
 
 @Component({
