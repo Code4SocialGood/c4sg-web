@@ -2,65 +2,71 @@ package org.c4sg.mapper;
 
 import org.c4sg.dto.UserDto;
 import org.c4sg.entity.User;
-import org.c4sg.mapper.converter.BooleanToStringConverter;
-import org.c4sg.mapper.converter.StatusConverter;
-import org.c4sg.mapper.converter.StringToBooleanConverter;
-import org.c4sg.mapper.converter.UserRoleConverter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
-import javax.annotation.PostConstruct;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.io.WKTReader;
+
+
 
 @Component
 public class UserMapper extends ModelMapper {
-
-    @Autowired
-    private UserRoleConverter userRoleConverter;
-
-    @Autowired
-    private StringToBooleanConverter stringToBooleanConverter;
-
-    @Autowired
-    private BooleanToStringConverter booleanToStringConverter;
-
-    @Autowired
-    private StatusConverter statusConverter;
-
-    @PostConstruct
-    private void init() {
-
-        PropertyMap<User, UserDto> userDtoPropertyMap = new PropertyMap<User, UserDto>() {
-            @Override
-            protected void configure() {
-                map(source.getRole()).setRole(null);
-                using(booleanToStringConverter).map(source.getDisplayFlag()).setDisplayFlag(null);
-                map(source.getStatus()).setStatus(null);
-                map(source.getLocation().getX()).setLatitude(null);
-                map(source.getLocation().getY()).setLongitude(null);
-            }
-        };
-
-        PropertyMap<UserDto, User> userPropertyMap = new PropertyMap<UserDto, User>() {
-            @Override
-            protected void configure() {
-                using(userRoleConverter).map(source.getRole()).setRole(null);
-                using(stringToBooleanConverter).map(source.getDisplayFlag()).setDisplayFlag(null);
-                using(statusConverter).map(source.getStatus()).setStatus(null);
-//                @todo create point from dto lat/long
-//                Point point = new Point();
-//                map().setLocation(point);
-            }
-        };
-        addMappings(userDtoPropertyMap);
-        addMappings(userPropertyMap);
-    }
-
-    public UserDto getUserDtoFromEntity(User user) {
-        return map(user, UserDto.class);
-    }
-
-    public User getUserEntityFromDto(UserDto userDto) {
-        return map(userDto, User.class);
-    }
+	
+	UserMapper() {
+	}
+	
+	/**
+	 * Map user entity into data transfer object
+	 * 
+	 * @param user User Entity
+	 * @return UserDto
+	 */
+	public UserDto getUserDtoFromEntity(User user){	
+		//convert geometry object to a point
+		Geometry g = null;
+		com.vividsolutions.jts.geom.Point point = null;		
+		WKTReader reader = new WKTReader();
+		try {
+			g = reader.read(user.getLocation().toText());
+			point = (com.vividsolutions.jts.geom.Point) g;
+		}
+		catch (Exception e) {
+			//do nothing
+		}
+		//start mapping data into the dto
+		UserDto userDto = map(user, UserDto.class);
+		//add mapping for location if point object is not null
+		if (point != null) {
+			org.springframework.data.geo.Point gp = new Point(point.getX(), point.getY());
+			userDto.setLongitude(Double.toString(point.getX()));
+			userDto.setLatitude(Double.toString(point.getY()));
+		}
+		userDto.setDisplayFlag((user.getDisplayFlag() != null && user.getDisplayFlag().booleanValue()) ? "Y" : "N"); 
+		return userDto;
+	}
+	
+	/**
+	 * Map user data transfer object into user entity
+	 * 
+	 * @param userDto User Data Transfer object
+	 * @return User
+	 */	
+	public User getUserEntityFromDto(UserDto userDto){		
+		User user = map(userDto, User.class);
+		
+		if (userDto.getLatitude() != null && userDto.getLongitude() != null){
+			GeometryFactory gf = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING));
+			Coordinate coordinate = new Coordinate(Double.parseDouble(userDto.getLongitude()), 
+					Double.parseDouble(userDto.getLatitude()));
+			com.vividsolutions.jts.geom.Point point = gf.createPoint(coordinate);	
+			user.setLocation(point);			
+		}
+		user.setDisplayFlag(Boolean.valueOf(userDto.getDisplayFlag()));
+		return user;
+	}	
 }

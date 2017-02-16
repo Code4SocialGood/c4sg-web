@@ -1,0 +1,124 @@
+<div class="container center">
+    <h4 *ngIf="users">{{users.length}} volunteers found</h4>
+</div>
+
+<!-- Search Volunteers-->
+<div class="row center">
+    <div class="input-field inline">
+      <td>
+        <input #userId id="id" type="text"/> 
+        <label for="userId">keyword</label>
+      </td>
+      <td>
+        <button (click)="getUsersByKeyword(userId.value); userId.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+      </td>
+    </div>
+</div>
+
+<!-- List of Volunteers-->
+<div class="container">
+    <div class="row users valign">     
+        <div *ngFor="let user of users; let idx = index">
+            <div class="col s6" *ngIf="idx % 2 === 0 ">
+                <div class="container valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+            <!--td><img src={{user.image}} height="200" width="200"></td-->
+                        <td>
+                            <div class="row">
+                                <div class="col s3 valign">
+                                    <label class="right-align usrlabel">UserName:</label>
+                                </div>    
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
+                                </div>
+   
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">FirstName:</label>
+                                </div>          
+                                 <div class="col s9 valign">
+                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
+                                </div>
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">LastName:</label>
+                                </div>                                  
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
+                                </div>
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">Location:</label>
+                                </div>                                  
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
+                                    {{user.country}}</span><br>
+                                </div>
+                                <br>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
+            </div>
+            <div class="col s6" *ngIf="idx % 2 === 1 ">
+                <div class="container valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+            <!--td><img src={{user.image}} height="200" width="200"></td-->
+                        <td>
+                            <div class="row">
+                                <div class="col s3 valign">
+                                    <label class="right-align usrlabel">UserName:</label>
+                                </div>    
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
+                                </div>
+   
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">FirstName:</label>
+                                </div>          
+                                 <div class="col s9 valign">
+                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
+                                </div>
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">LastName:</label>
+                                </div>                                  
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
+                                </div>
+                                <div class="col s3 valign">                        
+                                    <label class="right-align usrlabel">Location:</label>
+                                </div>                                  
+                                <div class="col s9 valign">
+                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
+                                    {{user.country}}</span><br>
+                                </div>
+                                <br>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
+</div>
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h5>CONFIRM USER DELETE</h5>
+      <hr>
+      <br>
+      <div class="col s12">
+          <p class="h3 valign col s12" *ngIf="selectedUser">     {{selectedUser.userName}}</p>
+      </div> 
+    </div>
+    <div class="modal-footer" *ngIf="selectedUser">
+      <button (click) = "delete(selectedUser)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+    </div>
+  </div>
