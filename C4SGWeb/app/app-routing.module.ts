@@ -13,15 +13,18 @@ import { ListOrganizationComponent } from './organization/list/list-organization
 import { ViewOrganizationComponent } from './organization/view/view-organization.component';
 import { CreateOrganizationComponent } from './organization/create/create-organization.component';
 
-import { ListVolunteerComponent } from './volunteer/list/list-volunteer.component';
-import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
-import { UserAccountComponent } from './volunteer/account/user-account.component';
-import { UserProfileComponent } from './volunteer/profile/user-profile.component';
+// import { ListVolunteerComponent } from './volunteer/list/list-volunteer.component';
+// import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
+// import { UserAccountComponent } from './volunteer/account/user-account.component';
+// import { UserProfileComponent } from './volunteer/profile/user-profile.component';
 
 import { RegistrationComponent } from './login/registration/registration.component';
 import { LoginComponent } from './login/login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+
+import { UserListComponent }  from './user/list/list.component';
+import { UserViewComponent }  from './user/view/user-view.component';
 
 const routes: Routes = [
 
@@ -37,15 +40,19 @@ const routes: Routes = [
   {path: 'view-nonprofit', component: ViewOrganizationComponent},
   {path: 'create-nonprofit', component: CreateOrganizationComponent},
 
-  {path: 'volunteers', component: ListVolunteerComponent},
-  {path: 'view-volunteer', component: ViewVolunteerComponent},
-  {path: 'account', component: UserAccountComponent},
-  {path: 'profile', component: UserProfileComponent},
+  // {path: 'volunteers', component: ListVolunteerComponent},
+  // {path: 'view-volunteer', component: ViewVolunteerComponent},
+  // {path: 'account', component: UserAccountComponent},
+  // {path: 'profile', component: UserProfileComponent},
 
   {path: 'register', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
+
+  { path: 'user/list', component: UserListComponent },
+  { path: 'user/view/:id', component: UserViewComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

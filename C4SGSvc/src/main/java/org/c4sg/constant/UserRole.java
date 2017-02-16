@@ -1,7 +1,5 @@
 package org.c4sg.constant;
 
-import java.util.Optional;
-
 public enum UserRole {
 
     VOLUNTEER("V"), ORGANIZATION("O"), C4SG_ADMIN("C"), C4SG_DEVELOPER("D");
@@ -11,28 +9,18 @@ public enum UserRole {
     UserRole(String value) {
         this.value = value;
     }
+    
+	public String getValue(){
+		return value;
+	}
 
-    public static UserRole getUserRole(String role) {
-        if(!Optional.ofNullable(role).isPresent()) {
-            return VOLUNTEER;
-        }
-        String currentRole = role.toUpperCase();
-        switch (currentRole) {
-            case "V":
-                return VOLUNTEER;
-            case "O":
-                return ORGANIZATION;
-            case "C":
-                return C4SG_ADMIN;
-            case "D":
-                return C4SG_DEVELOPER;
-            default:
-                return VOLUNTEER;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return value;
+    public static String getUserRole(String role) {
+		for (UserRole e : UserRole.values()) {
+			if (e.getValue() == role.toUpperCase())
+			{
+				return e.name();
+			}	
+		}
+		return VOLUNTEER.name();
     }
 }

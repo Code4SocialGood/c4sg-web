@@ -4,7 +4,14 @@
         <a href="" class="brand-logo"><img src="./images/logo.png" height="60" width="380"></a>
         <ul class="right hide-on-med-and-down">
             <li><a routerLink="/projects" routerLinkActive="active" >Projects</a></li>   
-            <li><a routerLink="/volunteers" routerLinkActive="active" >Volunteers</a></li>   
+
+            <li>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownvolunteer">Volunteers<i class="material-icons right">arrow_drop_down</i></a>
+                <ul id="dropdownvolunteer" class="dropdown-content">
+                   <li><a routerLink="/user/list" routerLinkActive="active">User List</a></li>
+                </ul>            
+            </li>   
+
             <li><a routerLink="/nonprofits" routerLinkActive="active" >Nonprofits</a></li>         
 
             <li>
@@ -31,18 +38,18 @@
 <!-- Footer -->
 <footer class="page-footer white">
 <div class="container">
-  <div class="row">
-    <div class = "col-md-2">
-	   <h6 class="white-text">
-		    <ul>
-                <li><a routerLink="/about" routerLinkActive="active" >About Us</a></li>
-                <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px" ></a></li>
-                <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a></li>
-                <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"></a></li>         
-                <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>
-            </ul>
-        </h6>
-    </div>
-  </div>
+    <div class="row">
+        <div class = "col-md-2">
+	        <h6 class="white-text">
+		        <ul>
+                    <li><a routerLink="/about" routerLinkActive="active" >About Us</a></li>
+                    <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px" ></a>
+                    <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
+                    <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"></a>         
+                    <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
+                </ul>
+            </h6>
+        </div>
+   </div>
 </div>
 </footer>
