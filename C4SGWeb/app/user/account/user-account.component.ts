@@ -4,8 +4,8 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 @Component({
   // moduleId: module.id,
   selector: 'my-account',
-  templateUrl: './user-account.component.html',
-  styleUrls: ['./user-account.component.css']
+  templateUrl: 'user-account.component.html',
+  styleUrls: ['user-account.component.css']
 })
 
 export class UserAccountComponent {

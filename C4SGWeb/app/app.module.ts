@@ -24,11 +24,8 @@ import { ViewOrganizationComponent } from './organization/view/view-organization
 import { CreateOrganizationComponent } from './organization/create/create-organization.component';
 
 // Volunteer
-// import { ListVolunteerComponent }  from './volunteer/list/list-volunteer.component';
-// import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
-// import { UserAccountComponent }  from './volunteer/account/user-account.component';
-// import { UserProfileComponent }  from './volunteer/profile/user-profile.component';
-
+import { UserAccountComponent }  from './user/account/user-account.component';
+import { UserProfileComponent }  from './user/profile/user-profile.component';
 import { UserListComponent }  from './user/list/list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
 
@@ -39,11 +36,9 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 // Service
-import { VolunteerService } from './volunteer/volunteer.service';
 import { OrganizationService } from './organization/organization.service';
 import { ProjectService }  from './project/project.service';
 import { CreateProjectService } from './project/create/create-project.service';
-
 import { UserService }        from './user/common/user.service';
 
 @NgModule({
@@ -68,10 +63,10 @@ import { UserService }        from './user/common/user.service';
     ViewOrganizationComponent,
     CreateOrganizationComponent,
 
-//    ListVolunteerComponent,
-//    ViewVolunteerComponent,
-//    UserAccountComponent,
-//    UserProfileComponent,
+    UserListComponent,
+    UserViewComponent,
+    UserAccountComponent,
+    UserProfileComponent,
 
     RegistrationComponent,
     LoginComponent,
@@ -79,13 +74,9 @@ import { UserService }        from './user/common/user.service';
     ResetPasswordComponent,
 
     MaterializeDirective,
-
-    UserListComponent,
-    UserViewComponent
   ],
   providers: [ ProjectService,
                OrganizationService,
-               VolunteerService,
                CreateProjectService,
                UserService],
 
