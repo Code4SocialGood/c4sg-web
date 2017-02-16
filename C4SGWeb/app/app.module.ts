@@ -43,6 +43,7 @@ import { VolunteerService } from './volunteer/volunteer.service';
 import { OrganizationService } from './organization/organization.service';
 import { ProjectService }  from './project/project.service';
 import { CreateProjectService } from './project/create/create-project.service';
+
 import { UserService }        from './user/common/user.service';
 
 @NgModule({
@@ -78,6 +79,7 @@ import { UserService }        from './user/common/user.service';
     ResetPasswordComponent,
 
     MaterializeDirective,
+
     UserListComponent,
     UserViewComponent
   ],
@@ -86,6 +88,7 @@ import { UserService }        from './user/common/user.service';
                VolunteerService,
                CreateProjectService,
                UserService],
+
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

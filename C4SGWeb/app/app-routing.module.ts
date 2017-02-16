@@ -52,6 +52,7 @@ const routes: Routes = [
 
   { path: 'user/list', component: UserListComponent },
   { path: 'user/view/:id', component: UserViewComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
