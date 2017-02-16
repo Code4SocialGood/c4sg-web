@@ -10,22 +10,17 @@ public enum Status {
         this.value = value;
     }
 
-    public static Status getStatus(String status) {
-        String currentStatus = status.toUpperCase();
-        switch (currentStatus) {
-            case "A":
-                return ACTIVE;
-            case "P":
-                return PENDING;
-            case "D":
-                return DELETED;
-            default:
-                return ACTIVE;
-        }
+    public String getValue() {
+    	return value;
     }
 
-    @Override
-    public String toString() {
-        return value;
+    public static String getStatus(String status) {
+		for (Status e : Status.values()) {
+			if (e.getValue() == status.toUpperCase())
+			{
+				return e.name();
+			}	
+		}
+		return PENDING.name();
     }
 }

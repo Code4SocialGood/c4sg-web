@@ -1,11 +1,20 @@
 package org.c4sg.entity;
 
-import com.vividsolutions.jts.geom.Point;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.c4sg.constant.Status;
 import org.c4sg.constant.UserRole;
+import org.c4sg.converter.StatusConverter;
+import org.c4sg.converter.UserRoleConverter;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.vividsolutions.jts.geom.Point;
 
 @Entity
 public class User implements Serializable {
@@ -29,16 +38,20 @@ public class User implements Serializable {
     private String country;
     @Column(name = "zip", nullable = false)
     private String zip;
+    
+    @Convert(converter = StatusConverter.class)
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
     private Status status;
+    
+    @Convert(converter = UserRoleConverter.class)
     @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
     private UserRole role;
+    
     @Column(name = "github", columnDefinition = "char(1)", nullable = false)
     private Integer github;
     @Column(name = "display_flag")
     private Boolean displayFlag;
+ 
     @Column(name = "location", columnDefinition = "point")
     private Point location;
 

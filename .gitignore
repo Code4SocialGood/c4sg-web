@@ -2,8 +2,28 @@
 .metadata\
 RemoteSystemsTempFiles
 npm-debug.log
+<<<<<<< HEAD
 C4SGWeb/app/volunteer/account/user-account.component.css
 
 C4SGWeb/app/user/account/user-account.component.css
 
 C4SGWeb/app/user/dashboard/dashboard.component.css
+=======
+C4SGWeb/app/user/nonprofit/nonprofit-user.component.css
+
+C4SGWeb/app/user/nonprofit/nonprofit-user.component.html
+
+C4SGWeb/app/user/nonprofit/nonprofit-user.component.ts
+
+C4SGWeb/app/volunteer/account/user-account.component.css
+
+C4SGWeb/app/user/c4sg/c4sg-user.component.css
+
+C4SGWeb/config/webpack.dev.js
+>>>>>>> upstream/master
+
+C4SGWeb/app/user/dashboard/dashboard.component.css
+
+C4SGWeb/app/volunteer/account/user-account.component.css~HEAD
+
+C4SGWeb/app/volunteer/account/user-account.component.css~HEAD

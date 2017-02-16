@@ -1,0 +1,39 @@
+
+<!-- User detail-->
+<div *ngIf="user" class="container">
+    <div class="container valign-wrapper">
+        <tr item-width="100%" class="center-align">
+            <td>
+                <div class="row">
+                    <div class="col s3 valign">
+                        <label class="right-align h3">UserName:</label>
+                    </div>    
+                    <div class="col s9 valign">
+                        <span class="left-align h4">{{user.userName}} </span><br>
+                    </div>
+
+                    <div class="col s3 valign">                        
+                        <label class="right-align h3">FirstName:</label>
+                    </div>          
+                        <div class="col s9 valign">
+                        <span class="left-align h4" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
+                    </div>
+                    <div class="col s3 valign">                        
+                        <label class="right-align h3">LastName:</label>
+                    </div>                                  
+                    <div class="col s9 valign">
+                        <span class="left-align h4" *ngIf="user.lastName">{{user.lastName}}</span><br>
+                    </div>
+                    <div class="col s3 valign">                        
+                        <label class="right-align h3">Location:</label>
+                    </div>                                  
+                    <div class="col s9 valign">
+                        <span class="left-align h4">{{user.state}},&nbsp;                        
+                        {{user.country}}</span><br>
+                    </div>
+                    <br>
+                </div>
+            </td>
+        </tr>                    
+    </div>
+</div>
