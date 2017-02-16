@@ -1,0 +1,29 @@
+<div class="container">
+    <h4>5 volunteers found</h4>
+</div>
+
+<!-- Search Volunteers-->
+<div class="row center">
+    <div class="input-field inline">
+      <td>
+        <input #volunteerName id="name" type="text"/> 
+        <label for="name">keyword</label>
+      </td>
+      <td>
+        <button (click)="getVolunteersByKeyword(volunteerName.value); volunteerName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+      </td>
+    </div>
+</div>
+
+<!-- List Volunteers-->
+<div class="container">
+<ul class="volunteers">
+    <li *ngFor="let volunteer of volunteers" (click)="onSelect(volunteer)" [class.selected]="volunteer === selectedVolunteer">
+        <tr>
+            <td>
+                <span><h5>{{volunteer.userName}}</h5></span><br>          
+            </td>
+        </tr>
+    </li>
+</ul>
+</div>
