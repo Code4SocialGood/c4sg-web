@@ -11,34 +11,35 @@ import { MaterialModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
 // Project
-import { VolunteerProjectComponent }  from './project/volunteer/volunteer-project.component';
-import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
+import { ListProjectComponent }  from './project/list/list-project.component';
 import { ViewProjectComponent }  from './project/view/view-project.component';
-import { SearchProjectComponent }  from './project/search/search-project.component';
-import { CreateProjectComponent }  from './project/create/create.component';
+import { CreateProjectComponent }  from './project/create/create-project.component';
+
+// Organization
+import { ListOrganizationComponent }  from './organization/list/list-organization.component';
+import { ViewOrganizationComponent } from './organization/view/view-organization.component';
+import { CreateOrganizationComponent } from './organization/create/create-organization.component';
+
+// Volunteer
+import { ListVolunteerComponent }  from './volunteer/list/list-volunteer.component';
+import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
+import { UserAccountComponent }  from './volunteer/account/user-account.component';
+import { UserProfileComponent }  from './volunteer/profile/user-profile.component';
+
+// Login
+import { RegistrationComponent } from './login/registration/registration.component';
+import { LoginComponent } from './login/login/login.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+
+// Service
+import { VolunteerService } from './volunteer/volunteer.service';
+import { OrganizationService } from './organization/organization.service';
 import { ProjectService }  from './project/project.service';
-import { CreateService } from './project/create/create.service';
-
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
-import { RegistrationComponent } from './registration/registration.component';
-
-// Volunteers
-import { VolunteerService } from './project/volunteer/volunteer.service';
-
-// Dashboard
-import { DashboardComponent } from './user/dashboard/dashboard.component';
-import { AccountComponent } from './user/dashboard/account/account.component';
-import { ProfileComponent } from './user/dashboard/profile/profile.component';
-import { OrganizationComponent } from './user/dashboard/organization/organization.component';
-import { OrganizationService } from './user/dashboard/organization/organization.service';
-import {ProjectComponent} from './user/dashboard/projects/project.component';
-import {CreateProjectTabComponent} from './user/dashboard/create-project/create-project.component';
+import { CreateProjectService } from './project/create/create-project.service';
 
 @NgModule({
   imports: [
@@ -53,28 +54,31 @@ import {CreateProjectTabComponent} from './user/dashboard/create-project/create-
     AppComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent,
+
+    ListProjectComponent,
+    ViewProjectComponent,
+    CreateProjectComponent,
+
+    ListOrganizationComponent,
+    ViewOrganizationComponent,
+    CreateOrganizationComponent,
+
+    ListVolunteerComponent,
+    ViewVolunteerComponent,
+    UserAccountComponent,
+    UserProfileComponent,
+
+    RegistrationComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    RegistrationComponent,
-    VolunteerProjectComponent,
-    OrganizationProjectComponent,
-    ViewProjectComponent,
-    SearchProjectComponent,
+
     MaterializeDirective,
-    CreateProjectComponent,
-    DashboardComponent,
-    AccountComponent,
-    ProfileComponent,
-    OrganizationComponent,
-    ProjectComponent,
-    CreateProjectTabComponent,
   ],
   providers: [ ProjectService,
                OrganizationService,
                VolunteerService,
-               CreateService],
+               CreateProjectService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

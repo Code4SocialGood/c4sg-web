@@ -1,0 +1,94 @@
+<div class="container">
+    <h4>4 nonprofits found</h4>
+</div>
+
+<!-- Search Organizations-->
+<div class="row center">
+    <div class="input-field inline">
+      <td>
+        <input #organizationName id="name" type="text"/> 
+        <label for="name">keyword</label>
+      </td>
+      <td>
+        <button (click)="getOrganizationsByKeyword(organizationName.value); organizationName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+      </td>
+    </div>
+</div>
+
+<!-- List Organizations-->
+<div class="container">
+<ul class="projects">
+    <li *ngFor="let organization of organizations" (click)="onSelect(organization)" [class.selected]="organization === selectedOrganization">
+        <tr>
+            <td>
+                <span><h5>{{organization.name}}</h5></span><br>          
+            </td>
+        </tr>
+    </li>
+</ul>
+</div>
+
+
+<!--
+
+
+
+
+<div id="projects" class="col s12">My Projects
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <a href="#createProject">
+                    <button type="button">Create Project</button>
+                </a>
+                <ul>
+                    <div class="col s6">
+                        <li>
+                            <div class="col s2">
+                                <img class="responsive-img"
+                                     src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                            </div>
+                            <div class="col s8">
+                                <p id="projectName">Project Name</p>
+                                <br>
+                                <p id="projectShortDescription">Project Short Description</p>
+                                <p id="Location">Location</p>
+                                <p id="postDate">Post Date</p>
+                            </div>
+                            <div class="col s2">
+                                <a href="#createProject">
+                                    <button type="button">Edit</button>
+                                </a>
+                                <br>
+                                <button type="button">Delete</button>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="col s6">
+                        <li>
+                            <div class="col s2">
+                                <img class="responsive-img"
+                                     src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                            </div>
+                            <div class="col s8">
+                                <p id="projectName">Project Name</p>
+                                <br>
+                                <p id="projectShortDescription">Project Short Description</p>
+                                <p id="Location">Location</p>
+                                <p id="postDate">Post Date</p>
+                            </div>
+                            <div class="col s2">
+                                <a href="#createProject">
+                                    <button type="button">Edit</button>
+                                </a>
+                                <br>
+                                <button type="button">Delete</button>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+-->
