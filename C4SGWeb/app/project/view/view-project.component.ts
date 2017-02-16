@@ -51,5 +51,4 @@ export class ViewProjectComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
 }
