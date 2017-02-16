@@ -4,15 +4,12 @@ import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import * as $ from 'jquery';
 
-
-
 @Component({
-    moduleId: module.id,
+    // moduleId: module.id,
     selector: 'userlist',
     templateUrl: 'list.component.html',
     styleUrls: ['list.component.css']
 })
-
 
 export class UserListComponent implements OnInit, AfterViewInit {
 
@@ -29,7 +26,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        //jquery script below opens up the modal dialog for delete confirmation
+        // jquery script below opens up the modal dialog for delete confirmation
         $(document).ready(function(){
             $('.modal').modal();
         });
@@ -56,21 +53,21 @@ export class UserListComponent implements OnInit, AfterViewInit {
             error => console.log(error)
         )
     }
-
+    // pre delete 
     confirmDelete(user: User): void {
         this.selectedUser = user;
     }
-
+    // selection callback
     onSelect(user: User): void {
         this.selectedUser = user;
         this.router.navigate(['user/view', user.id]);
     }
-
+    // delete callback
     delete(user: User): void {
         this.userService.delete(user.id).subscribe(            
             error => console.log(error)
         );
-        //after deletion, the steps below updates the view and to exclude the deleted user
+        // after deletion, the steps below updates the view and to exclude the deleted user
         this.users = this.users.filter(u => u !== user);
         if (this.selectedUser === user) {this.selectedUser = null;}
     }

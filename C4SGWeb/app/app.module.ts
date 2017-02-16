@@ -24,14 +24,13 @@ import { ViewOrganizationComponent } from './organization/view/view-organization
 import { CreateOrganizationComponent } from './organization/create/create-organization.component';
 
 // Volunteer
-import { ListVolunteerComponent }  from './volunteer/list/list-volunteer.component';
-import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
-import { UserAccountComponent }  from './volunteer/account/user-account.component';
-import { UserProfileComponent }  from './volunteer/profile/user-profile.component';
+// import { ListVolunteerComponent }  from './volunteer/list/list-volunteer.component';
+// import { ViewVolunteerComponent } from './volunteer/view/view-volunteer.component';
+// import { UserAccountComponent }  from './volunteer/account/user-account.component';
+// import { UserProfileComponent }  from './volunteer/profile/user-profile.component';
 
 import { UserListComponent }  from './user/list/list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
-import { UserService }  from './user/common/user.service';
 
 // Login
 import { RegistrationComponent } from './login/registration/registration.component';
@@ -44,7 +43,7 @@ import { VolunteerService } from './volunteer/volunteer.service';
 import { OrganizationService } from './organization/organization.service';
 import { ProjectService }  from './project/project.service';
 import { CreateProjectService } from './project/create/create-project.service';
-
+import { UserService }        from './user/common/user.service';
 
 @NgModule({
   imports: [
@@ -68,10 +67,10 @@ import { CreateProjectService } from './project/create/create-project.service';
     ViewOrganizationComponent,
     CreateOrganizationComponent,
 
-    ListVolunteerComponent,
-    ViewVolunteerComponent,
-    UserAccountComponent,
-    UserProfileComponent,
+//    ListVolunteerComponent,
+//    ViewVolunteerComponent,
+//    UserAccountComponent,
+//    UserProfileComponent,
 
     RegistrationComponent,
     LoginComponent,
@@ -80,7 +79,7 @@ import { CreateProjectService } from './project/create/create-project.service';
 
     MaterializeDirective,
     UserListComponent,
-    UserViewComponent,
+    UserViewComponent
   ],
   providers: [ ProjectService,
                OrganizationService,

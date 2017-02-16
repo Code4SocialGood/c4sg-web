@@ -8,7 +8,7 @@ import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 
 @Component({
-    moduleId: module.id,
+    // moduleId: module.id,
     selector: 'currentUser',
     templateUrl: 'user-view.component.html',
     styleUrls: ['user-view.component.css']
