@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { OrganizationService } from '../organization.service';
+import { OrganizationService } from '../common/organization.service';
 
 @Component({
   // moduleId: module.id,
   selector: 'my-organization',
-  templateUrl: './view-organization.component.html',
-  styleUrls: ['view-organization.component.css']
+  templateUrl: 'organization-view.component.html',
+  styleUrls: ['organization-view.component.css']
 })
 
-export class ViewOrganizationComponent implements OnInit {
+export class OrganizationViewComponent implements OnInit {
 
   public myOrganization = new FormGroup({
     organizationName: new FormControl(''),

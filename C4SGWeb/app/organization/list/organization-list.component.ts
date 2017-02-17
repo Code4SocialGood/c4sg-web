@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Organization } from '../organization';
-import { OrganizationService } from '../organization.service';
+import { Organization } from '../common/organization';
+import { OrganizationService } from '../common/organization.service';
 
 @Component({
   selector: 'my-organizations',
-  templateUrl: './list-organization.component.html',
-  styleUrls: ['./list-organization.component.css']
+  templateUrl: 'organization-list.component.html',
+  styleUrls: ['organization-list.component.css']
 })
 
-export class ListOrganizationComponent implements OnInit {
+export class OrganizationListComponent implements OnInit {
 
   organizations: Object[];
   selectedOrganization: Organization;

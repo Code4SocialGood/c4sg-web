@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from '../project';
-import { ProjectService } from '../project.service';
+import { Project } from '../common/project';
+import { ProjectService } from '../common/project.service';
 
 @Component({
   selector: 'my-projects',
-  templateUrl: './list-project.component.html',
-  styleUrls: ['./list-project.component.css']
+  templateUrl: 'project-list.component.html',
+  styleUrls: ['project-list.component.css']
 })
 
-export class ListProjectComponent implements OnInit {
+export class ProjectListComponent implements OnInit {
 
   projects: Object[];
   selectedProject: Project;

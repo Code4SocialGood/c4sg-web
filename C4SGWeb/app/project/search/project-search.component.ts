@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
-import { SearchProjectService } from './search-project.service';
-import { Project } from '../project';
+import { ProjectSearchService } from './project-search.service';
+import { Project } from '../common/project';
 
 @Component({
   selector: 'project-search',
-  templateUrl: './search-project.component.html',
-  styleUrls: ['./search-project.component.css'],
-  providers: [SearchProjectService]
+  templateUrl: 'project-search.component.html',
+  styleUrls: ['project-search.component.css'],
+  providers: [ProjectSearchService]
 })
-export class SearchProjectComponent implements OnInit {
+export class ProjectSearchComponent implements OnInit {
 
   projects: Observable<Project[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private projectSearchService: SearchProjectService,
+  constructor(private projectSearchService: ProjectSearchService,
               private router: Router) {
   }
 

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { Project } from '../project';
-import { ProjectService } from '../project.service';
+import { Project } from '../common/project';
+import { ProjectService } from '../common/project.service';
 
 @Component({
   selector: 'view-project',
-  templateUrl: './view-project.component.html',
-  styleUrls: ['./view-project.component.css']
+  templateUrl: 'project-view.component.html',
+  styleUrls: ['project-view.component.css']
 })
 
-export class ViewProjectComponent implements OnInit {
+export class ProjectViewComponent implements OnInit {
 
   project: Project;
   params: Params;
