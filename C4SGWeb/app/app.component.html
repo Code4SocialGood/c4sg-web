@@ -3,26 +3,19 @@
     <div class="nav-wrapper">
         <a href="" class="brand-logo"><img src="./images/logo.png" height="60" width="380"></a>
         <ul class="right hide-on-med-and-down">
-            <li><a routerLink="/projects" routerLinkActive="active" >Projects</a></li>   
-
-            <li>
-                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownvolunteer">Volunteers<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdownvolunteer" class="dropdown-content">
-                   <li><a routerLink="/user/list" routerLinkActive="active">User List</a></li>
-                </ul>            
-            </li>   
-
-            <li><a routerLink="/nonprofits" routerLinkActive="active" >Nonprofits</a></li>         
+            <li><a routerLink="/project/list" routerLinkActive="active" >Projects</a></li>   
+            <li><a routerLink="/user/list" routerLinkActive="active" >Volunteers</a></li> 
+            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>         
 
             <li>
                 <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">John Doe<i class="material-icons right">arrow_drop_down</i></a>
                 <ul id="dropdownproject" class="dropdown-content">
                     <li><a routerLink="/account" routerLinkActive="active">My Account</a></li>
                     <li><a routerLink="/profile" routerLinkActive="active">My Profile</a></li>
-                    <li><a routerLink="/projects" routerLinkActive="active">My Projects</a></li>
-                    <li><a routerLink="/view-nonprofit" routerLinkActive="active">My Organization</a></li>
-                    <li><a routerLink="/create-nonprofit" routerLinkActive="active">Create Organization</a></li>
-                    <li><a routerLink="/create-project" routerLinkActive="active">Create Project</a></li>
+                    <li><a routerLink="/project/list" routerLinkActive="active">My Projects</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active">My Organization</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active">Create Organization</a></li>
+                    <li><a routerLink="project/create" routerLinkActive="active">Create Project</a></li>
                 </ul>
             </li>
 

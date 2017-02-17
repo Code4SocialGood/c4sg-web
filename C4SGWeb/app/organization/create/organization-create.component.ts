@@ -2,16 +2,16 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { Organization } from '../organization';
-import { OrganizationService } from '../organization.service';
+import { Organization } from '../common/organization';
+import { OrganizationService } from '../common/organization.service';
 
 @Component({
   selector: 'create-organization',
-  templateUrl: './create-organization.component.html',
-  styleUrls: ['./create-organization.component.css']
+  templateUrl: 'organization-create.component.html',
+  styleUrls: ['organization-create.component.css']
 })
 
-export class CreateOrganizationComponent {
+export class OrganizationCreateComponent {
 
     organization: Organization;
     params: Params;
