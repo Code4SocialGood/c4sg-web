@@ -3,7 +3,7 @@ app/**/*.js
 *.map
 
 # node modules and npm
-/node_modules
+node_modules/
 npm-debug.log
 
 # log files

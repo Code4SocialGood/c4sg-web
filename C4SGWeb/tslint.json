@@ -36,6 +36,7 @@
     "no-var-requires": false,
     "object-literal-sort-keys": false,
     "object-literal-shorthand": false,
+    "only-arrow-functions": false,
     "ordered-imports": false,
     "pipe-naming": [
       true,

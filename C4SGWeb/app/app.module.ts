@@ -76,7 +76,7 @@ import { UserService }        from './user/common/user.service';
     MaterializeDirective,
   ],
   providers: [ ProjectService,
-               ProjectCreateService,  
+               ProjectCreateService,
                OrganizationService,
                UserService],
 
