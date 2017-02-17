@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project }        from '../project/project';
-import { ProjectService } from '../project/project.service';
+import { Project }        from '../project/common/project';
+import { ProjectService } from '../project/common/project.service';
 
 @Component({
   selector: 'my-home',

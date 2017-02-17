@@ -14,19 +14,19 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 
 // Project
-import { ListProjectComponent }  from './project/list/list-project.component';
-import { ViewProjectComponent }  from './project/view/view-project.component';
-import { CreateProjectComponent }  from './project/create/create-project.component';
+import { ProjectListComponent }  from './project/list/project-list.component';
+import { ProjectViewComponent }  from './project/view/project-view.component';
+import { ProjectCreateComponent }  from './project/create/project-create.component';
 
 // Organization
-import { ListOrganizationComponent }  from './organization/list/list-organization.component';
-import { ViewOrganizationComponent } from './organization/view/view-organization.component';
-import { CreateOrganizationComponent } from './organization/create/create-organization.component';
+import { OrganizationListComponent }  from './organization/list/organization-list.component';
+import { OrganizationViewComponent } from './organization/view/organization-view.component';
+import { OrganizationCreateComponent } from './organization/create/organization-create.component';
 
-// Volunteer
+// User
 import { UserAccountComponent }  from './user/account/user-account.component';
 import { UserProfileComponent }  from './user/profile/user-profile.component';
-import { UserListComponent }  from './user/list/list.component';
+import { UserListComponent }  from './user/list/user-list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
 
 // Login
@@ -36,9 +36,9 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 // Service
-import { OrganizationService } from './organization/organization.service';
-import { ProjectService }  from './project/project.service';
-import { CreateProjectService } from './project/create/create-project.service';
+import { OrganizationService } from './organization/common/organization.service';
+import { ProjectService }  from './project/common/project.service';
+import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
 
 @NgModule({
@@ -55,13 +55,13 @@ import { UserService }        from './user/common/user.service';
     HomeComponent,
     AboutComponent,
 
-    ListProjectComponent,
-    ViewProjectComponent,
-    CreateProjectComponent,
+    ProjectListComponent,
+    ProjectViewComponent,
+    ProjectCreateComponent,
 
-    ListOrganizationComponent,
-    ViewOrganizationComponent,
-    CreateOrganizationComponent,
+    OrganizationListComponent,
+    OrganizationViewComponent,
+    OrganizationCreateComponent,
 
     UserListComponent,
     UserViewComponent,
@@ -76,8 +76,8 @@ import { UserService }        from './user/common/user.service';
     MaterializeDirective,
   ],
   providers: [ ProjectService,
+               ProjectCreateService,  
                OrganizationService,
-               CreateProjectService,
                UserService],
 
   bootstrap: [ AppComponent ]
