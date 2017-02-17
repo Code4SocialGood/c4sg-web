@@ -4,8 +4,8 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 @Component({
   // moduleId: module.id,
   selector: 'my-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  templateUrl: 'user-profile.component.html',
+  styleUrls: ['user-profile.component.css']
 })
 
 export class UserProfileComponent {

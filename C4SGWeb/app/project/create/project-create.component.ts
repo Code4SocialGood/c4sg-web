@@ -2,17 +2,17 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { Project } from '../project';
-import { ProjectService } from '../project.service';
-import { CreateProjectService } from './create-project.service';
+import { Project } from '../common/project';
+import { ProjectService } from '../common/project.service';
+import { ProjectCreateService } from './project-create.service';
 
 @Component({
   selector: 'create-project',
-  templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.css']
+  templateUrl: 'project-create.component.html',
+  styleUrls: ['project-create.component.css']
 })
 
-export class CreateProjectComponent {
+export class ProjectCreateComponent {
 
     project: Project;
     params: Params;
@@ -30,7 +30,7 @@ export class CreateProjectComponent {
               private location: Location,
               public fb: FormBuilder,
               private changeDetectorRef: ChangeDetectorRef,
-              private createService: CreateProjectService) {
+              private createService: ProjectCreateService) {
   }
 
   // Upload image
