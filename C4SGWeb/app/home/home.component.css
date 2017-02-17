@@ -1,9 +1,6 @@
-a:hover {
-    background-color: grey;
-}
-
 .action {
-    background: linear-gradient(rgba(53, 54, 56, 0.2), rgba(53, 54, 56, 0.2)), url("app/images/image3.jpg") no-repeat center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(53, 54, 56, 0.2)), url("app/images/image1.jpg") no-repeat center center;
+    background-attachment:fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -16,8 +13,25 @@ a:hover {
     align-items: center;
     height: 94vh;
     text-align: center;
+}
 
-    color: white;
+.home-title {
+  font-family: Century Gothic, sans-serif;
+  font-size: 4em;
+  max-width: 15em;
+  font-weight: 900;
+  text-shadow: 5px 5px 5px #000;
+}
+
+
+.input-pre {
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.4);
+  width: 180px;
+  height: 87px;
+  padding-top: 20px;
+  vertical-align: middle;
+  text-align: center;
 }
 
 /* Scaling size of Title down as Page size decreases */

@@ -1,0 +1,3 @@
+[INFO ] 2017-02-16 18:52:26.066 [main] C4SgApplication - Starting C4SgApplication on WIN-IGTOHLTMPQT with PID 2164 (C:\Users\Administrator\Desktop\C4SG\C4SGSvc\target\classes started by Administrator in C:\Users\Administrator\Desktop\C4SG\C4SGSvc)
+[INFO ] 2017-02-16 18:52:26.104 [main] C4SgApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2017-02-16 18:52:39.940 [localhost-startStop-1] ContextLoader - Root WebApplicationContext: initialization completed in 13684 ms

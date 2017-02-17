@@ -1,12 +1,17 @@
-<div class="action">
-    <h2 id="home-page-title" class="white-text text-darken-3">Where Tech Volunteers Meet Nonprofits</h2>
+<div class = "home-wrapper">
+  <div class="background-img">
+    <img src="app/images/image1.jpg">
+  </div>
+  <div class="action">
+    <h2 id="home-page-title" class="white-text text-darken-3 home-title" style="padding: 30px">Where<br>Tech Volunteers Meet Nonprofit</h2>
     <div class="input-field inline">
-      <td>
+      <td class = "input-field">
         <input #projectName id="name" type="text"/>
-        <label for="name">Project keyword</label>
+        <label for="name" class = "input-pre">Project keyword</label>
       </td>
       <td>
-        <button (click)="getProjectsByKeyword(projectName.value); projectName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value=''" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
       </td>
     </div>
+  </div>
 </div>
