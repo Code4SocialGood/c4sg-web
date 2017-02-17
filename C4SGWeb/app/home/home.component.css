@@ -1,3 +1,11 @@
+.cover {
+  height: 100vh;
+  overflow: hidden;
+}
+.cover img{
+  width: 100vw;
+}
+
 .action {
     background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(53, 54, 56, 0.2)), url("app/images/image1.jpg") no-repeat center center;
     background-attachment:fixed;

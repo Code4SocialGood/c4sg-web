@@ -8,6 +8,12 @@ body, input[text], button {
   font-family: Cambria, Georgia;
 }
 
+.preloader-wrapper{
+  position: absolute;
+  left: 48%;
+  top: 48%;
+}
+
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
@@ -41,11 +47,13 @@ h2, h3 {
   background: rgba(255, 255 ,255 , 0.2);;
 }
 
-.dropdown-content li a{
-  background: rgba(255, 255 ,255 , 0.2);
+#dropdownproject{
+  opacity: 0.3;
+  color: #243;
 }
 
 .log-reg {
+  font-size: 0.7em;
   border: 1px solid white;
   border-radius: 3px;
   width: 7em;

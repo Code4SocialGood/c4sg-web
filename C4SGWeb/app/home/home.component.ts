@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Project }        from '../project/project';
 import { ProjectService } from '../project/project.service';
 import { MaterializeDirective} from "angular2-materialize";
-import { Button } from "./button";
 
 @Component({
   moduleId: module.id,
