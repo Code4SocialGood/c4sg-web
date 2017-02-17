@@ -4,8 +4,9 @@
             <div class="col s12">
                 <form [formGroup]="myAccount" (ngSubmit)="updateAccount($event)">
                     <div class="col s4">
-                        <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                        <button type="button">Upload</button>
+                      <img class="responsive-img" [attr.src]='file_srcs' id = "responsive-img"/>
+                      <label class="btn waves-effect waves-light" for="file">Upload</label>
+                      <input type="file" name="file" id="file"   accept="image/gif, image/jpeg, image/png" (change)="fileChange(input)" #input />
                     </div>
                     <div class="col s4">
                         <input formControlName="username" type="text" placeholder="Username *">
