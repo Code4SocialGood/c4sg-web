@@ -23,21 +23,21 @@
 			</div>
 
 			<div class="input-field">
-				<input name="group"
-					type="radio"
+				<input type="radio"
+					name="user"
+					formControlName="user"
 					value="volunteer"
 					id="volunteer" 
-					class="filled-in"
-					(click)="updateUser('volunteer')" />
-				<label for="volunteer">Volunteer</label>
+					class="filled-in" />
+				<label for="volunteer">Volunteer User</label>
 
-				<input name="group"
-					type="radio"
+				<input type="radio"
+					name="user"
+					formControlName="user"
 					value="nonprofit"
 					id="nonprofit" 
-					class="filled-in"
-					(click)="updateUser('nonprofit')" />
-				<label for="nonprofit">Non Profit</label>
+					class="filled-in" />
+				<label for="nonprofit">Nonprofit User</label>
 			</div>
 
 			<div class="input-field sign-up">
@@ -45,6 +45,4 @@
 			</div>
 		</form>
 	</div>
-	<!-- For debugging. Remove for production -->
-	{{ signUpForm.value | json}}
 </div>

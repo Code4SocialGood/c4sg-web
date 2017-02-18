@@ -1,5 +1,5 @@
 import  { Component } from '@angular/core';
-import { FormBuilder, Validators, FormsModule } from '@angular/forms';
+import { FormBuilder, Validators, } from '@angular/forms';
 
 @Component({
   selector: 'my-registration',
@@ -15,15 +15,11 @@ export class RegistrationComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
     rpassword: ['', Validators.required],
-    user: ['', Validators.required]
+    user: ['volunteer']
   });
 
   doSignUp(event) {
     console.log(event);
     console.log(this.signUpForm.value);
-  }
-
-  updateUser(value): void {
-    this.signUpForm.value.user = value;
   }
 }
