@@ -44,26 +44,27 @@
             <div class="row">
 
             <div class="input-field" class="col s10 offset-s1">
-                <input name="group"
+                <input name="location"
+                    formControlName="location"
                     type="radio"
+                    checked="checked"
                     value="remote"
                     id="remote" 
-                    class="filled-in"
-                    (click)="toggleAddress(false)" />
+                    class="filled-in" />
                 <label for="remote">Remote</label>
 
-                <input name="group"
+                <input name="location"
+                    formControlName="location"
                     type="radio"
                     value="address"
                     id="address" 
-                    class="filled-in"
-                    (click)="toggleAddress(true)" />
+                    class="filled-in" />
                 <label for="address">Physical Address</label>
             </div>
 
                 <div class="col s10 offset-s1">
                     <!-- Address -->
-                    <div *ngIf="showAddress">
+                    <div *ngIf="createProjectForm.value.location === 'address'">
                     <div class="input-field address">
                         <label for="line1">Address Line 1</label>
                         <input id="line1"
@@ -130,6 +131,4 @@
             </div>
         </div>
     </form>
-    <!-- For debugging. Remove for production -->
-    {{ createProjectForm.value | json}}
 </div>
