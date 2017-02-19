@@ -113,7 +113,7 @@ export class ProjectCreateComponent {
       Validators.maxLength(200)
     ]],
     description: ['', Validators.required],
-    remote: [false],
+    location: ['remote'],
     line1: '',
     line2: '',
     city: '',
@@ -128,23 +128,17 @@ export class ProjectCreateComponent {
     let project = this.createProjectForm.value;
     console.log(project);
 
-    this.projectService
-      .add(project)
-      .subscribe(
-        response => {
-          this.router.navigate(['/projects']);
-        },
-        error => console.log(error)
-      );
+    // this.projectService
+    //   .add(project)
+    //   .subscribe(
+    //     response => {
+    //       this.router.navigate(['/projects']);
+    //     },
+    //     error => console.log(error)
+    //   );
   }
 
   cancel(): void {
     this.router.navigate(['/projects']);
   }
-
-  toggleAddress(value): void {
-    this.showAddress = value;
-    this.createProjectForm.value.remote = !value;
-  }
-
 }
