@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {SPACE} from "@angular/material";
 
 @Component({
   // moduleId: module.id,
@@ -13,6 +14,7 @@ export class UserAccountComponent {
   public file_srcs: string[] ;
   public debug_size_before: string[];
   public debug_size_after: string[];
+  public image_loaded: boolean;
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -36,6 +38,7 @@ export class UserAccountComponent {
   }
 
   fileChange(input) {
+    this.image_loaded = false;
     this.readFiles(input.files);
   }
 
@@ -62,6 +65,7 @@ export class UserAccountComponent {
           this.debug_size_before = before;
           this.debug_size_after = after;
           this.file_srcs = resized_jpeg;
+          this.image_loaded = true;
           this.readFiles(files, index + 1);
         });
       });
@@ -102,5 +106,15 @@ export class UserAccountComponent {
       callback(dataUrl, img.src.length, dataUrl.length);
 
     };
+  }
+
+  getImage() {
+    if (this.image_loaded) {
+      return this.file_srcs;
+    }
+    else {
+      return "/app/images/default_avatar.png";
+    }
+
   }
 }
