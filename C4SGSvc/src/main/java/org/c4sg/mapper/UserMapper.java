@@ -1,6 +1,6 @@
 package org.c4sg.mapper;
 
-import org.c4sg.dto.UserDto;
+import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.geo.Point;
@@ -24,9 +24,9 @@ public class UserMapper extends ModelMapper {
 	 * Map user entity into data transfer object
 	 * 
 	 * @param user User Entity
-	 * @return UserDto
+	 * @return UserDTO
 	 */
-	public UserDto getUserDtoFromEntity(User user){	
+	public UserDTO getUserDtoFromEntity(User user){
 		//convert geometry object to a point
 		Geometry g = null;
 		com.vividsolutions.jts.geom.Point point = null;		
@@ -39,34 +39,34 @@ public class UserMapper extends ModelMapper {
 			//do nothing
 		}
 		//start mapping data into the dto
-		UserDto userDto = map(user, UserDto.class);
+		UserDTO userDTO = map(user, UserDTO.class);
 		//add mapping for location if point object is not null
 		if (point != null) {
 			org.springframework.data.geo.Point gp = new Point(point.getX(), point.getY());
-			userDto.setLongitude(Double.toString(point.getX()));
-			userDto.setLatitude(Double.toString(point.getY()));
+			userDTO.setLongitude(Double.toString(point.getX()));
+			userDTO.setLatitude(Double.toString(point.getY()));
 		}
-		userDto.setDisplayFlag((user.getDisplayFlag() != null && user.getDisplayFlag().booleanValue()) ? "Y" : "N"); 
-		return userDto;
+		userDTO.setDisplayFlag((user.getDisplayFlag() != null && user.getDisplayFlag().booleanValue()) ? "Y" : "N");
+		return userDTO;
 	}
 	
 	/**
 	 * Map user data transfer object into user entity
 	 * 
-	 * @param userDto User Data Transfer object
+	 * @param userDTO User Data Transfer object
 	 * @return User
 	 */	
-	public User getUserEntityFromDto(UserDto userDto){		
-		User user = map(userDto, User.class);
+	public User getUserEntityFromDto(UserDTO userDTO){
+		User user = map(userDTO, User.class);
 		
-		if (userDto.getLatitude() != null && userDto.getLongitude() != null){
+		if (userDTO.getLatitude() != null && userDTO.getLongitude() != null){
 			GeometryFactory gf = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING));
-			Coordinate coordinate = new Coordinate(Double.parseDouble(userDto.getLongitude()), 
-					Double.parseDouble(userDto.getLatitude()));
+			Coordinate coordinate = new Coordinate(Double.parseDouble(userDTO.getLongitude()),
+					Double.parseDouble(userDTO.getLatitude()));
 			com.vividsolutions.jts.geom.Point point = gf.createPoint(coordinate);	
 			user.setLocation(point);			
 		}
-		user.setDisplayFlag(Boolean.valueOf(userDto.getDisplayFlag()));
+		user.setDisplayFlag(Boolean.valueOf(userDTO.getDisplayFlag()));
 		return user;
 	}	
 }

@@ -7,10 +7,13 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.c4sg.dto.ProjectDto;
+import org.c4sg.dto.ProjectDTO;
 import org.c4sg.entity.Project;
+import org.c4sg.exception.UserProjectException;
 import org.c4sg.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,21 +23,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/projects")
 public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
 
     @CrossOrigin
-    @RequestMapping(value = "/api/project/all", method = RequestMethod.GET)
-    public List<ProjectDto> getProjects() {
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<ProjectDTO> getProjects() {
     	
     	System.out.println("**************All**************");
         return projectService.findProjects();
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/project/search/byId/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/byId/{id}", method = RequestMethod.GET)
     public Project getProject(@PathVariable("id") int id) {
     	
     	System.out.println("**************ID**************" + id);
@@ -43,14 +47,14 @@ public class ProjectController {
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/project/search/byName/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/byName/{name}", method = RequestMethod.GET)
     public Project getProject(@PathVariable("name") String name) {
     	
         return projectService.findByName(name);
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/project/search/byKeyword/{keyWord}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/byKeyword/{keyWord}", method = RequestMethod.GET)
     public List<Project> getProjects(@PathVariable("keyWord") String keyWord) {
     	
     	System.out.println("**************Search**************" + keyWord);
@@ -71,7 +75,7 @@ public class ProjectController {
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/project/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String, Object> createProject(@RequestBody @Valid Project project) {
 
     	System.out.println("**************Add**************");
@@ -90,7 +94,7 @@ public class ProjectController {
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/project/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable("id") int id) {
 
     	System.out.println("************** Delete : id=" + id + "**************");
@@ -103,7 +107,7 @@ public class ProjectController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/api/project/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Map<String, Object> updateProject(@RequestBody @Valid Project project) {
 
     	System.out.println("**************Update : id=" + project.getId() + "**************");
@@ -119,6 +123,29 @@ public class ProjectController {
         }
 
         return responseData;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/{id}/users/{userId}", method = RequestMethod.POST)
+    //TODO: Replace explicit user{id} with AuthN user id
+    public ResponseEntity<ProjectDTO> createUserProject(@PathVariable("userId") Integer userId,
+                                                        @PathVariable("id") Integer projectId)
+                                                            throws UserProjectException {
+        ProjectDTO projectDTO = projectService.saveUserProject(userId, projectId);
+
+        return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public List<ProjectDTO> getApplicants(@PathVariable("id") Integer projectId){
+        return projectService.getApplicants(projectId);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/applied/users/{id}", method = RequestMethod.GET)
+    public List<ProjectDTO> getProjects(@PathVariable("id") Integer userId){
+        return projectService.getAppliedProjects(userId);
     }
 }
 

@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-public class OrganizationDto {
+public class OrganizationDTO {
 	private Long id;
 	
 	@NotNull

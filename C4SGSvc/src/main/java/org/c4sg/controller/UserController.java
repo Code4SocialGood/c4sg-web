@@ -1,7 +1,8 @@
 package org.c4sg.controller;
 
 import java.util.List;
-import org.c4sg.dto.UserDto;
+
+import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.c4sg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UserController {
     //Added on feb-2
     @CrossOrigin
     @RequestMapping(value = "/api/user/all/active", method = RequestMethod.GET)
-    public List<UserDto> getActiveUsers() {
+    public List<UserDTO> getActiveUsers() {
     	
     	System.out.println("**************All**************");
         return userService.findActiveUsers();
@@ -29,7 +30,7 @@ public class UserController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/user/search/byId/{id}", method = RequestMethod.GET)
-    public UserDto getUser(@PathVariable("id") int id) {
+    public UserDTO getUser(@PathVariable("id") int id) {
         return userService.findById(id);
     }
 
@@ -52,20 +53,20 @@ public class UserController {
         }
     }
     @RequestMapping(value = "/api/user/all", method = RequestMethod.GET)
-    public List<UserDto> getUsers() {
+    public List<UserDTO> getUsers() {
         return userService.findAll();
     }
 
     @CrossOrigin
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        return userService.saveUser(userDto);
+    public UserDTO createUser(@RequestBody UserDTO userDTO) {
+        return userService.saveUser(userDTO);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/api/user", method = RequestMethod.PUT)
-    public UserDto updateUser(@RequestBody UserDto userDto) {
-        return userService.saveUser(userDto);
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+        return userService.saveUser(userDTO);
     }
 
 

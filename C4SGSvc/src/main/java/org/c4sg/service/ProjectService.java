@@ -1,19 +1,25 @@
 package org.c4sg.service;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.c4sg.dto.ProjectDto;
+import org.apache.commons.mail.EmailException;
+import org.c4sg.dto.ProjectDTO;
 import org.c4sg.entity.Project;
+import org.c4sg.entity.User;
+import org.c4sg.exception.UserProjectException;
 
 public interface ProjectService {
 
-    public List<ProjectDto> findProjects();
-    public Project findById(int id);
-    public Project findByName(String name);
-    public List<Project> findByKeyword(String keyWord);
-    
-    public Project createProject(Project project);
-    public void deleteProject(int id);
-    public Project updateProject(Project project);
-	public void save(Project project);
+    Project findById(int id);
+    Project findByName(String name);
+    ProjectDTO saveUserProject(Integer userId, Integer projectId) throws UserProjectException;
+    Project createProject(Project project);
+    Project updateProject(Project project);
+    void deleteProject(int id);
+    void apply(User user, Project project) throws IOException, EmailException;
+    List<ProjectDTO> findProjects();
+    List<Project> findByKeyword(String keyWord);
+    List<ProjectDTO> getApplicants(Integer projectId);
+    List<ProjectDTO> getAppliedProjects(Integer userId);
 }
