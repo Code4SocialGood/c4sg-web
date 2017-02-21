@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import {SPACE} from "@angular/material";
+import { SPACE } from '@angular/material';
 
 @Component({
   // moduleId: module.id,
@@ -111,9 +111,8 @@ export class UserAccountComponent {
   getImage() {
     if (this.image_loaded) {
       return this.file_srcs;
-    }
-    else {
-      return "/app/images/default_avatar.png";
+    } else {
+      return '/app/images/default_avatar.png';
     }
 
   }
