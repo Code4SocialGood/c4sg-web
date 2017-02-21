@@ -1,14 +1,11 @@
+.header {
+    margin: 1em 0 3em 0;
+}
 .address {
     margin-top: 2em;
 }
-.btns {
-    text-align: center;
-}
 .image {
-    width: 70%;
-    height: 5em;
+    width: 80%;
+    height: 40%;
     background-color: gray;
-}
-.nav {
-    margin: 4em;
 }
