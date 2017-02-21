@@ -41,6 +41,7 @@ import { OrganizationService } from './organization/common/organization.service'
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
+import { PagerService } from './_services/pager.service';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { UserService }        from './user/common/user.service';
   providers: [ ProjectService,
                ProjectCreateService,
                OrganizationService,
-               UserService],
+               UserService,
+               PagerService],
 
   bootstrap: [ AppComponent ]
 })

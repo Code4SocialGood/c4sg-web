@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/api/user/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable("id") int id) {
 
     	System.out.println("************** Delete : id=" + id + "**************");

@@ -1,9 +1,8 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import {SPACE} from "@angular/material";
 import { UserService } from '../common/user.service';
 import { equalValidator } from '../common/user.equal.validator';
-
+import { SPACE } from '@angular/material';
 
 @Component({
   // moduleId: module.id,
@@ -11,7 +10,6 @@ import { equalValidator } from '../common/user.equal.validator';
   templateUrl: 'user-account.component.html',
   styleUrls: ['user-account.component.css']
 })
-
 
 export class UserAccountComponent {
 
@@ -130,9 +128,8 @@ export class UserAccountComponent {
   getImage() {
     if (this.image_loaded) {
       return this.file_srcs;
-    }
-    else {
-      return "/app/images/default_avatar.png";
+    } else {
+      return '/app/images/default_avatar.png';
     }
 
   }
