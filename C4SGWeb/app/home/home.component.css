@@ -3,11 +3,11 @@
   overflow: hidden;
 }
 .cover img{
-  width: 100vw;
+  object-fit: contain;
 }
 
 .action {
-    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(53, 54, 56, 0.2)), url("app/images/image1.jpg") no-repeat center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(53, 54, 56, 0.55)), url("app/images/image1.jpg") no-repeat center center;
     background-attachment:fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -24,11 +24,10 @@
 }
 
 .home-title {
-  font-family: Century Gothic, sans-serif;
-  font-size: 4em;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 5em;
   max-width: 15em;
-  font-weight: 900;
-  text-shadow: 5px 5px 5px #000;
+  text-shadow: 0px 0px 13px #000;
 }
 
 

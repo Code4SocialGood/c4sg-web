@@ -37,15 +37,23 @@ h2, h3 {
   padding: 10px;
 }
 
-.nav-bar {
+.at-home {
   position: fixed;
-  background: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
   box-shadow: none;
 }
 
-.right a:hover{
-  background: rgba(255, 255 ,255 , 0.2);;
+.off-home {
+  position: none;
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: none;
 }
+
+
+.right a:hover{
+  background: rgba(255, 255 ,255 , 0.2);
+}
+
 
 #dropdownproject{
   opacity: 0.3;
