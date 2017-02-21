@@ -7,7 +7,6 @@ import { HttpModule }    from '@angular/http';
 import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
 
-
 // Home
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

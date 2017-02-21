@@ -17,8 +17,8 @@ export class UserAccountComponent {
   public debug_size_before: string[];
   public debug_size_after: string[];
   public image_loaded: boolean;
-  public states = [{value:'testState', display:'testState'}];
-  public countries = [{value:'testCountry', display:'testCountry'}];
+  public states = [{value: 'testState', display: 'testState'}];
+  public countries = [{value: 'testCountry', display: 'testCountry'}];
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -44,7 +44,8 @@ export class UserAccountComponent {
   }
 
   updatePassword(event) {
-    if (this.myPassword.controls["newPassword"].errors !== null || this.myPassword.controls["confirmPassword"].errors !== null|| this.myPassword.errors !== null){
+    if (this.myPassword.controls['newPassword'].errors !== null
+    || this.myPassword.controls['confirmPassword'].errors !== null || this.myPassword.errors !== null) {
       console.error('Do not submit, form has errors');
       return;
     }
