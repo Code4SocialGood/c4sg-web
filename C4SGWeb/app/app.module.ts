@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
-import { MaterializeDirective } from 'angular2-materialize';
+import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
+
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -48,7 +49,8 @@ import { UserService }        from './user/common/user.service';
     ReactiveFormsModule,
     MaterialModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterializeModule
   ],
   declarations: [
     AppComponent,
@@ -72,8 +74,6 @@ import { UserService }        from './user/common/user.service';
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-
-    MaterializeDirective,
   ],
   providers: [ ProjectService,
                ProjectCreateService,
