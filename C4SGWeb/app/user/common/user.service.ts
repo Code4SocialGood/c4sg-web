@@ -12,6 +12,7 @@ export class UserService {
 
     constructor (private http: Http) { }
 
+    // only active users are retrieved
     getUsers() {
         const url = this.userUrl + '/all/active';
         return this.http.get(url);
@@ -39,9 +40,9 @@ export class UserService {
     }
 
     delete(id: number): Observable<Response> {
-        const url = this.userUrl + '/delete/' + id;
+        const url = this.userUrl + '/' + id;
         return this.http
-            .delete(url)
+            .delete(url, {headers: this.headers})
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
