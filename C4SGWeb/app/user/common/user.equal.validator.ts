@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 export function equalValidator(group: FormGroup): {equal: boolean} {
   let firstValue;
@@ -11,4 +11,3 @@ export function equalValidator(group: FormGroup): {equal: boolean} {
   }, true);
   return equal ? null : {equal: true};
 }
-
