@@ -1,6 +1,4 @@
-<div class="container">
-    <h4>4 nonprofits found</h4>
-</div>
+
 
 <!-- Search Organizations-->
 <div class="row center">
@@ -15,9 +13,13 @@
     </div>
 </div>
 
+<div class="container center">
+    <h4 *ngIf="organizations">{{organizations.length}} organizations found</h4>
+</div>
+
 <!-- List Organizations-->
-<div class="container">
-<ul class="projects">
+<!--<div class="container">
+<ul class="organizations">
     <li *ngFor="let organization of organizations" (click)="onSelect(organization)" [class.selected]="organization === selectedOrganization">
         <tr>
             <td>
@@ -27,68 +29,102 @@
     </li>
 </ul>
 </div>
+-->
 
-
-<!--
-
-
-
-
-<div id="projects" class="col s12">My Projects
-    <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <a href="#createProject">
-                    <button type="button">Create Project</button>
-                </a>
-                <ul>
-                    <div class="col s6">
-                        <li>
-                            <div class="col s2">
-                                <img class="responsive-img"
-                                     src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                            </div>
-                            <div class="col s8">
-                                <p id="projectName">Project Name</p>
+<div class="container">
+    <div class="row users valign">     
+        <div *ngFor="let organization of organizations; let idx = index">
+            <div class="col s6" *ngIf="idx % 2 === 0 ">
+                <div class=" valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+                        <td><img src={{organization.logo}} height="200" width="200"></td>
+                        <td>
+                            <div class="row">
+   
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
+                                </div>                               
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
+                                </div>
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.country}}</span><br>
+                                </div>
                                 <br>
-                                <p id="projectShortDescription">Project Short Description</p>
-                                <p id="Location">Location</p>
-                                <p id="postDate">Post Date</p>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+
                             </div>
-                            <div class="col s2">
-                                <a href="#createProject">
-                                    <button type="button">Edit</button>
-                                </a>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
+            </div>
+            <div class="col s6" *ngIf="idx % 2 === 1 ">
+                <div class=" valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+                        <td><img src={{organization.logo}} height="200" width="200"></td>
+                        <td>
+                            <div class="row">
+   
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
+                                </div>                               
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
+                                </div>
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.country}}</span><br>
+                                </div>
                                 <br>
-                                <button type="button">Delete</button>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+                                
                             </div>
-                        </li>
-                    </div>
-                    <div class="col s6">
-                        <li>
-                            <div class="col s2">
-                                <img class="responsive-img"
-                                     src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                            </div>
-                            <div class="col s8">
-                                <p id="projectName">Project Name</p>
-                                <br>
-                                <p id="projectShortDescription">Project Short Description</p>
-                                <p id="Location">Location</p>
-                                <p id="postDate">Post Date</p>
-                            </div>
-                            <div class="col s2">
-                                <a href="#createProject">
-                                    <button type="button">Edit</button>
-                                </a>
-                                <br>
-                                <button type="button">Delete</button>
-                            </div>
-                        </li>
-                    </div>
-                </ul>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
             </div>
         </div>
     </div>
 </div>
--->
+<div class="container center">
+    <!-- inserting pagination -->
+    <!-- pager -->
+   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+    </ul>         
+</div> 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h5>CONFIRM USER DELETE</h5>
+      <hr>
+      <br>
+      <div class="col s12 center">
+          <p class="h3 valign col s12" *ngIf="selectedOrganization">{{selectedOrganization.name}}</p>
+      </div> 
+    </div>
+    <div class="modal-footer" *ngIf="selectedOrganization">
+      <button (click) = "delete(selectedOrganization)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+    </div>
+  </div>

@@ -11,7 +11,7 @@ import { SPACE } from '@angular/material';
   styleUrls: ['user-account.component.css']
 })
 
-export class UserAccountComponent {
+export class UserAccountComponent implements OnInit {
 
   public file_srcs: string[] ;
   public debug_size_before: string[];
