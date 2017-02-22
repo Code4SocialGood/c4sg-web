@@ -1,49 +1,46 @@
-<!-- Add Project-->
-<div class="container">
+<h3 class="center-align header">Create new Project</h3>
 
-    <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
-        <div class="row">
-            <div class="col s4">
-                <label>Project Image</label>
-                <img [attr.src]='file_srcs[0]' class = "image"  id = "projimg"/> <br>
-                <input type="file"  id="file" accept="image/gif, image/jpeg, image/png" (change)="fileChange(input)" #input />
+<form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
+    <div class="row">
+        <div class="col s4">
+            <img [attr.src]='file_srcs[0]' class = "image"  id = "projimg"/> <br>
+            <input type="file"  id="file" accept="image/gif, image/jpeg, image/png" (change)="fileChange(input)" #input />
+        </div>
+
+        <div class="col s4">
+            <div class="input-field">
+                <label for="projectName">Project Name</label> 
+                <input id="projectName"
+                        formControlName="name"
+                        type="text" /> 
             </div>
 
-            <div class="col s8">
-                <div class="input-field">
-                    <label for="projectName">Project Name</label> 
-                    <input id="projectName"
-                           formControlName="name"
-                           type="text" /> 
-                </div>
-
-                <div class="input-field">
-                    <label for="orgName">Organization Name</label> 
-                    <input id="orgName"
-                           formControlName="orgName"
-                           type="text" /> 
-                </div>
-
-                <div class="input-field">
-                    <label for="shortDescription">Short Description</label> 
-                    <textarea id="shortDescription"
-                              formControlName="shortDescription"
-                              class="materialize-textarea">
-                    </textarea>
-                </div>
-
-                <div class="input-field">
-                    <label for="description">Detailed Description</label> 
-                    <textarea id="description"
-                              formControlName="description"
-                              class="materialize-textarea">
-                    </textarea>
-                </div>
+            <div class="input-field">
+                <label for="orgName">Organization Name</label> 
+                <input id="orgName"
+                        formControlName="orgName"
+                        type="text" /> 
             </div>
 
-            <div class="row">
+            <div class="input-field">
+                <label for="shortDescription">Short Description</label> 
+                <textarea id="shortDescription"
+                            formControlName="shortDescription"
+                            class="materialize-textarea">
+                </textarea>
+            </div>
 
-            <div class="input-field" class="col s10 offset-s1">
+            <div class="input-field">
+                <label for="description">Detailed Description</label> 
+                <textarea id="description"
+                            formControlName="description"
+                            class="materialize-textarea">
+                </textarea>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="input-field">
                 <input name="location"
                     formControlName="location"
                     type="radio"
@@ -62,73 +59,73 @@
                 <label for="address">Physical Address</label>
             </div>
 
-                <div class="col s10 offset-s1">
-                    <!-- Address -->
-                    <div *ngIf="createProjectForm.value.location === 'address'">
-                    <div class="input-field address">
-                        <label for="line1">Address Line 1</label>
-                        <input id="line1"
-                               type="text"
-                               formControlName="line1" />
-                    </div>
+            <div>
+                <!-- Address -->
+                <div *ngIf="createProjectForm.value.location === 'address'">
+                <div class="input-field address">
+                    <label for="line1">Address Line 1</label>
+                    <input id="line1"
+                            type="text"
+                            formControlName="line1" />
+                </div>
 
-                    <div class="input-field">
-                        <label for="line2">Address Line 2</label>
-                        <input id="line2"
-                               type="text"
-                               formControlName="line2" />
-                    </div>
-                    
-                    <div class="input-field">
-                        <label for="city">City</label>
-                        <input id="city"
-                               type="text"
-                               formControlName="city" />
-                    </div>
+                <div class="input-field">
+                    <label for="line2">Address Line 2</label>
+                    <input id="line2"
+                            type="text"
+                            formControlName="line2" />
+                </div>
+                
+                <div class="input-field">
+                    <label for="city">City</label>
+                    <input id="city"
+                            type="text"
+                            formControlName="city" />
+                </div>
 
-                    <div class="input-field">
-                        <select materialize="material_select" 
-                            [materializeSelectOptions]="states" 
-                            formControlName="state">
-                            <option disabled="true">State</option>
-                            <option *ngFor="let state of states">{{state}}</option>
-                        </select>
-                    </div>
+                <div class="input-field">
+                    <select materialize="material_select" 
+                        [materializeSelectOptions]="states" 
+                        formControlName="state">
+                        <option disabled="true">State</option>
+                        <option *ngFor="let state of states">{{state}}</option>
+                    </select>
+                </div>
 
-                    <div class="input-field">
-                        <select materialize="material_select" 
-                            [materializeSelectOptions]="countries" 
-                            formControlName="country">
-                            <option disabled="true">Country</option>
-                            <option *ngFor="let country of countries">{{country}}</option>
-                        </select>
-                    </div>
+                <div class="input-field">
+                    <select materialize="material_select" 
+                        [materializeSelectOptions]="countries" 
+                        formControlName="country">
+                        <option disabled="true">Country</option>
+                        <option *ngFor="let country of countries">{{country}}</option>
+                    </select>
+                </div>
 
-                    <div class="input-field">
-                        <label for="zip">Zip</label>
-                        <input id="zip"
-                               type="text"
-                               formControlName="zip" />
-                    </div>
-                    </div>
+                <div class="input-field">
+                    <label for="zip">Zip</label>
+                    <input id="zip"
+                            type="text"
+                            formControlName="zip" />
+                </div>
                 </div>
             </div>
-            
         </div>
-        <div class="row btns">
-            <div class="col s6">
-                <button class="btn waves-effect waves-light" 
-                        type="submit"
-                        [disabled]="!createProjectForm.valid">
-                        Create
-                </button>
-            </div>
-            <div class="col s6">
-                <button class="btn waves-effect waves-light" 
-                    (click)="cancel()">
-                    Cancel
-                </button>
-            </div>
+        
+    </div>
+    <div class="row btns">
+        <div class="col s8"></div>
+        <div class="col s2">
+            <button class="btn waves-effect waves-light" 
+                (click)="cancel()">
+                Cancel
+            </button>
         </div>
-    </form>
-</div>
+        <div class="col s2">
+            <button class="btn waves-effect waves-light" 
+                    type="submit"
+                    [disabled]="!createProjectForm.valid">
+                    Create
+            </button>
+        </div>
+    </div>
+</form>
