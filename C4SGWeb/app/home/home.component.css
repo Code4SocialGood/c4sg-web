@@ -2,8 +2,21 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.cover:before{
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
 .cover img{
+  position:relative;
   object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
 }
 
 .action {

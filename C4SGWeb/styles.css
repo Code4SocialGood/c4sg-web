@@ -49,6 +49,10 @@ h2, h3 {
   box-shadow: none;
 }
 
+.dropdown-button, .dropdown-item{
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1em;
+}
 
 .right a:hover{
   background: rgba(255, 255 ,255 , 0.2);

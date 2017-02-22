@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       )
     }
     //a defined function to control the animation of the button
-    toggleState() {
+    private toggleState() {
       this.state = (this.state === 'inactive' ? 'active' : 'inactive');
     }
 }

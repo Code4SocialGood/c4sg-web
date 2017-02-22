@@ -3,6 +3,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
+import { NavScrollDirective } from './navscroll.directive';
 
 import {MaterializeDirective} from "angular2-materialize";
 
@@ -41,6 +42,7 @@ import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
   ],
   declarations: [
     AppComponent,
+    NavScrollDirective,
     HomeComponent,
     AboutComponent,
     ContactComponent,

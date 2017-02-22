@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 
 export class AppComponent{
 
-	constructor(router: Router){
+	constructor(private router: Router){
 		this.router = router;
 	}
 	//control nav style by changing the class name
 	isAtHome() {
-		if(this.router.url ==='/'){
+		if(this.router.url ==='/' || this.router.url ==='/#!'){
 			return 'at-home'
 		}else{
 			return 'off-home';
