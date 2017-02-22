@@ -57,7 +57,7 @@ export class ProjectListComponent implements OnInit {
       return;
     }
 
-    let project = new Project(8, name, 'Organization', 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
+    let project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
 
     this.projectService
       .add(project)
