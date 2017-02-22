@@ -6,7 +6,7 @@ import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,21 +19,20 @@ import java.util.Map;
 @RestController
 public class OrganizationController {
 
-    static int counter = 0;
+    private static final String UPLOAD_DIRECTORY = "logos";
 
     @Autowired
     private OrganizationService organizationService;
 
+    @Autowired
+    private ServletContext context;
 
-    @RequestMapping(value = "/api/organization/{id}/uploadLogo", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String uploadImage2(@PathVariable int organizationId, @RequestBody String requestBody, HttpServletRequest request) {
+    @RequestMapping(value = "/api/organization/{organizationId}/uploadLogo", method = RequestMethod.POST)
+    public String uploadImage2(@PathVariable int organizationId, @RequestBody String requestBody) {
         try {
-            //This will decode the String which is encoded by using Base64 class
+            String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator;
             byte[] imageByte = Base64.decodeBase64(requestBody);
-            File f = new File(organizationId + "-logo.jpg");
-            //String directory= ServletContext.getRealPath("/")+"images/sample.jpg";
+            File f = new File(uploadPath + organizationId + "-logo.jpg");
             new FileOutputStream(f).write(imageByte);
             return "success ";
         } catch (Exception e) {
