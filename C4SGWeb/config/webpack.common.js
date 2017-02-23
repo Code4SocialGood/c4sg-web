@@ -65,6 +65,11 @@ module.exports = {
     // inject the js and css into our main index file
     new HtmlWebpackPlugin({
       template: 'index.html'
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     })
   ]
 };

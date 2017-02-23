@@ -1,6 +1,8 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import {SPACE} from "@angular/material";
+import { UserService } from '../common/user.service';
+import { equalValidator } from '../common/user.equal.validator';
+import { SPACE } from '@angular/material';
 
 @Component({
   // moduleId: module.id,
@@ -9,32 +11,48 @@ import {SPACE} from "@angular/material";
   styleUrls: ['user-account.component.css']
 })
 
-export class UserAccountComponent {
+export class UserAccountComponent implements OnInit {
 
   public file_srcs: string[] ;
   public debug_size_before: string[];
   public debug_size_after: string[];
   public image_loaded: boolean;
+  public states = [{value: 'testState', display: 'testState'}];
+  public countries = [{value: 'testCountry', display: 'testCountry'}];
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    newPassword: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
-    zip: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required)
+    zip: new FormControl('', Validators.required)
   });
 
-  constructor( private changeDetectorRef: ChangeDetectorRef) { }
+  public myPassword = new FormGroup({
+      newPassword: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required)
+  }, equalValidator);
+
+  constructor( private changeDetectorRef: ChangeDetectorRef, private userService: UserService) { }
 
   updateAccount(event) {
     const accountData = this.myAccount.value;
     console.log(event);
     console.log(accountData);
+  }
+
+  updatePassword(event) {
+    if (this.myPassword.controls['newPassword'].errors !== null
+    || this.myPassword.controls['confirmPassword'].errors !== null || this.myPassword.errors !== null) {
+      console.error('Do not submit, form has errors');
+      return;
+    }
+    const passwordData = this.myPassword.value;
+    console.log(this.myPassword.controls);
+    console.log(event);
+    console.log(passwordData);
   }
 
   fileChange(input) {
@@ -111,10 +129,32 @@ export class UserAccountComponent {
   getImage() {
     if (this.image_loaded) {
       return this.file_srcs;
+    } else {
+      return '/app/images/default_avatar.png';
     }
-    else {
-      return "/app/images/default_avatar.png";
-    }
+
+  }
+
+  ngOnInit(): void {
+    this.userService.getUser(2).subscribe(
+      (res) => {
+        const user = res.json();
+        console.log(user);
+
+        this.myAccount.setValue({
+          username: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          state: user.state,
+          country: user.country,
+          zip: user.zip
+        });
+
+      }, (err) => {
+        console.error('An error occurred', err); // for demo purposes only
+      }
+    );
 
   }
 }

@@ -18,7 +18,7 @@
 <!-- List of Volunteers-->
 <div class="container">
     <div class="row users valign">     
-        <div *ngFor="let user of users; let idx = index">
+        <div *ngFor="let user of pagedItems; let idx = index">
             <div class="col s6" *ngIf="idx % 2 === 0 ">
                 <div class="container valign-wrapper">
                     <tr item-width="100%" class="center-align">
@@ -108,14 +108,35 @@
         </div>
     </div>
 </div>
+<div class="container center">
+    <!-- inserting pagination -->
+    <!-- pager -->
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+    </ul>         
+</div>
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h5>CONFIRM USER DELETE</h5>
       <hr>
       <br>
-      <div class="col s12">
-          <p class="h3 valign col s12" *ngIf="selectedUser">     {{selectedUser.userName}}</p>
+      <div class="col s12 center">
+          <p class="h3 valign col s12" *ngIf="selectedUser">{{selectedUser.userName}}</p>
       </div> 
     </div>
     <div class="modal-footer" *ngIf="selectedUser">
