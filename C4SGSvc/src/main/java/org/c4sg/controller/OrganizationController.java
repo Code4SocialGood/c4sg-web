@@ -25,9 +25,6 @@ public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
 
-    @Autowired
-    private ServletContext context;
-
     @RequestMapping(value = "/api/organization/{organizationName}/uploadLogo", method = RequestMethod.POST)
     public String uploadLogo(@PathVariable String organizationName, @RequestBody String requestBody) {
         try {
