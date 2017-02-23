@@ -1,9 +1,7 @@
-
-
-
-
-
-
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
 
 /**********
 TODO: CSS below should move to organization-create.component.css
