@@ -20,6 +20,7 @@ import java.util.Map;
 public class OrganizationController {
 
     private static final String UPLOAD_DIRECTORY = "logos";
+    private static final String LOGO_FORMAT = ".jpg";
 
     @Autowired
     private OrganizationService organizationService;
@@ -27,18 +28,20 @@ public class OrganizationController {
     @Autowired
     private ServletContext context;
 
-    @RequestMapping(value = "/api/organization/{organizationId}/uploadLogo", method = RequestMethod.POST)
-    public String uploadImage2(@PathVariable int organizationId, @RequestBody String requestBody) {
+    @RequestMapping(value = "/api/organization/{organizationName}/uploadLogo", method = RequestMethod.POST)
+    public String uploadLogo(@PathVariable String organizationName, @RequestBody String requestBody) {
         try {
-            String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator;
             byte[] imageByte = Base64.decodeBase64(requestBody);
-            File f = new File(uploadPath + organizationId + "-logo.jpg");
+            File directory = new File(UPLOAD_DIRECTORY);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File f = new File(getLogoUploadPath(organizationName));
             new FileOutputStream(f).write(imageByte);
-            return "success ";
+            return "Success";
         } catch (Exception e) {
-            return "error = " + e;
+            return "Error saving logo for organization " + organizationName + " : " + e;
         }
-
     }
 
     @CrossOrigin
@@ -64,6 +67,7 @@ public class OrganizationController {
     public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDto organizationDto) {
         System.out.println("**************Create**************");
         Map<String, Object> responseData = null;
+        organizationDto.setLogo(getLogoUploadPath(organizationDto.getName()));
         try {
             OrganizationDto createdOrganization = organizationService.createOrganization(organizationDto);
             responseData = Collections.synchronizedMap(new HashMap<>());
@@ -100,5 +104,10 @@ public class OrganizationController {
             System.out.println(e);
         }
     }
+
+    private String getLogoUploadPath(String organizationName) {
+        return UPLOAD_DIRECTORY + File.separator + organizationName + LOGO_FORMAT;
+    }
+
 }
 
