@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import * as $ from 'jquery';
+import { PagerService } from '../../_services/pager.service';
 
 @Component({
   // moduleId: module.id,
@@ -12,11 +13,19 @@ import * as $ from 'jquery';
 })
 
 export class UserListComponent implements OnInit, AfterViewInit {
-
-  users: Object[];
+  // the selected user
   selectedUser: User;
 
-  constructor(private userService: UserService, private router: Router) {
+  // array of all items to be paged
+  users: any[];
+
+  // pager Object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
+  constructor(private userService: UserService, private router: Router, private pagerService: PagerService) {
 
   }
 
@@ -26,7 +35,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // jquery script below opens up the modal dialog for delete confirmation
-    $(document).ready(function(){
+    $(document).ready(() => {
       $('.modal').modal();
     });
   }
@@ -35,10 +44,24 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.userService.getUsers().subscribe(
       res => {
         this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+        // initialize to page 1
+        this.setPage(1);
       },
       error => console.log(error)
     );
   }
+
+  setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.users.length, page);
+
+        // get current page of items
+        this.pagedItems = this.users.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
 
   getUsersByKeyword(keyword: string) {
     keyword = keyword.trim();
@@ -54,7 +77,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   // pre delete
-    confirmDelete(user: User): void {
+  confirmDelete(user: User): void {
     this.selectedUser = user;
   }
 
@@ -70,8 +93,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
       error => console.log(error)
     );
 
-    // after deletion, the steps below updates the view and to exclude the deleted user
+    // after deletion, the steps below updates the view and excludes the deleted user
     this.users = this.users.filter(u => u !== user);
+    this.pagedItems = this.pagedItems.filter(u => u !== user);
     if (this.selectedUser === user) {
       this.selectedUser = null;
     }
