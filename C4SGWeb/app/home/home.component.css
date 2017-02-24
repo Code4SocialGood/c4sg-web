@@ -45,13 +45,7 @@
 
 
 .input-pre {
-  font-size: 1.2em;
   color: rgba(255, 255, 255, 0.4);
-  width: 180px;
-  height: 87px;
-  padding-top: 20px;
-  vertical-align: middle;
-  text-align: center;
 }
 
 /* Scaling size of Title down as Page size decreases */
