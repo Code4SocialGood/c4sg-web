@@ -3,37 +3,24 @@
     <div class="nav-wrapper">
         <a href="" class="brand-logo"><img src="app/images/logo-transparent.png" height="60" width="380"></a>
         <ul class="right hide-on-med-and-down">
+            <li><a routerLink="/project/list" routerLinkActive="active" >Projects</a></li>   
+            <li><a routerLink="/user/list" routerLinkActive="active" >Volunteers</a></li> 
+            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>         
+
             <li>
-                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">Projects<i class="material-icons right">arrow_drop_down</i></a>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">John Doe<i class="material-icons right">arrow_drop_down</i></a>
                 <ul id="dropdownproject" class="dropdown-content">
-                    <li><a routerLink="/projects" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">Projects</a></li>
+                    <li><a routerLink="/account" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
+                    <li><a routerLink="/profile" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
+                    <li><a routerLink="/project/list" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">Create Organization</a></li>
+                    <li><a routerLink="project/create" routerLinkActive="active" class="black-text text-lighten-2">Create Project</a></li>
                 </ul>
             </li>
-
-            <li>
-                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownvolunteer">Volunteers<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdownvolunteer" class="dropdown-content">
-                    <li><a routerLink="/volunteers" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">Volunteers</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownorganization">Nonprofits<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdownorganization" class="dropdown-content">
-                    <li><a routerLink="/nonprofits" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">Nonprofits</a></li>
-                </ul>
-            </li>    
-
-            <li>
-                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdowndashboard">Dashboard<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdowndashboard" class="dropdown-content">
-                    <li><a routerLink="/volunteerUser" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">Volunteer User</a></li>
-                    <li><a routerLink="/nonprofitUser" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">Nonprofit User</a></li>
-                    <li><a routerLink="/c4sgUser" routerLinkActive="active" class="grey-text text-darken-2 dropdown-item">C4SG User</a></li>
-                </ul>
-            </li>   
+   
             
-            <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="/login" routerLinkActive="active"  class="log-reg">Login</a></li>
+            <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="/login" routerLinkActive="active" class="log-reg">Login</a></li>
             <li class="lr-wrapper"><a routerLink="/register" routerLinkActive="active" class="log-reg">Register</a></li> 
     
         </ul>

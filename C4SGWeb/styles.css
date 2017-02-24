@@ -49,7 +49,7 @@ h2, h3 {
   box-shadow: none;
 }
 
-.dropdown-button, .dropdown-item{
+.right a{
     font-family: "Courier New", Courier, monospace;
     font-size: 1em;
 }
@@ -59,12 +59,8 @@ h2, h3 {
 }
 
 
-#dropdownproject{
-  opacity: 0.3;
-  color: #243;
-}
 
-.log-reg {
+.lr-wrapper .log-reg {
   font-size: 0.7em;
   border: 1px solid white;
   border-radius: 3px;
