@@ -2,24 +2,23 @@ import { Component, OnInit } from '@angular/core';
 declare var google: any;
 
 @Component({
-  moduleId: module.id,
   selector: 'my-about',
-  templateUrl: 'about.component.html',
-  styleUrls: [ 'about.component.css' ]
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
 })
-export class AboutComponent implements OnInit
- {
- title='Our Office Location';
- ngOnInit(){
+export class AboutComponent implements OnInit {
+  title = 'Our Office Location';
+
+  ngOnInit() {
     var destination = {lat: 41.779, lng: -88.207};
-      var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: destination
-        });
-        var marker = new google.maps.Marker({
-          position: destination,
-          map: map
-        });
-    }
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: destination
+    });
+    var marker = new google.maps.Marker({
+      position: destination,
+      map: map
+    });
+  }
 
 }

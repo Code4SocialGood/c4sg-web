@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, trigger,state, style, transition, animate } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project }        from '../project/project';
-import { ProjectService } from '../project/project.service';
-import { MaterializeDirective} from "angular2-materialize";
+import { Project }        from '../project/common/project';
+import { ProjectService } from '../project/common/project.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'my-home',
   templateUrl: 'home.component.html',
   styleUrls: [ 'home.component.css' ],
@@ -21,10 +19,11 @@ import { MaterializeDirective} from "angular2-materialize";
       transition('active => inactive', animate('100ms ease-out'))
     ])
   ]
+
 })
 
 export class HomeComponent implements OnInit {
-   
+
     projects: Project[] = [];
     state: string = 'inactive';
 
@@ -44,10 +43,11 @@ export class HomeComponent implements OnInit {
               this.router.navigate(['/volunteers']);
           },
           error => console.log(error)
-      )
+      );
     }
     //a defined function to control the animation of the button
     private toggleState() {
       this.state = (this.state === 'inactive' ? 'active' : 'inactive');
     }
 }
+

@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="row">
+    <div class="col m4 offset-m1">
+      <h3 class="center-align">
+        <img class="responsive-img" src="{{organization?.logo}}" alt="Image for {{organization?.name}}">
+      </h3>
+
+    </div>
+    <div class="col m6">
+      <h3>{{organization?.name}}</h3>
+
+      <!-- TODO: Update when the service and Organization API provide these additional details: website, emaill, phone. -->
+      <div class="row">
+        <div class="col md2"><i class="material-icons">link</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">mail_outline</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">phone</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">location_on</i></div>
+        <div class="col md4">
+          {{organization?.address1 + ", " + organization?.address2}}
+          <br>
+          {{organization?.state + ", " + organization?.country}}</div>
+      </div>
+
+      <b>About Us</b>
+      <div class="divider"></div>
+      <p>{{organization?.detailedDescription}}</p>
+    </div>
+  </div>
+  <div class="row center-align grey lighten-5">
+    <div class="divider"></div>
+    <br>
+    <a class="waves-effect waves-light btn">Projects</a>
+    <br><br>
+  </div>
+
+
+  <!-- TODO: HTML below should move to organization-create.component.html -->
+
+  <!--<div id="organization" class="col s12">My Organization
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <form [formGroup]="myOrganization" (ngSubmit)="updateOrganization($event)">
+                    <div class="col s4">
+                        <img class="responsive-img" src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
+                        <button type="button">Upload</button>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s6">
+                            <input formControlName="organizationName" type="text" placeholder="Organization Name">
+                            <input formControlName="website" type="text" placeholder="Website">
+                            <input formControlName="email" type="text" placeholder="Email Address">
+                            <input formControlName="phone" type="text" placeholder="Phone">
+                            <input formControlName="ein" type="text" placeholder="EIN">
+                            <select formControlName="category"><option value="#">Category</option></select>
+                        </div>
+                        <div class="col s6">
+                            <input formControlName="address1" type="text" placeholder="Address 1">
+                            <input formControlName="address2" type="text" placeholder="Address 2">
+                            <input formControlName="city" type="text" placeholder="City">
+                            <select formControlName="state"><option value="#">State</option></select>
+                            <select formControlName="country"><option value="#">Country</option></select>
+                            <input formControlName="zip" type="text" placeholder="Zip">
+                        </div>
+                        <div class="col s12">
+                            <textarea formControlName="shortDescription" type="text" maxlength="100" placeholder="Short Description (limit to 100 characters)"></textarea>
+                        </div>
+                        <div class="col s12">
+                            <textarea formControlName="detailedDescription" type="text" placeholder="Detailed Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class="col s4">
+                            <button type="submit">Save</button>
+                        </div>
+                        <div class="col s4">
+                            <button type="button">Delete</button>
+                        </div>
+                        <div class="col s4">
+                            <button type="reset">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->

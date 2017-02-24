@@ -1,49 +1,55 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { VolunteerProjectComponent }  from './project/volunteer/volunteer-project.component';
-import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
-import { ViewProjectComponent }  from './project/view/view-project.component';
-import { SearchProjectComponent }  from './project/search/search-project.component';
-import { CreateProjectComponent }  from './project/create/create.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
-import { AppComponent }  from './app.component';
-import { HomeComponent }  from './home/home.component';
-import { AboutComponent }  from './about/about.component';
-import { ContactComponent }  from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { ProjectListComponent } from './project/list/project-list.component';
+import { ProjectViewComponent } from './project/view/project-view.component';
+import { ProjectCreateComponent } from './project/create/project-create.component';
 
-import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
-import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
-import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+import { OrganizationListComponent } from './organization/list/organization-list.component';
+import { OrganizationViewComponent } from './organization/view/organization-view.component';
+import { OrganizationCreateComponent } from './organization/create/organization-create.component';
+
+import { UserListComponent }  from './user/list/user-list.component';
+import { UserViewComponent }  from './user/view/user-view.component';
+import { UserAccountComponent } from './user/account/user-account.component';
+import { UserProfileComponent } from './user/profile/user-profile.component';
+
+import { RegistrationComponent } from './login/registration/registration.component';
+import { LoginComponent } from './login/login/login.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 const routes: Routes = [
 
-    { path: '', component: HomeComponent },
+  {path: '', component: HomeComponent},
+  {path: 'about', component: AboutComponent},
 
-    { path: 'projects', component: OrganizationProjectComponent },
-    { path: 'create_project', component: CreateProjectComponent },
-    { path: 'view-project/:id', component: ViewProjectComponent },
+  {path: 'project/list', component: ProjectListComponent},
+  {path: 'project/view/:id', component: ProjectViewComponent},
+  {path: 'project/create', component: ProjectCreateComponent},
 
-    { path: 'volunteers', component: VolunteerProjectComponent },
-    { path: 'nonprofits', component: OrganizationProjectComponent },
+  {path: 'nonprofit/list', component: OrganizationListComponent},
+  {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
+  {path: 'nonprofit/create', component: OrganizationCreateComponent},
 
-    { path: 'volunteerUser', component: VolunteerUserComponent },
-    { path: 'nonprofitUser', component: NonprofitUserComponent },
-    { path: 'c4sgUser', component: C4SGUserComponent },
-    
-    { path: 'about', component: AboutComponent },
-    { path: 'contact', component: ContactComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'reset-password', component: ResetPasswordComponent },
-    { path: 'register' , component: RegistrationComponent }
+  {path: 'user/list', component: UserListComponent },
+  {path: 'user/view/:id', component: UserViewComponent },
+  {path: 'account', component: UserAccountComponent},
+  {path: 'profile', component: UserProfileComponent},
+
+  {path: 'register', component: RegistrationComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
+
 ];
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
-    exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

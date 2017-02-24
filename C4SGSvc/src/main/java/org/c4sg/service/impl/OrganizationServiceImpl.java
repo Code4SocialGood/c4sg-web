@@ -3,7 +3,7 @@ package org.c4sg.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.c4sg.constant.OrganizationStatus;
+import org.c4sg.constant.Status;
 import org.c4sg.dao.OrganizationDao;
 import org.c4sg.dto.OrganizationDto;
 import org.c4sg.entity.Organization;
@@ -72,7 +72,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void deleteOrganization(int id){
     	Organization organization = organizationDao.findById(id);
     	if(organization != null){
-    		organization.setStatus(OrganizationStatus.ORGANIZATION_STATUS_DELETED);
+    		organization.setStatus(Status.DELETED);
     		//TODO: Local or Timezone?
     		//TODO: Format date
     		//organization.setDeleteTime(LocalDateTime.now().toString());

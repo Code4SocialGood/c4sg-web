@@ -9,5 +9,18 @@ public enum UserRole {
     UserRole(String value) {
         this.value = value;
     }
+    
+	public String getValue(){
+		return value;
+	}
 
+    public static String getUserRole(String role) {
+		for (UserRole e : UserRole.values()) {
+			if (e.getValue() == role.toUpperCase())
+			{
+				return e.name();
+			}	
+		}
+		return VOLUNTEER.name();
+    }
 }

@@ -1,0 +1,14 @@
+.nav {
+    margin: 4em;
+}
+input[type="file"] {
+  display: none;
+}
+.responsive-img {
+  width: 70%;
+  height: 30%;
+  background-color: gray;
+  margin-bottom: 2em;
+}
+
+

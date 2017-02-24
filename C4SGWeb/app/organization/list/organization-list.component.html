@@ -1,0 +1,130 @@
+
+
+<!-- Search Organizations-->
+<div class="row center">
+    <div class="input-field inline">
+      <td>
+        <input #organizationName id="name" type="text"/> 
+        <label for="name">keyword</label>
+      </td>
+      <td>
+        <button (click)="getOrganizationsByKeyword(organizationName.value); organizationName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+      </td>
+    </div>
+</div>
+
+<div class="container center">
+    <h4 *ngIf="organizations">{{organizations.length}} organizations found</h4>
+</div>
+
+<!-- List Organizations-->
+<!--<div class="container">
+<ul class="organizations">
+    <li *ngFor="let organization of organizations" (click)="onSelect(organization)" [class.selected]="organization === selectedOrganization">
+        <tr>
+            <td>
+                <span><h5>{{organization.name}}</h5></span><br>          
+            </td>
+        </tr>
+    </li>
+</ul>
+</div>
+-->
+
+<div class="container">
+    <div class="row users valign">     
+        <div *ngFor="let organization of organizations; let idx = index">
+            <div class="col s6" *ngIf="idx % 2 === 0 ">
+                <div class=" valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+                        <td><img src={{organization.logo}} height="200" width="200"></td>
+                        <td>
+                            <div class="row">
+   
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
+                                </div>                               
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
+                                </div>
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.country}}</span><br>
+                                </div>
+                                <br>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
+            </div>
+            <div class="col s6" *ngIf="idx % 2 === 1 ">
+                <div class=" valign-wrapper">
+                    <tr item-width="100%" class="center-align">
+                        <td><img src={{organization.logo}} height="200" width="200"></td>
+                        <td>
+                            <div class="row">
+   
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
+                                </div>                               
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
+                                </div>
+                                <div class="col s12 valign">
+                                    <span class="left-align h3 text">{{organization.country}}</span><br>
+                                </div>
+                                <br>
+                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
+                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                    </tr>                    
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container center">
+    <!-- inserting pagination -->
+    <!-- pager -->
+   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+    </ul>         
+</div> 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h5>CONFIRM USER DELETE</h5>
+      <hr>
+      <br>
+      <div class="col s12 center">
+          <p class="h3 valign col s12" *ngIf="selectedOrganization">{{selectedOrganization.name}}</p>
+      </div> 
+    </div>
+    <div class="modal-footer" *ngIf="selectedOrganization">
+      <button (click) = "delete(selectedOrganization)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+    </div>
+  </div>

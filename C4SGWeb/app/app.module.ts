@@ -1,66 +1,91 @@
 import './rxjs-extensions';
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+
 import { HttpModule, JsonpModule }    from '@angular/http';
 import { NavScrollDirective } from './navscroll.directive';
 
-import {MaterializeDirective} from "angular2-materialize";
+
+import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
+import { MaterialModule } from '@angular/material';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent }  from './app.component';
-import { HomeComponent }  from './home/home.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
 // Project
-import { VolunteerProjectComponent }  from './project/volunteer/volunteer-project.component';
-import { OrganizationProjectComponent }  from './project/organization/organization-project.component';
-import { ViewProjectComponent }  from './project/view/view-project.component';
-import { SearchProjectComponent }  from './project/search/search-project.component';
-import { CreateProjectComponent }  from './project/create/create.component';
-import { ProjectService }  from './project/project.service';
+import { ProjectListComponent }  from './project/list/project-list.component';
+import { ProjectViewComponent }  from './project/view/project-view.component';
+import { ProjectCreateComponent }  from './project/create/project-create.component';
 
-import { AboutComponent }  from './about/about.component';
-import { ContactComponent }  from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
-import { RegistrationComponent } from './registration/registration.component';
+// Organization
+import { OrganizationListComponent }  from './organization/list/organization-list.component';
+import { OrganizationViewComponent } from './organization/view/organization-view.component';
+import { OrganizationCreateComponent } from './organization/create/organization-create.component';
 
-// Dashboard
-import { VolunteerUserComponent } from './user/volunteer/volunteer-user.component';
-import { NonprofitUserComponent } from './user/nonprofit/nonprofit-user.component';
-import { C4SGUserComponent } from './user/c4sg/c4sg-user.component';
+// User
+import { UserAccountComponent }  from './user/account/user-account.component';
+import { UserProfileComponent }  from './user/profile/user-profile.component';
+import { UserListComponent }  from './user/list/user-list.component';
+import { UserViewComponent }  from './user/view/user-view.component';
+
+// Login
+import { RegistrationComponent } from './login/registration/registration.component';
+import { LoginComponent } from './login/login/login.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+
+// Service
+import { OrganizationService } from './organization/common/organization.service';
+import { ProjectService }  from './project/common/project.service';
+import { ProjectCreateService } from './project/create/project-create.service';
+import { UserService }        from './user/common/user.service';
+import { PagerService } from './_services/pager.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterializeModule
   ],
   declarations: [
     AppComponent,
     NavScrollDirective,
     HomeComponent,
     AboutComponent,
-    ContactComponent,
+
+    ProjectListComponent,
+    ProjectViewComponent,
+    ProjectCreateComponent,
+
+    OrganizationListComponent,
+    OrganizationViewComponent,
+    OrganizationCreateComponent,
+
+    UserListComponent,
+    UserViewComponent,
+    UserAccountComponent,
+    UserProfileComponent,
+
+    RegistrationComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    RegistrationComponent,
-    VolunteerProjectComponent,
-    OrganizationProjectComponent,
-    ViewProjectComponent,
-    SearchProjectComponent,    
-    MaterializeDirective,
-    CreateProjectComponent,
-    VolunteerUserComponent,
-    NonprofitUserComponent,
-    C4SGUserComponent,
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService,
+               ProjectCreateService,
+               OrganizationService,
+               UserService,
+               PagerService],
+
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
