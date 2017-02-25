@@ -6,7 +6,6 @@ import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,12 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.c4sg.service.OrganizationService.UPLOAD_DIRECTORY;
+
 @CrossOrigin
 @RestController
 public class OrganizationController {
-
-    private static final String UPLOAD_DIRECTORY = "logos";
-    private static final String LOGO_FORMAT = ".jpg";
 
     @Autowired
     private OrganizationService organizationService;
@@ -33,7 +31,7 @@ public class OrganizationController {
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            File f = new File(getLogoUploadPath(organizationName));
+            File f = new File(organizationService.getLogoUploadPath(organizationName));
             new FileOutputStream(f).write(imageByte);
             return "Success";
         } catch (Exception e) {
@@ -64,7 +62,7 @@ public class OrganizationController {
     public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDto organizationDto) {
         System.out.println("**************Create**************");
         Map<String, Object> responseData = null;
-        organizationDto.setLogo(getLogoUploadPath(organizationDto.getName()));
+        organizationDto.setLogo(organizationService.getLogoUploadPath(organizationDto.getName()));
         try {
             OrganizationDto createdOrganization = organizationService.createOrganization(organizationDto);
             responseData = Collections.synchronizedMap(new HashMap<>());
@@ -100,10 +98,6 @@ public class OrganizationController {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    private String getLogoUploadPath(String organizationName) {
-        return UPLOAD_DIRECTORY + File.separator + organizationName + LOGO_FORMAT;
     }
 
 }

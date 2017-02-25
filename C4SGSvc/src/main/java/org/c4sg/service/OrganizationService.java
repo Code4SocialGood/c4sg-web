@@ -6,6 +6,9 @@ import org.c4sg.dto.OrganizationDto;
 
 public interface OrganizationService {
 
+    String UPLOAD_DIRECTORY = "logos";
+    String LOGO_FORMAT = ".jpg";
+
 	public void save(OrganizationDto organizationDto);
 
     public List<OrganizationDto> findOrganizations();
@@ -19,4 +22,6 @@ public interface OrganizationService {
     public OrganizationDto updateOrganization(int id, OrganizationDto organizationDto);
     
     public void deleteOrganization(int id);
-}
+
+    public String getLogoUploadPath(String organizationName);
+    }
