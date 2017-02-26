@@ -1,5 +1,6 @@
 package org.c4sg.service.impl;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,6 +80,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     		//organization.setDeleteBy(user.getUsername());
     		organizationDAO.save(organization);
     	}
+    }
+
+    public String getLogoUploadPath(String organizationName) {
+        return UPLOAD_DIRECTORY + File.separator + organizationName + LOGO_FORMAT;
     }
 
 }

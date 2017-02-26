@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import static org.c4sg.service.OrganizationService.UPLOAD_DIRECTORY;
 
 @CrossOrigin
 @RestController
@@ -23,6 +24,22 @@ public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
+
+    @RequestMapping(value = "/api/organization/{organizationName}/uploadLogo", method = RequestMethod.POST)
+    public String uploadLogo(@PathVariable String organizationName, @RequestBody String requestBody) {
+        try {
+            byte[] imageByte = Base64.decodeBase64(requestBody);
+            File directory = new File(UPLOAD_DIRECTORY);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File f = new File(organizationService.getLogoUploadPath(organizationName));
+            new FileOutputStream(f).write(imageByte);
+            return "Success";
+        } catch (Exception e) {
+            return "Error saving logo for organization " + organizationName + " : " + e;
+        }
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/api/organization/all", produces = { "application/json" }, method = RequestMethod.GET)
@@ -47,7 +64,8 @@ public class OrganizationController {
     public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDTO organizationDTO){
     	System.out.println("**************Create**************");
     	Map<String, Object> responseData = null;
-    	try{
+        organizationDto.setLogo(organizationService.getLogoUploadPath(organizationDto.getName()));
+        try{
     		OrganizationDTO createdOrganization = organizationService.createOrganization(organizationDTO);
     		responseData = Collections.synchronizedMap(new HashMap<>());
     		responseData.put("organization", createdOrganization);
@@ -71,12 +89,12 @@ public class OrganizationController {
     	}
     	return responseData;
     }
-    
+
     @CrossOrigin
-    @RequestMapping(value="/api/organization/delete/{id}", method = RequestMethod.DELETE)
-    public void deleteOrganization(@PathVariable("id") int id){
-    	System.out.println("************** Delete : id=" + id + "**************");
-    	
+    @RequestMapping(value = "/api/organization/delete/{id}", method = RequestMethod.DELETE)
+    public void deleteOrganization(@PathVariable("id") int id) {
+        System.out.println("************** Delete : id=" + id + "**************");
+
         try {
             organizationService.deleteOrganization(id);
         } catch (Exception e) {
