@@ -1,4 +1,24 @@
 /* Master Styles */
+body {
+  margin: 2em;
+}
+
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
+}
+
+.preloader-wrapper{
+  position: absolute;
+  left: 48%;
+  top: 48%;
+}
+
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
@@ -10,24 +30,49 @@ h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
+/*essential style for top and bottom*/
 .white-text li {
   list-style-type: none;
   float: left;
   padding: 10px;
 }
 
-body {
-  margin: 2em;
+.at-home {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none;
 }
 
-body, input[text], button {
-  color: #888;
-  font-family: Cambria, Georgia;
+.off-home {
+  position: none;
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: none;
 }
 
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
+.right a{
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1em;
 }
 
+.right a:hover{
+  background: rgba(255, 255 ,255 , 0.2);
+}
+
+
+
+.lr-wrapper .log-reg {
+  font-size: 0.7em;
+  border: 1px solid white;
+  border-radius: 3px;
+  width: 7em;
+  margin: 0.5em;
+  padding:  0.3em;
+  line-height: 1em;
+  text-align: center;
+}
+
+
+.lr-wrapper{
+  margin: 1em auto;
+}
 
