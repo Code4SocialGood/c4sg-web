@@ -8,7 +8,7 @@ import org.c4sg.constant.UserRole;
 import org.c4sg.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDAO extends CrudRepository<User, Long> {
     List<User> findAll();
     //temporary until create date is added
     List<User> findByStatusOrderByUserNameAsc(Status status);

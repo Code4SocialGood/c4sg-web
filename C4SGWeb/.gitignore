@@ -17,3 +17,9 @@ coverage/
 
 # Release
 dist/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr

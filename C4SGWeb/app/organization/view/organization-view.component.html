@@ -1,4 +1,51 @@
-<div id="organization" class="col s12">My Organization
+<div class="container">
+  <div class="row">
+    <div class="col m4 offset-m1">
+      <h3 class="center-align">
+        <img class="responsive-img" src="{{organization?.logo}}" alt="Image for {{organization?.name}}">
+      </h3>
+
+    </div>
+    <div class="col m6">
+      <h3>{{organization?.name}}</h3>
+
+      <!-- TODO: Update when the service and Organization API provide these additional details: website, emaill, phone. -->
+      <div class="row">
+        <div class="col md2"><i class="material-icons">link</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">mail_outline</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">phone</i></div>
+        <div class="col md4">TODO: Not Passed from OrganizationService/Database</div>
+      </div>
+      <div class="row">
+        <div class="col md2"><i class="material-icons">location_on</i></div>
+        <div class="col md4">
+          {{organization?.address1 + ", " + organization?.address2}}
+          <br>
+          {{organization?.state + ", " + organization?.country}}</div>
+      </div>
+
+      <b>About Us</b>
+      <div class="divider"></div>
+      <p>{{organization?.detailedDescription}}</p>
+    </div>
+  </div>
+  <div class="row center-align grey lighten-5">
+    <div class="divider"></div>
+    <br>
+    <a class="waves-effect waves-light btn">Projects</a>
+    <br><br>
+  </div>
+
+
+  <!-- TODO: HTML below should move to organization-create.component.html -->
+
+  <!--<div id="organization" class="col s12">My Organization
     <div class="container">
         <div class="row">
             <div class="col s12">
@@ -46,4 +93,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->

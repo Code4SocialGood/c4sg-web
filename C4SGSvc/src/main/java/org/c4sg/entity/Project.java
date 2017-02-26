@@ -21,9 +21,6 @@ public class Project {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "organization_id", nullable = false)
-	private Integer organizationId;
-
 	@Column(name = "image", nullable = false)
 	private String image;
 
@@ -33,17 +30,12 @@ public class Project {
 	@Column(name = "status", columnDefinition="char(1)",nullable = false)
 	private String status;
 
+	@Column(name = "contact_email", nullable = false)
+	private String email;
+
 	@ManyToOne
 	@JoinColumn(name = "organization_id", insertable = false, updatable = false)
 	private Organization organization;
-
-	public Integer getOrganizationId() {
-		return organizationId;
-	}
-
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
-	}
 
 	public String getImage() {
 		return IMAGE_DIRECTORY + image;
@@ -93,4 +85,11 @@ public class Project {
 		this.organization = organization;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

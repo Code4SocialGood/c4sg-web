@@ -22,10 +22,10 @@ public class Organization {
 	@Column(name = "logo")
 	private String logo;
 
-	@Column(name = "briefDescription", nullable = false)
+	@Column(name = "brief_description", nullable = false)
 	private String briefDescription;
 
-	@Column(name = "detailedDescription", nullable = false)
+	@Column(name = "detailed_description", nullable = false)
 	private String detailedDescription;
 
 	@Column(name = "address1", nullable = false)

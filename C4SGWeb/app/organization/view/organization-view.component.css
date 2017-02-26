@@ -1,3 +1,13 @@
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/**********
+TODO: CSS below should move to organization-create.component.css
+**********/
+
+/*
 .selected {
     background-color: #CFD8DC !important;
     color: white;
@@ -51,5 +61,6 @@ button.delete {
     background-color: gray !important;
     color:white;
 }
+*/
 
 

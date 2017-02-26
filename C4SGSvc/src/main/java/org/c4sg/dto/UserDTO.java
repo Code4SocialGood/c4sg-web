@@ -1,6 +1,6 @@
 package org.c4sg.dto;
 
-public class UserDto {
+public class UserDTO {
     private Integer id;
     private String userName;
     private String firstName;
