@@ -8,7 +8,7 @@ import { Project } from './project';
 export class ProjectService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private projectUrl = 'http://localhost:8080/api/project';
+  private projectUrl = 'http://localhost:8080/api/projects';
 
   constructor(private http: Http) {
   }
