@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 import { NavScrollDirective } from './navscroll.directive';
 
-
 import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
 
