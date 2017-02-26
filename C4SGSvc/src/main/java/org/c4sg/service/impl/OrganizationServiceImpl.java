@@ -33,7 +33,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 	
     public OrganizationDTO findById(int id) {
-        return organizationMapper.getOrganizationDtoFromEntity(organizationDAO.findById(id));
+        return organizationMapper.getOrganizationDtoFromEntity(organizationDAO.findOne(id));
     }
 
     public List<OrganizationDTO> findByKeyword(String keyWord) {
@@ -59,7 +59,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
     
     public OrganizationDTO updateOrganization(int id, OrganizationDTO organizationDTO) {
-    	Organization organization = organizationDAO.findById(id);
+    	Organization organization = organizationDAO.findOne(id);
         if (organization == null) {
         	//TODO: create new?
         } else {
@@ -70,7 +70,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
     
     public void deleteOrganization(int id){
-    	Organization organization = organizationDAO.findById(id);
+    	Organization organization = organizationDAO.findOne(id);
     	if(organization != null){
     		organization.setStatus(Status.DELETED);
     		//TODO: Local or Timezone?
