@@ -1,26 +1,32 @@
 package org.c4sg.mapper;
 
-import org.c4sg.dto.ProjectDto;
+import org.c4sg.dto.ProjectDTO;
 import org.c4sg.entity.Project;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.TypeMap;
+import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 @Component
 public class ProjectMapper extends ModelMapper{
 
-	public ProjectDto getProjectDtoFromEntity(Project project){
+	public ProjectDTO getProjectDtoFromEntity(Project project){
 		getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		ProjectDto projectDto = map(project, ProjectDto.class);
-		projectDto.setOrganizationName(project.getOrganization().getName());
-		return projectDto;
+		ProjectDTO projectDTO = map(project, ProjectDTO.class);
+		projectDTO.setOrganizationName(project.getOrganization().getName());
+		return projectDTO;
 	}
-	
-	public Project getProjectEntityFromDto(ProjectDto projectDto){
-		Project project = map(projectDto, Project.class);
+
+	public List<ProjectDTO> getDtosFromEntities(List<Project> projects){
+        Type listTypeDTO = new TypeToken<List<ProjectDTO>>() {}.getType();
+		return map(projects, listTypeDTO);
+	}
+
+	public Project getProjectEntityFromDto(ProjectDTO projectDTO){
+		Project project = map(projectDTO, Project.class);
 		return project;
 	}
 }

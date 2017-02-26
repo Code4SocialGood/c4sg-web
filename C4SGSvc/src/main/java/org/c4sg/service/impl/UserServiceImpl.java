@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.c4sg.constant.Status;
 import org.c4sg.constant.UserRole;
-import org.c4sg.dao.UserDao;
-import org.c4sg.dto.UserDto;
+import org.c4sg.dao.UserDAO;
+import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.c4sg.mapper.UserMapper;
 import org.c4sg.service.UserService;
@@ -16,30 +16,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserDAO userDAO;
 
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public List<UserDto> findAll() {
-        List<UserDto> usersDto = new ArrayList<>();
-        userDao.findAll().stream().forEach(user -> usersDto.add(userMapper.getUserDtoFromEntity(user)));
+    public List<UserDTO> findAll() {
+        List<UserDTO> usersDto = new ArrayList<>();
+        userDAO.findAll().stream().forEach(user -> usersDto.add(userMapper.getUserDtoFromEntity(user)));
         return usersDto;
 
     }
     
     @Override
-    public List<UserDto> findActiveUsers() {
-        List<User> users = userDao.findByStatusOrderByUserNameAsc(Status.ACTIVE);
-		List<UserDto> userDtos = users.stream()
+    public List<UserDTO> findActiveUsers() {
+        List<User> users = userDAO.findByStatusOrderByUserNameAsc(Status.ACTIVE);
+		List<UserDTO> userDTOS = users.stream()
 									.map(p -> userMapper.getUserDtoFromEntity(p))
 									.collect(Collectors.toList());
-		return userDtos;
+		return userDTOS;
     }
     @Override
-    public UserDto findById(int id) {
-        return userMapper.getUserDtoFromEntity(userDao.findById(id));
+    public UserDTO findById(int id) {
+        return userMapper.getUserDtoFromEntity(userDAO.findById(id));
     }
 
     @Override
@@ -49,22 +49,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findDevelopers() {
-        return userDao.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, true);
+        return userDAO.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, true);
     }
 
     @Override
-    public UserDto saveUser(UserDto userDto) {
-        User user = userMapper.getUserEntityFromDto(userDto);
+    public UserDTO saveUser(UserDTO userDTO) {
+        User user = userMapper.getUserEntityFromDto(userDTO);
 
-        return userMapper.getUserDtoFromEntity(userDao.save(user));
+        return userMapper.getUserDtoFromEntity(userDAO.save(user));
     }
 
     @Override
     public void deleteUser(Integer id) {
-        User user = userDao.findById(id);
+        User user = userDAO.findById(id);
         user.setStatus(Status.DELETED);
 
-        userDao.save(user);
+        userDAO.save(user);
     }
     
 }

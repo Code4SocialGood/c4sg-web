@@ -7,8 +7,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.c4sg.dto.OrganizationDto;
-import org.c4sg.entity.Organization;
+import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,29 +26,29 @@ public class OrganizationController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/organization/all", produces = { "application/json" }, method = RequestMethod.GET)
-    public List<OrganizationDto> getOrganizations() {
+    public List<OrganizationDTO> getOrganizations() {
         return organizationService.findOrganizations();
     }
     
     @CrossOrigin
     @RequestMapping(value = "/api/organization/search/byId/{id}", produces = { "application/json" }, method = RequestMethod.GET)
-    public OrganizationDto getOrganization(@PathVariable("id") int id) {
+    public OrganizationDTO getOrganization(@PathVariable("id") int id) {
         return organizationService.findOrganizations().get(id);
     }
     
     @CrossOrigin
     @RequestMapping(value = "/api/organization/search/byKeyword/{keyWord}", produces = { "application/json" }, method = RequestMethod.GET)
-    public List<OrganizationDto> getOrganization(@PathVariable("keyWord") String keyWord) {
+    public List<OrganizationDTO> getOrganization(@PathVariable("keyWord") String keyWord) {
         return organizationService.findByKeyword(keyWord);
     }
     
     @CrossOrigin
     @RequestMapping(value="/api/organization/create", method = RequestMethod.POST)
-    public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDto organizationDto){
+    public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDTO organizationDTO){
     	System.out.println("**************Create**************");
     	Map<String, Object> responseData = null;
     	try{
-    		OrganizationDto createdOrganization = organizationService.createOrganization(organizationDto);
+    		OrganizationDTO createdOrganization = organizationService.createOrganization(organizationDTO);
     		responseData = Collections.synchronizedMap(new HashMap<>());
     		responseData.put("organization", createdOrganization);
     	}catch(Exception e){
@@ -60,11 +59,11 @@ public class OrganizationController {
     
     @CrossOrigin
     @RequestMapping(value="/api/organization/update/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> updateOrganization(@PathVariable("id") int id, @RequestBody @Valid OrganizationDto organizationDto){
-    	System.out.println("**************Update : id=" + organizationDto.getId() + "**************");
+    public Map<String, Object> updateOrganization(@PathVariable("id") int id, @RequestBody @Valid OrganizationDTO organizationDTO){
+    	System.out.println("**************Update : id=" + organizationDTO.getId() + "**************");
     	Map<String, Object> responseData = null;
     	try{
-    		OrganizationDto updatedOrganization = organizationService.updateOrganization(id, organizationDto);
+    		OrganizationDTO updatedOrganization = organizationService.updateOrganization(id, organizationDTO);
     		responseData = Collections.synchronizedMap(new HashMap<>());
     		responseData.put("organization", updatedOrganization);
     	}catch(Exception e){

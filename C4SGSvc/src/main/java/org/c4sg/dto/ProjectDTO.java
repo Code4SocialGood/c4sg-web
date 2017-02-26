@@ -1,8 +1,7 @@
 package org.c4sg.dto;
 
-import org.c4sg.entity.Project;
+public class ProjectDTO {
 
-public class ProjectDto {
 	private int id;
 	
 	private String name;
