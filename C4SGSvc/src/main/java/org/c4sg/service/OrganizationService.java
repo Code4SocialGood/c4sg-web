@@ -2,7 +2,7 @@ package org.c4sg.service;
 
 import java.util.List;
 
-import org.c4sg.dto.OrganizationDto;
+import org.c4sg.dto.OrganizationDTO;
 
 public interface OrganizationService {
 
