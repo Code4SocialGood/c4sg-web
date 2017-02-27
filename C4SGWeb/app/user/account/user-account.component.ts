@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../common/user.service';
 import { equalValidator } from '../common/user.equal.validator';
+import { User } from '../common/user';
 import { SPACE } from '@angular/material';
 
 @Component({
@@ -19,6 +20,7 @@ export class UserAccountComponent implements OnInit {
   public image_loaded: boolean;
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
+  private user:User;
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -38,9 +40,31 @@ export class UserAccountComponent implements OnInit {
   constructor( private changeDetectorRef: ChangeDetectorRef, private userService: UserService) { }
 
   updateAccount(event) {
+    event.preventDefault();
     const accountData = this.myAccount.value;
     console.log(event);
     console.log(accountData);
+    if (this.myAccount.errors === null){
+      const user = new User(
+        this.user.id,
+        this.myAccount.value.email,
+        this.user.phone,
+        this.myAccount.value.state,
+        this.myAccount.value.country,
+        this.myAccount.value.zip,
+        this.user.status,
+        this.user.role,
+        this.user.github,
+        this.user.displayFlag,
+        this.user.longitude,
+        this.user.latitude,
+        this.myAccount.value.username,
+        this.myAccount.value.firstName,
+        this.myAccount.value.lastName);
+      this.userService.update(user).subscribe(()=>{});
+    } else {
+      console.error('Do not submit, form has errors'); // for demo purposes only
+    }
   }
 
   updatePassword(event) {
@@ -151,6 +175,22 @@ export class UserAccountComponent implements OnInit {
           zip: user.zip
         });
 
+        this.user = new User(
+          user.id,
+          user.email,
+          user.phone,
+          user.state,
+          user.country,
+          user.zip,
+          user.status,
+          user.role,
+          user.github,
+          user.displayFlag,
+          user.longitude,
+          user.latitude,
+          user.userName,
+          user.firstName,
+          user.lastName);
       }, (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }

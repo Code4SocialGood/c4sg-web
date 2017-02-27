@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
-import { User } from './User';
+import { User } from './user';
 
 @Injectable()
 export class UserService {
@@ -48,7 +48,7 @@ export class UserService {
     }
 
     update(user: User) {
-        const url = this.userUrl + '/update';
+        const url = this.userUrl;
         return this.http
             .put(url, user, {headers: this.headers})
             .map((res: Response) => res.json())

@@ -1,56 +1,80 @@
 <div id="account" class="col s12">
-    <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <form [formGroup]="myAccount" (ngSubmit)="updateAccount($event)">
-                    <div class="col s4">
-                      <img class="responsive-img" [attr.src]=getImage() id = "responsive-img"/>
-                      <label class="btn waves-effect waves-light" for="file">Upload</label>
-                      <input type="file" name="file" id="file"   accept="image/gif, image/jpeg, image/png" (change)="fileChange(input)" #input />
-                    </div>
-                    <div class="col s4">
-                        <input formControlName="username" type="text" placeholder="Username *">
-                        <input formControlName="firstName" type="text" placeholder="First Name *">
-                        <input formControlName="lastName" type="text" placeholder="Last Name *">
-                        <input formControlName="email" type="text" placeholder="Email Address *">
-                    </div>
-                    <div class="col s4">
-                        <select formControlName="state" materialize="material_select" [materializeSelectOptions]="states">
-                          <option value="#">State</option>
-                          <option *ngFor="let state of states" [value]="state.value">{{state.display}}</option>
-                        </select>
-                        <select formControlName="country"  materialize="material_select" [materializeSelectOptions]="countries">
-                          <option value="#">Country</option>
-                          <option *ngFor="let country of countries" [value]="country.value">{{country.display}}</option>
-                        </select>
-                        <input formControlName="zip" type="text" placeholder="Zip">
-                    </div>
-                    <div class="col s12">
-                        <div class="col s4">
-                            <button type="submit">Save</button>
-                        </div>
-                        <div class="col s4">
-                            <button type="button">Delete</button>
-                        </div>
-                        <div class="col s4">
-                            <button type="reset">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-          <div class="col s8 offset-s4">
-            <form [formGroup]="myPassword" (ngSubmit)="updatePassword($event)">
-              <div class="col s6">
-                <input formControlName="newPassword" type="text" placeholder="New Password">
-              </div>
-              <div class="col s6">
-                <input formControlName="confirmPassword" type="text" placeholder="Confirm Password">
-              </div>
-              <div class="col s4">
-                <button type="submit">Update password</button>
-              </div>
-            </form>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <form materialize [formGroup]="myAccount" (ngSubmit)="updateAccount($event)">
+          <div class="col s4">
+            <img class="responsive-img" [attr.src]=getImage() id="responsive-img"/>
+            <label class="btn waves-effect waves-light" for="file">Upload</label>
+            <input type="file" name="file" id="file" accept="image/gif, image/jpeg, image/png"
+                   (change)="fileChange(input)" #input/>
           </div>
-        </div>
+          <div class="col s4">
+            <div class="input-field">
+              <input id="username" formControlName="username" type="text" placeholder="Username *">
+              <label for="username">Username *</label>
+            </div>
+            <div class="input-field">
+              <input id="firstName" formControlName="firstName" type="text" placeholder="First Name *">
+              <label for="firstName">First Name *</label>
+            </div>
+            <div class="input-field">
+              <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name *">
+              <label for="lastName">Last Name *</label>
+            </div>
+            <div class="input-field">
+              <input id="email" formControlName="email" type="text" placeholder="Email Address *">
+              <label for="email">Email Address *</label>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="input-field input-field-select">
+            <select id="state" formControlName="state" materialize="material_select" [materializeSelectOptions]="states">
+              <option value="#">State</option>
+              <option *ngFor="let state of states" [value]="state.value">{{state.display}}</option>
+            </select>
+              <label for="state">State</label>
+            </div>
+            <div class="input-field input-field-select">
+            <select id="country" formControlName="country" materialize="material_select" [materializeSelectOptions]="countries">
+              <option value="#">Country</option>
+              <option *ngFor="let country of countries" [value]="country.value">{{country.display}}</option>
+            </select>
+              <label for="country">Country</label>
+            </div>
+            <div class="input-field">
+            <input id="zip" formControlName="zip" type="text" placeholder="Zip">
+              <label for="country">Zip</label>
+            </div>
+          </div>
+          <div class="col s8 offset-s4">
+            <div class="col s4">
+              <button class="btn waves-effect waves-light" type="submit">Save</button>
+            </div>
+            <div class="col s4">
+              <button class="btn waves-effect waves-light" type="button">Delete</button>
+            </div>
+            <div class="col s4">
+              <button class="btn waves-effect waves-light" type="reset">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col s8 offset-s4">
+        <form [formGroup]="myPassword" (ngSubmit)="updatePassword($event)">
+          <div class="input-field col s6 ">
+            <input id="newPassword" formControlName="newPassword" type="text">
+            <label for="newPassword">New Password</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="confirmPassword" formControlName="confirmPassword" type="text">
+            <label for="confirmPassword">Confirm Password</label>
+          </div>
+          <div class="col s4">
+            <button class="btn waves-effect waves-light" type="submit">Update password</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
