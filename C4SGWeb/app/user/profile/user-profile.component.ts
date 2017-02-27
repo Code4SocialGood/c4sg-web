@@ -20,4 +20,11 @@ export class UserProfileComponent {
 
   constructor() { }
 
+  updateProfile(event) {
+    const profile = this.myProfile.value;
+    console.log(event);
+    console.log(profile);
+
+  }
+
 }
