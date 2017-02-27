@@ -1,5 +1,7 @@
 package org.c4sg.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +67,7 @@ public class OrganizationController {
     public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDTO organizationDTO){
     	System.out.println("**************Create**************");
     	Map<String, Object> responseData = null;
-        organizationDto.setLogo(organizationService.getLogoUploadPath(organizationDto.getName()));
+        organizationDTO.setLogo(organizationService.getLogoUploadPath(organizationDTO.getName()));
         try{
     		OrganizationDTO createdOrganization = organizationService.createOrganization(organizationDTO);
     		responseData = Collections.synchronizedMap(new HashMap<>());
