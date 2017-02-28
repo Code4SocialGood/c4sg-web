@@ -63,7 +63,7 @@ public class ProjectController extends GenericController{
     @CrossOrigin
     @RequestMapping(value = "/search/byKeyword/{keyWord}", method = RequestMethod.GET)
     @ApiOperation(value = "Find project by keyWord", notes = "Returns a collection of projects")
-    public List<Project> getProjects(@ApiParam(value = "Keyword of project to return")
+    public List<Project> getProjects(@ApiParam(value = "Keyword of project to return", required = true)
                                         @PathVariable("keyWord") String keyWord) {
     	
     	System.out.println("**************Search**************" + keyWord);

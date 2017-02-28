@@ -9,19 +9,12 @@ public interface OrganizationService {
     String UPLOAD_DIRECTORY = "logos";
     String LOGO_FORMAT = ".jpg";
 
-	public void save(OrganizationDTO organizationDTO);
-
-    public List<OrganizationDTO> findOrganizations();
-    
-    public OrganizationDTO findById(int id);
-    
-    public List<OrganizationDTO> findByKeyword(String name);
-    
-    public OrganizationDTO createOrganization(OrganizationDTO organizationDTO);
-    
-    public OrganizationDTO updateOrganization(int id, OrganizationDTO organizationDTO);
-    
-    public void deleteOrganization(int id);
-
-    public String getLogoUploadPath(String organizationName);
-    }
+	void save(OrganizationDTO organizationDTO);
+    void deleteOrganization(int id);
+    String getLogoUploadPath(String organizationName);
+    OrganizationDTO findById(int id);
+    OrganizationDTO createOrganization(OrganizationDTO organizationDTO);
+    OrganizationDTO updateOrganization(int id, OrganizationDTO organizationDTO);
+    List<OrganizationDTO> findOrganizations();
+    List<OrganizationDTO> findByKeyword(String name);
+}
