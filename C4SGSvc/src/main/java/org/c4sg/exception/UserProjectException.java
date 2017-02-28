@@ -1,6 +1,6 @@
 package org.c4sg.exception;
 
-public class UserProjectException extends Exception{
+public class UserProjectException extends RuntimeException{
     private String errorMessage;
 
     public UserProjectException() {

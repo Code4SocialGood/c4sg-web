@@ -3,6 +3,7 @@ package org.c4sg.mapper;
 import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,8 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
 
+import java.lang.reflect.Type;
+import java.util.List;
 
 
 @Component
@@ -68,5 +71,10 @@ public class UserMapper extends ModelMapper {
 		}
 		user.setDisplayFlag(Boolean.valueOf(userDTO.getDisplayFlag()));
 		return user;
-	}	
+	}
+
+	public List<UserDTO> getDtosFromEntities(List<User> projects){
+		Type listTypeDTO = new TypeToken<List<UserDTO>>() {}.getType();
+		return map(projects, listTypeDTO);
+	}
 }

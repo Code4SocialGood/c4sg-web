@@ -6,14 +6,12 @@ import java.util.List;
 
 public interface UserService {
 	
-    List<UserDTO> findAll();
-    List<UserDTO> findActiveUsers();
     UserDTO findById(int id);
     User findByName(String name);
-
-    List<User> findDevelopers();
-
     UserDTO saveUser(UserDTO userDTO);
-
     void deleteUser(Integer id);
+    List<UserDTO> findAll();
+    List<UserDTO> findActiveUsers();
+    List<User> findDevelopers();
+    List<UserDTO> getApplicants(Integer projectId);
 }

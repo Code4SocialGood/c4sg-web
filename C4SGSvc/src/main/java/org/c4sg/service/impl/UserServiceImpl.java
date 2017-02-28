@@ -66,5 +66,10 @@ public class UserServiceImpl implements UserService {
 
         userDAO.save(user);
     }
-    
+
+    @Override
+    public List<UserDTO> getApplicants(Integer projectId) {
+        List<User> users = userDAO.findByUserProjectId(projectId);
+        return userMapper.getDtosFromEntities(users);
+    }
 }
