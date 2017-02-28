@@ -3,8 +3,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../common/user.service';
 import { equalValidator } from '../common/user.equal.validator';
 import { User } from '../common/user';
-import {MaterializeAction} from 'angular2-materialize';
-import { SPACE } from '@angular/material';
+import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
   // moduleId: module.id,
@@ -21,8 +20,8 @@ export class UserAccountComponent implements OnInit {
   public image_loaded: boolean;
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
-  private user:User;
-  private globalActions =  new EventEmitter<string|MaterializeAction>();
+  private user: User;
+  public globalActions =  new EventEmitter<string|MaterializeAction>();
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -46,7 +45,7 @@ export class UserAccountComponent implements OnInit {
     const accountData = this.myAccount.value;
     console.log(event);
     console.log(accountData);
-    if (this.myAccount.errors === null){
+    if (this.myAccount.errors === null) {
       const user = new User(
         this.user.id,
         this.myAccount.value.email,
@@ -63,7 +62,7 @@ export class UserAccountComponent implements OnInit {
         this.myAccount.value.username,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName);
-      this.userService.update(user).subscribe(()=>{
+      this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
     } else {
