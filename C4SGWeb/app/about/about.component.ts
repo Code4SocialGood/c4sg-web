@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var google: any;
+declare const google: any;
 
 @Component({
   selector: 'my-about',
@@ -7,8 +7,6 @@ declare var google: any;
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  title = 'Our Office Location';
-
   ngOnInit() {
     var destination = {lat: 41.779, lng: -88.207};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -20,5 +18,4 @@ export class AboutComponent implements OnInit {
       map: map
     });
   }
-
 }
