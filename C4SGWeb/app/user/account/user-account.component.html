@@ -49,7 +49,7 @@
           </div>
           <div class="col s8 offset-s4">
             <div class="col s4">
-              <button class="btn waves-effect waves-light" type="submit" onclick="Materialize.toast('Your changes have been saved', 4000)">Save</button>
+              <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">Save</button>
             </div>
             <div class="col s4">
               <button class="btn waves-effect waves-light" type="button">Delete</button>

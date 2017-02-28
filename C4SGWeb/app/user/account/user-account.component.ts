@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../common/user.service';
 import { equalValidator } from '../common/user.equal.validator';
 import { User } from '../common/user';
+import {MaterializeAction} from 'angular2-materialize';
 import { SPACE } from '@angular/material';
 
 @Component({
@@ -21,6 +22,7 @@ export class UserAccountComponent implements OnInit {
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   private user:User;
+  private globalActions =  new EventEmitter<string|MaterializeAction>();
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -61,7 +63,9 @@ export class UserAccountComponent implements OnInit {
         this.myAccount.value.username,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName);
-      this.userService.update(user).subscribe(()=>{});
+      this.userService.update(user).subscribe(()=>{
+          this.globalActions.emit('toast');
+      });
     } else {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
