@@ -1,0 +1,48 @@
+<!-- Top menu -->
+<nav [ngClass]="isAtHome()" class="nav-bar" navScroll>
+    <div class="nav-wrapper">
+        <a routerLink="/" class="brand-logo"><img src="assets/logo-transparent.png" height="60" width="380"></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a routerLink="/project/list" routerLinkActive="active" >Opportunities</a></li>   
+            <li><a routerLink="/user/list" routerLinkActive="active" >Volunteers</a></li> 
+            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>         
+
+            <li>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">John Doe<i class="material-icons right">arrow_drop_down</i></a>
+                <ul id="dropdownproject" class="dropdown-content">
+                    <li><a routerLink="/account" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
+                    <li><a routerLink="/profile" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
+                    <li><a routerLink="/project/list" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
+                    <li><a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">Create Organization</a></li>
+                    <li><a routerLink="project/create" routerLinkActive="active" class="black-text text-lighten-2">Create Project</a></li>
+                </ul>
+            </li>
+   
+            <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="/login" routerLinkActive="active" class="log-reg">Log In</a></li>
+            <li class="lr-wrapper"><a routerLink="/register" routerLinkActive="active" class="log-reg">Sign Up</a></li> 
+    
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<!-- Footer -->
+<footer class="page-footer white">
+<div class="container">
+    <div class="row">
+        <div class = "col-md-2">
+	        <h6 class="white-text">
+		        <ul>
+                    <li><a routerLink="/about" routerLinkActive="active" >About Us</a></li>
+                    <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px" ></a>
+                    <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
+                    <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"></a>         
+                    <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
+                </ul>
+            </h6>
+        </div>
+   </div>
+</div>
+</footer>
