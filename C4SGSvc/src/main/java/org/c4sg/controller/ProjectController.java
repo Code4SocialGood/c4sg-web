@@ -91,7 +91,7 @@ public class ProjectController extends GenericController{
 
     	System.out.println("**************Add**************");
     	
-    	Map<Object, Object> responseData = null;
+    	Map<String, Object> responseData = null;
     	
         try {
             Project createProject = projectService.createProject(project);
@@ -128,7 +128,7 @@ public class ProjectController extends GenericController{
 
     	System.out.println("**************Update : id=" + project.getId() + "**************");
     	
-    	Map<Object, Object> responseData = null;
+    	Map<String, Object> responseData = null;
     	
         try {
             Project updateProject = projectService.updateProject(project);
