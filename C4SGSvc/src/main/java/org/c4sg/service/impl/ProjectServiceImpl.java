@@ -7,6 +7,7 @@ import org.c4sg.dao.ProjectDAO;
 import org.c4sg.dao.UserDAO;
 import org.c4sg.dao.UserProjectDAO;
 import org.c4sg.dto.ProjectDTO;
+import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.Project;
 import org.c4sg.entity.User;
 import org.c4sg.entity.UserProject;
@@ -24,81 +25,81 @@ import static org.c4sg.constant.UserProjectStatus.APPLIED;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
-	@Autowired
-	private ProjectDAO projectDAO;
+    @Autowired
+    private ProjectDAO projectDAO;
 
-	@Autowired
-	private UserDAO userDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     @Autowired
     private UserProjectDAO userProjectDAO;
 
-	@Autowired
-	private ProjectMapper projectMapper;
+    @Autowired
+    private ProjectMapper projectMapper;
 
     @Autowired
     private AsyncEmailService asyncEmailService;
 
-	public void save(Project project) {
-		projectDAO.save(project);
+    public void save(Project project) {
+        projectDAO.save(project);
     }
 
-	public List<ProjectDTO> findProjects() {
-		List<Project> projects = projectDAO.findAll();
-		return projectMapper.getDtosFromEntities(projects);
-	}
-	
+    public List<ProjectDTO> findProjects() {
+        List<Project> projects = projectDAO.findAll();
+        return projectMapper.getDtosFromEntities(projects);
+    }
+
     public Project findById(int id) {
         return projectDAO.findById(id);
     }
-    
+
     public Project findByName(String name) {
         return projectDAO.findByName(name);
     }
-    
+
     //TODO search by keyword
     public List<Project> findByKeyword(String keyWord) {
-    	List<Project> projects = new ArrayList<>();
-    	projects.add(projectDAO.findByName(keyWord));
-    	return projects;
+        List<Project> projects = new ArrayList<>();
+        projects.add(projectDAO.findByName(keyWord));
+        return projects;
     }
 
     public Project createProject(Project project) {
-    	Project localProject = projectDAO.findById(project.getId());
+        Project localProject = projectDAO.findById(project.getId());
 
-        if (localProject != null) { 
-        	System.out.println("Project already exist.");
+        if (localProject != null) {
+            System.out.println("Project already exist.");
         } else {
             localProject = projectDAO.save(project);
         }
 
         return localProject;
     }
-    
+
     public void deleteProject(int id) {
-    	Project localProject = projectDAO.findById(id);
+        Project localProject = projectDAO.findById(id);
 
         if (localProject != null) {
-        	projectDAO.delete(localProject);
+            projectDAO.delete(localProject);
         } else {
-        	System.out.println("Project does not exist.");
+            System.out.println("Project does not exist.");
         }
     }
-    
+
     public Project updateProject(Project project) {
-    	Project localProject = projectDAO.findById(project.getId());
+        Project localProject = projectDAO.findById(project.getId());
 
         if (localProject != null) {
-        	localProject = projectDAO.save(project);
+            localProject = projectDAO.save(project);
         } else {
-        	System.out.println("Project does not exist.");
+            System.out.println("Project does not exist.");
         }
 
         return localProject;
     }
 
     @Override
-    public ProjectDTO saveUserProject(Integer userId, Integer projectId) throws UserProjectException {
+    public ProjectDTO saveUserProject(Integer userId, Integer projectId) {
         User user = userDAO.findById(userId);
         requireNonNull(user, "Invalid User Id");
         Project project = projectDAO.findById(projectId);
@@ -132,15 +133,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     private void isUserAppliedPresent(Integer userId, Integer projectId) throws UserProjectException {
         UserProject userProject = userProjectDAO.findByUser_IdAndProject_Id(userId, projectId);
-        if( nonNull(userProject)){
+        if(nonNull(userProject)){
             throw new UserProjectException("The user already exists in that project");
         }
-    }
-
-    @Override
-    public List<ProjectDTO> getApplicants(Integer projectId) {
-        List<Project> projects = projectDAO.findByUserProjectId(projectId);
-        return projectMapper.getDtosFromEntities(projects);
     }
 
     @Override

@@ -1,46 +1,52 @@
 package org.c4sg.controller;
 
+import io.swagger.annotations.*;
+import org.c4sg.dto.MessageDTO;
+import org.c4sg.dto.ProjectDTO;
+import org.c4sg.dto.UserDTO;
+import org.c4sg.entity.Project;
+import org.c4sg.exception.NotFoundException;
+import org.c4sg.exception.UserProjectException;
+import org.c4sg.service.ProjectService;
+import org.c4sg.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
-import org.c4sg.dto.ProjectDTO;
-import org.c4sg.entity.Project;
-import org.c4sg.exception.UserProjectException;
-import org.c4sg.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/projects")
-public class ProjectController {
+@Api(description = "Operations about Projects", tags = "project")
+public class ProjectController extends GenericController{
 
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private UserService userService;
+
     @CrossOrigin
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Find all projects", notes = "Returns a collection of projects")
     public List<ProjectDTO> getProjects() {
-    	
-    	System.out.println("**************All**************");
         return projectService.findProjects();
     }
     
     @CrossOrigin
     @RequestMapping(value = "/search/byId/{id}", method = RequestMethod.GET)
-    public Project getProject(@PathVariable("id") int id) {
-    	
+    @ApiOperation(value = "Find project by ID", notes = "Returns a single project")
+    public Project getProject(@ApiParam(value = "ID of project to return", required = true)
+                                @PathVariable("id") int id) {
     	System.out.println("**************ID**************" + id);
         //return projectService.findProjects().get(id);
     	return projectService.findById(id);
@@ -48,14 +54,17 @@ public class ProjectController {
     
     @CrossOrigin
     @RequestMapping(value = "/search/byName/{name}", method = RequestMethod.GET)
-    public Project getProject(@PathVariable("name") String name) {
-    	
+    @ApiOperation(value = "Find project by name", notes = "Returns a single project")
+    public Project getProject(@ApiParam(value = "Name of project to return", required = true)
+                                @PathVariable("name") String name) {
         return projectService.findByName(name);
     }
     
     @CrossOrigin
     @RequestMapping(value = "/search/byKeyword/{keyWord}", method = RequestMethod.GET)
-    public List<Project> getProjects(@PathVariable("keyWord") String keyWord) {
+    @ApiOperation(value = "Find project by keyWord", notes = "Returns a collection of projects")
+    public List<Project> getProjects(@ApiParam(value = "Keyword of project to return", required = true)
+                                        @PathVariable("keyWord") String keyWord) {
     	
     	System.out.println("**************Search**************" + keyWord);
     	
@@ -76,7 +85,9 @@ public class ProjectController {
     
     @CrossOrigin
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Map<String, Object> createProject(@RequestBody @Valid Project project) {
+    @ApiOperation(value = "Add a new project")
+    public Map<String, Object> createProject(@ApiParam(value = "Project object to return", required = true)
+                                                @RequestBody @Valid Project project) {
 
     	System.out.println("**************Add**************");
     	
@@ -92,10 +103,13 @@ public class ProjectController {
 
         return responseData;
     }
-    
+
     @CrossOrigin
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public void deleteProject(@PathVariable("id") int id) {
+    @ApiOperation(value = "Deletes a project")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@ApiParam(value = "Project id to delete", required = true)
+                                @PathVariable("id") int id) {
 
     	System.out.println("************** Delete : id=" + id + "**************");
     	
@@ -108,7 +122,9 @@ public class ProjectController {
 
     @CrossOrigin
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Map<String, Object> updateProject(@RequestBody @Valid Project project) {
+    @ApiOperation(value = "Update an existing project")
+    public Map<String, Object> updateProject(@ApiParam(value = "Updated project object", required = true)
+                                                @RequestBody @Valid Project project) {
 
     	System.out.println("**************Update : id=" + project.getId() + "**************");
     	
@@ -127,24 +143,49 @@ public class ProjectController {
 
     @CrossOrigin
     @RequestMapping(value = "/{id}/users/{userId}", method = RequestMethod.POST)
-    //TODO: Replace explicit user{id} with AuthN user id
-    public ResponseEntity<ProjectDTO> createUserProject(@PathVariable("userId") Integer userId,
-                                                        @PathVariable("id") Integer projectId)
-                                                            throws UserProjectException {
-        ProjectDTO projectDTO = projectService.saveUserProject(userId, projectId);
-
-        return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
+    @ApiOperation(value = "Create a relation between user and project")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "ID of project or user invalid")
+    })
+    //TODO: Replace explicit user{id} with AuthN user id.
+    public ResponseEntity<?> createUserProject(@ApiParam(value = "ID of user", required = true)
+                                                  @PathVariable("userId") Integer userId,
+                                               @ApiParam(value = "ID of project", required = true)
+                                                  @PathVariable("id") Integer projectId) {
+        try {
+            projectService.saveUserProject(userId, projectId);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                                      .path("/{id}/users/{userId}")
+                                                      .buildAndExpand(projectId, userId).toUri();
+            return ResponseEntity.created(location).build();
+        }catch (NullPointerException | UserProjectException e){
+            throw new NotFoundException("ID of project or user invalid");
+        }
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public List<ProjectDTO> getApplicants(@PathVariable("id") Integer projectId){
-        return projectService.getApplicants(projectId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Find applicants of a given project", notes = "Returns a collection of projects")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Applicants not found")
+    })
+    public ResponseEntity<List<UserDTO>> getApplicants(@ApiParam(value = "ID of project", required = true)
+                                            @PathVariable("id") Integer projectId) {
+        List<UserDTO> applicants = userService.getApplicants(projectId);
+
+        if (!applicants.isEmpty()) {
+           return ResponseEntity.ok().body(applicants);
+        }else{
+            throw new NotFoundException("Applicants not found");
+        }
     }
 
     @CrossOrigin
     @RequestMapping(value = "/applied/users/{id}", method = RequestMethod.GET)
-    public List<ProjectDTO> getProjects(@PathVariable("id") Integer userId){
+    @ApiOperation(value = "Find projects, with status applied, related to a given user",
+                  notes = "Returns a collection of projects with status applied")
+    public List<ProjectDTO> getProjects(@ApiParam(value = "ID of user", required = true)
+                                            @PathVariable("id") Integer userId){
         return projectService.getAppliedProjects(userId);
     }
 }

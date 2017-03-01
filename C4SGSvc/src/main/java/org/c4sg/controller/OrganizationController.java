@@ -9,6 +9,9 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.service.OrganizationService;
@@ -23,13 +26,19 @@ import static org.c4sg.service.OrganizationService.UPLOAD_DIRECTORY;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/organization")
+@Api(description = "Operations about Organizations", tags = "organization")
 public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
 
-    @RequestMapping(value = "/api/organization/{organizationName}/uploadLogo", method = RequestMethod.POST)
-    public String uploadLogo(@PathVariable String organizationName, @RequestBody String requestBody) {
+    @RequestMapping(value = "/{organizationName}/uploadLogo", method = RequestMethod.POST)
+    @ApiOperation(value = "Add new upload Logo")
+    public String uploadLogo(@ApiParam(value = "Organization Name", required = true)
+                                 @PathVariable String organizationName,
+                             @ApiParam(value = "Request Body", required = true)
+                                 @RequestBody String requestBody) {
         try {
             byte[] imageByte = Base64.decodeBase64(requestBody);
             File directory = new File(UPLOAD_DIRECTORY);
@@ -45,26 +54,33 @@ public class OrganizationController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/api/organization/all", produces = { "application/json" }, method = RequestMethod.GET)
+    @RequestMapping(value = "/all", produces = { "application/json" }, method = RequestMethod.GET)
+    @ApiOperation(value = "Find all organizations", notes = "Returns a collection of organizations")
     public List<OrganizationDTO> getOrganizations() {
         return organizationService.findOrganizations();
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/organization/search/byId/{id}", produces = { "application/json" }, method = RequestMethod.GET)
-    public OrganizationDTO getOrganization(@PathVariable("id") int id) {
+    @RequestMapping(value = "/search/byId/{id}", produces = { "application/json" }, method = RequestMethod.GET)
+    @ApiOperation(value = "Find organization by ID", notes = "Returns a collection of organizations")
+    public OrganizationDTO getOrganization(@ApiParam(value = "ID of organization to return", required = true)
+                                               @PathVariable("id") int id) {
         return organizationService.findById(id);
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/api/organization/search/byKeyword/{keyWord}", produces = { "application/json" }, method = RequestMethod.GET)
-    public List<OrganizationDTO> getOrganization(@PathVariable("keyWord") String keyWord) {
+    @RequestMapping(value = "/search/byKeyword/{keyWord}", produces = { "application/json" }, method = RequestMethod.GET)
+    @ApiOperation(value = "Find organization by keyWord", notes = "Returns a collection of organizations")
+    public List<OrganizationDTO> getOrganization(@ApiParam(value = "Keyword of organization to return", required = true)
+                                                     @PathVariable("keyWord") String keyWord) {
         return organizationService.findByKeyword(keyWord);
     }
     
     @CrossOrigin
-    @RequestMapping(value="/api/organization/create", method = RequestMethod.POST)
-    public Map<String, Object> createOrganization(@RequestBody @Valid OrganizationDTO organizationDTO){
+    @RequestMapping(value="/create", method = RequestMethod.POST)
+    @ApiOperation(value = "Add a new organization")
+    public Map<String, Object> createOrganization(@ApiParam(value = "Organization object to return", required = true)
+                                                      @RequestBody @Valid OrganizationDTO organizationDTO){
     	System.out.println("**************Create**************");
     	Map<String, Object> responseData = null;
         organizationDTO.setLogo(organizationService.getLogoUploadPath(organizationDTO.getName()));
@@ -79,8 +95,11 @@ public class OrganizationController {
     }
     
     @CrossOrigin
-    @RequestMapping(value="/api/organization/update/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> updateOrganization(@PathVariable("id") int id, @RequestBody @Valid OrganizationDTO organizationDTO){
+    @RequestMapping(value="/update/{id}", method = RequestMethod.PUT)
+    @ApiOperation(value = "Update an existing organization")
+    public Map<String, Object> updateOrganization(@ApiParam(value = "Updated organization object", required = true)
+                                                      @PathVariable("id") int id,
+                                                  @RequestBody @Valid OrganizationDTO organizationDTO){
     	System.out.println("**************Update : id=" + organizationDTO.getId() + "**************");
     	Map<String, Object> responseData = null;
     	try{
@@ -94,8 +113,10 @@ public class OrganizationController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/api/organization/delete/{id}", method = RequestMethod.DELETE)
-    public void deleteOrganization(@PathVariable("id") int id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Deletes a organization")
+    public void deleteOrganization(@ApiParam(value = "Organization id to delete", required = true)
+                                       @PathVariable("id") int id) {
         System.out.println("************** Delete : id=" + id + "**************");
 
         try {
@@ -105,4 +126,3 @@ public class OrganizationController {
         }
     }
 }
-
