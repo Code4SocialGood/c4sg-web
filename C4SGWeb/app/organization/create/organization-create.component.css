@@ -1,14 +1,27 @@
-.address {
-    margin-top: 2em;
+.error-msg {
+  padding: 2px;
+  border-radius: 2px;
 }
-.btns {
-    text-align: center;
+
+.file-path {
+  max-width: 200px;
 }
-.image {
-    width: 70%;
-    height: 5em;
-    background-color: gray;
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 0.5em;
 }
-.nav {
-    margin: 4em;
+
+.material-icons.req-field {
+  vertical-align: super !important;
+  font-size: 0.5rem !important;
+}
+
+.ng-invalid:not(form).ng-touched  {
+  border-bottom: 3px solid #b71c1c;
+}
+
+.ng-valid:not(form).ng-touched  {
+  border-bottom: 3px solid #008000;
 }
