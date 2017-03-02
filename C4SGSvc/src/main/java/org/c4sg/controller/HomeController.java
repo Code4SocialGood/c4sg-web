@@ -1,12 +1,14 @@
 package org.c4sg.controller;
 
-import org.c4sg.dto.OrganizationDto;
+import io.swagger.annotations.Api;
+import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api(description = "Operations about Home", tags = "home")
 public class HomeController {
 	
 	@Autowired
@@ -15,9 +17,9 @@ public class HomeController {
 	@RequestMapping("/home")
 	public String home() {
 		
-        OrganizationDto organizationDto = organizationService.findById(1);
+        OrganizationDTO organizationDTO = organizationService.findById(1);
 
-        return organizationDto.getName() + " ; " + organizationDto.getId();
+        return organizationDTO.getName() + " ; " + organizationDTO.getId();
 	}
 	
 /*	@RequestMapping("/home")

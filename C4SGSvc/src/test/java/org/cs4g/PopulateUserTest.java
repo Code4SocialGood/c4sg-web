@@ -3,7 +3,7 @@ package org.cs4g;
 import java.util.ArrayList;
 
 import org.c4sg.C4SgApplication;
-import org.c4sg.dto.UserDto;
+import org.c4sg.dto.UserDTO;
 import org.c4sg.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,49 +23,49 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 
 public class PopulateUserTest {
-	
+
 	@Autowired
 	UserService userService;
-	
+
     @Test
 	public void loadData() throws Exception {
 		// TODO Auto-generated method stub
-		// create an array of userDto	
-		UserDto[] userDtos = createDtos();
-				
-		// while dto array has data, call userService to save
-		for (UserDto userDto : userDtos) {
-			userService.saveUser(userDto);
-		}	
+		// create an array of userDTO
+		UserDTO[] userDTOs = createDTOs();
+
+		// while DTO array has data, call userService to save
+		for (UserDTO userDTO : userDTOs) {
+			userService.saveUser(userDTO);
+		}
 	}
 
-	UserDto[] createDtos() {
-		UserDto[] userDtos = null;
-		ArrayList<UserDto> list =  new ArrayList<UserDto>();
-		UserDto userDto =  null;
+	UserDTO[] createDTOs() {
+		UserDTO[] userDTOs = null;
+		ArrayList<UserDTO> list =  new ArrayList<UserDTO>();
+		UserDTO userDTO =  null;
 		for(int i = 100; i < 200; i++) {
-			//create userDto
-			userDto =  new UserDto();
-			userDto.setId(i);
-			userDto.setCountry("USA");
-			userDto.setState("NY");
-			userDto.setDisplayFlag("Y");
-			userDto.setEmail("email_" + i + "@gmail.com");
-			userDto.setFirstName("User" + i);
-			userDto.setGithub(Integer.valueOf(i));
-			userDto.setLastName("LName" + i);
-			userDto.setLatitude("2.12345678");
-			userDto.setLongitude("1.12345678");
-			userDto.setPhone("212-911-1010");
-			userDto.setRole("VOLUNTEER");
-			userDto.setStatus("ACTIVE");
-			userDto.setUserName("Uname" + i);
-			userDto.setZip("28205");
+			//create userDTO
+			userDTO =  new UserDTO();
+			userDTO.setId(i);
+			userDTO.setCountry("USA");
+			userDTO.setState("NY");
+			userDTO.setDisplayFlag("Y");
+			userDTO.setEmail("email_" + i + "@gmail.com");
+			userDTO.setFirstName("User" + i);
+			userDTO.setGithub(Integer.valueOf(i));
+			userDTO.setLastName("LName" + i);
+			userDTO.setLatitude("2.12345678");
+			userDTO.setLongitude("1.12345678");
+			userDTO.setPhone("212-911-1010");
+			userDTO.setRole("VOLUNTEER");
+			userDTO.setStatus("ACTIVE");
+			userDTO.setUserName("Uname" + i);
+			userDTO.setZip("28205");
 			//add to list
-			list.add(userDto);
-			
+			list.add(userDTO);
+
 		}
-		userDtos = list.toArray(new UserDto[list.size()]);
-		return userDtos;
+		userDTOs = list.toArray(new UserDTO[list.size()]);
+		return userDTOs;
 	}
 }
