@@ -13,10 +13,8 @@ public class OrganizationDTO {
 	private String logo;
 	
 	@NotNull
-	@Length(max = 200)
-	private String briefDescription;
-	
-	private String detailedDescription;
+	@Length(max = 500)
+	private String description;
 	
 	@NotNull
 	private String address1;
@@ -51,17 +49,11 @@ public class OrganizationDTO {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-	public String getBriefDescription() {
-		return briefDescription;
+	public String getDescription() {
+		return description;
 	}
-	public void setBriefDescription(String briefDescription) {
-		this.briefDescription = briefDescription;
-	}
-	public String getDetailedDescription() {
-		return detailedDescription;
-	}
-	public void setDetailedDescription(String detailedDescription) {
-		this.detailedDescription = detailedDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getAddress1() {
 		return address1;
