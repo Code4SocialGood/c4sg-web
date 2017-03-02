@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {AfterViewInit} from '@angular/core';
+
+declare var $:any;
 
 @Component({
   // moduleId: module.id,
@@ -8,7 +11,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['user-profile.component.css']
 })
 
-export class UserProfileComponent {
+export class UserProfileComponent implements AfterViewInit {
 
   public myProfile = new FormGroup({
     linkedin: new FormControl('', Validators.required),
@@ -18,7 +21,16 @@ export class UserProfileComponent {
     skills: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  ngAfterViewInit() {
+
+     $('select').material_select();
+
+
+   }
+
+  constructor() {
+
+   }
 
   updateProfile(event) {
     const profile = this.myProfile.value;
