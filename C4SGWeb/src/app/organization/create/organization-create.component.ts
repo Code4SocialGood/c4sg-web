@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-
-import * as $ from 'jquery';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
@@ -35,6 +33,7 @@ export class OrganizationCreateComponent implements OnInit {
     public fb: FormBuilder,
     private organizationService: OrganizationService,
     private fc: FormConstantsService,
+    private el: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +47,6 @@ export class OrganizationCreateComponent implements OnInit {
           this.editOrg = true;
           this.organization = res.json();
           this.initForm();
-          this.animateForm();
         }, (err) => {
           console.error('An error occurred', err); // for demo purposes only
         }
@@ -56,14 +54,7 @@ export class OrganizationCreateComponent implements OnInit {
     } else { // add new org
       this.editOrg = null;
       this.initForm();
-      this.animateForm();
     }
-  }
-
-  private animateForm() {
-    $(document).ready(function () {
-      $('select').material_select();
-    });
   }
 
   private getFormConstants(): void {

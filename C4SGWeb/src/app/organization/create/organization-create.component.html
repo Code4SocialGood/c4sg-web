@@ -7,7 +7,7 @@
         <div class="col m4 s12">
 
           <!-- TODO: Figure out the photo coming from db -->
-          <img src="../../images/default_avatar.png" alt="Organization Logo" class="responsive-img" />
+          <img src="../../../assets/default_avatar.png" alt="Organization Logo" class="responsive-img" />
 
           <br>
           <div class="file-field input-field">
@@ -16,7 +16,7 @@
               <input type="file">
             </div>
             <br><br>
-            <input class="file-path center-align" type="text">
+            <input class="file-path left-align" type="text">
           </div>
         </div>
 
@@ -61,7 +61,7 @@
           </div>
 
           <div class="input-field">
-            <select id="category" class="" formControlName="category">
+            <select id="category" class="" formControlName="category" materialize="material_select">
               <option value="" disabled selected>Choose category</option>
               <option *ngFor="let category of categories" value="category" [selected]="category === organization.category">{{category}}</option>
             </select>
@@ -93,7 +93,7 @@
           </div>
 
           <div class="input-field">
-            <select id="state" class="" formControlName="state">
+            <select id="state" class="" formControlName="state" materialize="material_select">
               <option value="" disabled>Choose state</option>
               <option *ngFor="let state of states" value="state" [selected]="state === organization?.state">{{state}}</option>
             </select>
@@ -111,7 +111,7 @@
           </div>
 
           <div class="input-field">
-            <select id="country" class="" formControlName="country">
+            <select id="country" class="" formControlName="country" materialize="material_select">
               <option value="" disabled>Choose country</option>
               <option *ngFor="let country of countries" value="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
             </select>
