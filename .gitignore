@@ -2,4 +2,11 @@
 .metadata\
 RemoteSystemsTempFiles
 npm-debug.log
-logs\
+
+.idea
+.classpath
+.project
+.settings
+*.iml
+
+*~
