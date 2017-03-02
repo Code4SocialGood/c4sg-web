@@ -3,3 +3,10 @@
 RemoteSystemsTempFiles
 npm-debug.log
 
+.idea
+.classpath
+.project
+.settings
+*.iml
+
+*~

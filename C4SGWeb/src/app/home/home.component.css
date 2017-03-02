@@ -1,0 +1,63 @@
+.cover {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.cover:before{
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+.cover img{
+  position:relative;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
+}
+
+.action {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(53, 54, 56, 0.55)), url("/assets/image1.jpg") no-repeat center center;
+    background-attachment:fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 94vh;
+    text-align: center;
+}
+
+.home-title {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 5em;
+  max-width: 15em;
+  text-shadow: 0px 0px 13px #000;
+}
+
+
+.input-pre {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Scaling size of Title down as Page size decreases */
+@media screen and (max-width: 915px) {
+  #home-page-title {
+    font-size: 2.5em;
+  }
+}
+  @media screen and (max-width: 650px) {
+    #home-page-title {
+      font-size: 2em;
+    }
+  }

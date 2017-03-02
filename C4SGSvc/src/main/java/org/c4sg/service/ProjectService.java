@@ -13,13 +13,12 @@ public interface ProjectService {
 
     Project findById(int id);
     Project findByName(String name);
-    ProjectDTO saveUserProject(Integer userId, Integer projectId) throws UserProjectException;
+    ProjectDTO saveUserProject(Integer userId, Integer projectId) throws RuntimeException;
     Project createProject(Project project);
     Project updateProject(Project project);
     void deleteProject(int id);
     void apply(User user, Project project) throws IOException, EmailException;
     List<ProjectDTO> findProjects();
     List<Project> findByKeyword(String keyWord);
-    List<ProjectDTO> getApplicants(Integer projectId);
     List<ProjectDTO> getAppliedProjects(Integer userId);
 }
