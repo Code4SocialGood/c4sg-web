@@ -1,7 +1,6 @@
 package org.c4sg.controller;
 
 import io.swagger.annotations.*;
-import org.c4sg.dto.MessageDTO;
 import org.c4sg.dto.ProjectDTO;
 import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.Project;
