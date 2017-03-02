@@ -1,0 +1,17 @@
+<div class = "home-wrapper">
+  <!--<div class="cover" id="top-cover">
+    <img id="cover-image" src="../../app/images/image1.jpg">
+  </div>-->
+  <div class="action">
+    <h2 id="home-page-title" class="white-text text-darken-3 home-title" style="padding: 30px " >Where<br>Tech Volunteers Meet Nonprofit</h2>
+    <div class="input-field">
+      <td class = "input-field">
+        <input #projectName placeholder="Project keywords" id="name" type="text" class="input-pre"/>
+      </td>
+      <td>
+        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value=''" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
+      </td>
+    </div>
+  </div>
+</div>
+

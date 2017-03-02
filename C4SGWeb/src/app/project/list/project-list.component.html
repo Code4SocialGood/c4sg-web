@@ -1,0 +1,32 @@
+<!-- Search Projects-->
+<div class="container">
+<div class="row center">
+    <div class="input-field inline">
+      <td>
+        <input #projectName id="name" type="text"/> 
+        <label for="name">keyword</label>
+      </td>
+      <td>
+        <button (click)="getProjectsByKeyword(projectName.value); projectName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
+      </td>
+    </div>
+</div>
+<h4 *ngIf = "projects">{{projects.length}} volunteer opportunities found</h4>
+</div>
+
+<!-- List Projects-->
+<div class="container">
+<ul class="projects">
+    <li *ngFor="let project of projects" (click)="onSelect(project)" [class.selected]="project === selectedProject">
+        <tr>
+            <td><img src={{project.image}} height="200" width="200"></td>
+            <td>
+                <span><h5>{{project.name}}</h5></span><br>          
+                <span>{{project.organizationName}}</span><br>
+                <span>{{project.description}}</span><br>
+                <span>{{project.createTime}}</span><br>
+            </td>
+        </tr>
+    </li>
+</ul>
+</div>
