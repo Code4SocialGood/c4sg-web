@@ -22,11 +22,8 @@ public class Organization {
 	@Column(name = "logo")
 	private String logo;
 
-	@Column(name = "brief_description", nullable = false)
-	private String briefDescription;
-
-	@Column(name = "detailed_description", nullable = false)
-	private String detailedDescription;
+	@Column(name = "description", nullable = false)
+	private String description;
 
 	@Column(name = "address1", nullable = false)
 	private String address1;
@@ -76,20 +73,12 @@ public class Organization {
 		this.logo = logo;
 	}
 
-	public String getBriefDescription() {
-		return briefDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setBriefDescription(String briefDescription) {
-		this.briefDescription = briefDescription;
-	}
-
-	public String getDetailedDescription() {
-		return detailedDescription;
-	}
-
-	public void setDetailedDescription(String detailedDescription) {
-		this.detailedDescription = detailedDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getAddress1() {
