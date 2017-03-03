@@ -1,86 +1,84 @@
 package org.c4sg.controller;
 
-import java.util.List;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.log4j.Logger;
 import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.c4sg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value = "/api/users")
 @Api(description = "Operations about Users", tags = "user")
 public class UserController {
+    private static Logger log = Logger.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
 
     @CrossOrigin
-    @RequestMapping(value = "/api/user/all/active", method = RequestMethod.GET)
+    @RequestMapping(value = "/active", method = RequestMethod.GET)
     @ApiOperation(value = "Find users, with status applied", notes = "Returns a collection of active users")
     public List<UserDTO> getActiveUsers() {
-    	
-    	System.out.println("**************All**************");
+        log.debug("**************All**************");
         return userService.findActiveUsers();
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/user/search/byId/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "Find user by ID", notes = "Returns a user")
-    public UserDTO getUser(@ApiParam(value = "ID of project to return", required = true)
-                               @PathVariable("id") int id) {
-        return userService.findById(id);
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/api/developers", method = RequestMethod.GET)
-    @ApiOperation(value = "Find developers", notes = "Returns a collection of users")
-    public List<User> getDevelopers() {
-        return userService.findDevelopers();
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "Delete an user")
-    public void deleteUser(@ApiParam(value = "User id to delete", required = true)
-                               @PathVariable("id") int id) {
-    	System.out.println("************** Delete : id=" + id + "**************");
-    	
-        try {
-            userService.deleteUser(id);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    @RequestMapping(value = "/api/user/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @ApiOperation(value = "Find all users", notes = "Returns a collection of users")
     public List<UserDTO> getUsers() {
         return userService.findAll();
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find user by ID", notes = "Returns a user")
+    public UserDTO getUser(@ApiParam(value = "ID of user to return", required = true)
+                           @PathVariable("id") int id) {
+        return userService.findById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Add a new user")
     public UserDTO createUser(@ApiParam(value = "User object to return", required = true)
-                                  @RequestBody UserDTO userDTO) {
+                              @RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/user", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     @ApiOperation(value = "Update an existing user")
     public UserDTO updateUser(@ApiParam(value = "Updated user object", required = true)
-                                  @RequestBody UserDTO userDTO) {
+                              @RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
+    }
+
+    @RequestMapping(value = "/developers", method = RequestMethod.GET)
+    @ApiOperation(value = "Find developers", notes = "Returns a collection of users")
+    public List<User> getDevelopers() {
+        return userService.findDevelopers();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Delete an user")
+    public void deleteUser(@ApiParam(value = "User id to delete", required = true)
+                           @PathVariable("id") int id) {
+        log.debug("************** Delete : id=" + id + "**************");
+        try {
+            userService.deleteUser(id);
+        } catch (Exception e) {
+            log.error("Exception on delete user:", e);
+        }
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<UserDTO> search(@RequestParam(required = false) String userName,
+                                @RequestParam(required = false) String firstName,
+                                @RequestParam(required = false) String lastName) {
+        return userService.search(userName, firstName, lastName);
     }
 }
