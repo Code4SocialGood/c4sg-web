@@ -24,7 +24,14 @@ export class ProjectListComponent implements OnInit {
   getProjects() {
     this.projectService.getProjects().subscribe(
       res => {
-        this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+        this.projects = res.json().map(project => {
+          const newProjectNameArr = project.name.toLocaleLowerCase().split(' ');
+          newProjectNameArr.forEach(string => {
+            string.charAt(0).toUpperCase() + string.slice(1);
+          });
+         const newProjectName= newProjectNameArr.join(' ');
+          return Object.assign({},project, {name: newProjectName});
+        })
       },
       error => console.log(error)
     );
