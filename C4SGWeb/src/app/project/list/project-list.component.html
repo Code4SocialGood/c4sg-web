@@ -1,7 +1,7 @@
 <!-- Search Projects-->
 <div class="container">
   <div class="row center">
-    <div class="col s12 m4 l3 input-field inline">
+    <div class="col s12 l3 input-field inline">
       <td>
         <input #projectName id="name" type="text"/>
         <label for="name">keyword</label>
@@ -13,18 +13,18 @@
 
 
     <!-- List Projects-->
-    <div class="col s12 m8 l9">
-      <h4 *ngIf = "projects">{{projects.length}} volunteer opportunities found</h4>
+    <div class="col s12 l9">
+      <p *ngIf = "projects">{{projects.length}} volunteer opportunities found</p>
       <ul class="projects">
         <li class="row" *ngFor="let project of projects" (click)="onSelect(project)" [class.selected]="project === selectedProject">
-            <div class="col s3 card-image">
-              <img class="responsive-img" src="../../../assets/project/Logo_TeensGive.png" width="200px" height="200px">
+            <div class="col s3 m3 l3 card-image">
+              <img class="responsive-img" src={{project.image}} width="200px" height="200px">
             </div>
 
-            <div class="col s9 card-content">
-              <span class="left-align"><h5>{{project.name}}</h5></span><br>
-              <span class="left-align">{{project.organizationName}}</span><br>
-              <span class="left-align">{{project.description}}</span><br>
+            <div class="col s9 m9 l9 card-content">
+             <h5 class="left-align">{{project.name}}</h5>
+              <h6 class="left-align">{{project.organizationName}}</h6>
+              <p class="left-align">{{project.description}}</p>
               <span class="right-align">{{project.createTime}}</span><br>
             </div>
         </li>
