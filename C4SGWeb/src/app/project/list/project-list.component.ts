@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Project} from '../common/project';
-import {ProjectService} from '../common/project.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Project } from '../common/project';
+import { ProjectService } from '../common/project.service';
 
 @Component({
   selector: 'my-projects',
@@ -18,14 +18,23 @@ export class ProjectListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProjects();
+     this.getProjects();
   }
 
   getProjects() {
     this.projectService.getProjects().subscribe(
-      res => this.projects = res.json(),
+      res => {
+        this.projects = res.json().map(project => {
+          const newProjectNameArr = project.name.toLocaleLowerCase().split(' ');
+          newProjectNameArr.forEach(string => {
+            string.charAt(0).toUpperCase() + string.slice(1);
+          });
+         const newProjectName= newProjectNameArr.join(' ');
+          return Object.assign({},project, {name: newProjectName});
+        })
+      },
       error => console.log(error)
-    )
+    );
   }
 
   getProjectsByKeyword(keyword: string) {
