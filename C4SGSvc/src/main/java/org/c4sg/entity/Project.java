@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Project {
 
-	private static final String IMAGE_DIRECTORY = "app/images/project/";
+	private static final String IMAGE_DIRECTORY = "assets/project/";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
