@@ -1,32 +1,36 @@
 <!-- Search Projects-->
 <div class="container">
-<div class="row center">
-    <div class="input-field inline">
+  <div class="row center">
+    <div class="col s12 m4 l3 input-field inline">
       <td>
-        <input #projectName id="name" type="text"/> 
+        <input #projectName id="name" type="text"/>
         <label for="name">keyword</label>
       </td>
       <td>
         <button (click)="getProjectsByKeyword(projectName.value); projectName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
       </td>
     </div>
-</div>
-<h4 *ngIf = "projects">{{projects.length}} volunteer opportunities found</h4>
+
+
+    <!-- List Projects-->
+    <div class="col s12 m8 l9">
+      <h4 *ngIf = "projects">{{projects.length}} volunteer opportunities found</h4>
+      <ul class="projects">
+        <li class="row" *ngFor="let project of projects" (click)="onSelect(project)" [class.selected]="project === selectedProject">
+            <div class="col s3 card-image">
+              <img class="responsive-img" src="../../../assets/project/Logo_TeensGive.png" width="200px" height="200px">
+            </div>
+
+            <div class="col s9 card-content">
+              <span class="left-align"><h5>{{project.name}}</h5></span><br>
+              <span class="left-align">{{project.organizationName}}</span><br>
+              <span class="left-align">{{project.description}}</span><br>
+              <span class="right-align">{{project.createTime}}</span><br>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<!-- List Projects-->
-<div class="container">
-<ul class="projects">
-    <li *ngFor="let project of projects" (click)="onSelect(project)" [class.selected]="project === selectedProject">
-        <tr>
-            <td><img src={{project.image}} height="200" width="200"></td>
-            <td>
-                <span><h5>{{project.name}}</h5></span><br>          
-                <span>{{project.organizationName}}</span><br>
-                <span>{{project.description}}</span><br>
-                <span>{{project.createTime}}</span><br>
-            </td>
-        </tr>
-    </li>
-</ul>
-</div>
+<!--src={{project.image}}-->
