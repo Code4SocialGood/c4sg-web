@@ -34,7 +34,7 @@ describe('App', () => {
     expect(nav).toBeDefined();
   });
 
-  it('should have class black', () => {
+  xit('should have class black', () => {
     fixture.detectChanges();
     const nav = de.nativeElement;
     expect(nav.className).toBe('black');
