@@ -14,6 +14,7 @@ export class AppComponent {
   // control nav style by changing the class name
   isAtHome() {
     if (this.router.url === '/' || this.router.url === '/#!') {
+      return 'at-home';
     } else {
       return 'off-home';
     }
