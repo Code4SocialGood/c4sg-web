@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+      "start": "ng serve",
+      "startHeroku": "ng serve --environment=dev-heroku",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

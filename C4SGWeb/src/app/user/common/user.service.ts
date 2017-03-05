@@ -3,36 +3,38 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import { User } from './user';
+import { environment } from '../../../environments/environment';
+
+const userUrl = `${environment.backend_url}/api/user`;
 
 @Injectable()
 export class UserService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private userUrl = 'http://localhost:8080/api/user';
 
     constructor (private http: Http) { }
 
     // only active users are retrieved
     getUsers() {
-        const url = this.userUrl + '/all/active';
+        const url = userUrl + '/all/active';
         return this.http.get(url);
     }
 
     getUser(id: number): Observable<Response> {
         const index = id;
-        const url = this.userUrl + '/search/byId/' + index;
+        const url = userUrl + '/search/byId/' + index;
         return this.http.get(url);
     }
 
     // TODO replace with search by keyword
     getUsersByKeyword(keyWord: string): Observable<Response> {
-        const url = this.userUrl + '/search/byKeyword/' + keyWord;
+        const url = userUrl + '/search/byKeyword/' + keyWord;
         return this.http
             .get(url);
     }
 
     add(user: User): Observable<User[]> {
-        const url = this.userUrl + '/add';
+        const url = userUrl + '/add';
         return this.http
             .post(url, user, {headers: this.headers})
             .map((res: Response) => res.json())
@@ -40,7 +42,7 @@ export class UserService {
     }
 
     delete(id: number): Observable<Response> {
-        const url = this.userUrl + '/' + id;
+        const url = userUrl + '/' + id;
         return this.http
             .delete(url, {headers: this.headers})
             .map((res: Response) => res.json())
@@ -48,7 +50,7 @@ export class UserService {
     }
 
     update(user: User) {
-        const url = this.userUrl;
+        const url = userUrl;
         return this.http
             .put(url, user, {headers: this.headers})
             .map((res: Response) => res.json())
