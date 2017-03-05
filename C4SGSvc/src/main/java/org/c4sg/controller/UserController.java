@@ -3,13 +3,13 @@ package org.c4sg.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.logging.log4j.core.Logger;
 import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.User;
 import org.c4sg.service.UserService;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping(value = "/api/users")
 @Api(description = "Operations about Users", tags = "user")
 public class UserController {
-    //private static Logger log = Logger.getLogger(UserController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -26,7 +26,7 @@ public class UserController {
     @RequestMapping(value = "/active", method = RequestMethod.GET)
     @ApiOperation(value = "Find users, with status applied", notes = "Returns a collection of active users")
     public List<UserDTO> getActiveUsers() {
-        //log.debug("**************All**************");
+        LOGGER.debug("**************All**************");
         return userService.findActiveUsers();
     }
 
@@ -67,11 +67,11 @@ public class UserController {
     @ApiOperation(value = "Delete an user")
     public void deleteUser(@ApiParam(value = "User id to delete", required = true)
                            @PathVariable("id") int id) {
-        //log.debug("************** Delete : id=" + id + "**************");
+       LOGGER.debug("************** Delete : id=" + id + "**************");
         try {
             userService.deleteUser(id);
         } catch (Exception e) {
-            //log.error("Exception on delete user:", e);
+           LOGGER.error("Exception on delete user:", e);
         }
     }
 
