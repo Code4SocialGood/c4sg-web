@@ -8,14 +8,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-public class C4SgApplication extends SpringBootServletInitializer {
-
+public class C4SgApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(C4SgApplication.class, args);
-	}
-
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(C4SgApplication.class);
 	}
 }
