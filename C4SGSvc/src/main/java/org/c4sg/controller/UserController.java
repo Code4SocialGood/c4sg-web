@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
@@ -27,7 +26,7 @@ public class UserController {
     @RequestMapping(value = "/active", method = RequestMethod.GET)
     @ApiOperation(value = "Find users, with status applied", notes = "Returns a collection of active users")
     public List<UserDTO> getActiveUsers() {
-//        LOGGER.debug("**************All**************");
+        LOGGER.debug("**************All**************");
         return userService.findActiveUsers();
     }
 
@@ -68,11 +67,11 @@ public class UserController {
     @ApiOperation(value = "Delete an user")
     public void deleteUser(@ApiParam(value = "User id to delete", required = true)
                            @PathVariable("id") int id) {
-//        LOGGER.debug("************** Delete : id=" + id + "**************");
+       LOGGER.debug("************** Delete : id=" + id + "**************");
         try {
             userService.deleteUser(id);
         } catch (Exception e) {
-//            LOGGER.error("Exception on delete user:", e);
+           LOGGER.error("Exception on delete user:", e);
         }
     }
 
