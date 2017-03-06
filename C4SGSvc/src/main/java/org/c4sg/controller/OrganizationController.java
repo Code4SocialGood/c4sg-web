@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -119,5 +118,22 @@ public class OrganizationController {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/{id}/getLogo", method = RequestMethod.GET)
+    @ApiOperation(value = "Retrieves organization logo")
+    public String retrieveOrganizationLogo(@ApiParam(value = "Organization id to get logo for", required = true)
+                                         @PathVariable("id") int id) {
+        File logo = new File(organizationService.getLogoUploadPath(id));
+        try {
+            FileInputStream fileInputStreamReader = new FileInputStream(logo);
+            byte[] bytes = new byte[(int) logo.length()];
+            fileInputStreamReader.read(bytes);
+            return new String(Base64.encodeBase64(bytes));
+        } catch (IOException e) {
+            e.printStackTrace();
+        return null;
+    }
     }
 }
