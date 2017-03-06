@@ -27,7 +27,7 @@
 					name="user"
 					formControlName="user"
 					value="volunteer"
-					id="volunteer" 
+					id="volunteer"
 					class="filled-in" />
 				<label for="volunteer">Volunteer User</label>
 
@@ -35,10 +35,19 @@
 					name="user"
 					formControlName="user"
 					value="nonprofit"
-					id="nonprofit" 
+					id="nonprofit"
 					class="filled-in" />
 				<label for="nonprofit">Nonprofit User</label>
 			</div>
+
+      <div class="input-field">
+
+ 				<re-captcha
+ 						(captchaResponse)="onValidCaptchaResponse($event)"
+ 						site_key="6Lf6kRcUAAAAAI2_gaeuASDgiH8GsHV_ylB4QrbM">
+ 				</re-captcha>
+ 			</div>
+
 
 			<div class="input-field sign-up">
 				<button class="btn waves-effect waves-light" type="submit">Sign Up</button>

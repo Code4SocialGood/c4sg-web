@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
     "angular2-materialize": "^6.7.1",
+    "angular2-recaptcha": "^0.3.6",
     "core-js": "^2.4.1",
     "jquery": "^2.2.4",
     "materialize-css": "^0.97.8",
