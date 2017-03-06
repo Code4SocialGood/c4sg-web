@@ -42,6 +42,7 @@ import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
 import { PagerService } from './_services/pager.service';
+import { FormConstantsService } from './_services/form-constants.service';
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import { PagerService } from './_services/pager.service';
                ProjectCreateService,
                OrganizationService,
                UserService,
-               PagerService],
+               PagerService,
+               FormConstantsService],
 
   bootstrap: [ AppComponent ]
 })
