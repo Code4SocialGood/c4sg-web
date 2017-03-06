@@ -107,7 +107,7 @@ export class ProjectCreateComponent {
   // create form and validation
   createProjectForm = this.fb.group({
     name: ['', Validators.required],
-    orgName: ['', Validators.required],
+    orgId: ['', Validators.required],
     shortDescription: ['', [
       Validators.required,
       Validators.maxLength(200)
@@ -128,14 +128,14 @@ export class ProjectCreateComponent {
     let project = this.createProjectForm.value;
     console.log(project);
 
-    // this.projectService
-    //   .add(project)
-    //   .subscribe(
-    //     response => {
-    //       this.router.navigate(['/projects']);
-    //     },
-    //     error => console.log(error)
-    //   );
+    this.projectService
+      .add(project)
+      .subscribe(
+        response => {
+          this.router.navigate(['/projects']);
+        },
+        error => console.log(error)
+      );
   }
 
   cancel(): void {
