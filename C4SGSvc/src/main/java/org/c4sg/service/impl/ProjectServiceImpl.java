@@ -143,4 +143,13 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> projects = projectDAO.findByStatus(userId, APPLIED.getStatus());
         return projectMapper.getDtosFromEntities(projects);
     }
+
+	@Override
+	public List<Project> getProjectsByOrganization(Integer orgId) {
+		List<Project> projects = projectDAO.getProjectsByOrganization(orgId);
+		if(projects == null || projects.size() == 0) {
+			System.out.println("No Project available for the provided organization");
+		}
+		return projects;
+	}
 }
