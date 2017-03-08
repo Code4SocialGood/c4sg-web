@@ -7,6 +7,7 @@ import { NavScrollDirective } from './navscroll.directive';
 
 import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +54,8 @@ import { FormConstantsService } from './_services/form-constants.service';
     MaterialModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule
+    MaterializeModule,
+    ReCaptchaModule
   ],
   declarations: [
     AppComponent,
