@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
+
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { PagerService } from '../../_services/pager.service';
-
-declare const $: Function;
 
 @Component({
   // moduleId: module.id,
@@ -13,12 +13,13 @@ declare const $: Function;
   styleUrls: ['user-list.component.css']
 })
 
-export class UserListComponent implements OnInit, AfterViewInit {
+export class UserListComponent implements OnInit, OnDestroy {
   // the selected user
   selectedUser: User;
 
   // array of all items to be paged
   users: any[];
+  usersSubscription: Subscription;
 
   // pager Object
   pager: any = {};
@@ -34,15 +35,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.getUsers();
   }
 
-  ngAfterViewInit(): void {
-    // jquery script below opens up the modal dialog for delete confirmation
-    $(document).ready(() => {
-      $('.modal').modal();
-    });
-  }
-
   getUsers() {
-    this.userService.getUsers().subscribe(
+    this.usersSubscription = this.userService.getUsers().subscribe(
       res => {
         this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
         // initialize to page 1
@@ -53,23 +47,23 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
-            return;
-        }
-
-        // get pager object from service
-        this.pager = this.pagerService.getPager(this.users.length, page);
-
-        // get current page of items
-        this.pagedItems = this.users.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
     }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.users.length, page);
+
+    // get current page of items
+    this.pagedItems = this.users.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
 
   getUsersByKeyword(keyword: string) {
     keyword = keyword.trim();
     if (!keyword) { return; }
 
     this.userService.getUsersByKeyword(keyword).subscribe(
-    res => {
+      res => {
         this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
         this.router.navigate(['../list']);
       },
@@ -106,6 +100,10 @@ export class UserListComponent implements OnInit, AfterViewInit {
   edit(user: User): void {
     this.selectedUser = user;
     // this.router.navigate(['user/view', user.id]);
+  }
+
+  ngOnDestroy() {
+    if (this.usersSubscription) { this.usersSubscription.unsubscribe(); }
   }
 
 }

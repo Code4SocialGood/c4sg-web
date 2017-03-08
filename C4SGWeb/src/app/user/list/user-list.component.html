@@ -1,145 +1,86 @@
-<div class="container center">
-    <h4 *ngIf="users">{{users.length}} volunteers found</h4>
-</div>
-
-<!-- Search Volunteers-->
-<div class="row center">
-    <div class="input-field inline">
-      <td>
-        <input #userId id="id" type="text"/> 
-        <label for="userId">keyword</label>
-      </td>
-      <td>
-        <button (click)="getUsersByKeyword(userId.value); userId.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
-      </td>
-    </div>
-</div>
-
-<!-- List of Volunteers-->
-<div class="container">
-    <div class="row users valign">     
-        <div *ngFor="let user of pagedItems; let idx = index">
-            <div class="col s6" *ngIf="idx % 2 === 0 ">
-                <div class="container valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-            <!--td><img src={{user.image}} height="200" width="200"></td-->
-                        <td>
-                            <div class="row">
-                                <div class="col s3 valign">
-                                    <label class="right-align usrlabel">UserName:</label>
-                                </div>    
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
-                                </div>
-   
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">FirstName:</label>
-                                </div>          
-                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">LastName:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">Location:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
-                                    {{user.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>                    
-                </div>
-                <div class="divider"></div>
-            </div>
-            <div class="col s6" *ngIf="idx % 2 === 1 ">
-                <div class="container valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-            <!--td><img src={{user.image}} height="200" width="200"></td-->
-                        <td>
-                            <div class="row">
-                                <div class="col s3 valign">
-                                    <label class="right-align usrlabel">UserName:</label>
-                                </div>    
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
-                                </div>
-   
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">FirstName:</label>
-                                </div>          
-                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">LastName:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">Location:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
-                                    {{user.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>                    
-                </div>
-                <div class="divider"></div>
-            </div>
+<div class="row">
+  <!-- Search -->
+  <div class="col m4 s12">Search
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <i class="material-icons prefix">textsms</i>
+          <input type="text" id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">Autocomplete: TODO</label>
+          <a href="http://materializecss.com/forms.html#autocomplete">to autocomplete</a>
         </div>
+        
+        <br>
+        <div class="divider"></div><br>
+        <span class="title">Titles</span>
+        <p>
+          <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+          <label for="filled-in-box">Title 1</label>
+        </p>
+
+        <div class="divider"></div><br>
+        <span class="title">Skills</span>
+        <p>
+          <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
+          <label for="filled-in-box2">Skill 1</label>
+        </p>
+
+        <div class="divider"></div><br>
+        <span class="title">TODO</span>
+        <ul>
+          <li>-- Hook up titles and skills to dummy data</li>
+          <li>-- Add click handler when skill is selected (or form???) to pass through results</li>
+          <li>-- Update # volulnteers</li>
+          <li>-- Pagination</li>
+          <li>-- Autocomplete: search for user name</li>
+          <li>-- </li>
+          <li></li>
+        </ul>
+      </div>
     </div>
-</div>
-<div class="container center">
-    <!-- inserting pagination -->
-    <!-- pager -->
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">First</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Last</a>
-        </li>
-    </ul>         
-</div>
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h5>CONFIRM USER DELETE</h5>
-      <hr>
-      <br>
-      <div class="col s12 center">
-          <p class="h3 valign col s12" *ngIf="selectedUser">{{selectedUser.userName}}</p>
-      </div> 
-    </div>
-    <div class="modal-footer" *ngIf="selectedUser">
-      <button (click) = "delete(selectedUser)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
-    </div>
+
   </div>
+
+  <!-- Volunteer List -->
+  <div class="col m8 s12">
+    <!-- TODO: wire this up -->
+    <h5>XXX volunteers found</h5><br>
+
+    <ul class="collection">
+      <li *ngFor="let user of users" class="collection-item avatar">
+        <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
+        <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
+        <div class="row userRow">
+          <div class="col m6 s12">
+            <span class="title">{{user.firstName + ' ' + user.lastName}}</span>
+          </div>
+          <!-- TODO: Add city when available -->
+          <div class="col m6 s12">
+            {{user.state + ', ' + user.country}}
+            <br>
+            <!-- TODO: Add joined date when available -->
+            Joined "To Do (date)..."
+          </div>
+        </div>
+        <div class="row userRow">
+          <div class="col m12">
+            <div class="chip blue lighten-5">Title</div>
+            <div class="chip red lighten-5">Skills</div>
+          </div>
+        </div>
+
+      </li>
+      <!-- TODO: Remove eventually -->
+      <li class="collection-item avatar">
+        <i class="material-icons circle">sentiment very satisfied</i>
+        <span class="title">Title</span>
+        <p>First Line <br> Second Line
+        </p>
+        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+      </li>
+    </ul>
+
+    <!-- TODO: Add Pagination-->
+    TODO: Pagination
+  </div>
+</div>
