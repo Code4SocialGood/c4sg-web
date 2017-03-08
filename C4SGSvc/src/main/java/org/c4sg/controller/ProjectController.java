@@ -52,6 +52,15 @@ public class ProjectController extends GenericController{
     }
     
     @CrossOrigin
+    @RequestMapping(value = "/search/byOrganization/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find projects by Organization ID", notes = "Returns a list of projects")
+    public List<Project> getProjectsByOrganization(@ApiParam(value = "ID of an organization", required = true)
+                                @PathVariable("id") int orgId) {
+    	System.out.println("**************OrganizationID**************" + orgId);
+    	return projectService.getProjectsByOrganization(orgId);
+    }
+    
+    @CrossOrigin
     @RequestMapping(value = "/search/byName/{name}", method = RequestMethod.GET)
     @ApiOperation(value = "Find project by name", notes = "Returns a single project")
     public Project getProject(@ApiParam(value = "Name of project to return", required = true)
