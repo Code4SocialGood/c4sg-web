@@ -23,6 +23,7 @@ import { ProjectCreateComponent }  from './project/create/project-create.compone
 import { OrganizationListComponent }  from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
 import { OrganizationCreateComponent } from './organization/create/organization-create.component';
+import { OrganizationEditComponent } from './organization/edit/organization-edit.component';
 
 // User
 import { UserAccountComponent }  from './user/account/user-account.component';
@@ -67,6 +68,7 @@ import { FormConstantsService } from './_services/form-constants.service';
     OrganizationListComponent,
     OrganizationViewComponent,
     OrganizationCreateComponent,
+    OrganizationEditComponent,
 
     UserListComponent,
     UserViewComponent,
