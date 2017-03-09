@@ -1,145 +1,80 @@
-<div class="container center">
-    <h4 *ngIf="users">{{users.length}} volunteers found</h4>
-</div>
+<div class="row">
+  <!-- Search -->
+  <div class="col m3 s12">
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value)">search</i>
+          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value)"
+            id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">search volunteers</label>
 
-<!-- Search Volunteers-->
-<div class="row center">
-    <div class="input-field inline">
-      <td>
-        <input #userId id="id" type="text"/> 
-        <label for="userId">keyword</label>
-      </td>
-      <td>
-        <button (click)="getUsersByKeyword(userId.value); userId.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
-      </td>
-    </div>
-</div>
-
-<!-- List of Volunteers-->
-<div class="container">
-    <div class="row users valign">     
-        <div *ngFor="let user of pagedItems; let idx = index">
-            <div class="col s6" *ngIf="idx % 2 === 0 ">
-                <div class="container valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-            <!--td><img src={{user.image}} height="200" width="200"></td-->
-                        <td>
-                            <div class="row">
-                                <div class="col s3 valign">
-                                    <label class="right-align usrlabel">UserName:</label>
-                                </div>    
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
-                                </div>
-   
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">FirstName:</label>
-                                </div>          
-                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">LastName:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">Location:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
-                                    {{user.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>                    
-                </div>
-                <div class="divider"></div>
-            </div>
-            <div class="col s6" *ngIf="idx % 2 === 1 ">
-                <div class="container valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-            <!--td><img src={{user.image}} height="200" width="200"></td-->
-                        <td>
-                            <div class="row">
-                                <div class="col s3 valign">
-                                    <label class="right-align usrlabel">UserName:</label>
-                                </div>    
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(user)">{{user.userName}} </span><br>
-                                </div>
-   
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">FirstName:</label>
-                                </div>          
-                                 <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">LastName:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text" *ngIf="user.lastName">{{user.lastName}}</span><br>
-                                </div>
-                                <div class="col s3 valign">                        
-                                    <label class="right-align usrlabel">Location:</label>
-                                </div>                                  
-                                <div class="col s9 valign">
-                                    <span class="left-align h3 text">{{user.state}},&nbsp;                        
-                                    {{user.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>                    
-                </div>
-                <div class="divider"></div>
-            </div>
         </div>
+
+        <br>
+
+        <form materialize>
+          <span class="title">Titles</span>
+          <p *ngFor="let title of titles; let i = index">
+            <input type="checkbox" class="filled-in" id="{{title.name}}" />
+            <label for="{{title.name}}" (click)="onCheck(i, 'titles')">{{title.name}}</label>
+          </p>
+          <span class="title">Skills</span>
+          <p *ngFor="let skill of skills; let i = index">
+            <input type="checkbox" class="filled-in" id="{{skill.name}}" />
+            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+          </p>
+        </form>
+      </div>
     </div>
-</div>
-<div class="container center">
-    <!-- inserting pagination -->
-    <!-- pager -->
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">First</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+
+  </div>
+
+  <!-- Volunteer List -->
+  <div class="col m9 s12">
+    <h5>{{users?.length}} volunteers found</h5><br>
+
+    <ul class="collection">
+      <li *ngFor="let user of pagedItems" class="collection-item avatar">
+        <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
+        <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
+        <div class="row userRow">
+          <div class="col m6 s12">
+            <span class="title">{{user.firstName + ' ' + user.lastName}}</span>
+          </div>
+          <!-- TODO: Add city when available from REST API -->
+          <div class="col m6 s12">
+            {{user.state + ', ' + user.country}}
+            <br>
+            <!-- TODO: Add joined date when available from REST API -->
+            Joined "TODO (add date to model)"
+          </div>
+        </div>
+        <div class="row userRow">
+          <div class="col m12">
+            <div class="chip blue lighten-5">Title</div>
+            <div class="chip red lighten-5">Skills</div>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col m12 right-align">
+        <ul class="pagination push-m7">
+          <li (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
+            <i class="material-icons">chevron_left</i>
+          </li>
+          <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
             <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Last</a>
-        </li>
-    </ul>         
-</div>
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h5>CONFIRM USER DELETE</h5>
-      <hr>
-      <br>
-      <div class="col s12 center">
-          <p class="h3 valign col s12" *ngIf="selectedUser">{{selectedUser.userName}}</p>
-      </div> 
-    </div>
-    <div class="modal-footer" *ngIf="selectedUser">
-      <button (click) = "delete(selectedUser)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+          </li>
+          <li (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
+            <i class="material-icons">chevron_right</i
+          ></li>
+        </ul>
+      </div>
     </div>
   </div>
+</div>
