@@ -1,51 +1,95 @@
-<div id="profile" class="col s12">My Profile
+<div id="profile" class="col s12">
     <div class="container">
         <div class="row">
            <div class="col s12">
-                <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
+                <form  [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
 
-                  <div class="col s12">
-                    <div class="col s4" >
-                        <img class="responsive-img"
-                             src="https://d3irk3g7luh32r.cloudfront.net/wp-content/uploads/sites/12/2016/05/Under-construction-1.png">
-                        <button type="button">Upload</button>
-                    </div>
-                      <div class="col s4 ">
-                    <!--   <textarea formControlName="Introduction" type="text" placeholder="Introduction"></textarea>
--->
-                        <input formControlName="Introduction" type="text" placeholder="Introduction">
 
+                  <div class="row">
+                      <div class="col s3">
+                        <input formControlName="firstname" type="text" placeholder="First Name">
                       </div>
+                      <div class="col s3">
+                       <input formControlName="lastname" type="text" placeholder="Last Name">
+                     </div>
+
                   </div>
 
 
-                  <div class="col s4">
+                  <div class="row">
+                     <h6>My Location</h6>
+                      <div class="col s3">
+                        <input formControlName="city" type="text" placeholder="City">
+                      </div>
+                      <div class="col s3">
+                       <input formControlName="state" type="text" placeholder="State">
+                     </div>
+                    <div class="col s3">
+                       <input formControlName="zipcode" type="text" placeholder="Zip Code">
+                    </div>
+                    <div class="col s3">
+                       <input formControlName="country" type="text" placeholder="Country">
+                    </div>
+                </div>
 
+
+
+                  <div class="row">
+                      <h6>My Introduction</h6>
+                      <div class="input-field col s12">
+                        <input id="input_text" type="text" length="10">
+                        <label for="input_text">My Title</label>
+                      </div>
+                   </div>
+
+
+
+
+                  <div class="row">
+                        <div class="input-field col s12">
+                          <textarea id="textarea1" class="materialize-textarea"></textarea>
+                          <label for="textarea1">My Introduction</label>
+                        </div>
                   </div>
-                    <div class="col s4">
-                        <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
-                        <input formControlName="website" type="text" placeholder="Personal Website">
-                        <input formControlName="skills" type="text" placeholder="Skills">
+
+                  <div class="row">
+
+                      <h6>My Profile</h6>
+                      <div class="col s4">
+                          <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
+                          <input formControlName="website" type="text" placeholder="Personal Website">
+                          <input formControlName="github" type="text" placeholder="Github URL">
+                          <input formControlName="resume" type="text" placeholder="Resume">
+                      </div>
+                      <div class="input-field col s4">
+                        <select materialize="material_select" multiple>
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="1">Web Developer</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                        </select>
+                        <label>Title</label>
+                      </div>
+                      <div class="input-field col s4">
+                        <select materialize="material_select" multiple>
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="1">CSS</option>
+                          <option value="2">Java</option>
+                          <option value="3">Option 3</option>
+                        </select>
+                        <label>Skills</label>
+                      </div>
+
+                 </div>
+
+
+
+                    <div class="center-align col s12">
+                      <input type="checkbox" id="test1" checked="checked" />
+                      <label for="test1">Notify me for new opportunities that match my title or skills</label>
                     </div>
-                    <div class="col s4">
-                        <input formControlName="github" type="text" placeholder="Github URL">
-                        <input formControlName="resume" type="text" placeholder="Resume">
-                    </div>
-
-
-
-
-
-                    <div class="col s12">
-                        <div class="col s4">
+                    <div class="center-align col s12">
                             <button type="submit">Save</button>
-                        </div>
-                        <div class="col s4">
-                            <button type="button">Delete</button>
-                        </div>
-                        <div class="col s4">
-                            <button type="reset">Cancel</button>
-                        </div>
                     </div>
 
 
