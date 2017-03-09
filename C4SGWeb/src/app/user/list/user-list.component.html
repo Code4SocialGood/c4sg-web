@@ -1,65 +1,53 @@
 <div class="row">
   <!-- Search -->
-  <div class="col m4 s12">Search
+  <div class="col m3 s12">
     <div class="row">
       <div class="col s12">
         <div class="input-field">
-          <i class="material-icons prefix">textsms</i>
-          <input type="text" id="autocomplete-input" class="autocomplete">
-          <label for="autocomplete-input">Autocomplete: TODO</label>
-          <a href="http://materializecss.com/forms.html#autocomplete">to autocomplete</a>
+          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value)">search</i>
+          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value)"
+            id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">search volunteers</label>
+
         </div>
-        
+
         <br>
-        <div class="divider"></div><br>
-        <span class="title">Titles</span>
-        <p>
-          <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-          <label for="filled-in-box">Title 1</label>
-        </p>
 
-        <div class="divider"></div><br>
-        <span class="title">Skills</span>
-        <p>
-          <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
-          <label for="filled-in-box2">Skill 1</label>
-        </p>
-
-        <div class="divider"></div><br>
-        <span class="title">TODO</span>
-        <ul>
-          <li>-- Hook up titles and skills to dummy data</li>
-          <li>-- Add click handler when skill is selected (or form???) to pass through results</li>
-          <li>-- Update # volulnteers</li>
-          <li>-- Pagination</li>
-          <li>-- Autocomplete: search for user name</li>
-          <li>-- </li>
-          <li></li>
-        </ul>
+        <form materialize>
+          <span class="title">Titles</span>
+          <p *ngFor="let title of titles; let i = index">
+            <input type="checkbox" class="filled-in" id="{{title.name}}" />
+            <label for="{{title.name}}" (click)="onCheck(i, 'titles')">{{title.name}}</label>
+          </p>
+          <span class="title">Skills</span>
+          <p *ngFor="let skill of skills; let i = index">
+            <input type="checkbox" class="filled-in" id="{{skill.name}}" />
+            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+          </p>
+        </form>
       </div>
     </div>
 
   </div>
 
   <!-- Volunteer List -->
-  <div class="col m8 s12">
-    <!-- TODO: wire this up -->
-    <h5>XXX volunteers found</h5><br>
+  <div class="col m9 s12">
+    <h5>{{users?.length}} volunteers found</h5><br>
 
     <ul class="collection">
-      <li *ngFor="let user of users" class="collection-item avatar">
+      <li *ngFor="let user of pagedItems" class="collection-item avatar">
         <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
         <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
         <div class="row userRow">
           <div class="col m6 s12">
             <span class="title">{{user.firstName + ' ' + user.lastName}}</span>
           </div>
-          <!-- TODO: Add city when available -->
+          <!-- TODO: Add city when available from REST API -->
           <div class="col m6 s12">
             {{user.state + ', ' + user.country}}
             <br>
-            <!-- TODO: Add joined date when available -->
-            Joined "To Do (date)..."
+            <!-- TODO: Add joined date when available from REST API -->
+            Joined "TODO (add date to model)"
           </div>
         </div>
         <div class="row userRow">
@@ -70,17 +58,23 @@
         </div>
 
       </li>
-      <!-- TODO: Remove eventually -->
-      <li class="collection-item avatar">
-        <i class="material-icons circle">sentiment very satisfied</i>
-        <span class="title">Title</span>
-        <p>First Line <br> Second Line
-        </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
     </ul>
 
-    <!-- TODO: Add Pagination-->
-    TODO: Pagination
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col m12 right-align">
+        <ul class="pagination push-m7">
+          <li (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
+            <i class="material-icons">chevron_left</i>
+          </li>
+          <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
+            <i class="material-icons">chevron_right</i
+          ></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

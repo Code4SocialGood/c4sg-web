@@ -6,3 +6,7 @@
 .userRow {
   margin-bottom: 0px;
 }
+
+.search:hover {
+  cursor: pointer;
+}
