@@ -13,7 +13,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 export class OrganizationCreateComponent implements OnInit {
   public categories: String[];
   public countries: any[];
-  private editOrg = true; // TODO: Set editOrg on init. Need to know edit/add when saving changes
+  private editOrg = false; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
   public formPlaceholder = {};
