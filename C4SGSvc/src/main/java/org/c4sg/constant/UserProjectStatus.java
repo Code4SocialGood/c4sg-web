@@ -2,7 +2,8 @@ package org.c4sg.constant;
 
 public enum UserProjectStatus {
 
-    APPLIED("A");
+    BOOKMARKED("B") , APPLIED("A");
+	
     private final String value;
 
     UserProjectStatus(String value) {

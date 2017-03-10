@@ -22,4 +22,5 @@ public interface ProjectService {
     List<Project> findByKeyword(String keyWord);
     List<ProjectDTO> getAppliedProjects(Integer userId);
     List<Project> getProjectsByOrganization(Integer orgId);
+    List<ProjectDTO> findByUser(Integer userId);
 }

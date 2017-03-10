@@ -1,6 +1,10 @@
 package org.c4sg.service.impl;
 
 import org.c4sg.constant.Status;
+import static org.c4sg.constant.Directory.RESUME_UPLOAD;
+import static org.c4sg.constant.Directory.AVATAR_UPLOAD;
+import static org.c4sg.constant.Format.RESUME;
+import static org.c4sg.constant.Format.IMAGE;
 import org.c4sg.constant.UserRole;
 import org.c4sg.dao.UserDAO;
 import org.c4sg.dao.specification.UserSpecification;
@@ -11,6 +15,7 @@ import org.c4sg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,4 +95,14 @@ public class UserServiceImpl implements UserService {
                 .map(p -> userMapper.getUserDtoFromEntity(p))
                 .collect(Collectors.toList());
     }
+
+	@Override
+	public String getAvatarUploadPath(Integer userId) {
+		return AVATAR_UPLOAD + File.separator + userId + IMAGE;
+	}
+
+	@Override
+	public String getResumeUploadPath(Integer userId) {
+		return RESUME_UPLOAD + File.separator + userId + RESUME;
+	}
 }

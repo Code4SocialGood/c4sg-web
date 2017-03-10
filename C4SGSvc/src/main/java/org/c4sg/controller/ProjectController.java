@@ -92,6 +92,28 @@ public class ProjectController extends GenericController{
     }
     
     @CrossOrigin
+    @RequestMapping(value = "/search/byUser/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find projects by user", notes = "Returns a collection of projects")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "ID of user invalid")
+            })
+    public List<ProjectDTO> getProjectsByUser(@ApiParam(value = "userId of projects to return", required = true)
+                                        @PathVariable("id") Integer id) {
+    	
+    	System.out.println("**************Search**************" + id);
+    	
+    	List<ProjectDTO> projects = null;
+    	
+        try {
+        	projects = projectService.findByUser(id);
+        } catch (Exception e) {
+        	throw new NotFoundException("ID of user invalid");
+        }
+
+        return projects;
+    }
+    
+    @CrossOrigin
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "Add a new project")
     public Map<String, Object> createProject(@ApiParam(value = "Project object to return", required = true)

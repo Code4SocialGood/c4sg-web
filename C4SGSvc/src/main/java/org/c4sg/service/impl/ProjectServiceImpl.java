@@ -1,13 +1,18 @@
 package org.c4sg.service.impl;
 
+import static java.util.Objects.nonNull;
+import static java.util.Objects.requireNonNull;
+import static org.c4sg.constant.UserProjectStatus.APPLIED;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.c4sg.dao.ProjectDAO;
 import org.c4sg.dao.UserDAO;
 import org.c4sg.dao.UserProjectDAO;
 import org.c4sg.dto.ProjectDTO;
-import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.Project;
 import org.c4sg.entity.User;
 import org.c4sg.entity.UserProject;
@@ -17,10 +22,6 @@ import org.c4sg.service.AsyncEmailService;
 import org.c4sg.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static java.util.Objects.nonNull;
-import static java.util.Objects.requireNonNull;
-import static org.c4sg.constant.UserProjectStatus.APPLIED;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -151,5 +152,26 @@ public class ProjectServiceImpl implements ProjectService {
 			System.out.println("No Project available for the provided organization");
 		}
 		return projects;
+	}
+
+	@Override
+	public List<ProjectDTO> findByUser(Integer userId) {
+		User user = userDAO.findById(userId);
+        requireNonNull(user, "Invalid User Id");
+		List<UserProject> userProjects = userProjectDAO.findByUserId(userId);
+		Comparator<UserProject> projectComp = new Comparator<UserProject>() {
+			@Override
+			public int compare(UserProject o1, UserProject o2) {
+				int result = 0;
+				result = o1.getStatus().compareTo(o2.getStatus());
+				return result*-1;
+			}
+		};
+		Collections.sort(userProjects, projectComp);
+		List<ProjectDTO> projectDtos = new ArrayList<ProjectDTO>();
+		for(UserProject userProject: userProjects) {
+			projectDtos.add(projectMapper.getProjectDtoFromEntity(userProject));
+		}
+		return projectDtos;
 	}
 }

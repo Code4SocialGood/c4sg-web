@@ -6,8 +6,11 @@ import io.swagger.annotations.ApiParam;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.service.OrganizationService;
+import org.c4sg.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import static org.c4sg.constant.Directory.LOGO_UPLOAD;
 
 import javax.validation.Valid;
 import java.io.*;
@@ -15,8 +18,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.c4sg.service.OrganizationService.UPLOAD_DIRECTORY;
 
 @CrossOrigin
 @RestController
@@ -26,24 +27,48 @@ public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
+    
+	// Determining if this approach is better that using base64
+	@RequestMapping(value = "/{id}/uploadLogoAsFile", method = RequestMethod.POST)
+	@ApiOperation(value = "Add new upload Logo as Image File")
+	public String uploadLogo(@ApiParam(value = "Organization Id", required = true) @PathVariable Integer id,
+			@ApiParam(value = "Request Body", required = true) @RequestPart("file") MultipartFile file) {
 
-    @RequestMapping(value = "/{organizationId}/uploadLogo", method = RequestMethod.POST)
+		String contentType = file.getContentType();
+		if (!FileUploadUtil.isValidImageFile(contentType)) {
+			return "Invalid Image file! Content Type :-" + contentType;
+		}
+		File directory = new File(LOGO_UPLOAD.getValue());
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+		File f = new File(organizationService.getLogoUploadPath(id));
+		try (FileOutputStream fos = new FileOutputStream(f)) {
+			byte[] imageByte = file.getBytes();
+			fos.write(imageByte);
+			return "Success";
+		} catch (Exception e) {
+			return "Error saving logo for organization " + id + " : " + e;
+		}
+	}
+
+    @RequestMapping(value = "/{id}/uploadLogo", method = RequestMethod.POST)
     @ApiOperation(value = "Add new upload Logo")
     public String uploadLogo(@ApiParam(value = "Organization Id", required = true)
-                             @PathVariable Integer organizationId,
+                             @PathVariable Integer id,
                              @ApiParam(value = "Request Body", required = true)
                              @RequestBody String logoFileContent) {
         try {
             byte[] imageByte = Base64.decodeBase64(logoFileContent);
-            File directory = new File(UPLOAD_DIRECTORY);
+            File directory = new File(LOGO_UPLOAD.getValue());
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            File f = new File(organizationService.getLogoUploadPath(organizationId));
+            File f = new File(organizationService.getLogoUploadPath(id));
             new FileOutputStream(f).write(imageByte);
             return "Success";
         } catch (Exception e) {
-            return "Error saving logo for organization " + organizationId + " : " + e;
+            return "Error saving logo for organization " + id + " : " + e;
         }
     }
 

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.c4sg.constant.Status;
+import static org.c4sg.constant.Directory.LOGO_UPLOAD;
+import static org.c4sg.constant.Format.IMAGE;
 import org.c4sg.dao.OrganizationDAO;
 import org.c4sg.dto.OrganizationDTO;
 import org.c4sg.entity.Organization;
@@ -83,7 +85,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     public String getLogoUploadPath(Integer organizationId) {
-        return UPLOAD_DIRECTORY + File.separator + organizationId + LOGO_FORMAT;
+        return LOGO_UPLOAD + File.separator + organizationId + IMAGE;
     }
 
 }
