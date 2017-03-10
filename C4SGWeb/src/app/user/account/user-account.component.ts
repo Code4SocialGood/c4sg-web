@@ -22,6 +22,8 @@ export class UserAccountComponent implements OnInit {
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   private user: User;
   public globalActions =  new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
+  private selectedUser:User;
 
   public myAccount = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -162,6 +164,26 @@ export class UserAccountComponent implements OnInit {
 
   }
 
+
+  openModal(user) {
+      this.modalActions.emit({action: "modal", params: ['open']});
+      this.selectedUser=user;
+
+    }
+
+    closeModal() {
+      this.modalActions.emit({action: "modal", params: ['close']});
+    }
+
+    deleteUser(user:User): void{
+      console.log(user.id);
+      this.userService.delete(user.id).subscribe(
+        error => console.log(error)
+      );
+
+        }
+
+
   ngOnInit(): void {
     this.userService.getUser(2).subscribe(
       (res) => {
@@ -200,4 +222,5 @@ export class UserAccountComponent implements OnInit {
     );
 
   }
+
 }
