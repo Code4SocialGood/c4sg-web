@@ -1,36 +1,46 @@
 <!-- Search Projects-->
 <div class="container">
   <div class="row center">
-    <div class="col s12 l3 input-field inline">
-      <td>
-        <input #projectName id="name" type="text"/>
-        <label for="name">keyword</label>
-      </td>
-      <td>
-        <button (click)="getProjectsByKeyword(projectName.value); projectName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
-      </td>
+    <div class="col s12 m8 offset-m2 l3 form-block">
+      <form>
+        <div class="row">
+          <div class="input-field col s12 m12 l12">
+            <input #projectName id="keyword" type="text">
+            <label for="keyword">Keyword</label>
+          </div>
+          <div class="col s12 m12 l12">
+            <button class="btn waves-effect waves-light" type="button"
+                    (click)="getProjectsByKeyword(projectName.value); projectName.value=''">Search
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-
-
     <!-- List Projects-->
-    <div class="col s12 l9">
-      <p *ngIf = "projects">{{projects.length}} volunteer opportunities found</p>
-      <ul class="projects">
-        <li class="row" *ngFor="let project of projects" (click)="onSelect(project)" [class.selected]="project === selectedProject">
-            <div class="col s3 m3 l3 card-image">
-              <img class="responsive-img" src={{project.image}} width="200px" height="200px">
+    <div class="col s12 l9 ">
+      <p *ngIf="projects">{{projects.length}} volunteer opportunities found</p>
+      <ul class="projects-block">
+        <li class="row" *ngFor="let project of projects" (click)="onSelect(project)"
+            [class.selected]="project === selectedProject">
+          <div class="col s4 m3 l3 card-image">
+            <img class="responsive-img" [src]="project.image" width="200px" height="200px">
+          </div>
+          <div class="col s12 m9 l9 card-content">
+            <div class="col s12 m12 l9 left-align card-content-left-side">
+              <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
+              <a [routerLink]="['/nonprofit/view',project.id]"><h6>{{project.organizationName}}</h6></a>
             </div>
-
-            <div class="col s9 m9 l9 card-content">
-             <h5 class="left-align">{{project.name}}</h5>
-              <h6 class="left-align">{{project.organizationName}}</h6>
+            <div class="col s12 m12 l3 left-align card-content-right-side">
+              <span>Remote</span>
+              <span>03/10/2017</span>
+            </div>
+            <div class="col s12 m12 l12 left-align card-content-description">
               <p class="left-align">{{project.description}}</p>
-              <span class="right-align">{{project.createTime}}</span><br>
             </div>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </div>
 
-<!--src={{project.image}}-->
