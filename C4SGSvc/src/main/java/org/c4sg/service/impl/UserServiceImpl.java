@@ -98,11 +98,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String getAvatarUploadPath(Integer userId) {
-		return AVATAR_UPLOAD + File.separator + userId + IMAGE;
+		return AVATAR_UPLOAD.getValue() + File.separator + userId + IMAGE.getValue();
 	}
 
 	@Override
 	public String getResumeUploadPath(Integer userId) {
-		return RESUME_UPLOAD + File.separator + userId + RESUME;
+		return RESUME_UPLOAD.getValue() + File.separator + userId + RESUME.getValue();
 	}
 }
