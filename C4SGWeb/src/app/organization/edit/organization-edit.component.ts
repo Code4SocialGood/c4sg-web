@@ -106,10 +106,6 @@ export class OrganizationEditComponent implements OnInit {
     };
   }
 
-  onCancel(): void {
-    this.organizationForm.reset();
-  }
-
   onSubmit(): void {
     // TODO: complete submission logic...
     if (this.editOrg) {
