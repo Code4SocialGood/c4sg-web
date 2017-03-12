@@ -7,4 +7,16 @@ cache:
   directories:
     - "$HOME/.gradle/caches/"
     - "$HOME/.gradle/wrapper/"
-before_script: cd C4SGSvc
+services:
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE c4sg;'
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('mysql') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root  
+before_script: 
+  - cd C4SGSvc
+# Waiting for some settings
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: "3fb4d4da3261c042ac718859bf16abc16438680d"
+#  app: c4sg
