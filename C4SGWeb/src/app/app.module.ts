@@ -7,6 +7,7 @@ import { NavScrollDirective } from './navscroll.directive';
 
 import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +24,7 @@ import { ProjectCreateComponent }  from './project/create/project-create.compone
 import { OrganizationListComponent }  from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
 import { OrganizationCreateComponent } from './organization/create/organization-create.component';
+import { OrganizationEditComponent } from './organization/edit/organization-edit.component';
 
 // User
 import { UserAccountComponent }  from './user/account/user-account.component';
@@ -45,7 +47,7 @@ import { UserService }        from './user/common/user.service';
 import { PagerService } from './_services/pager.service';    
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-
+import { FormConstantsService } from './_services/form-constants.service';
 
 @NgModule({
   imports: [
@@ -55,7 +57,8 @@ import { AuthGuard } from './auth.guard';
     MaterialModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule
+    MaterializeModule,
+    ReCaptchaModule
   ],
   declarations: [
     AppComponent,
@@ -70,6 +73,7 @@ import { AuthGuard } from './auth.guard';
     OrganizationListComponent,
     OrganizationViewComponent,
     OrganizationCreateComponent,
+    OrganizationEditComponent,
 
     UserListComponent,
     UserViewComponent,
@@ -87,6 +91,7 @@ import { AuthGuard } from './auth.guard';
                OrganizationService,
                UserService,
                PagerService,
+               FormConstantsService,
                AuthService,
                AuthGuard],
 

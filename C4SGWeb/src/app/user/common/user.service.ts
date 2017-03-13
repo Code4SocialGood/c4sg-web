@@ -3,52 +3,50 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import { User } from './user';
+import { environment } from '../../../environments/environment';
+
+const userUrl = `${environment.backend_url}/api/user`;
 
 @Injectable()
 export class UserService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private userUrl = 'http://localhost:8080/api/user';
 
     constructor (private http: Http) { }
 
     // only active users are retrieved
     getUsers() {
-        const url = this.userUrl + '/all/active';
+        const url = userUrl + '/all/active';
         return this.http.get(url);
     }
 
     getUser(id: number): Observable<Response> {
         const index = id;
-        const url = this.userUrl + '/search/byId/' + index;
+        const url = userUrl + '/search/byId/' + index;
         return this.http.get(url, {headers: this.headers});
     }
-    getUserByName(name: string): Observable<Response> {
-        const url = this.userUrl + '/search/' + [name] + '/';
-        return this.http.get(url);
-    }
+
     getUserByEmail(name: string): Observable<Response> {
-        const url = this.userUrl + '/search/email/' + [name] + '/';
+        const url = userUrl + '/search/email/' + [name] + '/';
         return this.http.get(url);
     }
     // TODO replace with search by keyword
     getUsersByKeyword(keyWord: string): Observable<Response> {
-        const url = this.userUrl + '/search/byKeyword/' + keyWord;
+        const url = userUrl + '/search/byKeyword/' + keyWord;
         return this.http
             .get(url);
     }
 
-    add(user: User): Observable<User> {
-        const url = this.userUrl;
+    add(user: User): Observable<User[]> {
+        const url = userUrl + '/add';
         return this.http
             .post(url, user, {headers: this.headers})
-            //.post(url, user))
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
     delete(id: number): Observable<Response> {
-        const url = this.userUrl + '/' + id;
+        const url = userUrl + '/' + id;
         return this.http
             .delete(url, {headers: this.headers})
             .map((res: Response) => res.json())
@@ -56,7 +54,7 @@ export class UserService {
     }
 
     update(user: User) {
-        const url = this.userUrl;
+        const url = userUrl;
         return this.http
             .put(url, user, {headers: this.headers})
             .map((res: Response) => res.json())

@@ -20,4 +20,55 @@
 
 -->
 
-Project Detail Page
+<h3 class="center-align header">View Project</h3>
+
+<div class="row">
+    <div class="col s3" id="photo">
+        <!-- Sample image for project -->
+        <img src="sample.jpg" alt="Project Photo">
+        <button>Upload Photo</button>
+    </div>
+
+    <div class="col s5">
+        <label for="name">Project Name</label>
+        <p id="name">{{data.name}}</p>
+
+        <label for="org">Organization Name</label>
+        <p id="org">{{data.org}}</p>
+
+        <label for="date">Post Date</label>
+        <p id="date">{{data.date}}</p>
+
+        <label for="longDescription">Long Description</label>
+        <p id="longDescription">{{data.description}}</p>
+    </div>
+
+    <div class="col s4">
+        <label for="location">Project Location</label>
+        <p id="location">{{data.location}}</p>
+
+        <label for="address">Address</label>
+        <p id="address">{{data.address}}</p>
+
+        <label for="state">State</label>
+        <p id="state">{{data.state}}</p>
+
+        <label for="city">City</label>
+        <p id="city">{{data.city}}</p>
+
+        <label for="zip">Zip Code</label>
+        <p id="zip">{{data.zip}}</p>
+
+        <label for="country">Country</label>
+        <p id="country">{{data.country}}</p>
+    </div>
+</div>
+
+<div class="row btns">
+    <div class="col s8"></div>
+    <div class="col s4">
+        <button class="btn waves-effect waves-light">
+            Apply
+        </button>
+    </div>
+</div>

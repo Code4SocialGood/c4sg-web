@@ -2,6 +2,7 @@ package org.c4sg.mapper;
 
 import org.c4sg.dto.ProjectDTO;
 import org.c4sg.entity.Project;
+import org.c4sg.entity.UserProject;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -17,6 +18,13 @@ public class ProjectMapper extends ModelMapper{
 		getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		ProjectDTO projectDTO = map(project, ProjectDTO.class);
 		projectDTO.setOrganizationName(project.getOrganization().getName());
+		return projectDTO;
+	}
+	
+	public ProjectDTO getProjectDtoFromEntity(UserProject userProject){
+		Type projectTypeDTO = new TypeToken<ProjectDTO>() {}.getType();
+		ProjectDTO projectDTO = map(userProject.getProject(), projectTypeDTO);
+		projectDTO.setStatus(userProject.getStatus());
 		return projectDTO;
 	}
 

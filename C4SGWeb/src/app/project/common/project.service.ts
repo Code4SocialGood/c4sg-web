@@ -3,36 +3,38 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import { Project } from './project';
+import { environment } from '../../../environments/environment';
+
+const projectUrl = `${environment.backend_url}/api/projects`;
 
 @Injectable()
 export class ProjectService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private projectUrl = 'http://localhost:8080/api/projects';
 
   constructor(private http: Http) {
   }
 
   getProjects() {
-    const url = this.projectUrl + '/all';
+    const url = projectUrl + '/all';
     return this.http.get(url);
   }
 
   getProject(id: number): Observable<Response> {
     const index = id + 1;
-    const url = this.projectUrl + '/search/byId/' + index;
+    const url = projectUrl + '/search/byId/' + index;
     return this.http.get(url);
   }
 
   // TODO replace with search by keyword
   getProjectsByKeyword(keyWord: string): Observable<Response> {
-    const url = this.projectUrl + '/search/byKeyword/' + keyWord;
+    const url = projectUrl + '/search/byKeyword/' + keyWord;
     return this.http
       .get(url);
   }
 
   add(project: Project): Observable<Project[]> {
-    const url = this.projectUrl + '/add';
+    const url = projectUrl + '/add';
     return this.http
       .post(url, project, {headers: this.headers})
       .map((res: Response) => res.json())
@@ -40,14 +42,14 @@ export class ProjectService {
   }
 
   delete(id: number) {
-    const url = this.projectUrl + '/delete/' + id;
+    const url = projectUrl + '/delete/' + id;
     return this.http
       .delete(url, {headers: this.headers})
       .catch(this.handleError);
   }
 
   update(project: Project) {
-    const url = this.projectUrl + '/update';
+    const url = projectUrl + '/update';
     return this.http
       .put(url, project, {headers: this.headers})
       .map((res: Response) => res.json())
