@@ -11,14 +11,21 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 export class UserProfileComponent {
 
   public myProfile = new FormGroup({
+
+    firstname: new FormControl('', Validators.required),
+    lastname: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    state: new FormControl('', Validators.required),
+    zipcode: new FormControl('',Validators.required),
+    country: new FormControl('', Validators.required),
     linkedin: new FormControl('', Validators.required),
     github: new FormControl('', Validators.required),
     website: new FormControl('', Validators.required),
     resume: new FormControl('', Validators.required),
     skills: new FormControl('', Validators.required)
-  });
 
-  constructor() { }
+
+  });
 
   updateProfile(event) {
     const profile = this.myProfile.value;

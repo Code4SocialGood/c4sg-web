@@ -29,7 +29,8 @@
 	],
       "environmentSource": "environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
+          "dev": "environments/environment.ts",
+	  "dev-heroku": "environments/environment.dev-heroku.ts",
         "prod": "environments/environment.prod.ts"
       }
     }

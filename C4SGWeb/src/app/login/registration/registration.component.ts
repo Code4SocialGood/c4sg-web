@@ -15,8 +15,13 @@ export class RegistrationComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
     rpassword: ['', Validators.required],
-    user: ['volunteer']
+    user: ['volunteer'],
+    captcha: [null, Validators.required],
   });
+
+  onValidCaptchaResponse(captcha: string) {
+ 		this.signUpForm.controls['captcha'].setValue(captcha);
+ 	}
 
   doSignUp(event) {
     console.log(event);

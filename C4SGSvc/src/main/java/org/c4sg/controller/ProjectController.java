@@ -1,7 +1,6 @@
 package org.c4sg.controller;
 
 import io.swagger.annotations.*;
-import org.c4sg.dto.MessageDTO;
 import org.c4sg.dto.ProjectDTO;
 import org.c4sg.dto.UserDTO;
 import org.c4sg.entity.Project;
@@ -53,6 +52,15 @@ public class ProjectController extends GenericController{
     }
     
     @CrossOrigin
+    @RequestMapping(value = "/search/byOrganization/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find projects by Organization ID", notes = "Returns a list of projects")
+    public List<Project> getProjectsByOrganization(@ApiParam(value = "ID of an organization", required = true)
+                                @PathVariable("id") int orgId) {
+    	System.out.println("**************OrganizationID**************" + orgId);
+    	return projectService.getProjectsByOrganization(orgId);
+    }
+    
+    @CrossOrigin
     @RequestMapping(value = "/search/byName/{name}", method = RequestMethod.GET)
     @ApiOperation(value = "Find project by name", notes = "Returns a single project")
     public Project getProject(@ApiParam(value = "Name of project to return", required = true)
@@ -78,6 +86,28 @@ public class ProjectController extends GenericController{
         		System.out.println("***empty");
         } catch (Exception e) {
             System.out.println(e);
+        }
+
+        return projects;
+    }
+    
+    @CrossOrigin
+    @RequestMapping(value = "/search/byUser/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find projects by user", notes = "Returns a collection of projects")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "ID of user invalid")
+            })
+    public List<ProjectDTO> getProjectsByUser(@ApiParam(value = "userId of projects to return", required = true)
+                                        @PathVariable("id") Integer id) {
+    	
+    	System.out.println("**************Search**************" + id);
+    	
+    	List<ProjectDTO> projects = null;
+    	
+        try {
+        	projects = projectService.findByUser(id);
+        } catch (Exception e) {
+        	throw new NotFoundException("ID of user invalid");
         }
 
         return projects;

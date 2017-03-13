@@ -12,6 +12,7 @@ import { ProjectCreateComponent } from './project/create/project-create.componen
 import { OrganizationListComponent } from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
 import { OrganizationCreateComponent } from './organization/create/organization-create.component';
+import { OrganizationEditComponent } from './organization/edit/organization-edit.component';
 
 import { UserListComponent }  from './user/list/user-list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
   {path: 'nonprofit/create', component: OrganizationCreateComponent},
+  {path: 'nonprofit/edit', component: OrganizationEditComponent},
 
   {path: 'user/list', component: UserListComponent },
   {path: 'user/view/:id', component: UserViewComponent },

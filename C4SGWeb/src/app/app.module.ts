@@ -7,6 +7,7 @@ import { NavScrollDirective } from './navscroll.directive';
 
 import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
 import { MaterialModule } from '@angular/material';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +24,7 @@ import { ProjectCreateComponent }  from './project/create/project-create.compone
 import { OrganizationListComponent }  from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
 import { OrganizationCreateComponent } from './organization/create/organization-create.component';
+import { OrganizationEditComponent } from './organization/edit/organization-edit.component';
 
 // User
 import { UserAccountComponent }  from './user/account/user-account.component';
@@ -42,6 +44,7 @@ import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
 import { PagerService } from './_services/pager.service';
+import { FormConstantsService } from './_services/form-constants.service';
 
 @NgModule({
   imports: [
@@ -51,7 +54,8 @@ import { PagerService } from './_services/pager.service';
     MaterialModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule
+    MaterializeModule,
+    ReCaptchaModule
   ],
   declarations: [
     AppComponent,
@@ -66,6 +70,7 @@ import { PagerService } from './_services/pager.service';
     OrganizationListComponent,
     OrganizationViewComponent,
     OrganizationCreateComponent,
+    OrganizationEditComponent,
 
     UserListComponent,
     UserViewComponent,
@@ -81,7 +86,8 @@ import { PagerService } from './_services/pager.service';
                ProjectCreateService,
                OrganizationService,
                UserService,
-               PagerService],
+               PagerService,
+               FormConstantsService],
 
   bootstrap: [ AppComponent ]
 })

@@ -25,9 +25,6 @@ public class ProjectControllerTest {
     @Autowired
     private ProjectController projectController;
 
-    @Autowired
-    private ProjectService projectService;
-
     private MockMvc mockMvc;
 
     @Before
@@ -46,7 +43,7 @@ public class ProjectControllerTest {
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].name", is("WebSite Construction")))
                 .andExpect(jsonPath("$[0].organizationId", is("1")))
-                .andExpect(jsonPath("$[0].image", is("app/images/project/Project_TeensGive.png")))
+                .andExpect(jsonPath("$[0].image", is("assets/project/Project_TeensGive.png")))
                 .andExpect(jsonPath("$[0].description", is("Development of a new website based on one of the available CMS website templates (such as Wordpress, Squarespace, or Drupal. Training to ensure Organization's staff members can update content and manage the site post-launch. Note: Only includes websites built on CMS based platforms. This is not a website from scratch.")))
                 .andExpect(jsonPath("$[0].status", is("A")))
                 .andExpect(jsonPath("$[0].organizationName", is("Teens Give")))

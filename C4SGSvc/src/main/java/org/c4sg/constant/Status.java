@@ -11,16 +11,15 @@ public enum Status {
     }
 
     public String getValue() {
-    	return value;
+        return value;
     }
 
     public static String getStatus(String status) {
-		for (Status e : Status.values()) {
-			if (e.getValue() == status.toUpperCase())
-			{
-				return e.name();
-			}	
-		}
-		return PENDING.name();
+        for (Status e : Status.values()) {
+            if (e.getValue().equalsIgnoreCase(status)) {
+                return e.name();
+            }
+        }
+        return PENDING.name();
     }
 }
