@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private pagerService: PagerService,
     private userService: UserService,
     private router: Router,
-    private auth: AuthService)
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
