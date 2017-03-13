@@ -37,8 +37,8 @@ export class UserService {
             .get(url);
     }
 
-    add(user: User): Observable<User[]> {
-        const url = userUrl + '/add';
+    add(user: User): Observable<User> {
+        const url = userUrl;
         return this.http
             .post(url, user, {headers: this.headers})
             .map((res: Response) => res.json())
