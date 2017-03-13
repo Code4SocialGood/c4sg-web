@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
 
-const userUrl = `${environment.backend_url}/api/user`;
+const userUrl = `${environment.backend_url}/api/users`;
 
 @Injectable()
 export class UserService {
@@ -16,16 +16,20 @@ export class UserService {
 
     // only active users are retrieved
     getUsers() {
-        const url = userUrl + '/all/active';
+        const url = userUrl + '/active';
         return this.http.get(url);
     }
 
     getUser(id: number): Observable<Response> {
         const index = id;
         const url = userUrl + '/search/byId/' + index;
-        return this.http.get(url);
+        return this.http.get(url, {headers: this.headers});
     }
 
+    getUserByEmail(name: string): Observable<Response> {
+        const url = userUrl + '/email/' + [name] + '/';
+        return this.http.get(url);
+    }
     // TODO replace with search by keyword
     getUsersByKeyword(keyWord: string): Observable<Response> {
         const url = userUrl + '/search/byKeyword/' + keyWord;
