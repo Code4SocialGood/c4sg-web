@@ -35,13 +35,17 @@ import { RegistrationComponent } from './login/registration/registration.compone
 import { LoginComponent } from './login/login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { AuthRoleSelectionComponent } from './auth.role.component';
 
 // Service
 import { OrganizationService } from './organization/common/organization.service';
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
-import { PagerService } from './_services/pager.service';
+import { PagerService } from './_services/pager.service';    
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+
 
 @NgModule({
   imports: [
@@ -76,12 +80,15 @@ import { PagerService } from './_services/pager.service';
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    AuthRoleSelectionComponent,
   ],
   providers: [ ProjectService,
                ProjectCreateService,
                OrganizationService,
                UserService,
-               PagerService],
+               PagerService,
+               AuthService,
+               AuthGuard],
 
   bootstrap: [ AppComponent ]
 })

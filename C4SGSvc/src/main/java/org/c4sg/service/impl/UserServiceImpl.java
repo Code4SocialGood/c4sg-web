@@ -43,10 +43,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return null;
+    public UserDTO findByName(String name) {
+        return userMapper.getUserDtoFromEntity(userDAO.findByUserName(name));
     }
 
+    @Override
+    public UserDTO findByEmail(String email) {
+        return userMapper.getUserDtoFromEntity(userDAO.findByEmail(email));
+    }
+    
     @Override
     public List<User> findDevelopers() {
         return userDAO.findByRoleAndDisplayFlagOrderByGithubDesc(UserRole.C4SG_DEVELOPER, true);

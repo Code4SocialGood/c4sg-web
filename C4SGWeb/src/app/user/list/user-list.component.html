@@ -52,7 +52,7 @@
                                     {{user.country}}</span><br>
                                 </div>
                                 <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                <div *ngIf="auth.isAdmin()" class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
                                     <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
                                     <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
                                 </div>
@@ -95,7 +95,7 @@
                                     {{user.country}}</span><br>
                                 </div>
                                 <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
+                                <div *ngIf="auth.isAdmin()" class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
                                     <span><button class="btn delete right" (click)="confirmDelete(user)" data-target="modal1">DELETE</button></span>
                                     <span><button class="btn edit" (click)="edit(user); $event.stopPropagation()">EDIT</button></span>
                                 </div>

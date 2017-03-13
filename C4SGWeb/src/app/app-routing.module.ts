@@ -23,6 +23,9 @@ import { LoginComponent } from './login/login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
+import { AuthRoleSelectionComponent } from './auth.role.component';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
@@ -30,26 +33,29 @@ const routes: Routes = [
 
   {path: 'project/list', component: ProjectListComponent},
   {path: 'project/view/:id', component: ProjectViewComponent},
-  {path: 'project/create', component: ProjectCreateComponent},
+  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
 
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
-  {path: 'nonprofit/create', component: OrganizationCreateComponent},
+  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/list', component: UserListComponent },
-  {path: 'user/view/:id', component: UserViewComponent },
+  {path: 'user/list', component: UserListComponent},
+  {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
   {path: 'account', component: UserAccountComponent},
-  {path: 'profile', component: UserProfileComponent},
+  {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
 
   {path: 'register', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
 
+  {path: 'roleselect', component: AuthRoleSelectionComponent},
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

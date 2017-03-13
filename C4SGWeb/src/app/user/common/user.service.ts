@@ -21,9 +21,16 @@ export class UserService {
     getUser(id: number): Observable<Response> {
         const index = id;
         const url = this.userUrl + '/search/byId/' + index;
+        return this.http.get(url, {headers: this.headers});
+    }
+    getUserByName(name: string): Observable<Response> {
+        const url = this.userUrl + '/search/' + [name] + '/';
         return this.http.get(url);
     }
-
+    getUserByEmail(name: string): Observable<Response> {
+        const url = this.userUrl + '/search/email/' + [name] + '/';
+        return this.http.get(url);
+    }
     // TODO replace with search by keyword
     getUsersByKeyword(keyWord: string): Observable<Response> {
         const url = this.userUrl + '/search/byKeyword/' + keyWord;
@@ -31,10 +38,11 @@ export class UserService {
             .get(url);
     }
 
-    add(user: User): Observable<User[]> {
-        const url = this.userUrl + '/add';
+    add(user: User): Observable<User> {
+        const url = this.userUrl;
         return this.http
             .post(url, user, {headers: this.headers})
+            //.post(url, user))
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
