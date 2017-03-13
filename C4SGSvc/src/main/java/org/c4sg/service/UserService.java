@@ -14,7 +14,7 @@ public interface UserService {
 
     UserDTO findById(int id);
 
-    UserDTO findByName(String name);
+    UserDTO findByEmail(String email);
 
     List<User> findDevelopers();
 
