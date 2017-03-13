@@ -53,7 +53,7 @@ public class UserController {
     }
     
     @CrossOrigin
-    @RequestMapping(value = "/search/email/{email}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/email/{email}/", method = RequestMethod.GET)
     @ApiOperation(value = "Find user by email", notes = "Returns a user")
     public UserDTO getUserByEmail(@ApiParam(value = "email address", required = true)
                                @PathVariable("email") String email) {
