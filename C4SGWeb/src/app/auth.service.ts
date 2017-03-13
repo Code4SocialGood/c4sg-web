@@ -226,6 +226,7 @@ export class AuthService {
       }
       return false; 
     }
+    return false;
   }
 
   // Common check if a user profile exists and has application metadata
