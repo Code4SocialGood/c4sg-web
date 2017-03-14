@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
 
-const userUrl = `${environment.backend_url}/api/user`;
+const userUrl = `${environment.backend_url}/api/users`;
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
 
     // only active users are retrieved
     getUsers() {
-        const url = userUrl + '/all/active';
+        const url = userUrl + '/active';
         return this.http.get(url);
     }
 
