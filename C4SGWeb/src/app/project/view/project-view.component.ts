@@ -22,10 +22,8 @@ export class ProjectViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.route.params.forEach((params: Params) => {
-
-      let id = +params['id'] - 1;
+    this.route.params.subscribe(params => {
+      const id = +params['id'] - 1;
 
       this.projectService.getProject(id).subscribe(
         res => {
