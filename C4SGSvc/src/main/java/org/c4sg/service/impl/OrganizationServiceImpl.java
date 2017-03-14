@@ -85,7 +85,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     public String getLogoUploadPath(Integer organizationId) {
-        return LOGO_UPLOAD + File.separator + organizationId + IMAGE;
+        return LOGO_UPLOAD.getValue() + File.separator + organizationId + IMAGE.getValue();
     }
 
 }
