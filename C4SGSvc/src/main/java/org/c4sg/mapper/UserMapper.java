@@ -42,6 +42,9 @@ public class UserMapper extends ModelMapper {
 			//do nothing
 		}
 		//start mapping data into the dto
+		if (user == null)
+			return null;
+		
 		UserDTO userDTO = map(user, UserDTO.class);
 		//add mapping for location if point object is not null
 		if (point != null) {

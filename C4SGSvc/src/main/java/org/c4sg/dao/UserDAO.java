@@ -23,7 +23,7 @@ public interface UserDAO extends JpaRepository<User, Long>, JpaSpecificationExec
     List<User> findByStatusOrderByUserNameAsc(Status status);
 
     User findById(int id);
-
+    User findByEmail(String email);
     List<User> findByRoleAndDisplayFlagOrderByGithubDesc(UserRole role, Boolean display);
 
     @Query(FIND_BY_ID_QUERY)

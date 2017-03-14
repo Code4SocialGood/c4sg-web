@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs/Rx';
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { PagerService } from '../../_services/pager.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'userlist',
   templateUrl: 'user-list.component.html',
+  providers: [AuthService],
   styleUrls: ['user-list.component.css']
 })
 
@@ -28,7 +30,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(
     private pagerService: PagerService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
