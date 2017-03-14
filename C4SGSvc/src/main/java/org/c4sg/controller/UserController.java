@@ -22,7 +22,8 @@ import java.util.List;
 import static org.c4sg.constant.Directory.AVATAR_UPLOAD;
 import static org.c4sg.constant.Directory.RESUME_UPLOAD;
 
-@CrossOrigin
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/users")
 @Api(description = "Operations about Users", tags = "user")
@@ -52,7 +53,15 @@ public class UserController {
                            @PathVariable("id") int id) {
         return userService.findById(id);
     }
-
+    
+    @CrossOrigin
+    @RequestMapping(value = "/email/{email}/", method = RequestMethod.GET)
+    @ApiOperation(value = "Find user by email", notes = "Returns a user")
+    public UserDTO getUserByEmail(@ApiParam(value = "email address", required = true)
+                               @PathVariable("email") String email) {
+        return userService.findByEmail(email);
+    }
+    
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Add a new user")
     public UserDTO createUser(@ApiParam(value = "User object to return", required = true)
@@ -74,7 +83,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "Delete an user")
+    @ApiOperation(value = "Delete a user")
     public void deleteUser(@ApiParam(value = "User id to delete", required = true)
                            @PathVariable("id") int id) {
        LOGGER.debug("************** Delete : id=" + id + "**************");
