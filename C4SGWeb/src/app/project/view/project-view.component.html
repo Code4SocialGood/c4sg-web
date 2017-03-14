@@ -31,36 +31,36 @@
 
     <div class="col s5">
         <label for="name">Project Name</label>
-        <p id="name">{{data.name}}</p>
+        <p id="name">{{project?.name}}</p>
 
         <label for="org">Organization Name</label>
-        <p id="org">{{data.org}}</p>
+        <p id="org">{{project?.organization.name}}</p>
 
         <label for="date">Post Date</label>
-        <p id="date">{{data.date}}</p>
+        <p id="date">NA</p>
 
         <label for="longDescription">Long Description</label>
-        <p id="longDescription">{{data.description}}</p>
+        <p id="longDescription">{{project?.description}}</p>
     </div>
 
     <div class="col s4">
         <label for="location">Project Location</label>
-        <p id="location">{{data.location}}</p>
+        <p id="location">NA</p>
 
         <label for="address">Address</label>
-        <p id="address">{{data.address}}</p>
+        <p id="address">{{project?.organization.address1}}</p>
 
         <label for="state">State</label>
-        <p id="state">{{data.state}}</p>
+        <p id="state">{{project?.organization.state}}</p>
 
         <label for="city">City</label>
-        <p id="city">{{data.city}}</p>
+        <p id="city">NA</p>
 
         <label for="zip">Zip Code</label>
-        <p id="zip">{{data.zip}}</p>
+        <p id="zip">NA</p>
 
         <label for="country">Country</label>
-        <p id="country">{{data.country}}</p>
+        <p id="country">{{project?.organization.country}}</p>
     </div>
 </div>
 

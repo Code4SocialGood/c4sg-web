@@ -11,7 +11,7 @@ import {ProjectService} from '../common/project.service';
 
 export class ProjectListComponent implements OnInit {
 
-  projects: Object[];
+  projects: Project[];
   selectedProject: Project;
 
   constructor(private projectService: ProjectService, private router: Router) {
@@ -51,7 +51,7 @@ export class ProjectListComponent implements OnInit {
 
   onSelect(project: Project): void {
     this.selectedProject = project;
-    this.router.navigate(['/project', project.id]);
+    this.router.navigate(['/project/view', project.id]);
   }
 
   // TODO Don't provide the identity colume value
