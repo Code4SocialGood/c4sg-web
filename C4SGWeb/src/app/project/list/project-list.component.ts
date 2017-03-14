@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Project } from '../common/project';
-import { ProjectService } from '../common/project.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Project} from '../common/project';
+import {ProjectService} from '../common/project.service';
 
 @Component({
   selector: 'my-projects',
@@ -18,16 +18,14 @@ export class ProjectListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.getProjects();
+    this.getProjects();
   }
 
   getProjects() {
     this.projectService.getProjects().subscribe(
-      res => {
-        this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-      },
+      res => this.projects = res.json(),
       error => console.log(error)
-    );
+    )
   }
 
   getProjectsByKeyword(keyword: string) {
@@ -38,8 +36,14 @@ export class ProjectListComponent implements OnInit {
 
     this.projectService.getProjectsByKeyword(keyword).subscribe(
       res => {
-        this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        this.router.navigate(['/projects']);
+        // this.projects = res.json()
+        this.projects = res.json().map(project => ({
+          description: project.description,
+          image: project.image,
+          name: project.name,
+          organizationName: project.organization.name,
+        }));
+
       },
       error => console.log(error)
     );
