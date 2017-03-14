@@ -26,13 +26,15 @@ declare var $: any;
           <thead></thead>
           <tbody>
             <tr class="input-field valign-wrapper" *ngFor="let entry of entries; let idx = index">   
-              <td>
+              <td class="valign-wrapper">
+                  <label>{{ entry.description }}</label>&nbsp;&nbsp;&nbsp;
                   <input type="radio" 
                     name="role"
-                    [value]="entry.value"
+                    [value]="entry.value" 
+                    style="position: relative; left: 7rem; margin-top: -.5rem; opacity: 100;" 
                     (change)="onSelectionChange(entry)"
                   />
-                  <label>{{ entry.description }}</label>&nbsp;&nbsp;&nbsp;
+                  
               </td>
             </tr>       
           </tbody>
