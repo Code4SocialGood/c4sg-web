@@ -32,7 +32,7 @@ public class OrganizationController {
 	@RequestMapping(value = "/{id}/uploadLogoAsFile", method = RequestMethod.POST)
 	@ApiOperation(value = "Add new upload Logo as Image File")
 	public String uploadLogo(@ApiParam(value = "Organization Id", required = true) @PathVariable Integer id,
-			@ApiParam(value = "Request Body", required = true) @RequestPart("file") MultipartFile file) {
+			@ApiParam(value = "Image File", required = true) @RequestPart("file") MultipartFile file) {
 
 		String contentType = file.getContentType();
 		if (!FileUploadUtil.isValidImageFile(contentType)) {

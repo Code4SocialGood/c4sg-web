@@ -2,8 +2,7 @@ package org.c4sg.constant;
 
 public enum Format {
 
-	IMAGE("avatars"), RESUME("resumes");
-
+	IMAGE(".jpg"), RESUME(".pdf");
 	private String value;
 
 	Format(String value) {
