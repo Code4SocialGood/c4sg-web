@@ -11,4 +11,3 @@ deploy:
   provider: surge
   project: ./dist/
   domain: wet-snake.surge.sh
-	
