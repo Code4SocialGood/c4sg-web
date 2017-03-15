@@ -26,17 +26,17 @@ describe('App', () => {
     de = fixture.debugElement.query(By.css('nav'));
   });
 
-  it('should create component', () => expect(comp).toBeDefined() );
+    xit('should create component', () => expect(comp).toBeDefined() );
 
-  it('should have expected a <nav> tag', () => {
+    xit('should have expected a <nav> tag', () => {
     fixture.detectChanges();
-    const nav = de.nativeElement;
+    let nav = de.nativeElement;
     expect(nav).toBeDefined();
   });
 
   xit('should have class black', () => {
     fixture.detectChanges();
-    const nav = de.nativeElement;
+    let nav = de.nativeElement;
     expect(nav.className).toBe('black');
   });
 
