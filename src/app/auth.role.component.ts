@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Location } from '@angular/common';
+import { environment } from '../environments/environment';
 import { myConfig } from './auth.config';
 
 //declare const $: Function;
@@ -109,7 +110,7 @@ export class AuthRoleSelectionComponent {
     setRole() {
       this.role = JSON.parse(JSON.stringify(this.selectedEntry))['value'];
       // console.log("stateVal from setrole: " + this.stateVal);
-      let return_url = 'https://' + myConfig.domain + '/continue?state=' + this.stateVal + '&user_role=' + this.role;
+      let return_url = 'https://' + environment.auth_domain + '/continue?state=' + this.stateVal + '&user_role=' + this.role;
       console.log("return url: " + return_url);
       let qstring = 'state=' + this.stateVal + '&user_role=' + this.role;
       // Redirect to callback to continue with rules processing
