@@ -1,3 +1,6 @@
+import { Router,
+         ActivatedRouteSnapshot,
+         RouterStateSnapshot }    from '@angular/router';
 import { Injectable, enableProdMode }      from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig }        from './auth.config';
@@ -6,6 +9,7 @@ import { UserService } from './user/common/user.service';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
+
 
 
 // Avoid name not found warnings
@@ -62,9 +66,9 @@ export class AuthService {
   };
 
   // Configure Auth0 with options
-  lock = new Auth0Lock(myConfig.clientID, myConfig.domain, this.options);
+  lock = new Auth0Lock(environment.auth_clientID, environment.auth_domain, this.options);
 
-  constructor(private userService: UserService) {    
+  constructor(private userService: UserService, private router: Router) {    
     
     // set uset profile of already saved profile
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -194,6 +198,7 @@ export class AuthService {
     localStorage.removeItem('profile');
     localStorage.removeItem('accessToken');
     localStorage.clear();
+    this.router.navigate(['']);
     this.userProfile = undefined;
   }
 
