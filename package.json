@@ -9,6 +9,7 @@
     "build": "ng build",
     "buildHeroku": "ng build --environment=dev-heroku",
     "test": "ng test",
+    "test_single_run": "ng test --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
