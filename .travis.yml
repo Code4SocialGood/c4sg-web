@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+	- "7"
+cache:
+	directories:
+		- node_modules
+script:
+	- npm test
+	- npm run buildHeroku
+deploy:
+	provider: surge
+	project: ./dist/
+	domain: wet-snake.surge.sh
+	
