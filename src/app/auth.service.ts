@@ -213,7 +213,7 @@ export class AuthService {
   }
 
   // Code below is used to override role
-  private bypassRole(roleToCheck: string): boolean {
+  bypassRole(roleToCheck: string): boolean {
     // For prod, this override will not function
     if (!environment.production) {
       // If a user decides to override, the 'bypassRole is set to true'
