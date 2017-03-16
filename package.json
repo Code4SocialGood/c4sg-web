@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "ng serve",
     "startHeroku": "ng serve --environment=dev-heroku",
-    "build": "ng build",
+      "build": "ng build",
+      "buildProd": "ng build --prod --aot",
     "buildHeroku": "ng build --environment=dev-heroku",
     "test": "ng test",
     "test_single_run": "ng test --single-run",
@@ -38,7 +39,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.0",
+    "@angular/cli": "1.0.0-rc.2",
     "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
