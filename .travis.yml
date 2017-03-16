@@ -8,6 +8,7 @@ script:
 - npm run test_single_run
 - npm run buildHeroku
 deploy:
+  skip_cleanup: true
   provider: surge
   project: ./dist/
-  domain: wet-snake.surge.sh
+  domain: app.code4socialgood.org
