@@ -34,12 +34,14 @@ const routes: Routes = [
 
   {path: 'project/list', component: ProjectListComponent},
   {path: 'project/view/:id', component: ProjectViewComponent},
-  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
-
+  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
+        data:{roles: ['ADMIN']}},
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
-  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard]},
-  {path: 'nonprofit/edit', component: OrganizationEditComponent},
+  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
+        data:{roles: ['ADMIN']}},
+  {path: 'nonprofit/edit', component: OrganizationEditComponent,
+        data:{roles: ['ORGANIZATION']}},
 
   {path: 'user/list', component: UserListComponent},
   {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
