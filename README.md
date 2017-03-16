@@ -1,5 +1,6 @@
 # Code for Social Good
 [![Build Status](https://travis-ci.org/Code4SocialGood/c4sg-web.svg?branch=master)](https://travis-ci.org/Code4SocialGood/c4sg-web)
+
 Code for Social Good is a global platform to connet nonprofits and open source projects with tech volunteers. This project was initiated after the need for such a platform was realized from our own volunteering experiences. We are building this platform to address specific needs such as: 
 
 ##### Technical Volunteering
