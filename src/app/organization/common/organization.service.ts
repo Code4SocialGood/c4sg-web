@@ -30,4 +30,10 @@ export class OrganizationService {
 	  `${organizationUrl}/search/byKeyword/${keyWord}`
       );
   }
+
+  delete(id: number): Observable<Response> {
+      return this.http.delete(
+      `${organizationUrl}/delete/${id}`
+      );
+  }
 }
