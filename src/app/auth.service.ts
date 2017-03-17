@@ -10,8 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
 
-declare const auth0: any;
-const Auth0Lock = auth0.default;
+declare const Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
