@@ -11,4 +11,4 @@ deploy:
   skip_cleanup: true
   provider: surge
   project: ./dist/
-  domain: app.code4socialgood.org
+  domain: dev.code4socialgood.org
