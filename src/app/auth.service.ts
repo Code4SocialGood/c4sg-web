@@ -10,11 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
 
-
-
-// Avoid name not found warnings
-// declare var Auth0Lock: any;
-let Auth0Lock = require('auth0-lock').default;
+declare const Auth0Lock: any;
 
 @Injectable()
 export class AuthService {

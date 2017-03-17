@@ -11,39 +11,37 @@
           </div>
           <div class="col s4">
             <div class="input-field">
-              <input id="username" formControlName="username" type="text" placeholder="Username *">
+              <input id="username" formControlName="username" type="text">
               <label for="username">Username *</label>
             </div>
             <div class="input-field">
-              <input id="firstName" formControlName="firstName" type="text" placeholder="First Name *">
+              <input id="firstName" formControlName="firstName" type="text" >
               <label for="firstName">First Name *</label>
             </div>
             <div class="input-field">
-              <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name *">
+              <input id="lastName" formControlName="lastName" type="text">
               <label for="lastName">Last Name *</label>
             </div>
             <div class="input-field">
-              <input id="email" formControlName="email" type="text" placeholder="Email Address *">
+              <input id="email" formControlName="email" type="text">
               <label for="email">Email Address *</label>
             </div>
           </div>
           <div class="col s4">
             <div class="input-field input-field-select">
             <select id="state" formControlName="state" materialize="material_select" [materializeSelectOptions]="states">
-              <option value="#">State</option>
               <option *ngFor="let state of states" [value]="state.value">{{state.display}}</option>
             </select>
               <label for="state">State</label>
             </div>
             <div class="input-field input-field-select">
             <select id="country" formControlName="country" materialize="material_select" [materializeSelectOptions]="countries">
-              <option value="#">Country</option>
               <option *ngFor="let country of countries" [value]="country.value">{{country.display}}</option>
             </select>
               <label for="country">Country</label>
             </div>
             <div class="input-field">
-            <input id="zip" formControlName="zip" type="text" placeholder="Zip">
+            <input id="zip" formControlName="zip" type="text">
               <label for="country">Zip</label>
             </div>
           </div>
@@ -64,9 +62,6 @@
                 <a routerLink="/" class="modal-action modal-close waves-effect waves-green btn-flat"(click)="deleteUser(selectedUser)">Yes</a>
                 </div>
                 </div>
-            </div>
-            <div class="col s4">
-              <button class="btn waves-effect waves-light" type="reset">Cancel</button>
             </div>
           </div>
         </form>
