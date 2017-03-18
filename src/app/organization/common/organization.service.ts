@@ -43,5 +43,11 @@ export class OrganizationService {
       { "": fileContent }
       );
   }
+
+  retrieveLogo(organizationId: number): Observable<Response>{
+      return this.http.get(
+      `${organizationUrl}/${organizationId}/getLogo`
+      )
+  }
   
 }

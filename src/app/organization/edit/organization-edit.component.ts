@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser/';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
@@ -35,7 +36,8 @@ export class OrganizationEditComponent implements OnInit {
     public fb: FormBuilder,
     private organizationService: OrganizationService,
     private fc: FormConstantsService,
-    private el: ElementRef
+    private el: ElementRef,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,8 @@ export class OrganizationEditComponent implements OnInit {
       this.editOrg = null;
       this.initForm();
     }
+
+    this.initLogo();
   }
 
   private getFormConstants(): void {
@@ -106,15 +110,30 @@ export class OrganizationEditComponent implements OnInit {
       'detailedDescription': ''
     };
   }
-  onUploadFile(fileInput: any): void {
+
+  private initLogo(): void {
+    this.organizationService
+        .retrieveLogo(this.organizationId)
+        .subscribe(
+          res => {
+            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
+          },
+          err => console.error('An error occurred', err)) // for demo purposes only
+  }
+
+  onUploadLogo(fileInput: any): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
       var reader = new FileReader()
       reader.onload = (e : any): void => {
-            const image = e.target.result.split(',')[1]
+            const base64Image = e.target.result
             this.organizationService
-                .saveLogo(this.organizationId, image)
+                // separates data uri from base64 string before saving
+                .saveLogo(this.organizationId, base64Image.split('')[1])
                 .subscribe(
-                  res => console.log('Saved successfully'), // for demo purposes only
+                  res => { 
+                    console.log('Saved logo successfully') // for demo purposes only
+                    this.organization.logo = this.sanitizer.bypassSecurityTrustUrl(base64Image)
+                  },
                   err => console.error('An error occurred', err)) // for demo purposes only
       }
       reader.readAsDataURL(fileInput.target.files[0])
