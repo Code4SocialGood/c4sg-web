@@ -44,22 +44,25 @@ export class OrganizationEditComponent implements OnInit {
     this.getFormConstants();
 
     if (this.editOrg) { // edit existing org
+      this.organization.logo = '';
       this.initForm();
-      this.organizationService.getOrganization(this.organizationId).subscribe(
-        (res) => {
+      this.organizationService.getOrganization(this.organizationId).toPromise()
+        .then(res => {
           this.editOrg = true;
-          this.organization = res.json();
+          var body = res.json();
+          body.logo = '';
+          this.organization = body;
+          return this.organizationService.retrieveLogo(this.organizationId).toPromise()
+        })
+        .then(res => {
+          this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
           this.initForm();
-        }, (err) => {
-          console.error('An error occurred', err); // for demo purposes only
-        }
-      );
+        }, err => console.error('An error occurred', err)) // for demo purposes only
+        .catch(err => console.error('An error occurred', err)) // for demo purposes only
     } else { // add new org
       this.editOrg = null;
       this.initForm();
     }
-
-    this.initLogo();
   }
 
   private getFormConstants(): void {
@@ -109,16 +112,6 @@ export class OrganizationEditComponent implements OnInit {
       'briefDescription': '',
       'detailedDescription': ''
     };
-  }
-
-  private initLogo(): void {
-    this.organizationService
-        .retrieveLogo(this.organizationId)
-        .subscribe(
-          res => {
-            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
-          },
-          err => console.error('An error occurred', err)) // for demo purposes only
   }
 
   onUploadLogo(fileInput: any): void {
