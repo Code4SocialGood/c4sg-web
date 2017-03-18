@@ -19,6 +19,8 @@ export class OrganizationEditComponent implements OnInit {
   public formPlaceholder = {};
   public shortDescMaxLength = 255;
   public states: String[];
+  public loadedFile: any;
+  public organizationId = 2; //TODO: set organizationId on init based on user data
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -28,7 +30,7 @@ export class OrganizationEditComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
   public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-
+  
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
@@ -41,8 +43,7 @@ export class OrganizationEditComponent implements OnInit {
 
     if (this.editOrg) { // edit existing org
       this.initForm();
-      // TODO: Pass variable to getOrganization() instead of hard-coded value
-      this.organizationService.getOrganization(2).subscribe(
+      this.organizationService.getOrganization(this.organizationId).subscribe(
         (res) => {
           this.editOrg = true;
           this.organization = res.json();
@@ -105,7 +106,20 @@ export class OrganizationEditComponent implements OnInit {
       'detailedDescription': ''
     };
   }
-
+  onUploadFile(fileInput: any): void {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      var reader = new FileReader()
+      reader.onload = (e : any): void => {
+            const image = e.target.result.split(',')[1]
+            this.organizationService
+                .saveLogo(this.organizationId, image)
+                .subscribe(
+                  res => console.log('Saved successfully'), // for demo purposes only
+                  err => console.error('An error occurred', err)) // for demo purposes only
+      }
+      reader.readAsDataURL(fileInput.target.files[0])
+    }
+  }
   onSubmit(): void {
     // TODO: complete submission logic...
     if (this.editOrg) {

@@ -12,8 +12,8 @@
           <br>
           <div class="file-field input-field">
             <div class="btn">
-              <span>Photo</span>
-              <input type="file">
+              <span>Upload</span>
+              <input type="file" (change)="onUploadFile($event)">
             </div>
             <br><br>
             <input class="file-path left-align" type="text">
