@@ -52,6 +52,7 @@ export class OrganizationEditComponent implements OnInit {
           var body = res.json();
           body.logo = '';
           this.organization = body;
+          // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
           return this.organizationService.retrieveLogo(this.organizationId).toPromise()
         })
         .then(res => {
