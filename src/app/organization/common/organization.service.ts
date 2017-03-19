@@ -36,4 +36,18 @@ export class OrganizationService {
       `${organizationUrl}/delete/${id}`
       );
   }
+
+  saveLogo(organizationId: number, fileContent: string): Observable<Response>{
+      return this.http.post(
+      `${organizationUrl}/${organizationId}/uploadLogo`, 
+      { "": fileContent }
+      );
+  }
+
+  retrieveLogo(organizationId: number): Observable<Response>{
+      return this.http.get(
+      `${organizationUrl}/${organizationId}/getLogo`
+      )
+  }
+  
 }
