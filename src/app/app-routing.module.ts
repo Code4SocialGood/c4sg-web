@@ -34,19 +34,19 @@ const routes: Routes = [
 
   {path: 'project/list', component: ProjectListComponent},
   {path: 'project/view/:id', component: ProjectViewComponent},
-  // {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
-  //       data:{roles: ['ADMIN']}},
+  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
+        data:{roles: ['ADMIN']}},
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
-  // {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
-  //       data:{roles: ['ADMIN']}},
-  // {path: 'nonprofit/edit', component: OrganizationEditComponent,
-  //       data:{roles: ['ORGANIZATION']}},
+  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
+        data:{roles: ['ADMIN']}},
+  {path: 'nonprofit/edit', component: OrganizationEditComponent,
+        data:{roles: ['ORGANIZATION']}},
 
   {path: 'user/list', component: UserListComponent},
-  // {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
+  {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
   {path: 'account', component: UserAccountComponent},
-  // {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
 
   {path: 'register', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
@@ -54,17 +54,10 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
 
   {path: 'roleselect', component: AuthRoleSelectionComponent},
-
-  // TEMP FIX ONLY - JXWANG - remove the 5 lines below after auth works
-  {path: 'project/create', component: ProjectCreateComponent},
-  {path: 'nonprofit/create', component: OrganizationCreateComponent},
-  {path: 'nonprofit/edit', component: OrganizationEditComponent},
-  {path: 'user/view/:id', component: UserViewComponent},
-  {path: 'profile', component: UserProfileComponent},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 
