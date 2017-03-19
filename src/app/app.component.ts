@@ -6,7 +6,8 @@ import { AuthService } from './auth.service';
 // moduleId: module.id,  // For webpack, remove this
   selector: 'my-app',
   providers: [AuthService],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: [ 'app.component.css' ]
 })
 
 export class AppComponent {
