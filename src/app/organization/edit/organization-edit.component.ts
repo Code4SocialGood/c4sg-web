@@ -122,7 +122,7 @@ export class OrganizationEditComponent implements OnInit {
             const base64Image = e.target.result
             this.organizationService
                 // separates data uri from base64 string before saving
-                .saveLogo(this.organizationId, base64Image.split('')[1])
+                .saveLogo(this.organizationId, base64Image.split(',')[1])
                 .subscribe(
                   res => { 
                     console.log('Saved logo successfully') // for demo purposes only
