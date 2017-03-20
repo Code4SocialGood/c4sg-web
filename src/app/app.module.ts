@@ -5,9 +5,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 import { NavScrollDirective } from './navscroll.directive';
 
-import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
-import { MaterialModule } from '@angular/material';
-import { ReCaptchaModule } from 'angular2-recaptcha';
+import { MaterializeModule } from 'angular2-materialize';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +32,6 @@ import { UserListComponent }  from './user/list/user-list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
 
 // Login
-import { RegistrationComponent } from './login/registration/registration.component';
 import { LoginComponent } from './login/login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
@@ -55,11 +52,9 @@ import { FormConstantsService } from './_services/form-constants.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule,
-    ReCaptchaModule
+    MaterializeModule
   ],
   declarations: [
     AppComponent,
@@ -82,7 +77,6 @@ import { FormConstantsService } from './_services/form-constants.service';
     UserAccountComponent,
     UserProfileComponent,
 
-    RegistrationComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
