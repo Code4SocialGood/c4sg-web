@@ -74,7 +74,11 @@ export class AuthRoleSelectionComponent {
         {
           description: 'NonProfit User',
           value: 'ORGANIZATION' 
-        }        
+        },   
+        {
+          description: 'Admin User',
+          value: 'C4SG_ADMIN' 
+        }               
       ]
     }
     
@@ -82,23 +86,13 @@ export class AuthRoleSelectionComponent {
       // Jquery script below opens up the modal dialog for role selection
       $(document).ready(() => {
         $('.modal').modal({ 
-            dismissible: false,
-            ready: function(modal, trigger) {
-              //$('.modal').attr("tabIndex", "1"); 
-              $('.modal #VOLUNTEER').attr("tabIndex", "1"); 
-              $('.modal #ORGANIZATION').attr("tabIndex", "2");
-            }
+            dismissible: false
           });
           
            // Force user to select
         $('.modal').modal('open'); // Opens up dialog upon redirection from Auth0  
         }
       );
-      $(document).on('focusin', function(e) {
-        if ($(event.target).closest(".mce-window").length) {
-          e.stopImmediatePropagation();
-        }
-      });
     }
 
     onSelectionChange(entry) {
