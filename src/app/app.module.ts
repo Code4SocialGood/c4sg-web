@@ -32,9 +32,6 @@ import { UserListComponent }  from './user/list/user-list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
 
 // Login
-import { LoginComponent } from './login/login/login.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { AuthRoleSelectionComponent } from './auth.role.component';
 
 // Service
@@ -77,9 +74,6 @@ import { FormConstantsService } from './_services/form-constants.service';
     UserAccountComponent,
     UserProfileComponent,
 
-    LoginComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
     AuthRoleSelectionComponent,
   ],
   providers: [ ProjectService,
