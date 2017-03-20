@@ -28,21 +28,21 @@
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<footer class="page-footer white">
+<footer class="page-footer">
 <div class="container">
+    <hr/>
     <div class="row">
-        <div class = "col-md-2">
-	        <h6 class="white-text">
-		        <ul>
-                    <li><a routerLink="/about" routerLinkActive="active" >About Us</a></li>
-                    <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px" ></a>
-                    <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
-                    <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"></a>         
-                    <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
-                </ul>
-            </h6>
-        </div>
-   </div>
+        <div class="col s4 foot-left"><a routerLink="/about" routerLinkActive="active" id ="about"><span>About Us</span></a></div>
+        <div class="col offset-s4 s4 foot-right">
+            <ul>
+		<li><a href="mailto:info@code4socialgood.org" class="mdi mdi-email mdi-24px"></a></li>
+                <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px"></a>
+                <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
+                <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"> </a>
+                <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
+            </ul>
+       </div>
+    </div>
    <div class="row center">
        <a width="150" height="50" href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss" target="_blank" alt="Single Sign On & Token Based Authentication - Auth0"><img width="150" height="50" alt="JWT Auth for open source projects" src="//cdn.auth0.com/oss/badges/a0-badge-dark.png"/></a>
    </div>
