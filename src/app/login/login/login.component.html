@@ -1,8 +1,0 @@
-<div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
-        <input formControlName="username" type="text" placeholder="Username">
-        <input formControlName="password" type="text" placeholder="Password">
-        <button type="submit">Sign In</button>
-    </form>
-    <a routerLink="/forgot-password" routerLinkActive="active"><button type="submit">Forgot Password</button></a>
-</div>

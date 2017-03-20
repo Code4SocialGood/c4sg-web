@@ -19,11 +19,6 @@ import { UserViewComponent }  from './user/view/user-view.component';
 import { UserAccountComponent } from './user/account/user-account.component';
 import { UserProfileComponent } from './user/profile/user-profile.component';
 
-import { RegistrationComponent } from './login/registration/registration.component';
-import { LoginComponent } from './login/login/login.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
-
 import { AuthRoleSelectionComponent } from './auth.role.component';
 import { AuthGuard } from './auth.guard';
 
@@ -47,11 +42,6 @@ const routes: Routes = [
   {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
   {path: 'account', component: UserAccountComponent},
   {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-
-  {path: 'register', component: RegistrationComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
 
   {path: 'roleselect', component: AuthRoleSelectionComponent},
 ];
