@@ -15,7 +15,7 @@ declare const Auth0Lock: any;
 @Injectable()
 export class AuthService {
 
-  userProfile: any;  
+  userProfile: any;
   userName: string;
   userRole: string;
   email: string;
@@ -30,14 +30,14 @@ export class AuthService {
     theme:  {
       logo: '../assets/favicon-32x32.png'
             },
-    // Override the title        
+    // Override the title
     languageDictionary: {
       title: "Code for Social Good"
-    },   
+    },
     auth : {
         params: {scope: 'openid email user_metadata app_metadata'},
     },
-    // Add a user name input text       
+    // Add a user name input text
     additionalSignUpFields: [{
       name: "user_name",
       placeholder: "User name",
@@ -47,7 +47,7 @@ export class AuthService {
           hint: "Must have 8 or more chars"
         }
       } },
-      // Add a User role selection of either Volunteer or NonProfit 
+      // Add a User role selection of either Volunteer or NonProfit
       {
         type: "select",
         name: "user_role",
@@ -64,15 +64,15 @@ export class AuthService {
   // Configure Auth0 with options
   lock = new Auth0Lock(environment.auth_clientID, environment.auth_domain, this.options);
 
-  constructor(private userService: UserService, private router: Router) {    
-    
+  constructor(private userService: UserService, private router: Router) {
+
     // set uset profile of already saved profile
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
 
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
-      localStorage.setItem('accessToken', authResult.accessToken);      
+      localStorage.setItem('accessToken', authResult.accessToken);
 
       // console.log(authResult);
 
@@ -92,40 +92,40 @@ export class AuthService {
             this.firstName = profile.given_name;
             this.lastName = profile.family_name;
           }
-        
+
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
-          this.userProfile = profile;          
+          this.userProfile = profile;
 
           // console.log('Printing userprofile');
           // console.log(this.userProfile);
 
           this.email = profile.email;
-          
-          userService.getUserByEmail(this.email).subscribe(    
+
+          userService.getUserByEmail(this.email).subscribe(
             res => {
               let lemail = this.email;
               let luserRole = this.userRole;
               let luserName = this.userName;
-              let firstName =  this.firstName !== undefined ? this.firstName : ''; 
+              let firstName =  this.firstName !== undefined ? this.firstName : '';
               let lastName =  this.lastName !== undefined ? this.lastName : '';
 
               if (JSON.parse(JSON.stringify(res))._body !== "")
               {
                 // console.log("found an existing user by email");
                 // console.log(JSON.stringify(res));
-                user = JSON.parse(JSON.parse(JSON.stringify(res))._body);    
-              }              
+                user = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+              }
               // If not found, then create the user
               if (user === undefined)
               {
                 console.log("User does not exist");
-                let newUser = new User(0, 
-                  lemail, 'NA', 
+                let newUser = new User(0,
+                  lemail, 'NA',
                   'NA', 'NA','NA',
-                  'ACTIVE',luserRole.toUpperCase(), 
-                  "99","1",null,null, luserName, firstName, lastName);
-                
+                  'ACTIVE',luserRole.toUpperCase(),
+                  "99","1",null,null, luserName, firstName, lastName, 'NA', 'NA', 'NA', 'NA', ['NA']);
+
                 // Create a user
                 userService.add(newUser).subscribe(
                   res => {
@@ -139,7 +139,7 @@ export class AuthService {
                     }
                     else{
                       localStorage.setItem('currentDisplayName', user.email);
-                    }                    
+                    }
                   },
                   error => console.log(error));
               }
@@ -153,7 +153,7 @@ export class AuthService {
                   localStorage.setItem('currentDisplayName', user.email);
                 }
 
-                  // console.log("User already exists: " + 
+                  // console.log("User already exists: " +
                     // user.email + ' and user id: ' +
                     // user.id + ' name: ' +
                     // localStorage.getItem('currentDisplayName'));
@@ -208,7 +208,7 @@ export class AuthService {
     return localStorage.getItem('currentUserId');
   }
 
-  // Returns current user's first name + last name OR email 
+  // Returns current user's first name + last name OR email
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
   }
@@ -219,19 +219,19 @@ export class AuthService {
     if (!environment.production) {
       // If a user decides to override, the 'bypassRole is set to true'
       if (myConfig.bypassRole) {
-        // If a bypass is set then an override 'roleAs' is expected 
+        // If a bypass is set then an override 'roleAs' is expected
         if (roleToCheck === myConfig.roleAs) {
           return true;
         }
         return false;
       }
-      return false; 
+      return false;
     }
     return false;
   }
 
   // Common check if a user profile exists and has application metadata
-  public hasRoles() {   
+  public hasRoles() {
     return this.userProfile && this.userProfile.app_metadata
       && this.userProfile.app_metadata.roles;
   }
@@ -246,8 +246,8 @@ export class AuthService {
       else{
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
       }
-    } 
-    return false; 
+    }
+    return false;
   }
 
   // Check if a user's role is VOLUNTEER
@@ -260,8 +260,8 @@ export class AuthService {
       else{
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
       }
-    } 
-    return false; 
+    }
+    return false;
   }
 
   // Check if a user's role is ORGANIZATION
@@ -274,7 +274,7 @@ export class AuthService {
       else{
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
       }
-    } 
-    return false; 
+    }
+    return false;
   }
 }
