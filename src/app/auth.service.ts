@@ -6,7 +6,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig }        from './auth.config';
 import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
 
@@ -16,7 +16,7 @@ declare const Auth0Lock: any;
 export class AuthService {
 
   userProfile: any;  
-  userName: string;
+  userName: string = '';
   userRole: string;
   email: string;
   firstName: string;
@@ -38,15 +38,16 @@ export class AuthService {
         params: {scope: 'openid email user_metadata app_metadata'},
     },
     // Add a user name input text       
-    additionalSignUpFields: [{
-      name: "user_name",
-      placeholder: "User name",
-      validator: function(user_name) {
-        return {
-          valid: user_name.length >= 8,
-          hint: "Must have 8 or more chars"
-        }
-      } },
+    additionalSignUpFields: [
+      // {
+      // name: "user_name",
+      // placeholder: "User name",
+      // validator: function(user_name) {
+      //   return {
+      //     valid: user_name.length >= 8,
+      //     hint: "Must have 8 or more chars"
+      //   }
+      // } },
       // Add a User role selection of either Volunteer or NonProfit 
       {
         type: "select",
@@ -55,7 +56,7 @@ export class AuthService {
         options: [
           {value: "VOLUNTEER", label: "Volunteer User"},
           {value: "ORGANIZATION", label: "Non-profit User"},
-          {value: "C4SG_ADMIN", label: "Admin User"}
+          {value: "ADMIN", label: "Admin User"}
         ],
         prefill: "VOLUNTEER"
       }
@@ -125,8 +126,10 @@ export class AuthService {
                   lemail, 'NA', 
                   'NA', 'NA','NA',
                   'ACTIVE',luserRole.toUpperCase(), 
-                  "99","1",null,null, luserName, firstName, lastName);
+                  "99","0",null,null, luserName, firstName, lastName);
                 
+                //console.log(JSON.stringify(newUser));
+
                 // Create a user
                 userService.add(newUser).subscribe(
                   res => {
