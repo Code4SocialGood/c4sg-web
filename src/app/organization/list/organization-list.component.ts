@@ -84,7 +84,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   onSelect(organization: Organization): void {
     this.selectedOrganization = organization;
-    this.router.navigate(['/organization', organization.id]);
+    this.router.navigate(['/nonprofit/edit', organization.id]);
   }
 
    // delete callback
