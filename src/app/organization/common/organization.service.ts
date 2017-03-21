@@ -31,7 +31,6 @@ export class OrganizationService {
       );
   }
 
-  // Generates an incremented Id based on getOrganizations() before submitting form data
   createOrganization(organization: any): Observable<Response> {
       return this.http.post(
       `${organizationUrl}/create`,
