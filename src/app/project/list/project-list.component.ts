@@ -85,8 +85,4 @@ export class ProjectListComponent implements OnInit {
         error => console.log(error)
       );
   }
-
-  goBack(): void {
-    window.history.back();
-  }
 }
