@@ -46,9 +46,13 @@ h4 {
 .grid-pad > [class*='col-']:last-of-type {
     padding-right: 20px;
 }
+
+#map {
+    margin-left: 100px;
+}
+
 .ppl_list{
   overflow: auto;
-  white-space: nowrap;
 }
 @media (max-width: 600px) {
     .module {
