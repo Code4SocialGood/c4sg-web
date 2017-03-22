@@ -33,9 +33,10 @@ const routes: Routes = [
   //      data:{roles: ['ADMIN']}},
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
+
   // {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
   //      data:{roles: ['ADMIN']}},
-  {path: 'nonprofit/edit', component: OrganizationEditComponent,
+  {path: 'nonprofit/edit/:id', component: OrganizationEditComponent,
         data:{roles: ['ORGANIZATION']}},
 
   {path: 'user/list', component: UserListComponent},

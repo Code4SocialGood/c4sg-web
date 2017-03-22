@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser/';
+import { ActivatedRoute } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
@@ -37,33 +38,40 @@ export class OrganizationEditComponent implements OnInit {
     private organizationService: OrganizationService,
     private fc: FormConstantsService,
     private el: ElementRef,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getFormConstants();
 
-    if (this.editOrg) { // edit existing org
-      this.organization.logo = '';
-      this.initForm();
-      this.organizationService.getOrganization(this.organizationId).toPromise()
-        .then(res => {
-          this.editOrg = true;
-          var body = res.json();
-          body.logo = '';
-          this.organization = body;
-          // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-          return this.organizationService.retrieveLogo(this.organizationId).toPromise()
-        })
-        .then(res => {
-          this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
-          this.initForm();
-        }, err => console.error('An error occurred', err)) // for demo purposes only
-        .catch(err => console.error('An error occurred', err)) // for demo purposes only
-    } else { // add new org
-      this.editOrg = null;
-      this.initForm();
-    }
+    this.route.params.subscribe(params => {
+      this.organizationId = +params['id']
+
+      this.getFormConstants();
+
+      if (this.editOrg) { // edit existing org
+        this.organization.logo = '';
+        this.initForm();
+        this.organizationService.getOrganization(this.organizationId).toPromise()
+          .then(res => {
+            this.editOrg = true;
+            var body = res.json();
+            body.logo = '';
+            this.organization = body;
+            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+            return this.organizationService.retrieveLogo(this.organizationId).toPromise()
+          })
+          .then(res => {
+            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
+            this.initForm();
+          }, err => console.error('An error occurred', err)) // for demo purposes only
+          .catch(err => console.error('An error occurred', err)) // for demo purposes only
+      } else { // add new org
+        this.editOrg = null;
+        this.initForm();
+      }
+    
+    })
   }
 
   private getFormConstants(): void {
