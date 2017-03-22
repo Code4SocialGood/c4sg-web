@@ -39,10 +39,11 @@ import { OrganizationService } from './organization/common/organization.service'
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
-import { PagerService } from './_services/pager.service';    
+import { PagerService } from './_services/pager.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { FormConstantsService } from './_services/form-constants.service';
+import { DeveloperService } from './about/common/developer.service';
 
 @NgModule({
   imports: [
@@ -83,7 +84,8 @@ import { FormConstantsService } from './_services/form-constants.service';
                PagerService,
                FormConstantsService,
                AuthService,
-               AuthGuard],
+               AuthGuard,
+               DeveloperService],
 
   bootstrap: [ AppComponent ]
 })
