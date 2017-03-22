@@ -29,12 +29,12 @@ const routes: Routes = [
 
   {path: 'project/list', component: ProjectListComponent},
   {path: 'project/view/:id', component: ProjectViewComponent},
-  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
-        data:{roles: ['ADMIN']}},
+  // {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
+  //      data:{roles: ['ADMIN']}},
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
-  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
-        data:{roles: ['ADMIN']}},
+  // {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
+  //      data:{roles: ['ADMIN']}},
   {path: 'nonprofit/edit', component: OrganizationEditComponent,
         data:{roles: ['ORGANIZATION']}},
 
@@ -44,6 +44,10 @@ const routes: Routes = [
   {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
 
   {path: 'roleselect', component: AuthRoleSelectionComponent},
+
+  // JXWANG16 - TEMP FIX
+  {path: 'project/create', component: ProjectCreateComponent},
+  {path: 'nonprofit/create', component: OrganizationCreateComponent},
 ];
 
 @NgModule({
