@@ -64,7 +64,7 @@ export class AuthRoleSelectionComponent {
     ngOnInit(): void {
       // Retrieve the state passed by Auth0 to avoid csrf issue upon callback
       this.stateVal = this.route.snapshot.queryParams['state'];  
-      console.log("stateValue passed = " + this.stateVal);    
+      // console.log("stateValue passed = " + this.stateVal);    
       // Initialize the role options
       this.entries = [
         {
@@ -77,7 +77,7 @@ export class AuthRoleSelectionComponent {
         },   
         {
           description: 'Admin User',
-          value: 'C4SG_ADMIN' 
+          value: 'ADMIN' 
         }               
       ]
     }
@@ -105,7 +105,7 @@ export class AuthRoleSelectionComponent {
       this.role = JSON.parse(JSON.stringify(this.selectedEntry))['value'];
       // console.log("stateVal from setrole: " + this.stateVal);
       let return_url = 'https://' + environment.auth_domain + '/continue?state=' + this.stateVal + '&user_role=' + this.role;
-      console.log("return url: " + return_url);
+      // console.log("return url: " + return_url);
       let qstring = 'state=' + this.stateVal + '&user_role=' + this.role;
       // Redirect to callback to continue with rules processing
       window.location.href = return_url;

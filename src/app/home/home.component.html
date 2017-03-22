@@ -9,8 +9,10 @@
         <input #projectName placeholder="Project keywords" id="name" type="text" class="input-pre"/>
       </td>
       <td>
-        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value=''" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
+        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value='';" routerLink="/project/list" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
       </td>
+      <div>
+      </div>
     </div>
   </div>
 </div>

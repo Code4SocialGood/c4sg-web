@@ -22,7 +22,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getOrganization(this.orgIndex);
+    this.getOrganization(--this.orgIndex);
   }
 
   getRoute(): void {
