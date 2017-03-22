@@ -17,6 +17,7 @@ import { AboutComponent } from './about/about.component';
 import { ProjectListComponent }  from './project/list/project-list.component';
 import { ProjectViewComponent }  from './project/view/project-view.component';
 import { ProjectCreateComponent }  from './project/create/project-create.component';
+import { ProjectEditComponent }  from './project/edit/project-edit.component';
 import { ProjectSearchComponent } from './project/search/project-search.component';
 
 // Organization
@@ -61,8 +62,9 @@ import { FormConstantsService } from './_services/form-constants.service';
 
     ProjectListComponent,
     ProjectViewComponent,
-      ProjectCreateComponent,
-      ProjectSearchComponent,
+    ProjectCreateComponent,
+    ProjectEditComponent,
+    ProjectSearchComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
