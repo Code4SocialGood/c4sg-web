@@ -23,7 +23,7 @@ export class UserService {
 
     getUser(id: number): Observable<Response> {
         const index = id;
-        const url = userUrl + '/search/byId/' + index;
+        const url = userUrl + '/' + index;
         return this.http.get(url, {headers: this.headers});
     }
 

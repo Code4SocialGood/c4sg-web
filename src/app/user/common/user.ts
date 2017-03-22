@@ -16,6 +16,11 @@ export class User {
         public latitude: string,
         public userName: string,
         public firstName: string,
-        public lastName: string
+        public lastName: string,
+        public linked_inurl: string,
+        public introduction: string,
+        public personal_web_site: string,
+        public resume: string,
+        public skills: string[]
     ) { }
 }
