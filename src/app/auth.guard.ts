@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
           return true;  // Allow access
         }
         // If no bypass in effect and user role is not in role restriction, then no access
-        if (roles.indexOf(JSON.parse(this.auth.getProfile()).app_metadata.roles) == -1)
+        if (roles.indexOf(JSON.parse(this.auth.getProfile()).app_metadata.roles[0]) == -1)
         {
           this.location.back();
           return false;
