@@ -26,6 +26,18 @@ export class ProjectService {
     return this.http.get(url);
   }
 
+  getProjectByUser(id: number): Observable<Response> {
+    const index = id + 1;
+    const url = projectUrl + '/search/byUser/' + index;
+    return this.http.get(url);
+  }
+
+  getProjectByOrg(id: number): Observable<Response> {
+    const index = id + 1;
+    const url = projectUrl + '/search/byOrganization/' + index;
+    return this.http.get(url);
+  }
+
   // TODO replace with search by keyword
   getProjectsByKeyword(keyWord: string): Observable<Response> {
     const url = projectUrl + '/search/byKeyword/' + keyWord;
