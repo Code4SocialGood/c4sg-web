@@ -10,8 +10,8 @@
             <li *ngIf="auth.authenticated()">
                 <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">{{auth.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
                 <ul id="dropdownproject" class="dropdown-content">
-                    <li><a routerLink="/account/3" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
-                    <li  *ngIf="auth.isVolunteer()"><a routerLink="/profile/3" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
+                    <li><a routerLink="/account/{{auth.getCurrentUserId()}}" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
+                    <li  *ngIf="auth.isVolunteer()"><a routerLink="/profile/{{auth.getCurrentUserId()}}" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
                     <li  *ngIf="!auth.isAdmin()"><a routerLink="/project/list" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
                     <li  *ngIf="auth.isOrganization()"><a routerLink="nonprofit/edit/1" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
                     <li  *ngIf="auth.isAdmin()"> <a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">Create Organization</a></li>
