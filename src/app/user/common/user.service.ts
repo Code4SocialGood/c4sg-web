@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
@@ -22,7 +23,7 @@ export class UserService {
 
     getUser(id: number): Observable<Response> {
         const index = id;
-        const url = userUrl + '/search/byId/' + index;
+        const url = userUrl + '/' + index;
         return this.http.get(url, {headers: this.headers});
     }
 
