@@ -58,4 +58,9 @@ export class OrganizationService {
       )
   }
   
+  getUserOrganization(id: number): Observable<Response> {
+      return this.http.get(
+      `${organizationUrl}/user/${id}`
+      );
+  }
 }
