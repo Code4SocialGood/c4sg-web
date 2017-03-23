@@ -46,8 +46,8 @@ export class AppComponent implements DoCheck {
               if (organization != undefined)
               {
               // console.log(organization);
-              localStorage.setItem("userOrganizationId", organization.id.toString());
-              this.organizationId = localStorage.getItem("userOrganizationId"); 
+              this.organizationId = organization.id.toString();
+              localStorage.setItem("userOrganizationId", organization.id.toString()); 
               }
               else{
                 console.log("Found no org for user");
