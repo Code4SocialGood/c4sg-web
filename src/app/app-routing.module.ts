@@ -8,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { ProjectListComponent } from './project/list/project-list.component';
 import { ProjectViewComponent } from './project/view/project-view.component';
 import { ProjectCreateComponent } from './project/create/project-create.component';
+import { ProjectEditComponent } from './project/edit/project-edit.component';
 
 import { OrganizationListComponent } from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
@@ -29,21 +30,30 @@ const routes: Routes = [
 
   {path: 'project/list', component: ProjectListComponent},
   {path: 'project/view/:id', component: ProjectViewComponent},
-  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
-        data:{roles: ['ADMIN']}},
+  {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard], 
+        data:{roles: ['ORGANIZATION', 'ADMIN']}},
+  {path: 'project/edit/:id', component: ProjectEditComponent, canActivate: [AuthGuard], 
+        data:{roles: ['ORGANIZATION', 'ADMIN']}},
+  {path: 'project/delete/:id', component: ProjectViewComponent, canActivate: [AuthGuard], 
+        data:{roles: ['ORGANIZATION', 'ADMIN']}},
+
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:id', component: OrganizationViewComponent},
-  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
+  {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard], 
         data:{roles: ['ADMIN']}},
-  {path: 'nonprofit/edit', component: OrganizationEditComponent,
-        data:{roles: ['ORGANIZATION']}},
+  {path: 'nonprofit/edit/:id', component: OrganizationEditComponent, canActivate: [AuthGuard], 
+        data:{roles: ['ORGANIZATION', 'ADMIN']}},
+  {path: 'nonprofit/delete/:id', component: OrganizationViewComponent, canActivate: [AuthGuard], 
+        data:{roles: ['ADMIN']}},      
 
   {path: 'user/list', component: UserListComponent},
-  {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard] },
-  {path: 'account', component: UserAccountComponent},
-  {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/view/:id', component: UserViewComponent, canActivate: [AuthGuard]},
+  {path: 'account/:id', component: UserAccountComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/delete/:id', component: UserViewComponent, canActivate: [AuthGuard]},
 
   {path: 'roleselect', component: AuthRoleSelectionComponent},
+
 ];
 
 @NgModule({

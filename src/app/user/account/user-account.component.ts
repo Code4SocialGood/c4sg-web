@@ -63,7 +63,12 @@ export class UserAccountComponent implements OnInit {
         this.user.latitude,
         this.myAccount.value.username,
         this.myAccount.value.firstName,
-        this.myAccount.value.lastName);
+        this.myAccount.value.lastName,
+        this.user.linked_inurl,
+        this.user.introduction,
+        this.user.personal_web_site,
+        this.user.resume,
+        this.user.skills);
       this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
@@ -215,7 +220,12 @@ export class UserAccountComponent implements OnInit {
           user.latitude,
           user.userName,
           user.firstName,
-          user.lastName);
+          user.lastName,
+          user.linked_inurl,
+          user.introduction,
+          user.personal_web_site,
+          user.resume,
+          user.skills);
       }, (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }

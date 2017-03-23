@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
@@ -39,7 +38,7 @@ export class OrganizationCreateComponent implements OnInit {
   ngOnInit(): void {
     this.getFormConstants();
 
-    if (this.editOrg) { // edit existing org
+    if (this.editOrg) { // edit existing org 
       this.initForm();
       // TODO: Pass variable to getOrganization() instead of hard-coded value
       this.organizationService.getOrganization(2).subscribe(
@@ -47,9 +46,7 @@ export class OrganizationCreateComponent implements OnInit {
           this.editOrg = true;
           this.organization = res.json();
           this.initForm();
-        }, (err) => {
-          console.error('An error occurred', err); // for demo purposes only
-        }
+        }, this.handleError
       );
     } else { // add new org
       this.editOrg = null;
@@ -107,11 +104,32 @@ export class OrganizationCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // TODO: complete submission logic...
     if (this.editOrg) {
-      // save ... call OrganizationService.???
     } else {
-      // add new org ... call OrganizationService.???
+      this.organizationService
+          .getOrganizations()
+          .toPromise()
+          .then(res => {
+
+            // TODO: Change this according to back-end feature changes
+            const results: Array<any> = JSON.parse(JSON.parse(JSON.stringify(res))._body)
+            const body = this.organizationForm.value
+            body.id = results[results.length-1].id+1
+            body.description = body.shortDescription
+            body.status = 'ACTIVE'
+
+            return this.organizationService
+              .createOrganization(body)
+              .toPromise()
+          })
+          .then(
+            res => console.log('Successfully created organization'),
+            err => this.handleError)
+          .catch(this.handleError) 
     }
+  }
+
+  private handleError(err): void {
+    console.error('An error occurred', err)
   }
 }

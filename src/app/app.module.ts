@@ -17,6 +17,7 @@ import { AboutComponent } from './about/about.component';
 import { ProjectListComponent }  from './project/list/project-list.component';
 import { ProjectViewComponent }  from './project/view/project-view.component';
 import { ProjectCreateComponent }  from './project/create/project-create.component';
+import { ProjectEditComponent }  from './project/edit/project-edit.component';
 import { ProjectSearchComponent } from './project/search/project-search.component';
 
 // Organization
@@ -39,10 +40,11 @@ import { OrganizationService } from './organization/common/organization.service'
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
-import { PagerService } from './_services/pager.service';    
+import { PagerService } from './_services/pager.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { FormConstantsService } from './_services/form-constants.service';
+import { DeveloperService } from './about/common/developer.service';
 
 @NgModule({
   imports: [
@@ -61,8 +63,9 @@ import { FormConstantsService } from './_services/form-constants.service';
 
     ProjectListComponent,
     ProjectViewComponent,
-      ProjectCreateComponent,
-      ProjectSearchComponent,
+    ProjectCreateComponent,
+    ProjectEditComponent,
+    ProjectSearchComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
@@ -83,7 +86,8 @@ import { FormConstantsService } from './_services/form-constants.service';
                PagerService,
                FormConstantsService,
                AuthService,
-               AuthGuard],
+               AuthGuard,
+               DeveloperService],
 
   bootstrap: [ AppComponent ]
 })

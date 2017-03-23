@@ -2,15 +2,17 @@
     <div class="container">
         <div class="row">
            <div class="col s12">
-                <form  [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
+                <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
 
 
                   <div class="row">
                       <div class="col s3">
-                        <input formControlName="firstname" type="text" placeholder="First Name">
+                        <label for="firstName">First Name *</label>
+                        <input id="firstName" formControlName="firstName" type="text">
                       </div>
                       <div class="col s3">
-                       <input formControlName="lastname" type="text" placeholder="Last Name">
+                       <label for="lastName">Last Name *</label>
+                       <input id="lastName" formControlName="lastName" type="text">
                      </div>
 
                   </div>
@@ -19,16 +21,20 @@
                   <div class="row">
                      <h6>My Location</h6>
                       <div class="col s3">
-                        <input formControlName="city" type="text" placeholder="City">
+                        <label for="city">City</label>
+                        <input id="city "name="city" type="text">
                       </div>
                       <div class="col s3">
-                       <input formControlName="state" type="text" placeholder="State">
+                       <label for="state">State</label>
+                       <input id="state" formControlName="state" type="text">
                      </div>
                     <div class="col s3">
-                       <input formControlName="zipcode" type="text" placeholder="Zip Code">
+                       <label for="zip">Zip</label>
+                       <input id="zip" formControlName="zip" type="text">
                     </div>
                     <div class="col s3">
-                       <input formControlName="country" type="text" placeholder="Country">
+                       <label for="country">Country</label>
+                       <input id="country" formControlName="country" type="text">
                     </div>
                 </div>
 
@@ -36,19 +42,16 @@
 
                   <div class="row">
                       <h6>My Introduction</h6>
-                      <div class="input-field col s12">
-                        <input id="input_text" type="text" length="10">
-                        <label for="input_text">My Title</label>
+                      <div class="col s12">
+                        <label for="my-title">My Title</label>
+                        <input id="my-title" type="text" length="10">
                       </div>
                    </div>
 
-
-
-
                   <div class="row">
-                        <div class="input-field col s12">
-                          <textarea id="textarea1" class="materialize-textarea"></textarea>
-                          <label for="textarea1">My Introduction</label>
+                        <div class="col s12">
+                         <label for="description">Description</label>
+                          <input id="description" formControlName="introduction" type="text">
                         </div>
                   </div>
 
@@ -56,10 +59,20 @@
 
                       <h6>My Profile</h6>
                       <div class="col s4">
-                          <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
-                          <input formControlName="website" type="text" placeholder="Personal Website">
-                          <input formControlName="github" type="text" placeholder="Github URL">
-                          <input formControlName="resume" type="text" placeholder="Resume">
+                          <label for="linkedin">Linkedin URL</label>
+                          <input id="linkedin" formControlName="linkedin" type="text">
+                      </div>
+                      <div class="col s4">
+                          <label for="website">Personal Website</label>
+                          <input id="website" formControlName="website" type="text">
+                      </div>
+                      <div class="col s4">
+                          <label for="github">Github URL</label>
+                          <input id="github" formControlName="github" type="text">
+                      </div>
+                      <div class="col s4">
+                          <label for="resume">Resume</label>
+                          <input id="resume" formControlName="resume" type="text">
                       </div>
                       <div class="input-field col s4">
                         <select materialize="material_select" multiple>
@@ -71,11 +84,11 @@
                         <label>Title</label>
                       </div>
                       <div class="input-field col s4">
-                        <select materialize="material_select" multiple>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="1">CSS</option>
-                          <option value="2">Java</option>
-                          <option value="3">Option 3</option>
+                        <select multiple id="skills" formControlName="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple>
+                          <option *ngFor="let skill of skillsOption" [value]="skill.value">
+                              {{skill.name}}
+                          </option>
+
                         </select>
                         <label>Skills</label>
                       </div>
