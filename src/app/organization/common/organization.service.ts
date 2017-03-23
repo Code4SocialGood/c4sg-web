@@ -47,14 +47,14 @@ export class OrganizationService {
 
   saveLogo(organizationId: number, fileContent: string): Observable<Response>{
       return this.http.post(
-      `${organizationUrl}/${organizationId}/logo`, 
+      `${organizationUrl}/${organizationId}/uploadLogo`, 
       { "": fileContent }
       );
   }
 
   retrieveLogo(organizationId: number): Observable<Response>{
       return this.http.get(
-      `${organizationUrl}/${organizationId}/logo`
+      `${organizationUrl}/${organizationId}/getLogo`
       )
   }
   
