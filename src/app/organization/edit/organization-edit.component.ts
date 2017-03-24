@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
+import { UploaderService } from '../../_services/uploader.service';
 
 @Component({
   selector: 'edit-organization',
@@ -39,13 +40,15 @@ export class OrganizationEditComponent implements OnInit {
     private fc: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uploader: UploaderService
   ) { }
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.organizationId = +params['id']
+      this.organizationId = +params['organizationId']
+      console.log(this.organizationId)
 
       this.getFormConstants();
 
@@ -124,22 +127,10 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   onUploadLogo(fileInput: any): void {
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      var reader = new FileReader()
-      reader.onload = (e : any): void => {
-            const base64Image = e.target.result
-            this.organizationService
-                // separates data uri from base64 string before saving
-                .saveLogo(this.organizationId, base64Image.split(',')[1])
-                .subscribe(
-                  res => { 
-                    console.log('Saved logo successfully') // for demo purposes only
-                    this.organization.logo = this.sanitizer.bypassSecurityTrustUrl(base64Image)
-                  },
-                  err => console.error('An error occurred', err)) // for demo purposes only
-      }
-      reader.readAsDataURL(fileInput.target.files[0])
-    }
+    this.uploader.uploadImage(fileInput, 
+       this.organizationId, 
+       this.organizationService.saveLogo.bind(this.organizationService),
+       (logo: any) => this.organization.logo = logo)
   }
   onSubmit(): void {
     // TODO: complete submission logic...
