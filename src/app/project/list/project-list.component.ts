@@ -61,7 +61,7 @@ export class ProjectListComponent implements OnInit {
            error => console.log(error));
     }
     else if (this.auth.isOrganization()){
-      this.projectsSubscription = this.projectService.getProjectByOrg(this.userId).subscribe(
+      this.projectsSubscription = this.projectService.getProjectByOrg(2).subscribe(
            res => {
              this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
              this.setPage(1); // initialize to page 1
