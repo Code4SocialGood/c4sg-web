@@ -45,7 +45,7 @@ export class OrganizationEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.organizationId = +params['organizationId']
+      this.organizationId = +params['id']
 
       this.getFormConstants();
 

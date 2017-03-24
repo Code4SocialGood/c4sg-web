@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { OrganizationService } from '../common/organization.service';
-import { UploaderService } from '../../_services/uploader.service';
+
 @Component({
   // moduleId: module.id,
   selector: 'my-organization',
@@ -13,25 +13,22 @@ import { UploaderService } from '../../_services/uploader.service';
 
 export class OrganizationViewComponent implements OnInit, OnDestroy {
   public myOrganization;
-  public organization: any = {};
+  public organization;
   private orgIndex: number;
   private routeSubscription: Subscription;
 
-  constructor(private organizationService: OrganizationService,  
-    private route: ActivatedRoute, 
-    private uploader:UploaderService,) {
+  constructor(private organizationService: OrganizationService, private route: ActivatedRoute) {
     this.getRoute();
-    this.organization.logo = '';
   }
 
   ngOnInit(): void {
-    this.getOrganization(this.orgIndex);
+    this.getOrganization(--this.orgIndex);
   }
 
   getRoute(): void {
     this.routeSubscription = this.route.params.subscribe(
       (params: any) => {
-        this.orgIndex = +params['organizationId'];
+        this.orgIndex = +params['id'];
       }
     );
   }
@@ -39,17 +36,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
-        const org = res.json()
-        org.logo = ''
-        this.organization = org
-        this.uploader.displayImage(id,
-            this.organizationService.retrieveLogo.bind(this.organizationService),
-            (img: any) => this.organization.logo = img)
-      }, 
-      (err) => {
-        console.error('An error occurred', err); 
+        this.organization = res.json();
+      }, (err) => {
+        console.error('An error occurred', err); // for demo purposes only
       }
-    )
+    );
   }
 
   ngOnDestroy(): void {
