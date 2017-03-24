@@ -27,14 +27,12 @@ export class ProjectService {
   }
 
   getProjectByUser(id: number): Observable<Response> {
-    const index = id + 1;
-    const url = projectUrl + '/search/byUser/' + index;
+    const url = projectUrl + '/search/byUser/' + id;
     return this.http.get(url);
   }
 
   getProjectByOrg(id: number): Observable<Response> {
-    const index = id + 1;
-    const url = projectUrl + '/search/byOrganization/' + index;
+    const url = projectUrl + '/search/byOrganization/' + id;
     return this.http.get(url);
   }
 
