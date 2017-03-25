@@ -48,7 +48,6 @@ export class OrganizationEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId']
-
       this.getFormConstants();
 
       if (this.editOrg) { // edit existing org
