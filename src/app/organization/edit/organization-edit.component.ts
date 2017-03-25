@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
-import { UploaderService } from '../../_services/uploader.service';
+import { ImageUploaderService } from '../../_services/image-uploader.service';
 
 @Component({
   selector: 'edit-organization',
@@ -41,14 +41,13 @@ export class OrganizationEditComponent implements OnInit {
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    private uploader: UploaderService
+    private imageUploader: ImageUploaderService
   ) { }
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId']
-      console.log(this.organizationId)
 
       this.getFormConstants();
 
@@ -127,10 +126,10 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   onUploadLogo(fileInput: any): void {
-    this.uploader.uploadImage(fileInput, 
+    this.imageUploader.uploadImage(fileInput, 
        this.organizationId, 
-       this.organizationService.saveLogo.bind(this.organizationService),
-       (logo: any) => this.organization.logo = logo)
+       this.organizationService.saveLogo.bind(this.organizationService))
+       .subscribe(res => this.organization.logo = res.url)
   }
   onSubmit(): void {
     // TODO: complete submission logic...

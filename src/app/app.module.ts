@@ -45,7 +45,8 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { FormConstantsService } from './_services/form-constants.service';
 import { DeveloperService } from './about/common/developer.service';
-import { UploaderService } from './_services/uploader.service';
+import { ImageDisplayService } from './_services/image-display.service';
+import { ImageUploaderService } from './_services/image-uploader.service';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { UploaderService } from './_services/uploader.service';
                AuthService,
                AuthGuard,
                DeveloperService,
-               UploaderService],
+               ImageDisplayService,
+               ImageUploaderService],
 
   bootstrap: [ AppComponent ]
 })

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { OrganizationService } from '../common/organization.service';
-import { UploaderService } from '../../_services/uploader.service';
+import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   // moduleId: module.id,
@@ -20,13 +20,13 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   constructor(private organizationService: OrganizationService, 
     private route: ActivatedRoute,
-    private uploader:UploaderService) {
+    private imageDisplay: ImageDisplayService) {
     this.getRoute();
   }
 
   ngOnInit(): void {
-    this.getOrganization(this.orgIndex);
     this.organization.logo = ''
+    this.getOrganization(this.orgIndex);
   }
 
   getRoute(): void {
@@ -40,14 +40,13 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
-        this.organization = res.json();
         const org = res.json()
-        org.logo = ''
         this.organization = org
-        this.uploader.displayImage(id,
-            this.organizationService.retrieveLogo.bind(this.organizationService),
-            (img: any) => this.organization.logo = img)
-      }, (err) => {
+        this.imageDisplay.displayImage(id,
+            this.organizationService.retrieveLogo.bind(this.organizationService))
+            .subscribe(res => this.organization.logo = res.url)
+      },
+      (err) => { 
         console.error('An error occurred', err); // for demo purposes only
       }
     );
