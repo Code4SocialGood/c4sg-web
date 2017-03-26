@@ -128,7 +128,8 @@ export class OrganizationEditComponent implements OnInit {
     this.imageUploader.uploadImage(fileInput, 
        this.organizationId, 
        this.organizationService.saveLogo.bind(this.organizationService))
-       .subscribe(res => this.organization.logo = res.url)
+       .subscribe(res => {this.organization.logo = res.url},
+                  err => {console.error(err, 'An error occurred')} )
   }
   onSubmit(): void {
     // TODO: complete submission logic...
