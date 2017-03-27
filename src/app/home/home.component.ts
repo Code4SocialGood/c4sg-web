@@ -32,10 +32,10 @@ import { ProjectService } from '../project/common/project.service';
       state('4',style({
         color: '#fc2561'
       })),
-      transition('1 => 2', animate('600ms ease-in')),
-      transition('2 => 3', animate('600ms ease-in')),
-      transition('3 => 4', animate('600ms ease-in')),
-      transition('4 => 1', animate('600ms ease-in')),
+      transition('1 => 2', animate('300ms ease-in')),
+      transition('2 => 3', animate('300ms ease-in')),
+      transition('3 => 4', animate('300ms ease-in')),
+      transition('4 => 1', animate('300ms ease-in')),
     ]),
     trigger('cursorFlash',[
       state('inactive',style({
@@ -72,9 +72,9 @@ export class HomeComponent implements OnInit {
     constructor(private projectService: ProjectService, private router: Router) {
     }
 
-    //onload animation timer
+
     ngOnInit(): void {
-      let wordTimer = Observable.timer(0,35*this.typeAniPeriod);
+      let wordTimer = Observable.timer(0,30*this.typeAniPeriod);
       let typeTimer = Observable.timer(0,this.typeAniPeriod);
       let cursorTimer = Observable.timer(0,400);
 
