@@ -8,15 +8,21 @@ export class NavScrollDirective {
 
   @HostListener('window:scroll', ['$event']) private onScroll($event: Event): void {
     let cover = document.getElementById('top-cover');
+    let colorIndex = 0;
     if (window.scrollY > 1) {
-      this.highlight('rgba(255, 255, 255, 0.96)');
-      // this.highlight(window.scrollY > cover.style.height?
-      // 'rgba(160,0,0,1)':'rgba('+ Math.round(window.scrollY * 160/cover.style.height) + ',0,0,1)');
+      colorIndex = Math.round(window.scrollY);
+      let x = this.colorDef(0, 0, 0, 1, window.scrollY);
+      this.highlight((window.scrollY > 500?
+        'rgba(160,0,0,1)':this.colorDef(244, 146, 34, 1, window.scrollY)),'0px 1px 2px #999999');
     } else {
-      this.highlight(null);
+      this.highlight(null, null);
     }
   };
-  private highlight(color: string) {
+  private highlight(color: string, shadow: string) {
     this.el.nativeElement.style.backgroundColor = color;
+    this.el.nativeElement.style.boxShadow = shadow;
+  }
+  private colorDef(r,g,b,a,scroll){
+    return 'rgba('+ r + ',' + g + ',' + b + ',' + (a * scroll/200) + ')'
   }
 }
