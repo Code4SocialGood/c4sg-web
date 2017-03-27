@@ -6,8 +6,9 @@ cache:
   - node_modules
 script:
 - npm run test_single_run
-- npm run buildHeroku
+- npm run buildProdHeroku
 deploy:
+  skip_cleanup: true
   provider: surge
   project: ./dist/
-  domain: wet-snake.surge.sh
+  domain: dev.code4socialgood.org

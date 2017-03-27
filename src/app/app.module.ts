@@ -5,9 +5,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 import { NavScrollDirective } from './navscroll.directive';
 
-import { MaterializeDirective, MaterializeModule } from 'angular2-materialize';
-import { MaterialModule } from '@angular/material';
-import { ReCaptchaModule } from 'angular2-recaptcha';
+import { MaterializeModule } from 'angular2-materialize';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +17,8 @@ import { AboutComponent } from './about/about.component';
 import { ProjectListComponent }  from './project/list/project-list.component';
 import { ProjectViewComponent }  from './project/view/project-view.component';
 import { ProjectCreateComponent }  from './project/create/project-create.component';
+import { ProjectEditComponent }  from './project/edit/project-edit.component';
+import { ProjectSearchComponent } from './project/search/project-search.component';
 
 // Organization
 import { OrganizationListComponent }  from './organization/list/organization-list.component';
@@ -33,10 +33,6 @@ import { UserListComponent }  from './user/list/user-list.component';
 import { UserViewComponent }  from './user/view/user-view.component';
 
 // Login
-import { RegistrationComponent } from './login/registration/registration.component';
-import { LoginComponent } from './login/login/login.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { AuthRoleSelectionComponent } from './auth.role.component';
 
 // Service
@@ -44,21 +40,20 @@ import { OrganizationService } from './organization/common/organization.service'
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
-import { PagerService } from './_services/pager.service';    
+import { PagerService } from './_services/pager.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { FormConstantsService } from './_services/form-constants.service';
+import { DeveloperService } from './about/common/developer.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule,
-    ReCaptchaModule
+    MaterializeModule
   ],
   declarations: [
     AppComponent,
@@ -69,6 +64,8 @@ import { FormConstantsService } from './_services/form-constants.service';
     ProjectListComponent,
     ProjectViewComponent,
     ProjectCreateComponent,
+    ProjectEditComponent,
+    ProjectSearchComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
@@ -80,10 +77,6 @@ import { FormConstantsService } from './_services/form-constants.service';
     UserAccountComponent,
     UserProfileComponent,
 
-    RegistrationComponent,
-    LoginComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
     AuthRoleSelectionComponent,
   ],
   providers: [ ProjectService,
@@ -93,7 +86,8 @@ import { FormConstantsService } from './_services/form-constants.service';
                PagerService,
                FormConstantsService,
                AuthService,
-               AuthGuard],
+               AuthGuard,
+               DeveloperService],
 
   bootstrap: [ AppComponent ]
 })

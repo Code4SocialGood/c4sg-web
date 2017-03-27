@@ -15,7 +15,7 @@ declare const $: Function;
 export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   organizations: Object[];
-  selectedOrganization: Organization;
+  selectedOrganization?: Organization;
 
   // array of all items to be paged
   // organizations: any[];
@@ -84,26 +84,26 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   onSelect(organization: Organization): void {
     this.selectedOrganization = organization;
-    this.router.navigate(['/organization', organization.id]);
+   // this.router.navigate(['/nonprofit/view', organization.id]);
   }
 
    // delete callback
-  delete(organization: Organization): void { /*
+  delete(organization: Organization): void { 
     this.organizationService.delete(organization.id).subscribe(
       error => console.log(error)
     );
    // after deletion, the steps below updates the view and excludes the deleted organization
     this.organizations = this.organizations.filter(u => u !== organization);
-    this.pagedItems = this.pagedItems.filter(u => u !== organization);
+    //this.pagedItems = this.pagedItems.filter(u => u !== organization);
     if (this.selectedOrganization === organization) {
       this.selectedOrganization = null;
-    } */
+    }
   }
 
   // edit callback, TODO
   edit(organization: Organization): void {
     this.selectedOrganization = organization;
-    // this.router.navigate(['/organization', organization.id]);
+    this.router.navigate(['/nonprofit/edit', organization.id]);
   }
 
 }

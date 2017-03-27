@@ -35,12 +35,16 @@ export class ProjectViewComponent implements OnInit {
   }
 
   update(): void {
+    this.router.navigate(['/project/edit', 2]);
+  }
+
+  delete(): void {
 
     this.projectService
-      .update(this.project)
+      .delete(this.project.id)
       .subscribe(
         response => {
-          this.router.navigate(['/nonprofits']);
+          this.router.navigate(['project/list']);
         },
         error => console.log(error)
       );

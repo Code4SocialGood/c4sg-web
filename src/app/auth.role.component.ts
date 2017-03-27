@@ -64,7 +64,7 @@ export class AuthRoleSelectionComponent {
     ngOnInit(): void {
       // Retrieve the state passed by Auth0 to avoid csrf issue upon callback
       this.stateVal = this.route.snapshot.queryParams['state'];  
-      console.log("stateValue passed = " + this.stateVal);    
+      // console.log("stateValue passed = " + this.stateVal);    
       // Initialize the role options
       this.entries = [
         {
@@ -74,7 +74,11 @@ export class AuthRoleSelectionComponent {
         {
           description: 'NonProfit User',
           value: 'ORGANIZATION' 
-        }        
+        },   
+        {
+          description: 'Admin User',
+          value: 'ADMIN' 
+        }               
       ]
     }
     
@@ -82,23 +86,13 @@ export class AuthRoleSelectionComponent {
       // Jquery script below opens up the modal dialog for role selection
       $(document).ready(() => {
         $('.modal').modal({ 
-            dismissible: false,
-            ready: function(modal, trigger) {
-              //$('.modal').attr("tabIndex", "1"); 
-              $('.modal #VOLUNTEER').attr("tabIndex", "1"); 
-              $('.modal #ORGANIZATION').attr("tabIndex", "2");
-            }
+            dismissible: false
           });
           
            // Force user to select
         $('.modal').modal('open'); // Opens up dialog upon redirection from Auth0  
         }
       );
-      $(document).on('focusin', function(e) {
-        if ($(event.target).closest(".mce-window").length) {
-          e.stopImmediatePropagation();
-        }
-      });
     }
 
     onSelectionChange(entry) {
@@ -111,7 +105,7 @@ export class AuthRoleSelectionComponent {
       this.role = JSON.parse(JSON.stringify(this.selectedEntry))['value'];
       // console.log("stateVal from setrole: " + this.stateVal);
       let return_url = 'https://' + environment.auth_domain + '/continue?state=' + this.stateVal + '&user_role=' + this.role;
-      console.log("return url: " + return_url);
+      // console.log("return url: " + return_url);
       let qstring = 'state=' + this.stateVal + '&user_role=' + this.role;
       // Redirect to callback to continue with rules processing
       window.location.href = return_url;

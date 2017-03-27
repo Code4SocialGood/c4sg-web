@@ -13,21 +13,49 @@ export class OrganizationService {
 
   getOrganizations() {
       return this.http.get(
-	  `${organizationUrl}/all`
+      `${organizationUrl}/all`
       );
   }
 
   getOrganization(id: number): Observable<Response> {
     const index = id - 1;
       return this.http.get(
-	  `${organizationUrl}/search/byId/${index}`
+      `${organizationUrl}/search/byId/${index}`
       );
   }
 
   // TODO replace with search by keyword
   getOrganizationsByKeyword(keyWord: string): Observable<Response> {
       return this.http.get(
-	  `${organizationUrl}/search/byKeyword/${keyWord}`
+      `${organizationUrl}/search/byKeyword/${keyWord}`
       );
   }
+
+  createOrganization(organization: any): Observable<Response> {
+      return this.http.post(
+      `${organizationUrl}/create`,
+      organization
+      );
+      
+  }
+
+  delete(id: number): Observable<Response> {
+      return this.http.delete(
+      `${organizationUrl}/delete/${id}`
+      );
+  }
+
+  saveLogo(organizationId: number, fileContent: string): Observable<Response>{
+      return this.http.post(
+      `${organizationUrl}/${organizationId}/uploadLogo`, 
+      { "": fileContent }
+      );
+  }
+
+  retrieveLogo(organizationId: number): Observable<Response>{
+      return this.http.get(
+      `${organizationUrl}/${organizationId}/getLogo`
+      )
+  }
+  
 }

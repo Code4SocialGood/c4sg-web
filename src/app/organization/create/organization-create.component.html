@@ -63,7 +63,7 @@
           <div class="input-field">
             <select id="category" class="" formControlName="category" materialize="material_select">
               <option value="" disabled selected>Choose category</option>
-              <option *ngFor="let category of categories" value="category" [selected]="category === organization.category">{{category}}</option>
+              <option *ngFor="let category of categories" [value]="category" [selected]="category === organization.category">{{category}}</option>
             </select>
             <label>
               Category
@@ -95,7 +95,7 @@
           <div class="input-field">
             <select id="state" class="" formControlName="state" materialize="material_select">
               <option value="" disabled>Choose state</option>
-              <option *ngFor="let state of states" value="state" [selected]="state === organization?.state">{{state}}</option>
+              <option *ngFor="let state of states" [value]="state" [selected]="state === organization?.state">{{state}}</option>
             </select>
             <label>State</label>
           </div>
@@ -113,7 +113,7 @@
           <div class="input-field">
             <select id="country" class="" formControlName="country" materialize="material_select">
               <option value="" disabled>Choose country</option>
-              <option *ngFor="let country of countries" value="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
+              <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
             </select>
             <label>
               Country
