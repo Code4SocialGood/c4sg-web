@@ -26,3 +26,4 @@ export class NavScrollDirective {
     return 'rgba('+ r + ',' + g + ',' + b + ',' + (a * scroll/200) + ')'
   }
 }
+

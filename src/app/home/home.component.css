@@ -49,14 +49,16 @@
 }
 
 #aniSlogan {
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: Tahoma, Geneva, sans-serif;
   font-size: 2.5em;
   color: #585858;
+  font-weight: 200;
 }
 
 #aniWord {
-  font-family: "Courier New", Courier, monospace;
+  font-family: Tahoma, Geneva, sans-serif;
   color: #585858;
+  font-weight: 200;
 }
 
 

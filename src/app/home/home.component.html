@@ -1,16 +1,16 @@
 <div class = "home-wrapper">
   <div class="action">
-    <h2 id="home-page-title" class="home-title" style="padding: 30px " >Where<br>Tech Volunteers Meet Nonprofit</h2>
+    <!--<h2 id="home-page-title" class="home-title" style="padding: 30px " >Where<br>Tech Volunteers Meet Nonprofit</h2>-->
+    <div id = "aniSlogan">
+      No matter you<br> code for <span id = "aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span><span [@cursorFlash]="cursorState">&nbsp;|</span><br>Just try it!
+    </div>
     <div class="input-field">
       <td class = "input-field">
         <input #projectName placeholder="Project keywords" id="name" type="text" class="input-pre"/>
       </td>
       <td>
-        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value=''" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
+        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value=''" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light blue darken-2"><i  class="large material-icons transparent" >search</i></button>
       </td>
-    </div>
-    <div id = "aniSlogan">
-      No matter you<br> code for <span id = "aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span><span [@cursorFlash]="cursorState">&nbsp;|</span><br>Just try it!
     </div>
   </div>
 </div>
