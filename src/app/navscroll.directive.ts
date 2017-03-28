@@ -20,7 +20,7 @@ export class NavScrollDirective {
   };
   private highlight(color: string, shadow: string) {
     this.el.nativeElement.style.backgroundColor = color;
-    this.el.nativeElement.style.boxShadow = shadow;
+    //this.el.nativeElement.style.boxShadow = shadow;
   }
   private colorDef(r,g,b,a,scroll){
     return 'rgba('+ r + ',' + g + ',' + b + ',' + (a * scroll/200) + ')'

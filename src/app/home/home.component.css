@@ -20,9 +20,14 @@
   z-index: -2;
 }
 
+@font-face {
+   font-family: "aniFont";
+   src: url("/assets/Thruster-Regular.ttf");
+}
+
 .action {
 
-    background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)), url("/assets/image4.jpeg") no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image4.jpeg") no-repeat center center;
     background-attachment:fixed;
 
     -webkit-background-size: cover;
@@ -40,23 +45,24 @@
 }
 
 .home-title {
-  font-family: Century Gothic, sans-serif;
-  font-weight: 100;
-  font-size: 5em;
+  font-family: aniFont;
+  font-weight: 200;
+  font-size: 7em;
   max-width: 15em;
   color: #E75D54;
   text-shadow: 0px 0px 5px #000;
 }
 
 #aniSlogan {
-  font-family: Tahoma, Geneva, sans-serif;
-  font-size: 2.5em;
-  color: #585858;
+  font-family: "aniFont";
+  font-size: 3em;
+  font-weight: 100;
+  color: #383838;
 }
 
 #aniWord {
-  font-family: Tahoma, Geneva, sans-serif;
-  color: #585858;
+  font-family: inherit;
+  color: #383838;
 }
 
 
