@@ -19,9 +19,7 @@
 	    "testTsconfig": "tsconfig.spec.json",
 	    "prefix": "app",
 	    "styles": [
-		"../node_modules/materialize-css/dist/css/materialize.min.css",
-		"../node_modules/mdi/css/materialdesignicons.min.css",
-		"styles.css"
+    "app/app.main.scss"
 	    ],
 	    "scripts": [
 		"../node_modules/jquery/dist/jquery.min.js",
@@ -59,7 +57,7 @@
 	}
     },
     "defaults": {
-	"styleExt": "css",
+	"styleExt": "scss",
 	"component": {}
     }
 }
