@@ -43,6 +43,16 @@ export class ProjectListComponent implements OnInit {
 
    private getProjects(): void {
 
+     this.projectsSubscription = this.projectService.getProjects().subscribe(
+          res => {
+            this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+            this.setPage(1); // initialize to page 1
+          },
+          error => console.log(error));
+              
+    /* TODO For logged in user, if they click Opportunities, they should see full list of project
+       If they click My Projects, they should see filtered list of projecct for themselves.
+
     if(!this.auth.authenticated()){
          this.projectsSubscription = this.projectService.getProjects().subscribe(
               res => {
@@ -68,6 +78,7 @@ export class ProjectListComponent implements OnInit {
            },
            error => console.log(error))
     }
+    */
   }
 
 

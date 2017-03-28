@@ -19,8 +19,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
 
   constructor(private organizationService: OrganizationService, 
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, 
+    private router: Router,
     private imageDisplay: ImageDisplayService) {
+
     this.getRoute();
   }
 
@@ -50,6 +52,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
+  }
+
+  edit(organization): void {
+    this.router.navigate(['/nonprofit/edit', 2]);
   }
 
   ngOnDestroy(): void {
