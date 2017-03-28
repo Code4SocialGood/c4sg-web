@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { OrganizationService } from '../common/organization.service';
+import {OrganizationService} from '../common/organization.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
 import {Project} from '../../project/common/project';
 import {ProjectService} from '../../project/common/project.service';
@@ -78,6 +78,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.routeSubscription) { this.routeSubscription.unsubscribe(); }
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 }
