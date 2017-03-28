@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs/Rx';
 
 import { OrganizationService } from '../common/organization.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
+import {Project} from '../../project/common/project';
+import {ProjectService} from '../../project/common/project.service';
 
 @Component({
   // moduleId: module.id,
@@ -17,9 +19,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   public organization: any = {};
   private orgIndex: number;
   private routeSubscription: Subscription;
+  projects: Project[];
 
-  constructor(private organizationService: OrganizationService, 
-    private route: ActivatedRoute, 
+  constructor(private organizationService: OrganizationService,
+    private projectService: ProjectService,
+    private route: ActivatedRoute,
     private router: Router,
     private imageDisplay: ImageDisplayService) {
 
@@ -29,6 +33,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.organization.logo = ''
     this.getOrganization(this.orgIndex);
+    this.getProjects(this.orgIndex);
   }
 
   getRoute(): void {
@@ -42,15 +47,29 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
-        const org = res.json()
-        this.organization = org
+        const org = res.json();
+        this.organization = org;
         this.imageDisplay.displayImage(id,
             this.organizationService.retrieveLogo.bind(this.organizationService))
             .subscribe(res => this.organization.logo = res.url)
       },
-      (err) => { 
+      (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
+    );
+  }
+
+  getProjects(id: number): void {
+    this.projectService.getProjectByOrg(id).subscribe(
+      res => {
+        this.projects = res.json();
+        this.projects.forEach((project) => {
+          if (project.description.length > 100) {
+            project.description = project.description.slice(0, 100) + "...";
+          }
+        });
+      },
+      error => console.log(error)
     );
   }
 
