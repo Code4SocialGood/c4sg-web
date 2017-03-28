@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import {Project} from '../common/project';
-import {ProjectService} from '../common/project.service';
+import { Project } from '../common/project';
+import { ProjectService } from '../common/project.service';
 import { PagerService } from '../../_services/pager.service';
 import { AuthService } from '../../auth.service';
 
@@ -12,12 +12,10 @@ import { AuthService } from '../../auth.service';
   templateUrl: 'project-list.component.html',
   styleUrls: ['project-list.component.css']
 })
-
-export class ProjectListComponent implements OnInit {
+export class ProjectListComponent implements OnInit, OnDestroy {
 
   projects: Project[];
   selectedProject: Project;
-
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
   projectsSubscription: Subscription;
@@ -35,21 +33,22 @@ export class ProjectListComponent implements OnInit {
     const id = this.auth.getCurrentUserId();
     this.userId = +id;
     this.getProjects();
-
     //this.setPage(1);
 
   }
 
-
    private getProjects(): void {
 
-     this.projectsSubscription = this.projectService.getProjects().subscribe(
-          res => {
-            this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-            this.setPage(1); // initialize to page 1
-          },
-          error => console.log(error));
-              
+     this.projectsSubscription = this.projectService
+                                     .getProjects()
+                                     .subscribe(
+                                       res => {
+                                         this.projects = res;
+                                         this.setPage(1); // initialize to page 1
+                                       },
+                                       error => console.log(error)
+                                     );
+
     /* TODO For logged in user, if they click Opportunities, they should see full list of project
        If they click My Projects, they should see filtered list of projecct for themselves.
 
@@ -81,10 +80,9 @@ export class ProjectListComponent implements OnInit {
     */
   }
 
-
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {
-        return;
+      return;
     }
 
     // get pager object from service
@@ -99,20 +97,12 @@ export class ProjectListComponent implements OnInit {
     if (!keyword) {
       return;
     }
-
-    this.projectService.getProjectsByKeyword(keyword).subscribe(
-      res => {
-        // this.projects = res.json()
-        this.projects = res.json().map(project => ({
-          description: project.description,
-          image: project.image,
-          name: project.name,
-          organizationName: project.organization.name,
-        }));
-
-      },
-      error => console.log(error)
-    );
+    this.projectService
+        .getProjectsByKeyword(keyword)
+        .subscribe(
+          res => this.projects = res,
+          error => console.log(error)
+        );
   }
 
   onSelect(project: Project): void {
@@ -127,32 +117,33 @@ export class ProjectListComponent implements OnInit {
       return;
     }
 
-    let project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
+    const project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
 
     this.projectService
-      .add(project)
-      .subscribe(
-        response => {
-          this.getProjects();
-          this.router.navigate(['/nonprofits']);
-        },
-        error => console.log(error)
-      );
+        .add(project)
+        .subscribe(
+          response => {
+            this.getProjects();
+            this.router.navigate(['/nonprofits']);
+          },
+          error => console.log(error)
+        );
   }
 
   delete(project: Project): void {
     this.projectService
-      .delete(project.id)
-      .subscribe(
-        response => { // An error occurred SyntaxError: Unexpected end of JSON input
-          this.getProjects();
-          this.router.navigate(['/nonprofits']);
-        },
-        error => console.log(error)
-      );
+        .delete(project.id)
+        .subscribe(
+          response => { // An error occurred SyntaxError: Unexpected end of JSON input
+            this.getProjects();
+            this.router.navigate(['/nonprofits']);
+          },
+          error => console.log(error)
+        );
   }
 
   ngOnDestroy() {
     if (this.projectsSubscription) { this.projectsSubscription.unsubscribe(); }
   }
+
 }

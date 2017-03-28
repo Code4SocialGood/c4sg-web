@@ -31,28 +31,29 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-     this.getOrganizations();
+    this.getOrganizations();
   }
 
-   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     // jquery script below opens up the modal dialog for delete confirmation
-    $(document).ready(() => {
-      $('.modal').modal();
-    });
+    $(document)
+      .ready(() => {
+        $('.modal')
+          .modal();
+      });
   }
 
   getOrganizations() {
-    this.organizationService.getOrganizations().subscribe(
-      res => {
-        this.organizations = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-      },
-      error => console.log(error)
-    );
+    this.organizationService.getOrganizations()
+        .subscribe(
+          res => this.organizations = res,
+          error => console.log(error)
+        );
   }
 
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {
-        return;
+      return;
     }
 
     // get pager object from service
@@ -64,35 +65,39 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   getOrganizationsByKeyword(keyword: string) {
     keyword = keyword.trim();
+
     if (!keyword) {
       return;
     }
 
-    this.organizationService.getOrganizationsByKeyword(keyword).subscribe(
-      res => {
-        this.organizations = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        this.router.navigate(['/organization']);
-      },
-      error => console.log(error)
-    );
+    this.organizationService
+        .getOrganizationsByKeyword(keyword)
+        .subscribe(
+          res => {
+            this.organizations = res;
+            this.router.navigate(['/organization']);
+          },
+          error => console.log(error)
+        );
   }
 
-   // pre delete
+  // pre delete
   confirmDelete(organization: Organization): void {
     this.selectedOrganization = organization;
   }
 
   onSelect(organization: Organization): void {
     this.selectedOrganization = organization;
-   // this.router.navigate(['/nonprofit/view', organization.id]);
+    // this.router.navigate(['/nonprofit/view', organization.id]);
   }
 
-   // delete callback
-  delete(organization: Organization): void { 
-    this.organizationService.delete(organization.id).subscribe(
-      error => console.log(error)
-    );
-   // after deletion, the steps below updates the view and excludes the deleted organization
+  // delete callback
+  delete(organization: Organization): void {
+    this.organizationService.delete(organization.id)
+        .subscribe(
+          error => console.log(error)
+        );
+    // after deletion, the steps below updates the view and excludes the deleted organization
     this.organizations = this.organizations.filter(u => u !== organization);
     //this.pagedItems = this.pagedItems.filter(u => u !== organization);
     if (this.selectedOrganization === organization) {

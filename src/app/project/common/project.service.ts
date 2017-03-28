@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Project } from './project';
 import { environment } from '../../../environments/environment';
 
@@ -12,18 +12,22 @@ export class ProjectService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) {
+  constructor(private http: Http) { }
+
+  getProjects(): Observable<Project[]> {
+    return this.http
+               .get(projectUrl)
+               .map(res => res.json())
+               .catch(this.handleError);
   }
 
-  getProjects() {
-    const url = projectUrl + '/all';
-    return this.http.get(url);
-  }
-
-  getProject(id: number): Observable<Response> {
+  getProject(id: number): Observable<Project> {
     const index = id + 1;
-    const url = projectUrl + '/search/byId/' + index;
-    return this.http.get(url);
+    const url = projectUrl + '/' + index;
+
+    return this.http.get(url)
+               .map(res => res.json())
+               .catch(this.handleError);
   }
 
   getProjectByUser(id: number): Observable<Response> {
@@ -37,33 +41,35 @@ export class ProjectService {
   }
 
   // TODO replace with search by keyword
-  getProjectsByKeyword(keyWord: string): Observable<Response> {
-    const url = projectUrl + '/search/byKeyword/' + keyWord;
-    return this.http
-      .get(url);
+  getProjectsByKeyword(keyWord: string): Observable<Project[]> {
+    const url = projectUrl + '/search' + keyWord;
+
+    return this.http.get(url)
+               .map(res => res.json())
+               .catch(this.handleError);
   }
 
   add(project: Project): Observable<Project[]> {
-    const url = projectUrl + '/add';
+    const url = projectUrl;
     return this.http
-      .post(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+               .post(url, project, {headers: this.headers})
+               .map((res: Response) => res.json())
+               .catch(this.handleError);
   }
 
   delete(id: number) {
-    const url = projectUrl + '/delete/' + id;
+    const url = projectUrl + id;
     return this.http
-      .delete(url, {headers: this.headers})
-      .catch(this.handleError);
+               .delete(url, {headers: this.headers})
+               .catch(this.handleError);
   }
 
   update(project: Project) {
-    const url = projectUrl + '/update';
+    const url = projectUrl + project.id;
     return this.http
-      .put(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+               .put(url, project, {headers: this.headers})
+               .map((res: Response) => res.json())
+               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

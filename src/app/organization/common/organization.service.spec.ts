@@ -55,14 +55,14 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganizations().subscribe(res => {
-          let orgs = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(orgs.length).toBe(3);
-          expect(orgs[0].detailedDescription).toEqual(null);
-          expect(orgs[1].name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganizations()
+                         .subscribe(res => {
+                             let orgs = res;
+                             expect(orgs.length).toBe(3);
+                             expect(orgs[0].detailedDescription).toEqual(null);
+                             expect(orgs[1].name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 
@@ -86,13 +86,13 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganization(2).subscribe(res => {
-          let org = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(org.detailedDescription).toEqual(null);
-          expect(org.name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganization(2)
+                         .subscribe(res => {
+                             let org = res;
+                             expect(org.detailedDescription).toEqual(null);
+                             expect(org.name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 
@@ -114,14 +114,14 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganizationsByKeyword('Org').subscribe(res => {
-          let orgs = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(orgs.length).toBe(3);
-          expect(orgs[0].detailedDescription).toEqual(null);
-          expect(orgs[1].name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganizationsByKeyword('Org')
+                         .subscribe(res => {
+                             let orgs = res;
+                             expect(orgs.length).toBe(3);
+                             expect(orgs[0].detailedDescription).toEqual(null);
+                             expect(orgs[1].name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 });

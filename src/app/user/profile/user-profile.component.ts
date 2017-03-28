@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../common/user.service';
 import { User } from '../common/user';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
@@ -13,70 +13,69 @@ import { MaterializeAction } from 'angular2-materialize';
   providers: []
 })
 
-export class UserProfileComponent implements OnInit{
+export class UserProfileComponent implements OnInit {
 
-  private user : User;
-  public globalActions =  new EventEmitter<string|MaterializeAction>();
-  public skillsOption = [{value: '1', name:'CSS'},
-                        {value: '2', name:'option2'},
-                        {value: '3', name:'python'}] ;
-  public myProfile = new FormGroup({
-  });
+  private user: User;
+  public globalActions = new EventEmitter<string|MaterializeAction>();
+  public skillsOption = [{value: '1', name: 'CSS'},
+    {value: '2', name: 'option2'},
+    {value: '3', name: 'python'}];
+  public myProfile = new FormGroup({ });
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
-  //  this.route.params.subscribe(
+    //  this.route.params.subscribe(
     //            params => {
-                    //const id = +params['id'];
-                    this.userService.getUser(2).subscribe(
-                      res =>  {
+    //const id = +params['id'];
+    this.userService.getUser(2)
+        .subscribe(
+          res => {
 
-                      const user = res.json();
-                      console.log(user);
-
-
-                      this.myProfile.setValue({
-
-                          firstName: user.firstName,
-                          lastName: user.lastName,
-                          state: user.state,
-                          zip: user.zip,
-                          country: user.country,
-                          introduction: user.introduction,
-                          linkedin: user.linked_inurl,
-                          github: user.github,
-                          website: user.personal_web_site,
-                          resume: user.resume,
-                          skills: [user.skill1,user.skill2,user.skill3,user.skill4,user.skill5]
-                        });
+            const user = res;
+            console.log(user);
 
 
-                        this.user = new User(
-                          user.id,
-                          user.email,
-                          user.phone,
-                          user.state,
-                          user.country,
-                          user.zip,
-                          user.status,
-                          user.role,
-                          user.github,
-                          user.displayFlag,
-                          user.longitude,
-                          user.latitude,
-                          user.userName,
-                          user.firstName,
-                          user.lastName,
-                          user.linked_inurl,
-                          user.introduction,
-                          user.personal_web_site,
-                          user.resume,
-                          [user.skill1,user.skill2,user.skill3,user.skill4,user.skill5]);
-                  },
-                      error => console.log(error)
-                        );
-}
+            this.myProfile.setValue({
+              firstName: user.firstName,
+              lastName: user.lastName,
+              state: user.state,
+              zip: user.zip,
+              country: user.country,
+              introduction: user.introduction,
+              linkedin: user.linked_inurl,
+              github: user.github,
+              website: user.personal_web_site,
+              resume: user.resume,
+              skills: user.skills
+            });
+
+
+            this.user = new User(
+              user.id,
+              user.email,
+              user.phone,
+              user.state,
+              user.country,
+              user.zip,
+              user.status,
+              user.role,
+              user.github,
+              user.displayFlag,
+              user.longitude,
+              user.latitude,
+              user.userName,
+              user.firstName,
+              user.lastName,
+              user.linked_inurl,
+              user.introduction,
+              user.personal_web_site,
+              user.resume,
+              user.skills)
+          },
+          error => console.log(error)
+        );
+  }
 
   updateProfile(event) {
 
@@ -102,10 +101,12 @@ export class UserProfileComponent implements OnInit{
       this.myProfile.value.resume,
       this.myProfile.value.skills);
 
-    this.userService.update(user).subscribe(
-    response => this.globalActions.emit('toast'),
-    error => console.error('Do not submit, form has errors')
-  );
-}
+    this.userService
+        .update(user)
+        .subscribe(
+          response => this.globalActions.emit('toast'),
+          error => console.error('Do not submit, form has errors')
+        );
+  }
 
 }
