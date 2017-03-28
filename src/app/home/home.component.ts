@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     clear = true;
     typeAniIndex = -1;
     typeAniPeriod = 100;
-    aniWordGroup = ['interest!','fun~','a better world.','social good!!'];
+    aniWordGroup = ['interest !','fun~','a better world.','social good !'];
     aniWord = '';
     cursorState: string = 'inactive';
     wordColorIndex = 0;

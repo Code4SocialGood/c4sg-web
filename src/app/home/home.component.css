@@ -40,11 +40,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 94vh;
+    height: 99vh;
     text-align: center;
 }
 
 .home-title {
+  padding-top: 2em;
   font-family: aniFont;
   font-weight: 200;
   font-size: 7em;
@@ -67,7 +68,7 @@
 
 
 .input-pre {
-  color: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid #d32f2f;
 }
 
 /* Scaling size of Title down as Page size decreases */
