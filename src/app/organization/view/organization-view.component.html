@@ -14,15 +14,16 @@
           <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
         </div>
         <div class="col m2 valign right-align" style="height:20px; padding-top: 10px;">
-          <span><button class="btn delete right" (click)="confirmDelete(organization)"
-                        data-target="modal1">DELETE</button></span>
+          <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
         </div>
       </div>
       <div class="row">
-        <div class="col s3">
+        <div class="col" width="40">
           <h3 class="left-align">
             <img class="responsive-img" src="{{organization?.logo}}" alt="Image for {{organization?.logo}}">
           </h3>
+
+
         </div>
         <div class="col" width="30">
 
