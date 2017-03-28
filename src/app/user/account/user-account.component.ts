@@ -26,19 +26,8 @@ export class UserAccountComponent implements OnInit {
   private selectedUser:User;
 
   public myAccount = new FormGroup({
-    username: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    zip: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required)
   });
-
-  public myPassword = new FormGroup({
-      newPassword: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required)
-  }, equalValidator);
 
   constructor( private changeDetectorRef: ChangeDetectorRef, private userService: UserService) { }
 
@@ -75,18 +64,6 @@ export class UserAccountComponent implements OnInit {
     } else {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
-  }
-
-  updatePassword(event) {
-    if (this.myPassword.controls['newPassword'].errors !== null
-    || this.myPassword.controls['confirmPassword'].errors !== null || this.myPassword.errors !== null) {
-      console.error('Do not submit, form has errors');
-      return;
-    }
-    const passwordData = this.myPassword.value;
-    console.log(this.myPassword.controls);
-    console.log(event);
-    console.log(passwordData);
   }
 
   fileChange(input) {
@@ -169,7 +146,6 @@ export class UserAccountComponent implements OnInit {
 
   }
 
-
   openModal(user) {
       this.modalActions.emit({action: "modal", params: ['open']});
       this.selectedUser=user;
@@ -187,7 +163,6 @@ export class UserAccountComponent implements OnInit {
       );
 
         }
-
 
   ngOnInit(): void {
     this.userService.getUser(2).subscribe(
