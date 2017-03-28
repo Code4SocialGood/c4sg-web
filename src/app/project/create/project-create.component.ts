@@ -108,10 +108,6 @@ export class ProjectCreateComponent {
   createProjectForm = this.fb.group({
     name: ['', Validators.required],
     orgId: ['', Validators.required],
-    shortDescription: ['', [
-      Validators.required,
-      Validators.maxLength(200)
-    ]],
     description: ['', Validators.required],
     location: ['remote'],
     line1: '',
@@ -136,9 +132,5 @@ export class ProjectCreateComponent {
         },
         error => console.log(error)
       );
-  }
-
-  cancel(): void {
-    this.router.navigate(['/projects']);
   }
 }
