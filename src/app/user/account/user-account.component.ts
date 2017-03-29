@@ -39,7 +39,7 @@ export class UserAccountComponent implements OnInit {
     if (this.myAccount.errors === null) {
       const user = new User(
         this.user.id,
-        this.myAccount.value.username,
+        this.myAccount.value.userName,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName,
         this.myAccount.value.email,
@@ -172,7 +172,7 @@ export class UserAccountComponent implements OnInit {
         console.log(user);
 
         this.myAccount.setValue({
-          username: user.userName,
+          userName: user.userName,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
