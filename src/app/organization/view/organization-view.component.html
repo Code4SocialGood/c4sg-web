@@ -90,8 +90,8 @@
     <div class="col s12 m12 l4 grey lighten-3 projects-block">
       <p *ngIf="projects">{{projects.length}} opportunities</p>
       <ul>
-        <li class="row card" *ngFor="let project of projects">
-          <div class="col s12 card-content">
+        <li class="card" *ngFor="let project of projects">
+          <div class="card-content">
             <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
             <p>{{project.description}}</p>
           </div>
