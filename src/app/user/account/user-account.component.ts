@@ -39,25 +39,26 @@ export class UserAccountComponent implements OnInit {
     if (this.myAccount.errors === null) {
       const user = new User(
         this.user.id,
-        this.myAccount.value.email,
-        this.user.phone,
-        this.myAccount.value.state,
-        this.myAccount.value.country,
-        this.myAccount.value.zip,
-        this.user.status,
-        this.user.role,
-        this.user.github,
-        this.user.displayFlag,
-        this.user.longitude,
-        this.user.latitude,
         this.myAccount.value.username,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName,
-        this.user.linked_inurl,
+        this.myAccount.value.email,
+        this.user.phone,
+        this.myAccount.value.city,
+        this.myAccount.value.state,
+        this.myAccount.value.country,
+        this.myAccount.value.zip,
         this.user.introduction,
-        this.user.personal_web_site,
-        this.user.resume,
-        this.user.skills);
+        this.user.linkedinUrl,
+        this.user.personalUrl,
+        this.user.role,
+        this.user.publicProfileFlag,
+        this.user.chatFlag,
+        this.user.forumFlag,
+        this.user.developerFlag,        
+        this.user.status,
+        this.user.createdTime,
+        this.user.updatedTime);
       this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
@@ -182,25 +183,26 @@ export class UserAccountComponent implements OnInit {
 
         this.user = new User(
           user.id,
+          user.userName,
+          user.firstName,
+          user.lastName,          
           user.email,
           user.phone,
+          user.city,
           user.state,
           user.country,
           user.zip,
+          user.introduction,
+          user.linkedinUrl,
+          user.personalUrl,
           user.status,
           user.role,
-          user.github,
-          user.displayFlag,
-          user.longitude,
-          user.latitude,
-          user.userName,
-          user.firstName,
-          user.lastName,
-          user.linked_inurl,
-          user.introduction,
-          user.personal_web_site,
-          user.resume,
-          user.skills);
+          user.publicProfileFlag,
+          user.chatFlag,
+          user.forumFlag,
+          user.developerFlag,        
+          user.createdTime,
+          user.updatedTime);
       }, (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
