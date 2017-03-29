@@ -42,5 +42,14 @@ $roboto-font-path: "../../node_modules/materialize-css/fonts/roboto/" !default;
 @import "../../node_modules/materialize-css/sass/components/date_picker/default.date";
 @import "../../node_modules/materialize-css/sass/components/date_picker/default.time";
 
+// Material design icons
+$mdi-font-path: "../../node_modules/mdi/fonts" !default;
+@import "../../node_modules/mdi/scss/variables";
+@import "../../node_modules/mdi/scss/functions";
+@import "../../node_modules/mdi/scss/path";
+@import "../../node_modules/mdi/scss/core";
+@import "../../node_modules/mdi/scss/icons";
+@import "../../node_modules/mdi/scss/extras";
+
 // custom global styles
 @import "../styles.scss"

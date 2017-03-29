@@ -21,20 +21,6 @@ export class UserProfileComponent implements OnInit{
                         {value: '2', name:'option2'},
                         {value: '3', name:'python'}] ;
   public myProfile = new FormGroup({
-
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    zip: new FormControl('',Validators.required),
-    country: new FormControl('', Validators.required),
-    introduction: new FormControl('', Validators.required),
-    linkedin: new FormControl('', Validators.required),
-    github: new FormControl('', Validators.required),
-    website: new FormControl('', Validators.required),
-    resume: new FormControl('', Validators.required),
-    skills: new FormControl('', Validators.required)
-
-
   });
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
