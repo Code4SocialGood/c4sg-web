@@ -54,3 +54,4 @@ export class OrganizationService {
       `${organizationUrl}/${organizationId}/logo`
     )
   }
+}

@@ -10,6 +10,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import {
   BaseRequestOptions,
   HttpModule,
+  JsonpModule,
   Http,
   Response,
   ResponseOptions
@@ -21,7 +22,7 @@ describe('OrganizationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, JsonpModule],
       providers: [
         OrganizationService,
         {
