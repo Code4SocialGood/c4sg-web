@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-const organizationUrl = `${environment.backend_url}/api/organization`;
+const organizationUrl = `${environment.backend_url}/api/organizations`;
 
 @Injectable()
 export class OrganizationService {
