@@ -18,8 +18,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private orgIndex: number;
   private routeSubscription: Subscription;
 
-  constructor(private organizationService: OrganizationService, 
-    private route: ActivatedRoute, 
+  constructor(private organizationService: OrganizationService,
+    private route: ActivatedRoute,
     private router: Router,
     private imageDisplay: ImageDisplayService) {
 
@@ -42,13 +42,13 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
-        const org = res.json()
-        this.organization = org
+        const org = res;
+        this.organization = org;
         this.imageDisplay.displayImage(id,
             this.organizationService.retrieveLogo.bind(this.organizationService))
             .subscribe(res => this.organization.logo = res.url)
       },
-      (err) => { 
+      (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
     );

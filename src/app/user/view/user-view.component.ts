@@ -31,7 +31,7 @@ export class UserViewComponent implements OnInit {
   getUser(id: number) {
     this.userService.getUser(id).subscribe(
       res => {
-        this.user = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+        this.user = res;
         console.log(this.user);
       },
       error => console.log(error)

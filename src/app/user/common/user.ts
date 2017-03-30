@@ -1,4 +1,3 @@
-import { Point } from './point';
 export class User {
 
     constructor(

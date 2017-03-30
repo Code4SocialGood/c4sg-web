@@ -10,7 +10,8 @@
           </div>
           <div class="col s12 m12 l12">
             <button class="btn waves-effect waves-light" type="button"
-                    (click)="getProjectsByKeyword(projectName.value); projectName.value=''" routerLink="/project/list">Search
+                    (click)="getProjectsByKeyword(projectName.value); projectName.value=''" routerLink="/project/list">
+              Search
             </button>
           </div>
         </div>
@@ -20,47 +21,49 @@
     <div class="col s12 l9 ">
       <p *ngIf="projects">{{projects.length}} volunteer opportunities found</p>
       <ul class="collection">
-      <li *ngFor="let project of pagedItems" class="collection-item avatar">
-      <ul class="projects-block">
-        <li class="row" *ngFor="let project of projects" (click)="onSelect(project)"
-            [class.selected]="project === selectedProject">
-          <div class="col s4 m3 l3 card-image">
-            <img class="responsive-img" [src]="project.image" width="200px" height="200px">
-          </div>
-          <div class="col s12 m9 l9 card-content">
-            <div class="col s12 m12 l9 left-align card-content-left-side">
-              <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
-              <a [routerLink]="['/nonprofit/view',project.id]"><h6>{{project.organizationName}}</h6></a>
-            </div>
-            <div class="col s12 m12 l3 left-align card-content-right-side">
-              <span>Remote</span>
-              <span>03/10/2017</span>
-            </div>
-            <div class="col s12 m12 l12 left-align card-content-description">
-              <p class="left-align">{{project.description}}</p>
-            </div>
-          </div>
+        <li *ngFor="let project of pagedItems" class="collection-item avatar">
+          <ul class="projects-block">
+            <!--<li class="row" *ngFor="let project of projects" (click)="onSelect(project)"-->
+                <!--[class.selected]="project === selectedProject">-->
+            <li class="row" *ngFor="let project of projects; let i = index " >
+                <div class="col s4 m3 l3 card-image">
+                  <img class="responsive-img" [src]="project.image" width="200px" height="200px">
+                </div>
+                <div class="col s12 m9 l9 card-content">
+                  <div class="col s12 m12 l9 left-align card-content-left-side">
+                    <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
+                    <a [routerLink]="['/nonprofit/view',project.id]"><h6>{{project.organizationName}}</h6></a>
+                  </div>
+                  <div class="col s12 m12 l3 left-align card-content-right-side">
+                    <span>Remote</span>
+                    <span>03/10/2017</span>
+                  </div>
+                  <div class="col s12 m12 l12 left-align card-content-description">
+                    <p class="left-align">{{project.description}}</p>
+                  </div>
+                </div>
+            </li>
+          </ul>
         </li>
       </ul>
-      </li>
-      </ul>
-
       <!-- Pagination -->
-     <div class="row">
-      <div class="col m12 right-align">
-        <ul class="pagination push-m7">
-          <li (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
-            <i class="material-icons">chevron_left</i>
-          </li>
-          <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-          </li>
-          <li (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
-            <i class="material-icons">chevron_right</i
-          ></li>
-        </ul>
+      <div class="row">
+        <div class="col m12 right-align">
+          <ul class="pagination push-m7">
+            <li (click)="setPage(pager.currentPage - 1)"
+                [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
+              <i class="material-icons">chevron_left</i>
+            </li>
+            <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
+              <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li (click)="setPage(pager.currentPage + 1)"
+                [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
+              <i class="material-icons">chevron_right</i
+              ></li>
+          </ul>
+        </div>
       </div>
-    </div>
 
     </div>
 
