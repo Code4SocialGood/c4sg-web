@@ -39,12 +39,24 @@ export class ProjectViewComponent implements OnInit {
   delete(): void {
 
     this.projectService
-        .delete(this.project.id)
-        .subscribe(
-          response => {
-            this.router.navigate(['project/list']);
-          },
-          error => console.log(error)
-        );
+      .delete(this.project.id)
+      .subscribe(
+        response => {
+          this.router.navigate(['project/list']);
+        },
+        error => console.log(error)
+      );
+  }
+  
+  bookmark():void {
+    //check if user is logged in
+    
+    //call REST API
+    
+    //display toast
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
