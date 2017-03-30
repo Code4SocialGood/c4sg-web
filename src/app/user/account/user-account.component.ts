@@ -14,16 +14,16 @@ import { MaterializeAction } from 'angular2-materialize';
 
 export class UserAccountComponent implements OnInit {
 
-  public file_srcs: string[] ;
+  public file_srcs: string[];
   public debug_size_before: string[];
   public debug_size_after: string[];
   public image_loaded: boolean;
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   private user: User;
-  public globalActions =  new EventEmitter<string|MaterializeAction>();
+  public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  private selectedUser:User;
+  private selectedUser: User;
 
   public myAccount = new FormGroup({
     email: new FormControl('', Validators.required)
@@ -58,9 +58,10 @@ export class UserAccountComponent implements OnInit {
         this.user.personal_web_site,
         this.user.resume,
         this.user.skills);
-      this.userService.update(user).subscribe(() => {
-          this.globalActions.emit('toast');
-      });
+      this.userService.update(user)
+          .subscribe(() => {
+            this.globalActions.emit('toast');
+          });
     } else {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
@@ -147,64 +148,66 @@ export class UserAccountComponent implements OnInit {
   }
 
   openModal(user) {
-      this.modalActions.emit({action: "modal", params: ['open']});
-      this.selectedUser=user;
+    this.modalActions.emit({action: "modal", params: ['open']});
+    this.selectedUser = user;
 
-    }
+  }
 
-    closeModal() {
-      this.modalActions.emit({action: "modal", params: ['close']});
-    }
+  closeModal() {
+    this.modalActions.emit({action: "modal", params: ['close']});
+  }
 
-    deleteUser(user:User): void{
-      console.log(user.id);
-      this.userService.delete(user.id).subscribe(
-        error => console.log(error)
-      );
+  deleteUser(user: User): void {
+    console.log(user.id);
+    this.userService.delete(user.id)
+        .subscribe(
+          error => console.log(error)
+        );
 
-        }
+  }
 
   ngOnInit(): void {
-    this.userService.getUser(2).subscribe(
-      (res) => {
-        const user = res.json();
-        console.log(user);
+    this.userService.getUser(2)
+        .subscribe(
+          (res) => {
+            const user = res;
+            console.log(user);
 
-        this.myAccount.setValue({
-          username: user.userName,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          state: user.state,
-          country: user.country,
-          zip: user.zip
-        });
+            this.myAccount.setValue({
+              username: user.userName,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              state: user.state,
+              country: user.country,
+              zip: user.zip
+            });
 
-        this.user = new User(
-          user.id,
-          user.email,
-          user.phone,
-          user.state,
-          user.country,
-          user.zip,
-          user.status,
-          user.role,
-          user.github,
-          user.displayFlag,
-          user.longitude,
-          user.latitude,
-          user.userName,
-          user.firstName,
-          user.lastName,
-          user.linked_inurl,
-          user.introduction,
-          user.personal_web_site,
-          user.resume,
-          user.skills);
-      }, (err) => {
-        console.error('An error occurred', err); // for demo purposes only
-      }
-    );
+            this.user = new User(
+              user.id,
+              user.email,
+              user.phone,
+              user.state,
+              user.country,
+              user.zip,
+              user.status,
+              user.role,
+              user.github,
+              user.displayFlag,
+              user.longitude,
+              user.latitude,
+              user.userName,
+              user.firstName,
+              user.lastName,
+              user.linked_inurl,
+              user.introduction,
+              user.personal_web_site,
+              user.resume,
+              user.skills);
+          }, (err) => {
+            console.error('An error occurred', err); // for demo purposes only
+          }
+        );
 
   }
 
