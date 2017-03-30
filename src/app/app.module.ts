@@ -55,6 +55,7 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    JsonpModule,
     AppRoutingModule,
     MaterializeModule
   ],
