@@ -1,61 +1,59 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
-import { Organization } from '../common/organization';
+
+import { Organization } from './organization';
 
 const organizationUrl = `${environment.backend_url}/api/organizations`;
 
 @Injectable()
 export class OrganizationService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private jsonp: Jsonp) { }
+
+  getOrganizations(): Observable<Organization[]> {
+    return this.http
+               .get(organizationUrl)
+               .map(res => res.json());
   }
 
-  getOrganizations() {
-      return this.http.get(
-      `${organizationUrl}/all`
-      );
+  getOrganization(id: number): Observable<Organization> {
+    const index = id - 1;
+    const url = organizationUrl + '/' + index;
+
+    return this.http.get(url)
+               .map(res => res.json());
   }
 
-  getOrganization(id: number): Observable<Response> {
-      return this.http.get(
-      `${organizationUrl}/search/byId/${id}`
-      );
-  }
+  getOrganizationsByKeyword(keyWord: string): Observable<Organization[]> {
+    let param = new URLSearchParams();
+    param.set('keyWord', keyWord);
+    const url = organizationUrl + '/search';
 
-  // TODO replace with search by keyword
-  getOrganizationsByKeyword(keyWord: string): Observable<Response> {
-      return this.http.get(
-      `${organizationUrl}/search/byKeyword/${keyWord}`
-      );
+    return this.jsonp
+               .get(organizationUrl, {search: param})
+               .map(res => res.json());
   }
 
   createOrganization(organization: any): Observable<Response> {
-      return this.http.post(
-      `${organizationUrl}/create`,
-      organization
-      );
-      
+    return this.http.post(`${organizationUrl}`, organization);
   }
 
   delete(id: number): Observable<Response> {
-      return this.http.delete(
-      `${organizationUrl}/delete/${id}`
-      );
+    return this.http.delete(`${organizationUrl}/${id}`);
   }
 
-  saveLogo(organizationId: number, formData: FormData): Observable<Response>{
-      return this.http.post(
-      `${organizationUrl}/${organizationId}/logo`, 
-      formData
-      );
+  saveLogo(organizationId: number, fileContent: string): Observable<Response> {
+    return this.http
+               .post(`${organizationUrl}/${organizationId}/uploadLogo`,
+                 {'': fileContent});
   }
 
-  retrieveLogo(organizationId: number): Observable<Response>{
-      return this.http.get(
+  retrieveLogo(organizationId: number): Observable<Response> {
+    return this.http.get(
       `${organizationUrl}/${organizationId}/logo`
-      )
+    )
   }
   
   getUserOrganization(id: number): Observable<Organization> {

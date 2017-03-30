@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
       this.projectService.getProjectsByKeyword(keyword).subscribe(
           res => {
-              this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+              this.projects = res;
               this.router.navigate(['/volunteers']);
           },
           error => console.log(error)

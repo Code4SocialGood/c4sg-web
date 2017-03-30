@@ -14,16 +14,16 @@ import { MaterializeAction } from 'angular2-materialize';
 
 export class UserAccountComponent implements OnInit {
 
-  public file_srcs: string[] ;
+  public file_srcs: string[];
   public debug_size_before: string[];
   public debug_size_after: string[];
   public image_loaded: boolean;
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   private user: User;
-  public globalActions =  new EventEmitter<string|MaterializeAction>();
+  public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  private selectedUser:User;
+  private selectedUser: User;
 
   public myAccount = new FormGroup({
     email: new FormControl('', Validators.required)
@@ -148,27 +148,28 @@ export class UserAccountComponent implements OnInit {
   }
 
   openModal(user) {
-      this.modalActions.emit({action: "modal", params: ['open']});
-      this.selectedUser=user;
+    this.modalActions.emit({action: "modal", params: ['open']});
+    this.selectedUser = user;
 
-    }
+  }
 
-    closeModal() {
-      this.modalActions.emit({action: "modal", params: ['close']});
-    }
+  closeModal() {
+    this.modalActions.emit({action: "modal", params: ['close']});
+  }
 
-    deleteUser(user:User): void{
-      console.log(user.id);
-      this.userService.delete(user.id).subscribe(
-        error => console.log(error)
-      );
+  deleteUser(user: User): void {
+    console.log(user.id);
+    this.userService.delete(user.id)
+        .subscribe(
+          error => console.log(error)
+        );
 
-        }
+  }
 
   ngOnInit(): void {
     this.userService.getUser(2).subscribe(
       (res) => {
-        const user = res.json();
+        const user = res;
         console.log(user);
 
         this.myAccount.setValue({
@@ -207,7 +208,6 @@ export class UserAccountComponent implements OnInit {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
-
   }
 
 }

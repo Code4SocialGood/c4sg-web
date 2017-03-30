@@ -112,15 +112,13 @@ export class AuthService {
               let firstName =  this.firstName !== undefined ? this.firstName : '';
               let lastName =  this.lastName !== undefined ? this.lastName : '';
 
-              if (JSON.parse(JSON.stringify(res))._body !== "")
-              {
+              if (res) {
                 // console.log("found an existing user by email");
                 // console.log(JSON.stringify(res));
-                user = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+                user = res;
               }
               // If not found, then create the user
-              if (user === undefined)
-              {
+              if (user === undefined) {
                 console.log("User does not exist");
                 let newUser = new User(0, luserName, firstName, lastName,
                   lemail, null, null, null, null, null,
@@ -132,27 +130,24 @@ export class AuthService {
                 // Create a user
                 userService.add(newUser).subscribe(
                   res => {
-                    user = JSON.parse(JSON.stringify(res));
+                    user = res;
                     // console.log("Added new user : ");
                     // console.log(JSON.stringify(user));
 
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                    }
-                    else{
+                    } else{
                       localStorage.setItem('currentDisplayName', user.email);
                     }
                   },
                   error => console.log(error));
-              }
-              else {
+              }else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
                 if (user.firstName !== '' && user.lastName !== '') {
                   localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                }
-                else {
+                } else {
                   localStorage.setItem('currentDisplayName', user.email);
                 }
 

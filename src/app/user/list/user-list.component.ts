@@ -27,12 +27,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
   usersSubscription: Subscription;
 
-  constructor(
-    private pagerService: PagerService,
-    private userService: UserService,
-    private router: Router,
-    private auth: AuthService
-  ) { }
+  constructor(private pagerService: PagerService,
+              private userService: UserService,
+              private router: Router,
+              private auth: AuthService) {
+  }
 
   ngOnInit(): void {
     this.getUsers();
@@ -82,14 +81,15 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 
   private getUsers(): void {
-    this.usersSubscription = this.userService.getUsers().subscribe(
-      res => {
-        this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        this.usersCache = this.users.slice(0);
-        this.setPage(1); // initialize to page 1
-      },
-      error => console.error(error)
-    );
+    this.usersSubscription = this.userService.getUsers()
+                                 .subscribe(
+                                   res => {
+                                     this.users = res;
+                                     this.usersCache = this.users.slice(0);
+                                     this.setPage(1); // initialize to page 1
+                                   },
+                                   error => console.error(error)
+                                 );
   }
 
   setPage(page: number): void {
@@ -127,7 +127,9 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
 
       // title match
-      if (this.titlesFilter.indexOf(user.title) !== -1) { return true; }
+      if (this.titlesFilter.indexOf(user.title) !== -1) {
+        return true;
+      }
 
       // skills match (assumes skills array)
       while (searching) {
@@ -142,15 +144,15 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUsersByKeyword(keyword: string): void {
-    if (keyword) {
+  getUsersByKeyword(userName: string, firstName: string, lastname: string): void {
+    if (userName || firstName || lastname) {
       // TODO: Verify this works when REST API finished
-      this.userService.getUsersByKeyword(keyword).subscribe(
-        res => {
-          this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        },
-        error => console.error(error)
-      );
+      this.userService
+          .getUsersByKeyword(userName, firstName, lastname)
+          .subscribe(
+            res => this.users = res,
+            error => console.error(error)
+          );
     }
   }
 
@@ -177,7 +179,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.usersSubscription) { this.usersSubscription.unsubscribe(); }
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
   }
 
 }

@@ -33,7 +33,7 @@ export class OrganizationEditComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
   public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-  
+
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
@@ -47,7 +47,7 @@ export class OrganizationEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.organizationId = +params['organizationId']
+      this.organizationId = +params['organizationId'];
       this.getFormConstants();
 
       if (this.editOrg) { // edit existing org
@@ -56,9 +56,7 @@ export class OrganizationEditComponent implements OnInit {
         this.organizationService.getOrganization(this.organizationId).toPromise()
           .then(res => {
             this.editOrg = true;
-            var body = res.json();
-            body.logo = '';
-            this.organization = body;
+            this.organization = res;
             // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
             return this.organizationService.retrieveLogo(this.organizationId).toPromise()
           })
@@ -66,12 +64,12 @@ export class OrganizationEditComponent implements OnInit {
             this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
             this.initForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
-          .catch(err => console.error('An error occurred', err)) // for demo purposes only
+          .catch(err => console.error('An error occurred', err)); // for demo purposes only
       } else { // add new org
         this.editOrg = null;
         this.initForm();
       }
-    
+
     })
   }
 
@@ -125,8 +123,8 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   onUploadLogo(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput, 
-       this.organizationId, 
+    this.imageUploader.uploadImage(fileInput,
+       this.organizationId,
        this.organizationService.saveLogo.bind(this.organizationService))
        .subscribe(res => {this.organization.logo = res.url},
                   err => {console.error(err, 'An error occurred')} )
