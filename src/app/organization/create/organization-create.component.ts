@@ -41,9 +41,9 @@ export class OrganizationCreateComponent implements OnInit {
       // TODO: Pass variable to getOrganization() instead of hard-coded value
       this.organizationService.getOrganization(2)
           .subscribe(
-            (res) => {
+            res => {
+              this.organization = res;
               this.editOrg = true;
-              this.organization = res.json();
               this.initForm();
             }, this.handleError
           );
