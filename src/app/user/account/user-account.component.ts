@@ -39,29 +39,29 @@ export class UserAccountComponent implements OnInit {
     if (this.myAccount.errors === null) {
       const user = new User(
         this.user.id,
+        this.myAccount.value.userName,
+        this.myAccount.value.firstName,
+        this.myAccount.value.lastName,
         this.myAccount.value.email,
         this.user.phone,
+        this.myAccount.value.city,
         this.myAccount.value.state,
         this.myAccount.value.country,
         this.myAccount.value.zip,
-        this.user.status,
-        this.user.role,
-        this.user.github,
-        this.user.displayFlag,
-        this.user.longitude,
-        this.user.latitude,
-        this.myAccount.value.username,
-        this.myAccount.value.firstName,
-        this.myAccount.value.lastName,
-        this.user.linked_inurl,
         this.user.introduction,
-        this.user.personal_web_site,
-        this.user.resume,
-        this.user.skills);
-      this.userService.update(user)
-          .subscribe(() => {
-            this.globalActions.emit('toast');
-          });
+        this.user.linkedinUrl,
+        this.user.personalUrl,
+        this.user.role,
+        this.user.publicProfileFlag,
+        this.user.chatFlag,
+        this.user.forumFlag,
+        this.user.developerFlag,        
+        this.user.status,
+        this.user.createdTime,
+        this.user.updatedTime);
+      this.userService.update(user).subscribe(() => {
+          this.globalActions.emit('toast');
+      });
     } else {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
@@ -167,48 +167,47 @@ export class UserAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUser(2)
-        .subscribe(
-          (res) => {
-            const user = res;
-            console.log(user);
+    this.userService.getUser(2).subscribe(
+      (res) => {
+        const user = res;
+        console.log(user);
 
-            this.myAccount.setValue({
-              username: user.userName,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-              state: user.state,
-              country: user.country,
-              zip: user.zip
-            });
+        this.myAccount.setValue({
+          userName: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          state: user.state,
+          country: user.country,
+          zip: user.zip
+        });
 
-            this.user = new User(
-              user.id,
-              user.email,
-              user.phone,
-              user.state,
-              user.country,
-              user.zip,
-              user.status,
-              user.role,
-              user.github,
-              user.displayFlag,
-              user.longitude,
-              user.latitude,
-              user.userName,
-              user.firstName,
-              user.lastName,
-              user.linked_inurl,
-              user.introduction,
-              user.personal_web_site,
-              user.resume,
-              user.skills);
-          }, (err) => {
-            console.error('An error occurred', err); // for demo purposes only
-          }
-        );
-
+        this.user = new User(
+          user.id,
+          user.userName,
+          user.firstName,
+          user.lastName,          
+          user.email,
+          user.phone,
+          user.city,
+          user.state,
+          user.country,
+          user.zip,
+          user.introduction,
+          user.linkedinUrl,
+          user.personalUrl,
+          user.status,
+          user.role,
+          user.publicProfileFlag,
+          user.chatFlag,
+          user.forumFlag,
+          user.developerFlag,        
+          user.createdTime,
+          user.updatedTime);
+      }, (err) => {
+        console.error('An error occurred', err); // for demo purposes only
+      }
+    );
   }
 
 }
