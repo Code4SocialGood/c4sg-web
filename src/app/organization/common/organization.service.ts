@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Organization } from '../common/organization';
 
 const organizationUrl = `${environment.backend_url}/api/organizations`;
 
@@ -57,9 +58,9 @@ export class OrganizationService {
       )
   }
   
-  getUserOrganization(id: number): Observable<Response> {
+  getUserOrganization(id: number): Observable<Organization> {
       return this.http.get(
       `${organizationUrl}/user/${id}`
-      );
+      ).map(res => res.json());
   }
 }

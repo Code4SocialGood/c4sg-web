@@ -30,28 +30,19 @@ export class AppComponent implements DoCheck {
   ngDoCheck() {
     if (this.auth.authenticated() && this.currentUserId == null)
     {
-      //console.log('on do check');
       this.currentUserId = this.auth.getCurrentUserId();
-      //console.log("user id: " + this.currentUserId);
       if (this.currentUserId != '0' && this.currentUserId != null ) {
         // for a non-profit user, get the associated org-id
         this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
           res => {
             let organization: Organization;
-            if (JSON.parse(JSON.stringify(res))._body !== "")
+            // will contain at most 1 entry in the array when a match is found,
+            // otherwise, data is undefined 
+            organization = res[0];
+            if (organization != undefined)
             {
-              // console.log("found an existing org by user id");
-              // console.log(JSON.stringify(res));
-              organization = JSON.parse(JSON.parse(JSON.stringify(res))._body)[0];
-              if (organization != undefined)
-              {
-              // console.log(organization);
               this.organizationId = organization.id.toString();
               localStorage.setItem("userOrganizationId", organization.id.toString()); 
-              }
-              else{
-                console.log("Found no org for user");
-              }
             }
           },
           error => console.log(error)
