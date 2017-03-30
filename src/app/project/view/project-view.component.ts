@@ -25,25 +25,28 @@ export class ProjectViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = +params['id'] - 1;
 
-      this.projectService.getProject(id).subscribe(
-        res => {
-          this.project = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        },
-        error => console.log(error)
-      );
+      this.projectService.getProject(id)
+          .subscribe(
+            res => this.project = res,
+            error => console.log(error)
+          );
     });
   }
 
   update(): void {
+    this.router.navigate(['/project/edit', 2]);
+  }
+
+  delete(): void {
 
     this.projectService
-      .update(this.project)
-      .subscribe(
-        response => {
-          this.router.navigate(['/nonprofits']);
-        },
-        error => console.log(error)
-      );
+        .delete(this.project.id)
+        .subscribe(
+          response => {
+            this.router.navigate(['project/list']);
+          },
+          error => console.log(error)
+        );
   }
 
   goBack(): void {

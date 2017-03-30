@@ -2,19 +2,21 @@
     <div class="container">
         <div class="row">
            <div class="col s12">
-                <form  [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
 
-
+                <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
                   <div class="row">
                      <h6>My Location</h6>
                       <div class="col s3">
-                        <input formControlName="city" type="text" placeholder="City">
+                        <label for="city">City</label>
+                        <input id="city "name="city" type="text">
                       </div>
                       <div class="col s3">
-                       <input formControlName="state" type="text" placeholder="State">
+                       <label for="state">State</label>
+                       <input id="state" type="text">
                      </div>
                     <div class="col s3">
-                       <input formControlName="zipcode" type="text" placeholder="Zip Code">
+                       <label for="zip">Zip</label>
+                       <input id="zip" type="text">
                     </div>
                     <div class="col s3">
                         <select multiple id="country" formControlName="country" placeholder="Country" materialize="material_select">
@@ -23,26 +25,22 @@
                           <option value="2">Canada</option>
                           <option value="3">Mexico</option>
                         </select>
+
                     </div>
                 </div>
 
-
-
                   <div class="row">
-                      <h6>My Introduction</h6>
-                      <div class="input-field col s12">
-                        <input id="input_text" type="text" length="10">
-                        <label for="input_text">My Title</label>
+                      <h6>Summary</h6>
+                      <div class="col s12">
+                        <label for="my-title">Title</label>
+                        <input id="my-title" type="text" length="10">
                       </div>
                    </div>
 
-
-
-
                   <div class="row">
-                        <div class="input-field col s12">
-                          <textarea id="textarea1" class="materialize-textarea"></textarea>
-                          <label for="textarea1">My Introduction</label>
+                        <div class="col s12">
+                         <label for="description">Description</label>
+                          <input id="description" type="text">
                         </div>
                   </div>
 
@@ -63,34 +61,29 @@
                             <input class="file-path validate" type="text">
                           </div>
                         </div>
+
                       </div>
                       <div class="input-field col s4">
-                        <select materialize="material_select" multiple>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="1">CSS</option>
-                          <option value="2">Java</option>
-                          <option value="3">Option 3</option>
+                        <select multiple id="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple>
+                          <option *ngFor="let skill of skillsOption" [value]="skill.value">
+                              {{skill.name}}
+                          </option>
+
                         </select>
                         <label>Skills</label>
                       </div>
-
                  </div>
-
                   <div class="col s12">
                     <input type="checkbox" id="publish" checked="checked" />
                     <label for="publish">Publish my profile</label>
                   </div>
-
                     <div class="center-align col s12">
                       <input type="checkbox" id="test1" checked="checked" />
-                      <label for="test1">Notify me for new opportunities that match my title or skills</label>
+                      <label for="test1">Notify me for opportunities match my skills</label>
                     </div>
                     <div class="center-align col s12">
                             <button type="submit">Save</button>
                     </div>
-
-
-
                 </form>
 
           </div>

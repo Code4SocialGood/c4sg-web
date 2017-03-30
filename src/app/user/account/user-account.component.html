@@ -11,38 +11,24 @@
           </div>
           <div class="col s4">
             <div class="input-field">
-              <input id="username" formControlName="username" type="text">
-              <label for="username">Username *</label>
+              <input id="userName" type="text">
+              <label for="userName">Username</label>
             </div>
             <div class="input-field">
-              <input id="firstName" formControlName="firstName" type="text" >
-              <label for="firstName">First Name *</label>
+              <input id="firstName" type="text" >
+              <label for="firstName">First Name</label>
             </div>
             <div class="input-field">
-              <input id="lastName" formControlName="lastName" type="text">
-              <label for="lastName">Last Name *</label>
+              <input id="lastName" type="text">
+              <label for="lastName">Last Name</label>
             </div>
             <div class="input-field">
               <input id="email" formControlName="email" type="text">
               <label for="email">Email Address *</label>
             </div>
-          </div>
-          <div class="col s4">
-            <div class="input-field input-field-select">
-            <select id="state" formControlName="state" materialize="material_select" [materializeSelectOptions]="states">
-              <option *ngFor="let state of states" [value]="state.value">{{state.display}}</option>
-            </select>
-              <label for="state">State</label>
-            </div>
-            <div class="input-field input-field-select">
-            <select id="country" formControlName="country" materialize="material_select" [materializeSelectOptions]="countries">
-              <option *ngFor="let country of countries" [value]="country.value">{{country.display}}</option>
-            </select>
-              <label for="country">Country</label>
-            </div>
             <div class="input-field">
-            <input id="zip" formControlName="zip" type="text">
-              <label for="country">Zip</label>
+              <input id="phone" type="text">
+              <label for="phone">Phone</label>
             </div>
           </div>
           <div class="col s8 offset-s4">
@@ -63,21 +49,6 @@
                 </div>
                 </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="col s8 offset-s4">
-        <form [formGroup]="myPassword" (ngSubmit)="updatePassword($event)">
-          <div class="input-field col s6 ">
-            <input id="newPassword" formControlName="newPassword" type="text">
-            <label for="newPassword">New Password</label>
-          </div>
-          <div class="input-field col s6">
-            <input id="confirmPassword" formControlName="confirmPassword" type="text">
-            <label for="confirmPassword">Confirm Password</label>
-          </div>
-          <div class="col s4">
-            <button class="btn waves-effect waves-light" type="submit">Update password</button>
           </div>
         </form>
       </div>

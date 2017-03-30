@@ -5,17 +5,27 @@
         <ul class="right hide-on-med-and-down">
             <li><a routerLink="/project/list" routerLinkActive="active" >Opportunities</a></li>   
             <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li> 
-            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>         
+            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>    
+            <li>
+                <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href='#!' data-activates='dropdowncommunity'>
+                    Community<i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdowncommunity" class="dropdown-content">
+                    <li><a target="_blank" href="http://join-our-slack.code4socialgood.org/" class="black-text text-lighten-2">Chat</a></li>
+                    <li><a target="_blank" href="http://forum.code4socialgood.org/" class="black-text text-lighten-2">Forum</a></li>
+                    <li><a routerLink="/about" routerLinkActive="active" class="black-text text-lighten-2" id ="about">About Us</a></li>
+                </ul>
+            </li>
 
             <li *ngIf="auth.authenticated()">
                 <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">{{auth.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
                 <ul id="dropdownproject" class="dropdown-content">
-                    <li><a routerLink="/account" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
-                    <li  *ngIf="auth.isVolunteer()"><a routerLink="/profile" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
+                    <li><a routerLink="/account/{{currentUserId}}" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
+                    <li  *ngIf="auth.isVolunteer()"><a routerLink="/profile/{{currentUserId}}" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
                     <li  *ngIf="!auth.isAdmin()"><a routerLink="/project/list" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
-                    <li  *ngIf="auth.isOrganization()"><a routerLink="nonprofit/edit" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
+                    <li  *ngIf="auth.isOrganization() && organizationId != undefined"><a [routerLink]="['nonprofit/edit', organizationId]" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
                     <li  *ngIf="auth.isAdmin()"> <a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">Create Organization</a></li>
-                    <li  *ngIf="auth.isAdmin()"><a routerLink="project/create" routerLinkActive="active" class="black-text text-lighten-2">Create Project</a></li>
+                    <li  *ngIf="!auth.isVolunteer()"><a routerLink="project/create" routerLinkActive="active" class="black-text text-lighten-2">Create Project</a></li>
                 </ul>
             </li>
    
@@ -32,19 +42,12 @@
 <div class="container">
     <hr/>
     <div class="row">
-        <div class="col s4 foot-left">
-	    <ul>
-		<li><a routerLink="/about" routerLinkActive="active" id ="about"><span>About Us</span></a></li>
-		<li><a target="_blank" href="http://forum.code4socialgood.org/"><span>Forum</span></a></li>
-		<li><a target="_blank" href="http://join-our-slack.code4socialgood.org/"><span>Chat</span></a></li>
-	    </ul>
-	</div>
         <div class="col offset-s4 s4 foot-right">
             <ul>
-		<li><a href="mailto:info@code4socialgood.org" class="mdi mdi-email mdi-24px"></a></li>
-                <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px"></a>
-                <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
-                <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"> </a>
+                <li><a href="mailto:info@code4socialgood.org" class="mdi mdi-email mdi-24px"></a></li>
+                <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px"></a></li>
+                <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box mdi-24px"></a></li>
+                <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"> </a></li>
                 <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
             </ul>
        </div>

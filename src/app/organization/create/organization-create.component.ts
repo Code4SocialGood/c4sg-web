@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
@@ -29,12 +28,10 @@ export class OrganizationCreateComponent implements OnInit {
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
   public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
 
-  constructor(
-    public fb: FormBuilder,
-    private organizationService: OrganizationService,
-    private fc: FormConstantsService,
-    private el: ElementRef
-  ) { }
+  constructor(public fb: FormBuilder,
+              private organizationService: OrganizationService,
+              private fc: FormConstantsService,
+              private el: ElementRef) { }
 
   ngOnInit(): void {
     this.getFormConstants();
@@ -42,15 +39,14 @@ export class OrganizationCreateComponent implements OnInit {
     if (this.editOrg) { // edit existing org
       this.initForm();
       // TODO: Pass variable to getOrganization() instead of hard-coded value
-      this.organizationService.getOrganization(2).subscribe(
-        (res) => {
-          this.editOrg = true;
-          this.organization = res.json();
-          this.initForm();
-        }, (err) => {
-          console.error('An error occurred', err); // for demo purposes only
-        }
-      );
+      this.organizationService.getOrganization(2)
+          .subscribe(
+            res => {
+              this.organization = res;
+              this.editOrg = true;
+              this.initForm();
+            }, this.handleError
+          );
     } else { // add new org
       this.editOrg = null;
       this.initForm();
@@ -79,7 +75,7 @@ export class OrganizationCreateComponent implements OnInit {
       'country': [this.organization.country || '', [Validators.required]],
       'zip': [this.organization.zip || '', [Validators.required, Validators.pattern(this.zipValidRegEx)]],
       'shortDescription': [this.organization.briefDescription || '',
-      [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
+        [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
       ],
       'longDescription': [this.organization.detailedDescription || '', [Validators.required]],
     });
@@ -107,11 +103,32 @@ export class OrganizationCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // TODO: complete submission logic...
     if (this.editOrg) {
-      // save ... call OrganizationService.???
     } else {
-      // add new org ... call OrganizationService.???
+      this.organizationService
+          .getOrganizations()
+          .toPromise()
+          .then(res => {
+
+            // TODO: Change this according to back-end feature changes
+            const results: Array<any> = res;
+            const body = this.organizationForm.value;
+            body.id = results[results.length - 1].id + 1;
+            body.description = body.shortDescription;
+            body.status = 'ACTIVE';
+
+            return this.organizationService
+                       .createOrganization(body)
+                       .toPromise()
+          })
+          .then(
+            res => console.log('Successfully created organization'),
+            err => this.handleError)
+          .catch(this.handleError)
     }
+  }
+
+  private handleError(err): void {
+    console.error('An error occurred', err)
   }
 }
