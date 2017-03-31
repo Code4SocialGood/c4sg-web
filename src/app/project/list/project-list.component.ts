@@ -41,7 +41,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
                                      .subscribe(
                                        res => {
                                            this.projects = res;
-					   console.log(this.projects);
                                        },
                                        error => console.log(error)
                                      );
