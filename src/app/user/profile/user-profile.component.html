@@ -2,6 +2,7 @@
     <div class="container">
         <div class="row">
            <div class="col s12">
+
                 <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
                   <div class="row">
                      <h6>My Location</h6>
@@ -18,15 +19,20 @@
                        <input id="zip" type="text">
                     </div>
                     <div class="col s3">
-                       <label for="country">Country</label>
-                       <input id="country" type="text">
+                        <select multiple id="country" formControlName="country" placeholder="Country" materialize="material_select">
+                        <option value=" " disabled selected>Country</option>
+                          <option value="1">United States</option>
+                          <option value="2">Canada</option>
+                          <option value="3">Mexico</option>
+                        </select>
+
                     </div>
                 </div>
 
                   <div class="row">
-                      <h6>My Introduction</h6>
+                      <h6>Summary</h6>
                       <div class="col s12">
-                        <label for="my-title">My Title</label>
+                        <label for="my-title">Title</label>
                         <input id="my-title" type="text" length="10">
                       </div>
                    </div>
@@ -42,20 +48,20 @@
 
                       <h6>My Profile</h6>
                       <div class="col s4">
-                          <label for="linkedin">Linkedin URL</label>
-                          <input id="linkedin" type="text">
-                      </div>
-                      <div class="col s4">
-                          <label for="website">Personal Website</label>
-                          <input id="website" type="text">
-                      </div>
-                      <div class="col s4">
-                          <label for="github">Github URL</label>
-                          <input id="github" type="text">
-                      </div>
-                      <div class="col s4">
-                          <label for="resume">Resume</label>
-                          <input id="resume" type="text">
+                          <input formControlName="linkedin" type="text" placeholder="Linkedin URL">
+                          <input formControlName="website" type="text" placeholder="Personal Website">
+                          <input formControlName="github" type="text" placeholder="Github URL">
+                        <label for="resume">Resume</label>
+                        <div class="file-field input-field" id = "resume">
+                          <div class="btn">
+                            <span>Upload</span>
+                            <input type="file">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                          </div>
+                        </div>
+
                       </div>
                       <div class="input-field col s4">
                         <select multiple id="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple>
@@ -67,6 +73,10 @@
                         <label>Skills</label>
                       </div>
                  </div>
+                  <div class="col s12">
+                    <input type="checkbox" id="publish" checked="checked" />
+                    <label for="publish">Publish my profile</label>
+                  </div>
                     <div class="center-align col s12">
                       <input type="checkbox" id="test1" checked="checked" />
                       <label for="test1">Notify me for opportunities match my skills</label>

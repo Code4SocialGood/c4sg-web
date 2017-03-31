@@ -56,7 +56,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    MaterializeModule
+    MaterializeModule,
+    JsonpModule
   ],
   declarations: [
     AppComponent,
