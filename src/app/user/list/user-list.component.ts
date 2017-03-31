@@ -15,6 +15,7 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+  page: number = 0;
   keywords: any;
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
@@ -27,8 +28,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
   usersSubscription: Subscription;
 
-  constructor(private pagerService: PagerService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private router: Router,
               private auth: AuthService) {
   }
@@ -86,28 +86,9 @@ export class UserListComponent implements OnInit, OnDestroy {
                                    res => {
                                      this.users = res;
                                      this.usersCache = this.users.slice(0);
-                                     this.setPage(1); // initialize to page 1
                                    },
                                    error => console.error(error)
                                  );
-  }
-
-  setPage(page: number): void {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
-
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.users.length, page);
-
-    // get current page of items
-    this.pagedItems = this.users.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
-
-  // filter lists based on search checked status
-  private filterLists(arr: any[], name: string): void {
-    this[name] = arr.filter(item => item.checked)
-                    .map(item => item.name);
   }
 
   // filter this.users based on search option checkboxes
@@ -159,7 +140,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   // takes in array index and category array (title / skill)
   onCheck(id: number, category: string): void {
     this[category][id].checked = !this[category][id].checked;
-    this.filterLists(this[category], category + 'Filter');
 
     if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) { // if
       this.filterUsers();
