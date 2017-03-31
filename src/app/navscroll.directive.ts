@@ -13,7 +13,7 @@ export class NavScrollDirective {
       colorIndex = Math.round(window.scrollY);
       let x = this.colorDef(0, 0, 0, 1, window.scrollY);
       this.highlight((window.scrollY > 500?
-        'rgba(160,0,0,1)':this.colorDef(222, 176, 176, 1, window.scrollY)),'0px 1px 2px #999999');
+        'rgba(160,0,0,1)':this.colorDef(40, 40, 40, 1, window.scrollY)),'0px 1px 2px #999999');
     } else {
       this.highlight(null, null);
     }

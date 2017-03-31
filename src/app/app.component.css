@@ -11,7 +11,7 @@
 }
 
 .right a{
-    color: #585858;
+    color: #787878;
     font-family: Century Gothic, sans-serif;;
     font-size: 1em;
     font-weight: 20;
@@ -19,7 +19,7 @@
 }
 
 .right a:hover{
-  background: rgba(100, 100 ,100 , 0.2);
+  background: rgba(255, 100 ,100 , 0.4);
   color: #fff;
 }
 
