@@ -173,12 +173,12 @@ export class AuthService {
 
   public logout() {
     // Remove token from localStorage
-    var logoutURL = '';
-    var profile: any;
-    var connection: string;
-    var accessToken: string;
+    let logoutURL = '';
+    let profile: any;
+    let connection: string;
+    let accessToken: string;
 
-    var loc: any;
+    let loc: any;
     loc = window.location.origin; // current url
     profile = JSON.parse(localStorage.getItem('profile'));
     accessToken = localStorage.getItem('accessToken');
