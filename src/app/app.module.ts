@@ -41,7 +41,6 @@ import { OrganizationService } from './organization/common/organization.service'
 import { ProjectService }  from './project/common/project.service';
 import { ProjectCreateService } from './project/create/project-create.service';
 import { UserService }        from './user/common/user.service';
-import { PagerService } from './_services/pager.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { FormConstantsService } from './_services/form-constants.service';
@@ -89,7 +88,6 @@ import { ImageUploaderService } from './_services/image-uploader.service';
                ProjectCreateService,
                OrganizationService,
                UserService,
-               PagerService,
                FormConstantsService,
                AuthService,
                AuthGuard,

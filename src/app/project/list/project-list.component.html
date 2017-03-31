@@ -25,7 +25,7 @@
           <ul class="projects-block">
             <!--<li class="row" *ngFor="let project of projects" (click)="onSelect(project)"-->
                 <!--[class.selected]="project === selectedProject">-->
-            <li class="row" *ngFor="let project of projects; let i = index " >
+            <li class="row" *ngFor="let project of projects | paginate:{id: 'projectsList', itemsPerPage: 10, currentPage: p} ; let i = index " >
                 <div class="col s4 m3 l3 card-image">
                   <img class="responsive-img" [src]="project.image" width="200px" height="200px">
                 </div>
@@ -49,19 +49,7 @@
       <!-- Pagination -->
       <div class="row">
         <div class="col m12 right-align">
-          <ul class="pagination push-m7">
-            <li (click)="setPage(pager.currentPage - 1)"
-                [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
-              <i class="material-icons">chevron_left</i>
-            </li>
-            <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
-              <a (click)="setPage(page)">{{page}}</a>
-            </li>
-            <li (click)="setPage(pager.currentPage + 1)"
-                [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
-              <i class="material-icons">chevron_right</i
-              ></li>
-          </ul>
+	    <pagination-controls id="projectsList" (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
 

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs/Rx';
 
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
-import { PagerService } from '../../_services/pager.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
