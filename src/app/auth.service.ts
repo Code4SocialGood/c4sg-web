@@ -26,6 +26,8 @@ export class AuthService {
   options = {
     // No login after email/pwd signup
     loginAfterSignUp: false,
+    // set to not remember last login
+    rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
       logo: '../assets/favicon-32x32.png'
@@ -76,8 +78,6 @@ export class AuthService {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('accessToken', authResult.accessToken);
 
-      // console.log(authResult);
-
       // Get the user profile
       this.lock.getUserInfo(authResult.accessToken,  (error, profile) => {
         let user;
@@ -94,13 +94,9 @@ export class AuthService {
             this.firstName = profile.given_name;
             this.lastName = profile.family_name;
           }
-
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
           this.userProfile = profile;
-
-          // console.log('Printing userprofile');
-          // console.log(this.userProfile);
 
           this.email = profile.email;
 
@@ -111,13 +107,12 @@ export class AuthService {
               let luserName = this.userName;
               let firstName =  this.firstName !== undefined ? this.firstName : '';
               let lastName =  this.lastName !== undefined ? this.lastName : '';
-
+              // console.log(res);
+              // Check if response is undefined
               if (res) {
-                // console.log("found an existing user by email");
-                // console.log(JSON.stringify(res));
-                user = res;
+                  user = res;
               }
-              // If not found, then create the user
+              // If user not found, then create the user
               if (user === undefined) {
                 console.log("User does not exist");
                 let newUser = new User(0, luserName, firstName, lastName,
@@ -125,15 +120,10 @@ export class AuthService {
                   null, null, null, luserRole.toUpperCase(),
                   'N','N', 'N', 'N', 'ACTIVE', null, null);
 
-                //console.log(JSON.stringify(newUser));
-
                 // Create a user
                 userService.add(newUser).subscribe(
                   res => {
                     user = res;
-                    // console.log("Added new user : ");
-                    // console.log(JSON.stringify(user));
-
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
@@ -150,11 +140,6 @@ export class AuthService {
                 } else {
                   localStorage.setItem('currentDisplayName', user.email);
                 }
-
-                  // console.log("User already exists: " +
-                    // user.email + ' and user id: ' +
-                    // user.id + ' name: ' +
-                    // localStorage.getItem('currentDisplayName'));
               }
             },
             error => console.log(error)
@@ -188,12 +173,32 @@ export class AuthService {
 
   public logout() {
     // Remove token from localStorage
+    let logoutURL = '';
+    let profile: any;
+    let connection: string;
+    let accessToken: string;
+
+    let loc: any;
+    loc = window.location.origin; // current url
+    profile = JSON.parse(localStorage.getItem('profile'));
+    accessToken = localStorage.getItem('accessToken');
+    connection = profile.identities[0].connection;
+    
+    // Seems the logout url works for all idp and username/pwd 
+    // if (connection === 'google-oauth2' || connection === 'Username-Password-Authentication') {
+      logoutURL = `https://${environment.auth_domain}/v2/logout?returnTo=${encodeURI(loc)}`; 
+    // }
+    // else {
+      //logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
+    // }
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     localStorage.removeItem('accessToken');
     localStorage.clear();
-    this.router.navigate(['']);
+    
     this.userProfile = undefined;
+
+    window.location.href = logoutURL;
   }
 
   // Returns user profile
