@@ -6,6 +6,7 @@ import { HttpModule, JsonpModule }    from '@angular/http';
 import { NavScrollDirective } from './navscroll.directive';
 
 import { MaterializeModule } from 'angular2-materialize';
+import { Ng2PaginationModule } from 'ng2-pagination';
 
 // Home
 import { AppRoutingModule } from './app-routing.module';
@@ -57,7 +58,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     HttpModule,
     AppRoutingModule,
     MaterializeModule,
-    JsonpModule
+    JsonpModule,
+    Ng2PaginationModule  
   ],
   declarations: [
     AppComponent,
