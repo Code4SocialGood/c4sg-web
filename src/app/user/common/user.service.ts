@@ -38,7 +38,15 @@ export class UserService {
   getUserByEmail(name: string): Observable<User> {
     const url = userUrl + '/email/' + [name] + '/';
     return this.http.get(url)
-               .map(res => res.json())
+               .map(res =>  {
+                  // Check below is for the scenario when nothing was sent back
+                  // The '_body' has a an empty string
+                  if (res.text() === "") {
+                      return undefined;
+                  } else {
+                    return res.json();
+                  }}
+               )
                .catch(this.handleError);
   }
 
