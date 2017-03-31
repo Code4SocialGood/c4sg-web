@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'view-project',
@@ -14,14 +15,18 @@ export class ProjectViewComponent implements OnInit {
 
   project: Project;
   params: Params;
+  currentUserId: string;
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,              
+              private auth: AuthService) {
+
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+
       const id = +params['projectId'];
 
       this.projectService.getProject(id)
@@ -50,8 +55,29 @@ export class ProjectViewComponent implements OnInit {
   
   bookmark():void {
     //check if user is logged in
+    if (this.auth.authenticated() && this.currentUserId == null)
+    {
+        this.currentUserId = this.auth.getCurrentUserId();
+        if (this.currentUserId != '0' && this.currentUserId != null ) {
+        
+            console.log('Project id' + this.project.id + 'user id:' + this.currentUserId)
     
-    //call REST API
+            this.projectService
+                .bookmark(this.project.id, this.currentUserId)
+                .subscribe(
+                    response => {
+                        console.log('bookmark added for project:' + this.project.id +' and user:' + this.currentUserId)
+                    },
+                    error => console.log(JSON.parse(error._body).message) 
+                );
+        }
+        else{
+            console.log('Please login to add bookmark.');
+        }
+    }
+    else{
+        console.log('Please login to add bookmark.');
+    }   
     
     //display toast
   }
