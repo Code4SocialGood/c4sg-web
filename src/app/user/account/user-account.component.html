@@ -4,10 +4,10 @@
       <div class="col s12">
         <form materialize [formGroup]="myAccount" (ngSubmit)="updateAccount($event)">
           <div class="col s4">
-            <img class="responsive-img" [attr.src]=getImage() id="responsive-img"/>
+            <img class="responsive-img" [src]=avatar id="responsive-img"/>
             <label class="btn waves-effect waves-light" for="file">Upload</label>
             <input type="file" name="file" id="file" accept="image/gif, image/jpeg, image/png"
-                   (change)="fileChange(input)" #input/>
+                   (change)="onUploadAvatar($event)" #input/>
           </div>
           <div class="col s4">
             <div class="input-field">
