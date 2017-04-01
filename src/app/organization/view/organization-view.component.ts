@@ -29,6 +29,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.organization.logo = ''
     this.getOrganization(this.orgIndex);
+    this.getLogo(this.orgIndex);
   }
 
   getRoute(): void {
@@ -38,20 +39,24 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
         const org = res;
         this.organization = org;
-        this.imageDisplay.displayImage(id,
-            this.organizationService.retrieveLogo.bind(this.organizationService))
-            .subscribe(res => this.organization.logo = res.url)
+        
       },
       (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
+  }
+
+  getLogo(id: number): void {
+    this.imageDisplay.displayImage(id,
+      this.organizationService.retrieveLogo.bind(this.organizationService))
+      .subscribe(res => this.organization.logo = res.url)
   }
 
   edit(organization): void {
