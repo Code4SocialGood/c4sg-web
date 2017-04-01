@@ -44,8 +44,8 @@ export class UserViewComponent implements OnInit {
   
   getAvatar(id: number){
     this.imageDisplay.displayImage(id,
-            this.userService.retrieveAvatar.bind(this.userService))
-            .subscribe(res => this.avatar = res.url)
+      this.userService.retrieveAvatar.bind(this.userService))
+      .subscribe(res => this.avatar = res.url)
   }
 
 }

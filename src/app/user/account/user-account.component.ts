@@ -163,8 +163,11 @@ export class UserAccountComponent implements OnInit {
     this.imageUploader.uploadImage(fileInput,
        this.user.id,
        this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => { this.avatar = res.url },
-                  err => { console.error(err, 'An error occurred')} )
+       .subscribe(res => { 
+         this.avatar = res.url 
+         console.log('Avatar successfully uploaded!')
+       },
+        err => { console.error(err, 'An error occurred')} )
   }
 
   openModal(user) {
