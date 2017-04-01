@@ -36,7 +36,7 @@ export class ProjectService {
   }
 
   getProjectByOrg(id: number): Observable<Response> {
-    const url = projectUrl + '/search/byOrganization/' + id;
+    const url = projectUrl + '/organizations/' + id;
     return this.http.get(url);
   }
 

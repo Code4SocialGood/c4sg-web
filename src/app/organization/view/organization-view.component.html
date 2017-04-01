@@ -1,90 +1,105 @@
-<div class="container" height="200" width="200">
-  <div class="row left-align">
-    <div class="col m6">
-    <h4> {{organization?.name}} </h4>
-    </div>
-  </div>
+<div class="container">
   <div class="row">
-      <div class="col m4">
-      <a href="{{organization?.url}}" target="_blank">{{organization?.url}}</a>
+    <div class="col s12 m12 l8">
+      <div class="row left-align">
+        <div class="col m6">
+          <h4> {{organization?.name}} </h4>
+        </div>
       </div>
-       <div class="col m2 valign right-align" style="height:20px; padding-top: 10px;">
-          <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
-       </div>
+      <div class="row">
+        <div class="col m4">
+          <a href="{{organization?.url}}" target="_blank">{{organization?.url}}</a>
+        </div>
         <div class="col m2 valign right-align" style="height:20px; padding-top: 10px;">
-         <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
-       </div>
-  </div>
- <div class="row">
-   <div class="col " width="40">
-      <h3 class="left-align">
-        <img class="responsive-img" [src]="organization?.logo" alt="Image for {{organization?.logo}}">
-      </h3>
+          <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
+        </div>
+        <div class="col m2 valign right-align" style="height:20px; padding-top: 10px;">
+          <span><button class="btn delete right" (click)="confirmDelete(organization)"
+                        data-target="modal1">DELETE</button></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col " width="40">
+          <h3 class="left-align">
+            <img class="responsive-img" [src]="organization?.logo" alt="Image for {{organization?.logo}}">
+          </h3>
 
-    </div>
-    <div class="col" width="30">
-     
-       <div class="row">
-       <span class="left-align" >
+        </div>
+        <div class="col" width="30">
+
+          <div class="row">
+       <span class="left-align">
        {{organization?.address1}}
        </span>
-       </div>
-        <div class="row">
+          </div>
+          <div class="row">
        <span class="left-align ">
        {{organization?.address2}}
        </span>
-       </div>
-        <div class="row">
+          </div>
+          <div class="row">
        <span class="left-align">
       {{organization?.city + ", " + organization?.state + "  " +organization?.zip}}
        </span>
-       </div>
-       <div class="row">
+          </div>
+          <div class="row">
        <span class="left-align">
        {{organization?.country}}
        </span>
-       </div>   
+          </div>
 
-    </div>
-    <div class="col m2 S12 offset-m1">
-       <div class="row">
+        </div>
+        <div class="col m2 S12 offset-m1">
+          <div class="row">
        <span class="left-align">
        {{organization?.contact_name}}
        </span>
-       </div>
-       <div class="row">
+          </div>
+          <div class="row">
        <span class="left-align">
        {{organization?.contact_phone}}
        </span>
-       </div>
-        <div class="row">
+          </div>
+          <div class="row">
        <span class="left-align">
-       {{organization?.contact_email}}     
+       {{organization?.contact_email}}
        </span>
-       </div>
-    </div>
-  </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="col m4 S8 center-align" style="height:20px; padding-top: 10px;">   
-         <span><button class="btn center" >
+      <div class="row">
+        <div class="col m4 S8 center-align" style="height:20px; padding-top: 10px;">
+         <span><button class="btn center">
          share</button></span>
-    </div>
-    
-    <div class="col m4 S8 center-align" style="height:20px; padding-top: 10px;">   
-         <span><button class="btn center" >
+        </div>
+
+        <div class="col m4 S8 center-align" style="height:20px; padding-top: 10px;">
+         <span><button class="btn center">
          Bookmark</button></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col m6 s12 offset-m1 padding-top: 10px;">
+          <textarea style="border:solid 1px black;"></textarea>
+        </div>
+      </div>
     </div>
+
+    <div class="col s12 m12 l4 grey lighten-3 projects-block">
+      <p *ngIf="projects">{{projects.length}} opportunities</p>
+      <ul>
+        <li class="row card" *ngFor="let project of projects">
+          <div class="col s12 card-content">
+            <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
+            <p>{{project.description}}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
-  
-  <div class="row">
-   <div class="col m6 s12 offset-m1 padding-top: 10px;" >
-   <textarea style="border:solid 1px black;"  ></textarea>
-   </div>
-   </div>
-  
+</div>
 
- 
-</div>  
 
-  
