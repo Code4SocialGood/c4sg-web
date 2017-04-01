@@ -27,7 +27,7 @@
 
 .action {
 
-    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image4.jpeg") no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image3.jpg") no-repeat center center;
     background-attachment:fixed;
 
     -webkit-background-size: cover;
