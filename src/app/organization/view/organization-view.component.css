@@ -2,3 +2,13 @@
   display: inline-flex;
   vertical-align: middle;
 }
+.projects-block .row{
+  margin-right: 0;
+  margin-left: 0;
+}
+.projects-block > p {
+  padding-left: 20px;
+}
+.projects-block .card a:hover {
+  text-decoration: underline;
+}
