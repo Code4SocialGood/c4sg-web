@@ -26,7 +26,7 @@ export class UserViewComponent implements OnInit {
   }
 
     ngOnInit(): void {
-      let id = this.route.snapshot.params['userId']; // TODO: see if this change resolves another issue
+      let id = this.route.snapshot.params['userId'] - 1;
       console.log('passed user id is : ' + id);
       this.getUser(id);
       this.getAvatar(id);

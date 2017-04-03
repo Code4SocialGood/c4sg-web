@@ -190,7 +190,7 @@ export class UserAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.params['userId'];
+    let id = this.route.snapshot.params['userId'] - 1;
     this.imageDisplay.displayImage(id,
             this.userService.retrieveAvatar.bind(this.userService))
             .subscribe(res => this.avatar = res.url)
