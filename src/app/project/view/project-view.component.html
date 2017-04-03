@@ -21,7 +21,8 @@
 -->
 
 <h3 class="center-align header">View Project</h3>
-<button (click)="bookmark()">Bookmark</button>
+
+<button (click)="bookmark()" materialize [materializeParams]="['Bookmark added',4000]" [materializeActions]="globalActions">Bookmark</button>
 <div class="row">
     <div class="col s3" id="photo">
         <!-- Sample image for project -->

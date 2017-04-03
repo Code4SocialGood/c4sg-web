@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { AuthService } from '../../auth.service';
+import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
   selector: 'view-project',
@@ -16,6 +17,9 @@ export class ProjectViewComponent implements OnInit {
   project: Project;
   params: Params;
   currentUserId: string;
+  globalActions = new EventEmitter<string|MaterializeAction>();
+  
+  
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
@@ -26,7 +30,7 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-
+    
       const id = +params['projectId'];
 
       this.projectService.getProject(id)
@@ -55,31 +59,32 @@ export class ProjectViewComponent implements OnInit {
   
   bookmark():void {
     //check if user is logged in
-    if (this.auth.authenticated() && this.currentUserId == null)
-    {
-        this.currentUserId = this.auth.getCurrentUserId();
-        if (this.currentUserId != '0' && this.currentUserId != null ) {
+    this.currentUserId = this.auth.getCurrentUserId();
+    if (this.auth.authenticated() && this.currentUserId !=null && this.currentUserId != '0')
+    {   
+        this.projectService
+            .bookmark(this.project.id, this.currentUserId)
+            .subscribe(
+                response => {  
+
+                    //display toast
+                    this.globalActions.emit({action:"toast",params:['Bookmark added for the project',4000]});
+
+                },
+                error => {
+                
+                    //display toast when bookmar is already added
+                    this.globalActions.emit({action:"toast",params:[JSON.parse(error._body).message,4000]});                      
+                }
+            );
         
-            console.log('Project id' + this.project.id + 'user id:' + this.currentUserId)
-    
-            this.projectService
-                .bookmark(this.project.id, this.currentUserId)
-                .subscribe(
-                    response => {
-                        console.log('bookmark added for project:' + this.project.id +' and user:' + this.currentUserId)
-                    },
-                    error => console.log(JSON.parse(error._body).message) 
-                );
-        }
-        else{
-            console.log('Please login to add bookmark.');
-        }
     }
     else{
-        console.log('Please login to add bookmark.');
+        //display toast when user is not logged in
+        this.globalActions.emit({action:"toast",params:['Please login to add bookmark',4000]});   
     }   
     
-    //display toast
+    
   }
 
   goBack(): void {

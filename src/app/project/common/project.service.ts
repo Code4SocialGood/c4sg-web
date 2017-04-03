@@ -73,9 +73,7 @@ export class ProjectService {
   }
 
   bookmark(projectId: number, userId: string)
-  {
-    console.log('service method invoked. Project:' + projectId +' User:'+ userId)
-       
+  {     
     const url = projectUrl + '/bookmark/projects/' + projectId +'/users/'+ userId;
     return this.http
         .post(url, {headers: this.headers})
