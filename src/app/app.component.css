@@ -11,21 +11,29 @@
 }
 
 .right a{
-    color: #ddd;
+    color: #989898;
     font-family: Century Gothic, sans-serif;;
     font-size: 1em;
     font-weight: 20;
+    padding-top: 0.7em;
 }
 
 .right a:hover{
-  background: rgba(255, 255 ,255 , 0.2);
+  background: rgba(100, 100 ,255 , 0.4);
+  color: #fff;
 }
 
+.lr-wrapper a:hover{
+  border: 1px solid #fff;
+}
 
+.lr-wrapper {
+  padding-top: 0.7em;
+}
 
 .lr-wrapper .log-reg {
   font-size: 0.7em;
-  border: 1px solid white;
+  border: 1px solid #585858;
   border-radius: 3px;
   width: 7em;
   margin: 0.5em;
@@ -34,6 +42,10 @@
   text-align: center;
 }
 
+@font-face {
+   font-family: "footerfont";
+   src: url("/assets/Thruster-Regular.ttf");
+}
 
 .lr-wrapper{
   margin: 1em auto;
@@ -46,12 +58,12 @@ hr {
   height: 1px;
   width: 70vw;
   background: #eee;
-  background-image: linear-gradient(to right, #1f1b0d, #e0e0e0, #1f1b0d);
+  background-image: linear-gradient(to right, #282828, #e0e0e0, #282828);
 }
 
 .page-footer{
   margin-top: 0;
-  background-color: #1f1b0d;
+  background-color: #282828;
 }
 
 .page-footer .row{
@@ -79,6 +91,6 @@ hr {
 }
 
 .page-footer span{
-  font-family: Century Gothic, sans-serif;
+  font-family: "footerfont";
   font-size: 1.3em;
 }

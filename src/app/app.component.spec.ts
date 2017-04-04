@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By }           from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -30,13 +30,13 @@ describe('App', () => {
 
     xit('should have expected a <nav> tag', () => {
     fixture.detectChanges();
-    let nav = de.nativeElement;
+    const nav = de.nativeElement;
     expect(nav).toBeDefined();
   });
 
   xit('should have class black', () => {
     fixture.detectChanges();
-    let nav = de.nativeElement;
+    const nav = de.nativeElement;
     expect(nav.className).toBe('black');
   });
 
