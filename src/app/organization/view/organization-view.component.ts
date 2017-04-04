@@ -44,7 +44,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       }
     );
   }
-  
+
   getOrganization(id: number): void {
     this.organizationService.getOrganization(id).subscribe(
       (res) => {
@@ -60,16 +60,16 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getLogo(id: number): void {
     this.imageDisplay.displayImage(id,
       this.organizationService.retrieveLogo.bind(this.organizationService))
-      .subscribe(res => this.organization.logo = res.url)
+      .subscribe(res => this.organization.logo = res.url);
   }
-  
+
   getProjects(id: number): void {
     this.projectService.getProjectByOrg(id).subscribe(
       res => {
         this.projects = res.json();
         this.projects.forEach((project) => {
           if (project.description.length > 100) {
-            project.description = project.description.slice(0, 100) + "...";
+            project.description = project.description.slice(0, 100) + '...';
           }
         });
       },
@@ -79,6 +79,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   edit(organization): void {
     this.router.navigate(['/nonprofit/edit', 2]);
+  }
+
+  confirmDelete(organization): void {
   }
 
   ngOnDestroy(): void {

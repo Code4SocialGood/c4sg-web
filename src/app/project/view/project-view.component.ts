@@ -5,7 +5,7 @@ import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 
 @Component({
-  selector: 'view-project',
+  selector: 'my-view-project',
   templateUrl: 'project-view.component.html',
   styleUrls: ['project-view.component.css']
 })

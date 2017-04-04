@@ -7,14 +7,14 @@ import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'userlist',
+  selector: 'my-userlist',
   templateUrl: 'user-list.component.html',
   providers: [AuthService],
   styleUrls: ['user-list.component.css']
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-  page: number = 0;
+  p = 0;
   keywords: any;
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
