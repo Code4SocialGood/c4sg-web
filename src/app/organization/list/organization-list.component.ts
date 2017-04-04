@@ -13,7 +13,7 @@ declare const $: Function;
 
 export class OrganizationListComponent implements OnInit, AfterViewInit {
 
-  p: number = 0;
+  p = 0;
   organizations: Object[];
   selectedOrganization?: Organization;
 
@@ -82,7 +82,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         );
     // after deletion, the steps below updates the view and excludes the deleted organization
     this.organizations = this.organizations.filter(u => u !== organization);
-    //this.pagedItems = this.pagedItems.filter(u => u !== organization);
+    // this.pagedItems = this.pagedItems.filter(u => u !== organization);
     if (this.selectedOrganization === organization) {
       this.selectedOrganization = null;
     }

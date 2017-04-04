@@ -8,7 +8,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 import { ImageUploaderService } from '../../_services/image-uploader.service';
 
 @Component({
-  selector: 'edit-organization',
+  selector: 'my-edit-organization',
   templateUrl: 'organization-edit.component.html',
   styleUrls: ['organization-edit.component.css']
 })
@@ -23,7 +23,7 @@ export class OrganizationEditComponent implements OnInit {
   public shortDescMaxLength = 255;
   public states: String[];
   public loadedFile: any;
-  public organizationId = 2; //TODO: set organizationId on init based on user data
+  public organizationId = 2; // TODO: set organizationId on init based on user data
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -58,10 +58,10 @@ export class OrganizationEditComponent implements OnInit {
             this.editOrg = true;
             this.organization = res;
             // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-            return this.organizationService.retrieveLogo(this.organizationId).toPromise()
+            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
           })
           .then(res => {
-            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, '+ res.text());
+            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
             this.initForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
@@ -70,7 +70,7 @@ export class OrganizationEditComponent implements OnInit {
         this.initForm();
       }
 
-    })
+    });
   }
 
   private getFormConstants(): void {
@@ -126,8 +126,8 @@ export class OrganizationEditComponent implements OnInit {
     this.imageUploader.uploadImage(fileInput,
        this.organizationId,
        this.organizationService.saveLogo.bind(this.organizationService))
-       .subscribe(res => {this.organization.logo = res.url},
-                  err => {console.error(err, 'An error occurred')} )
+       .subscribe(res => {this.organization.logo = res.url; },
+                  err => {console.error(err, 'An error occurred'); } );
   }
   onSubmit(): void {
     // TODO: complete submission logic...

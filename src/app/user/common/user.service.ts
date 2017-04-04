@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
-import { Project } from "../../project/common/project";
+import { Project } from '../../project/common/project';
 
 const userUrl = `${environment.backend_url}/api/users`;
 
@@ -41,7 +41,7 @@ export class UserService {
                .map(res =>  {
                   // Check below is for the scenario when nothing was sent back
                   // The '_body' has a an empty string
-                  if (res.text() === "") {
+                  if (res.text() === '') {
                       return undefined;
                   } else {
                     return res.json();
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   getUsersByKeyword(userName: string, firstName: string, lastName: string): Observable<User[]> {
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.set('userName', userName);
     params.set('firstName', firstName);
     params.set('lastName', lastName);
@@ -90,12 +90,12 @@ export class UserService {
 
   retrieveAvatar(id: number) {
     return this.http
-               .get(`${userUrl}/${id}/avatar`)
+               .get(`${userUrl}/${id}/avatar`);
   }
 
-  saveAvatar(id: number, formData: FormData){
+  saveAvatar(id: number, formData: FormData) {
     return this.http
-               .post(`${userUrl}/${id}/avatar`, formData)
+               .post(`${userUrl}/${id}/avatar`, formData);
   }
 
   private handleError(error: any): Promise<any> {

@@ -20,10 +20,10 @@ import { MaterializeAction } from 'angular2-materialize';
 
 export class UserAccountComponent implements OnInit {
 
-  //public file_srcs: string[];
-  //public debug_size_before: string[];
-  //public debug_size_after: string[];
-  //public image_loaded: boolean;
+  // public file_srcs: string[];
+  // public debug_size_before: string[];
+  // public debug_size_after: string[];
+  // public image_loaded: boolean;
   public avatar: any = '';
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
@@ -66,7 +66,7 @@ export class UserAccountComponent implements OnInit {
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
-        this.user.developerFlag,        
+        this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
         this.user.updatedTime);
@@ -158,26 +158,26 @@ export class UserAccountComponent implements OnInit {
 
   }
 */
-  
+
   onUploadAvatar(fileInput: any): void {
     this.imageUploader.uploadImage(fileInput,
        this.user.id,
        this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => { 
-         this.avatar = res.url 
-         console.log('Avatar successfully uploaded!')
+       .subscribe(res => {
+         this.avatar = res.url;
+         console.log('Avatar successfully uploaded!');
        },
-        err => { console.error(err, 'An error occurred')} )
+        err => { console.error(err, 'An error occurred'); } );
   }
 
   openModal(user) {
-    this.modalActions.emit({action: "modal", params: ['open']});
+    this.modalActions.emit({action: 'modal', params: ['open']});
     this.selectedUser = user;
 
   }
 
   closeModal() {
-    this.modalActions.emit({action: "modal", params: ['close']});
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   deleteUser(user: User): void {
@@ -190,10 +190,10 @@ export class UserAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.params['userId'];
+    const id = this.route.snapshot.params['userId'];
     this.imageDisplay.displayImage(id,
             this.userService.retrieveAvatar.bind(this.userService))
-            .subscribe(res => this.avatar = res.url)
+            .subscribe(res => this.avatar = res.url);
     this.userService.getUser(id).subscribe(
       (res) => {
         const user = res;
@@ -202,7 +202,7 @@ export class UserAccountComponent implements OnInit {
           user.id,
           user.userName,
           user.firstName,
-          user.lastName,          
+          user.lastName,
           user.email,
           user.phone,
           user.city,
@@ -217,10 +217,10 @@ export class UserAccountComponent implements OnInit {
           user.publicProfileFlag,
           user.chatFlag,
           user.forumFlag,
-          user.developerFlag,        
+          user.developerFlag,
           user.createdTime,
           user.updatedTime);
-      })
+      });
         /*
         this.myAccount.setValue({
           userName: user.userName,
@@ -235,9 +235,9 @@ export class UserAccountComponent implements OnInit {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
-    
+
       */
-    
+
   }
 
 }
