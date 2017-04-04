@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
-import { PagerService } from '../../_services/pager.service';
 
 declare const $: Function;
 
@@ -14,20 +13,16 @@ declare const $: Function;
 
 export class OrganizationListComponent implements OnInit, AfterViewInit {
 
+  p: number = 0;
   organizations: Object[];
   selectedOrganization?: Organization;
 
   // array of all items to be paged
-  // organizations: any[];
+//   organizations: any[];
 
-  // pager Object
-  pager: any = {};
-
-  // paged items
-  pagedItems: any[];
 
   constructor(private organizationService: OrganizationService,
-              private router: Router, private pagerService: PagerService) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -49,18 +44,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
           res => this.organizations = res,
           error => console.log(error)
         );
-  }
-
-  setPage(page: number) {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
-
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.organizations.length, page);
-
-    // get current page of items
-    this.pagedItems = this.organizations.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
   getOrganizationsByKeyword(keyword: string) {
