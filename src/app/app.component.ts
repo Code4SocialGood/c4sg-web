@@ -13,10 +13,14 @@ import { Organization } from './organization/common/organization';
 })
 
 export class AppComponent implements DoCheck {
-    constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) { }
 
     currentUserId: string;
     organizationId: string;
+    authSvc: AuthService;
+
+    constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
+      this.authSvc = this.auth;
+    }
 
   // control nav style by changing the class name
   isAtHome() {
@@ -28,21 +32,19 @@ export class AppComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    if (this.auth.authenticated() && this.currentUserId == null)
-    {
+    if (this.auth.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.auth.getCurrentUserId();
-      if (this.currentUserId != '0' && this.currentUserId != null ) {
+      if (this.currentUserId !== '0' && this.currentUserId !== null ) {
         // for a non-profit user, get the associated org-id
         this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
           res => {
             let organization: Organization;
             // will contain at most 1 entry in the array when a match is found,
-            // otherwise, data is undefined 
+            // otherwise, data is undefined
             organization = res[0];
-            if (organization != undefined)
-            {
+            if (organization !== undefined) {
               this.organizationId = organization.id.toString();
-              localStorage.setItem("userOrganizationId", organization.id.toString()); 
+              localStorage.setItem('userOrganizationId', organization.id.toString());
             }
           },
           error => console.log(error)

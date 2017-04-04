@@ -27,7 +27,7 @@ export class OrganizationService {
   }
 
   getOrganizationsByKeyword(keyWord: string): Observable<Organization[]> {
-    let param = new URLSearchParams();
+    const param = new URLSearchParams();
     param.set('keyWord', keyWord);
     const url = organizationUrl + '/search';
 
@@ -53,9 +53,9 @@ export class OrganizationService {
   retrieveLogo(id: number): Observable<Response> {
     return this.http.get(
       `${organizationUrl}/${id}/logo`
-    )
+    );
   }
-  
+
   getUserOrganization(id: number): Observable<Organization> {
       return this.http.get(
       `${organizationUrl}/user/${id}`

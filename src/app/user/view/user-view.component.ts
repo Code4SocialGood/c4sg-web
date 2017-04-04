@@ -8,7 +8,7 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   // moduleId: module.id,
-  selector: 'currentUser',
+  selector: 'my-view-user',
   templateUrl: 'user-view.component.html',
   styleUrls: ['user-view.component.css']
 })
@@ -26,7 +26,7 @@ export class UserViewComponent implements OnInit {
   }
 
     ngOnInit(): void {
-      let id = this.route.snapshot.params['userId'];
+      const id = this.route.snapshot.params['userId'];
       console.log('passed user id is : ' + id);
       this.getUser(id);
       this.getAvatar(id);
@@ -41,11 +41,11 @@ export class UserViewComponent implements OnInit {
       error => console.log(error)
     );
   }
-  
-  getAvatar(id: number){
+
+  getAvatar(id: number) {
     this.imageDisplay.displayImage(id,
       this.userService.retrieveAvatar.bind(this.userService))
-      .subscribe(res => this.avatar = res.url)
+      .subscribe(res => this.avatar = res.url);
   }
 
 }

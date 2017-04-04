@@ -13,7 +13,7 @@ import { AuthService } from '../../auth.service';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
 
-  p: number = 0;
+  p = 0;
   projects: Project[];
   selectedProject: Project;
   projectsSubscription: Subscription;
@@ -30,7 +30,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     const id = this.auth.getCurrentUserId();
     this.userId = +id;
     this.getProjects();
-    //this.setPage(1);
+    // this.setPage(1);
 
   }
 

@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     //  this.route.params.subscribe(
     //            params => {
-    //const id = +params['id'];
+    // const id = +params['id'];
     this.userService.getUser(2)
         .subscribe(
           res => {
@@ -52,7 +52,7 @@ export class UserProfileComponent implements OnInit {
                         user.id,
                         user.userName,
                         user.firstName,
-                        user.lastName,          
+                        user.lastName,
                         user.email,
                         user.phone,
                         user.city,
@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
                         user.publicProfileFlag,
                         user.chatFlag,
                         user.forumFlag,
-                        user.developerFlag,        
+                        user.developerFlag,
                         user.createdTime,
                         user.updatedTime);
         },
@@ -95,7 +95,7 @@ export class UserProfileComponent implements OnInit {
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
-        this.user.developerFlag,        
+        this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
         this.user.updatedTime);

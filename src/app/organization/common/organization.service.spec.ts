@@ -42,7 +42,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = [
+      const mockResponse = [
         {id: 1, name: 'Org 1', logo: 'logo_1', briefDescription: 'bd 1', detailedDescription: null},
         {id: 2, name: 'Org 2', logo: 'logo_2', briefDescription: 'bd 2', detailedDescription: null},
         {id: 3, name: 'Org 3', logo: 'logo_3', briefDescription: 'bd 3', detailedDescription: null}
@@ -58,7 +58,7 @@ describe('OrganizationService', () => {
       // Call our service.  It should return an observable that we can subscribe to and get data
       organizationService.getOrganizations()
                          .subscribe(res => {
-                             let orgs = res;
+                             const orgs = res;
                              expect(orgs.length).toBe(3);
                              expect(orgs[0].detailedDescription).toEqual(null);
                              expect(orgs[1].name).toEqual('Org 2');
@@ -71,7 +71,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = {
+      const mockResponse = {
         id: 2,
         name: 'Org 2',
         logo: 'logo_2',
@@ -89,7 +89,7 @@ describe('OrganizationService', () => {
       // Call our service.  It should return an observable that we can subscribe to and get data
       organizationService.getOrganization(2)
                          .subscribe(res => {
-                             let org = res;
+                             const org = res;
                              expect(org.detailedDescription).toEqual(null);
                              expect(org.name).toEqual('Org 2');
                            }
@@ -101,7 +101,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = [
+      const mockResponse = [
         {id: 1, name: 'Org 1', logo: 'logo_1', briefDescription: 'bd 1', detailedDescription: null},
         {id: 2, name: 'Org 2', logo: 'logo_2', briefDescription: 'bd 2', detailedDescription: null},
         {id: 3, name: 'Org 3', logo: 'logo_3', briefDescription: 'bd 3', detailedDescription: null}
@@ -117,7 +117,7 @@ describe('OrganizationService', () => {
       // Call our service.  It should return an observable that we can subscribe to and get data
       organizationService.getOrganizationsByKeyword('Org')
                          .subscribe(res => {
-                             let orgs = res;
+                             const orgs = res;
                              expect(orgs.length).toBe(3);
                              expect(orgs[0].detailedDescription).toEqual(null);
                              expect(orgs[1].name).toEqual('Org 2');
