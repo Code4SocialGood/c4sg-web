@@ -19,7 +19,9 @@ export class ProjectViewComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private location: Location,
+              private imageDisplay: ImageDisplayService) {
   }
 
   ngOnInit(): void {
