@@ -86,8 +86,5 @@ export class ProjectViewComponent implements OnInit {
     
     
   }
-
-  goBack(): void {
-    this.location.back();
-  }
+ 
 }
