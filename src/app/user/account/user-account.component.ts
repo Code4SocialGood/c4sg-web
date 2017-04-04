@@ -1,8 +1,14 @@
 import { Component, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { UserService } from '../common/user.service';
+import { ImageUploaderService } from '../../_services/image-uploader.service';
+import { ImageDisplayService } from '../../_services/image-display.service';
+
 import { equalValidator } from '../common/user.equal.validator';
 import { User } from '../common/user';
+
 import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
@@ -14,10 +20,11 @@ import { MaterializeAction } from 'angular2-materialize';
 
 export class UserAccountComponent implements OnInit {
 
-  public file_srcs: string[];
-  public debug_size_before: string[];
-  public debug_size_after: string[];
-  public image_loaded: boolean;
+  //public file_srcs: string[];
+  //public debug_size_before: string[];
+  //public debug_size_after: string[];
+  //public image_loaded: boolean;
+  public avatar: any = '';
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   private user: User;
@@ -29,7 +36,11 @@ export class UserAccountComponent implements OnInit {
     email: new FormControl('', Validators.required)
   });
 
-  constructor( private changeDetectorRef: ChangeDetectorRef, private userService: UserService) { }
+  constructor( private changeDetectorRef: ChangeDetectorRef,
+               private route: ActivatedRoute,
+               private userService: UserService,
+               private imageUploader: ImageUploaderService,
+               private imageDisplay: ImageDisplayService) { }
 
   updateAccount(event) {
     event.preventDefault();
@@ -66,7 +77,7 @@ export class UserAccountComponent implements OnInit {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
   }
-
+ /*
   fileChange(input) {
     this.image_loaded = false;
     this.readFiles(input.files);
@@ -142,9 +153,21 @@ export class UserAccountComponent implements OnInit {
     if (this.image_loaded) {
       return this.file_srcs;
     } else {
-      return ['/app/images/default_avatar.png'];
+      return ['./assets/default_avatar.png'];
     }
 
+  }
+*/
+  
+  onUploadAvatar(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+       this.user.id,
+       this.userService.saveAvatar.bind(this.userService))
+       .subscribe(res => { 
+         this.avatar = res.url 
+         console.log('Avatar successfully uploaded!')
+       },
+        err => { console.error(err, 'An error occurred')} )
   }
 
   openModal(user) {
@@ -167,21 +190,14 @@ export class UserAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUser(2).subscribe(
+    let id = this.route.snapshot.params['userId'];
+    this.imageDisplay.displayImage(id,
+            this.userService.retrieveAvatar.bind(this.userService))
+            .subscribe(res => this.avatar = res.url)
+    this.userService.getUser(id).subscribe(
       (res) => {
         const user = res;
         console.log(user);
-
-        this.myAccount.setValue({
-          userName: user.userName,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          state: user.state,
-          country: user.country,
-          zip: user.zip
-        });
-
         this.user = new User(
           user.id,
           user.userName,
@@ -204,10 +220,24 @@ export class UserAccountComponent implements OnInit {
           user.developerFlag,        
           user.createdTime,
           user.updatedTime);
+      })
+        /*
+        this.myAccount.setValue({
+          userName: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          state: user.state,
+          country: user.country,
+          zip: user.zip
+        });
       }, (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
+    
+      */
+    
   }
 
 }

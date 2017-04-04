@@ -19,14 +19,12 @@ export class ProjectViewComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
-              private router: Router,
-              private location: Location,
-              private imageDisplay: ImageDisplayService) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = +params['projectId'] - 1;
+      const id = +params['projectId'];
 
       this.imageDisplay.displayImage(id,
         this.projectService.retrieveImage.bind(this.projectService))
@@ -40,8 +38,8 @@ export class ProjectViewComponent implements OnInit {
     });
   }
 
-  update(): void {
-    this.router.navigate(['/project/edit', 2]);
+  edit(): void {
+    this.router.navigate(['project/edit', this.project.id]);
   }
 
   delete(): void {
@@ -54,9 +52,5 @@ export class ProjectViewComponent implements OnInit {
           },
           error => console.log(error)
         );
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }
