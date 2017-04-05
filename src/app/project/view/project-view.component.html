@@ -47,10 +47,19 @@
                           {{project?.state}}<br>
                            {{project?.country}}
                         </address> 
-                    </div>                                    
-                    <div>Posted 01/02/2017</div>
+                    </div> 
+                    <br>
+                    <div>Posted {{project?.createdTime | date: 'dd/MM/yyyy'}}</div>
+                    <br>
                     <div>
-                        skills
+                        <b>Skills</b><br>
+                        <div class="chip">CSS</div>
+                        <div class="chip">HTML</div>
+                        <div class="chip">JavaScript</div>
+                        <div class="chip">MySql</div>
+                        <div class="chip">Angular2</div>
+                        <div class="chip">Java</div>
+                        <div class="chip">TypeScript</div>
                     </div>
                     
                 </div>
