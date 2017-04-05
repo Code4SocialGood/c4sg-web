@@ -26,7 +26,7 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = +params['projectId'];
+      const id = params['projectId'];
 
       this.imageDisplay.displayImage(id,
         this.projectService.retrieveImage.bind(this.projectService))

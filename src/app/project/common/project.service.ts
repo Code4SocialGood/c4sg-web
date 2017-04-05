@@ -73,8 +73,7 @@ export class ProjectService {
   }
 
   retrieveImage(id: number){
-    const index = id + 1
-    const url = projectUrl + '/' + index + '/image';
+    const url = projectUrl + '/' + id + '/image';
     return this.http
                .get(url)
   }
