@@ -20,57 +20,58 @@
 
 -->
 
-<h3 class="center-align header">View Project</h3>
+<!--<h3 class="center-align header">View Project</h3>-->
 
-<div class="row">
-    <div class="col s3" id="photo">
-        <!-- Sample image for project -->
-        <img src="sample.jpg" alt="Project Photo">
-        <button>Upload Photo</button>
-    </div>
-
-    <div class="col s5">
-        <label for="name">Project Name</label>
-        <p id="name">{{project?.name}}</p>
-
-        <label for="org">Organization Name</label>
-        <p id="org">{{project?.organization.name}}</p>
-
-        <label for="date">Post Date</label>
-        <p id="date">NA</p>
-
-        <label for="longDescription">Description</label>
-        <p id="longDescription">{{project?.description}}</p>
-    </div>
-
-    <div class="col s4">
-        <label for="location">Project Location</label>
-        <p id="location">NA</p>
-
-        <label for="address">Address</label>
-        <p id="address">{{project?.organization.address1}}</p>
-
-        <label for="state">State</label>
-        <p id="state">{{project?.organization.state}}</p>
-
-        <label for="city">City</label>
-        <p id="city">NA</p>
-
-        <label for="zip">Zip Code</label>
-        <p id="zip">NA</p>
-
-        <label for="country">Country</label>
-        <p id="country">{{project?.organization.country}}</p>
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m10">
+            <div class="row">
+                <div class="col s6 m5">  
+                    <div>
+                        <b>{{project?.name}}</b><br>
+                        <a href="#">{{project?.organization.name}}</a>
+                    </div>
+                    <br>
+                    <div>
+                        <img src="sample.jpg" alt="Project Photo">
+                        <div><button>Upload Photo</button></div>
+                    </div>                    
+                </div>
+                <div class="col s6 m5">                       
+                    <div>
+                        <b>Remote</b>
+                        <address>
+                          {{project?.address1}}<br>
+                          {{project?.address2}}<br>
+                          {{project?.city}}, {{project?.zip}} <br>
+                          {{project?.state}}<br>
+                           {{project?.country}}
+                        </address> 
+                    </div>                                    
+                    <div>Posted 01/02/2017</div>
+                    <div>
+                        skills
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p>{{project?.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s2"><button>Apply</button></div>
+                <div class="col s2 offset-s2"><button>Bookmark</button></div>
+                <div class="col s2 offset-s2"><button>Share</button></div>   
+                                 
+                <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
+                <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
+            </div>
+        </div>
+        <div class="col s12 m2">Right Panel</div>
+    </div>    
 </div>
 
-<div class="row btns">
-    <div class="col s8"></div>
-    <div class="col s4">
-        <button class="btn waves-effect waves-light">
-            Apply
-        </button>
-        <button (click)="edit()">Edit</button>
-        <button (click)="delete()">Delete</button>
-    </div>
-</div>
+
+
