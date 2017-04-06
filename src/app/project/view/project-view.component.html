@@ -1,27 +1,3 @@
-<!--
-
-<div *ngIf="project">
-    <h4>{{project.name}}</h4>
-    <div>{{project.description}}</div>
-    <button (click)="goBack()">Back</button>
-    <br><br><br>
-
-    <h5>Nonprofit Project Owners: Update Project</h5>
-    <div>
-        <label>Project Name </label>
-        <input [(ngModel)]="project.name"/><br>
-        <label>Country </label><br>
-        <input [(ngModel)]="project.country"/><br>
-    </div>
-
-
-</div>
-
-
--->
-
-<!--<h3 class="center-align header">View Project</h3>-->
-
 <div class="container">
     <div class="row">
         <div class="col s12 m10">
@@ -32,10 +8,9 @@
                         <a href="#">{{project?.organization.name}}</a>
                     </div>
                     <br>
-                    <div>
-                        <img src="sample.jpg" alt="Project Photo">
-                        <div><button>Upload Photo</button></div>
-                    </div>                    
+                    <div class="col s3" id="photo">
+                        <img [src]="projectImage" alt="Project Photo">
+                    </div>                 
                 </div>
                 <div class="col s6 m5">                       
                     <div>
@@ -81,6 +56,3 @@
         <div class="col s12 m2">Right Panel</div>
     </div>    
 </div>
-
-
-
