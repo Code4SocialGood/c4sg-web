@@ -1,74 +1,58 @@
-<!--
-
-<div *ngIf="project">
-    <h4>{{project.name}}</h4>
-    <div>{{project.description}}</div>
-    <button (click)="goBack()">Back</button>
-    <br><br><br>
-
-    <h5>Nonprofit Project Owners: Update Project</h5>
-    <div>
-        <label>Project Name </label>
-        <input [(ngModel)]="project.name"/><br>
-        <label>Country </label><br>
-        <input [(ngModel)]="project.country"/><br>
-    </div>
-
-
-</div>
-
-
--->
-
-<h3 class="center-align header">View Project</h3>
-
-<div class="row">
-    <div class="col s3" id="photo">
-        <img [src]="projectImage" alt="Project Photo">
-    </div>
-
-    <div class="col s5">
-        <label for="name">Project Name</label>
-        <p id="name">{{project?.name}}</p>
-
-        <label for="org">Organization Name</label>
-        <p id="org">{{project?.organization.name}}</p>
-
-        <label for="date">Post Date</label>
-        <p id="date">NA</p>
-
-        <label for="longDescription">Description</label>
-        <p id="longDescription">{{project?.description}}</p>
-    </div>
-
-    <div class="col s4">
-        <label for="location">Project Location</label>
-        <p id="location">NA</p>
-
-        <label for="address">Address</label>
-        <p id="address">{{project?.organization.address1}}</p>
-
-        <label for="state">State</label>
-        <p id="state">{{project?.organization.state}}</p>
-
-        <label for="city">City</label>
-        <p id="city">NA</p>
-
-        <label for="zip">Zip Code</label>
-        <p id="zip">NA</p>
-
-        <label for="country">Country</label>
-        <p id="country">{{project?.organization.country}}</p>
-    </div>
-</div>
-
-<div class="row btns">
-    <div class="col s8"></div>
-    <div class="col s4">
-        <button class="btn waves-effect waves-light">
-            Apply
-        </button>
-        <button (click)="edit()">Edit</button>
-        <button (click)="delete()">Delete</button>
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m10">
+            <div class="row">
+                <div class="col s6 m5">  
+                    <div>
+                        <b>{{project?.name}}</b><br>
+                        <a href="#">{{project?.organization.name}}</a>
+                    </div>
+                    <br>
+                    <div class="col s3" id="photo">
+                        <img [src]="projectImage" alt="Project Photo">
+                    </div>                 
+                </div>
+                <div class="col s6 m5">                       
+                    <div>
+                        <b>Remote</b>
+                        <address>
+                          {{project?.address1}}<br>
+                          {{project?.address2}}<br>
+                          {{project?.city}}, {{project?.zip}} <br>
+                          {{project?.state}}<br>
+                           {{project?.country}}
+                        </address> 
+                    </div> 
+                    <br>
+                    <div>Posted {{project?.createdTime | date: 'dd/MM/yyyy'}}</div>
+                    <br>
+                    <div>
+                        <b>Skills</b><br>
+                        <div class="chip">CSS</div>
+                        <div class="chip">HTML</div>
+                        <div class="chip">JavaScript</div>
+                        <div class="chip">MySql</div>
+                        <div class="chip">Angular2</div>
+                        <div class="chip">Java</div>
+                        <div class="chip">TypeScript</div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p>{{project?.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s2"><button>Apply</button></div>
+                <div class="col s2 offset-s2"><button>Bookmark</button></div>
+                <div class="col s2 offset-s2"><button>Share</button></div>   
+                                 
+                <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
+                <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
+            </div>
+        </div>
+        <div class="col s12 m2">Right Panel</div>
+    </div>    
 </div>
