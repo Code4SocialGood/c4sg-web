@@ -4,10 +4,11 @@ import 'rxjs/add/operator/switchMap';
 
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
+import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   // moduleId: module.id,
-  selector: 'currentUser',
+  selector: 'my-view-user',
   templateUrl: 'user-view.component.html',
   styleUrls: ['user-view.component.css']
 })
@@ -15,17 +16,20 @@ import { UserService } from '../common/user.service';
 export class UserViewComponent implements OnInit {
 
   user: User;
+  avatar: any = '';
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private imageDisplay: ImageDisplayService) {
   }
 
     ngOnInit(): void {
-      let id = this.route.snapshot.params['id'];
+      const id = this.route.snapshot.params['userId'];
       console.log('passed user id is : ' + id);
       this.getUser(id);
+      this.getAvatar(id);
     }
 
   getUser(id: number) {
@@ -36,6 +40,12 @@ export class UserViewComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  getAvatar(id: number) {
+    this.imageDisplay.displayImage(id,
+      this.userService.retrieveAvatar.bind(this.userService))
+      .subscribe(res => this.avatar = res.url);
   }
 
 }

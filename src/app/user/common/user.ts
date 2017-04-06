@@ -11,7 +11,7 @@ export class User {
         public state: string,
         public country: string,
         public zip: string,
-        public introduction: string,        
+        public introduction: string,
         public linkedinUrl: string,
         public personalUrl: string,
         public role: string,

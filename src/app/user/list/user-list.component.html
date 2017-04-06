@@ -35,7 +35,7 @@
     <h5>{{users?.length}} volunteers found</h5><br>
 
     <ul class="collection">
-      <li *ngFor="let user of pagedItems" class="collection-item avatar">
+      <li *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p}" class="collection-item avatar">
         <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
         <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
         <div class="row userRow">
@@ -62,19 +62,9 @@
 
     <!-- Pagination -->
     <div class="row">
-      <div class="col m12 right-align">
-        <ul class="pagination push-m7">
-          <li (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1, 'waves-effect': pager.currentPage > 1}">
-            <i class="material-icons">chevron_left</i>
-          </li>
-          <li *ngFor="let page of pager.pages" class="waves-effect" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-          </li>
-          <li (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages, 'waves-effect': pager.currentPage < pager.totalPages}">
-            <i class="material-icons">chevron_right</i
-          ></li>
-        </ul>
-      </div>
+	<div class="col m12 right-align">
+	    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+	</div>
     </div>
   </div>
 </div>

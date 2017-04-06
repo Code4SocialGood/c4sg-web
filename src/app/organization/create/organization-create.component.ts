@@ -4,7 +4,7 @@ import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
-  selector: 'create-organization',
+  selector: 'my-create-organization',
   templateUrl: 'organization-create.component.html',
   styleUrls: ['organization-create.component.css']
 })
@@ -119,16 +119,16 @@ export class OrganizationCreateComponent implements OnInit {
 
             return this.organizationService
                        .createOrganization(body)
-                       .toPromise()
+                       .toPromise();
           })
           .then(
             res => console.log('Successfully created organization'),
             err => this.handleError)
-          .catch(this.handleError)
+          .catch(this.handleError);
     }
   }
 
   private handleError(err): void {
-    console.error('An error occurred', err)
+    console.error('An error occurred', err);
   }
 }
