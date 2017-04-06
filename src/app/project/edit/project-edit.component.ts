@@ -7,13 +7,13 @@ import { ProjectService } from '../common/project.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
-  selector: 'edit-project',
+  selector: 'my-edit-project',
   templateUrl: 'project-edit.component.html',
   styleUrls: ['project-edit.component.css']
 })
 
 export class ProjectEditComponent implements OnInit {
-  
+
   constructor(
     public fb: FormBuilder,
     private projectService: ProjectService,

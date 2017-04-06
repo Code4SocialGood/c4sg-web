@@ -5,9 +5,10 @@ import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { MaterializeAction } from 'angular2-materialize';
+import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
-  selector: 'view-project',
+  selector: 'my-view-project',
   templateUrl: 'project-view.component.html',
   styleUrls: ['project-view.component.css']
 })
@@ -18,21 +19,25 @@ export class ProjectViewComponent implements OnInit {
   params: Params;
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
-  
-  
+  projectImage: any = '';
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
-              private router: Router,              
-              private auth: AuthService) {
-
+              private router: Router,
+              private auth: AuthService,
+              private location: Location,
+              private imageDisplay: ImageDisplayService) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-    
-      const id = +params['projectId'];
 
+      const id = params['projectId'];
+
+      this.imageDisplay.displayImage(id,
+        this.projectService.retrieveImage.bind(this.projectService))
+        .subscribe(res => this.projectImage = res.url )
+      
       this.projectService.getProject(id)
           .subscribe(
             res => this.project = res,

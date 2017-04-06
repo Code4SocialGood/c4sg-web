@@ -27,7 +27,7 @@ export class OrganizationService {
   }
 
   getOrganizationsByKeyword(keyWord: string): Observable<Organization[]> {
-    let param = new URLSearchParams();
+    const param = new URLSearchParams();
     param.set('keyWord', keyWord);
     const url = organizationUrl + '/search';
 
@@ -44,18 +44,18 @@ export class OrganizationService {
     return this.http.delete(`${organizationUrl}/${id}`);
   }
 
-  saveLogo(organizationId: number, fileContent: string): Observable<Response> {
+  saveLogo(id: number, formData: FormData): Observable<Response> {
     return this.http
-               .post(`${organizationUrl}/${organizationId}/uploadLogo`,
-                 {'': fileContent});
+               .post(`${organizationUrl}/${id}/logo`,
+                 formData);
   }
 
-  retrieveLogo(organizationId: number): Observable<Response> {
+  retrieveLogo(id: number): Observable<Response> {
     return this.http.get(
-      `${organizationUrl}/${organizationId}/logo`
-    )
+      `${organizationUrl}/${id}/logo`
+    );
   }
-  
+
   getUserOrganization(id: number): Observable<Organization> {
       return this.http.get(
       `${organizationUrl}/user/${id}`

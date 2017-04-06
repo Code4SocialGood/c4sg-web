@@ -72,12 +72,18 @@ export class ProjectService {
                .catch(this.handleError);
   }
 
-  bookmark(projectId: number, userId: string)
-  {     
+
+  bookmark(projectId: number, userId: string) {     
     const url = projectUrl + '/bookmark/projects/' + projectId +'/users/'+ userId;
     return this.http
         .post(url, {headers: this.headers})
         .catch(this.handleError);
+  }
+
+  retrieveImage(id: number) {
+    const url = projectUrl + '/' + id + '/image';
+    return this.http
+               .get(url)
   }
 
   private handleError(error: any): Promise<any> {
