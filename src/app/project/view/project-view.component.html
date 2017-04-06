@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 m10">
+        <div class="col s12 m9">
             <div class="row">
-                <div class="col s6 m5">  
+                <div class="col s6 m6">  
                     <div>
                         <b>{{project?.name}}</b><br>
                         <a href="#">{{project?.organization.name}}</a>
@@ -12,7 +12,7 @@
                         <img [src]="projectImage" alt="Project Photo">
                     </div>                 
                 </div>
-                <div class="col s6 m5">                       
+                <div class="col s6 m6">                       
                     <div>
                         <b>Remote</b>
                         <address>
@@ -56,6 +56,37 @@
                 <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
             </div>
         </div>
-        <div class="col s12 m2">Right Panel</div>
+        <div class="col s12 m3">
+            <div class="row">
+                <!-- row1-->
+                <div class="col s12">
+                    <a href="#">Organization Name</a>
+                </div>
+                <br><br>
+                 <!-- row2-->
+                <div class="col s6">
+                    <img [src]="" alt="Organization Logo">
+                </div>
+                <div class="col s6">
+                    City, State, Country
+                </div>
+                
+                 <!-- row3-->
+                 <div class="col s12">
+                     <p>Organization Description...</p>
+                </div>
+                
+                <!-- row4-->
+                 <div class="col s12">
+                     <a href="#">xx</a> Opportunities
+                     <ul>
+                         <li>Opportunity 1</li>
+                         <li>Opportunity 2</li>
+                         <li>Opportunity 3</li>
+                     </ul>
+                </div>
+                
+            </div>
+        </div>
     </div>    
 </div>
