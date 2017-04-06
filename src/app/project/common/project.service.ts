@@ -31,7 +31,7 @@ export class ProjectService {
   }
 
   getProjectByUser(id: number): Observable<Response> {
-    const url = projectUrl + '/search/byUser/' + id;
+    const url = projectUrl + '/search/byUser/' + id;    
     return this.http.get(url);
   }
 
@@ -72,7 +72,15 @@ export class ProjectService {
                .catch(this.handleError);
   }
 
-  retrieveImage(id: number){
+
+  bookmark(projectId: number, userId: string) {     
+    const url = projectUrl + '/bookmark/projects/' + projectId +'/users/'+ userId;
+    return this.http
+        .post(url, {headers: this.headers})
+        .catch(this.handleError);
+  }
+
+  retrieveImage(id: number) {
     const url = projectUrl + '/' + id + '/image';
     return this.http
                .get(url)
