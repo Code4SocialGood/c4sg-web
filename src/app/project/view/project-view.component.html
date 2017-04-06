@@ -60,7 +60,7 @@
             <div class="row">
                 <!-- row1-->
                 <div class="col s12">
-                    <a href="#">Organization Name</a>
+                    <a href="#">{{project?.organization.name}}</a>
                 </div>
                 <br><br>
                  <!-- row2-->
@@ -68,12 +68,12 @@
                     <img [src]="" alt="Organization Logo">
                 </div>
                 <div class="col s6">
-                    City, State, Country
+                    {{project?.organization.city}}, {{project?.organization.state}}, {{project?.organization.country}}
                 </div>
                 
                  <!-- row3-->
                  <div class="col s12">
-                     <p>Organization Description...</p>
+                     <p>{{project?.organization.description}}</p>
                 </div>
                 
                 <!-- row4-->
