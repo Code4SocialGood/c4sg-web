@@ -16,12 +16,14 @@ export class UserService {
 
   constructor(private http: Http, private jsonp: Jsonp) { }
 
-  // only active users are retrieved
-  getUsers(): Observable<User[]> {
-    const url = userUrl + '/active';
+  // Page data always starts at offset 0 
+  // Only active users are retrieved
+  // Returns a JSON object with the data array of Users and totalItems count
+getUsers(page: number): Observable<any> {
+    const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,asc';
     return this.http
                .get(url)
-               .map(res => res.json())
+               .map(res => JSON.parse(`{"data": ${JSON.stringify(res.json().content)}, "totalItems": ${res.json().totalElements} }`))  
                .catch(this.handleError);
   }
 
