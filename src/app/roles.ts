@@ -1,4 +1,4 @@
-//Constants for roles
+// Constants for roles
 
 export enum AppRoles  {
   ADMIN,

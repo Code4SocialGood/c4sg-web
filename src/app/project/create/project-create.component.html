@@ -1,4 +1,4 @@
-<h3 class="center-align header">Create new Project</h3>
+<h3 class="center-align header">Create Project</h3>
 
 <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
     <div class="row">
@@ -23,15 +23,7 @@
             </div>
 
             <div class="input-field">
-                <label for="shortDescription">Short Description</label> 
-                <textarea id="shortDescription"
-                            formControlName="shortDescription"
-                            class="materialize-textarea">
-                </textarea>
-            </div>
-
-            <div class="input-field">
-                <label for="description">Detailed Description</label> 
+                <label for="description">Description</label> 
                 <textarea id="description"
                             formControlName="description"
                             class="materialize-textarea">
@@ -114,12 +106,6 @@
     </div>
     <div class="row btns">
         <div class="col s8"></div>
-        <div class="col s2">
-            <button class="btn waves-effect waves-light" 
-                (click)="cancel()">
-                Cancel
-            </button>
-        </div>
         <div class="col s2">
             <button class="btn waves-effect waves-light" 
                     type="submit"

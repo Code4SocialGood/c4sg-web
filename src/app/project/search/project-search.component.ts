@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { ProjectSearchService } from './project-search.service';
 import { Project } from '../common/project';
 
 @Component({
-  selector: 'project-search',
+  selector: 'my-project-search',
   templateUrl: 'project-search.component.html',
   styleUrls: ['project-search.component.css'],
   providers: [ProjectSearchService]
@@ -42,7 +42,7 @@ export class ProjectSearchComponent implements OnInit {
   }
 
   gotoDetail(project: Project): void {
-    let link = ['/detail', project.id];
+    const link = ['/detail', project.id];
     this.router.navigate(link);
   }
 }

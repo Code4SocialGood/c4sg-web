@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser/';
+import { ActivatedRoute } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
+import { ImageUploaderService } from '../../_services/image-uploader.service';
 
 @Component({
-  selector: 'edit-organization',
+  selector: 'my-edit-organization',
   templateUrl: 'organization-edit.component.html',
   styleUrls: ['organization-edit.component.css']
 })
@@ -19,6 +22,8 @@ export class OrganizationEditComponent implements OnInit {
   public formPlaceholder = {};
   public shortDescMaxLength = 255;
   public states: String[];
+  public loadedFile: any;
+  public organizationId = 2; // TODO: set organizationId on init based on user data
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -33,28 +38,39 @@ export class OrganizationEditComponent implements OnInit {
     public fb: FormBuilder,
     private organizationService: OrganizationService,
     private fc: FormConstantsService,
-    private el: ElementRef
+    private el: ElementRef,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private imageUploader: ImageUploaderService
   ) { }
 
   ngOnInit(): void {
-    this.getFormConstants();
 
-    if (this.editOrg) { // edit existing org
-      this.initForm();
-      // TODO: Pass variable to getOrganization() instead of hard-coded value
-      this.organizationService.getOrganization(2).subscribe(
-        (res) => {
-          this.editOrg = true;
-          this.organization = res.json();
-          this.initForm();
-        }, (err) => {
-          console.error('An error occurred', err); // for demo purposes only
-        }
-      );
-    } else { // add new org
-      this.editOrg = null;
-      this.initForm();
-    }
+    this.route.params.subscribe(params => {
+      this.organizationId = +params['organizationId'];
+      this.getFormConstants();
+
+      if (this.editOrg) { // edit existing org
+        this.organization.logo = '';
+        this.initForm();
+        this.organizationService.getOrganization(this.organizationId).toPromise()
+          .then(res => {
+            this.editOrg = true;
+            this.organization = res;
+            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
+          })
+          .then(res => {
+            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
+            this.initForm();
+          }, err => console.error('An error occurred', err)) // for demo purposes only
+          .catch(err => console.error('An error occurred', err)); // for demo purposes only
+      } else { // add new org
+        this.editOrg = null;
+        this.initForm();
+      }
+
+    });
   }
 
   private getFormConstants(): void {
@@ -106,6 +122,13 @@ export class OrganizationEditComponent implements OnInit {
     };
   }
 
+  onUploadLogo(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+       this.organizationId,
+       this.organizationService.saveLogo.bind(this.organizationService))
+       .subscribe(res => {this.organization.logo = res.url; },
+                  err => {console.error(err, 'An error occurred'); } );
+  }
   onSubmit(): void {
     // TODO: complete submission logic...
     if (this.editOrg) {

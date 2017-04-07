@@ -11,6 +11,7 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
+
 .cover img{
   position:relative;
   object-fit: contain;
@@ -19,9 +20,14 @@
   z-index: -2;
 }
 
+@font-face {
+   font-family: "aniFont";
+   src: url("/assets/Thruster-Regular.ttf");
+}
+
 .action {
 
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(53, 54, 56, 0.55)), url("/assets/image1.jpg") no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image3.jpg") no-repeat center center;
     background-attachment:fixed;
 
     -webkit-background-size: cover;
@@ -34,20 +40,36 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 94vh;
+    height: 99vh;
     text-align: center;
 }
 
 .home-title {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 5em;
+  padding-top: 2em;
+  font-family: aniFont;
+  font-weight: 200;
+  font-size: 7em;
   max-width: 15em;
-  text-shadow: 0px 0px 13px #000;
+  color: #E75D54;
+  text-shadow: 0px 0px 5px #000;
+}
+
+#aniSlogan {
+  font-family: "aniFont";
+  font-size: 3em;
+  font-weight: 100;
+  color: #383838;
+  padding-top: 1.7em;
+}
+
+#aniWord {
+  font-family: inherit;
+  color: #383838;
 }
 
 
 .input-pre {
-  color: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid #d32f2f;
 }
 
 /* Scaling size of Title down as Page size decreases */

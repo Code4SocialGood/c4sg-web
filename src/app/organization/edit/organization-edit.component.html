@@ -6,14 +6,13 @@
         <!-- LEFT COLUMN -->
         <div class="col m4 s12">
 
-          <!-- TODO: Figure out the photo coming from db -->
-          <img src="../../../assets/default_avatar.png" alt="Organization Logo" class="responsive-img" />
+          <img [src]="organization.logo" alt="Organization Logo" class="responsive-img" />
 
           <br>
           <div class="file-field input-field">
             <div class="btn">
-              <span>Photo</span>
-              <input type="file">
+              <span>Upload</span>
+              <input type="file" (change)="onUploadLogo($event)">
             </div>
             <br><br>
             <input class="file-path left-align" type="text">
