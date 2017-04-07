@@ -80,7 +80,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
 
-  private getUsers(page: number): void {
+  public getUsers(page: number): void {
     this.usersSubscription = this.userService.getUsers(page)
                                  .subscribe(
                                    res => {
