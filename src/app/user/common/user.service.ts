@@ -19,7 +19,7 @@ export class UserService {
   // Only active users are retrieved
   // Returns a JSON object with the data array of Users and totalItems count
   getUsers(page: number): Observable<any> {
-    const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,asc';
+    const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,desc&sort=userName,asc';
     return this.http
                .get(url)
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
