@@ -15,7 +15,7 @@ export class OrganizationCreateComponent implements OnInit {
   private editOrg = false; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
-  public formPlaceholder = {};
+  public formPlaceholder: {[key: string]: any} = {};
   public shortDescMaxLength = 255;
   public states: String[];
 
