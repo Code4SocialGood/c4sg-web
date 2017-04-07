@@ -36,9 +36,9 @@ export class ProjectViewComponent implements OnInit {
 
       this.imageDisplay.displayImage(id,
         this.projectService.retrieveImage.bind(this.projectService))
-        .subscribe(res => this.projectImage = res.url )
-      
-      this.projectService.getProject(id)
+            .subscribe(res => this.projectImage = res.url );
+
+        this.projectService.getProject(id)
           .subscribe(
             res => this.project = res,
             error => console.log(error)
@@ -61,35 +61,28 @@ export class ProjectViewComponent implements OnInit {
         error => console.log(error)
       );
   }
-  
-  bookmark():void {
-    //check if user is logged in
+
+  bookmark(): void {
+    // check if user is logged in
     this.currentUserId = this.auth.getCurrentUserId();
-    if (this.auth.authenticated() && this.currentUserId !=null && this.currentUserId != '0')
-    {   
+    if (this.auth.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
             .bookmark(this.project.id, this.currentUserId)
             .subscribe(
-                response => {  
+                response => {
 
-                    //display toast
-                    this.globalActions.emit({action:"toast",params:['Bookmark added for the project',4000]});
+                    // display toast
+                    this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
 
                 },
                 error => {
-                
-                    //display toast when bookmar is already added
-                    this.globalActions.emit({action:"toast",params:[JSON.parse(error._body).message,4000]});                      
+                    // display toast when bookmar is already added
+                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
                 }
             );
-        
+    } else {
+        // display toast when user is not logged in
+        this.globalActions.emit({action: 'toast', params: ['Please login to add bookmark', 4000]});
     }
-    else{
-        //display toast when user is not logged in
-        this.globalActions.emit({action:"toast",params:['Please login to add bookmark',4000]});   
-    }   
-    
-    
   }
- 
 }
