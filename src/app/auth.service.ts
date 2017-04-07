@@ -114,11 +114,11 @@ export class AuthService {
               // If user not found, then create the user
               if (user === undefined) {
                 console.log('User does not exist');
-                const newUser: User = ({id: 0, email: lemail,  
+                const newUser: User = ({id: 0, email: lemail,
                   role: luserRole.toUpperCase(),
-                  userName: luserName, firstName: firstName, 
+                  userName: luserName, firstName: firstName,
                   lastName: lastName,
-                  publicProfileFlag: 'N', chatFlag:'N', 
+                  publicProfileFlag: 'N', chatFlag: 'N',
                   forumFlag: 'N', developerFlag: 'N', status: 'ACTIVE'});
 
                 // Create a user

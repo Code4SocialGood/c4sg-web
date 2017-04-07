@@ -167,5 +167,4 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.usersSubscription.unsubscribe();
     }
   }
-
 }
