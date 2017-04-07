@@ -22,7 +22,7 @@ export class UserService {
     const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,asc';
     return this.http
                .get(url)
-               .map(res => JSON.parse(`{"data": ${JSON.stringify(res.json().content)}, "totalItems": ${res.json().totalElements} }`))  
+               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
 
