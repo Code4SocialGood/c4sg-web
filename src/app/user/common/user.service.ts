@@ -15,6 +15,7 @@ export class UserService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http, private jsonp: Jsonp) { }
+
   // Page data always starts at offset 0 
   // Only active users are retrieved
   // Returns a JSON object with the data array of Users and totalItems count

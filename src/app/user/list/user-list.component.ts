@@ -14,7 +14,6 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-  totalItems = 0;
   p = 0;
   keywords: any;
   pagedItems: any[]; // paged items
@@ -34,7 +33,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getUsers(1);
+    this.getUsers();
     this.getSkills();
     this.getTitles();
     this.getKeywords();
@@ -80,15 +79,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
 
-  private getUsers(page: number): void {
-    this.usersSubscription = this.userService.getUsers(page)
+  private getUsers(): void {
+    this.usersSubscription = this.userService.getUsers()
                                  .subscribe(
                                    res => {
-                                     // the called service returns a JSON object
-                                     // consist of the array of pageable data
-                                     // and the total number of data rows
-                                     this.users = res.data;
-                                     this.totalItems = res.totalItems;
+                                     this.users = res;
                                      this.usersCache = this.users.slice(0);
                                    },
                                    error => console.error(error)
