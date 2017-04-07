@@ -14,11 +14,6 @@
         <br>
 
         <form materialize>
-          <span class="title">Titles</span>
-          <p *ngFor="let title of titles; let i = index">
-            <input type="checkbox" class="filled-in" id="{{title.name}}" />
-            <label for="{{title.name}}" (click)="onCheck(i, 'titles')">{{title.name}}</label>
-          </p>
           <span class="title">Skills</span>
           <p *ngFor="let skill of skills; let i = index">
             <input type="checkbox" class="filled-in" id="{{skill.name}}" />
@@ -52,7 +47,6 @@
         </div>
         <div class="row userRow">
           <div class="col m12">
-            <div class="chip blue lighten-5">Title</div>
             <div class="chip red lighten-5">Skills</div>
           </div>
         </div>
