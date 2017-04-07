@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private http: Http, private jsonp: Jsonp) { }
 
-  // Page data always starts at offset 0 
+  // Page data always starts at offset zero (0) 
   // Only active users are retrieved
   // Returns a JSON object with the data array of Users and totalItems count
   getUsers(page: number): Observable<any> {
