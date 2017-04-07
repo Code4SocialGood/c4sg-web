@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col s12">
         <div class="input-field">
-          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value)">search</i>
-          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value)"
+          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">search</i>
+          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)"
             id="autocomplete-input" class="autocomplete">
           <label for="autocomplete-input">search volunteers</label>
 

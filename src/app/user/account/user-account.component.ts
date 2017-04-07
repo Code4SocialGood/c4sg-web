@@ -27,10 +27,10 @@ export class UserAccountComponent implements OnInit {
   public avatar: any = '';
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
-  private user: User;
+  public user: User;
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  private selectedUser: User;
+  public selectedUser: User;
 
   public myAccount = new FormGroup({
     email: new FormControl('', Validators.required)
