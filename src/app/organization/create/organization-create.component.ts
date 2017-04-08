@@ -7,8 +7,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 @Component({
   selector: 'my-create-organization',
   templateUrl: 'organization-create.component.html',
-  styleUrls: ['organization-create.component.css']
-  
+  styleUrls: ['organization-create.component.css']  
 })
 
 
@@ -22,14 +21,11 @@ export class OrganizationCreateComponent implements OnInit {
   public httpValidRegEx = /^https?:\/\//;
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
-  
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
               private fc: FormConstantsService,
               private el: ElementRef) { }
-
-
-  ngOnInit(): void {
+ngOnInit(): void {
     this.getFormConstants();
 
     if (this.editOrg) { // edit existing org
@@ -52,7 +48,6 @@ export class OrganizationCreateComponent implements OnInit {
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-  
   }
 
   private initForm(): void {
