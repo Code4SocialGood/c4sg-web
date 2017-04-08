@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
         // console.log("current user role: " + JSON.parse(this.auth.getProfile()).app_metadata.roles);
 
         // If role restriction set in config, check if bypass in effect
-        var result: boolean;
+        let result: boolean;
         roles.forEach(role => {
           if (this.auth.bypassRole(role)) {
             result = true;

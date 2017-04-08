@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class NavScrollDirective {
   constructor(private el: ElementRef) { }
 
-  @HostListener('window:scroll', ['$event']) private onScroll($event: Event): void {
+  @HostListener('window:scroll', ['$event']) public onScroll($event: Event): void {
     const cover = document.getElementById('top-cover');
     let colorIndex = 0;
     if (window.scrollY > 1) {

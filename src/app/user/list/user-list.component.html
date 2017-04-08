@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col s12">
         <div class="input-field">
-          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value)">search</i>
-          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value)"
+          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">search</i>
+          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)"
             id="autocomplete-input" class="autocomplete">
           <label for="autocomplete-input">search volunteers</label>
 
@@ -14,11 +14,6 @@
         <br>
 
         <form materialize>
-          <span class="title">Titles</span>
-          <p *ngFor="let title of titles; let i = index">
-            <input type="checkbox" class="filled-in" id="{{title.name}}" />
-            <label for="{{title.name}}" (click)="onCheck(i, 'titles')">{{title.name}}</label>
-          </p>
           <span class="title">Skills</span>
           <p *ngFor="let skill of skills; let i = index">
             <input type="checkbox" class="filled-in" id="{{skill.name}}" />
@@ -32,10 +27,10 @@
 
   <!-- Volunteer List -->
   <div class="col m9 s12">
-    <h5>{{users?.length}} volunteers found</h5><br>
+    <h5>{{totalItems}} volunteers found</h5><br>
 
     <ul class="collection">
-      <li *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p}" class="collection-item avatar">
+      <li *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p, totalItems: totalItems}" class="collection-item avatar">
         <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
         <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
         <div class="row userRow">
@@ -52,7 +47,6 @@
         </div>
         <div class="row userRow">
           <div class="col m12">
-            <div class="chip blue lighten-5">Title</div>
             <div class="chip red lighten-5">Skills</div>
           </div>
         </div>
@@ -63,7 +57,7 @@
     <!-- Pagination -->
     <div class="row">
 	<div class="col m12 right-align">
-	    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+	    <pagination-controls (pageChange)="getUsers(p = $event)"></pagination-controls>
 	</div>
     </div>
   </div>

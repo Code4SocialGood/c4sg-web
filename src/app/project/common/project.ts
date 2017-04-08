@@ -10,6 +10,11 @@ export class Project {
               public line2?: string,
               public city?: string,
               public country?: string,
-              public zip?: string) {
+              public zip?: string,
+              public organization?: any,
+              public address1?: string,
+              public address2?: string,
+              public state?: string,
+              public createdTime?: any) {
   }
 }
