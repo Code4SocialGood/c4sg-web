@@ -52,7 +52,7 @@ export class OrganizationCreateComponent implements OnInit {
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-   // this.states = this.fc.getStates();
+  
   }
 
   private initForm(): void {
