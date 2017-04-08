@@ -7,7 +7,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 @Component({
   selector: 'my-create-organization',
   templateUrl: 'organization-create.component.html',
-  styleUrls: ['organization-create.component.css']  
+  styleUrls: ['organization-create.component.css']
 })
 
 
