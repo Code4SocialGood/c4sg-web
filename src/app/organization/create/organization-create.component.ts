@@ -18,21 +18,11 @@ export class OrganizationCreateComponent implements OnInit {
   private editOrg = false; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
-  public formPlaceholder = {};
-  //public shortDescMaxLength = 255;
-  //public states: String[];
-
-
-  // RegEx validators
-  //private einValidRegEx = /^[1-9]\d?-\d{7}$/;
-  // tslint:disable-next-line:max-line-length
- // private emailValidRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  public formPlaceholder: {[key: string]: any} = {};
   public httpValidRegEx = /^https?:\/\//;
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
-  //public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-
-
+  
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
               private fc: FormConstantsService,

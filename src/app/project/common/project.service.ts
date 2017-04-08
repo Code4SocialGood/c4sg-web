@@ -31,7 +31,7 @@ export class ProjectService {
   }
 
   getProjectByUser(id: number): Observable<Response> {
-    const url = projectUrl + '/search/byUser/' + id;    
+    const url = projectUrl + '/search/byUser/' + id;
     return this.http.get(url);
   }
 
@@ -73,8 +73,8 @@ export class ProjectService {
   }
 
 
-  bookmark(projectId: number, userId: string) {     
-    const url = projectUrl + '/bookmark/projects/' + projectId +'/users/'+ userId;
+  bookmark(projectId: number, userId: string) {
+    const url = projectUrl + '/bookmark/projects/' + projectId + '/users/' + userId;
     return this.http
         .post(url, {headers: this.headers})
         .catch(this.handleError);
@@ -83,7 +83,7 @@ export class ProjectService {
   retrieveImage(id: number) {
     const url = projectUrl + '/' + id + '/image';
     return this.http
-               .get(url)
+          .get(url);
   }
 
   private handleError(error: any): Promise<any> {
