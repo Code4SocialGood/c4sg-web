@@ -1,64 +1,69 @@
+
 <div class="row">
-  <!-- Search -->
+  <!-- Search-->
   <div class="col m3 s12">
-    <div class="row">
-      <div class="col s12">
-        <div class="input-field">
-          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">search</i>
-          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)"
-            id="autocomplete-input" class="autocomplete">
-          <label for="autocomplete-input">search volunteers</label>
-
+    <div class="sidebar-wrapper">
+      <div class="sidebar-search">
+        <div class="input-field"><i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">
+             search</i>
+          <input class="autocomplete" id="autocomplete-input" type="text" #searchterm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
+          <label for="autocomplete-input">
+             search volunteers</label>
         </div>
-
-        <br>
-
-        <form materialize>
-          <span class="title">Skills</span>
-          <p *ngFor="let skill of skills; let i = index">
-            <input type="checkbox" class="filled-in" id="{{skill.name}}" />
-            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
-          </p>
-        </form>
+      </div>
+      <h6>Skills</h6>
+      <div class="skills-list-wrapper">
+        <ul class="skills-list row">
+          <li class="col m6 s12" *ngFor="let skill of skills; let i = index">
+            <input class="filled-in" type="checkbox" id="{{skill.name}}">
+            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">
+               {{skill.name}}</label>
+          </li>
+        </ul>
       </div>
     </div>
-
   </div>
-
-  <!-- Volunteer List -->
+  <!-- Volunteer List-->
   <div class="col m9 s12">
-    <h5>{{totalItems}} volunteers found</h5><br>
-
+    <h5>
+      {{totalItems}} volunteers found</h5>
     <ul class="collection">
-      <li *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p, totalItems: totalItems}" class="collection-item avatar">
-        <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
-        <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
-        <div class="row userRow">
-          <div class="col m6 s12">
-            <span class="title">{{user.firstName + ' ' + user.lastName}}</span>
-          </div>
-          <!-- TODO: Add city when available from REST API -->
-          <div class="col m6 s12">
-            {{user.state + ', ' + user.country}}
-            <br>
-            <!-- TODO: Add joined date when available from REST API -->
-            Joined "TODO (add date to model)"
+      <li class="collection-item avatar col m12" *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p, totalItems: totalItems}">
+        <div class="item-content row">
+          <div class="item-content-avatar col m5 l3"><img src="http://correodelsur.com/img/notas/20150526/nota6499_imagen5838.jpg" alt=""></div>
+          <div class="item-content-info col m7 l9">
+            <div class="content-header row">
+              <div class="header-left col m6 s12">
+                <p class="name">{{user.firstName + ' ' + user.lastName}}</p>
+              </div>
+              <div class="header-right col m6 s12">
+                <p class="location"><span *ngIf="user.state">{{user.state}},</span><span *ngIf="user.country"> {{user.country}}</span></p>
+                <p class="time" *ngIf="user.createdTime">Joined: {{user.createdTime}}</p>
+              </div>
+            </div>
+            <div class="content-body row">
+              <div class="body-left col m6 s12">
+                <p class="title">Volunteer title</p>
+              </div>
+              <div class="body-right col m6 s12">
+                <ul class="skills-list">
+                  <li class="chip red lighten-5">Skills</li>
+                  <li class="chip red lighten-5">Skills</li>
+                  <li class="chip red lighten-5">Skills</li>
+                  <li class="chip red lighten-5">Skills</li>
+                  <li class="chip red lighten-5">Skills</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row userRow">
-          <div class="col m12">
-            <div class="chip red lighten-5">Skills</div>
-          </div>
-        </div>
-
       </li>
     </ul>
-
-    <!-- Pagination -->
+    <!-- Pagination-->
     <div class="row">
-	<div class="col m12 right-align">
-	    <pagination-controls (pageChange)="getUsers(p = $event)"></pagination-controls>
-	</div>
+      <div class="col m12 right-align">
+        <pagination-controls (pagechange)="getUsers(p = $event)"></pagination-controls>
+      </div>
     </div>
   </div>
 </div>
