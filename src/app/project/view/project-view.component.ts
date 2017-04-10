@@ -22,8 +22,6 @@ export class ProjectViewComponent implements OnInit {
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
-  
-
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
               private router: Router,
@@ -34,34 +32,28 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-
-      const id = params['projectId'];
-      
-
-      this.imageDisplay.displayImage(id,
-        this.projectService.retrieveImage.bind(this.projectService))
-            .subscribe(res => this.projectImage = res.url );       
-      
-      this.projectService.getProject(id)          
-          .subscribe(            
+        const id = params['projectId'];
+        this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
+            .subscribe (
+                res => this.projectImage = res.url
+                );
+        this.projectService.getProject(id)
+        .subscribe(
             res => {
-                this.project = res;                 
-                if(this.project.organization.description.length > 100)
-                {
-                    this.project.organization.description = this.project.organization.description.slice(0,100)+'...';
-                }
+                this.project = res;
+                if (this.project.organization.description.length > 100) {
+                    this.project.organization.description =                  this.project.organization.description.slice(0, 100) + '...';
+                    }
                 this.projectService.getProjectByOrg(res.organization.id)
                     .subscribe(
-                        res => this.projects = res.json(),
-                        error => console.log(error)
+                        resProjects => this.projects = resProjects.json(),
+                        errorProjects => console.log(errorProjects)
                     );
             },
             error => console.log(error)
-          );    
-    });
-  }
- 
-
+            );
+            });
+            }
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
   }
