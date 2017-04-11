@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 m10">
+        <div class="col s12 m9">
             <div class="row">
-                <div class="col s6 m5">  
+                <div class="col s6 m6">  
                     <div>
                         <b>{{project?.name}}</b><br>
                         <a href="#">{{project?.organization.name}}</a>
@@ -12,7 +12,7 @@
                         <img [src]="projectImage" alt="Project Photo">
                     </div>                 
                 </div>
-                <div class="col s6 m5">                       
+                <div class="col s6 m6">                       
                     <div>
                         <b>Remote</b>
                         <address>
@@ -51,11 +51,56 @@
                         Bookmark
                     </button>
                 </div>
-                <div class="col s2 offset-s2"><button>Share</button></div> 
+                <div class="col s2 offset-s2">   
+                    <div class="share-button-block">                        
+                        <div class="fixed-action-btn horizontal click-to-toggle">
+                            <a class="btn share-btn">
+                                <i class="mdi mdi-share-variant mdi-24px left"></i>share
+                            </a>
+                            <ul>
+                                <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i class="mdi mdi-facebook mdi-24px"></i></a></li>
+                                <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i class="mdi mdi-twitter mdi-24px"></i></a></li>
+                                <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i class="mdi mdi-email mdi-24px"></i></a></li>
+                                <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>                                                            
+                </div> 
                 <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
                 <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
             </div>
         </div>
-        <div class="col s12 m2">Right Panel</div>
+        <div class="col s12 m3">
+            <div class="row">
+                <!-- row1-->
+                <div class="col s12">
+                    <a routerLink="/nonprofit/view/{{project?.organization.id}}">{{project?.organization.name}}</a>
+                </div>
+                <br><br>
+                 <!-- row2-->
+                <div class="col s6">
+                    <img [src]="" alt="Organization Logo">
+                </div>
+                <div class="col s6">
+                    {{project?.organization.city}}, {{project?.organization.state}}, {{project?.organization.country}}
+                </div>
+                
+                 <!-- row3-->
+                 <div class="col s12">
+                     <p>{{project?.organization.description}}</p>
+                </div>
+                
+                <!-- row4-->
+                 <div class="col s12" *ngIf="projects">
+                     <a href="#">{{projects?.length}}</a> Opportunities
+                     <ul>
+                         <li *ngFor="let project of projects">
+                             <a [routerLink]="['/project/view',project.id]">{{project.name}}</a>
+                         </li>                         
+                     </ul>
+                </div>
+                
+            </div>
+        </div>
     </div>    
 </div>
