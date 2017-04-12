@@ -1,1 +1,105 @@
-Edit Project Page
+<div class="container">
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
+    <div class="row">
+      <div class="col l5">
+        <div class="row">
+          <div class="input-field col l6">
+            <input id="project_name" type="text" class="validate" formControlName="projectName" placeholder="">
+            <label for="project_name">Project name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col l6">
+            <input id="organization_name" type="text" class="validate" formControlName="organizationName" placeholder="">
+            <label for="organization_name">Organization name</label>
+          </div>
+        </div>
+      </div>
+      <div class="col l5 offset-l2">
+        <img src="../../../assets/default_avatar.png" alt="">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload</span>
+            <input type="file">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="input-field col l12">
+        <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription" placeholder=""></textarea>
+        <label for="project_description">Project description</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col l6">
+        <div class="row">
+          <div class="col l12">
+            <p>
+              <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y" formControlName="remoteFlag"/>
+              <label for="btn-remote">Remote</label>
+            </p>
+            <p>
+              <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N" formControlName="remoteFlag"/>
+              <label for="btn-local">Local</label>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col l12">
+            <input id="address_line_1" type="text" class="validate" formControlName="address1" placeholder="">
+            <label for="address_line_1">Address Line 1</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col l12">
+            <input id="address_line_2" type="text" class="validate" formControlName="address2" placeholder="">
+            <label for="address_line_2">Address Line 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col l4">
+            <input id="city" type="text" class="validate" formControlName="city" placeholder="">
+            <label for="city">City</label>
+          </div>
+          <div class="input-field col l4">
+            <input id="state" type="text" class="validate" formControlName="state" placeholder="">
+            <label for="state">State</label>
+          </div>
+          <div class="input-field col l4">
+            <input id="zip" type="text" class="validate" formControlName="zip" placeholder="">
+            <label for="zip">Zip</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col l12">
+
+            <select id="country" class="" formControlName="country" materialize="material_select">
+              <option value="" disabled>Choose country</option>
+              <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code +
+                ')'}}
+              </option>
+            </select>
+            <label>
+              Country
+              <i class="material-icons tiny req-field pull-right">star</i>
+            </label>
+
+          </div>
+        </div>
+      </div>
+      <div class="col l6">
+        <h4>Skills</h4>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col l12">
+
+        <button type="submit" class="waves-effect waves-light btn">Save</button>
+      </div>
+    </div>
+  </form>
+
+</div>
