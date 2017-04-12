@@ -26,21 +26,20 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private imageDisplay: ImageDisplayService) {
-
-    this.getRoute();
   }
 
   ngOnInit(): void {
     this.organization.logo = '';
-    this.getOrganization(this.orgIndex);
-    this.getLogo(this.orgIndex);
-    this.getProjects(this.orgIndex);
+    this.getRoute();
   }
 
   getRoute(): void {
     this.routeSubscription = this.route.params.subscribe(
       (params: any) => {
         this.orgIndex = +params['organizationId'];
+        this.getOrganization(this.orgIndex);
+        this.getLogo(this.orgIndex);
+        this.getProjects(this.orgIndex);
       }
     );
   }
