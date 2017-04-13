@@ -15,7 +15,7 @@ import { Organization } from '../organization/common/organization';
 export class HeaderComponent implements DoCheck {
   currentUserId: string;
   organizationId: string;
-  atHome: boolean = false;
+  atHome = false;
   constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
 
   }
