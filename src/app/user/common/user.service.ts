@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 
 const userUrl = `${environment.backend_url}/api/users`;
+const skillsUrl = `${environment.backend_url}/api/skills`;
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,13 @@ export class UserService {
                .catch(this.handleError);
   }
 
+  public getSkills(): Observable<any> {
+    const url = skillsUrl;
+    return this.http
+               .get(url)
+               .map( res => res.json())
+               .catch(this.handleError);
+  }
   getUser(id: number): Observable<User> {
     const index = id;
     const url = userUrl + '/' + index;

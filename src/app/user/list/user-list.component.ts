@@ -72,11 +72,11 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private getSkills(): void {
     // TODO: wire this up with userService when getSkills is available
-    //this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
-    this.userService.retrieveSkills().subscribe(res => {
+    // this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
+    this.userService.getSkills().subscribe(res => {
       console.log(res);
       this.skills  = res.map(skill => {
-        return {name: skill.skillName, checked:false};});
+        return {name: skill.skillName, checked: false}; });
     },
       error => console.error(error)
     );
