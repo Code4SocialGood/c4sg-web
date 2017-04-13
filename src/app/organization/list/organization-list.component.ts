@@ -17,8 +17,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   organizations: Object[];
   selectedOrganization?: Organization;
 
-  
-
   // array of all items to be paged
 //   organizations: any[];
 
