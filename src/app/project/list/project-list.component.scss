@@ -1,29 +1,5 @@
 @import "../../../fonts.css";
-
-$main-color: #0c6b26;
-$bg-line-color: #e0f3cd;
-$header-bg-color: #98eb9e;
-$selected-bg-color: #e0f3cd;
-$section-bg-color: #f9f9f9;
-$navbar-border-color: #3dd768;
-$navbar-fg-color-selected: #fff;
-$navbar-fg-color: #27c854;
-$footer-bg-color: #f2f2f2;
-$sec-bg-color: #ccff99;
-
-$page-top: 10px;
-$page-bottom: 10px;
-$sidebar-left: 5px;
-$sidebar-right: 5px;
-
-$line-sep-color: #e0f3cd;
-$line-sep-width: 2px;
-
-$navbar-height: 75px;
-$dropdown-line-height: 40px;
-
-$content-pad-top: 35px;
-
+@import "../../variables";
 
 .main-row {
   margin-bottom: 0;
@@ -159,9 +135,10 @@ $content-pad-top: 35px;
               width: 40%;
               display:table-cell;
               vertical-align: top;
+              min-height: 250px;
               > img {
                 width: 100%;
-                vertical-align: top;
+                vertical-align: middle;
               }
             }
             .card-info {
@@ -169,6 +146,12 @@ $content-pad-top: 35px;
               display:table-cell;
               vertical-align: top;
               position: relative;
+              .description {
+                text-align: justify;
+                font-family: Raleway;
+                padding: 11px;
+                font-size: 10px;
+              }
               h5 {
                 font-size: 1em;
                 font-weight: bold;
@@ -205,6 +188,13 @@ $content-pad-top: 35px;
                 right: 0;
                 bottom: 0;
 
+                .org-name {
+                  line-height: 50px;
+                  font-size: 1em;
+                  font-weight: bold;
+                  text-align:center;
+                  color: $main-color;
+                }
               }
             }
           }
@@ -298,159 +288,3 @@ pagination-controls  /deep/ .ng2-pagination li {
   }
 }
 
-//@import "../../../../node_modules/materialize-css/sass/components/mixins";
-//@import "../../../../node_modules/materialize-css/sass/components/color";
-
-//@import "../../../../node_modules/materialize-css/sass/components/variables";
-
-//@import "../../../../node_modules/materialize-css/sass/components/normalize";
-
-//.bigger {
-  //font-size: 42px !important;
-  //line-height: 42px !important;
-//}
-
-//.userRow {
-  //margin-bottom: 0px;
-//}
-
-//.search:hover {
-  //cursor: pointer;
-//}
-
-
-
-//.collection {
-  //border: none;
-  //margin: 0;
-
-  //> li {
-    //margin: 1em 0 1em 0;
-    //border: solid 1px #dedede;
-    //background-color: #fafafa;
-    //padding: 0px;
-    //transition: 1s border-color;
-
-    //&:first-child {
-      //margin-top: 0px;
-    //}
-    //&:last-child {
-      //margin-bottom: 0px;
-    //}
-    //&:hover {
-      //border: solid 1px #afafaf;
-    //}
-  //}
-//}
-
-//.item-content {
-  //display: table;
-  //width: 100%;
-  //padding: 15px;
-  //margin-bottom: 0;
-  //.item-content-avatar {
-    //text-align: center;
-    //vertical-align: middle;
-
-    //@media(min-width: $small-screen-up) {
-      //display:table-cell;
-      //float: none;
-    //}
-
-    //> img {
-      //border-radius: 5px;
-      //vertical-align: middle;
-      //width: 100%;
-    //}
-  //}
-  //.item-content-info {
-    //vertical-align: middle;
-    //@media(min-width: $small-screen-up) {
-      //display:table-cell;
-      //float: none;
-    //}
-
-    //.content-header, .content-body {
-      //.header-left, .body-left {
-        //text-align: left;
-        //vertical-align: middle;
-        //.name {
-          //font-size: 1.5em;
-          //color: #908a9a;
-          //line-height: 1.75em;
-        //}
-        //.title {
-          //font-size: 1.25em;
-          //font-weight: bold;
-        //}
-      //}
-      //.header-right, .body-right {
-        //text-align: right;
-
-        //.location {
-          //font-size: 1.25em;
-          //font-weight: bold;
-        //}
-        //.time {
-          //font-size: 1em;
-          //font-weight: normal;
-          //font-style: italic;
-        //}
-        //.skills-list {
-          //margin: 0;
-          //padding:5px;
-          //text-align: left;
-          //> li {
-            //display:inline-block;
-            //text-align: center;
-            //margin: 5px;
-            //width: 25%;
-          //}
-        //}
-      //}
-    //}
-    //.content-body {
-      //margin-top: 2em;
-      //border: solid 1px #dadada;
-      //background-color: white;
-      //padding: 10px;
-
-      //.body-left, .body-right {
-        //@media(min-width: $small-screen-up) {
-          //display:table-cell;
-          //float: none;
-        //}
-      //}
-    //}
-  //}
-//}
-
-
-//.sidebar-wrapper {
-  //padding: 25px 5px 25px 5px;
-  //margin-top: 50px;
-  //background-color: #f3f3f3;
-
-  //.sidebar-search {
-    //padding-left: 20px;
-    //padding-right:20px;
-  //}
-  //h6 {
-    //margin-top: 15px;
-    //font-weight: bold;
-    //margin-bottom: 10px;
-  //}
-  //.skills-list-wrapper {
-    //width: 100%;
-    //.skills-list {
-      //list-style: none;
-      //margin: 0;
-      //padding: 0;
-
-      //> li {
-        //display: inline-block;
-        //float: nonde;
-      //}
-    //}
-  //}
-//}

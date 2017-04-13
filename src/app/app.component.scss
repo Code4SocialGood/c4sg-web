@@ -1,3 +1,4 @@
+@import 'variables';
 .at-home {
   position: fixed;
   background-color: rgba(255, 255, 255, 0);
@@ -94,3 +95,30 @@ hr {
   font-family: "footerfont";
   font-size: 1.3em;
 }
+
+.footer {
+  border-top: solid $line-sep-width $navbar-border-color;
+  background-color: $footer-bg-color;
+  padding-left: 50px;
+
+  .links-list-wrapper {
+    ul {
+      
+    }
+  }
+
+}
+
+.links-list-wrapper {
+  ul {
+    margin: 0;
+    li {
+      display: inline-block;
+      line-height: 50px;
+      a {
+        color: $main-color;
+      }
+    }
+  }
+}
+

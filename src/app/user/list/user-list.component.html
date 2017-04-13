@@ -1,69 +1,103 @@
 
-<div class="row">
-  <!-- Search-->
-  <div class="col m3 s12">
-    <div class="sidebar-wrapper">
-      <div class="sidebar-search">
-        <div class="input-field"><i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">
-             search</i>
-          <input class="autocomplete" id="autocomplete-input" type="text" #searchterm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
-          <label for="autocomplete-input">
-             search volunteers</label>
-        </div>
-      </div>
-      <h6>Skills</h6>
-      <div class="skills-list-wrapper">
-        <ul class="skills-list row">
-          <li class="col m6 s12" *ngFor="let skill of skills; let i = index">
-            <input class="filled-in" type="checkbox" id="{{skill.name}}">
-            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">
-               {{skill.name}}</label>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- Volunteer List-->
-  <div class="col m9 s12">
-    <h5>
-      {{totalItems}} volunteers found</h5>
-    <ul class="collection">
-      <li class="collection-item avatar col m12" *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p, totalItems: totalItems}">
-        <div class="item-content row">
-          <div class="item-content-avatar col m5 l3"><img src="http://correodelsur.com/img/notas/20150526/nota6499_imagen5838.jpg" alt=""></div>
-          <div class="item-content-info col m7 l9">
-            <div class="content-header row">
-              <div class="header-left col m6 s12">
-                <p class="name">{{user.firstName + ' ' + user.lastName}}</p>
-              </div>
-              <div class="header-right col m6 s12">
-                <p class="location"><span *ngIf="user.state">{{user.state}},</span><span *ngIf="user.country"> {{user.country}}</span></p>
-                <p class="time" *ngIf="user.createdTime">Joined: {{user.createdTime}}</p>
-              </div>
+<div class="container">
+  <div class="row main-row">
+    <div class="col m4" id="left-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section"> 
+            <h4>Search</h4>
+            <div class="input-search">
+              <form>
+                <div class="input-field" (click)="getUsersByKeyword(searchTerm.value, null, null)">
+                  <input id="autocomplete-input" #searchTerm materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
+                  <label for="autocomplete-input"><i class="material-icons">search</i></label><i class="material-icons">close</i>
+                </div>
+              </form>
             </div>
-            <div class="content-body row">
-              <div class="body-left col m6 s12">
-                <p class="title">Volunteer title</p>
-              </div>
-              <div class="body-right col m6 s12">
-                <ul class="skills-list">
-                  <li class="chip red lighten-5">Skills</li>
-                  <li class="chip red lighten-5">Skills</li>
-                  <li class="chip red lighten-5">Skills</li>
-                  <li class="chip red lighten-5">Skills</li>
-                  <li class="chip red lighten-5">Skills</li>
+          </div>
+          <div class="section"> 
+            <h4>Filter</h4>
+            <div class="section-body"> 
+              <h5>By Skills:</h5>
+              <div class="skills-list-wrapper">
+                <ul *ngIf="skills">
+                  <li *ngFor="let skill of skills, let i = index">
+                    <input class="filled-in" type="checkbox" [id]="skill.name">
+                    <label [for]="skill.name" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-      </li>
-    </ul>
-    <!-- Pagination-->
-    <div class="row">
-      <div class="col m12 right-align">
-        <pagination-controls (pagechange)="getUsers(p = $event)"></pagination-controls>
       </div>
     </div>
+    <div class="col m8" id="right-col">
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="row">
+            <h1 class="main-title"><span class="index-prefix">{{totalItems}}</span>Volunteers found</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="users">
+                  <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>{{user.firstName + ' ' + user.lastName}}</h4>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img src="/assets/avatar.png"></div>
+                        <div class="card-info">
+                          <h5>Junior McDonalds Tender</h5>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          <div class="card-info-bottom">
+                            <div class="links-list-wrapper">
+                              <ul>
+                                <li><a class="mdi mdi-email" href="mailto:info@code4socialgood.org"></a></li>
+                                <li><a class="mdi mdi-linkedin-box" name="linkedin" href="https://www.linkedin.com/company-beta/16227162/" target="_blank"></a></li>
+                                <li><a class="mdi mdi-facebook-box" name="facebook" href="https://www.facebook.com/code4socialgood" target="_blank"></a></li>
+                                <li><a class="mdi mdi-twitter-box" name="twitter" href="https://twitter.com/code4socialgood" target="_blank"> </a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="pagination">
+              <pagination-controls (pageChange)="getUsers(p = $event)" id="usersPages" autoHide="false"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="row">
+    <div class="col m6">
+      <div class="links-list-wrapper">
+        <ul>
+          <li><a class="mdi mdi-email" href="mailto:info@code4socialgood.org"></a></li>
+          <li><a class="mdi mdi-linkedin-box" name="linkedin" href="https://www.linkedin.com/company-beta/16227162/" target="_blank"></a></li>
+          <li><a class="mdi mdi-facebook-box" name="facebook" href="https://www.facebook.com/code4socialgood" target="_blank"></a></li>
+          <li><a class="mdi mdi-twitter-box" name="twitter" href="https://twitter.com/code4socialgood" target="_blank"> </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col m6"></div>
   </div>
 </div>
