@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser/';
-import { ActivatedRoute } from '@angular/router';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser/';
+import {ActivatedRoute} from '@angular/router';
 
-import { ProjectService } from '../common/project.service';
-import { Project } from '../common/project';
-import { FormConstantsService } from '../../_services/form-constants.service';
+import {ProjectService} from '../common/project.service';
+import {Project} from '../common/project';
+import {FormConstantsService} from '../../_services/form-constants.service';
+// import { Skills } from '../common/skills';
 
 @Component({
   selector: 'my-edit-project',
@@ -15,18 +16,19 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 
 export class ProjectEditComponent implements OnInit {
   public countries: any[];
-  // public project = this.initProject();
-  public project: any;
+  public project: Project;
+  public projectImageUrl = '../../../assets/default_avatar.png';
   public projectForm: FormGroup;
+  public editFlag: boolean = false;
+  // public skills = Skills.skillsInit;
 
-  constructor(
-    public fb: FormBuilder,
-    private projectService: ProjectService,
-    private fc: FormConstantsService,
-    private el: ElementRef,
-    private sanitizer: DomSanitizer,
-    private route: ActivatedRoute
-  ) {  }
+  constructor(public fb: FormBuilder,
+              private projectService: ProjectService,
+              private fc: FormConstantsService,
+              private el: ElementRef,
+              private sanitizer: DomSanitizer,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.getFormConstants();
@@ -36,17 +38,20 @@ export class ProjectEditComponent implements OnInit {
 
       const id = params['projectId'];
 
-      // this.imageDisplay.displayImage(id,
-      //   this.projectService.retrieveImage.bind(this.projectService))
-      //   .subscribe(res => this.projectImage = res.url );
+
       this.projectService.getProject(id)
         .subscribe(
           res => {
-            debugger;
             this.project = res;
             this.fillForm();
           }, error => console.log(error)
         );
+      this.projectService.retrieveImage(id)
+        .subscribe(
+          res => {
+          }, error => console.log(error)
+        );
+
     });
   }
 
@@ -57,16 +62,16 @@ export class ProjectEditComponent implements OnInit {
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': [ '', [Validators.required]],
-      'organizationName': [ '', [Validators.required]],
-      'projectDescription': [ '', [Validators.required]],
-      'remoteFlag': [ 'N', [Validators.required]],
-      'address1': [ '', [Validators.required]],
-      'address2': [ '', [Validators.required]],
-      'city': [ '', [Validators.required]],
-      'state': [ '', [Validators.required]],
-      'zip': [ '', [Validators.required]],
-      'country': [ '', [Validators.required]],
+      'projectName': ['', [Validators.required]],
+      'organizationName': ['', [Validators.required]],
+      'projectDescription': ['', [Validators.required]],
+      'remoteFlag': ['', [Validators.required]],
+      'address1': ['', [Validators.required]],
+      'address2': ['', [Validators.required]],
+      'city': ['', [Validators.required]],
+      'state': ['', [Validators.required]],
+      'zip': ['', [Validators.required]],
+      'country': ['', [Validators.required]],
     });
   }
 
@@ -86,43 +91,34 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
-  // initialize organization with blank values
-  // private initProject(): any {
-  //   return {
-  //     'projectName': '',
-  //     'organizationName': '',
-  //     'projectDescription': '',
-  //     'projectLocation': '',
-  //     'address1': '',
-  //     'address2': '',
-  //     'city': '',
-  //     'state': '',
-  //     'zip': '',
-  //     'country': ''
-  //    };
-  // }
+  changeImage(event) {
+    this.projectImageUrl = event.target.files;
+  }
 
-   onSubmit(updatedData: any, event): void {
+  onEditSkills() {
+    this.editFlag = !this.editFlag;
+  }
+
+  onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
 
-      this.project.name = updatedData.projectName;
-        this.project.description = updatedData.projectDescription;
-       this.project.city = updatedData.city;
-       this.project.country = updatedData.country;
-       this.project.zip = updatedData.zip;
-       this.project.organization.name = updatedData.organizationName;
-       this.project.address1 = updatedData.address1;
-       this.project.address2 = updatedData.address2;
-       this.project.state = updatedData.state;
-       this.project.remoteFlag = updatedData.remoteFlag;
+    this.project.name = updatedData.projectName;
+    this.project.description = updatedData.projectDescription;
+    this.project.city = updatedData.city;
+    this.project.country = updatedData.country;
+    this.project.zip = updatedData.zip;
+    this.project.organization.name = updatedData.organizationName;
+    this.project.address1 = updatedData.address1;
+    this.project.address2 = updatedData.address2;
+    this.project.state = updatedData.state;
+    this.project.remoteFlag = updatedData.remoteFlag;
 
     this.projectService.update(this.project).subscribe(
       res => {
-        debugger;
+        console.log('Project data was successfully updated');
       }, error => console.log(error)
     );
-    console.log (this.project);
-    }
+  }
 
 }

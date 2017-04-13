@@ -5,22 +5,23 @@
         <div class="row">
           <div class="input-field col l6">
             <input id="project_name" type="text" class="validate" formControlName="projectName" placeholder="">
-            <label for="project_name">Project name</label>
+            <label for="project_name">Project name <i class="material-icons tiny req-field pull-right">star</i></label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col l6">
-            <input id="organization_name" type="text" class="validate" formControlName="organizationName" placeholder="">
+            <input id="organization_name" type="text" class="validate" formControlName="organizationName"
+                   placeholder="">
             <label for="organization_name">Organization name</label>
           </div>
         </div>
       </div>
       <div class="col l5 offset-l2">
-        <img src="../../../assets/default_avatar.png" alt="">
+        <img [src]="projectImageUrl" alt="project image">
         <div class="file-field input-field">
           <div class="btn">
             <span>Upload</span>
-            <input type="file">
+            <input type="file" (change)="changeImage($event)">
           </div>
         </div>
       </div>
@@ -28,8 +29,10 @@
     </div>
     <div class="row">
       <div class="input-field col l12">
-        <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription" placeholder=""></textarea>
-        <label for="project_description">Project description</label>
+        <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
+                  placeholder=""></textarea>
+        <label for="project_description">Project description <i
+          class="material-icons tiny req-field pull-right">star</i></label>
       </div>
     </div>
     <div class="row">
@@ -37,66 +40,78 @@
         <div class="row">
           <div class="col l12">
             <p>
-              <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y" formControlName="remoteFlag"/>
+              <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y"
+                     formControlName="remoteFlag"/>
               <label for="btn-remote">Remote</label>
             </p>
             <p>
-              <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N" formControlName="remoteFlag"/>
+              <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N"
+                     formControlName="remoteFlag"/>
               <label for="btn-local">Local</label>
             </p>
           </div>
         </div>
-        <div class="row">
-          <div class="input-field col l12">
-            <input id="address_line_1" type="text" class="validate" formControlName="address1" placeholder="">
-            <label for="address_line_1">Address Line 1</label>
+        <div [ngClass]="{hide: projectForm.controls.remoteFlag.value === 'Y'}">
+          <div class="row">
+            <div class="input-field col l12">
+              <input id="address_line_1" type="text" class="validate" formControlName="address1" placeholder="">
+              <label for="address_line_1">Address Line 1</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col l12">
-            <input id="address_line_2" type="text" class="validate" formControlName="address2" placeholder="">
-            <label for="address_line_2">Address Line 2</label>
+          <div class="row">
+            <div class="input-field col l12">
+              <input id="address_line_2" type="text" class="validate" formControlName="address2" placeholder="">
+              <label for="address_line_2">Address Line 2</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col l4">
-            <input id="city" type="text" class="validate" formControlName="city" placeholder="">
-            <label for="city">City</label>
+          <div class="row">
+            <div class="input-field col l4">
+              <input id="city" type="text" class="validate" formControlName="city" placeholder="">
+              <label for="city">City</label>
+            </div>
+            <div class="input-field col l4">
+              <input id="state" type="text" class="validate" formControlName="state" placeholder="">
+              <label for="state">State</label>
+            </div>
+            <div class="input-field col l4">
+              <input id="zip" type="text" class="validate" formControlName="zip" placeholder="">
+              <label for="zip">Zip</label>
+            </div>
           </div>
-          <div class="input-field col l4">
-            <input id="state" type="text" class="validate" formControlName="state" placeholder="">
-            <label for="state">State</label>
-          </div>
-          <div class="input-field col l4">
-            <input id="zip" type="text" class="validate" formControlName="zip" placeholder="">
-            <label for="zip">Zip</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col l12">
+          <div class="row">
+            <div class="input-field col l12">
 
-            <select id="country" class="" formControlName="country" materialize="material_select">
-              <option value="" disabled>Choose country</option>
-              <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code +
-                ')'}}
-              </option>
-            </select>
-            <label>
-              Country
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-
+              <select id="country" class="" formControlName="country" materialize="material_select">
+                <option value="" disabled>Choose country</option>
+                <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code +
+                  ')'}}
+                </option>
+              </select>
+              <label for="country">Country</label>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col l6">
+      <div class="col l5 offset-l1">
         <h4>Skills</h4>
+        <div class="row">
+          <div class="skills-block col l8 teal lighten-2">
+            <project-skill></project-skill>
+          </div>
+          <div class="col l2">
+            <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">mode_edit</i></a>
+          </div>
+        </div>
+        <div *ngIf="editFlag === true" class="row">
+          <div class="col l8 teal lighten-2">
+            Skill list
+          </div>
+        </div>
       </div>
 
     </div>
     <div class="row">
       <div class="col l12">
-
         <button type="submit" class="waves-effect waves-light btn">Save</button>
       </div>
     </div>

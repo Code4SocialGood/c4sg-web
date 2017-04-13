@@ -48,6 +48,7 @@ import { FormConstantsService } from './_services/form-constants.service';
 import { DeveloperService } from './about/common/developer.service';
 import { ImageDisplayService } from './_services/image-display.service';
 import { ImageUploaderService } from './_services/image-uploader.service';
+import { SkillComponent } from './project/common/components/skill/skill.component';
 
 import { MapViewerComponent } from './map-viewer/map-viewer.component';
 
@@ -90,6 +91,8 @@ import { MapViewerComponent } from './map-viewer/map-viewer.component';
     AuthRoleSelectionComponent,
 
     MapViewerComponent,
+
+    SkillComponent,
   ],
   providers: [ ProjectService,
                ProjectCreateService,
@@ -100,8 +103,7 @@ import { MapViewerComponent } from './map-viewer/map-viewer.component';
                AuthGuard,
                DeveloperService,
                ImageDisplayService,
-               ImageUploaderService
-  ],
+               ImageUploaderService],
 
   bootstrap: [ AppComponent ]
 })
