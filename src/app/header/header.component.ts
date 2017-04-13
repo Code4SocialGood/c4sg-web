@@ -15,16 +15,17 @@ import { Organization } from '../organization/common/organization';
 export class HeaderComponent implements DoCheck {
   currentUserId: string;
   organizationId: string;
+  atHome: boolean = false;
   constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
+
   }
 
   // control nav style by changing the class name
   isAtHome() {
     if (this.router.url === '/' || this.router.url === '/#!') {
-      return 'at-home';
-    } else {
-      return 'off-home';
+      return true;
     }
+    return false;
   }
 
   ngDoCheck() {

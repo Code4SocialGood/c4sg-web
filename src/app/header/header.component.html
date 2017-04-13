@@ -1,6 +1,6 @@
 
-<nav>
-  <div class="nav-wrapper"><a class="brand-logo" href="#"><img src="assets/logo.png" height="90"></a>
+<nav [class.at-home]="isAtHome()">
+  <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
       <li><a routerLink="/project/list" routerLinkActive="active">Opportunities</a></li>
       <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li>
