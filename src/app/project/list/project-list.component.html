@@ -9,8 +9,8 @@
             <div class="input-search">
               <form>
                 <div class="input-field">
-                  <input id="keyword" #projectName materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
-                  <label for="autocomplete-input"><i class="material-icons">search</i></label><i class="material-icons">close</i>
+                  <input id="keyword" #projectName materialize="autocomplete" type="search" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
+                  <label for="keyword"><i class="material-icons">search</i></label><i class="material-icons">close</i>
                 </div>
               </form>
             </div>

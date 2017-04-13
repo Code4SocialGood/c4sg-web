@@ -6,7 +6,7 @@ import { Organization } from '../organization/common/organization';
 
 @Component({
 // moduleId: module.id,  // For webpack, remove this
-  selector: 'c4sg-header',
+  selector: 'my-c4sg-header',
   providers: [AuthService],
   templateUrl: './header.component.html',
   styleUrls: [ 'header.component.scss' ]
@@ -15,7 +15,7 @@ import { Organization } from '../organization/common/organization';
 export class HeaderComponent implements DoCheck {
   currentUserId: string;
   organizationId: string;
-  constructor(private router: Router, private authSvc: AuthService, private organizationService: OrganizationService) {
+  constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
   }
 
   // control nav style by changing the class name
