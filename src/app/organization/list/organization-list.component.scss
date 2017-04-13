@@ -1,0 +1,295 @@
+@import "../../../fonts.css";
+@import "../../variables";
+
+.main-row {
+  margin-bottom: 0;
+}
+#left-col {
+  border-right: solid $line-sep-width $line-sep-color;
+}
+#right-col {
+  border-left: solid $line-sep-width $line-sep-color;
+  margin-left: - $line-sep-width;
+}
+
+.sidebar-wrapper, .content-wrapper {
+  padding-top: $content-pad-top;
+}
+
+.sidebar {
+  .section {
+    font-family: Raleway;
+    font-size: 14px;
+    padding-top: 0px;
+    background-color: $section-bg-color;
+    margin-top: 15px;
+    h4 {
+      font-family: Raleway;
+      font-size: 14px;
+      font-size: 1.15em;
+      background-color: $header-bg-color;
+      color: $main-color;
+      margin: 0 0 0 0;
+      padding-left: 35px;
+      line-height: 50px;
+      font-weight: bold;
+      border-bottom: solid $line-sep-width $line-sep-color;
+    }
+    .input-search {
+      padding: 40px 10px 10px 10px;
+    }
+
+    &:first-of-type {
+      margin-top: 0px;
+    }
+
+    .section-body {
+      padding: 25px;
+      border: solid $line-sep-width $header-bg-color;
+      h5 {
+        font-size: 1em;
+        font-weight: bold;
+        color: $main-color;
+        margin: 0;
+        padding: 0;
+      }
+      .skills-list-wrapper {
+        ul {
+          list-style: none;
+          li {
+            display:inline-block;
+            min-width: 50%;
+            margin-left: -5px;
+            padding-left: 5px;
+            label {
+              font-size: 0.75em;
+              color: $main-color;
+              &:after {
+                top: 3px;
+                border-color: $header-bg-color;
+              }
+            }
+
+            input:checked + label:after {
+              background-color: $header-bg-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.content {
+  padding-bottom: 50px;
+  font-family: Raleway;
+  font-size: 14px;
+  .main-title {
+    color: $main-color;
+    font-family: Raleway;
+    line-height: 50px;
+    font-size: 1.15em;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    padding-left: 50px;
+    border-bottom: solid $line-sep-width $navbar-border-color;
+
+    .index-prefix { 
+      margin-right: 2em;
+    }
+  }
+
+  .items-list-wrapper  {
+    ul {
+      li {
+        .card {
+            border: solid $line-sep-width $navbar-border-color;
+            font-family: Raleway;
+          .card-header{
+            line-height: 50px;
+            padding-left: 35px;
+            padding-right: 35px;
+            background-color: $header-bg-color;
+            h4 {
+              display: inline-block;
+              font-size: 1em;
+              font-weight: bold;
+              color: $main-color;
+              margin: 0;
+              line-height: 50px;
+            }
+            .card-metainfo {
+              font-size: 0.9em;
+              float: right;
+              color: $main-color;
+
+              .card-location {
+                margin-left: 1em;
+                margin-right: 1em;
+              }
+            }
+          }
+
+          .card-content {
+            padding:0;
+            width: 100%;
+            display:table;
+            .card-avatar {
+              padding: 5px;
+              width: 40%;
+              display:table-cell;
+              vertical-align: top;
+              min-height: 250px;
+              > img {
+                width: 100%;
+                vertical-align: middle;
+              }
+            }
+            .card-info {
+              width: 60%;
+              display:table-cell;
+              vertical-align: top;
+              position: relative;
+              .description {
+                text-align: justify;
+                font-family: Raleway;
+                padding: 11px;
+                font-size: 10px;
+              }
+              h5 {
+                font-size: 1em;
+                font-weight: bold;
+                text-align: center;
+                color: $main-color;
+              }
+
+              .skills-list-wrapper {
+                padding: 5px 25px 5px 25px;
+                ul {
+                  li.chip {
+                    color: $main-color;
+                    border: solid $line-sep-width $header-bg-color;
+                    background-color: #fff;
+                    border-radius: 0px;
+                    margin-left: 0.25em;
+                    margin-right: 0.25em;
+                    min-width: 27%;
+                    text-align: center;
+
+                    &:hover {
+                      background-color: $bg-line-color;
+                    }
+                  }
+
+                }
+              }
+              .card-info-bottom {
+                background-color: $sec-bg-color;
+                padding-left: 25px;
+                vertical-align: bottom;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                .org-name {
+                  line-height: 50px;
+                  font-size: 1em;
+                  font-weight: bold;
+                  text-align:center;
+                  color: $main-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    border-top: solid $line-sep-width $line-sep-color;
+    border-bottom: solid $line-sep-width $line-sep-color;
+    .pages-list-wrapper {
+      margin: 0;
+      padding: 0;
+      
+    }
+  }
+}
+
+pagination-controls /deep/ .ng2-pagination  {
+  font-size: 0px;
+  margin: 0;
+  padding: 0 ;
+  margin-top: - $line-sep-width;
+  margin-bottom: - 2 * $line-sep-width;
+  text-align: center;
+  line-height: 50px;
+}
+pagination-controls  /deep/ .ng2-pagination li {
+  margin: 0;
+  height: 50px;
+  a {
+    min-width:50px;
+    position: relative;
+    font-size: 12px;
+    line-height: 50px;
+    height: 50px;
+    border: solid $line-sep-width $line-sep-color;
+    margin-left: - $line-sep-width;
+    z-index: 100;
+    color: $header-bg-color;
+    font-weight: bold;
+
+    &:hover {
+      background-color: white;
+      border-color: $navbar-border-color;
+      z-index: 102;
+    }
+  }
+  &.current {
+    background-color: transparent;
+    padding: 0;
+    min-width:50px;
+    position: relative;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 50px;
+    height: 50px + $line-sep-width;
+    border: solid $line-sep-width $line-sep-color;
+    margin-left: - $line-sep-width;
+    z-index: 100;
+    border-color: $navbar-border-color;
+    background-color: $header-bg-color;
+    z-index: 101;
+    color: white;
+  }
+}
+.footer {
+  border-top: solid $line-sep-width $navbar-border-color;
+  background-color: $footer-bg-color;
+  padding-left: 50px;
+
+  .links-list-wrapper {
+    ul {
+      
+    }
+  }
+
+}
+
+.links-list-wrapper {
+  ul {
+    margin: 0;
+    li {
+      display: inline-block;
+      line-height: 50px;
+      a {
+        color: $main-color;
+      }
+    }
+  }
+}
+
