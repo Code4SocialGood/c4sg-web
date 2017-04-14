@@ -108,8 +108,7 @@ export class OrganizationCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editOrg) {
-    }
-    else {
+    } else {
 
       this.organizationService
           .getOrganizations().
@@ -125,16 +124,16 @@ export class OrganizationCreateComponent implements OnInit {
             return this.organizationService
               .createOrganization(body).
               subscribe(
-            res => {
+            response => {
               console.log('Successfully created organization');
-              console.log(res.json());
-              this.organization = res.json().organization;
+              console.log(response.json());
+              this.organization = response.json().organization;
               this.router.navigate(['/nonprofit/view/' + this.organization.id]);
             },
-            err => this.handleError)
+            err => this.handleError);
 
-          })
-        }
+          });
+        };
     }
 
   private handleError(err): void {
