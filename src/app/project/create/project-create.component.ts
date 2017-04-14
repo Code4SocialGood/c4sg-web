@@ -7,7 +7,7 @@ import { ProjectService } from '../common/project.service';
 import { ProjectCreateService } from './project-create.service';
 
 @Component({
-  selector: 'create-project',
+  selector: 'my-create-project',
   templateUrl: 'project-create.component.html',
   styleUrls: ['project-create.component.css']
 })
@@ -16,13 +16,27 @@ export class ProjectCreateComponent {
 
     project: Project;
     params: Params;
-    showAddress: boolean = false;
-    selectedState: string = '';
+    showAddress = false;
+    selectedState = '';
     public file_srcs: string[] = [];
     public debug_size_before: string[] = [];
     public debug_size_after: string[] = [];
     states: any = this.createService.states;
     countries: any = this.createService.countries;
+
+      // create form and validation
+  createProjectForm = this.fb.group({
+    name: ['', Validators.required],
+    orgId: ['', Validators.required],
+    description: ['', Validators.required],
+    location: ['remote'],
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    country: '',
+    zip: ''
+  });
 
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
@@ -49,12 +63,12 @@ export class ProjectCreateComponent {
 
   readFiles(files, index = 0) {
 
-    let reader = new FileReader();
+    const reader = new FileReader();
     if (index in files) {
 
       this.readFile(files[index], reader, (result) => {
 
-        let img = document.createElement('img');
+        const img = document.createElement('img');
 
         img.src = result;
         this.resize(img, 250, 250, (resized_jpeg, before, after) => {
@@ -90,42 +104,24 @@ export class ProjectCreateComponent {
         }
       }
 
-      let canvas = document.createElement('canvas');
+      const canvas = document.createElement('canvas');
 
       canvas.width = width;
       canvas.height = height;
-      let ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d');
 
       ctx.drawImage(img, 0, 0, width, height);
 
-      let dataUrl = canvas.toDataURL('image/jpeg');
+      const dataUrl = canvas.toDataURL('image/jpeg');
 
       callback(dataUrl, img.src.length, dataUrl.length);
     };
   }
 
-  // create form and validation
-  createProjectForm = this.fb.group({
-    name: ['', Validators.required],
-    orgId: ['', Validators.required],
-    shortDescription: ['', [
-      Validators.required,
-      Validators.maxLength(200)
-    ]],
-    description: ['', Validators.required],
-    location: ['remote'],
-    line1: '',
-    line2: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: ''
-  });
-
   // retrieve info from form
   createProject(): void {
 
-    let project = this.createProjectForm.value;
+    const project = this.createProjectForm.value;
     console.log(project);
 
     this.projectService
@@ -136,9 +132,5 @@ export class ProjectCreateComponent {
         },
         error => console.log(error)
       );
-  }
-
-  cancel(): void {
-    this.router.navigate(['/projects']);
   }
 }

@@ -1,9 +1,9 @@
 import { Router,
          ActivatedRouteSnapshot,
-         RouterStateSnapshot }    from '@angular/router';
-import { Injectable, enableProdMode }      from '@angular/core';
+         RouterStateSnapshot } from '@angular/router';
+import { Injectable, enableProdMode } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import { myConfig }        from './auth.config';
+import { myConfig } from './auth.config';
 import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ declare const Auth0Lock: any;
 export class AuthService {
 
   userProfile: any;
-  userName: string = '';
+  userName = '';
   userRole: string;
   email: string;
   firstName: string;
@@ -26,13 +26,15 @@ export class AuthService {
   options = {
     // No login after email/pwd signup
     loginAfterSignUp: false,
+    // set to not remember last login
+    rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
       logo: '../assets/favicon-32x32.png'
             },
     // Override the title
     languageDictionary: {
-      title: "Code for Social Good"
+      title: 'Code for Social Good'
     },
     auth : {
         params: {scope: 'openid email user_metadata app_metadata'},
@@ -50,15 +52,15 @@ export class AuthService {
       // } },
       // Add a User role selection of either Volunteer or NonProfit
       {
-        type: "select",
-        name: "user_role",
-        placeholder: "Sign up as a",
+        type: 'select',
+        name: 'user_role',
+        placeholder: 'Sign up as a',
         options: [
-          {value: "VOLUNTEER", label: "Volunteer User"},
-          {value: "ORGANIZATION", label: "Non-profit User"},
-          {value: "ADMIN", label: "Admin User"}
+          {value: 'VOLUNTEER', label: 'Volunteer User'},
+          {value: 'ORGANIZATION', label: 'Non-profit User'},
+          {value: 'ADMIN', label: 'Admin User'}
         ],
-        prefill: "VOLUNTEER"
+        prefill: 'VOLUNTEER'
       }
     ]
   };
@@ -76,8 +78,6 @@ export class AuthService {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('accessToken', authResult.accessToken);
 
-      // console.log(authResult);
-
       // Get the user profile
       this.lock.getUserInfo(authResult.accessToken,  (error, profile) => {
         let user;
@@ -86,99 +86,79 @@ export class AuthService {
           if (!profile.identities[0].isSocial) {
             this.userName = profile.user_metadata.user_name;
             this.userRole = profile.app_metadata.roles[0];
-          } // Signed up via social providers
-          else{
+          } else { // Signed up via social providers
             this.userName = profile.email;
-            //ATM: assumption is there will always be only 1 role per user
+            // ATM: assumption is there will always be only 1 role per user
             this.userRole = profile.app_metadata.roles[0];
             this.firstName = profile.given_name;
             this.lastName = profile.family_name;
           }
-
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
           this.userProfile = profile;
-
-          // console.log('Printing userprofile');
-          // console.log(this.userProfile);
 
           this.email = profile.email;
 
           userService.getUserByEmail(this.email).subscribe(
             res => {
-              let lemail = this.email;
-              let luserRole = this.userRole;
-              let luserName = this.userName;
-              let firstName =  this.firstName !== undefined ? this.firstName : '';
-              let lastName =  this.lastName !== undefined ? this.lastName : '';
-
-              if (JSON.parse(JSON.stringify(res))._body !== "")
-              {
-                // console.log("found an existing user by email");
-                // console.log(JSON.stringify(res));
-                user = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+              const lemail = this.email;
+              const luserRole = this.userRole;
+              const luserName = this.userName;
+              const firstName =  this.firstName !== undefined ? this.firstName : '';
+              const lastName =  this.lastName !== undefined ? this.lastName : '';
+              // console.log(res);
+              // Check if response is undefined
+              if (res) {
+                  user = res;
               }
-              // If not found, then create the user
-              if (user === undefined)
-              {
-                console.log("User does not exist");
-                let newUser = new User(0,
-                  lemail, 'NA',
-                  'NA', 'NA','NA',
-                  'ACTIVE',luserRole.toUpperCase(),
-                  "99","0",null,null, luserName, firstName, lastName,'NA', 'NA', 'NA', 'NA', ['NA']);
-
-                //console.log(JSON.stringify(newUser));
+              // If user not found, then create the user
+              if (user === undefined) {
+                console.log('User does not exist');
+                const newUser: User = ({id: 0, email: lemail,
+                  role: luserRole.toUpperCase(),
+                  userName: luserName, firstName: firstName,
+                  lastName: lastName,
+                  publicProfileFlag: 'N', chatFlag: 'N',
+                  forumFlag: 'N', developerFlag: 'N', status: 'ACTIVE'});
 
                 // Create a user
                 userService.add(newUser).subscribe(
-                  res => {
-                    user = JSON.parse(JSON.stringify(res));
-                    // console.log("Added new user : ");
-                    // console.log(JSON.stringify(user));
-
+                  res1 => {
+                    user = res1;
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                    }
-                    else{
+                    } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
                   },
-                  error => console.log(error));
-              }
-              else {
+                  error1 => console.log(error1));
+              }else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
                 if (user.firstName !== '' && user.lastName !== '') {
                   localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                }
-                else {
+                } else {
                   localStorage.setItem('currentDisplayName', user.email);
                 }
-
-                  // console.log("User already exists: " +
-                    // user.email + ' and user id: ' +
-                    // user.id + ' name: ' +
-                    // localStorage.getItem('currentDisplayName'));
               }
             },
-            error => console.log(error)
+            error1 => console.log(error1)
           );
         }
       });
     });
 
     // Function call to show errors
-    let llock = this.lock;
-    this.lock.on("authorization_error", function(error) {
+    const llock = this.lock;
+    this.lock.on('authorization_error', function(error) {
     console.log('AuthZ error', error);
     llock.show({
-        flashMessage:{
+        flashMessage: {
             type: 'error',
             text: error.error_description
         }});
-    })
+    });
   }
 
   public login() {
@@ -194,12 +174,32 @@ export class AuthService {
 
   public logout() {
     // Remove token from localStorage
+    let logoutURL = '';
+    let profile: any;
+    let connection: string;
+    let accessToken: string;
+
+    let loc: any;
+    loc = window.location.origin; // current url
+    profile = JSON.parse(localStorage.getItem('profile'));
+    accessToken = localStorage.getItem('accessToken');
+    connection = profile.identities[0].connection;
+
+    // Seems the logout url works for all idp and username/pwd
+    // if (connection === 'google-oauth2' || connection === 'Username-Password-Authentication') {
+      logoutURL = `https://${environment.auth_domain}/v2/logout?returnTo=${encodeURI(loc)}`;
+    // }
+    // else {
+      // logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
+    // }
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     localStorage.removeItem('accessToken');
     localStorage.clear();
-    this.router.navigate(['']);
+
     this.userProfile = undefined;
+
+    window.location.href = logoutURL;
   }
 
   // Returns user profile
@@ -243,11 +243,10 @@ export class AuthService {
   // Check if a user's role is ADMIN
   public isAdmin() {
     if (this.hasRoles()) {
-      //against AppRoles.ADMIN
+      // against AppRoles.ADMIN
       if (this.bypassRole(AppRoles[0])) {
         return true;
-      }
-      else{
+      } else {
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
       }
     }
@@ -257,11 +256,10 @@ export class AuthService {
   // Check if a user's role is VOLUNTEER
   public isVolunteer() {
     if (this.hasRoles()) {
-      //against AppRoles.VOLUNTEER
+      // against AppRoles.VOLUNTEER
       if (this.bypassRole(AppRoles[1])) {
         return true;
-      }
-      else{
+      } else {
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
       }
     }
@@ -271,11 +269,10 @@ export class AuthService {
   // Check if a user's role is ORGANIZATION
   public isOrganization() {
     if (this.hasRoles()) {
-      //against AppRoles.ORGANIZATION
+      // against AppRoles.ORGANIZATION
       if (this.bypassRole(AppRoles[2])) {
         return true;
-      }
-      else{
+      } else {
         return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
       }
     }

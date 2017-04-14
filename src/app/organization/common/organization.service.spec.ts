@@ -10,6 +10,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import {
   BaseRequestOptions,
   HttpModule,
+  JsonpModule,
   Http,
   Response,
   ResponseOptions
@@ -21,7 +22,7 @@ describe('OrganizationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, JsonpModule],
       providers: [
         OrganizationService,
         {
@@ -41,7 +42,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = [
+      const mockResponse = [
         {id: 1, name: 'Org 1', logo: 'logo_1', briefDescription: 'bd 1', detailedDescription: null},
         {id: 2, name: 'Org 2', logo: 'logo_2', briefDescription: 'bd 2', detailedDescription: null},
         {id: 3, name: 'Org 3', logo: 'logo_3', briefDescription: 'bd 3', detailedDescription: null}
@@ -55,14 +56,14 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganizations().subscribe(res => {
-          let orgs = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(orgs.length).toBe(3);
-          expect(orgs[0].detailedDescription).toEqual(null);
-          expect(orgs[1].name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganizations()
+                         .subscribe(res => {
+                             const orgs = res;
+                             expect(orgs.length).toBe(3);
+                             expect(orgs[0].detailedDescription).toEqual(null);
+                             expect(orgs[1].name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 
@@ -70,7 +71,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = {
+      const mockResponse = {
         id: 2,
         name: 'Org 2',
         logo: 'logo_2',
@@ -86,13 +87,13 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganization(2).subscribe(res => {
-          let org = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(org.detailedDescription).toEqual(null);
-          expect(org.name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganization(2)
+                         .subscribe(res => {
+                             const org = res;
+                             expect(org.detailedDescription).toEqual(null);
+                             expect(org.name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 
@@ -100,7 +101,7 @@ describe('OrganizationService', () => {
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
-      let mockResponse = [
+      const mockResponse = [
         {id: 1, name: 'Org 1', logo: 'logo_1', briefDescription: 'bd 1', detailedDescription: null},
         {id: 2, name: 'Org 2', logo: 'logo_2', briefDescription: 'bd 2', detailedDescription: null},
         {id: 3, name: 'Org 3', logo: 'logo_3', briefDescription: 'bd 3', detailedDescription: null}
@@ -114,14 +115,14 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganizationsByKeyword('Org').subscribe(res => {
-          let orgs = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-
-          expect(orgs.length).toBe(3);
-          expect(orgs[0].detailedDescription).toEqual(null);
-          expect(orgs[1].name).toEqual('Org 2');
-        }
-      );
+      organizationService.getOrganizationsByKeyword('Org')
+                         .subscribe(res => {
+                             const orgs = res;
+                             expect(orgs.length).toBe(3);
+                             expect(orgs[0].detailedDescription).toEqual(null);
+                             expect(orgs[1].name).toEqual('Org 2');
+                           }
+                         );
     })
   );
 });

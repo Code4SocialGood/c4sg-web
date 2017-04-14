@@ -4,17 +4,18 @@ import { Subscription } from 'rxjs/Rx';
 
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
-import { PagerService } from '../../_services/pager.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'userlist',
+  selector: 'my-userlist',
   templateUrl: 'user-list.component.html',
   providers: [AuthService],
   styleUrls: ['user-list.component.css']
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+  totalItems = 0;
+  p = 0;
   keywords: any;
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
@@ -27,15 +28,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
   usersSubscription: Subscription;
 
-  constructor(
-    private pagerService: PagerService,
-    private userService: UserService,
-    private router: Router,
-    private auth: AuthService
-  ) { }
+  constructor(private userService: UserService,
+              private router: Router,
+              private auth: AuthService) {
+  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsers(1);
     this.getSkills();
     this.getTitles();
     this.getKeywords();
@@ -81,33 +80,19 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
 
-  private getUsers(): void {
-    this.usersSubscription = this.userService.getUsers().subscribe(
-      res => {
-        this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        this.usersCache = this.users.slice(0);
-        this.setPage(1); // initialize to page 1
-      },
-      error => console.error(error)
-    );
-  }
-
-  setPage(page: number): void {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
-
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.users.length, page);
-
-    // get current page of items
-    this.pagedItems = this.users.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
-
-  // filter lists based on search checked status
-  private filterLists(arr: any[], name: string): void {
-    this[name] = arr.filter(item => item.checked)
-                    .map(item => item.name);
+  public getUsers(page: number): void {
+    this.usersSubscription = this.userService.getUsers(page)
+                                 .subscribe(
+                                   res => {
+                                     // the called service returns a JSON object
+                                     // consist of the array of pageable data
+                                     // and the total number of data rows
+                                     this.users = res.data;
+                                     this.totalItems = res.totalItems;
+                                     this.usersCache = this.users.slice(0);
+                                   },
+                                   error => console.error(error)
+                                 );
   }
 
   // filter this.users based on search option checkboxes
@@ -127,7 +112,9 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
 
       // title match
-      if (this.titlesFilter.indexOf(user.title) !== -1) { return true; }
+      if (this.titlesFilter.indexOf(user.title) !== -1) {
+        return true;
+      }
 
       // skills match (assumes skills array)
       while (searching) {
@@ -142,22 +129,21 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUsersByKeyword(keyword: string): void {
-    if (keyword) {
+  getUsersByKeyword(userName: string, firstName: string, lastname: string): void {
+    if (userName || firstName || lastname) {
       // TODO: Verify this works when REST API finished
-      this.userService.getUsersByKeyword(keyword).subscribe(
-        res => {
-          this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-        },
-        error => console.error(error)
-      );
+      this.userService
+          .getUsersByKeyword(userName, firstName, lastname)
+          .subscribe(
+            res => this.users = res,
+            error => console.error(error)
+          );
     }
   }
 
   // takes in array index and category array (title / skill)
   onCheck(id: number, category: string): void {
     this[category][id].checked = !this[category][id].checked;
-    this.filterLists(this[category], category + 'Filter');
 
     if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) { // if
       this.filterUsers();
@@ -177,7 +163,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.usersSubscription) { this.usersSubscription.unsubscribe(); }
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
   }
-
 }

@@ -33,17 +33,16 @@
 
 <div class="container">
     <div class="row users valign">     
-        <div *ngFor="let organization of organizations; let idx = index">
+        <div *ngFor="let organization of organizations | paginate:{currentPage: p, itemsPerPage: 10, id: 'orgsList'}; let idx = index">
             <div class="col s6" *ngIf="idx % 2 === 0 ">
                 <div class=" valign-wrapper">
                     <tr item-width="100%" class="center-align">
                         <td><img src={{organization.logo}} height="200" width="200"></td>
                         <td>
                             <div class="row">
-   
                                 <div class="col s12 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
-                                </div>                               
+                                  <a [routerLink]="['/nonprofit/view',organization.id]"><h5>{{organization.name}}</h5></a>
+                                </div>                             
                                 <div class="col s12 valign">
                                     <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
                                 </div>
@@ -70,7 +69,7 @@
                             <div class="row">
    
                                 <div class="col s12 valign">
-                                    <span class="left-align h3 username" (click)="onSelect(organization)">{{organization.name}} </span><br>
+                                    <a [routerLink]="['/nonprofit/view',organization.id]"><h5>{{organization.name}}</h5></a>
                                 </div>                               
                                 <div class="col s12 valign">
                                     <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
@@ -95,24 +94,7 @@
 </div>
 <div class="container center">
     <!-- inserting pagination -->
-    <!-- pager -->
-   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">First</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Last</a>
-        </li>
-    </ul>         
+    <pagination-controls id="orgsList" (pageChange)="p = $event"></pagination-controls>
 </div> 
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">

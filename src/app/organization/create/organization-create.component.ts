@@ -4,7 +4,7 @@ import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
-  selector: 'create-organization',
+  selector: 'my-create-organization',
   templateUrl: 'organization-create.component.html',
   styleUrls: ['organization-create.component.css']
 })
@@ -15,7 +15,7 @@ export class OrganizationCreateComponent implements OnInit {
   private editOrg = false; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
-  public formPlaceholder = {};
+  public formPlaceholder: {[key: string]: any} = {};
   public shortDescMaxLength = 255;
   public states: String[];
 
@@ -28,26 +28,25 @@ export class OrganizationCreateComponent implements OnInit {
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
   public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
 
-  constructor(
-    public fb: FormBuilder,
-    private organizationService: OrganizationService,
-    private fc: FormConstantsService,
-    private el: ElementRef
-  ) { }
+  constructor(public fb: FormBuilder,
+              private organizationService: OrganizationService,
+              private fc: FormConstantsService,
+              private el: ElementRef) { }
 
   ngOnInit(): void {
     this.getFormConstants();
 
-    if (this.editOrg) { // edit existing org 
+    if (this.editOrg) { // edit existing org
       this.initForm();
       // TODO: Pass variable to getOrganization() instead of hard-coded value
-      this.organizationService.getOrganization(2).subscribe(
-        (res) => {
-          this.editOrg = true;
-          this.organization = res.json();
-          this.initForm();
-        }, this.handleError
-      );
+      this.organizationService.getOrganization(2)
+          .subscribe(
+            res => {
+              this.organization = res;
+              this.editOrg = true;
+              this.initForm();
+            }, this.handleError
+          );
     } else { // add new org
       this.editOrg = null;
       this.initForm();
@@ -76,7 +75,7 @@ export class OrganizationCreateComponent implements OnInit {
       'country': [this.organization.country || '', [Validators.required]],
       'zip': [this.organization.zip || '', [Validators.required, Validators.pattern(this.zipValidRegEx)]],
       'shortDescription': [this.organization.briefDescription || '',
-      [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
+        [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
       ],
       'longDescription': [this.organization.detailedDescription || '', [Validators.required]],
     });
@@ -112,24 +111,24 @@ export class OrganizationCreateComponent implements OnInit {
           .then(res => {
 
             // TODO: Change this according to back-end feature changes
-            const results: Array<any> = JSON.parse(JSON.parse(JSON.stringify(res))._body)
-            const body = this.organizationForm.value
-            body.id = results[results.length-1].id+1
-            body.description = body.shortDescription
-            body.status = 'ACTIVE'
+            const results: Array<any> = res;
+            const body = this.organizationForm.value;
+            body.id = results[results.length - 1].id + 1;
+            body.description = body.shortDescription;
+            body.status = 'ACTIVE';
 
             return this.organizationService
-              .createOrganization(body)
-              .toPromise()
+                       .createOrganization(body)
+                       .toPromise();
           })
           .then(
             res => console.log('Successfully created organization'),
             err => this.handleError)
-          .catch(this.handleError) 
+          .catch(this.handleError);
     }
   }
 
   private handleError(err): void {
-    console.error('An error occurred', err)
+    console.error('An error occurred', err);
   }
 }

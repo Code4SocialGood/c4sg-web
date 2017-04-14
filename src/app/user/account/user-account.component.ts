@@ -1,8 +1,14 @@
 import { Component, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { UserService } from '../common/user.service';
+import { ImageUploaderService } from '../../_services/image-uploader.service';
+import { ImageDisplayService } from '../../_services/image-display.service';
+
 import { equalValidator } from '../common/user.equal.validator';
 import { User } from '../common/user';
+
 import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
@@ -14,33 +20,27 @@ import { MaterializeAction } from 'angular2-materialize';
 
 export class UserAccountComponent implements OnInit {
 
-  public file_srcs: string[] ;
-  public debug_size_before: string[];
-  public debug_size_after: string[];
-  public image_loaded: boolean;
+  // public file_srcs: string[];
+  // public debug_size_before: string[];
+  // public debug_size_after: string[];
+  // public image_loaded: boolean;
+  public avatar: any = '';
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
-  private user: User;
-  public globalActions =  new EventEmitter<string|MaterializeAction>();
+  public user: User;
+  public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  private selectedUser:User;
+  public selectedUser: User;
 
   public myAccount = new FormGroup({
-    username: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    zip: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required)
   });
 
-  public myPassword = new FormGroup({
-      newPassword: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required)
-  }, equalValidator);
-
-  constructor( private changeDetectorRef: ChangeDetectorRef, private userService: UserService) { }
+  constructor( private changeDetectorRef: ChangeDetectorRef,
+               private route: ActivatedRoute,
+               private userService: UserService,
+               private imageUploader: ImageUploaderService,
+               private imageDisplay: ImageDisplayService) { }
 
   updateAccount(event) {
     event.preventDefault();
@@ -50,25 +50,26 @@ export class UserAccountComponent implements OnInit {
     if (this.myAccount.errors === null) {
       const user = new User(
         this.user.id,
+        this.myAccount.value.userName,
+        this.myAccount.value.firstName,
+        this.myAccount.value.lastName,
         this.myAccount.value.email,
         this.user.phone,
+        this.myAccount.value.city,
         this.myAccount.value.state,
         this.myAccount.value.country,
         this.myAccount.value.zip,
-        this.user.status,
-        this.user.role,
-        this.user.github,
-        this.user.displayFlag,
-        this.user.longitude,
-        this.user.latitude,
-        this.myAccount.value.username,
-        this.myAccount.value.firstName,
-        this.myAccount.value.lastName,
-        this.user.linked_inurl,
         this.user.introduction,
-        this.user.personal_web_site,
-        this.user.resume,
-        this.user.skills);
+        this.user.linkedinUrl,
+        this.user.personalUrl,
+        this.user.role,
+        this.user.publicProfileFlag,
+        this.user.chatFlag,
+        this.user.forumFlag,
+        this.user.developerFlag,
+        this.user.status,
+        this.user.createdTime,
+        this.user.updatedTime);
       this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
@@ -76,19 +77,7 @@ export class UserAccountComponent implements OnInit {
       console.error('Do not submit, form has errors'); // for demo purposes only
     }
   }
-
-  updatePassword(event) {
-    if (this.myPassword.controls['newPassword'].errors !== null
-    || this.myPassword.controls['confirmPassword'].errors !== null || this.myPassword.errors !== null) {
-      console.error('Do not submit, form has errors');
-      return;
-    }
-    const passwordData = this.myPassword.value;
-    console.log(this.myPassword.controls);
-    console.log(event);
-    console.log(passwordData);
-  }
-
+ /*
   fileChange(input) {
     this.image_loaded = false;
     this.readFiles(input.files);
@@ -164,39 +153,77 @@ export class UserAccountComponent implements OnInit {
     if (this.image_loaded) {
       return this.file_srcs;
     } else {
-      return ['/app/images/default_avatar.png'];
+      return ['./assets/default_avatar.png'];
     }
 
   }
+*/
 
+  onUploadAvatar(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+       this.user.id,
+       this.userService.saveAvatar.bind(this.userService))
+       .subscribe(res => {
+         this.avatar = res.url;
+         console.log('Avatar successfully uploaded!');
+       },
+        err => { console.error(err, 'An error occurred'); } );
+  }
 
   openModal(user) {
-      this.modalActions.emit({action: "modal", params: ['open']});
-      this.selectedUser=user;
+    this.modalActions.emit({action: 'modal', params: ['open']});
+    this.selectedUser = user;
 
-    }
+  }
 
-    closeModal() {
-      this.modalActions.emit({action: "modal", params: ['close']});
-    }
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
 
-    deleteUser(user:User): void{
-      console.log(user.id);
-      this.userService.delete(user.id).subscribe(
-        error => console.log(error)
-      );
+  deleteUser(user: User): void {
+    console.log(user.id);
+    this.userService.delete(user.id)
+        .subscribe(
+          error => console.log(error)
+        );
 
-        }
-
+  }
 
   ngOnInit(): void {
-    this.userService.getUser(2).subscribe(
+    const id = this.route.snapshot.params['userId'];
+    this.imageDisplay.displayImage(id,
+            this.userService.retrieveAvatar.bind(this.userService))
+            .subscribe(res => this.avatar = res.url);
+    this.userService.getUser(id).subscribe(
       (res) => {
-        const user = res.json();
+        const user = res;
         console.log(user);
-
+        this.user = new User(
+          user.id,
+          user.userName,
+          user.firstName,
+          user.lastName,
+          user.email,
+          user.phone,
+          user.city,
+          user.state,
+          user.country,
+          user.zip,
+          user.introduction,
+          user.linkedinUrl,
+          user.personalUrl,
+          user.status,
+          user.role,
+          user.publicProfileFlag,
+          user.chatFlag,
+          user.forumFlag,
+          user.developerFlag,
+          user.createdTime,
+          user.updatedTime);
+      });
+        /*
         this.myAccount.setValue({
-          username: user.userName,
+          userName: user.userName,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -204,32 +231,12 @@ export class UserAccountComponent implements OnInit {
           country: user.country,
           zip: user.zip
         });
-
-        this.user = new User(
-          user.id,
-          user.email,
-          user.phone,
-          user.state,
-          user.country,
-          user.zip,
-          user.status,
-          user.role,
-          user.github,
-          user.displayFlag,
-          user.longitude,
-          user.latitude,
-          user.userName,
-          user.firstName,
-          user.lastName,
-          user.linked_inurl,
-          user.introduction,
-          user.personal_web_site,
-          user.resume,
-          user.skills);
       }, (err) => {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
+
+      */
 
   }
 
