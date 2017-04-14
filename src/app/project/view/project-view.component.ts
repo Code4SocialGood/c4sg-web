@@ -66,7 +66,7 @@ export class ProjectViewComponent implements OnInit {
       .subscribe(
         response => {
           this.router.navigate(['project/list']);
-          //display toast
+          // display toast
           this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
         },
         error => {
