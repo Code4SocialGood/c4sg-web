@@ -17,7 +17,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   p = 0;
   projects: Project[];
-  users : User[];
+  users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
@@ -44,32 +44,30 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
    private getProjects(): void {
-        if((!this.auth.authenticated()) || (this.from == 'opportunities')){
+        if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
                  this.projectsSubscription = this.projectService.getProjects().subscribe(
                       res => this.projects = res,
                       error => console.log(error));
-                  }
 
-        else if ((this.auth.isVolunteer()) && (this.from == 'myProjects')){
+    }  else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
                   const status = 'A';
                   this.projectsSubscription = this.projectService.getProjectByUser(this.userId, status).subscribe(
                        res   => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
                        error => console.log(error));
-                  }
 
-        else if ((this.auth.isOrganization()) && (this.from == 'myProjects')){
+    }  else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
                   this.organizationService.getUserOrganization(this.userId).subscribe(
-                    res =>  {
-                             this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+                    response =>  {
+                             this.users = JSON.parse(JSON.parse(JSON.stringify(response))._body);
                              this.users.forEach(
                                user => {
                                         this.orgId = user.id;
                                         this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
                                                res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-                                               error => console.log(error))
-                                      })
+                                               error => console.log(error));
+                                      });
                             },
-                    error => console.log(error))
+                    error => console.log(error));
                    }
 }
 
