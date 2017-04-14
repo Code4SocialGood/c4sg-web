@@ -67,7 +67,7 @@
                     </div>                                                            
                 </div> 
                 <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
-                <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
+                <div class="col s4 offset-s2"><button (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</button></div>
             </div>
         </div>
         <div class="col s12 m3">

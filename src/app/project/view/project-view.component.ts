@@ -21,6 +21,7 @@ export class ProjectViewComponent implements OnInit {
   params: Params;
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
+  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
   constructor(private projectService: ProjectService,
               private route: ActivatedRoute,
@@ -65,8 +66,13 @@ export class ProjectViewComponent implements OnInit {
       .subscribe(
         response => {
           this.router.navigate(['project/list']);
+          //display toast
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
         },
-        error => console.log(error)
+        error => {
+            console.log(error);
+            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
+        }
       );
   }
 
