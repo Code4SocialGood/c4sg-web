@@ -6,6 +6,8 @@ import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
 import { PagerService } from '../../_services/pager.service';
 import { AuthService } from '../../auth.service';
+import { OrganizationService } from '../../organization/common/organization.service';
+import { User } from '../../user/common/user';
 
 @Component({
   selector: 'my-projects',
@@ -16,25 +18,33 @@ import { AuthService } from '../../auth.service';
 export class ProjectListComponent implements OnInit {
 
   projects: Project[];
+  users : User[];
   selectedProject: Project;
 
   pagedItems: any[]; // paged items
   pager: any = {}; // pager Object
   projectsSubscription: Subscription;
   userId: number;
+  orgId: number;
+  from: any;
 
 
   constructor(
      private projectService: ProjectService,
      private pagerService: PagerService,
+     private organizationService: OrganizationService,
      private router: Router,
-     private auth: AuthService
+     private auth: AuthService,
+     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     const id = this.auth.getCurrentUserId();
     this.userId = +id;
+    this.route.params.subscribe(
+      params => this.from = params['from']);
     this.getProjects();
+
 
     //this.setPage(1);
 
@@ -43,7 +53,7 @@ export class ProjectListComponent implements OnInit {
 
    private getProjects(): void {
 
-    if(!this.auth.authenticated()){
+    if((!this.auth.authenticated()) || (this.from == 'opportunities')){
          this.projectsSubscription = this.projectService.getProjects().subscribe(
               res => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
@@ -52,23 +62,32 @@ export class ProjectListComponent implements OnInit {
               error => console.log(error));
         }
 
-    else if (this.auth.isVolunteer()){
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId).subscribe(
+    else if ((this.auth.isVolunteer()) && (this.from == 'myProjects')){
+      const status = 'A';
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, status).subscribe(
            res => {
              this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
              this.setPage(1); // initialize to page 1
            },
            error => console.log(error));
     }
-    else if (this.auth.isOrganization()){
-      this.projectsSubscription = this.projectService.getProjectByOrg(this.userId).subscribe(
-           res => {
-             this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-             this.setPage(1); // initialize to page 1
-           },
-           error => console.log(error))
-    }
-  }
+    else if ((this.auth.isOrganization()) && (this.from == 'myProjects')){
+      this.organizationService.getOrganizationByUserId(this.userId).subscribe(
+        res =>  {
+                 this.users = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+                 this.users.forEach(
+                   user => {
+                      this.orgId = user.id;
+                      this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
+                             res => {
+                               this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+                               this.setPage(1); // initialize to page 1
+                             },
+                             error => console.log(error))
+    },
+     error => console.log(error))})
+   }
+}
 
 
   setPage(page: number) {

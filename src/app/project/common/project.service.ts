@@ -16,7 +16,7 @@ export class ProjectService {
   }
 
   getProjects() {
-    const url = projectUrl + '/all';
+    const url = projectUrl ;
     return this.http.get(url);
   }
 
@@ -26,15 +26,13 @@ export class ProjectService {
     return this.http.get(url);
   }
 
-  getProjectByUser(id: number): Observable<Response> {
-    const index = id + 1;
-    const url = projectUrl + '/search/byUser/' + index;
+  getProjectByUser(id: number, status: any): Observable<Response> {
+    const url = projectUrl + '/user' + '?' + 'id=' + id + '&' + 'status=' + status;
     return this.http.get(url);
   }
 
   getProjectByOrg(id: number): Observable<Response> {
-    const index = id + 1;
-    const url = projectUrl + '/search/byOrganization/' + index;
+    const url = projectUrl + '/organizations/' + id;
     return this.http.get(url);
   }
 

@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-const organizationUrl = `${environment.backend_url}/api/organization`;
+const organizationUrl = `${environment.backend_url}/api/organizations`;
 
 @Injectable()
 export class OrganizationService {
@@ -31,12 +31,18 @@ export class OrganizationService {
       );
   }
 
+  getOrganizationByUserId(id: any): Observable<Response> {
+      return this.http.get(
+      `${organizationUrl}/user/${id}`
+      );
+    }
+
   createOrganization(organization: any): Observable<Response> {
       return this.http.post(
       `${organizationUrl}/create`,
       organization
       );
-      
+
   }
 
   delete(id: number): Observable<Response> {
@@ -47,7 +53,7 @@ export class OrganizationService {
 
   saveLogo(organizationId: number, fileContent: string): Observable<Response>{
       return this.http.post(
-      `${organizationUrl}/${organizationId}/uploadLogo`, 
+      `${organizationUrl}/${organizationId}/uploadLogo`,
       { "": fileContent }
       );
   }
@@ -57,5 +63,5 @@ export class OrganizationService {
       `${organizationUrl}/${organizationId}/getLogo`
       )
   }
-  
+
 }

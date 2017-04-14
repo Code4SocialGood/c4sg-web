@@ -3,24 +3,24 @@
     <div class="nav-wrapper">
         <a routerLink="/" class="brand-logo"><img src="assets/logo-transparent.png" height="60" width="380"></a>
         <ul class="right hide-on-med-and-down">
-            <li><a routerLink="/project/list" routerLinkActive="active" >Opportunities</a></li>   
-            <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li> 
-            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>         
+            <li><a routerLink="/project/list/opportunities" routerLinkActive="active">Opportunities</a></li>
+            <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li>
+            <li><a routerLink="/nonprofit/list" routerLinkActive="active" >Nonprofits</a></li>
 
             <li *ngIf="auth.authenticated()">
                 <a materialize="dropdown" class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">{{auth.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
                 <ul id="dropdownproject" class="dropdown-content">
                     <li><a routerLink="/account/{{auth.getCurrentUserId()}}" routerLinkActive="active" class="black-text text-lighten-2">My Account</a></li>
                     <li  *ngIf="auth.isVolunteer()"><a routerLink="/profile/{{auth.getCurrentUserId()}}" routerLinkActive="active" class="black-text text-lighten-2">My Profile</a></li>
-                    <li  *ngIf="!auth.isAdmin()"><a routerLink="/project/list" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
+                    <li  *ngIf="!auth.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active" class="black-text text-lighten-2">My Projects</a></li>
                     <li  *ngIf="auth.isOrganization()"><a routerLink="nonprofit/edit/1" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
                     <li  *ngIf="auth.isAdmin()"> <a routerLink="nonprofit/create" routerLinkActive="active" class="black-text text-lighten-2">Create Organization</a></li>
                     <li  *ngIf="auth.isAdmin()"><a routerLink="project/create" routerLinkActive="active" class="black-text text-lighten-2">Create Project</a></li>
                 </ul>
             </li>
-   
+
             <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="" (click)="auth.login()" *ngIf="!auth.authenticated()" class="log-reg">Log In</a></li>
-            <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="" (click)="auth.logout()" *ngIf="auth.authenticated()" class="log-reg">Log Out</a></li>    
+            <li class="lr-wrapper" style="padding-left: 2em"><a routerLink="" (click)="auth.logout()" *ngIf="auth.authenticated()" class="log-reg">Log Out</a></li>
         </ul>
     </div>
 </nav>
@@ -45,7 +45,7 @@
                 <li><a name="linkedin" href="https://www.linkedin.com" target="_blank" class="mdi mdi-linkedin-box  mdi-24px"></a>
                 <li><a name="facebook" href="https://facebook.com" target="_blank" class="mdi mdi-facebook-box  mdi-24px"></a>
                 <li><a name="twitter" href="https://twitter.com/login" target="_blank" class="mdi mdi-twitter-box  mdi-24px"> </a>
-                <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>     
+                <li><a name="googleplus" href="https://plus.google.com" target="_blank" class="mdi mdi-google-plus-box  mdi-24px"></a></li>
             </ul>
        </div>
     </div>
