@@ -49,6 +49,9 @@ import { DeveloperService } from './about/common/developer.service';
 import { ImageDisplayService } from './_services/image-display.service';
 import { ImageUploaderService } from './_services/image-uploader.service';
 
+import { MapViewerService } from './map-viewer/map-viewer.service';
+import { MapViewerComponent } from './map-viewer/map-viewer.component';
+
 
 @NgModule({
   imports: [
@@ -86,6 +89,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     UserProfileComponent,
 
     AuthRoleSelectionComponent,
+
+    MapViewerComponent,
   ],
   providers: [ ProjectService,
                ProjectCreateService,
@@ -96,7 +101,9 @@ import { ImageUploaderService } from './_services/image-uploader.service';
                AuthGuard,
                DeveloperService,
                ImageDisplayService,
-               ImageUploaderService],
+               ImageUploaderService,
+               MapViewerService
+  ],
 
   bootstrap: [ AppComponent ]
 })

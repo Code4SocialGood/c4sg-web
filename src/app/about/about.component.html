@@ -1,19 +1,18 @@
+
 <div class="container">
-  <div class="row">
-    <h1 class="center-align text-black">We the Coders</h1>
-  </div>
-  <div class="row">
-    <div id="map">
-      <img class="responsive-img" src="https://maps.googleapis.com/maps/api/staticmap?center=20,-20&zoom=1&scale=2&size=1920x225&maptype=roadmap&key=AIzaSyATPQm0vWt-TwYMgPgb8LQtwpr2xtgni1g&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CNorth+America&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CSouth+America&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAfrica&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CEurope&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAsia&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAustralia" alt="Code for Social Good Volunteer Locations">
+  <div class="row main-row">
+    <div id="left-col"></div>
+    <div class="col m12" id="right-col">
+      <div class="content" *ngIf="developers">
+        <div class="row">
+          <h1 class="main-title">We, the people, are {{developers.length}} devs</h1>
+          <div class="col s12">
+            <div class="map-viewer-wrapper">
+              <my-map-viewer mapId="the-map" [developers]="developers"></my-map-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <ul class="developers_list">
-      <li class="card" *ngFor="let developer of developers">
-        <a [routerLink]="['../user/view',developer.id]">
-          <img class="responsive-img" src="../../assets/avatar.png">
-        </a>
-      </li>
-    </ul>
   </div>
 </div>
