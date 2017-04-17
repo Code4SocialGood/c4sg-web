@@ -1,60 +1,68 @@
-<!-- Search Projects-->
+
 <div class="container">
-  <div class="row center">
-    <div class="col s12 m8 offset-m2 l3 form-block">
-      <form>
-        <div class="row">
-          <div class="input-field col s12 m12 l12">
-            <input #projectName id="keyword" type="text">
-            <label for="keyword">Keyword</label>
-          </div>
-          <div class="col s12 m12 l12">
-            <button class="btn waves-effect waves-light" type="button"
-                    (click)="getProjectsByKeyword(projectName.value); projectName.value=''" routerLink="/project/list">
-              Search
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!-- List Projects-->
-    <div class="col s12 l9 ">
-	<p *ngIf="projects">{{projects.length}} volunteer opportunities found</p>
-
-        <ul class="projects-block">
-	    <!--<li class="row" *ngFor="let project of projects" (click)="onSelect(project)"-->
-            <!--[class.selected]="project === selectedProject">-->
-
-	    <li class="row" *ngFor="let project of projects | paginate:{id: 'projectsList', itemsPerPage: 10, currentPage: p} ; let i = index " >
-                <div class="col s4 m3 l3 card-image">
-		    <img class="responsive-img" [src]="project.image" width="200px" height="200px">
+  <div class="row main-row">
+    <div class="col m4" id="left-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section"> 
+            <h4>Search</h4>
+            <div class="input-search">
+              <form>
+                <div class="input-field">
+                  <input id="keyword" #projectName materialize="autocomplete" type="search" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
+                  <label for="keyword"><i class="material-icons">search</i></label>
                 </div>
-                <div class="col s12 m9 l9 card-content">
-                  <div class="col s12 m12 l9 left-align card-content-left-side">
-                    <a [routerLink]="['/project/view',project.id]"><h5>{{project.name}}</h5></a>
-                    <a [routerLink]="['/nonprofit/view',project.organizationId]"><h6>{{project.organizationName}}</h6></a>
-                  </div>
-                  <div class="col s12 m12 l3 left-align card-content-right-side">
-                    <span>Remote</span>
-                    <span>03/10/2017</span>
-                  </div>
-                  <div class="col s12 m12 l12 left-align card-content-description">
-                    <p class="left-align">{{project.description}}</p>
-                  </div>
-                </div>
-	    </li>
-	    
-	</ul>
-	<!-- Pagination -->
-      <div class="row">
-        <div class="col m12 right-align">
-	    <pagination-controls id="projectsList" (pageChange)="p = $event"></pagination-controls>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
-
-
+    <div class="col m8" id="right-col">
+      <div class="content-wrapper">
+        <div class="content" *ngIf="projects">
+          <div class="row">
+            <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>Volunteer opportunities found</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="projects">
+                  <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="project.status">{{project.status}}</span><span class="joined-at" *ngIf="project.createdTime">{{project.createdTime}}</span></div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img *ngIf="project.image" [src]="project.image"><img *ngIf="!project.image" src="/assets/project/Logo_ConvoForGood.png"></div>
+                        <div class="card-info">
+                          <p class="description">{{ project.description }}</p>
+                          <p>Required:</p>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          <div class="card-info-bottom">
+                            <p class="org-name" [routerLink]="['/nonprofit/view/', project.organizationId]">{{ project.organizationName }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="pagination">
+              <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
