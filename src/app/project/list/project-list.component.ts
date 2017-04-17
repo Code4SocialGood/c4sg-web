@@ -24,7 +24,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
-  from: any;
+  from: string;
+  userProjectStatus: string = 'A';
 
 
   constructor(
@@ -50,8 +51,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
                       error => console.log(error));
 
     }  else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
-                  const status = 'A';
-                  this.projectsSubscription = this.projectService.getProjectByUser(this.userId, status).subscribe(
+                  this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
                        res   => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
                        error => console.log(error));
 

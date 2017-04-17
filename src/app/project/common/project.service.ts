@@ -31,13 +31,11 @@ export class ProjectService {
   }
 
   getProjectByOrg(id: number): Observable<Response> {
-    const url = projectUrl + '/organizations/' + id;
-    return this.http.get(url);
+    return this.http.get(`${projectUrl}/organizations/${id}`);
   }
 
-  getProjectByUser(id: number, status: any): Observable<Response> {
-    const url = projectUrl + '/user' + '?' + 'id=' + id + '&' + 'status=' + status;
-    return this.http.get(url);
+  getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
+    return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
   // TODO replace with search by keyword
