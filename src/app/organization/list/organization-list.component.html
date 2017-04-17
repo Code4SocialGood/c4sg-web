@@ -1,112 +1,59 @@
 
-
-<!-- Search Organizations-->
-<div class="row center">
-    <div class="input-field inline">
-      <td>
-        <input #organizationName id="name" type="text"/> 
-        <label for="name">keyword</label>
-      </td>
-      <td>
-        <button (click)="getOrganizationsByKeyword(organizationName.value); organizationName.value=''" class="btn waves-effect waves-light grey darken-3"><i class="large material-icons grey darken-3">search</i></button>
-      </td>
-    </div>
-</div>
-
-<div class="container center">
-    <h4 *ngIf="organizations">{{organizations.length}} organizations found</h4>
-</div>
-
-<!-- List Organizations-->
-<!--<div class="container">
-<ul class="organizations">
-    <li *ngFor="let organization of organizations" (click)="onSelect(organization)" [class.selected]="organization === selectedOrganization">
-        <tr>
-            <td>
-                <span><h5>{{organization.name}}</h5></span><br>          
-            </td>
-        </tr>
-    </li>
-</ul>
-</div>
--->
-
 <div class="container">
-    <div class="row users valign">     
-        <div *ngFor="let organization of organizations | paginate:{currentPage: p, itemsPerPage: 10, id: 'orgsList'}; let idx = index">
-            <div class="col s6" *ngIf="idx % 2 === 0 ">
-                <div class=" valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-                        <td><img src={{organization.logo}} height="200" width="200"></td>
-                        <td>
-                            <div class="row">
-                                <div class="col s12 valign">
-                                  <a [routerLink]="['/nonprofit/view',organization.id]"><h5>{{organization.name}}</h5></a>
-                                </div>                             
-                                <div class="col s12 valign">
-                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
-                                </div>
-                                <div class="col s12 valign">
-                                    <span class="left-align h3 text">{{organization.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-
-                            </div>
-                        </td>
-                    </tr>                    
+  <div class="row main-row">
+    <div class="col m4" id="left-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section"> 
+            <h4>Search</h4>
+            <div class="input-search">
+              <form>
+                <div class="input-field">
+                  <input id="name" #organizationName materialize="autocomplete" type="search" (keyup.enter)="getOrganizationsByKeyword(organizationName.value)">
+                  <label for="name"><i class="material-icons">search</i></label>
                 </div>
-                <div class="divider"></div>
+              </form>
             </div>
-            <div class="col s6" *ngIf="idx % 2 === 1 ">
-                <div class=" valign-wrapper">
-                    <tr item-width="100%" class="center-align">
-                        <td><img src={{organization.logo}} height="200" width="200"></td>
-                        <td>
-                            <div class="row">
-   
-                                <div class="col s12 valign">
-                                    <a [routerLink]="['/nonprofit/view',organization.id]"><h5>{{organization.name}}</h5></a>
-                                </div>                               
-                                <div class="col s12 valign">
-                                    <span class="left-align h3 text">{{organization.briefDescription}}</span><br>
-                                </div>
-                                <div class="col s12 valign">
-                                    <span class="left-align h3 text">{{organization.country}}</span><br>
-                                </div>
-                                <br>
-                                <div class="col s12 valign right-align" style="height:20px; padding-top: 10px;">
-                                    <span><button class="btn delete right" (click)="confirmDelete(organization)" data-target="modal1">DELETE</button></span>
-                                    <span><button class="btn edit" (click)="edit(organization); $event.stopPropagation()">EDIT</button></span>
-                                </div>
-                                
-                            </div>
-                        </td>
-                    </tr>                    
-                </div>
-                <div class="divider"></div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<div class="container center">
-    <!-- inserting pagination -->
-    <pagination-controls id="orgsList" (pageChange)="p = $event"></pagination-controls>
-</div> 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h5>CONFIRM USER DELETE</h5>
-      <hr>
-      <br>
-      <div class="col s12 center">
-          <p class="h3 valign col s12" *ngIf="selectedOrganization">{{selectedOrganization.name}}</p>
-      </div> 
-    </div>
-    <div class="modal-footer" *ngIf="selectedOrganization">
-      <button (click) = "delete(selectedOrganization)" class="btn modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+    <div class="col m8" id="right-col">
+      <div class="content-wrapper">
+        <div class="content" *ngIf="organizations">
+          <div class="row">
+            <h1 class="main-title"><span class="index-prefix">{{organizations.length}}</span>Volunteer organizations</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="organizations">
+                  <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 [routerLink]="['/nonprofit/view',org.id]">{{org.name}}</h4>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime}}</span></div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img *ngIf="org.logo" [src]="org.logo"><img *ngIf="!org.logo" src="/assets/project/Logo_ConvoForGood.png"></div>
+                        <div class="card-info">
+                          <p class="description">{{ org.description }}</p>
+                          <div class="card-info-bottom">
+                            <p class="org-name">{{ org.address1}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="pagination">
+              <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
