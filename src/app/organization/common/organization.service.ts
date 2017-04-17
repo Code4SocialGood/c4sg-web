@@ -19,7 +19,8 @@ export class OrganizationService {
   }
 
   getOrganization(id: number): Observable<Organization> {
-    const url = organizationUrl + '/' + id;
+    const index = id;
+    const url = organizationUrl + '/' + index;
 
     return this.http.get(url)
                .map(res => res.json());

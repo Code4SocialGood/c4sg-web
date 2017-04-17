@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { HeaderComponent } from './header/header.component';
 
 // Project
 import { ProjectListComponent } from './project/list/project-list.component';
@@ -65,6 +66,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     NavScrollDirective,
     HomeComponent,
     AboutComponent,
+
+    HeaderComponent,
 
     ProjectListComponent,
     ProjectViewComponent,
