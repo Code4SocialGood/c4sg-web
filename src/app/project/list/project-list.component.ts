@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   userId: number;
   orgId: number;
   from: string;
-  userProjectStatus: string = 'A';
+  userProjectStatus = 'A';
 
 
   constructor(
