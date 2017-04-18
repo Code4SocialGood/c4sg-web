@@ -34,7 +34,7 @@ export class OrganizationCreateComponent implements OnInit {
               private el: ElementRef) { }
 
 ngOnInit(): void {
-    this.getFormConstants();
+    
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
     this.organizationForm = this.fb.group({
