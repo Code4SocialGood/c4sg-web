@@ -16,8 +16,9 @@
         <ul class="dropdown-content" id="dropdownproject">
           <li><a routerLink="/account/{{currentUserId}}" routerLinkActive="active">My Account</a></li>
           <li *ngIf="authSvc.isVolunteer()"><a routerLink="/profile/{{currentUserId}}" routerLinkActive="active">My Profile</a></li>
-          <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list" routerLinkActive="active">My Projects</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['nonprofit/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
+          <li  *ngIf="authSvc.isOrganization() &amp;&amp; organizationId == undefined"><a [routerLink]="['nonprofit/edit', '0']" routerLinkActive="active" class="black-text text-lighten-2">My Organization</a></li>
+           <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list" routerLinkActive="active">My Projects</a></li>
           <li *ngIf="authSvc.isAdmin()"><a routerLink="nonprofit/create" routerLinkActive="active">Create Organization</a></li>
           <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/create" routerLinkActive="active">Create Project</a></li>
         </ul>
