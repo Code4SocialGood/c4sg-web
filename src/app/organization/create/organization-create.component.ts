@@ -32,7 +32,6 @@ export class OrganizationCreateComponent implements OnInit {
               private router: Router,
               private fc: FormConstantsService,
               private el: ElementRef) { }
-
 ngOnInit(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
