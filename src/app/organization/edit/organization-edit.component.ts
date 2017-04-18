@@ -43,7 +43,7 @@ export class OrganizationEditComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
-    private auth: AuthService, 
+    private auth: AuthService,
     private fc: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
