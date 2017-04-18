@@ -22,8 +22,7 @@ export class OrganizationCreateComponent implements OnInit {
   public states: String[];
 
   public descMaxLength = 255;
-
-  // RegEx validators 
+// RegEx validators
   public httpValidRegEx = /^https?:\/\//;
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
