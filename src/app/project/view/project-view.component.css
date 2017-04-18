@@ -27,3 +27,28 @@ button:disabled {
     color: #ccc;
     cursor: auto;
 }
+.share-button-block {
+  position: relative;
+    width: 200px;
+}
+.share-button-block .fixed-action-btn {
+  position: absolute;
+  right: 60px;
+    top: 15px;
+}
+.btn.share-btn {
+  padding: 0 1rem;
+}
+.fixed-action-btn.horizontal ul {
+  right: 120px;
+}
+.fixed-action-btn.horizontal ul li {
+  margin-top: 0;
+}
+.btn-floating {
+  text-align: center;
+}
+.btn-floating:hover {
+  background-color: #2bbbad;
+}
+

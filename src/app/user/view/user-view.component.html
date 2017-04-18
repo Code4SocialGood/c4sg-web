@@ -1,45 +1,73 @@
 
 <!-- User detail-->
-<div *ngIf="user" class="container">
-    <div class="container valign-wrapper">
-        <tr item-width="100%" class="center-align">
-            <td>
-                <div class="row">
-                    
-                    <div class="col s3 valign">
-                        <label class="right-align h3">UserName:</label>
-                    </div>    
-                    <div class="col s9 valign">
-                        <span class="left-align h4">{{user.userName}} </span><br>
-                    </div>
-
-                    <div class="col s3 valign">                        
-                        <label class="right-align h3">FirstName:</label>
-                    </div>          
-                        <div class="col s9 valign">
-                        <span class="left-align h4" *ngIf="user.firstName">{{user.firstName}}</span>&nbsp;<br>
-                    </div>
-                    <div class="col s3 valign">                        
-                        <label class="right-align h3">LastName:</label>
-                    </div>                                  
-                    <div class="col s9 valign">
-                        <span class="left-align h4" *ngIf="user.lastName">{{user.lastName}}</span><br>
-                    </div>
-                    <div class="col s3 valign">                        
-                        <label class="right-align h3">Location:</label>
-                    </div>                                  
-                    <div class="col s9 valign">
-                        <span class="left-align h4">{{user.state}},&nbsp;                        
-                        {{user.country}}</span><br>
-                    </div>
-                    <div class="col s9 valign ">
-                        <h3 class="left-align">
-                            <img class="responsive-img" [src]="avatar" alt="Image for {{user.userName}}">
-                        </h3>
-                    </div>
-                    <br>
-                </div>
-            </td>
-        </tr>                    
+<div class="container" *ngIf="user">
+  <div class="row">
+    <div class="col m8 offset-m2">
+      <div class="profile-wrapper">
+        <div class="row">
+          <div class="col s6">
+            <p class="username">{{user.userName}}</p>
+            <p class="names"><span class="firstname">{{user.firstName}}</span><span class="lastname">&nbsp;{{user.firstName}}</span></p>
+          </div>
+          <div class="col s6">
+            <p class="location"><span class="city" *ngIf="user.city">{{user.city}}</span><span class="state" *ngIf="user.state">{{user.state}}</span><span class="zip" *ngIf="user.zip">{{user.zip}}</span></p>
+            <p class="location"><span class="country" *ngIf="user.country">{{user.country}}</span></p>
+            <p class="joined">Joined {{user.createdTime}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m3 s12">
+            <div class="avatar-wrapper">
+              <div class="avatar"><img src="/assets/avatar.png"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="title-wrapper box">
+              <div class="title">
+                <p>Volunteer Title</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="intro-wrapper box">
+              <div class="intro">
+                <p>{{user.introduction}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m6">
+            <ul class="links-list">
+              <li *ngIf="user.linkedinUrl"><a target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
+              <li *ngIf="user.personalUrl"><a target="_blank" [href]="user.personalUrl">Personal</a></li>
+              <li *ngIf="user.githubUrl"><a target="_blank" [href]="user.githubUrl">Github</a></li>
+            </ul>
+          </div>
+          <div class="col m6">
+            <div class="skills-list-wrapper">
+              <ul class="skills-list">
+                <li class="chip red lighten-5">Skill 1</li>
+                <li class="chip red lighten-5">Skill 2 </li>
+                <li class="chip red lighten-5">Skill 3</li>
+                <li class="chip red lighten-5">Skill 4</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 offset-s3">
+            <div class="buttons-block center-block">
+              <button>Edit</button>
+              <button>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
