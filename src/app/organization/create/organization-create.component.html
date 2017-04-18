@@ -31,7 +31,7 @@
             
             </label>
 
-            <input type="text" id="name" class="form-input" floating [ngClass]="{active: formPlaceholder.name}" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}" >
+            <input type="text" id="name" class="form-input" floating [ngClass]="{active: formPlaceholder.name, 'validate':!organizationForm.controls['name'].valid}" formControlName="name" >
           
           
           </div>
