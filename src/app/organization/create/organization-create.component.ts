@@ -23,8 +23,7 @@ export class OrganizationCreateComponent implements OnInit {
 
   public descMaxLength = 255;
 
-  // RegEx validators
-  
+  // RegEx validators 
   public httpValidRegEx = /^https?:\/\//;
   // tslint:disable-next-line:max-line-length
   private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
@@ -37,15 +36,8 @@ export class OrganizationCreateComponent implements OnInit {
 
 ngOnInit(): void {
     this.getFormConstants();
-
-
-
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-
-  
-
-
     this.organizationForm = this.fb.group({
       'photo': [this.organization.logo, []],
       'name': [this.organization.name || '', [Validators.required]],
