@@ -31,16 +31,15 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.organization.logo = '';
-    this.getOrganization(this.orgIndex);
-    this.getLogo(this.orgIndex);
-    this.getProjects(this.orgIndex);
   }
 
   getRoute(): void {
     this.routeSubscription = this.route.params.subscribe(
       (params: any) => {
         this.orgIndex = +params['organizationId'];
+
+        this.organization.logo = '';
+        this.getOrganization(this.orgIndex);
       }
     );
   }
@@ -50,6 +49,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       (res) => {
         const org = res;
         this.organization = org;
+        this.getLogo(org.id);
+        this.getProjects(org.id);
       },
       (err) => {
         console.error('An error occurred', err); // for demo purposes only

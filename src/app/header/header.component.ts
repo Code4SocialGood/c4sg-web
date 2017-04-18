@@ -1,39 +1,36 @@
 import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { OrganizationService } from './organization/common/organization.service';
-import { Organization } from './organization/common/organization';
+import { AuthService } from './../auth.service';
+import { OrganizationService } from '../organization/common/organization.service';
+import { Organization } from '../organization/common/organization';
 
 @Component({
 // moduleId: module.id,  // For webpack, remove this
-  selector: 'my-app',
+  selector: 'my-c4sg-header',
   providers: [AuthService],
-  templateUrl: './app.component.html',
-  styleUrls: [ 'app.component.scss' ]
+  templateUrl: './header.component.html',
+  styleUrls: [ 'header.component.scss' ]
 })
 
-export class AppComponent implements DoCheck {
+export class HeaderComponent implements DoCheck {
+  currentUserId: string;
+  organizationId: string;
+  atHome = false;
+  constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
 
-    currentUserId: string;
-    organizationId: string;
-    authSvc: AuthService;
-
-    constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
-      this.authSvc = this.auth;
-    }
+  }
 
   // control nav style by changing the class name
   isAtHome() {
     if (this.router.url === '/' || this.router.url === '/#!') {
-      return 'at-home';
-    } else {
-      return 'off-home';
+      return true;
     }
+    return false;
   }
 
   ngDoCheck() {
-    if (this.auth.authenticated() && this.currentUserId == null) {
-      this.currentUserId = this.auth.getCurrentUserId();
+    if (this.authSvc.authenticated() && this.currentUserId == null) {
+      this.currentUserId = this.authSvc.getCurrentUserId();
       if (this.currentUserId !== '0' && this.currentUserId !== null ) {
         // for a non-profit user, get the associated org-id
         this.organizationService.getUserOrganization(+this.currentUserId).subscribe(

@@ -10,7 +10,7 @@ import { AuthService } from '../../auth.service';
   selector: 'my-userlist',
   templateUrl: 'user-list.component.html',
   providers: [AuthService],
-  styleUrls: ['user-list.component.css']
+  styleUrls: ['user-list.component.scss']
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
@@ -31,6 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private router: Router,
               private auth: AuthService) {
+
   }
 
   ngOnInit(): void {
@@ -71,7 +72,14 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private getSkills(): void {
     // TODO: wire this up with userService when getSkills is available
-    this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
+    // this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
+    this.userService.getSkills().subscribe(res => {
+      console.log(res);
+      this.skills  = res.map(skill => {
+        return {name: skill.skillName, checked: false}; });
+    },
+      error => console.error(error)
+    );
   }
 
   private getTitles(): void {

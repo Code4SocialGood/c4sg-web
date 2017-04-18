@@ -19,7 +19,7 @@ export class OrganizationService {
   }
 
   getOrganization(id: number): Observable<Organization> {
-    const index = id - 1;
+    const index = id;
     const url = organizationUrl + '/' + index;
 
     return this.http.get(url)

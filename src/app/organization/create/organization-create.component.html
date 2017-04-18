@@ -24,7 +24,7 @@
         <!-- MIDDLE COLUMN -->
         <div class="col m4 s12">
           <div class="input-field">
-              
+
              
             <label for="name" class="form-label" >
               Organization Name*
@@ -42,12 +42,14 @@
                Website
             </label>
             <input class="form-input" type="url" id="website" class="" formControlName="website">
+
             <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.website.invalid && organizationForm.controls.website.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.website.value)">
               <h6 class="red-text darken-4">Starts with "http://" or "https://"</h6>
             </div>
           </div>
 
           <div class="input-field">
+
             <label for="email" class="form-label" >
                Email
             </label>
@@ -59,6 +61,7 @@
               Phone
             </label>
             <input class="form-input" type="tel" id="phone" class="" formControlName="phone">
+
           </div>
 
           <div class="input-field">
@@ -72,8 +75,10 @@
           </div>
 
           <div class="input-field">
+
             <label for="ein" class="form-label">EIN</label>
             <input class="form-input" type="text" id="ein" class="" formControlName="ein">
+
           </div>
 
  
@@ -90,6 +95,7 @@
         <!-- RIGHT COLUMN -->
         <div class="col m4 s12">
           <div class="input-field">
+
             <label for="address1" class="form-label">
               Address 1*
             </label>
@@ -112,6 +118,7 @@
             </select>
             <label>State</label>
 
+
           </div>
           
            <div class="input-field">
@@ -121,8 +128,10 @@
           
 
           <div class="input-field">
+
             <label for="zip" class="form-label">Zip Code</label>
             <input class="form-input" type="text" id="ein" class="" formControlName="zip">
+
           </div>
 
           <div class="input-field">
@@ -130,12 +139,15 @@
               <option value="" disabled>Choose country</option>
               <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
             </select>
+
             <label for="country" class="form-label">
               Country*
+
             </label>
           </div>
 
-          
+
+     
         </div>
       </div>
 

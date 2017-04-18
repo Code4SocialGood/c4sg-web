@@ -8,7 +8,7 @@ declare const $: Function;
 @Component({
   selector: 'my-organizations',
   templateUrl: 'organization-list.component.html',
-  styleUrls: ['organization-list.component.css']
+  styleUrls: ['organization-list.component.scss']
 })
 
 export class OrganizationListComponent implements OnInit, AfterViewInit {
@@ -18,7 +18,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
 
   // array of all items to be paged
-//   organizations: any[];
+  //   organizations: any[];
 
 
   constructor(private organizationService: OrganizationService,
