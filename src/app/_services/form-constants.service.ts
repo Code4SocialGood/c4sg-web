@@ -261,7 +261,7 @@ export class FormConstantsService {
 
   constructor() { }
 
-  getCategories(): any[] {
+  getCategories(): {[key: string]: any} {
     this.categories.sort();
     return this.categories;
   }
