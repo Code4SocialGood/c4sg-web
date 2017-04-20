@@ -58,28 +58,30 @@ export class MapViewerComponent implements AfterViewInit {
 
     if (this.developers != null) {
       this.developers.forEach((d: User) => {
-        const caux = L.circle([d.latitude, d.longitude], {
-          radius: 1000000 / (this.map.getZoom() * this.map.getZoom() * this.map.getZoom() / 2),
-          fillColor: '#' + ((1 << 24) * Math.random() | 0).toString(16),
-          fillOpacity: 0.5,
-          stroke: false
-        });
+        if (!(d.latitude === undefined || d.longitude === undefined)) {
+          const caux = L.circle([d.latitude, d.longitude], {
+            radius: 1000000 / (this.map.getZoom() * this.map.getZoom() * this.map.getZoom() / 2),
+            fillColor: '#' + ((1 << 24) * Math.random() | 0).toString(16),
+            fillOpacity: 0.5,
+            stroke: false
+          });
 
-        caux.bindPopup(
-          `
-          <div class="popup-avatar">
-            <h4> ${d.userName} </h4>
-            <img src="${d.avatarUrl}" />
-            <p>City:${d.city}, ${d.state}</p>
-          </div>`,
-          {
-          'className' : 'popupCustom'
-          }
-        )
-        .openPopup()
-        .addTo(this.map);
+          caux.bindPopup(
+            `
+            <div class="popup-avatar">
+              <h4> ${d.userName} </h4>
+              <img src="${d.avatarUrl}" />
+              <p>City:${d.city}, ${d.state}</p>
+            </div>`,
+            {
+            'className' : 'popupCustom'
+            }
+          )
+          .openPopup()
+          .addTo(this.map);
 
-        this.circles.push(caux);
+          this.circles.push(caux);
+        }
       });
     }
 

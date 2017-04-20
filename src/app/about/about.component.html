@@ -7,7 +7,7 @@
         <div class="row">
           <h1 class="main-title">Meet the Volunteers of Code for Social Good</h1>
           <div class="col s12">
-            <div class="map-viewer-wrapper">
+            <div class="map-viewer-wrapper" *ngIf="developers">
               <my-map-viewer [developers]="developers"></my-map-viewer>
             </div>
           </div>

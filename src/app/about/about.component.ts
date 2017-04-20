@@ -26,7 +26,6 @@ export class AboutComponent implements OnInit {
     .subscribe(
       res => {
         this.developers = res;
-        console.log(this.developers);
       },
       error => console.error(error)
     );
