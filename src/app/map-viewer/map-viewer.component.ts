@@ -58,12 +58,14 @@ export class MapViewerComponent implements AfterViewInit {
 
     if (this.developers != null) {
       this.developers.forEach((d: User) => {
-        if (!(d.latitude === undefined || d.longitude === undefined)) {
+        if (!(d.latitude == null || d.longitude == null)) {
+          const c = '#' + ((1 << 24) * Math.random() | 0).toString(16);
           const caux = L.circle([d.latitude, d.longitude], {
             radius: 1000000 / (this.map.getZoom() * this.map.getZoom() * this.map.getZoom() / 2),
-            fillColor: '#' + ((1 << 24) * Math.random() | 0).toString(16),
+            fillColor: c,
             fillOpacity: 0.5,
-            stroke: false
+            stroke: true,
+            color: c
           });
 
           caux.bindPopup(
