@@ -50,20 +50,22 @@ export class UserProfileComponent implements OnInit {
 
               this.user = new User(
                         user.id,
+                        user.email,
+                        user.role,
                         user.userName,
                         user.firstName,
                         user.lastName,
-                        user.email,
                         user.phone,
                         user.city,
                         user.state,
                         user.country,
                         user.zip,
+                        -1,
+                        -1,
                         user.introduction,
                         user.linkedinUrl,
                         user.personalUrl,
                         user.status,
-                        user.role,
                         user.publicProfileFlag,
                         user.chatFlag,
                         user.forumFlag,
@@ -79,26 +81,28 @@ export class UserProfileComponent implements OnInit {
 
     const user = new User(
         this.user.id,
+        this.myProfile.value.email,
+        this.user.role,
         this.myProfile.value.userName,
         this.myProfile.value.firstName,
         this.myProfile.value.lastName,
-        this.myProfile.value.email,
         this.user.phone,
         this.myProfile.value.city,
         this.myProfile.value.state,
         this.myProfile.value.country,
         this.myProfile.value.zip,
+        -1,
+        -1,
         this.user.introduction,
         this.user.linkedinUrl,
         this.user.personalUrl,
-        this.user.role,
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
         this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
-        this.user.updatedTime);
+        this.user.updatedTime );
 
     this.userService
         .update(user)

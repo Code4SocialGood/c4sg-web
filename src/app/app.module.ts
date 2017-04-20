@@ -49,7 +49,6 @@ import { DeveloperService } from './about/common/developer.service';
 import { ImageDisplayService } from './_services/image-display.service';
 import { ImageUploaderService } from './_services/image-uploader.service';
 
-import { MapViewerService } from './map-viewer/map-viewer.service';
 import { MapViewerComponent } from './map-viewer/map-viewer.component';
 
 
@@ -101,8 +100,7 @@ import { MapViewerComponent } from './map-viewer/map-viewer.component';
                AuthGuard,
                DeveloperService,
                ImageDisplayService,
-               ImageUploaderService,
-               MapViewerService
+               ImageUploaderService
   ],
 
   bootstrap: [ AppComponent ]

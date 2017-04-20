@@ -496,3 +496,16 @@ nav {
   }
 }
 
+
+.popupCustom .leaflet-popup-content-wrapper {
+  h4 {
+    font-size: 1em;
+  }
+  img {
+    width: 100%;
+  }
+  p {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+}

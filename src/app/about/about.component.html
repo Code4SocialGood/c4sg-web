@@ -5,10 +5,10 @@
     <div class="col m12" id="right-col">
       <div class="content" *ngIf="developers">
         <div class="row">
-          <h1 class="main-title">We, the people, are {{developers.length}} devs</h1>
+          <h1 class="main-title">Meet us</h1>
           <div class="col s12">
             <div class="map-viewer-wrapper">
-              <my-map-viewer mapId="the-map" [developers]="developers"></my-map-viewer>
+              <my-map-viewer [developers]="developers"></my-map-viewer>
             </div>
           </div>
         </div>
