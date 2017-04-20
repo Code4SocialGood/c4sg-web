@@ -20,7 +20,7 @@
 	    "prefix": "app",
 	    "styles": [
 
-    "assets/leaflet/leaflet.css",
+		"../node_modules/leaflet/dist/leaflet.css",
     "app/app.main.scss"
 	    ],
 	    "scripts": [
