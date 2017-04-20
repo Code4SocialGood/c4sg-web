@@ -102,7 +102,7 @@ export class UserProfileComponent implements OnInit {
         this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
-        this.user.updatedTime );
+        this.user.updatedTime);
 
     this.userService
         .update(user)
