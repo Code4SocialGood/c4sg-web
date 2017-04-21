@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { HeaderComponent } from './header/header.component';
 
 // Project
 import { ProjectListComponent } from './project/list/project-list.component';
@@ -48,6 +49,8 @@ import { DeveloperService } from './about/common/developer.service';
 import { ImageDisplayService } from './_services/image-display.service';
 import { ImageUploaderService } from './_services/image-uploader.service';
 
+import { MapViewerComponent } from './map-viewer/map-viewer.component';
+
 
 @NgModule({
   imports: [
@@ -66,6 +69,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     HomeComponent,
     AboutComponent,
 
+    HeaderComponent,
+
     ProjectListComponent,
     ProjectViewComponent,
     ProjectCreateComponent,
@@ -83,6 +88,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
     UserProfileComponent,
 
     AuthRoleSelectionComponent,
+
+    MapViewerComponent,
   ],
   providers: [ ProjectService,
                ProjectCreateService,
@@ -93,7 +100,8 @@ import { ImageUploaderService } from './_services/image-uploader.service';
                AuthGuard,
                DeveloperService,
                ImageDisplayService,
-               ImageUploaderService],
+               ImageUploaderService
+  ],
 
   bootstrap: [ AppComponent ]
 })

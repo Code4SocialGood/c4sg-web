@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser/';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { ImageUploaderService } from '../../_services/image-uploader.service';
+import { AuthService } from '../../auth.service';
+
+import { Organization } from '../common/organization';
 
 @Component({
   selector: 'my-edit-organization',
@@ -14,16 +17,19 @@ import { ImageUploaderService } from '../../_services/image-uploader.service';
 })
 
 export class OrganizationEditComponent implements OnInit {
-  public categories: String[];
+  public categories: {[key: string]: any};
   public countries: any[];
   private editOrg = true; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
   public formPlaceholder: {[key: string]: any} = {};
-  public shortDescMaxLength = 255;
+  public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
   public organizationId = 2; // TODO: set organizationId on init based on user data
+
+  currentUserId: string;
+  authSvc: AuthService;
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -37,10 +43,12 @@ export class OrganizationEditComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
+    private auth: AuthService,
     private fc: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
+    private router: Router,
     private imageUploader: ImageUploaderService
   ) { }
 
@@ -48,6 +56,7 @@ export class OrganizationEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId'];
+
       this.getFormConstants();
 
       if (this.editOrg) { // edit existing org
@@ -76,7 +85,6 @@ export class OrganizationEditComponent implements OnInit {
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-    this.states = this.fc.getStates();
   }
 
   private initForm(): void {
@@ -84,20 +92,18 @@ export class OrganizationEditComponent implements OnInit {
       'photo': [this.organization.logo, []],
       'name': [this.organization.name || '', [Validators.required]],
       'website': [this.organization.website || '', [Validators.pattern(this.urlValidRegEx)]],
-      'email': [this.organization.email || '', [Validators.required, Validators.pattern(this.emailValidRegEx)]],
-      'phone': [this.organization.phone || '', [Validators.required]],
+      'email': [this.organization.email || '', [Validators.pattern(this.emailValidRegEx)]],
+      'phone': [this.organization.phone || '', []],
       'ein': [this.organization.ein || '', [Validators.pattern(this.einValidRegEx)]],
-      'category': [this.organization.category || '', [Validators.required]],
-      'address1': [this.organization.address1 || '', [Validators.required]],
+      'category': [this.organization.category || '', []],
+      'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', [Validators.required]],
-      'zip': [this.organization.zip || '', [Validators.required, Validators.pattern(this.zipValidRegEx)]],
-      'shortDescription': [this.organization.briefDescription || '',
-      [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
+      'country': [this.organization.country || '', []],
+      'zip': [this.organization.zip || '', [Validators.pattern(this.zipValidRegEx)]],
+      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]
       ],
-      'longDescription': [this.organization.detailedDescription || '', [Validators.required]],
     });
   }
 

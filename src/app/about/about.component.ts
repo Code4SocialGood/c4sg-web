@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DeveloperService } from './common/developer.service';
+import { UserService } from '../user/common/user.service';
 import { Subscription } from 'rxjs/Rx';
+import { User } from '../user/common/user';
 
 @Component({
   selector: 'my-about',
@@ -10,10 +11,10 @@ import { Subscription } from 'rxjs/Rx';
 export class AboutComponent implements OnInit {
 
   usersSubscription: Subscription;
-  developers: any[];
+  developers: User[];
 
   constructor(
-    private developerService: DeveloperService,
+    private uService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -21,9 +22,10 @@ export class AboutComponent implements OnInit {
   }
 
   private getDevelopers(): void {
-    this.usersSubscription = this.developerService.getDevelopers().subscribe(
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
       res => {
-        this.developers = res.json();
+        this.developers = res;
       },
       error => console.error(error)
     );

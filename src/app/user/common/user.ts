@@ -12,6 +12,8 @@ export class User {
         public state?: string,
         public country?: string,
         public zip?: string,
+        public latitude?: number,
+        public longitude?: number,
         public introduction?: string,
         public linkedinUrl?: string,
         public personalUrl?: string,
@@ -21,6 +23,7 @@ export class User {
         public developerFlag?: string,
         public status?: string,
         public createdTime?: string,
-        public updatedTime?: string
+        public updatedTime?: string,
+        public avatarUrl?: string
     ) { }
 }

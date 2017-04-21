@@ -6,10 +6,12 @@ import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { AuthService } from '../../auth.service';
 
+import { ImageDisplayService } from '../../_services/image-display.service';
+
 @Component({
   selector: 'my-projects',
   templateUrl: 'project-list.component.html',
-  styleUrls: ['project-list.component.css']
+  styleUrls: ['project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
 
@@ -21,9 +23,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
 
   constructor(
-     private projectService: ProjectService,
-     private router: Router,
-     private auth: AuthService
+    private idService: ImageDisplayService,
+    private projectService: ProjectService,
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -39,9 +42,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      this.projectsSubscription = this.projectService
                                      .getProjects()
                                      .subscribe(
-                                       res => {
-                                           this.projects = res;
-                                       },
+                                     res => {
+                                       this.projects = res;
+                                       res.forEach((e: Project) => {
+                                        this.idService.displayImage(e.id,
+                                          this.projectService.retrieveImage.bind(this.projectService))
+                                          .subscribe(image => {
+                                            e.image = image.url;
+                                          });
+                                       });
+                                     },
                                        error => console.log(error)
                                      );
 
