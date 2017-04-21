@@ -67,7 +67,7 @@
           <div class="input-field">
             <select id="category" class="form-input" formControlName="category" materialize="material_select">
               <option value="" disabled selected>Choose category</option>
-              <option *ngFor="let category of categories" [value]="category" [selected]="category === organization.category">{{category}}</option>
+              <option *ngFor="let category of categories" [value]="category.value" [selected]="category === organization.category">{{category.name}}</option>
             </select>
             <label for="category" class="form-label">
               Category

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 
 
 export class OrganizationCreateComponent implements OnInit {
-  public categories: String[];
+  public categories: {[key: string]: any};
   public countries: any[];
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
@@ -32,7 +32,9 @@ export class OrganizationCreateComponent implements OnInit {
               private router: Router,
               private fc: FormConstantsService,
               private el: ElementRef) { }
-ngOnInit(): void {
+
+  ngOnInit(): void {
+
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
     this.organizationForm = this.fb.group({
@@ -90,8 +92,11 @@ ngOnInit(): void {
                    .toPromise();
       })
       .then(
-        res => {
-          this.router.navigate(['/nonprofit/edit/3']);
+          response => {
+             console.log('Successfully created organization');
+             console.log(response.json());
+             this.organization = response.json().organization;
+             this.router.navigate(['/nonprofit/view/' + this.organization.id]);
         },
         err => this.handleError)
       .catch(this.handleError);

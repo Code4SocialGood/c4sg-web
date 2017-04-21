@@ -27,7 +27,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private router: Router,
     private imageDisplay: ImageDisplayService) {
 
-    this.getRoute();
+      this.getRoute();
   }
 
   ngOnInit(): void {

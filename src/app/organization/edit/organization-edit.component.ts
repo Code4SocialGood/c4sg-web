@@ -17,7 +17,7 @@ import { Organization } from '../common/organization';
 })
 
 export class OrganizationEditComponent implements OnInit {
-  public categories: String[];
+  public categories: {[key: string]: any};
   public countries: any[];
   private editOrg = true; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();

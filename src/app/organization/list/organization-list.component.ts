@@ -56,10 +56,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     this.organizationService
         .getOrganizationsByKeyword(keyword)
         .subscribe(
-          res => {
-            this.organizations = res;
-            this.router.navigate(['/organization']);
-          },
+          res => this.organizations = res,
           error => console.log(error)
         );
   }
