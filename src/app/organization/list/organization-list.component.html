@@ -29,11 +29,11 @@
                   <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
                       <div class="card-header">
-                        <h4 [routerLink]="['/nonprofit/view',org.id]">{{org.name}}</h4>
+                        <h4 [routerLink]="['/nonprofit/view/'+org.id]">{{org.name}}</h4>
                         <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime}}</span></div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img *ngIf="org.logo" [src]="org.logo"><img *ngIf="!org.logo" src="/assets/project/Logo_ConvoForGood.png"></div>
+                        <div class="card-avatar"><img [src]="org.logo"></div>
                         <div class="card-info">
                           <p class="description">{{ org.description }}</p>
                           <div class="card-info-bottom">

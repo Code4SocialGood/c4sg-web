@@ -11,7 +11,7 @@ import {ProjectService} from '../../project/common/project.service';
   // moduleId: module.id,
   selector: 'my-organization',
   templateUrl: 'organization-view.component.html',
-  styleUrls: ['organization-view.component.css']
+  styleUrls: ['organization-view.component.scss']
 })
 
 export class OrganizationViewComponent implements OnInit, OnDestroy {

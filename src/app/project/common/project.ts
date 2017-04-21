@@ -5,7 +5,7 @@ export class Project {
               public organizationId: number,
               public shortDescription: string,
               public description: string,
-              public image?: string,
+              public image?: any,
               public line1?: string,
               public line2?: string,
               public city?: string,

@@ -101,6 +101,15 @@ nav {
   margin-left: - $line-sep-width;
 }
 
+.left-col {
+  border-right: solid $line-sep-width $line-sep-color;
+}
+
+.right-col {
+  border-left: solid $line-sep-width $line-sep-color;
+  margin-left: - $line-sep-width;
+}
+
 .sidebar-wrapper, .content-wrapper {
   padding-top: $content-pad-top;
 }
@@ -132,6 +141,7 @@ nav {
       padding: 25px;
       border: solid $line-sep-width $header-bg-color;
       h5 {
+        cursor: pointer;
         font-size: 1em;
         font-weight: bold;
         color: $main-color;
@@ -218,12 +228,13 @@ nav {
             padding:0;
             width: 100%;
             display:table;
+            min-height: 225px;
+
             .card-avatar {
               padding: 5px;
               width: 40%;
               display:table-cell;
               vertical-align: top;
-              min-height: 250px;
               > img {
                 width: 100%;
                 vertical-align: middle;
@@ -293,6 +304,110 @@ nav {
 
 }
 
+.single-card {
+  .card {
+      border: solid $line-sep-width $navbar-border-color;
+    .card-header{
+      line-height: 50px;
+      padding-left: 35px;
+      padding-right: 35px;
+      background-color: $header-bg-color;
+      h4 {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1em;
+        font-weight: bold;
+        color: $main-color;
+        margin: 0;
+        line-height: 50px;
+      }
+      .card-metainfo {
+        cursor: pointer;
+        font-size: 0.9em;
+        float: right;
+        color: $main-color;
+
+        .card-location {
+          margin-left: 1em;
+          margin-right: 1em;
+        }
+      }
+    }
+
+    .card-content {
+      padding:0;
+      width: 100%;
+      display:table;
+      .card-avatar {
+        padding: 5px;
+        width: 40%;
+        display:table-cell;
+        vertical-align: top;
+        min-height: 250px;
+        > img {
+          width: 100%;
+          vertical-align: middle;
+        }
+      }
+      .card-info {
+        width: 60%;
+        display:table-cell;
+        vertical-align: top;
+        position: relative;
+        .description {
+          text-align: justify;
+          padding: 11px;
+          font-size: 10px;
+        }
+        h5 {
+          font-size: 1em;
+          font-weight: bold;
+          text-align: center;
+          color: $main-color;
+        }
+
+        .skills-list-wrapper {
+          padding: 5px 25px 5px 25px;
+          ul {
+            li.chip {
+              color: $main-color;
+              border: solid $line-sep-width $header-bg-color;
+              background-color: #fff;
+              border-radius: 0px;
+              margin-left: 0.25em;
+              margin-right: 0.25em;
+              min-width: 27%;
+              text-align: center;
+
+              &:hover {
+                background-color: $bg-line-color;
+              }
+            }
+
+          }
+        }
+        .card-info-bottom {
+          background-color: $sec-bg-color;
+          padding-left: 25px;
+          vertical-align: bottom;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          .org-name {
+            cursor:pointer;
+            line-height: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            text-align:center;
+            color: $main-color;
+          }
+        }
+      }
+    }
+  }
+}
 .pagination {
   border-top: solid $line-sep-width $line-sep-color;
   border-bottom: solid $line-sep-width $line-sep-color;
@@ -381,3 +496,16 @@ nav {
   }
 }
 
+
+.popupCustom .leaflet-popup-content-wrapper {
+  h4 {
+    font-size: 1em;
+  }
+  img {
+    width: 100%;
+  }
+  p {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+}

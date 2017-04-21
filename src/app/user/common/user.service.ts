@@ -27,6 +27,13 @@ export class UserService {
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
+  public getAllUsers(): Observable<User[]> {
+    const url = userUrl;
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
+  }
 
   public getSkills(): Observable<any> {
     const url = skillsUrl;
