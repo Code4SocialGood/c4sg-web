@@ -37,7 +37,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      private router: Router,
      private auth: AuthService,
      private route: ActivatedRoute
-     private idService: ImageDisplayService,
+     private idService: ImageDisplayService
   ) { }
 
   ngOnInit(): void {
