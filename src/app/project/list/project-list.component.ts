@@ -36,7 +36,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      private organizationService: OrganizationService,
      private router: Router,
      private auth: AuthService,
-     private route: ActivatedRoute
+     private route: ActivatedRoute,
      private idService: ImageDisplayService
   ) { }
 
