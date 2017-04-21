@@ -19,10 +19,7 @@ export class OrganizationService {
   }
 
   getOrganization(id: number): Observable<Organization> {
-    const index = id;
-    const url = organizationUrl + '/' + index;
-
-    return this.http.get(url)
+    return this.http.get(`${organizationUrl}/${id}`)
                .map(res => res.json());
   }
 
@@ -36,7 +33,10 @@ export class OrganizationService {
   }
 
   createOrganization(organization: any): Observable<Response> {
-    return this.http.post(`${organizationUrl}`, organization);
+      return this.http.post(
+      `${organizationUrl}`,
+      organization
+      );
   }
 
   delete(id: number): Observable<Response> {
