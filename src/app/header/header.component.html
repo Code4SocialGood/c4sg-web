@@ -2,7 +2,7 @@
 <nav [class.at-home]="isAtHome()">
   <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
-      <li><a routerLink="/project/list" routerLinkActive="active">Opportunities</a></li>
+      <li><a routerLink="/project/list/opportunities" routerLinkActive="active">Opportunities</a></li>
       <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li>
       <li><a routerLink="/nonprofit/list" routerLinkActive="active">Nonprofits</a></li>
       <li><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">Community<i class="material-icons right">arrow_drop_down</i></a>
@@ -16,7 +16,7 @@
         <ul class="dropdown-content" id="dropdownproject">
           <li><a routerLink="/account/{{currentUserId}}" routerLinkActive="active">My Account</a></li>
           <li *ngIf="authSvc.isVolunteer()"><a routerLink="/profile/{{currentUserId}}" routerLinkActive="active">My Profile</a></li>
-          <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list" routerLinkActive="active">My Projects</a></li>
+          <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['nonprofit/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="authSvc.isAdmin()"><a routerLink="nonprofit/create" routerLinkActive="active">Create Organization</a></li>
           <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/create" routerLinkActive="active">Create Project</a></li>

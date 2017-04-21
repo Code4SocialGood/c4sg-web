@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
-
 import { Organization } from './organization';
 
 const organizationUrl = `${environment.backend_url}/api/organizations`;
@@ -32,6 +31,12 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
+  getUserOrganization(id: number): Observable<Response> {
+      return this.http.get(
+      `${organizationUrl}/user/${id}`
+      );
+    }
+
   createOrganization(organization: any): Observable<Response> {
       return this.http.post(
       `${organizationUrl}`,
@@ -53,11 +58,5 @@ export class OrganizationService {
     return this.http.get(
       `${organizationUrl}/${id}/logo`
     );
-  }
-
-  getUserOrganization(id: number): Observable<Organization> {
-      return this.http.get(
-      `${organizationUrl}/user/${id}`
-      ).map(res => res.json());
   }
 }
