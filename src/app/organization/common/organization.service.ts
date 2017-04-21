@@ -25,10 +25,9 @@ export class OrganizationService {
   getOrganizationsByKeyword(keyWord: string): Observable<Organization[]> {
     const param = new URLSearchParams();
     param.set('keyWord', keyWord);
-    const url = organizationUrl + '/search';
 
-    return this.jsonp
-               .get(organizationUrl, {search: param})
+    return this.http
+               .get(`${organizationUrl}/search`, {search: param})
                .map(res => res.json());
   }
 
@@ -39,7 +38,10 @@ export class OrganizationService {
     }
 
   createOrganization(organization: any): Observable<Response> {
-    return this.http.post(`${organizationUrl}`, organization);
+      return this.http.post(
+      `${organizationUrl}`,
+      organization
+      );
   }
 
   delete(id: number): Observable<Response> {

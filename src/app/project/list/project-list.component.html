@@ -33,7 +33,7 @@
                         <div class="card-metainfo"><span class="card-location" *ngIf="project.status">{{project.status}}</span><span class="joined-at" *ngIf="project.createdTime">{{project.createdTime}}</span></div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img *ngIf="project.image" [src]="project.image"><img *ngIf="!project.image" src="/assets/project/Logo_ConvoForGood.png"></div>
+                        <div class="card-avatar"><img [src]="project.image"></div>
                         <div class="card-info">
                           <p class="description">{{ project.description }}</p>
                           <p>Required:</p>

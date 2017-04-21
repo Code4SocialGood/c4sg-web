@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
 
+import { ImageDisplayService } from '../../_services/image-display.service';
+
 declare const $: Function;
 
 @Component({
@@ -21,7 +23,9 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   //   organizations: any[];
 
 
-  constructor(private organizationService: OrganizationService,
+  constructor(
+    private idService: ImageDisplayService,
+    private organizationService: OrganizationService,
               private router: Router) {
   }
 
@@ -40,8 +44,16 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   getOrganizations() {
     this.organizationService.getOrganizations()
-        .subscribe(
-          res => this.organizations = res,
+        .subscribe( res => {
+            this.organizations = res;
+            res.forEach((o: Organization) => {
+            this.idService.displayImage(o.id,
+              this.organizationService.retrieveLogo.bind(this.organizationService))
+              .subscribe(logo => {
+                o.logo = logo.url;
+              });
+            });
+          },
           error => console.log(error)
         );
   }
@@ -56,10 +68,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     this.organizationService
         .getOrganizationsByKeyword(keyword)
         .subscribe(
-          res => {
-            this.organizations = res;
-            this.router.navigate(['/organization']);
-          },
+          res => this.organizations = res,
           error => console.log(error)
         );
   }

@@ -8,6 +8,8 @@ import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { User } from '../../user/common/user';
 
+import { ImageDisplayService } from '../../_services/image-display.service';
+
 @Component({
   selector: 'my-projects',
   templateUrl: 'project-list.component.html',
@@ -29,11 +31,13 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
 
   constructor(
+
      private projectService: ProjectService,
      private organizationService: OrganizationService,
      private router: Router,
      private auth: AuthService,
      private route: ActivatedRoute
+     private idService: ImageDisplayService,
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +49,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
    private getProjects(): void {
+/* TODO the logic to be integrated
         if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
                  this.projectsSubscription = this.projectService.getProjects().subscribe(
                       res => this.projects = res,
@@ -70,6 +75,54 @@ export class ProjectListComponent implements OnInit, OnDestroy {
                     error => console.log(error));
                    }
 }
+*/
+
+     this.projectsSubscription = this.projectService
+                                     .getProjects()
+                                     .subscribe(
+                                     res => {
+                                       this.projects = res;
+                                       res.forEach((e: Project) => {
+                                        this.idService.displayImage(e.id,
+                                          this.projectService.retrieveImage.bind(this.projectService))
+                                          .subscribe(image => {
+                                            e.image = image.url;
+                                          });
+                                       });
+                                     },
+                                       error => console.log(error)
+                                     );
+
+    /* TODO For logged in user, if they click Opportunities, they should see full list of project
+       If they click My Projects, they should see filtered list of projecct for themselves.
+
+    if(!this.auth.authenticated()){
+         this.projectsSubscription = this.projectService.getProjects().subscribe(
+              res => {
+                this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+                this.setPage(1); // initialize to page 1
+              },
+              error => console.log(error));
+        }
+
+    else if (this.auth.isVolunteer()){
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId).subscribe(
+           res => {
+             this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+             this.setPage(1); // initialize to page 1
+           },
+           error => console.log(error));
+    }
+    else if (this.auth.isOrganization()){
+      this.projectsSubscription = this.projectService.getProjectByOrg(2).subscribe(
+           res => {
+             this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+             this.setPage(1); // initialize to page 1
+           },
+           error => console.log(error))
+    }
+    */
+  }
 
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();

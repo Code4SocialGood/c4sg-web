@@ -43,7 +43,7 @@
                   <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
                     <div class="card">
                       <div class="card-header">
-                        <h4>{{user.firstName + ' ' + user.lastName}}</h4>
+                        <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
                         <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
                       </div>
                       <div class="card-content">

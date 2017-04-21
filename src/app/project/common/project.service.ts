@@ -56,7 +56,7 @@ export class ProjectService {
   }
 
   delete(id: number) {
-    const url = projectUrl + id;
+    const url = projectUrl + '/' + id;
     return this.http
                .delete(url, {headers: this.headers})
                .catch(this.handleError);
