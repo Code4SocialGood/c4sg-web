@@ -86,10 +86,10 @@ export class OrganizationCreateComponent implements OnInit {
   onUploadLogo(event): void {
     this.imageUploader
         .readImage(event)
-        .subscribe(res => { 
-          this.organization.logo = res.base64Image
-          this.logoData = res
-        })
+        .subscribe(res => {
+          this.organization.logo = res.base64Image;
+          this.logoData = res;
+        });
   }
 
   onSubmit(): void {
@@ -114,7 +114,7 @@ export class OrganizationCreateComponent implements OnInit {
       .then(id => {
         return this.organizationService
           .saveLogo(id, this.logoData.formData)
-          .toPromise()
+          .toPromise();
       }, this.handleError)
       .then(res => {
         this.router.navigate(['/nonprofit/view/' + this.organization.id]);
