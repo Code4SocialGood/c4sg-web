@@ -257,6 +257,8 @@ export class FormConstantsService {
     { code: 'ZMB', name: 'Zambia' },
     { code: 'ZWE', name: 'Zimbabwe' }
   ];
+
+  // private categories = ['Non-Profit', 'Open Source', 'Other'];
   private categories = [{name: 'Non-Profit', value: 'N'}];
 
   constructor() { }

@@ -18,10 +18,14 @@
   font-size: 0.5rem !important;
 }
 
-.ng-invalid:not(form).ng-touched  {
-  border-bottom: 3px solid #b71c1c;
+
+
+.form-input + .form-label {
+  position: relative;
+  transition: transform 1s;
+  display: inline-block;
 }
 
-.ng-valid:not(form).ng-touched  {
-  border-bottom: 3px solid #008000;
+.form-input:focus + .form-label {
+  transform: scale(1.0) translateY(90px);
 }
