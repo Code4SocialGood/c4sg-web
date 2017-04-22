@@ -130,7 +130,7 @@ export class OrganizationEditComponent implements OnInit {
   onSubmit(): void {
     // if organizationId == 0 // organization hasn't been created by the nonprofit user
     // add new org ... call OrganizationService.???
-    // else 
+    // else
     // save ... call OrganizationService.???
   }
 }
