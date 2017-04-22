@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { ImageDisplayService, ImageDisplay } from './image-display.service';
 
-class ImageReader {
+export class ImageReaderResponse {
   base64Image = '';
   formData: FormData;
 }
@@ -27,8 +27,8 @@ export class ImageUploaderService {
       console.error(err, 'An error occurred');
   }
 
-  readImage(fileInput: any): Observable<ImageReader> {
-    const data = new ImageReader();
+  readImage(fileInput: any): Observable<ImageReaderResponse> {
+    const data = new ImageReaderResponse();
     const stream = new  BehaviorSubject(data);
     const reader = new FileReader();
     if (fileInput.target.files && fileInput.target.files[0]) {

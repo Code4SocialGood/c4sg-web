@@ -3,6 +3,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
+import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
+import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   selector: 'my-create-organization',
@@ -17,6 +19,7 @@ export class OrganizationCreateComponent implements OnInit {
   public organizationForm: FormGroup;
   public formPlaceholder: {[key: string]: any} = {};
   public descMaxLength = 255;
+  private logoData: ImageReaderResponse;
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -32,6 +35,8 @@ export class OrganizationCreateComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private fc: FormConstantsService,
+              private imageDisplay: ImageDisplayService,
+              private imageUploader: ImageUploaderService
               ) { }
 
   ngOnInit(): void {
@@ -78,6 +83,15 @@ export class OrganizationCreateComponent implements OnInit {
     };
   }
 
+  onUploadLogo(event): void {
+    this.imageUploader
+        .readImage(event)
+        .subscribe(res => { 
+          this.organization.logo = res.base64Image
+          this.logoData = res
+        })
+  }
+
   onSubmit(): void {
     this.organizationService
       .getOrganizations()
@@ -86,17 +100,25 @@ export class OrganizationCreateComponent implements OnInit {
         const results: Array<any> = res;
         const body = this.organizationForm.value;
         return this.organizationService
-                   .createOrganization(body)
-                   .toPromise();
+          .createOrganization(body)
+          .toPromise();
       })
       .then(
           response => {
              console.log('Successfully created organization');
              console.log(response.json());
              this.organization = response.json().organization;
-             this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+             return this.organization.id;
         },
         err => this.handleError)
+      .then(id => {
+        return this.organizationService
+          .saveLogo(id, this.logoData.formData)
+          .toPromise()
+      }, this.handleError)
+      .then(res => {
+        this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+      }, this.handleError)
       .catch(this.handleError);
   }
 
