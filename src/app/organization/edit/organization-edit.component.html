@@ -160,7 +160,7 @@
 -->
 
 <div class="container">
-  <h3 class="center-align">Edit Organization</h3>
+  <h3 class="center-align">My Organization</h3>
   <div class="row">
     <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()" class="col s12">
       <div class="row">
@@ -183,7 +183,7 @@
         <div class="col m4 s12">
           <div class="input-field">
             <label for="name">Organization Name *</label>
-            <input placeholder="{active: formPlaceholder.name}" type="text" id="name" [ngClass]="{active: formPlaceholder.name}" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}">
+            <input type="text" id="name" [ngClass]="{active: formPlaceholder.name}" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}">
           </div>
 
           <div class="input-field">
@@ -206,7 +206,7 @@
 
           <div class="input-field">
             <select id="category" class="" formControlName="category" materialize="material_select">
-              <option value="" disabled selected>Choose category</option>
+              <option value="" disabled selected></option>
               <option *ngFor="let category of categories" [value]="category" [selected]="category === organization.category">{{category}}</option>
             </select>
             <label>
@@ -248,7 +248,7 @@
 
           <div class="input-field">
             <select id="country" class="" formControlName="country" materialize="material_select">
-              <option value="" disabled>Choose country</option>
+              <option value="" disabled></option>
               <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
             </select>
             <label>

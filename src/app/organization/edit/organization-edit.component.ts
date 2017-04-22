@@ -19,7 +19,6 @@ import { Organization } from '../common/organization';
 export class OrganizationEditComponent implements OnInit {
   public categories: {[key: string]: any};
   public countries: any[];
-  private editOrg = true; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
   public formPlaceholder: {[key: string]: any} = {};
@@ -56,29 +55,21 @@ export class OrganizationEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId'];
-
       this.getFormConstants();
+      this.organization.logo = '';
+      this.initForm();
 
-      if (this.editOrg) { // edit existing org
-        this.organization.logo = '';
-        this.initForm();
-        this.organizationService.getOrganization(this.organizationId).toPromise()
-          .then(res => {
-            this.editOrg = true;
-            this.organization = res;
-            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
-          })
-          .then(res => {
-            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
-            this.initForm();
-          }, err => console.error('An error occurred', err)) // for demo purposes only
-          .catch(err => console.error('An error occurred', err)); // for demo purposes only
-      } else { // add new org
-        this.editOrg = null;
-        this.initForm();
-      }
-
+      this.organizationService.getOrganization(this.organizationId).toPromise()
+        .then(res => {
+          this.organization = res;
+          // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+          return this.organizationService.retrieveLogo(this.organizationId).toPromise();
+        })
+        .then(res => {
+          this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
+          this.initForm();
+        }, err => console.error('An error occurred', err)) // for demo purposes only
+        .catch(err => console.error('An error occurred', err)); // for demo purposes only
     });
   }
 
@@ -135,12 +126,11 @@ export class OrganizationEditComponent implements OnInit {
        .subscribe(res => {this.organization.logo = res.url; },
                   err => {console.error(err, 'An error occurred'); } );
   }
+
   onSubmit(): void {
-    // TODO: complete submission logic...
-    if (this.editOrg) {
-      // save ... call OrganizationService.???
-    } else {
-      // add new org ... call OrganizationService.???
-    }
+    // if organizationId == 0 // organization hasn't been created by the nonprofit user
+    // add new org ... call OrganizationService.???
+    // else 
+    // save ... call OrganizationService.???
   }
 }
