@@ -58,6 +58,7 @@ import { MapViewerComponent } from './map-viewer/map-viewer.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    JsonpModule,
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,
