@@ -1,4 +1,22 @@
-.chip {
- margin-top: 5px;
-  border-bottom: none;
+
+@import "../../../../variables";
+
+.skills-list-wrapper {
+  padding: 5px 25px 5px 25px;
+  ul {
+    li.chip {
+      color: $main-color;
+      border: solid $line-sep-width $header-bg-color;
+      background-color: #fff;
+      border-radius: 0px;
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      min-width: 27%;
+      text-align: center;
+
+      &:hover {
+        background-color: $bg-line-color;
+      }
+    }
+  }
 }

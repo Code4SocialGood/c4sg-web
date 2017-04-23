@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ProjectService} from '../common/project.service';
 import {Project} from '../common/project';
 import {FormConstantsService} from '../../_services/form-constants.service';
+import { SkillService } from '../../skill/common/skill.service';
 // import { Skills } from '../common/skills';
 
 @Component({
@@ -20,6 +21,8 @@ export class ProjectEditComponent implements OnInit {
   public projectImageUrl = '../../../assets/default_avatar.png';
   public projectForm: FormGroup;
   public editFlag: boolean = false;
+  public projectSkillsArray: string[]=[];
+  public skillsArray: string[]=[];
   // public skills = Skills.skillsInit;
 
   constructor(public fb: FormBuilder,
@@ -27,7 +30,8 @@ export class ProjectEditComponent implements OnInit {
               private fc: FormConstantsService,
               private el: ElementRef,
               private sanitizer: DomSanitizer,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private skillService: SkillService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +47,7 @@ export class ProjectEditComponent implements OnInit {
         .subscribe(
           res => {
             this.project = res;
+            console.log(res);
             this.fillForm();
           }, error => console.log(error)
         );
@@ -51,7 +56,22 @@ export class ProjectEditComponent implements OnInit {
           res => {
           }, error => console.log(error)
         );
-
+      this.skillService.getSkillsByProject(id)
+        .subscribe(
+          res => {
+            this.projectSkillsArray = res;
+            console.log(this.projectSkillsArray);
+          }, error => console.log(error)
+        );
+      this.skillService.getSkills()
+        .subscribe(
+          res => {
+            res.map((obj) => {
+              this.skillsArray.push(obj.skillName)
+            });
+            console.log(this.skillsArray);
+          }, error => console.log(error)
+        );
     });
   }
 
@@ -72,6 +92,7 @@ export class ProjectEditComponent implements OnInit {
       'state': ['', [Validators.required]],
       'zip': ['', [Validators.required]],
       'country': ['', [Validators.required]],
+      'skills': ['', [Validators.required]]
     });
   }
 
@@ -88,6 +109,7 @@ export class ProjectEditComponent implements OnInit {
       'state': [this.project.state || '', [Validators.required]],
       'zip': [this.project.zip || '', [Validators.required]],
       'country': [this.project.country || '', [Validators.required]],
+      'skills': ['', [Validators.required]]
     });
   }
 
@@ -119,6 +141,13 @@ export class ProjectEditComponent implements OnInit {
         console.log('Project data was successfully updated');
       }, error => console.log(error)
     );
+  }
+
+  onAddSkill(optionValue) {
+    console.log(optionValue.target.value);
+    this.projectSkillsArray.push(optionValue.target.value);
+    console.log(this.projectSkillsArray);
+
   }
 
 }

@@ -95,16 +95,23 @@
       <div class="col l5 offset-l1">
         <h4>Skills</h4>
         <div class="row">
-          <div class="skills-block col l8 teal lighten-2">
-            <project-skill></project-skill>
+          <div class="col l10">
+            <project-skill [projectSkillsArray]="projectSkillsArray"></project-skill>
           </div>
+
           <div class="col l2">
             <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">mode_edit</i></a>
           </div>
         </div>
         <div *ngIf="editFlag === true" class="row">
-          <div class="col l8 teal lighten-2">
-            Skill list
+          <div class="input-field col l12">
+
+            <select id="skills" class="" formControlName="skills" materialize="material_select" (change)="onAddSkill($event)">
+              <option value="" disabled>Choose skill</option>
+              <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}
+              </option>
+            </select>
+            <label for="skills">Skills</label>
           </div>
         </div>
       </div>
