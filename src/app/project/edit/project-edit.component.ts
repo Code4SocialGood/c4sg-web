@@ -143,6 +143,12 @@ export class ProjectEditComponent implements OnInit {
         console.log('Project data was successfully updated');
       }, error => console.log(error)
     );
+
+    this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
+      res => {
+        console.log('Project data was successfully updated');
+      }, error => console.log(error)
+    );
   }
 
   onAddListedSkill(optionValue) {
