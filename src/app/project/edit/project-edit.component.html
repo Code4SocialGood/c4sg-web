@@ -96,7 +96,7 @@
         <h4>Skills</h4>
         <div class="row">
           <div class="col l10">
-            <project-skill [projectSkillsArray]="projectSkillsArray"></project-skill>
+            <project-skill [projectSkillsArray]="projectSkillsArray" (onDeleteSkill)="onDeleteSkill($event)"></project-skill>
           </div>
 
           <div class="col l2">
@@ -104,14 +104,22 @@
           </div>
         </div>
         <div *ngIf="editFlag === true" class="row">
-          <div class="input-field col l12">
-
-            <select id="skills" class="" formControlName="skills" materialize="material_select" (change)="onAddSkill($event)">
-              <option value="" disabled>Choose skill</option>
+          <div class="col l12 select-wrapper">
+            <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
               <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}
               </option>
             </select>
-            <label for="skills">Skills</label>
+            <label for="skillSelect">Choose from below</label>
+          </div>
+          <div class="input-field col l12">
+            <div class="col l10">
+              <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+              <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
+            </div>
+            <div class="col l2">
+              <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i class="material-icons">add</i></a>
+            </div>
+
           </div>
         </div>
       </div>

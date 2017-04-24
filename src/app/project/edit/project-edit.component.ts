@@ -23,6 +23,8 @@ export class ProjectEditComponent implements OnInit {
   public editFlag: boolean = false;
   public projectSkillsArray: string[]=[];
   public skillsArray: string[]=[];
+  public inputValue: string = "";
+
   // public skills = Skills.skillsInit;
 
   constructor(public fb: FormBuilder,
@@ -91,8 +93,8 @@ export class ProjectEditComponent implements OnInit {
       'city': ['', [Validators.required]],
       'state': ['', [Validators.required]],
       'zip': ['', [Validators.required]],
-      'country': ['', [Validators.required]],
-      'skills': ['', [Validators.required]]
+      'country': ['', [Validators.required]]
+      // 'skills': ['', [Validators.required]]
     });
   }
 
@@ -108,8 +110,8 @@ export class ProjectEditComponent implements OnInit {
       'city': [this.project.city || '', [Validators.required]],
       'state': [this.project.state || '', [Validators.required]],
       'zip': [this.project.zip || '', [Validators.required]],
-      'country': [this.project.country || '', [Validators.required]],
-      'skills': ['', [Validators.required]]
+      'country': [this.project.country || '', [Validators.required]]
+      // 'skills': ['', [Validators.required]]
     });
   }
 
@@ -143,11 +145,24 @@ export class ProjectEditComponent implements OnInit {
     );
   }
 
-  onAddSkill(optionValue) {
+  onAddListedSkill(optionValue) {
     console.log(optionValue.target.value);
     this.projectSkillsArray.push(optionValue.target.value);
     console.log(this.projectSkillsArray);
+  }
 
+  onDeleteSkill(skillToDelete) {
+    this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
+      return projectSkill !== skillToDelete
+    });
+    console.log(this.projectSkillsArray);
+  }
+
+  onAddOwnSkill(inputSkill) {
+    console.log(inputSkill.value);
+    this.projectSkillsArray.push(inputSkill.value);
+    this.inputValue = "";
+    console.log(this.projectSkillsArray);
   }
 
 }
