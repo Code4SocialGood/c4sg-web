@@ -10,10 +10,11 @@ import { AuthService } from '../../auth.service';
   selector: 'my-userlist',
   templateUrl: 'user-list.component.html',
   providers: [AuthService],
-  styleUrls: ['user-list.component.css']
+  styleUrls: ['user-list.component.scss']
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+  totalItems = 0;
   p = 0;
   keywords: any;
   pagedItems: any[]; // paged items
@@ -30,10 +31,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private router: Router,
               private auth: AuthService) {
+
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsers(1);
     this.getSkills();
     this.getTitles();
     this.getKeywords();
@@ -70,7 +72,14 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private getSkills(): void {
     // TODO: wire this up with userService when getSkills is available
-    this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
+    // this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
+    this.userService.getSkills().subscribe(res => {
+      console.log(res);
+      this.skills  = res.map(skill => {
+        return {name: skill.skillName, checked: false}; });
+    },
+      error => console.error(error)
+    );
   }
 
   private getTitles(): void {
@@ -79,11 +88,15 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
 
-  private getUsers(): void {
-    this.usersSubscription = this.userService.getUsers()
+  public getUsers(page: number): void {
+    this.usersSubscription = this.userService.getUsers(page)
                                  .subscribe(
                                    res => {
-                                     this.users = res;
+                                     // the called service returns a JSON object
+                                     // consist of the array of pageable data
+                                     // and the total number of data rows
+                                     this.users = res.data;
+                                     this.totalItems = res.totalItems;
                                      this.usersCache = this.users.slice(0);
                                    },
                                    error => console.error(error)
@@ -162,5 +175,4 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.usersSubscription.unsubscribe();
     }
   }
-
 }

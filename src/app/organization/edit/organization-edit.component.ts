@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser/';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { ImageUploaderService } from '../../_services/image-uploader.service';
+import { AuthService } from '../../auth.service';
+
+import { Organization } from '../common/organization';
 
 @Component({
   selector: 'my-edit-organization',
@@ -14,16 +17,18 @@ import { ImageUploaderService } from '../../_services/image-uploader.service';
 })
 
 export class OrganizationEditComponent implements OnInit {
-  public categories: String[];
+  public categories: {[key: string]: any};
   public countries: any[];
-  private editOrg = true; // TODO: Set editOrg on init. Need to know edit/add when saving changes
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
   public formPlaceholder: {[key: string]: any} = {};
-  public shortDescMaxLength = 255;
+  public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
   public organizationId = 2; // TODO: set organizationId on init based on user data
+
+  currentUserId: string;
+  authSvc: AuthService;
 
   // RegEx validators
   private einValidRegEx = /^[1-9]\d?-\d{7}$/;
@@ -37,10 +42,12 @@ export class OrganizationEditComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
+    private auth: AuthService,
     private fc: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
+    private router: Router,
     private imageUploader: ImageUploaderService
   ) { }
 
@@ -49,34 +56,26 @@ export class OrganizationEditComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId'];
       this.getFormConstants();
+      this.organization.logo = '';
+      this.initForm();
 
-      if (this.editOrg) { // edit existing org
-        this.organization.logo = '';
-        this.initForm();
-        this.organizationService.getOrganization(this.organizationId).toPromise()
-          .then(res => {
-            this.editOrg = true;
-            this.organization = res;
-            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
-          })
-          .then(res => {
-            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
-            this.initForm();
-          }, err => console.error('An error occurred', err)) // for demo purposes only
-          .catch(err => console.error('An error occurred', err)); // for demo purposes only
-      } else { // add new org
-        this.editOrg = null;
-        this.initForm();
-      }
-
+      this.organizationService.getOrganization(this.organizationId).toPromise()
+        .then(res => {
+          this.organization = res;
+          // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+          return this.organizationService.retrieveLogo(this.organizationId).toPromise();
+        })
+        .then(res => {
+          this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
+          this.initForm();
+        }, err => console.error('An error occurred', err)) // for demo purposes only
+        .catch(err => console.error('An error occurred', err)); // for demo purposes only
     });
   }
 
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-    this.states = this.fc.getStates();
   }
 
   private initForm(): void {
@@ -84,20 +83,18 @@ export class OrganizationEditComponent implements OnInit {
       'photo': [this.organization.logo, []],
       'name': [this.organization.name || '', [Validators.required]],
       'website': [this.organization.website || '', [Validators.pattern(this.urlValidRegEx)]],
-      'email': [this.organization.email || '', [Validators.required, Validators.pattern(this.emailValidRegEx)]],
-      'phone': [this.organization.phone || '', [Validators.required]],
+      'email': [this.organization.email || '', [Validators.pattern(this.emailValidRegEx)]],
+      'phone': [this.organization.phone || '', []],
       'ein': [this.organization.ein || '', [Validators.pattern(this.einValidRegEx)]],
-      'category': [this.organization.category || '', [Validators.required]],
-      'address1': [this.organization.address1 || '', [Validators.required]],
+      'category': [this.organization.category || '', []],
+      'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', [Validators.required]],
-      'zip': [this.organization.zip || '', [Validators.required, Validators.pattern(this.zipValidRegEx)]],
-      'shortDescription': [this.organization.briefDescription || '',
-      [Validators.required, Validators.maxLength(this.shortDescMaxLength)]
+      'country': [this.organization.country || '', []],
+      'zip': [this.organization.zip || '', [Validators.pattern(this.zipValidRegEx)]],
+      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]
       ],
-      'longDescription': [this.organization.detailedDescription || '', [Validators.required]],
     });
   }
 
@@ -129,12 +126,11 @@ export class OrganizationEditComponent implements OnInit {
        .subscribe(res => {this.organization.logo = res.url; },
                   err => {console.error(err, 'An error occurred'); } );
   }
+
   onSubmit(): void {
-    // TODO: complete submission logic...
-    if (this.editOrg) {
-      // save ... call OrganizationService.???
-    } else {
-      // add new org ... call OrganizationService.???
-    }
+    // if organizationId == 0 // organization hasn't been created by the nonprofit user
+    // add new org ... call OrganizationService.???
+    // else
+    // save ... call OrganizationService.???
   }
 }

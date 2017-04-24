@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
+import { OrganizationService } from '../../organization/common/organization.service';
 import { AuthService } from '../../auth.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ImageDisplayService } from '../../_services/image-display.service';
@@ -10,18 +11,22 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 @Component({
   selector: 'my-view-project',
   templateUrl: 'project-view.component.html',
-  styleUrls: ['project-view.component.css']
+  styleUrls: ['project-view.component.scss']
 })
 
 export class ProjectViewComponent implements OnInit {
 
   project: Project;
+  projects: Project[];
+  numberOfProjects: number;
   params: Params;
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
+  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
-
+  orgImage: any = '';
   constructor(private projectService: ProjectService,
+              private orgService: OrganizationService,
               private route: ActivatedRoute,
               private router: Router,
               private auth: AuthService,
@@ -31,21 +36,37 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-
-      const id = params['projectId'];
-
-      this.imageDisplay.displayImage(id,
-        this.projectService.retrieveImage.bind(this.projectService))
-            .subscribe(res => this.projectImage = res.url );
-
+        const id = params['projectId'];
+        this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
+            .subscribe (
+                res => this.projectImage = res.url
+                );
         this.projectService.getProject(id)
-          .subscribe(
-            res => this.project = res,
-            error => console.log(error)
-          );
-    });
-  }
+        .subscribe(
+            res => {
+                this.project = res;
+                if (this.project.organization.description.length > 100) {
+                    this.project.organization.description =                  this.project.organization.description.slice(0, 100) + '...';
 
+                    }
+                this.projectService.getProjectByOrg(res.organization.id)
+                    .subscribe(
+                        resProjects => this.projects = resProjects.json(),
+                        errorProjects => console.log(errorProjects)
+                    );
+
+                this.imageDisplay.displayImage(res.organization.id, this.orgService.retrieveLogo.bind(this.orgService))
+                    .subscribe (
+                        resi => {
+                          this.orgImage = resi.url;
+                        }
+                        );
+
+            },
+            error => console.log(error)
+            );
+            });
+            }
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
   }
@@ -57,8 +78,13 @@ export class ProjectViewComponent implements OnInit {
       .subscribe(
         response => {
           this.router.navigate(['project/list']);
+          // display toast
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
         },
-        error => console.log(error)
+        error => {
+            console.log(error);
+            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
+        }
       );
   }
 

@@ -19,12 +19,15 @@
 	    "testTsconfig": "tsconfig.spec.json",
 	    "prefix": "app",
 	    "styles": [
+
+		"../node_modules/leaflet/dist/leaflet.css",
     "app/app.main.scss"
 	    ],
 	    "scripts": [
 		"../node_modules/jquery/dist/jquery.min.js",
 		"../node_modules/materialize-css/dist/js/materialize.min.js",
-		"../node_modules/underscore/underscore-min.js"
+		"../node_modules/underscore/underscore-min.js",
+		"../node_modules/leaflet/dist/leaflet.js"
 	    ],
 	    "environmentSource": "environments/environment.ts",
 	    "environments": {

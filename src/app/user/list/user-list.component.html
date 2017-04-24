@@ -1,64 +1,88 @@
-<div class="row">
-  <!-- Search -->
-  <div class="col m3 s12">
-    <div class="row">
-      <div class="col s12">
-        <div class="input-field">
-          <i class="material-icons prefix search" (click)="getUsersByKeyword(searchTerm.value, null, null)">search</i>
-          <input type="text" #searchTerm materialize="autocomplete" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)"
-            id="autocomplete-input" class="autocomplete">
-          <label for="autocomplete-input">search volunteers</label>
 
+<div class="container">
+  <div class="row main-row">
+    <div class="col m4" id="left-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section"> 
+            <h4>Search</h4>
+            <div class="input-search">
+              <form>
+                <div class="input-field" (click)="getUsersByKeyword(searchTerm.value, null, null)">
+                  <input id="autocomplete-input" #searchTerm materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
+                  <label for="autocomplete-input"><i class="material-icons">search</i></label>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="section"> 
+            <h4>Filter</h4>
+            <div class="section-body"> 
+              <h5>By Skills:</h5>
+              <div class="skills-list-wrapper">
+                <ul *ngIf="skills">
+                  <li *ngFor="let skill of skills, let i = index">
+                    <input class="filled-in" type="checkbox" [id]="skill.name">
+                    <label [for]="skill.name" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <br>
-
-        <form materialize>
-          <span class="title">Skills</span>
-          <p *ngFor="let skill of skills; let i = index">
-            <input type="checkbox" class="filled-in" id="{{skill.name}}" />
-            <label for="{{skill.name}}" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
-          </p>
-        </form>
       </div>
     </div>
-
-  </div>
-
-  <!-- Volunteer List -->
-  <div class="col m9 s12">
-    <h5>{{users?.length}} volunteers found</h5><br>
-
-    <ul class="collection">
-      <li *ngFor="let user of users | paginate:{itemsPerPage: 10, currentPage: p}" class="collection-item avatar">
-        <img *ngIf="user.photo" src="{{user.photo}}" alt="" class="circle">
-        <i *ngIf="!user.photo" class="material-icons circle green accent-4 bigger">mood</i>
-        <div class="row userRow">
-          <div class="col m6 s12">
-            <span class="title">{{user.firstName + ' ' + user.lastName}}</span>
+    <div class="col m8" id="right-col">
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="row">
+            <h1 class="main-title"><span class="index-prefix">{{totalItems}}</span>Volunteers found</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="users">
+                  <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img src="/assets/avatar.png"></div>
+                        <div class="card-info">
+                          <h5>Junior McDonalds Tender</h5>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          <div class="card-info-bottom">
+                            <div class="links-list-wrapper">
+                              <ul>
+                                <li><a class="mdi mdi-email" href="mailto:info@code4socialgood.org"></a></li>
+                                <li><a class="mdi mdi-linkedin-box" name="linkedin" href="https://www.linkedin.com/company-beta/16227162/" target="_blank"></a></li>
+                                <li><a class="mdi mdi-facebook-box" name="facebook" href="https://www.facebook.com/code4socialgood" target="_blank"></a></li>
+                                <li><a class="mdi mdi-twitter-box" name="twitter" href="https://twitter.com/code4socialgood" target="_blank"> </a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <!-- TODO: Add city when available from REST API -->
-          <div class="col m6 s12">
-            {{user.state + ', ' + user.country}}
-            <br>
-            <!-- TODO: Add joined date when available from REST API -->
-            Joined "TODO (add date to model)"
+          <div class="row">
+            <div class="pagination">
+              <pagination-controls (pageChange)="getUsers(p = $event)" id="usersPages" autoHide="false"></pagination-controls>
+            </div>
           </div>
         </div>
-        <div class="row userRow">
-          <div class="col m12">
-            <div class="chip red lighten-5">Skills</div>
-          </div>
-        </div>
-
-      </li>
-    </ul>
-
-    <!-- Pagination -->
-    <div class="row">
-	<div class="col m12 right-align">
-	    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-	</div>
+      </div>
     </div>
   </div>
 </div>

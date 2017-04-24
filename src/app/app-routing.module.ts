@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
 
-  {path: 'project/list', component: ProjectListComponent},
+  {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},
   {path: 'project/create', component: ProjectCreateComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
@@ -40,7 +40,7 @@ const routes: Routes = [
   {path: 'nonprofit/list', component: OrganizationListComponent},
   {path: 'nonprofit/view/:organizationId', component: OrganizationViewComponent},
   {path: 'nonprofit/create', component: OrganizationCreateComponent, canActivate: [AuthGuard],
-        data: {roles: ['ADMIN']}},
+        data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'nonprofit/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'nonprofit/delete/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard],

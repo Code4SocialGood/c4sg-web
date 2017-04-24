@@ -1,49 +1,21 @@
+
 <div class="container">
-    <div class="row">
-        <div class="col s12 m10">
-            <div class="row">
-                <div class="col s6 m5">  
-                    <div>
-                        <b>{{project?.name}}</b><br>
-                        <a href="#">{{project?.organization.name}}</a>
-                    </div>
-                    <br>
-                    <div class="col s3" id="photo">
-                        <img [src]="projectImage" alt="Project Photo">
-                    </div>                 
-                </div>
-                <div class="col s6 m5">                       
-                    <div>
-                        <b>Remote</b>
-                        <address>
-                          {{project?.address1}}<br>
-                          {{project?.address2}}<br>
-                          {{project?.city}}, {{project?.zip}} <br>
-                          {{project?.state}}<br>
-                           {{project?.country}}
-                        </address> 
-                    </div> 
-                    <br>
-                    <div>Posted {{project?.createdTime | date: 'dd/MM/yyyy'}}</div>
-                    <br>
-                    <div>
-                        <b>Skills</b><br>
-                        <div class="chip">CSS</div>
-                        <div class="chip">HTML</div>
-                        <div class="chip">JavaScript</div>
-                        <div class="chip">MySql</div>
-                        <div class="chip">Angular2</div>
-                        <div class="chip">Java</div>
-                        <div class="chip">TypeScript</div>
-                    </div>
-                    
-                </div>
+  <div class="row main-row">
+    <div class="col s8" id="left-col">
+      <div class="content-wrapper">
+        <div class="content" *ngIf="project">
+          <div class="row">
+            <h1 class="main-title">{{project.name}}</h1>
+            <div class="more-details"> 
+              <p class="details"><span class="is-remote" *ngIf="project.remoteFlag == 'Y'">Remote</span><span class="is-remote" *ngIf="project.remoteFlag == 'N'">In-place</span><span class="is-active" *ngIf="project.status == 'A'">Active</span></p>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <p>{{project?.description}}</p>
-                </div>
+            <p class="subtitle">Organization:  <a href="#">{{project.organization.name}}</a></p>
+          </div>
+          <div class="row single-info">
+            <div class="col m4">
+              <div class="info-avatar"><img [src]="projectImage"></div>
             </div>
+<!--
             <div class="row">
                 <div class="col s2 offset-s2"><button>Apply</button></div>
                 <div class="col s2 offset-s2"> 
@@ -51,11 +23,114 @@
                         Bookmark
                     </button>
                 </div>
-                <div class="col s2 offset-s2"><button>Share</button></div> 
+                <div class="col s2 offset-s2">   
+                    <div class="share-button-block">                        
+                        <div class="fixed-action-btn horizontal click-to-toggle">
+                            <a class="btn share-btn">
+                                <i class="mdi mdi-share-variant mdi-24px left"></i>share
+                            </a>
+                            <ul>
+                                <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i class="mdi mdi-facebook mdi-24px"></i></a></li>
+                                <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i class="mdi mdi-twitter mdi-24px"></i></a></li>
+                                <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i class="mdi mdi-email mdi-24px"></i></a></li>
+                                <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>                                                            
+                </div> 
                 <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
-                <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
+                <div class="col s4 offset-s2"><button (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</button></div>
+-->
+            <div class="col m4 left-col">
+              <div class="info-location">
+                <h4>Address</h4>
+                <p>{{project.address1}}</p>
+                <p>{{project.address2}}</p>
+                <p><span class="city">{{project.organization.city}}</span><span class="state">{{project.organization.state}}</span><span class="state">{{project.organization.zip}}</span></p>
+                <p>{{project.organization.country}}</p>
+              </div>
             </div>
+            <div class="col m4 right-col">
+              <div class="info-contact">
+                <h4>Posted</h4>
+                <p>{{project.organization.projectUpdatedTime}}</p>
+              </div>
+            </div>
+            <div class="col m12">
+              <div class="skills-list-wrapper">
+                <h4>Required skills</h4>
+                <ul>
+                  <li class="chip">Javascript</li>
+                  <li class="chip">Python</li>
+                  <li class="chip">Linux Admin</li>
+                  <li class="chip">C</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col m12">
+              <div class="info-description">
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
+            <div class="col m12">
+              <div class="action-btns">
+                <div class="apply-sharing">
+                  <a class="btn">Apply</a>
+                  <a class="btn" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+                  <a class="btn">Share</a>
+                </div>
+                <div class="edition-btn">
+                  <a class="btn">Edit</a>
+                  <a class="btn" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col s12 m2">Right Panel</div>
-    </div>    
+      </div>
+    </div>
+    <div class="col m4" id="right-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section" *ngIf="project">
+            <h4>{{project.organization.name}}</h4>
+            <div class="section-body row">
+              <div class="col m5">
+                <div class="info-avatar"><img [src]="orgImage"></div>
+              </div>
+              <div class="col m7">
+                <div class="info-location">
+                  <p class="address"><span class="city">{{project.organization.city}}</span><span class="country">, {{project.organization.country}}</span><span class="state">({{project.organization.state}})</span></p>
+                </div>
+              </div>
+              <div class="col m12">
+                <p class="description">{{project.organization.description}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="section sub" *ngIf="projects">
+            <h4>
+               {{projects.length}} Opportunities</h4>
+            <div class="section-body">
+              <div class="items-list-wrapper">
+                <ul>
+                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0, 5)">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                      </div>
+                      <div class="card-content"> 
+                        <p *ngIf="pr.description">{{ pr.description }}</p>
+                        <p *ngIf="pr.description.length &gt; 0 ">No description available</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

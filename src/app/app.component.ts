@@ -9,7 +9,7 @@ import { Organization } from './organization/common/organization';
   selector: 'my-app',
   providers: [AuthService],
   templateUrl: './app.component.html',
-  styleUrls: [ 'app.component.css' ]
+  styleUrls: [ 'app.component.scss' ]
 })
 
 export class AppComponent implements DoCheck {
