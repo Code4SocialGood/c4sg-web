@@ -1,0 +1,8 @@
+<div class="skills-list-wrapper">
+  <ul>
+    <li class="chip" *ngFor="let projectSkill of projectSkillsArray">{{ projectSkill }}
+      <i class="close material-icons"(click)="onDelete($event, projectSkill)">close</i>
+    </li>
+  </ul>
+</div>
+

@@ -25,7 +25,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="row">
       <div class="input-field col l12">
@@ -80,7 +79,6 @@
           </div>
           <div class="row">
             <div class="input-field col l12">
-
               <select id="country" class="" formControlName="country" materialize="material_select">
                 <option value="" disabled>Choose country</option>
                 <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code +
@@ -96,11 +94,12 @@
         <h4>Skills</h4>
         <div class="row">
           <div class="col l10">
-            <project-skill [projectSkillsArray]="projectSkillsArray" (onDeleteSkill)="onDeleteSkill($event)"></project-skill>
+            <project-skill [projectSkillsArray]="projectSkillsArray"
+                           (onDeleteSkill)="onDeleteSkill($event)"></project-skill>
           </div>
-
           <div class="col l2">
-            <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">mode_edit</i></a>
+            <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i
+              class="material-icons">mode_edit</i></a>
           </div>
         </div>
         <div *ngIf="editFlag === true" class="row">
@@ -113,23 +112,23 @@
           </div>
           <div class="input-field col l12">
             <div class="col l10">
-              <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+              <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
+                     [ngModelOptions]="{standalone: true}">
               <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
             </div>
             <div class="col l2">
-              <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i class="material-icons">add</i></a>
+              <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
+                class="material-icons">add</i></a>
             </div>
-
           </div>
         </div>
       </div>
-
     </div>
+
     <div class="row">
       <div class="col l12">
         <button type="submit" class="waves-effect waves-light btn">Save</button>
       </div>
     </div>
   </form>
-
 </div>

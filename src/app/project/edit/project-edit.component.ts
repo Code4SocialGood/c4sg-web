@@ -7,7 +7,6 @@ import {ProjectService} from '../common/project.service';
 import {Project} from '../common/project';
 import {FormConstantsService} from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
-// import { Skills } from '../common/skills';
 
 @Component({
   selector: 'my-edit-project',
@@ -24,8 +23,6 @@ export class ProjectEditComponent implements OnInit {
   public projectSkillsArray: string[]=[];
   public skillsArray: string[]=[];
   public inputValue: string = "";
-
-  // public skills = Skills.skillsInit;
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -44,7 +41,6 @@ export class ProjectEditComponent implements OnInit {
 
       const id = params['projectId'];
 
-
       this.projectService.getProject(id)
         .subscribe(
           res => {
@@ -53,11 +49,13 @@ export class ProjectEditComponent implements OnInit {
             this.fillForm();
           }, error => console.log(error)
         );
+
       this.projectService.retrieveImage(id)
         .subscribe(
           res => {
           }, error => console.log(error)
         );
+
       this.skillService.getSkillsByProject(id)
         .subscribe(
           res => {
@@ -65,6 +63,7 @@ export class ProjectEditComponent implements OnInit {
             console.log(this.projectSkillsArray);
           }, error => console.log(error)
         );
+
       this.skillService.getSkills()
         .subscribe(
           res => {
@@ -74,6 +73,7 @@ export class ProjectEditComponent implements OnInit {
             console.log(this.skillsArray);
           }, error => console.log(error)
         );
+
     });
   }
 
@@ -94,7 +94,6 @@ export class ProjectEditComponent implements OnInit {
       'state': ['', [Validators.required]],
       'zip': ['', [Validators.required]],
       'country': ['', [Validators.required]]
-      // 'skills': ['', [Validators.required]]
     });
   }
 
@@ -111,7 +110,6 @@ export class ProjectEditComponent implements OnInit {
       'state': [this.project.state || '', [Validators.required]],
       'zip': [this.project.zip || '', [Validators.required]],
       'country': [this.project.country || '', [Validators.required]]
-      // 'skills': ['', [Validators.required]]
     });
   }
 
