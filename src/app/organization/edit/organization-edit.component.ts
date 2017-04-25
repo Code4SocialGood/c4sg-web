@@ -25,9 +25,9 @@ export class OrganizationEditComponent implements OnInit {
   public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
-  public organizationId = 2; // TODO: set organizationId on init based on user data
+  public organizationId; 
 
-  currentUserId: string;
+  currentUserId: String;
   authSvc: AuthService;
 
   // RegEx validators
@@ -54,29 +54,49 @@ export class OrganizationEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.organizationId = +params['organizationId'];
+
       this.getFormConstants();
       this.organization.logo = '';
       this.initForm();
 
-      this.organizationService.getOrganization(this.organizationId).toPromise()
-        .then(res => {
-          this.organization = res;
-          // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-          return this.organizationService.retrieveLogo(this.organizationId).toPromise();
-        })
-        .then(res => {
-          this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
-          this.initForm();
-        }, err => console.error('An error occurred', err)) // for demo purposes only
-        .catch(err => console.error('An error occurred', err)); // for demo purposes only
+      this.organizationId = +params['organizationId'];
+
+      // OrgID = 0 is from menu item when user logs in. It indicates no org has been created.
+      // Check whether user created the org after he logs in. Note that orgId stays at 0 in menu item.
+      if (this.organizationId === 0) { 
+        this.currentUserId = this.auth.getCurrentUserId();
+        this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
+          res => {
+            this.organization = res[0];
+            if (this.organization !== undefined) {
+              this.organizationId = this.organization.id.toString();
+              localStorage.setItem('userOrganizationId', this.organization.id.toString());
+            }
+          },
+          error => console.log(error)
+        );
+      }     
+
+      if (this.organizationId !== 0) { // organization has been created already
+        this.organizationService.getOrganization(this.organizationId).toPromise()
+          .then(res => {
+            this.organization = res;
+            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
+          })
+          .then(res => {
+            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
+            this.initForm();
+          }, err => console.error('An error occurred', err)) // for demo purposes only
+          .catch(err => console.error('An error occurred', err)); // for demo purposes only
+      }
     });
-  }
+  } 
 
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-  }
+  }  
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
@@ -98,6 +118,22 @@ export class OrganizationEditComponent implements OnInit {
     });
   }
 
+  onUploadLogo(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+       this.organizationId,
+       this.organizationService.saveLogo.bind(this.organizationService))
+       .subscribe(res => {this.organization.logo = res.url; },
+                  err => {console.error(err, 'An error occurred'); } );
+  }
+
+  onSubmit(): void {
+    if (this.organizationId == 0) { // organization hasn't been created by the nonprofit user
+      // add new org ... call OrganizationService.???
+    } else {
+      // save ... call OrganizationService.???
+    }
+  }
+
   // initialize organization with blank values
   private initOrganization(): any {
     return {
@@ -117,20 +153,6 @@ export class OrganizationEditComponent implements OnInit {
       'briefDescription': '',
       'detailedDescription': ''
     };
-  }
+  } 
 
-  onUploadLogo(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.organizationId,
-       this.organizationService.saveLogo.bind(this.organizationService))
-       .subscribe(res => {this.organization.logo = res.url; },
-                  err => {console.error(err, 'An error occurred'); } );
-  }
-
-  onSubmit(): void {
-    // if organizationId == 0 // organization hasn't been created by the nonprofit user
-    // add new org ... call OrganizationService.???
-    // else
-    // save ... call OrganizationService.???
-  }
 }
