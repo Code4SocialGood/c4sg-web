@@ -25,7 +25,7 @@ export class OrganizationEditComponent implements OnInit {
   public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
-  public organizationId; 
+  public organizationId;
 
   currentUserId: String;
   authSvc: AuthService;
@@ -63,7 +63,7 @@ export class OrganizationEditComponent implements OnInit {
 
       // OrgID = 0 is from menu item when user logs in. It indicates no org has been created.
       // Check whether user created the org after he logs in. Note that orgId stays at 0 in menu item.
-      if (this.organizationId === 0) { 
+      if (this.organizationId === 0) {
         this.currentUserId = this.auth.getCurrentUserId();
         this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
           res => {
@@ -75,7 +75,7 @@ export class OrganizationEditComponent implements OnInit {
           },
           error => console.log(error)
         );
-      }     
+      }
 
       if (this.organizationId !== 0) { // organization has been created already
         this.organizationService.getOrganization(this.organizationId).toPromise()
@@ -91,12 +91,12 @@ export class OrganizationEditComponent implements OnInit {
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
       }
     });
-  } 
+  }
 
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
-  }  
+  }
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
@@ -127,7 +127,7 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.organizationId == 0) { // organization hasn't been created by the nonprofit user
+    if (this.organizationId === 0) { // organization hasn't been created by the nonprofit user
       // add new org ... call OrganizationService.???
     } else {
       // save ... call OrganizationService.???
@@ -153,6 +153,6 @@ export class OrganizationEditComponent implements OnInit {
       'briefDescription': '',
       'detailedDescription': ''
     };
-  } 
+  }
 
 }
