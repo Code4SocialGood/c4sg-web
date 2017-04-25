@@ -34,7 +34,7 @@ export class OrganizationService {
   getUserOrganization(id: number): Observable<Response> {
       return this.http.get(
       `${organizationUrl}/user/${id}`
-      );
+      ).map(res => res.json());
     }
 
   createOrganization(organization: any): Observable<Response> {
