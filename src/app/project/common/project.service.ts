@@ -40,7 +40,8 @@ export class ProjectService {
 
   // TODO replace with search by keyword
   getProjectsByKeyword(keyWord: string): Observable<Project[]> {
-    const url = projectUrl + '/search' + keyWord;
+    const url = `${projectUrl}/search/byKeyword/${keyWord}`;
+    console.log('url:\n', url); // debug
 
     return this.http.get(url)
                .map(res => res.json())
