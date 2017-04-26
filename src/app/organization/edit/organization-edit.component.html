@@ -6,7 +6,7 @@
 
         <div class="col m4 s12">
 
-          <img src="../../../assets/default_avatar.png" alt="Organization Logo" class="responsive-img" />
+          <img [src]="organization.logoUrl" alt="Organization Logo" class="responsive-img" />
 
           <br>
           <div class="file-field input-field">
@@ -27,8 +27,8 @@
 
           <div class="input-field">
             <label for="website">Website</label>
-            <input type="url" id="website" class="" formControlName="website">
-            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.website.invalid && organizationForm.controls.website.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.website.value)">
+            <input type="url" id="website" class="" formControlName="websiteURL">
+            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.websiteURL.invalid && organizationForm.controls.websiteURL.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.websiteURL.value)">
               <h6 class="red-text darken-4">Starts with "http://" or "https://"</h6>
             </div>
           </div>
