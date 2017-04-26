@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
               this.projects = res;
               this.router.navigate(['/volunteers']);
           },
-          error => console.log(error)
+          error => console.log('error:\n', error)
       );
     }
 
