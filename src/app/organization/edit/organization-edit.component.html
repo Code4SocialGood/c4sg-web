@@ -34,19 +34,9 @@
           </div>
 
           <div class="input-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="" formControlName="email">
-          </div>
-
-          <div class="input-field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" class="" formControlName="phone">
-          </div>
-
-          <div class="input-field">
             <select id="category" class="" formControlName="category" materialize="material_select">
               <option value="" disabled selected></option>
-              <option *ngFor="let category of categories" [value]="category" [selected]="category === organization.category">{{category}}</option>
+              <option *ngFor="let category of categories" [value]="category.value" [selected]="category.value === organization?.category.value">{{category.name}}</option>
             </select>
             <label>
               Category
@@ -57,6 +47,22 @@
             <label for="ein">EIN</label>
             <input type="text" id="ein" class="" formControlName="ein">
           </div>
+
+          <div class="input-field">
+            <label for="contact-name">Contact Name</label>
+            <input type="text" id="contact-name" class="" formControlName="contactName">
+          </div>
+
+          <div class="input-field">
+            <label for="contact-title">Contact Title</label>
+            <input type="text" id="contact-title" class="" formControlName="contactTitle">
+          </div>
+
+          <div class="input-field">
+            <label for="contact-email">Contact Email</label>
+            <input type="email" id="contact-email" class="" formControlName="contactEmail">
+          </div>
+
         </div>
 
         <div class="col m4 s12">
@@ -93,6 +99,11 @@
             <label>
               Country
             </label>
+          </div>
+
+          <div class="input-field">
+            <label for="contact-phone">Contact Phone</label>
+            <input type="tel" id="contact-phone" class="" formControlName="contactPhone">
           </div>
         </div>
       </div>
