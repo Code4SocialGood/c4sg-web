@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewChecked } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser/';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,13 +10,15 @@ import { AuthService } from '../../auth.service';
 
 import { Organization } from '../common/organization';
 
+declare var Materialize: any;
+
 @Component({
   selector: 'my-edit-organization',
   templateUrl: 'organization-edit.component.html',
   styleUrls: ['organization-edit.component.css']
 })
 
-export class OrganizationEditComponent implements OnInit {
+export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: {[key: string]: any};
   public countries: any[];
   public organization = this.initOrganization();
@@ -81,6 +83,7 @@ export class OrganizationEditComponent implements OnInit {
         this.organizationService.getOrganization(this.organizationId).toPromise()
           .then(res => {
             this.organization = res;
+
             // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
             return this.organizationService.retrieveLogo(this.organizationId).toPromise();
           })
@@ -93,6 +96,14 @@ export class OrganizationEditComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
+  }
+
   private getFormConstants(): void {
     this.categories = this.fc.getCategories();
     this.countries = this.fc.getCountries();
@@ -100,9 +111,9 @@ export class OrganizationEditComponent implements OnInit {
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
-      'photo': [this.organization.logo, []],
+      'logoUrl': [this.organization.logoUrl || '../../../assets/default_avatar.png', []],
       'name': [this.organization.name || '', [Validators.required]],
-      'website': [this.organization.website || '', [Validators.pattern(this.urlValidRegEx)]],
+      'websiteURL': [this.organization.websiteURL || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
       'contactName': [this.organization.contactName || '', []],
       'contactPhone': [this.organization.contactPhone || '', []],
@@ -139,9 +150,9 @@ export class OrganizationEditComponent implements OnInit {
   // initialize organization with blank values
   private initOrganization(): any {
     return {
-      'logo': '',
+      'logoUrl': '',
       'name': '',
-      'website': '',
+      'websiteURL': '',
       'contactEmail': '',
       'contactName': '',
       'contactPhone': '',
