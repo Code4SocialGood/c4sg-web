@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
+import {DataService} from '../_services/data.service';
 
 @Component({
   selector: 'my-home',
@@ -69,7 +70,9 @@ export class HomeComponent implements OnInit {
   wordColorIndex = 0;
 
 
-  constructor(private projectService: ProjectService, private router: Router) {
+  constructor(private projectService: ProjectService,
+              private router: Router,
+              private dataService: DataService) {
   }
 
   // onload animation timer
@@ -87,15 +90,17 @@ export class HomeComponent implements OnInit {
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
     if (!keyword) { return; }
+    this.dataService.keyword = keyword;
+    this.router.navigate(['/project/list/home']);
 
-    this.projectService.getProjectsByKeyword(keyword).subscribe(
-      res => {
-        console.log('no errors yet!'); // debug
-        this.projects = res;
-        this.router.navigate(['/project/list/home']);
-      },
-      error => console.log('error:\n', error)
-    );
+    // this.projectService.getProjectsByKeyword(keyword).subscribe(
+    //   res => {
+    //     console.log('no errors yet!'); // debug
+    //     this.dataService.projects = res;
+    //     this.router.navigate(['/project/list/home']);
+    //   },
+    //   error => console.log('error:\n', error)
+  // );
   }
 
   // animation controllers

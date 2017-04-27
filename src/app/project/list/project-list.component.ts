@@ -9,6 +9,7 @@ import { OrganizationService } from '../../organization/common/organization.serv
 import { User } from '../../user/common/user';
 
 import { ImageDisplayService } from '../../_services/image-display.service';
+import {DataService} from '../../_services/data.service';
 
 @Component({
   selector: 'my-projects',
@@ -31,110 +32,114 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
 
   constructor(
-
-     private projectService: ProjectService,
-     private organizationService: OrganizationService,
-     private router: Router,
-     private auth: AuthService,
-     private route: ActivatedRoute,
-     private idService: ImageDisplayService
+    private projectService: ProjectService,
+    private organizationService: OrganizationService,
+    private dataService: DataService,
+    private router: Router,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private idService: ImageDisplayService
   ) { }
 
   ngOnInit(): void {
-        const id = this.auth.getCurrentUserId();
-        this.userId = +id;
-        this.route.params.subscribe(
-          params => this.from = params['from']);
-        this.getProjects();
+    this.userId = +this.auth.getCurrentUserId();
+    console.log('this.dataService.keyword:\n', this.dataService.keyword);
+    this.route.params.subscribe(
+      params => this.from = params['from']);
+    this.dataService.keyword = 'construction'; // debug
+    if (this.dataService.keyword) {
+      this.getProjectsByKeyword(this.dataService.keyword);
+    } else {
+      // this.getProjects();
+    }
   }
 
-   private getProjects(): void {
-/* TODO the logic to be integrated
-        if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
-                 this.projectsSubscription = this.projectService.getProjects().subscribe(
-                      res => this.projects = res,
-                      error => console.log(error));
+  private getProjects(): void {
+    /* TODO the logic to be integrated
+     if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
+     this.projectsSubscription = this.projectService.getProjects().subscribe(
+     res => this.projects = res,
+     error => console.log(error));
 
-    }  else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
-                  this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
-                       res   => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-                       error => console.log(error));
+     }  else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
+     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
+     res   => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+     error => console.log(error));
 
-    }  else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
-                  this.organizationService.getUserOrganization(this.userId).subscribe(
-                    response =>  {
-                             this.users = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                             this.users.forEach(
-                               user => {
-                                        this.orgId = user.id;
-                                        this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
-                                               res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-                                               error => console.log(error));
-                                      });
-                            },
-                    error => console.log(error));
-                   }
-}
-*/
+     }  else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
+     this.organizationService.getUserOrganization(this.userId).subscribe(
+     response =>  {
+     this.users = JSON.parse(JSON.parse(JSON.stringify(response))._body);
+     this.users.forEach(
+     user => {
+     this.orgId = user.id;
+     this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
+     res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+     error => console.log(error));
+     });
+     },
+     error => console.log(error));
+     }
+     }
+     */
 
-     this.projectsSubscription = this.projectService
-                                     .getProjects()
-                                     .subscribe(
-                                     res => {
-                                       this.projects = res;
-                                       res.forEach((e: Project) => {
-                                        this.idService.displayImage(e.id,
-                                          this.projectService.retrieveImage.bind(this.projectService))
-                                          .subscribe(image => {
-                                            e.image = image.url;
-                                          });
-                                       });
-                                     },
-                                       error => console.log(error)
-                                     );
+    this.projectsSubscription = this.projectService
+      .getProjects()
+      .subscribe(
+        res => {
+          this.projects = res;
+          res.forEach((e: Project) => {
+            this.idService.displayImage(e.id,
+              this.projectService.retrieveImage.bind(this.projectService))
+              .subscribe(image => {
+                e.image = image.url;
+              });
+          });
+        },
+        error => console.log(error)
+      );
 
     /* TODO For logged in user, if they click Opportunities, they should see full list of project
-       If they click My Projects, they should see filtered list of projecct for themselves.
+     If they click My Projects, they should see filtered list of projecct for themselves.
 
-    if(!this.auth.authenticated()){
-         this.projectsSubscription = this.projectService.getProjects().subscribe(
-              res => {
-                this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-                this.setPage(1); // initialize to page 1
-              },
-              error => console.log(error));
-        }
+     if(!this.auth.authenticated()){
+     this.projectsSubscription = this.projectService.getProjects().subscribe(
+     res => {
+     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+     this.setPage(1); // initialize to page 1
+     },
+     error => console.log(error));
+     }
 
-    else if (this.auth.isVolunteer()){
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId).subscribe(
-           res => {
-             this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-             this.setPage(1); // initialize to page 1
-           },
-           error => console.log(error));
-    }
-    else if (this.auth.isOrganization()){
-      this.projectsSubscription = this.projectService.getProjectByOrg(2).subscribe(
-           res => {
-             this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
-             this.setPage(1); // initialize to page 1
-           },
-           error => console.log(error))
-    }
-    */
+     else if (this.auth.isVolunteer()){
+     this.projectsSubscription = this.projectService.getProjectByUser(this.userId).subscribe(
+     res => {
+     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+     this.setPage(1); // initialize to page 1
+     },
+     error => console.log(error));
+     }
+     else if (this.auth.isOrganization()){
+     this.projectsSubscription = this.projectService.getProjectByOrg(2).subscribe(
+     res => {
+     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
+     this.setPage(1); // initialize to page 1
+     },
+     error => console.log(error))
+     }
+     */
   }
 
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
-    if (!keyword) {
-      return;
-    }
-    this.projectService
+    if (keyword) {
+      this.projectService
         .getProjectsByKeyword(keyword)
         .subscribe(
           res => this.projects = res,
           error => console.log(error)
         );
+    }
   }
 
   onSelect(project: Project): void {
@@ -152,26 +157,26 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     const project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
 
     this.projectService
-        .add(project)
-        .subscribe(
-          response => {
-            this.getProjects();
-            this.router.navigate(['/nonprofits']);
-          },
-          error => console.log(error)
-        );
+      .add(project)
+      .subscribe(
+        response => {
+          this.getProjects();
+          this.router.navigate(['/nonprofits']);
+        },
+        error => console.log(error)
+      );
   }
 
   delete(project: Project): void {
     this.projectService
-        .delete(project.id)
-        .subscribe(
-          response => { // An error occurred SyntaxError: Unexpected end of JSON input
-            this.getProjects();
-            this.router.navigate(['/nonprofits']);
-          },
-          error => console.log(error)
-        );
+      .delete(project.id)
+      .subscribe(
+        response => { // An error occurred SyntaxError: Unexpected end of JSON input
+          this.getProjects();
+          this.router.navigate(['/nonprofits']);
+        },
+        error => console.log(error)
+      );
   }
 
   ngOnDestroy() {

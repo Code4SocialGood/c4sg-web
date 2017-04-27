@@ -50,6 +50,7 @@ import { ImageDisplayService } from './_services/image-display.service';
 import { ImageUploaderService } from './_services/image-uploader.service';
 
 import { MapViewerComponent } from './map-viewer/map-viewer.component';
+import {DataService} from "./_services/data.service";
 
 
 @NgModule({
@@ -92,15 +93,16 @@ import { MapViewerComponent } from './map-viewer/map-viewer.component';
     MapViewerComponent,
   ],
   providers: [ ProjectService,
-               ProjectCreateService,
-               OrganizationService,
-               UserService,
-               FormConstantsService,
-               AuthService,
-               AuthGuard,
-               DeveloperService,
-               ImageDisplayService,
-               ImageUploaderService
+    ProjectCreateService,
+    OrganizationService,
+    UserService,
+    FormConstantsService,
+    AuthService,
+    AuthGuard,
+    DeveloperService,
+    ImageDisplayService,
+    ImageUploaderService,
+    DataService
   ],
 
   bootstrap: [ AppComponent ]
