@@ -2,42 +2,34 @@
   <div class="content-wrapper">
     <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
       <div class="row">
-        <div class="col l9">
+        <div class="col s4 m3 push-m9 image-block">
+          <img [src]="projectImageUrl" alt="project image" class="responsive-img right">
+          <br>
+          <div class="file-field input-field right">
+            <div class="btn">
+              <span>File</span>
+              <input type="file">
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m9 pull-m3">
           <div class="row">
-            <div class="input-field col l6">
+            <div class="input-field col s12 m9 l6">
               <input id="project_name" type="text" class="validate" formControlName="projectName" placeholder="">
               <label for="project_name">Project name <sup>&#10033;</sup></label>
             </div>
           </div>
           <div class="row">
-            <div class="input-field col l6">
+            <div class="input-field col s12 m9 l6">
               <input id="organization_name" type="text" class="validate" formControlName="organizationName"
                      placeholder="">
               <label for="organization_name">Organization name</label>
             </div>
           </div>
         </div>
-        <div class="col l3">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>File</span>
-              <input type="file">
-            </div>
-            <!--<div class="file-path-wrapper">-->
-              <!--<input class="file-path validate" type="text">-->
-            <!--</div>-->
-          </div>
-          <!--<img [src]="projectImageUrl" alt="project image" class="responsive-img right">-->
-          <!--<div class="file-field input-field">-->
-            <!--<div class="btn right">-->
-              <!--<span>Upload</span>-->
-              <!--<input type="file">-->
-            <!--</div>-->
-          <!--</div>-->
-        </div>
       </div>
       <div class="row">
-        <div class="col l12">
+        <div class="col s12">
           <div class="input-field">
         <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
                   placeholder=""></textarea>
@@ -46,9 +38,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col l6">
+        <div class="col s12 l6">
           <div class="row">
-            <div class="col l12">
+            <div class="col s12">
               <p>
                 <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y"
                        formControlName="remoteFlag"/>
@@ -63,7 +55,7 @@
           </div>
           <div [ngClass]="{hide: projectForm.controls.remoteFlag.value === 'Y'}">
             <div class="row">
-              <div class="col l12">
+              <div class="col s12">
                 <div class="input-field">
                   <input id="address_line_1" type="text" class="validate" formControlName="address1" placeholder="">
                   <label for="address_line_1">Address Line 1</label>
@@ -71,7 +63,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col l12">
+              <div class="col s12">
                 <div class="input-field">
                   <input id="address_line_2" type="text" class="validate" formControlName="address2" placeholder="">
                   <label for="address_line_2">Address Line 2</label>
@@ -79,21 +71,21 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field col l4">
+              <div class="input-field col s4">
                 <input id="city" type="text" class="validate" formControlName="city" placeholder="">
                 <label for="city">City</label>
               </div>
-              <div class="input-field col l4">
+              <div class="input-field col s4">
                 <input id="state" type="text" class="validate" formControlName="state" placeholder="">
                 <label for="state">State</label>
               </div>
-              <div class="input-field col l4">
+              <div class="input-field col s4">
                 <input id="zip" type="text" class="validate" formControlName="zip" placeholder="">
                 <label for="zip">Zip</label>
               </div>
             </div>
             <div class="row">
-              <div class="col l12">
+              <div class="col s12">
                 <div class="input-field">
                   <select id="country" class="" formControlName="country" materialize="material_select">
                     <option value="" disabled>Choose country</option>
@@ -108,33 +100,33 @@
             </div>
           </div>
         </div>
-        <div class="col l5 offset-l1">
+        <div class="col s12 l5 offset-l1">
           <h4>Skills</h4>
           <div class="row">
-            <div class="col l10">
+            <div class="col s10">
               <project-skill [projectSkillsArray]="projectSkillsArray"
                              (onDeleteSkill)="onDeleteSkill($event)"></project-skill>
             </div>
-            <div class="col l2">
+            <div class="col s2">
               <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i
                 class="material-icons">mode_edit</i></a>
             </div>
           </div>
           <div *ngIf="editFlag === true" class="row">
-            <div class="col l12 select-wrapper">
+            <div class="col s12 select-wrapper">
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
                 <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}
                 </option>
               </select>
               <label for="skillSelect">Choose from below</label>
             </div>
-            <div class="input-field col l12">
-              <div class="col l10">
+            <div class="input-field col s12 newSkill-wrapper">
+              <div class="col s10">
                 <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
                        [ngModelOptions]="{standalone: true}">
                 <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
               </div>
-              <div class="col l2">
+              <div class="col s2">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
                   class="material-icons">add</i></a>
               </div>
@@ -142,7 +134,6 @@
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col l12">
           <button type="submit" class="waves-effect waves-light btn">Save</button>

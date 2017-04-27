@@ -1,13 +1,15 @@
 @import "../../../../variables";
 
 .skills-list-wrapper {
-  padding: 5px 0px 5px 0px;
+  padding: 5px 0 5px 0;
   ul {
+    padding: 0;
+    margin-top: 0;
     li.chip {
       color: $main-color;
       border: solid $line-sep-width $header-bg-color;
       background-color: #fff;
-      border-radius: 0px;
+      border-radius: 0;
       margin-left: 0.25em;
       margin-right: 0.25em;
       min-width: 27%;

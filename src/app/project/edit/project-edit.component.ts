@@ -1,11 +1,9 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser/';
-import {ActivatedRoute} from '@angular/router';
-
-import {ProjectService} from '../common/project.service';
-import {Project} from '../common/project';
-import {FormConstantsService} from '../../_services/form-constants.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../common/project.service';
+import { Project } from '../common/project';
+import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 
 @Component({
@@ -27,8 +25,6 @@ export class ProjectEditComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
               private fc: FormConstantsService,
-              private el: ElementRef,
-              private sanitizer: DomSanitizer,
               private route: ActivatedRoute,
               private skillService: SkillService) {
   }
@@ -144,7 +140,7 @@ export class ProjectEditComponent implements OnInit {
 
     this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
       res => {
-        console.log('Project data was successfully updated');
+        console.log('Project skills were successfully updated');
       }, error => console.log(error)
     );
   }
@@ -164,9 +160,10 @@ export class ProjectEditComponent implements OnInit {
 
   onAddOwnSkill(inputSkill) {
     console.log(inputSkill.value);
-    this.projectSkillsArray.push(inputSkill.value);
-    this.inputValue = "";
-    console.log(this.projectSkillsArray);
+    if (inputSkill.value && inputSkill.value.trim()) {
+      this.projectSkillsArray.push(inputSkill.value);
+      this.inputValue = "";
+      console.log(this.projectSkillsArray);
+    }
   }
-
 }

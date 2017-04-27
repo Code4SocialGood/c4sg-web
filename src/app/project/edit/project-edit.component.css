@@ -1,13 +1,22 @@
+.image-block {
+  margin-bottom: 10px;
+}
 .hide {
   display: none;
 }
 .input-field.col.l12 {
   padding: 0;
 }
-
 .file-field {
   position: relative;
 }
 .file-field .btn {
   margin-top: 10px;
+}
+img {
+  display: block;
+}
+.newSkill-wrapper {
+  margin-top: 0;
+  padding: 0;
 }
