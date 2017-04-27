@@ -19,15 +19,16 @@ declare var Materialize: any;
 })
 
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
-  public categories: {[key: string]: any};
+  public categories: { [key: string]: any };
   public countries: any[];
   public organization = this.initOrganization();
   public organizationForm: FormGroup;
-  public formPlaceholder: {[key: string]: any} = {};
+  public formPlaceholder: { [key: string]: any } = {};
   public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
   public organizationId;
+  public logoValid = true;
 
   currentUserId: String;
   authSvc: AuthService;
@@ -88,7 +89,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             return this.organizationService.retrieveLogo(this.organizationId).toPromise();
           })
           .then(res => {
-            this.organization.logo = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + res.text());
+            const defaultAvatar = '../../../assets/default_avatar.png';
+            const logoText = res.text();
+            this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${logoText}`) : defaultAvatar;
             this.initForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
@@ -111,7 +114,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
-      'logoUrl': [this.organization.logoUrl || '../../../assets/default_avatar.png', []],
       'name': [this.organization.name || '', [Validators.required]],
       'websiteURL': [this.organization.websiteURL || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
@@ -132,11 +134,24 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   onUploadLogo(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.organizationId,
-       this.organizationService.saveLogo.bind(this.organizationService))
-       .subscribe(res => {this.organization.logo = res.url; },
-                  err => {console.error(err, 'An error occurred'); } );
+    // Make sure there are files before doing the upload
+    if (fileInput.target.files && fileInput.target.files.length) {
+      // Make sure the file is under 1MB
+      if (fileInput.target.files[0].size < 1048576) {
+        this.logoValid = true;
+        this.imageUploader.uploadImage(fileInput,
+          this.organizationId,
+          this.organizationService.saveLogo.bind(this.organizationService))
+          .subscribe(res => {
+            if (res.url) {
+              this.organization.logo = res.url;
+            }
+          },
+          err => { console.error(err, 'An error occurred'); });
+      } else {
+        this.logoValid = false;
+      }
+    }
   }
 
   onSubmit(): void {
@@ -150,7 +165,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   // initialize organization with blank values
   private initOrganization(): any {
     return {
-      'logoUrl': '',
+      'logo': '',
       'name': '',
       'websiteURL': '',
       'contactEmail': '',
