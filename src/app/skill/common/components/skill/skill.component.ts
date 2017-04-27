@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'project-skill',
+  selector: 'my-project-skill',
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss']
 })

@@ -17,10 +17,10 @@ export class ProjectEditComponent implements OnInit {
   public project: Project;
   public projectImageUrl = '../../../assets/default_avatar.png';
   public projectForm: FormGroup;
-  public editFlag: boolean = false;
-  public projectSkillsArray: string[]=[];
-  public skillsArray: string[]=[];
-  public inputValue: string = "";
+  public editFlag = false;
+  public projectSkillsArray: string[] = [];
+  public skillsArray: string[] = [];
+  public inputValue = '';
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -64,7 +64,7 @@ export class ProjectEditComponent implements OnInit {
         .subscribe(
           res => {
             res.map((obj) => {
-              this.skillsArray.push(obj.skillName)
+              this.skillsArray.push(obj.skillName);
             });
             console.log(this.skillsArray);
           }, error => console.log(error)
@@ -153,7 +153,7 @@ export class ProjectEditComponent implements OnInit {
 
   onDeleteSkill(skillToDelete) {
     this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
-      return projectSkill !== skillToDelete
+      return projectSkill !== skillToDelete;
     });
     console.log(this.projectSkillsArray);
   }
@@ -162,7 +162,7 @@ export class ProjectEditComponent implements OnInit {
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
       this.projectSkillsArray.push(inputSkill.value);
-      this.inputValue = "";
+      this.inputValue = '';
       console.log(this.projectSkillsArray);
     }
   }

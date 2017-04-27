@@ -34,7 +34,7 @@ import {UserProfileComponent} from './user/profile/user-profile.component';
 import {UserListComponent} from './user/list/user-list.component';
 import {UserViewComponent} from './user/view/user-view.component';
 
-//Skill
+// Skill
 import {SkillComponent} from './skill/common/components/skill/skill.component';
 
 // Login

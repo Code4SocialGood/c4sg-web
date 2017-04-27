@@ -27,7 +27,7 @@ export class SkillService {
   }
 
   updateSkills(projectSkillsArray, id) {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('id', id);
     params.set('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
