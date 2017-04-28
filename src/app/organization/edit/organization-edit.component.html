@@ -6,16 +6,17 @@
 
         <div class="col m4 s12">
 
-          <img [src]="organization.logoUrl" alt="Organization Logo" class="responsive-img" />
+          <img [src]="organization.logo" alt="Organization Logo" class="responsive-img" *ngIf="organization.logo"/>
 
           <br>
           <div class="file-field input-field">
             <div class="btn">
-              <span>Photo</span>
-              <input type="file">
+              <span>Upload</span>
+              <input type="file" (change)="onUploadLogo($event)">
             </div>
-            <br><br>
-            <input class="file-path left-align" type="text">
+            <div class="red lighten-5 center-align error-msg" *ngIf="!logoValid">
+              <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
+            </div>
           </div>
         </div>
 
