@@ -35,7 +35,6 @@ export class UserProfileComponent implements OnInit {
             const user = res;
             console.log(user);
 
-
             this.myProfile.setValue({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -48,6 +47,7 @@ export class UserProfileComponent implements OnInit {
               });
 
 
+              console.log(this.myProfile.value);
               this.user = new User(
                         user.id,
                         user.email,
