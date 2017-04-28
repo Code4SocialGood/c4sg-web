@@ -257,11 +257,14 @@ export class FormConstantsService {
     { code: 'ZMB', name: 'Zambia' },
     { code: 'ZWE', name: 'Zimbabwe' }
   ];
-  private categories = ['Non-Profit'];
+  private categories = [
+    {name: 'Non-Profit', value: 'N'},
+    {name: 'Open Source', value: 'O'}
+   ];
 
   constructor() { }
 
-  getCategories(): string[] {
+  getCategories(): {[key: string]: any} {
     this.categories.sort();
     return this.categories;
   }

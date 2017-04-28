@@ -1,11 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { Project } from '../common/project';
-import { ProjectService } from '../common/project.service';
+import {Project} from '../common/project';
+import {ProjectService} from '../common/project.service';
 import { AuthService } from '../../auth.service';
-
+import { OrganizationService } from '../../organization/common/organization.service';
+import { SkillService } from '../../skill/common/skill.service';
+import { User } from '../../user/common/user';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
@@ -17,27 +19,66 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   p = 0;
   projects: Project[];
+  users: User[];
   selectedProject: Project;
+  pagedItems: any[]; // paged items
+  pager: any = {}; // pager Object
   projectsSubscription: Subscription;
   userId: number;
+  orgId: number;
+  from: string;
+  userProjectStatus = 'A';
+  skills: any[];
 
 
   constructor(
-    private idService: ImageDisplayService,
-    private projectService: ProjectService,
-    private router: Router,
-    private auth: AuthService
+
+     private projectService: ProjectService,
+     private organizationService: OrganizationService,
+     private router: Router,
+     private auth: AuthService,
+     private route: ActivatedRoute,
+     private skillService: SkillService,
+     private idService: ImageDisplayService
   ) { }
 
   ngOnInit(): void {
-    const id = this.auth.getCurrentUserId();
-    this.userId = +id;
-    this.getProjects();
-    // this.setPage(1);
-
+        const id = this.auth.getCurrentUserId();
+        this.userId = +id;
+        this.route.params.subscribe(
+          params => this.from = params['from']);
+        this.getProjects();
+        this.getSkills();
   }
 
    private getProjects(): void {
+/* TODO the logic to be integrated
+        if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
+                 this.projectsSubscription = this.projectService.getProjects().subscribe(
+                      res => this.projects = res,
+                      error => console.log(error));
+
+    }  else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
+                  this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
+                       res   => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+                       error => console.log(error));
+
+    }  else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
+                  this.organizationService.getUserOrganization(this.userId).subscribe(
+                    response =>  {
+                             this.users = JSON.parse(JSON.parse(JSON.stringify(response))._body);
+                             this.users.forEach(
+                               user => {
+                                        this.orgId = user.id;
+                                        this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
+                                               res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+                                               error => console.log(error));
+                                      });
+                            },
+                    error => console.log(error));
+                   }
+}
+*/
 
      this.projectsSubscription = this.projectService
                                      .getProjects()
@@ -99,6 +140,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         );
   }
 
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(res => {
+      console.log(res);
+      this.skills  = res.map(skill => {
+        return {name: skill.skillName, checked: false}; });
+    },
+      error => console.error(error)
+    );
+  }
+
   onSelect(project: Project): void {
     this.selectedProject = project;
     this.router.navigate(['/project/view', project.id]);
@@ -134,6 +185,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
           },
           error => console.log(error)
         );
+  }
+
+  onCheck(id: number, category: string): void {
+    this[category][id].checked = !this[category][id].checked;
+
+    // if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) {
+    //   this.filterProjects();
+    // } else {
+    //   this.resetProjects();
+    // }
   }
 
   ngOnDestroy() {

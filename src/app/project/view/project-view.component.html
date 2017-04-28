@@ -6,7 +6,7 @@
         <div class="content" *ngIf="project">
           <div class="row">
             <h1 class="main-title">{{project.name}}</h1>
-            <div class="more-details"> 
+            <div class="more-details">
               <p class="details"><span class="is-remote" *ngIf="project.remoteFlag == 'Y'">Remote</span><span class="is-remote" *ngIf="project.remoteFlag == 'N'">In-place</span><span class="is-active" *ngIf="project.status == 'A'">Active</span></p>
             </div>
             <p class="subtitle">Organization:  <a href="#">{{project.organization.name}}</a></p>
@@ -15,6 +15,32 @@
             <div class="col m4">
               <div class="info-avatar"><img [src]="projectImage"></div>
             </div>
+<!--
+            <div class="row">
+                <div class="col s2 offset-s2"><button>Apply</button></div>
+                <div class="col s2 offset-s2">
+                    <button (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">
+                        Bookmark
+                    </button>
+                </div>
+                <div class="col s2 offset-s2">
+                    <div class="share-button-block">
+                        <div class="fixed-action-btn horizontal click-to-toggle">
+                            <a class="btn share-btn">
+                                <i class="mdi mdi-share-variant mdi-24px left"></i>share
+                            </a>
+                            <ul>
+                                <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i class="mdi mdi-facebook mdi-24px"></i></a></li>
+                                <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i class="mdi mdi-twitter mdi-24px"></i></a></li>
+                                <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i class="mdi mdi-email mdi-24px"></i></a></li>
+                                <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
+                <div class="col s4 offset-s2"><button (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</button></div>
+-->
             <div class="col m4 left-col">
               <div class="info-location">
                 <h4>Address</h4>
@@ -48,8 +74,15 @@
             </div>
             <div class="col m12">
               <div class="action-btns">
-                <div class="apply-sharing"><a class="btn">Apply</a><a class="btn">Bookmark</a><a class="btn">Share</a></div>
-                <div class="edition-btn"><a class="btn">Edit</a><a class="btn">Delete</a></div>
+                <div class="apply-sharing">
+                  <a class="btn">Apply</a>
+                  <a class="btn" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+                  <a class="btn">Share</a>
+                </div>
+                <div class="edition-btn">
+                  <a class="btn" (click)="edit()">Edit</a>
+                  <a class="btn" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</a>
+                </div>
               </div>
             </div>
           </div>
@@ -86,7 +119,7 @@
                       <div class="card-header">
                         <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                       </div>
-                      <div class="card-content"> 
+                      <div class="card-content">
                         <p *ngIf="pr.description">{{ pr.description }}</p>
                         <p *ngIf="pr.description.length &gt; 0 ">No description available</p>
                       </div>
