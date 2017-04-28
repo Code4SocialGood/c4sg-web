@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Rx';
 
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private router: Router,
+              private skillService: SkillService,
               private auth: AuthService) {
 
   }
@@ -71,9 +73,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private getSkills(): void {
-    // TODO: wire this up with userService when getSkills is available
-    // this.skills = this.createCheckBoxObj(['skill 1', 'skill 2', 'skill 3', 'skill 4']);
-    this.userService.getSkills().subscribe(res => {
+    this.skillService.getSkills().subscribe(res => {
       console.log(res);
       this.skills  = res.map(skill => {
         return {name: skill.skillName, checked: false}; });
@@ -86,7 +86,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     // TODO: wire this up with userService when getTitles is available
     this.titles = this.createCheckBoxObj(['title 1', 'title 2', 'title 3', 'title 4']);
   }
-
 
   public getUsers(page: number): void {
     this.usersSubscription = this.userService.getUsers(page)

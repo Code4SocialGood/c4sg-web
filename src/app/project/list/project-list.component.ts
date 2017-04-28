@@ -6,8 +6,8 @@ import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { User } from '../../user/common/user';
-
 import { ImageDisplayService } from '../../_services/image-display.service';
 import {DataService} from '../../_services/data.service';
 
@@ -29,6 +29,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   orgId: number;
   from: string;
   userProjectStatus = 'A';
+  skills: any[];
 
 
   constructor(
@@ -38,6 +39,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private router: Router,
     private auth: AuthService,
     private route: ActivatedRoute,
+    private skillService: SkillService,
     private idService: ImageDisplayService
   ) { }
 
@@ -51,6 +53,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     } else {
       this.getProjects();
     }
+    this.getSkills();
   }
 
   private getProjects(): void {
@@ -141,12 +144,22 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     }
   }
 
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(res => {
+        console.log(res);
+        this.skills  = res.map(skill => {
+          return {name: skill.skillName, checked: false}; });
+      },
+      error => console.error(error)
+    );
+  }
+
   onSelect(project: Project): void {
     this.selectedProject = project;
     this.router.navigate(['/project/view', project.id]);
   }
 
-  // TODO Don't provide the identity colume value
+// TODO Don't provide the identity colume value
   add(name: string): void {
     name = name.trim();
     if (!name) {
@@ -176,6 +189,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         },
         error => console.log(error)
       );
+  }
+
+  onCheck(id: number, category: string): void {
+    this[category][id].checked = !this[category][id].checked;
+
+// if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) {
+//   this.filterProjects();
+// } else {
+//   this.resetProjects();
+// }
   }
 
   ngOnDestroy() {

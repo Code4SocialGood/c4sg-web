@@ -3,6 +3,14 @@
   border-radius: 2px;
 }
 
+.file-field .error-msg {
+  clear: both;
+}
+
+.file-field .btn {
+  margin-bottom: 20px;
+}
+
 .file-path {
   max-width: 200px;
 }
