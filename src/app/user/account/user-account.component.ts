@@ -15,7 +15,7 @@ import { MaterializeAction } from 'angular2-materialize';
   // moduleId: module.id,
   selector: 'my-account',
   templateUrl: 'user-account.component.html',
-  styleUrls: ['user-account.component.css']
+  styleUrls: ['user-account.component.scss']
 })
 
 export class UserAccountComponent implements OnInit {
