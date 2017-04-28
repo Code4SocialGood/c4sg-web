@@ -6,8 +6,8 @@ import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { User } from '../../user/common/user';
-
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
@@ -28,6 +28,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   orgId: number;
   from: string;
   userProjectStatus = 'A';
+  skills: any[];
 
 
   constructor(
@@ -37,6 +38,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      private router: Router,
      private auth: AuthService,
      private route: ActivatedRoute,
+     private skillService: SkillService,
      private idService: ImageDisplayService
   ) { }
 
@@ -46,6 +48,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         this.route.params.subscribe(
           params => this.from = params['from']);
         this.getProjects();
+        this.getSkills();
   }
 
    private getProjects(): void {
@@ -135,6 +138,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
           res => this.projects = res,
           error => console.log(error)
         );
+  }
+
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(res => {
+      console.log(res);
+      this.skills  = res.map(skill => {
+        return {name: skill.skillName, checked: false}; });
+    },
+      error => console.error(error)
+    );
   }
 
   onSelect(project: Project): void {

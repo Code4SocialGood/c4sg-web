@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
-
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 declare const $: Function;
@@ -26,7 +25,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   constructor(
     private idService: ImageDisplayService,
     private organizationService: OrganizationService,
-              private router: Router) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
