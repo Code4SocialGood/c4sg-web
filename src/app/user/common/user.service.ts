@@ -35,13 +35,6 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  public getSkills(): Observable<any> {
-    const url = skillsUrl;
-    return this.http
-               .get(url)
-               .map( res => res.json())
-               .catch(this.handleError);
-  }
   getUser(id: number): Observable<User> {
     const index = id;
     const url = userUrl + '/' + index;

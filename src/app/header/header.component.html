@@ -19,8 +19,8 @@
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['nonprofit/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId == undefined"><a [routerLink]="['nonprofit/edit', 0]" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
-          <li *ngIf="authSvc.isAdmin()"><a routerLink="nonprofit/create" routerLinkActive="active">Create Organization</a></li>
-          <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/create" routerLinkActive="active">Create Project</a></li>
+          <li *ngIf="authSvc.isAdmin()"><a routerLink="nonprofit/edit/0" routerLinkActive="active">Create Organization</a></li>
+          <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
         </ul>
       </li>
       <li><a class="log-reg" routerLink="" (click)="authSvc.login()" *ngIf="!authSvc.authenticated()">Log In</a></li>
