@@ -187,6 +187,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         );
   }
 
+  onCheck(id: number, category: string): void {
+    this[category][id].checked = !this[category][id].checked;
+
+    // if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) {
+    //   this.filterProjects();
+    // } else {
+    //   this.resetProjects();
+    // }
+  }
+
   ngOnDestroy() {
     if (this.projectsSubscription) { this.projectsSubscription.unsubscribe(); }
   }
