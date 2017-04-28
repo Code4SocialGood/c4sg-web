@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Project} from '../project/common/project';
 
 // This service is meant to be used to share data when switching components
 @Injectable()

@@ -43,14 +43,13 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-    console.log('this.dataService.keyword:\n', this.dataService.keyword);
     this.route.params.subscribe(
       params => this.from = params['from']);
-    this.dataService.keyword = 'construction'; // debug
     if (this.dataService.keyword) {
       this.getProjectsByKeyword(this.dataService.keyword);
+      this.dataService.keyword = '';
     } else {
-      // this.getProjects();
+      this.getProjects();
     }
   }
 
