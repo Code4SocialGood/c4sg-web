@@ -9,7 +9,7 @@ import { MaterializeAction } from 'angular2-materialize';
   // moduleId: module.id,
   selector: 'my-profile',
   templateUrl: 'user-profile.component.html',
-  styleUrls: ['user-profile.component.css'],
+  styleUrls: ['user-profile.component.scss'],
   providers: []
 })
 

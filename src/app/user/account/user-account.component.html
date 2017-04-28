@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="row main-row">
-    <div class="col s12" id="left-col">
+    <div class="col s12 right-col" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="user">
           <div class="row">
@@ -9,56 +9,62 @@
           </div>
           <div class="row single-info">
             <div class="col m4">
-              <div class="avatar"><img class="responsive-img" id="responsive-img" [src]="avatar"></div>
-              <label class="btn waves-effect waves-light" for="myfile">Upload</label>
-              <input id="myfile" #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadAvatar($event)">
+              <div class="avatar"><img class="responsive-img" id="responsive-img" [src]="user.avatarUrl"></div>
+              <div class="input-field file-field">
+                <div class="btn">Upload
+                  <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadAvatar($event)">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
             </div>
             <div class="col m8 right-col">
               <form materialize [formGroup]="myAccount" (ngSubmit)="updateAccount($event)">
                 <div class="row">
                   <div class="col s12 m6">
                     <div class="input-field">
-                      <input id="userName" type="text">
                       <label for="userName">
                          Username</label>
+                      <input id="userName" type="text">
                     </div>
                   </div>
                   <div class="col s12 m6">
                     <div class="input-field">
-                      <input id="email" formControlName="email" type="text">
                       <label for="email">
                          Email Address *</label>
+                      <input id="email" formControlName="email" type="text">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12 m6">
                     <div class="input-field">
-                      <input id="firstName" type="text">
                       <label for="firstName">
                          First Name</label>
+                      <input id="firstName" type="text">
                     </div>
                   </div>
                   <div class="col s12 m6">
                     <div class="input-field">
-                      <input id="lastName" type="text">
                       <label for="lastName">
                          Last Name</label>
+                      <input id="lastName" type="text">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12 m6">
                     <div class="input-field">
-                      <input id="phone" type="text">
                       <label for="phone">
                          Phone</label>
+                      <input id="phone" type="text">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col m12">
-                    <div class="footer-btns">
+                    <div class="footer-btns center">
                       <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
                          Save</button>
                       <button class="btn waves-effect waves-light" (click)="openModal(user)" type="button">
