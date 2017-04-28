@@ -46,8 +46,6 @@ export class UserProfileComponent implements OnInit {
                 website: user.personalUrl
               });
 
-
-              console.log(this.myProfile.value);
               this.user = new User(
                         user.id,
                         user.email,
