@@ -1,69 +1,64 @@
 
-<!-- User detail-->
-<div class="container" *ngIf="user">
-  <div class="row">
-    <div class="col m8 offset-m2">
-      <div class="profile-wrapper">
-        <div class="row">
-          <div class="col s6">
-            <p class="username">{{user.userName}}</p>
-            <p class="names"><span class="firstname">{{user.firstName}}</span><span class="lastname">&nbsp;{{user.firstName}}</span></p>
-          </div>
-          <div class="col s6">
-            <p class="location"><span class="city" *ngIf="user.city">{{user.city}}</span><span class="state" *ngIf="user.state">{{user.state}}</span><span class="zip" *ngIf="user.zip">{{user.zip}}</span></p>
-            <p class="location"><span class="country" *ngIf="user.country">{{user.country}}</span></p>
-            <p class="joined">Joined {{user.createdTime}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col m3 s12">
-            <div class="avatar-wrapper">
-              <div class="avatar"><img src="/assets/avatar.png"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <div class="title-wrapper box">
-              <div class="title">
-                <p>Volunteer Title</p>
+<div class="container">
+  <div class="row main-row">
+    <div class="col m8 offset-m2 right-col" id="left-col">
+      <div class="content-wrapper" *ngIf="user">
+        <div class="content">
+          <div class="row">
+            <h1 class="main-title">{{user.userName}}</h1>
+            <div class="subtitle row">
+              <div class="names col m7"><span class="first-name">{{user.firstName}} </span><span class="last-name">{{user.lastName}}</span></div>
+              <div class="metainfo col m5 right-col">
+                <p class="location"><span class="city" *ngIf="user.city">{{user.city}}</span><span class="state" *ngIf="user.state">{{user.state}}</span><span class="zip" *ngIf="user.zip">{{user.zip}}</span></p>
+                <p class="country"><span class="country" *ngIf="user.country">{{user.country}}</span></p>
+                <p class="joined">Joined at: {{user.createdTime}}</p>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <div class="intro-wrapper box">
-              <div class="intro">
-                <p>{{user.introduction}}</p>
+          <div class="row">
+            <div class="col m12">
+              <div class="main-info">
+                <div class="avatar"><img class="responsive-img" src="/assets/avatar.png"/></div>
+                <div class="user-title">
+                  <h5>Volunteer Title</h5>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col m6">
-            <ul class="links-list">
-              <li *ngIf="user.linkedinUrl"><a target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
-              <li *ngIf="user.personalUrl"><a target="_blank" [href]="user.personalUrl">Personal</a></li>
-              <li *ngIf="user.githubUrl"><a target="_blank" [href]="user.githubUrl">Github</a></li>
-            </ul>
+          <div class="row">
+            <div class="col s12">
+              <div class="intro-wrapper box">
+                <div class="intro">
+                  <p>{{user.introduction}}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col m6">
-            <div class="skills-list-wrapper">
-              <ul class="skills-list">
-                <li class="chip red lighten-5">Skill 1</li>
-                <li class="chip red lighten-5">Skill 2 </li>
-                <li class="chip red lighten-5">Skill 3</li>
-                <li class="chip red lighten-5">Skill 4</li>
+          <div class="row">
+            <div class="col m6">
+              <ul class="links-list">
+                <li *ngIf="user.linkedinUrl"><a target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
+                <li *ngIf="user.personalUrl"><a target="_blank" [href]="user.personalUrl">Personal</a></li>
+                <li *ngIf="user.githubUrl"><a target="_blank" [href]="user.githubUrl">Github</a></li>
               </ul>
             </div>
+            <div class="col m6">
+              <div class="skills-list-wrapper right-col">
+                <ul>
+                  <li class="chip">Skill 1</li>
+                  <li class="chip">Skill 2 </li>
+                  <li class="chip">Skill 3</li>
+                  <li class="chip">Skill 4</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6 offset-s3">
-            <div class="buttons-block center-block">
-              <button>Edit</button>
-              <button>Delete</button>
+          <div class="row">
+            <div class="col s6 offset-s3">
+              <div class="buttons-block">
+                <button class="btn">Edit</button>
+                <button class="btn">Delete</button>
+              </div>
             </div>
           </div>
         </div>
