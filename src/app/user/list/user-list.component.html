@@ -5,20 +5,19 @@
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section"> 
-            <h4>Search</h4>
+            <h4>Keyword</h4>
             <div class="input-search">
               <form>
                 <div class="input-field" (click)="getUsersByKeyword(searchTerm.value, null, null)">
                   <input id="autocomplete-input" #searchTerm materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
-                  <label for="autocomplete-input"><i class="material-icons">search</i></label>
+                  <label for="autocomplete-input">Keyword</label>
                 </div>
               </form>
             </div>
           </div>
           <div class="section"> 
-            <h4>Filter</h4>
+            <h4>Skills</h4>
             <div class="section-body"> 
-              <h5>By Skills:</h5>
               <div class="skills-list-wrapper">
                 <ul *ngIf="skills">
                   <li *ngFor="let skill of skills, let i = index">
