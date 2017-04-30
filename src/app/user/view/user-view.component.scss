@@ -1,84 +1,31 @@
-.selected {
-    background-color: #CFD8DC !important;
-    color: darkseagreen;
-}
-/*
- *.users {
- *    margin: 0 0 2em 0;
- *    list-style-type: none;
- *    padding: 0;
- *    width: 70em;
- *}
- *.users .label .h3 {
- *    text-align: right;
- *    height: 30em !important;
- *
- *}
- *.users li {
- *    cursor: pointer;
- *    position: relative;
- *    left: 0;
- *    background-color: #EEE;
- *    margin: .5em;
- *    padding: .3em 0;
- *    height: 15em;
- *    border-radius: 4px;
- *}
- *.users li:hover {
- *    color: #607D8B;
- *    background-color: #DDD;
- *    left: .1em;
- *}
- *.users li.selected:hover {
- *    background-color: #BBD8DC !important;
- *    color: white;
- *}
- *.users .text {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- *
- *.users .colData {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- *.users .colLabel {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- */
-
-button {
-    font-family: Arial;
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #cfd8dc;
-}
-button.delete, button.edit {
-    //float:right;
-    margin-top: 2px;
-    margin-right: .8em;
-    background-color: gray !important;
-    color:white;
-}
+@import "../../variables";
 
 .buttons-block {
   text-align: center;
 }
 
-.username {
-  font-size: 1.25em;
-}
-.names {
-  font-size: 1em;
+.subtitle {
+  width: 100%;
+  padding-left: 2em;
+  .names {
+    .first-name {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .last-name {
+      margin-left: 1em;
+      font-size: 2em;
+    }
+  }
+  .metainfo {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 2em;
+    }
+  }
 }
 
 .location {
@@ -92,35 +39,40 @@ button.delete, button.edit {
   font-size: 0.75em;
 }
 
-.profile-wrapper {
-  padding: 25px;
-  border: solid 1px #dadada;
-  background-color: #fafafa;
-  
-}
-.avatar-wrapper {
+.main-info{
+  display: table;
+  width: 100%;
   .avatar {
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  .user-title {
+    display:table-cell;
+    vertical-align: middle;
+    h5 {
+      font-weight: bold;
+    }
   }
 }
 
-.box {
-  border: solid 1px #eaeaea;
-  padding: 10px;
-  background-color: white;
+.skills-list-wrapper {
+  padding: 5px 25px 5px 25px;
+  ul {
+    li.chip {
+      color: $main-color;
+      border: solid $line-sep-width $header-bg-color;
+      background-color: #fff;
+      border-radius: 0px;
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      min-width: 27%;
+      text-align: center;
 
-  .title {
-    font-size: 1.5em;
-  }
-}
+      &:hover {
+        background-color: $bg-line-color;
+      }
+    }
 
-.skills-list {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  list-style: none;
-  border: solid 1px #eaeaea;
-  background-color: white;
-  text-align: center;
-  li {
-    width: 25%;
   }
 }

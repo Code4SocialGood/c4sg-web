@@ -1,0 +1,9 @@
+@import "../../variables";
+
+.group-wrapper {
+  padding-bottom: 2em;
+  border-bottom: solid $line-sep-width $line-sep-color;
+}
+#description {
+  min-height: 100px;
+}
