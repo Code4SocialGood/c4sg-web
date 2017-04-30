@@ -5,18 +5,18 @@
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section"> 
-            <h4>Search</h4>
+            <h4>Keyword</h4>
             <div class="input-search">
               <form>
                 <div class="input-field">
                   <input id="name" #organizationName materialize="autocomplete" type="search" (keyup.enter)="getOrganizationsByKeyword(organizationName.value)">
-                  <label for="name"><i class="material-icons">search</i></label>
+                  <label for="name">Keyword</label>
                 </div>
               </form>
             </div>
           </div>
           <div class="section"> 
-            <h4>Filter</h4>
+            <h4>Opportunities</h4>
             <div class="section-body"> 
               <input type="checkbox" id="openOpportunity"/>
               <label for="openOpportunity">Has Open Opportunities</label>

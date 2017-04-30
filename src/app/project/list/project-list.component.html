@@ -5,20 +5,19 @@
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section"> 
-            <h4>Search</h4>
+            <h4>Keyword</h4>
             <div class="input-search">
               <form>
                 <div class="input-field">
                   <input id="keyword" #projectName materialize="autocomplete" type="search" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
-                  <label for="keyword"><i class="material-icons">search</i></label>
+                  <label for="keyword">Keyword</label>
                 </div>
               </form>
             </div>
           </div>
           <div class="section"> 
-            <h4>Filter</h4>
+            <h4>Skills</h4>
             <div class="section-body"> 
-              <h5>By Skills:</h5>
               <div class="skills-list-wrapper">
                 <ul *ngIf="skills">
                   <li *ngFor="let skill of skills, let i = index">
