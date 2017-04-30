@@ -41,6 +41,7 @@ import {FormConstantsService} from './_services/form-constants.service';
 import {DeveloperService} from './about/common/developer.service';
 import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
+import {DataService} from './_services/data.service';
 import {SkillService} from './skill/common/skill.service';
 
 @NgModule({
@@ -78,7 +79,6 @@ import {SkillService} from './skill/common/skill.service';
     AuthRoleSelectionComponent,
 
     MapViewerComponent,
-
     SkillComponent,
   ],
   providers: [ProjectService,
@@ -90,6 +90,7 @@ import {SkillService} from './skill/common/skill.service';
     DeveloperService,
     ImageDisplayService,
     ImageUploaderService,
+    DataService,
     SkillService],
 
   bootstrap: [AppComponent]
