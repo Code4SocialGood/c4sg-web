@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser/';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
-import { ImageUploaderService } from '../../_services/image-uploader.service';
+import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 import { AuthService } from '../../auth.service';
 
 import { Organization } from '../common/organization';
@@ -29,6 +30,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public loadedFile: any;
   public organizationId;
   public logoValid = true;
+  private logoData: ImageReaderResponse;
+  private defaultAvatar = '../../../assets/default_avatar.png';
 
   currentUserId: String;
   authSvc: AuthService;
@@ -63,21 +66,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       this.initForm();
 
       this.organizationId = +params['organizationId'];
+      this.currentUserId = this.auth.getCurrentUserId();
 
-      // OrgID = 0 is from menu item when user logs in. It indicates no org has been created.
-      // Check whether user created the org after he logs in. Note that orgId stays at 0 in menu item.
+      // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
-        this.currentUserId = this.auth.getCurrentUserId();
-        this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
-          res => {
-            this.organization = res[0];
-            if (this.organization !== undefined) {
-              this.organizationId = this.organization.id.toString();
-              localStorage.setItem('userOrganizationId', this.organization.id.toString());
-            }
-          },
-          error => console.log(error)
-        );
+        this.organization.logo = this.defaultAvatar;
       }
 
       if (this.organizationId !== 0) { // organization has been created already
@@ -89,9 +82,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             return this.organizationService.retrieveLogo(this.organizationId).toPromise();
           })
           .then(res => {
-            const defaultAvatar = '../../../assets/default_avatar.png';
             const logoText = res.text();
-            this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${logoText}`) : defaultAvatar;
+            const logoBase64 = `data:image/png;base64, ${logoText}`;
+
+            this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
             this.initForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
@@ -136,18 +130,15 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   onUploadLogo(fileInput: any): void {
     // Make sure there are files before doing the upload
     if (fileInput.target.files && fileInput.target.files.length) {
+
       // Make sure the file is under 1MB
       if (fileInput.target.files[0].size < 1048576) {
         this.logoValid = true;
-        this.imageUploader.uploadImage(fileInput,
-          this.organizationId,
-          this.organizationService.saveLogo.bind(this.organizationService))
-          .subscribe(res => {
-            if (res.url) {
-              this.organization.logo = res.url;
-            }
-          },
-          err => { console.error(err, 'An error occurred'); });
+        if (this.organizationId === 0) {
+          this.readLogo(fileInput);
+        } else {
+          this.saveLogo(fileInput);
+        }
       } else {
         this.logoValid = false;
       }
@@ -156,9 +147,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   onSubmit(): void {
     if (this.organizationId === 0) { // organization hasn't been created by the nonprofit user
-      // add new org ... call OrganizationService.???
+      // New organization, create the organization
+      this.createOrganization();
     } else {
-      // save ... call OrganizationService.???
+      // Existing organization, update the organization
+      this.updateOrganization();
     }
   }
 
@@ -185,4 +178,64 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     };
   }
 
+  private createOrganization(): void {
+    this.organizationService
+      .createOrganization(this.organizationForm.value)
+      .flatMap(res => {
+        this.organization = res.organization;
+
+        // additionalCalls that need to be made AFTER the org is saved
+        // This includes the call to link the user and the organization
+        const additionalCalls = [
+          this.organizationService
+            .linkUserOrganization(this.currentUserId, this.organization.id)
+        ];
+
+        // Only need to save the logo if a logo was uploaded
+        if (this.logoData) {
+          additionalCalls.push(
+            this.organizationService
+              .saveLogo(this.organization.id, this.logoData.formData)
+          );
+        }
+
+        return Observable.forkJoin(additionalCalls);
+      })
+      .subscribe(res => {
+        // After all calls are successfully made, go to the detail page
+        this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+      });
+  }
+
+  private readLogo(fileInput: any): void {
+    this.imageUploader
+      .readImage(fileInput)
+      .subscribe(res => {
+        this.organization.logo = res.base64Image;
+        this.logoData = res;
+      });
+  }
+
+  private saveLogo(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+      this.organizationId,
+      this.organizationService.saveLogo.bind(this.organizationService))
+      .subscribe(res => {
+        if (res.url) {
+          this.organization.logo = res.url;
+        }
+      },
+      err => { console.error(err, 'An error occurred'); });
+  }
+
+  private updateOrganization(): void {
+    const formData = this.organizationForm.value;
+    formData.id = this.organization.id;
+
+    this.organizationService
+      .updateOrganization(formData)
+      .subscribe(res => {
+        Materialize.toast('Your organization is saved', 4000);
+      });
+  }
 }
