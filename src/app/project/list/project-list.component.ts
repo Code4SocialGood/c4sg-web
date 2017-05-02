@@ -17,7 +17,7 @@ import {DataService} from '../../_services/data.service';
   styleUrls: ['project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
-
+  keyword: string;
   p = 0;
   projects: Project[];
   users: User[];
@@ -47,16 +47,18 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.userId = +this.auth.getCurrentUserId();
     this.route.params.subscribe(
       params => this.from = params['from']);
-    if (this.dataService.keyword) {
-      this.getProjectsByKeyword(this.dataService.keyword);
-      this.dataService.keyword = '';
-    } else {
-      this.getProjects();
-    }
+
+    this.route.queryParams.subscribe(params => {
+      if (params.keyword) {
+        this.keyword = params.keyword;
+      }
+      this.getProjects(this.keyword);
+    });
+
     this.getSkills();
   }
 
-  private getProjects(): void {
+  getProjects(keyword?: string, skills?: any[]): void {
     /* TODO the logic to be integrated
      if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
      this.projectsSubscription = this.projectService.getProjects().subscribe(
@@ -85,8 +87,22 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      }
      */
 
+     const skillsParam = [];
+
+     if (keyword) {
+       this.keyword = keyword;
+     }
+
+     if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        if (skills[i].checked) {
+          skillsParam.push(skills[i].id.toString());
+        }
+      }
+    }
+
     this.projectsSubscription = this.projectService
-      .getProjects()
+      .searchProjects(keyword, skillsParam)
       .subscribe(
         res => {
           this.projects = res;
@@ -132,23 +148,11 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      */
   }
 
-  getProjectsByKeyword(keyword: string) {
-    keyword = keyword.trim();
-    if (keyword) {
-      this.projectService
-        .getProjectsByKeyword(keyword)
-        .subscribe(
-          res => this.projects = res,
-          error => console.log(error)
-        );
-    }
-  }
-
   getSkills(): void {
     this.skillService.getSkills().subscribe(res => {
         console.log(res);
         this.skills  = res.map(skill => {
-          return {name: skill.skillName, checked: false}; });
+          return {name: skill.skillName, checked: false, id: skill.id}; });
       },
       error => console.error(error)
     );
@@ -191,14 +195,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       );
   }
 
-  onCheck(id: number, category: string): void {
-    this[category][id].checked = !this[category][id].checked;
-
-// if (this.titlesFilter.length > 0 || this.skillsFilter.length > 0) {
-//   this.filterProjects();
-// } else {
-//   this.resetProjects();
-// }
+  onCheck(id: number): void {
+    this.skills[id].checked = !this.skills[id].checked;
+    this.getProjects(this.keyword, this.skills);
   }
 
   ngOnDestroy() {

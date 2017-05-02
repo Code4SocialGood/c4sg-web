@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response, RequestOptions} from '@angular/http';
+import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
 import {Project} from './project';
@@ -39,10 +39,21 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  // TODO replace with search by keyword
-  getProjectsByKeyword(keyWord: string): Observable<Project[]> {
-    const url = `${projectUrl}/search?keyWord=${keyWord}`;
-    return this.http.get(url)
+  searchProjects(keyword?: string, skills?: string[]): Observable<Project[]> {
+    const params = new URLSearchParams();
+
+    if (keyword) {
+      params.append('keyWord', keyword);
+    }
+
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        params.append('skills', skills[i]);
+      }
+    }
+
+    return this.http
+      .get(`${projectUrl}/search`, {search: params})
       .map(res => res.json())
       .catch(this.handleError);
   }

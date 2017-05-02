@@ -8,8 +8,8 @@
             <h4>Keyword</h4>
             <div class="input-search">
               <form>
-                <div class="input-field" (click)="getUsersByKeyword(searchTerm.value, null, null)">
-                  <input id="autocomplete-input" #searchTerm materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
+                <div class="input-field">
+                  <input id="autocomplete-input" name="searchTerm" [(ngModel)]="searchTerm" materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsers(p, searchTerm)">
                   <label for="autocomplete-input">Keyword</label>
                 </div>
               </form>
@@ -22,7 +22,7 @@
                 <ul *ngIf="skills">
                   <li *ngFor="let skill of skills, let i = index">
                     <input class="filled-in" type="checkbox" [id]="skill.name">
-                    <label [for]="skill.name" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+                    <label [for]="skill.name" (click)="onSkillCheck(i, 'skills')">{{skill.name}}</label>
                   </li>
                 </ul>
               </div>
