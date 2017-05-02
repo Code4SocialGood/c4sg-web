@@ -4,7 +4,7 @@
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
-          <div class="section"> 
+          <div class="section">
             <h4>Keyword</h4>
             <div class="input-search">
               <form>
@@ -15,13 +15,13 @@
               </form>
             </div>
           </div>
-          <div class="section"> 
+          <div class="section">
             <h4>Opportunities</h4>
-            <div class="section-body"> 
+            <div class="section-body">
               <input type="checkbox" id="openOpportunity"/>
               <label for="openOpportunity">Has Open Opportunities</label>
             </div>
-          </div>        
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
                         <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime}}</span></div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img [src]="org.logoUrl"></div>
+                        <div class="card-avatar"><img [src]="org.logoUrl" *ngIf="org.logoUrl"></div>
                         <div class="card-info">
                           <p class="description">{{ org.description }}</p>
                           <div class="card-info-bottom">

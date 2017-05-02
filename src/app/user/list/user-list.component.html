@@ -4,7 +4,7 @@
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
-          <div class="section"> 
+          <div class="section">
             <h4>Keyword</h4>
             <div class="input-search">
               <form>
@@ -15,9 +15,9 @@
               </form>
             </div>
           </div>
-          <div class="section"> 
+          <div class="section">
             <h4>Skills</h4>
-            <div class="section-body"> 
+            <div class="section-body">
               <div class="skills-list-wrapper">
                 <ul *ngIf="skills">
                   <li *ngFor="let skill of skills, let i = index">
@@ -46,7 +46,7 @@
                         <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img [src]="user.avatarUrl"></div>
+                        <div class="card-avatar"><img [src]="user.avatarUrl" *ngIf="user.avatarUrl"></div>
                         <div class="card-info">
                           <h5>Junior McDonalds Tender</h5>
                           <div class="skills-list-wrapper">
