@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -11,12 +11,14 @@ import { User } from '../../user/common/user';
 import { ImageDisplayService } from '../../_services/image-display.service';
 import {DataService} from '../../_services/data.service';
 
+declare var Materialize: any;
+
 @Component({
   selector: 'my-projects',
   templateUrl: 'project-list.component.html',
   styleUrls: ['project-list.component.scss']
 })
-export class ProjectListComponent implements OnInit, OnDestroy {
+export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
   keyword: string;
   p = 0;
   projects: Project[];
@@ -42,6 +44,14 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private skillService: SkillService,
     private idService: ImageDisplayService
   ) { }
+
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
+  }
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();

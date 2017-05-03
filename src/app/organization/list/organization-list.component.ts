@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 declare const $: Function;
-declare var Materialize: any;
 
 @Component({
   selector: 'my-organizations',
@@ -13,8 +12,8 @@ declare var Materialize: any;
   styleUrls: ['organization-list.component.scss']
 })
 
-export class OrganizationListComponent implements OnInit, AfterViewChecked, AfterViewInit {
-
+export class OrganizationListComponent implements OnInit, AfterViewInit {
+  keyword: string;
   p = 0;
   organizations: Object[];
   selectedOrganization?: Organization;
@@ -42,16 +41,12 @@ export class OrganizationListComponent implements OnInit, AfterViewChecked, Afte
       });
   }
 
-  ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    if (Materialize && Materialize.updateTextFields) {
-      Materialize.updateTextFields();
+  getOrganizations(keyword?: string, hasOpportunities?: boolean) {
+    if (keyword) {
+      this.keyword = keyword;
     }
-  }
 
-  getOrganizations() {
-    this.organizationService.getOrganizations()
+    this.organizationService.searchOrganizations(keyword, hasOpportunities)
         .subscribe( res => {
             this.organizations = res;
             res.forEach((o: Organization) => {
@@ -62,21 +57,6 @@ export class OrganizationListComponent implements OnInit, AfterViewChecked, Afte
               });
             });
           },
-          error => console.log(error)
-        );
-  }
-
-  getOrganizationsByKeyword(keyword: string) {
-    keyword = keyword.trim();
-
-    if (!keyword) {
-      return;
-    }
-
-    this.organizationService
-        .getOrganizationsByKeyword(keyword)
-        .subscribe(
-          res => this.organizations = res,
           error => console.log(error)
         );
   }

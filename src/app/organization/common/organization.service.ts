@@ -25,9 +25,16 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
-  getOrganizationsByKeyword(keyWord: string): Observable<Organization[]> {
+  searchOrganizations(keyword?: string, hasOpportunities?: boolean): Observable<Organization[]> {
     const param = new URLSearchParams();
-    param.set('keyWord', keyWord);
+
+    if (keyword) {
+      param.set('keyWord', keyword);
+    }
+
+    if (hasOpportunities) {
+      param.set('open', hasOpportunities.toString());
+    }
 
     return this.http
                .get(`${organizationUrl}/search`, {search: param})
