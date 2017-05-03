@@ -8,9 +8,13 @@
             <h4>Keyword</h4>
             <div class="input-search">
               <form>
-                <div class="input-field">
-                  <input id="name" #organizationName materialize="autocomplete" type="search" (keyup.enter)="getOrganizationsByKeyword(organizationName.value)">
+                <div class="input-field keyword-field">
+                  <input id="name" name="keyword" [(ngModel)]="keyword" materialize="autocomplete" type="search" (keyup.enter)="getOrganizations(keyword)">
                   <label for="name">Keyword</label>
+                  <button class="keyword-form__btn" (click)="getOrganizations(keyword)"
+                    class="keyword-field__btn btn waves-effect waves-light green darken-2">
+                    <i  class="large material-icons transparent">search</i>
+                  </button>
                 </div>
               </form>
             </div>
@@ -18,7 +22,7 @@
           <div class="section">
             <h4>Opportunities</h4>
             <div class="section-body">
-              <input type="checkbox" id="openOpportunity"/>
+              <input type="checkbox" id="openOpportunity" (change)="getOrganizations(keyword, $event.target.checked)"/>
               <label for="openOpportunity">Has Open Opportunities</label>
             </div>
           </div>

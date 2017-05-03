@@ -8,9 +8,13 @@
             <h4>Keyword</h4>
             <div class="input-search">
               <form>
-                <div class="input-field">
+                <div class="input-field keyword-field">
                   <input id="keyword" name="keyword" [(ngModel)]="keyword" materialize="autocomplete" type="search" (keyup.enter)="getProjects(keyword)">
                   <label for="keyword">Keyword</label>
+                  <button class="keyword-form__btn" (click)="getProjects(keyword)"
+                    class="keyword-field__btn btn waves-effect waves-light green darken-2">
+                    <i  class="large material-icons transparent">search</i>
+                  </button>
                 </div>
               </form>
             </div>
