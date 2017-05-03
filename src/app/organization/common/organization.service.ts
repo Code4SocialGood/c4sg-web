@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
 import { Organization } from './organization';
 
@@ -8,6 +9,8 @@ const organizationUrl = `${environment.backend_url}/api/organizations`;
 
 @Injectable()
 export class OrganizationService {
+  private organizationLinkedSource = new Subject<string>();
+  public organizationLinkedSource$ = this.organizationLinkedSource.asObservable();
 
   constructor(private http: Http, private jsonp: Jsonp) { }
 
@@ -31,15 +34,35 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
-  getUserOrganization(id: number): Observable<Response> {
+  getUserOrganization(id: number): Observable<Organization> {
       return this.http.get(
       `${organizationUrl}/user/${id}`
-      );
+      ).map(res => res.json());
     }
 
-  createOrganization(organization: any): Observable<Response> {
+  createOrganization(organization: Organization): Observable<{organization: Organization}> {
       return this.http.post(
       `${organizationUrl}`,
+      organization
+      ).map(res => res.json());
+  }
+
+  linkUserOrganization(userId: String, organizationId: number) {
+    const observable = this.http.post(
+      `${organizationUrl}/${organizationId}/users/${userId}`,
+      {}
+    );
+
+    observable.subscribe(res => {
+      this.organizationLinkedSource.next(organizationId.toString());
+    });
+
+    return observable;
+  }
+
+  updateOrganization(organization: Organization): Observable<Response> {
+      return this.http.put(
+      `${organizationUrl}/${organization.id}`,
       organization
       );
   }

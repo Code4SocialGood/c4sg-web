@@ -6,8 +6,9 @@
         <div class="content" *ngIf="organization">
           <div class="row">
             <h1 class="main-title">{{organization.name}}</h1>
-            <p class="subtitle" *ngIf="organization.url">{{organization.url}}</p>
-            <p class="subtitle"><a href="#">http://www.foobar.com</a></p>
+            <p class="subtitle" *ngIf="organization.websiteURL">
+              <a [href]="organization.websiteURL" target="_blank">{{organization.websiteURL}}</a>
+            </p>
           </div>
           <div class="row single-info">
             <div class="col m4">
@@ -54,7 +55,7 @@
                       <div class="card-header">
                         <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                       </div>
-                      <div class="card-content"> 
+                      <div class="card-content">
                         <p>{{ pr.description }}</p>
                       </div>
                     </div>

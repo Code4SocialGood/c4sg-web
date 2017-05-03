@@ -1,14 +1,24 @@
 <div class = "home-wrapper">
   <div class="action">
     <div id = "aniSlogan">
-      It doesn't matter if you<br> code for <span id = "aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span><span [@cursorFlash]="cursorState">&nbsp;_</span><br>Get started now!
+      It doesn't matter if you
+        <br> code for <span id = "aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+        <span [@cursorFlash]="cursorState">&nbsp;_</span><br>
+        Get started now!
     </div>
     <div class="input-field">
       <td class = "input-field">
         <input #projectName placeholder="Project keywords" id="name" type="text" class="input-pre"/>
       </td>
       <td>
-        <button  [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value='';" routerLink="/project/list" (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light red darken-2"><i  class="large material-icons transparent" >search</i></button>
+        <button  [@buttonState]="state"
+                 (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
+                 routerLink="/project/list/home"
+                 (mouseover)="toggleState()"
+                 (mouseout)="toggleState()"
+                 class="btn waves-effect waves-light red darken-2">
+            <i  class="large material-icons transparent" >search</i>
+        </button>
       </td>
       <div>
       </div>

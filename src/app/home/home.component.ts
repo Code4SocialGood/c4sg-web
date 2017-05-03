@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, Input, trigger, state, style, transition, animate, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
+import {DataService} from '../_services/data.service';
 
 @Component({
   selector: 'my-home',
@@ -53,82 +54,80 @@ import { ProjectService } from '../project/common/project.service';
 
 export class HomeComponent implements OnInit {
 
-    projects: Project[] = [];
+  projects: Project[] = [];
 
-    // search button
-    state = 'inactive';
+  // search button
+  state = 'inactive';
 
-    // cursor and aniSlogan
-    tempWord = '';
-    clear = true;
-    typeAniIndex = -1;
-    typeAniPeriod = 100;
-    aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
-    aniWord = '';
-    cursorState = 'inactive';
-    wordColorIndex = 0;
-
-
-    constructor(private projectService: ProjectService, private router: Router) {
-    }
-
-    // onload animation timer
-    ngOnInit(): void {
-      const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
-      const typeTimer = Observable.timer(0, this.typeAniPeriod);
-      const cursorTimer = Observable.timer(0, 400);
-
-      wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
-      typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
-      cursorTimer.subscribe(u => this.cursorFlash(u));
-
-    }
-
-    getProjectsByKeyword(keyword: string) {
-      keyword = keyword.trim();
-      if (!keyword) { return; }
-
-      this.projectService.getProjectsByKeyword(keyword).subscribe(
-          res => {
-              this.projects = res;
-              this.router.navigate(['/volunteers']);
-          },
-          error => console.log(error)
-      );
-    }
-
-    // animation controllers
-    // search button
-    toggleState() {
-      this.state = (this.state === 'inactive' ? 'active' : 'inactive');
-    }
+  // cursor and aniSlogan
+  tempWord = '';
+  clear = true;
+  typeAniIndex = -1;
+  typeAniPeriod = 100;
+  aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
+  aniWord = '';
+  cursorState = 'inactive';
+  wordColorIndex = 0;
 
 
-    // animation word
-    switchWord(time) {
-      const index = time % this.aniWordGroup.length;
-      this.aniWord = '';
-      this.typeAniIndex = -1;
-      if (this.wordColorIndex < this.aniWordGroup.length) {
-        this.wordColorIndex++;
-      } else {
-        this.wordColorIndex = 1;
+  constructor(private projectService: ProjectService,
+              private router: Router,
+              private dataService: DataService) {
+  }
+
+  // onload animation timer
+  ngOnInit(): void {
+    const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
+    const typeTimer = Observable.timer(0, this.typeAniPeriod);
+    const cursorTimer = Observable.timer(0, 400);
+
+    wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
+    typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
+    cursorTimer.subscribe(u => this.cursorFlash(u));
+
+  }
+
+  getProjectsByKeyword(keyword: string) {
+    keyword = keyword.trim();
+    if (!keyword) { return; }
+    this.router.navigate(['/project/list/home'], {
+      queryParams: {
+        keyword: keyword
       }
-      return this.aniWordGroup[index];
-    }
+    });
+  }
 
-    typeWord(time, word: string) {
-      const wordArray = word.split('');
-      this.typeAniIndex++;
-      if (this.aniWord === word) {
-        return this.aniWord.concat('');
-      } else {
-        return this.aniWord.concat(wordArray[this.typeAniIndex]);
-      }
-    }
+  // animation controllers
+  // search button
+  toggleState() {
+    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
+  }
 
-    cursorFlash(time) {
-      this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
-    }
 
+  // animation word
+  switchWord(time) {
+    const index = time % this.aniWordGroup.length;
+    this.aniWord = '';
+    this.typeAniIndex = -1;
+    if (this.wordColorIndex < this.aniWordGroup.length) {
+      this.wordColorIndex++;
+    } else {
+      this.wordColorIndex = 1;
+    }
+    return this.aniWordGroup[index];
+  }
+
+  typeWord(time, word: string) {
+    const wordArray = word.split('');
+    this.typeAniIndex++;
+    if (this.aniWord === word) {
+      return this.aniWord.concat('');
+    } else {
+      return this.aniWord.concat(wordArray[this.typeAniIndex]);
+    }
+  }
+
+  cursorFlash(time) {
+    this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
+  }
 }

@@ -9,7 +9,7 @@ import { MaterializeAction } from 'angular2-materialize';
   // moduleId: module.id,
   selector: 'my-profile',
   templateUrl: 'user-profile.component.html',
-  styleUrls: ['user-profile.component.css'],
+  styleUrls: ['user-profile.component.scss'],
   providers: []
 })
 
@@ -35,7 +35,6 @@ export class UserProfileComponent implements OnInit {
             const user = res;
             console.log(user);
 
-
             this.myProfile.setValue({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -46,7 +45,6 @@ export class UserProfileComponent implements OnInit {
                 linkedin: user.linkedinUrl,
                 website: user.personalUrl
               });
-
 
               this.user = new User(
                         user.id,

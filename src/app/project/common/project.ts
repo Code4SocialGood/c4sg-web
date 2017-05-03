@@ -15,6 +15,7 @@ export class Project {
               public address1?: string,
               public address2?: string,
               public state?: string,
-              public createdTime?: any) {
+              public createdTime?: any,
+              public remoteFlag?: string) {
   }
 }

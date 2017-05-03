@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
-
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 declare const $: Function;
+declare var Materialize: any;
 
 @Component({
   selector: 'my-organizations',
@@ -13,7 +13,7 @@ declare const $: Function;
   styleUrls: ['organization-list.component.scss']
 })
 
-export class OrganizationListComponent implements OnInit, AfterViewInit {
+export class OrganizationListComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   p = 0;
   organizations: Object[];
@@ -26,7 +26,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   constructor(
     private idService: ImageDisplayService,
     private organizationService: OrganizationService,
-              private router: Router) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,6 +40,14 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         $('.modal')
           .modal();
       });
+  }
+
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
   }
 
   getOrganizations() {
