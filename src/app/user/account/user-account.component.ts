@@ -31,9 +31,12 @@ export class UserAccountComponent implements OnInit {
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
   public selectedUser: User;
-
   public myAccount = new FormGroup({
-    email: new FormControl('', Validators.required)
+    email: new FormControl({value: '', disabled: true}, Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    userName: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required)
   });
 
   constructor( private changeDetectorRef: ChangeDetectorRef,
@@ -41,6 +44,7 @@ export class UserAccountComponent implements OnInit {
                private userService: UserService,
                private imageUploader: ImageUploaderService,
                private imageDisplay: ImageDisplayService) { }
+
 
   updateAccount(event) {
     event.preventDefault();
@@ -224,24 +228,17 @@ export class UserAccountComponent implements OnInit {
           user.developerFlag,
           user.createdTime,
           user.updatedTime);
+
+          this.myAccount.setValue({
+            userName: user.userName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            state: user.state,
+            country: user.country,
+            zip: user.zip,
+            phone: user.phone
+          });
       });
-        /*
-        this.myAccount.setValue({
-          userName: user.userName,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          state: user.state,
-          country: user.country,
-          zip: user.zip
-        });
-      }, (err) => {
-        console.error('An error occurred', err); // for demo purposes only
-      }
-    );
-
-      */
-
   }
-
 }
