@@ -97,7 +97,7 @@ describe('OrganizationService', () => {
     })
   );
 
-  it('getOrganizationsByKeyword should return an observable',
+  it('searchOrganizations should return an observable',
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
       // our API returns data as an array of organizations, so mock that structure
@@ -115,7 +115,7 @@ describe('OrganizationService', () => {
       });
 
       // Call our service.  It should return an observable that we can subscribe to and get data
-      organizationService.getOrganizationsByKeyword('Org')
+      organizationService.searchOrganizations('Org')
                          .subscribe(res => {
                              const orgs = res;
                              expect(orgs.length).toBe(3);
