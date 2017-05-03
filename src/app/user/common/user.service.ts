@@ -27,6 +27,7 @@ export class UserService {
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
+
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
     return this.http
@@ -60,17 +61,23 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  getUsersByKeyword(userName: string, firstName: string, lastName: string): Observable<User[]> {
+  searchUsers(page: number, keyword?: string, skills?: string[]): Observable<User[]> {
     const params = new URLSearchParams();
-    params.set('userName', userName);
-    params.set('firstName', firstName);
-    params.set('lastName', lastName);
-    params.set('callback', 'JSONP_CALLBACK');
-    const url = userUrl + '/search';
 
-    return this.jsonp
-               .get(url, {search: params})
-               .map(res => res.json())
+    // Might also want to append page, sort here
+    if (keyword) {
+      params.append('keyWord', keyword);
+    }
+
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        params.append('skills', skills[i]);
+      }
+    }
+
+    return this.http
+               .get(`${userUrl}/search`, {search: params})
+               .map( res => res.json())
                .catch(this.handleError);
   }
 

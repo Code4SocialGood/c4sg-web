@@ -9,7 +9,7 @@
             <div class="input-search">
               <form>
                 <div class="input-field">
-                  <input id="keyword" #projectName materialize="autocomplete" type="search" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
+                  <input id="keyword" name="keyword" [(ngModel)]="keyword" materialize="autocomplete" type="search" (keyup.enter)="getProjects(keyword)">
                   <label for="keyword">Keyword</label>
                 </div>
               </form>
