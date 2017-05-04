@@ -71,7 +71,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   getProjects(keyword?: string, skills?: any[]): void {
     /* TODO the logic to be integrated
      if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
-     this.projectsSubscription = this.projectService.getProjects().subscribe(
+     this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
      res => this.projects = res,
      error => console.log(error));
 
