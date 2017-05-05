@@ -47,7 +47,7 @@
                     <div class="card">
                       <div class="card-header">
                         <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime | date: 'MMM d, yyyy'}}</span></div>
                       </div>
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="user.avatarUrl" *ngIf="user.avatarUrl"></div>
