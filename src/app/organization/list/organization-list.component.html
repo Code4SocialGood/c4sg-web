@@ -51,7 +51,7 @@
                     <div class="card">
                       <div class="card-header">
                         <h4 [routerLink]="['/nonprofit/view/'+org.id]">{{org.name}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime}}</span></div>
+                        <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime | date: 'MMM d, yyyy'}}</span></div>
                       </div>
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="org.logoUrl" *ngIf="org.logoUrl"></div>
