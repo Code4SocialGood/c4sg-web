@@ -9,11 +9,11 @@
             <div class="more-details">
               <p class="details"><span class="is-remote" *ngIf="project.remoteFlag == 'Y'">Remote</span><span class="is-remote" *ngIf="project.remoteFlag == 'N'">In-place</span><span class="is-active" *ngIf="project.status == 'A'">Active</span></p>
             </div>
-            <p class="subtitle">Organization:  <a href="#">{{project.organization.name}}</a></p>
+            <p class="subtitle"><a [href]="project.organization.websiteUrl" target="_blank">{{project.organization.name}}</a></p>
           </div>
           <div class="row single-info">
             <div class="col m4">
-              <div class="info-avatar"><img [src]="projectImage"></div>
+              <div class="info-avatar"><img [src]="project.imageUrl"></div>
             </div>
 <!--
             <div class="row">
@@ -44,16 +44,19 @@
             <div class="col m4 left-col">
               <div class="info-location">
                 <h4>Address</h4>
-                <p>{{project.address1}}</p>
-                <p>{{project.address2}}</p>
-                <p><span class="city">{{project.organization.city}}</span><span class="state">{{project.organization.state}}</span><span class="state">{{project.organization.zip}}</span></p>
-                <p>{{project.organization.country}}</p>
+                <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
+                <div *ngIf="project.remoteFlag !== 'Y'">
+                  <p>{{project.address1}}</p>
+                  <p>{{project.address2}}</p>
+                  <p><span class="city">{{project.city}}</span><span class="state">{{project.state}}</span><span class="state">{{project.zip}}</span></p>
+                  <p>{{project.country}}</p>
+                </div>
               </div>
             </div>
             <div class="col m4 right-col">
               <div class="info-contact">
                 <h4>Posted</h4>
-                <p>{{project.organization.projectUpdatedTime}}</p>
+                <p>{{project.organization.projectUpdatedTime | date: 'MMM d, yyyy'}}</p>
               </div>
             </div>
             <div class="col m12">
@@ -96,7 +99,7 @@
             <h4>{{project.organization.name}}</h4>
             <div class="section-body row">
               <div class="col m5">
-                <div class="info-avatar"><img [src]="orgImage"></div>
+                <div class="info-avatar"><img [src]="project.organization.logoUrl"></div>
               </div>
               <div class="col m7">
                 <div class="info-location">
@@ -121,7 +124,6 @@
                       </div>
                       <div class="card-content">
                         <p *ngIf="pr.description">{{ pr.description }}</p>
-                        <p *ngIf="pr.description.length &gt; 0 ">No description available</p>
                       </div>
                     </div>
                   </li>

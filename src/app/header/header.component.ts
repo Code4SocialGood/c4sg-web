@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
 import { OrganizationService } from '../organization/common/organization.service';
@@ -12,12 +12,24 @@ import { Organization } from '../organization/common/organization';
   styleUrls: [ 'header.component.scss' ]
 })
 
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent implements DoCheck, OnInit {
   currentUserId: string;
   organizationId: string;
   atHome = false;
   constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
 
+  }
+
+  private setOrganizationId(organizationId: string): void {
+    this.organizationId = organizationId;
+    localStorage.setItem('userOrganizationId', organizationId);
+  }
+
+  ngOnInit(): void {
+    // Subscribe to updates to the organization
+    this.organizationService.organizationLinkedSource$.subscribe(res => {
+      this.setOrganizationId(res);
+    });
   }
 
   // control nav style by changing the class name
@@ -40,8 +52,7 @@ export class HeaderComponent implements DoCheck {
             // otherwise, data is undefined
             organization = res[0];
             if (organization !== undefined) {
-              this.organizationId = organization.id.toString();
-              localStorage.setItem('userOrganizationId', organization.id.toString());
+              this.setOrganizationId(organization.id.toString());
             }
           },
           error => console.log(error)

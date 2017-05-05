@@ -38,7 +38,7 @@ nav {
   }
 
   ul {
-    li { 
+    li {
       a {
         position: relative;
         color: $navbar-fg-color;
@@ -50,7 +50,7 @@ nav {
         padding-top: 0 - $line-sep-width;
         margin-top: 0 - $line-sep-width;
         margin-left: - $line-sep-width;
-        
+
         z-index: 100;
         &:hover{
           border-color: $navbar-border-color;
@@ -188,7 +188,7 @@ nav {
     padding-left: 50px;
     border-bottom: solid $line-sep-width $navbar-border-color;
 
-    .index-prefix { 
+    .index-prefix {
       margin-right: 2em;
     }
   }
@@ -468,7 +468,7 @@ nav {
 
   .links-list-wrapper {
     ul {
-      
+
     }
   }
 
@@ -529,5 +529,16 @@ nav {
   }
   .modal-footer {
     border-top: solid $line-sep-width $line-sep-color;
+  }
+}
+
+.keyword-field {
+  position: relative;
+  padding-right: 4rem;
+  &__btn {
+    padding: 0 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }

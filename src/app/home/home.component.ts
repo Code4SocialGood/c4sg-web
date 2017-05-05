@@ -90,17 +90,11 @@ export class HomeComponent implements OnInit {
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
     if (!keyword) { return; }
-    this.dataService.keyword = keyword;
-    this.router.navigate(['/project/list/home']);
-
-    // this.projectService.getProjectsByKeyword(keyword).subscribe(
-    //   res => {
-    //     console.log('no errors yet!'); // debug
-    //     this.dataService.projects = res;
-    //     this.router.navigate(['/project/list/home']);
-    //   },
-    //   error => console.log('error:\n', error)
-  // );
+    this.router.navigate(['/project/list/home'], {
+      queryParams: {
+        keyword: keyword
+      }
+    });
   }
 
   // animation controllers
