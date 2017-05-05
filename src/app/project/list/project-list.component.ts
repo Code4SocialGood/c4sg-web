@@ -1,4 +1,5 @@
 import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -19,7 +20,11 @@ declare var Materialize: any;
   styleUrls: ['project-list.component.scss']
 })
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
-  keyword: string;
+  skillsArray = new FormArray([]);
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    skills: this.skillsArray
+  });
   p = 0;
   projects: Project[];
   users: User[];
@@ -60,15 +65,19 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     this.route.queryParams.subscribe(params => {
       if (params.keyword) {
-        this.keyword = params.keyword;
+        this.filterForm.controls.keyword.setValue(params.keyword);
       }
-      this.getProjects(this.keyword);
     });
 
     this.getSkills();
+
+    // Watch for changes to the form and update the list
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
+      this.getProjects();
+    });
   }
 
-  getProjects(keyword?: string, skills?: any[]): void {
+  getProjects(): void {
     /* TODO the logic to be integrated
      if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
      this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
@@ -97,22 +106,19 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
      }
      */
 
-     const skillsParam = [];
+    const skills = this.filterForm.value.skills;
+    const skillsParam = [];
 
-     if (keyword) {
-       this.keyword = keyword;
-     }
-
-     if (skills) {
+    if (skills) {
       for (let i = 0; i < skills.length; i++) {
-        if (skills[i].checked) {
-          skillsParam.push(skills[i].id.toString());
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
         }
       }
     }
 
     this.projectsSubscription = this.projectService
-      .searchProjects(keyword, skillsParam)
+      .searchProjects(this.filterForm.value.keyword, skillsParam)
       .subscribe(
         res => {
           this.projects = res;
@@ -162,6 +168,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     this.skillService.getSkills().subscribe(res => {
         console.log(res);
         this.skills  = res.map(skill => {
+          this.skillsArray.push(new FormControl(false));
           return {name: skill.skillName, checked: false, id: skill.id}; });
       },
       error => console.error(error)
@@ -203,11 +210,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         },
         error => console.log(error)
       );
-  }
-
-  onCheck(id: number): void {
-    this.skills[id].checked = !this.skills[id].checked;
-    this.getProjects(this.keyword, this.skills);
   }
 
   ngOnDestroy() {

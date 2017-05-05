@@ -25,19 +25,29 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
-  searchOrganizations(keyword?: string, hasOpportunities?: boolean): Observable<Organization[]> {
-    const param = new URLSearchParams();
+  searchOrganizations(
+    keyword?: string,
+    hasOpportunities?: boolean,
+    categories?: string[]
+  ): Observable<Organization[]> {
+    const params = new URLSearchParams();
 
     if (keyword) {
-      param.set('keyWord', keyword);
+      params.set('keyWord', keyword);
     }
 
     if (hasOpportunities) {
-      param.set('open', hasOpportunities.toString());
+      params.set('open', hasOpportunities.toString());
+    }
+
+    if (categories) {
+      for (let i = 0; i < categories.length; i++) {
+        params.append('categories', categories[i]);
+      }
     }
 
     return this.http
-               .get(`${organizationUrl}/search`, {search: param})
+               .get(`${organizationUrl}/search`, {search: params})
                .map(res => res.json());
   }
 
