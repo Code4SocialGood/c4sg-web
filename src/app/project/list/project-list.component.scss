@@ -1,1 +1,40 @@
 @import "../../variables";
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.row {
+	margin-bottom: 0;
+}
+.container {
+	background-color: $main-bg-color;
+	border: none;
+	.list-container {
+		margin-top: 3vh;
+		.section-row {
+			border: solid #c8c8c8 3px;
+			background-color: #fff;
+			form {
+				margin: 1em;
+			}
+			form label {
+				font-size: 2em;
+				width: 20%
+			}
+			form input {
+				width: 80%;
+			}
+		}
+		#left-col {
+			margin-top: 8vh;
+			position: fixed;
+		}
+		#right-col {
+			float: right;
+		}
+	}
+	
+}

@@ -23,9 +23,9 @@ export class HeaderComponent implements DoCheck {
   // control nav style by changing the class name
   isAtHome() {
     if (this.router.url === '/' || this.router.url === '/#!') {
-      return true;
+      return 'at-home';
     }
-    return false;
+    return 'off-home';
   }
 
   ngDoCheck() {
