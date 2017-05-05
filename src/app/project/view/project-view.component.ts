@@ -45,6 +45,11 @@ export class ProjectViewComponent implements OnInit {
         .subscribe(
             res => {
                 this.project = res;
+                // Validation rules should force websiteURL to start with http but add check just in case
+                if (this.project.organization.websiteUrl && this.project.organization.websiteUrl.indexOf('http') !== 0) {
+                  this.project.organization.websiteUrl = `http://${this.project.organization.websiteUrl}`;
+                }
+
                 if (this.project.organization.description.length > 100) {
                     this.project.organization.description =                  this.project.organization.description.slice(0, 100) + '...';
 
