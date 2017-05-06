@@ -59,24 +59,24 @@ export class UserAccountComponent implements OnInit {
         this.myAccount.value.userName,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName,
-        this.user.phone,
-        this.myAccount.value.city,
         this.myAccount.value.state,
         this.myAccount.value.country,
-        this.myAccount.value.zip,
         -1,
         -1,
+        this.user.title,
         this.user.introduction,
         this.user.linkedinUrl,
         this.user.personalUrl,
+        this.user.facebookUrl,
+        this.user.twitterUrl,
+        this.user.avatarUrl,
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
-        this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
         this.user.updatedTime);
-      this.userService.update(user).subscribe(() => {
+        this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
     } else {
@@ -211,21 +211,20 @@ export class UserAccountComponent implements OnInit {
           user.userName,
           user.firstName,
           user.lastName,
-          user.phone,
-          user.city,
           user.state,
           user.country,
-          user.zip,
           -1,
           -1,
+          user.title,
           user.introduction,
           user.linkedinUrl,
           user.personalUrl,
+          user.facebookUrl,
+          user.twitterUrl,
           user.status,
           user.publicProfileFlag,
           user.chatFlag,
           user.forumFlag,
-          user.developerFlag,
           user.createdTime,
           user.updatedTime);
 
@@ -235,9 +234,7 @@ export class UserAccountComponent implements OnInit {
             lastName: user.lastName,
             email: user.email,
             state: user.state,
-            country: user.country,
-            zip: user.zip,
-            phone: user.phone
+            country: user.country
           });
       });
   }
