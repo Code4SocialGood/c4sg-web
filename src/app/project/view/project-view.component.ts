@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
+import { Organization } from '../../organization/common/organization';
 import { AuthService } from '../../auth.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ImageDisplayService } from '../../_services/image-display.service';
@@ -17,6 +18,7 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 export class ProjectViewComponent implements OnInit {
 
   project: Project;
+  organization: Organization;
   projects: Project[];
   numberOfProjects: number;
   params: Params;
@@ -25,8 +27,9 @@ export class ProjectViewComponent implements OnInit {
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
   orgImage: any = '';
+
   constructor(private projectService: ProjectService,
-              private orgService: OrganizationService,
+              private organizationService: OrganizationService,
               private route: ActivatedRoute,
               private router: Router,
               private auth: AuthService,
@@ -36,42 +39,55 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-        const id = params['projectId'];
-        this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
-            .subscribe (
-                res => this.projectImage = res.url
-                );
-        this.projectService.getProject(id)
-        .subscribe(
-            res => {
-                this.project = res;
-                // Validation rules should force websiteURL to start with http but add check just in case
-                if (this.project.organization.websiteUrl && this.project.organization.websiteUrl.indexOf('http') !== 0) {
-                  this.project.organization.websiteUrl = `http://${this.project.organization.websiteUrl}`;
-                }
+      const id = params['projectId'];
 
-                if (this.project.organization.description.length > 100) {
-                    this.project.organization.description =                  this.project.organization.description.slice(0, 100) + '...';
+      this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
+          .subscribe (
+              res => this.projectImage = res.url
+              );
 
+      this.projectService.getProject(id)
+      .subscribe(
+          res => {
+            this.project = res;
+
+            // Organization for this project
+            this.organizationService.getOrganization(res.organizationId)
+                .subscribe(
+                    resi => {
+                      this.organization = resi;
+
+                      // Validation rules should force websiteUrl to start with http but add check just in case
+                      if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
+                        this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+                      }
+
+                      if (this.organization.description.length > 100) {
+                          this.organization.description = this.organization.description.slice(0, 100) + '...';
+                      }
                     }
-                this.projectService.getProjectByOrg(res.organization.id)
-                    .subscribe(
-                        resProjects => this.projects = resProjects.json(),
-                        errorProjects => console.log(errorProjects)
                     );
 
-                this.imageDisplay.displayImage(res.organization.id, this.orgService.retrieveLogo.bind(this.orgService))
-                    .subscribe (
-                        resi => {
-                          this.orgImage = resi.url;
-                        }
-                        );
+            // Projects for this organization
+            this.projectService.getProjectByOrg(res.organizationId)
+                  .subscribe(
+                      resProjects => this.projects = resProjects.json(),
+                      errorProjects => console.log(errorProjects)
+                  );
 
-            },
-            error => console.log(error)
-            );
-            });
-            }
+            this.imageDisplay.displayImage(res.organizationId, this.organizationService.retrieveLogo.bind(this.organizationService))
+                .subscribe (
+                    resi => {
+                      this.orgImage = resi.url;
+                    }
+                    );
+
+          },
+          error => console.log(error)
+          );
+    });
+  }
+
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
   }

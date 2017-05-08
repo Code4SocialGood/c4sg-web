@@ -43,7 +43,7 @@
       <div class="content-wrapper">
         <div class="content" *ngIf="organizations">
           <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{organizations.length}}</span>Volunteer organizations</h1>
+            <h1 class="main-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h1>
             <div class="col s12">
               <div class="items-list-wrapper">
                 <ul *ngIf="organizations">
@@ -51,15 +51,15 @@
                     <div class="card">
                       <div class="card-header">
                         <h4 [routerLink]="['/nonprofit/view/'+org.id]">{{org.name}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="org.state">{{org.state + ' ' +org.country}}</span><span class="joined-at" *ngIf="org.projectUpdatedTime">{{org.projectUpdatedTime | date: 'MMM d, yyyy'}}</span></div>
+                        <div class="card-metainfo">
+                          <span class="card-location" *ngIf="org.state">{{org.state + ', ' + org.country}}</span>
+                        </div>
                       </div>
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="org.logoUrl" *ngIf="org.logoUrl"></div>
                         <div class="card-info">
+                          <p class="description">xxx opportunities</p>
                           <p class="description">{{ org.description }}</p>
-                          <div class="card-info-bottom">
-                            <p class="org-name">{{ org.address1}}</p>
-                          </div>
                         </div>
                       </div>
                     </div>
