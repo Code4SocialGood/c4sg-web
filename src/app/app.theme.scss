@@ -195,58 +195,57 @@ nav {
   .items-list-wrapper  {
     ul {
       li {
+        display: inline-block;
+        width: 100%;
         .card {
-            border: solid $line-sep-width $navbar-border-color;
-          .card-header{
-            line-height: 50px;
-            padding-left: 35px;
-            padding-right: 35px;
-            background-color: $header-bg-color;
-            h4 {
-              cursor: pointer;
-              display: inline-block;
-              font-size: 1em;
-              font-weight: bold;
-              color: $main-color;
-              margin: 0;
-              line-height: 50px;
-            }
-            .card-metainfo {
-              cursor: pointer;
-              font-size: 0.9em;
-              float: right;
-              color: $main-color;
-
-              .card-location {
-                margin-left: 1em;
-                margin-right: 1em;
-              }
-            }
-          }
-
           .card-content {
-            padding:0;
-            width: 100%;
-            display:table;
-            min-height: 225px;
-
+            padding: 0;
             .card-avatar {
-              padding: 5px;
               width: 40%;
-              display:table-cell;
-              vertical-align: top;
+              float: left;
+              height: 100%;
+              display: inline-block;
               > img {
-                width: 100%;
-                vertical-align: middle;
               }
             }
             .card-info {
               width: 60%;
-              display:table-cell;
-              vertical-align: top;
-              position: relative;
+              float: right;
+              display: inline-block;
+              max-height: 300px;
+              .card-header{
+                line-height: 50px;
+                padding-left: 35px;
+                padding-right: 35px;
+                background-color: $header-bg-color;
+                h4 {
+                  cursor: pointer;
+                  display: inline-block;
+                  font-size: 1em;
+                  font-weight: bold;
+                  color: $main-color;
+                  margin: 0;
+                  line-height: 50px;
+                }
+                .card-metainfo {
+                  cursor: pointer;
+                  font-size: 0.9em;
+                  float: right;
+                  color: $main-color;
+    
+                  .card-location {
+                    margin-left: 1em;
+                    margin-right: 1em;
+                  }
+                }
+              }
+              .discription-wrapper {
+                overflow: hidden;
+                max-height: 80px;
+              }
               .description {
                 text-align: justify;
+                text-overflow: ellipsis; 
                 padding: 11px;
                 font-size: 10px;
               }
@@ -296,12 +295,16 @@ nav {
                 }
               }
             }
+            .card-info:after {
+              content: '';
+              display: block;
+              clear: both;
+            }
           }
         }
       }
     }
   }
-
 }
 
 .single-card {
