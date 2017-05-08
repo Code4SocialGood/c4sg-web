@@ -159,7 +159,7 @@ export class UserAccountComponent implements OnInit {
     if (this.image_loaded) {
       return this.file_srcs;
     } else {
-      return ['./assets/default_avatar.png'];
+      return ['./assets/default_image.png'];
     }
 
   }

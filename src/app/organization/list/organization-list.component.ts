@@ -18,8 +18,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     name: 'NonProfit'
   }, {
     name: 'Open Source'
-  }, {
-    name: 'Other'
   }];
   filterForm = new FormGroup({
     keyword: new FormControl(''),

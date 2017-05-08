@@ -52,9 +52,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         this.getLogo(org.id);
         this.getProjects(org.id);
 
-        // Validation rules should force websiteURL to start with http but add check just in case
-        if (this.organization.websiteURL && this.organization.websiteURL.indexOf('http') !== 0) {
-          this.organization.websiteURL = `http://${this.organization.websiteURL}`;
+        // Validation rules should force websiteUrl to start with http but add check just in case
+        if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
+          this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
         }
       },
       (err) => {
