@@ -1,1 +1,18 @@
 @import "../../variables";
+
+.card-wrapper {
+	border: 1px solid #888888;
+	border-radius: 3px;
+	.card {
+		border: none;
+		margin: 0;
+		.card-avatar {
+			padding: 0;
+			overflow: hidden;
+			img {
+				object-fit: cover;
+				align: center;
+			}
+		}
+	}
+}
