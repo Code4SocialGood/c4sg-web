@@ -4,4 +4,5 @@ export class Organization {
   public logo: any;
   public websiteUrl: any;
   public description: any;
+  public opportunities: any;
 }
