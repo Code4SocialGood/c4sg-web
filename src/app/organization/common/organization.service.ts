@@ -21,7 +21,14 @@ export class OrganizationService {
   }
 
   getOrganization(id: number): Observable<Organization> {
-    return this.http.get(`${organizationUrl}/${id}`)
+    return this.http
+               .get(`${organizationUrl}/${id}`)
+               .map(res => res.json());
+  }
+
+  getUserOrganization(id: number): Observable<Organization> {
+    return this.http
+               .get(`${organizationUrl}/user/${id}`)
                .map(res => res.json());
   }
 
@@ -50,12 +57,6 @@ export class OrganizationService {
                .get(`${organizationUrl}/search`, {search: params})
                .map(res => res.json());
   }
-
-  getUserOrganization(id: number): Observable<Organization> {
-      return this.http.get(
-      `${organizationUrl}/user/${id}`
-      ).map(res => res.json());
-    }
 
   createOrganization(organization: Organization): Observable<{organization: Organization}> {
       return this.http.post(
