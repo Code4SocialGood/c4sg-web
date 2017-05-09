@@ -1,101 +1,118 @@
-<div id="profile" class="col s12">
-    <div class="container">
-        <div class="row">
-           <div class="col s12">
 
-                <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
-                  <div class="row">
-                     <h6>My Location</h6>
-                      <div class="col s3 input-field">
-                        <label for="city">City</label>
-                        <input id="city "name="city" type="text">
-                      </div>
-                      <div class="col s3 input-field">
-                       <label for="state">State</label>
-                       <input id="state" type="text">
-                     </div>
-                    <div class="col s3 input-field">
-                       <label for="zip">Zip</label>
-                       <input id="zip" type="text">
-                    </div>
-                    <div class="col s3">
-                        <select multiple id="country" formControlName="country" placeholder="Country" materialize="material_select">
-                        <option value=" " disabled selected>Country</option>
-                          <option value="1">United States</option>
-                          <option value="2">Canada</option>
-                          <option value="3">Mexico</option>
-                        </select>
-
-                    </div>
-                </div>
-
-                  <div class="row">
-                      <h6>My Introduction</h6>
-                      <div class="col s12 input-field">
-                        <label for="my-title">Title</label>
-                        <input id="my-title" type="text" length="100">
-                      </div>
-                   </div>
-
-                  <div class="row">
-                        <div class="col s12 materialize-textarea">
-                         <label for="description">Summary</label>
-                          <input id="description" type="text">
-                        </div>
-                  </div>
-
-                  <div class="row">
-
-                      <h6>My Profile</h6>
-                      <div class="col s4">
-                          <div class="input-field">
-                            <label for="linkedin">LinkedIn URL</label>
-                            <input id="linkedin" type="text">
-                          </div>
-                          <div class="input-field">
-                            <label for="website">Personal Website</label>
-                            <input id="website" type="text">
-                          </div>
-                          <div class="input-field">
-                            <label for="github">Github URL</label>
-                            <input id="github" type="text">
-                          </div>
-                        <label for="resume">Resume</label>
-                        <div class="file-field input-field" id = "resume">
-                          <div class="btn">
-                            <span>Upload</span>
-                            <input type="file">
-                          </div>
-                          <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="input-field col s4">
-                        <select multiple id="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple>
-                          <option *ngFor="let skill of skillsOption" [value]="skill.value">
-                              {{skill.name}}
-                          </option>
-
-                        </select>
-                        <label>Skills (up to six)</label>
-                      </div>
-                 </div>
+<div class="container">
+  <div class="row main-row">
+    <div class="col s12 right-col" id="left-col">
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="row">
+            <h1 class="main-title">My Profile</h1>
+          </div>
+          <div class="row single-info">
+            <div class="col m12">
+              <form [formGroup]="myProfile" (ngSubmit)="updateProfile($event)">
+                <div class="row group-wrapper">
                   <div class="col s12">
-                    <input type="checkbox" id="publish" checked="checked" />
-                    <label for="publish">Publish my profile</label>
+                    <h5>My Location</h5>
                   </div>
-                    <div class="center-align col s12">
-                      <input type="checkbox" id="test1" checked="checked" />
-                      <label for="test1">Notify me new opportunities</label>
+                  <div class="input-field col m6 s12">
+                    <label for="zip">Zip</label>
+                    <input id="zip" type="text">
+                  </div>
+                  <div class="input-field col m6 s12">
+                    <label for="city">City</label>
+                    <input id="city" name="city" type="text">
+                  </div>
+                  <div class="input-field col m6 s12">
+                    <label for="state">State</label>
+                    <input id="state" type="text">
+                  </div>
+                  <div class="input-field col m6 s12">
+                    <select id="country" placeholder="Country" materialize="material_select">
+                      <option value=" " disabled selected>
+                         Country</option>
+                      <option value="1">
+                         United States</option>
+                      <option value="2">
+                         Canada</option>
+                      <option value="3">
+                         Mexico</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row group-wrapper">
+                  <div class="col s12">
+                    <h5>
+                       My Introduction</h5>
+                  </div>
+                  <div class="input-field col s12 l6">
+                    <label for="my-title">Title</label>
+                    <input id="my-title" type="text" length="10">
+                  </div>
+                  <div class="input-field col s12 l6">
+                    <label for="description">
+                       Summary</label>
+                    <textarea class="materialize-textarea" id="description" type="text"></textarea>
+                  </div>
+                </div>
+                <div class="row group-wrapper">
+                  <div class="col s12">
+                    <h5>
+                       My Profile</h5>
+                  </div>
+                  <div class="col l6 m12 s12">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <label for="linkedinUrl">LinkedIn Url:</label>
+                        <input id="linkedinUrl" type="text">
+                      </div>
+                      <div class="input-field col s12">
+                        <label for="personalUrl">Personal Website:</label>
+                        <input id="personalUrl" type="text">
+                      </div>
+                      <div class="input-field col s12">
+                        <label for="gitHubUrl">GitHub Url:</label>
+                        <input id="gitHubUrl" type="text">
+                      </div>
+                      <label class="active" for="resume">
+                         Resume</label>
+                      <div class="file-field input-field col s12" id="resume">
+                        <div class="btn"><span>Upload</span>
+                          <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text">
+                        </div>
+                      </div>
                     </div>
-                    <div class="center-align col s12">
-                            <button type="submit">Save</button>
-                    </div>
-                </form>
-
+                  </div>
+                  <div class="input-field col l6 m12 s12">
+                    <label>Skills</label>
+                    <select id="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple></select>
+                  </div>
+                </div>
+                <div class="row group-wrapper">
+                  <div class="col m6">
+                    <input id="publish" type="checkbox" checked="checked">
+                    <label for="publish">
+                       Publish my profile</label>
+                  </div>
+                  <div class="col m6">
+                    <input id="test1" type="checkbox" checked="checked">
+                    <label for="test1">
+                       Notify me for opportunities match my skills</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 footer-btns center">
+                    <button class="btn" type="submit">
+                       Save</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

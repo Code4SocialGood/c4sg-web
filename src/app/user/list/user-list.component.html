@@ -3,33 +3,33 @@
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper">
-        <div class="sidebar">
-          <div class="section"> 
-            <h4>Search</h4>
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(p)">
+          <div class="section">
+            <h4>Keyword</h4>
             <div class="input-search">
-              <form>
-                <div class="input-field" (click)="getUsersByKeyword(searchTerm.value, null, null)">
-                  <input id="autocomplete-input" #searchTerm materialize="autocomplete" type="search" [materializeParams]="keywords" (keyup.enter)="getUsersByKeyword(searchTerm.value, null, null)">
-                  <label for="autocomplete-input"><i class="material-icons">search</i></label>
-                </div>
-              </form>
+              <div class="input-field keyword-field">
+                <input id="autocomplete-input" name="searchTerm" materialize="autocomplete" type="search" [materializeParams]="keywords" formControlName="keyword">
+                <label for="autocomplete-input">Keyword</label>
+                <button type="submit" class="keyword-field__btn btn waves-effect waves-light green darken-2">
+                  <i  class="large material-icons transparent">search</i>
+                </button>
+              </div>
             </div>
           </div>
-          <div class="section"> 
-            <h4>Filter</h4>
-            <div class="section-body"> 
-              <h5>By Skills:</h5>
+          <div class="section">
+            <h4>Skills</h4>
+            <div class="section-body">
               <div class="skills-list-wrapper">
-                <ul *ngIf="skills">
+                <ul *ngIf="skills" formArrayName="skills">
                   <li *ngFor="let skill of skills, let i = index">
-                    <input class="filled-in" type="checkbox" [id]="skill.name">
-                    <label [for]="skill.name" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+                    <input class="filled-in" type="checkbox" [id]="skill.name" formControlName="{{i}}">
+                    <label [for]="skill.name">{{skill.name}}</label>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
     <div class="col m8" id="right-col">
@@ -44,20 +44,14 @@
                     <div class="card">
                       <div class="card-header">
                         <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime}}</span></div>
+                        <div class="card-metainfo">
+                          <span class="card-location" *ngIf="user.country">{{user.country}}</span>
+                        </div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img src="/assets/avatar.png"></div>
-                        <div class="card-info">
-                          <h5>Junior McDonalds Tender</h5>
-                          <div class="skills-list-wrapper">
-                            <ul>
-                              <li class="chip">Javascript</li>
-                              <li class="chip">Python</li>
-                              <li class="chip">Linux Admin</li>
-                              <li class="chip">C</li>
-                            </ul>
-                          </div>
+                        <div class="card-avatar">
+                          <img [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+                          {{user.userName}}
                           <div class="card-info-bottom">
                             <div class="links-list-wrapper">
                               <ul>
@@ -68,6 +62,18 @@
                               </ul>
                             </div>
                           </div>
+                        </div>
+                        <div class="card-info">
+                          <h5>{{user.title}}</h5>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          {{user.introduction}}
                         </div>
                       </div>
                     </div>

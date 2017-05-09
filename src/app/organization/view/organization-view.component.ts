@@ -51,6 +51,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         this.organization = org;
         this.getLogo(org.id);
         this.getProjects(org.id);
+
+        // Validation rules should force websiteUrl to start with http but add check just in case
+        if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
+          this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
       },
       (err) => {
         console.error('An error occurred', err); // for demo purposes only
@@ -69,7 +74,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       res => {
         this.projects = res.json();
         this.projects.forEach((project) => {
-          if (project.description.length > 100) {
+          if (project.description && project.description.length > 100) {
             project.description = project.description.slice(0, 100) + '...';
           }
         });

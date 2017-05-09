@@ -73,7 +73,7 @@ export class MapViewerComponent implements AfterViewInit {
             <div class="popup-avatar">
               <h4> ${d.userName} </h4>
               <img src="${d.avatarUrl}" />
-              <p>City:${d.city}, ${d.state}</p>
+              <p>State:${d.state}</p>
             </div>`,
             {
             'className' : 'popupCustom'

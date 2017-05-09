@@ -9,7 +9,7 @@ import { MaterializeAction } from 'angular2-materialize';
   // moduleId: module.id,
   selector: 'my-profile',
   templateUrl: 'user-profile.component.html',
-  styleUrls: ['user-profile.component.css'],
+  styleUrls: ['user-profile.component.scss'],
   providers: []
 })
 
@@ -35,18 +35,15 @@ export class UserProfileComponent implements OnInit {
             const user = res;
             console.log(user);
 
-
             this.myProfile.setValue({
                 firstName: user.firstName,
                 lastName: user.lastName,
                 state: user.state,
-                zip: user.zip,
                 country: user.country,
                 introduction: user.introduction,
                 linkedin: user.linkedinUrl,
                 website: user.personalUrl
               });
-
 
               this.user = new User(
                         user.id,
@@ -55,21 +52,20 @@ export class UserProfileComponent implements OnInit {
                         user.userName,
                         user.firstName,
                         user.lastName,
-                        user.phone,
-                        user.city,
                         user.state,
                         user.country,
-                        user.zip,
                         -1,
                         -1,
+                        user.title,
                         user.introduction,
                         user.linkedinUrl,
                         user.personalUrl,
+                        user.facebookUrl,
+                        user.twitterUrl,
                         user.status,
                         user.publicProfileFlag,
                         user.chatFlag,
                         user.forumFlag,
-                        user.developerFlag,
                         user.createdTime,
                         user.updatedTime);
         },
@@ -86,20 +82,19 @@ export class UserProfileComponent implements OnInit {
         this.myProfile.value.userName,
         this.myProfile.value.firstName,
         this.myProfile.value.lastName,
-        this.user.phone,
-        this.myProfile.value.city,
         this.myProfile.value.state,
         this.myProfile.value.country,
-        this.myProfile.value.zip,
         -1,
         -1,
+        this.user.title,
         this.user.introduction,
         this.user.linkedinUrl,
         this.user.personalUrl,
+        this.user.facebookUrl,
+        this.user.twitterUrl,
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
-        this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
         this.user.updatedTime);

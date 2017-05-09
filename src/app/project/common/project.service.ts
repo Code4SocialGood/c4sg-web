@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
-import { Project } from './project';
-import { environment } from '../../../environments/environment';
+import {Observable} from 'rxjs/Observable';
+import {Project} from './project';
+import {environment} from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
@@ -12,13 +12,23 @@ export class ProjectService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+  }
 
   getProjects(): Observable<Project[]> {
     return this.http
-               .get(projectUrl)
-               .map(res => res.json())
-               .catch(this.handleError);
+      .get(projectUrl)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  getActiveProjects(): Observable<Project> {
+
+    const url = projectUrl + '/search';
+
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 
   getProject(id: number): Observable<Project> {
@@ -26,8 +36,8 @@ export class ProjectService {
     const url = projectUrl + '/' + id;
 
     return this.http.get(url)
-               .map(res => res.json())
-               .catch(this.handleError);
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 
   getProjectByOrg(id: number): Observable<Response> {
@@ -38,50 +48,60 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  // TODO replace with search by keyword
-  getProjectsByKeyword(keyWord: string): Observable<Project[]> {
-    const url = projectUrl + '/search' + keyWord;
+  searchProjects(keyword?: string, skills?: string[]): Observable<Project[]> {
+    const params = new URLSearchParams();
 
-    return this.http.get(url)
-               .map(res => res.json())
-               .catch(this.handleError);
+    if (keyword) {
+      params.append('keyWord', keyword);
+    }
+
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        params.append('skills', skills[i]);
+      }
+    }
+
+    return this.http
+      .get(`${projectUrl}/search`, {search: params})
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 
   add(project: Project): Observable<Project[]> {
     const url = projectUrl;
     return this.http
-               .post(url, project, {headers: this.headers})
-               .map((res: Response) => res.json())
-               .catch(this.handleError);
+      .post(url, project, {headers: this.headers})
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   delete(id: number) {
     const url = projectUrl + '/' + id;
     return this.http
-               .delete(url, {headers: this.headers})
-               .catch(this.handleError);
+      .delete(url, {headers: this.headers})
+      .catch(this.handleError);
   }
 
   update(project: Project) {
-    const url = projectUrl + project.id;
+    const url = projectUrl + '/' + project.id;
     return this.http
-               .put(url, project, {headers: this.headers})
-               .map((res: Response) => res.json())
-               .catch(this.handleError);
+      .put(url, project, {headers: this.headers})
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
 
   bookmark(projectId: number, userId: string) {
     const url = projectUrl + '/bookmark/projects/' + projectId + '/users/' + userId;
     return this.http
-        .post(url, {headers: this.headers})
-        .catch(this.handleError);
+      .post(url, {headers: this.headers})
+      .catch(this.handleError);
   }
 
   retrieveImage(id: number) {
     const url = projectUrl + '/' + id + '/image';
     return this.http
-          .get(url);
+      .get(url);
   }
 
   private handleError(error: any): Promise<any> {
