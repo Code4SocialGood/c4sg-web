@@ -6,8 +6,8 @@
         <div class="content" *ngIf="organization">
           <div class="row">
             <h1 class="main-title">{{organization.name}}</h1>
-            <p class="subtitle" *ngIf="organization.websiteURL">
-              <a [href]="organization.websiteURL" target="_blank">{{organization.websiteURL}}</a>
+            <p class="subtitle" *ngIf="organization.websiteUrl">
+              <a [href]="organization.websiteUrl" target="_blank">{{organization.websiteUrl}}</a>
             </p>
           </div>
           <div class="row single-info">
@@ -26,7 +26,6 @@
             <div class="col m4 right-col">
               <div class="info-contact">
                 <h4>Contact</h4>
-                <p>{{organization.projectUpdatedTime}}</p>
               </div>
             </div>
             <div class="col m12">

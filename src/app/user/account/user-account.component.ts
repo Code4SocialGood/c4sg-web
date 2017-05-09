@@ -31,9 +31,12 @@ export class UserAccountComponent implements OnInit {
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
   public selectedUser: User;
-
   public myAccount = new FormGroup({
-    email: new FormControl('', Validators.required)
+    email: new FormControl({value: '', disabled: true}, Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    userName: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required)
   });
 
   constructor( private changeDetectorRef: ChangeDetectorRef,
@@ -41,6 +44,7 @@ export class UserAccountComponent implements OnInit {
                private userService: UserService,
                private imageUploader: ImageUploaderService,
                private imageDisplay: ImageDisplayService) { }
+
 
   updateAccount(event) {
     event.preventDefault();
@@ -55,24 +59,24 @@ export class UserAccountComponent implements OnInit {
         this.myAccount.value.userName,
         this.myAccount.value.firstName,
         this.myAccount.value.lastName,
-        this.user.phone,
-        this.myAccount.value.city,
         this.myAccount.value.state,
         this.myAccount.value.country,
-        this.myAccount.value.zip,
         -1,
         -1,
+        this.user.title,
         this.user.introduction,
         this.user.linkedinUrl,
         this.user.personalUrl,
+        this.user.facebookUrl,
+        this.user.twitterUrl,
+        this.user.avatarUrl,
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
-        this.user.developerFlag,
         this.user.status,
         this.user.createdTime,
         this.user.updatedTime);
-      this.userService.update(user).subscribe(() => {
+        this.userService.update(user).subscribe(() => {
           this.globalActions.emit('toast');
       });
     } else {
@@ -155,7 +159,7 @@ export class UserAccountComponent implements OnInit {
     if (this.image_loaded) {
       return this.file_srcs;
     } else {
-      return ['./assets/default_avatar.png'];
+      return ['./assets/default_image.png'];
     }
 
   }
@@ -207,41 +211,31 @@ export class UserAccountComponent implements OnInit {
           user.userName,
           user.firstName,
           user.lastName,
-          user.phone,
-          user.city,
           user.state,
           user.country,
-          user.zip,
           -1,
           -1,
+          user.title,
           user.introduction,
           user.linkedinUrl,
           user.personalUrl,
+          user.facebookUrl,
+          user.twitterUrl,
           user.status,
           user.publicProfileFlag,
           user.chatFlag,
           user.forumFlag,
-          user.developerFlag,
           user.createdTime,
           user.updatedTime);
+
+          this.myAccount.setValue({
+            userName: user.userName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            state: user.state,
+            country: user.country
+          });
       });
-        /*
-        this.myAccount.setValue({
-          userName: user.userName,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          state: user.state,
-          country: user.country,
-          zip: user.zip
-        });
-      }, (err) => {
-        console.error('An error occurred', err); // for demo purposes only
-      }
-    );
-
-      */
-
   }
-
 }

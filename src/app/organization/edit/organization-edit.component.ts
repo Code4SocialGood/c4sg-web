@@ -31,7 +31,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public logoValid = true;
   private logoData: ImageReaderResponse;
-  private defaultAvatar = '../../../assets/default_avatar.png';
+  private defaultAvatar = '../../../assets/default_image.png';
 
   currentUserId: String;
   authSvc: AuthService;
@@ -109,7 +109,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteURL': [this.organization.websiteURL || '', [Validators.pattern(this.urlValidRegEx)]],
+      'websiteUrl': [this.organization.websiteUrl || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
       'contactName': [this.organization.contactName || '', []],
       'contactPhone': [this.organization.contactPhone || '', []],
@@ -160,7 +160,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     return {
       'logo': '',
       'name': '',
-      'websiteURL': '',
+      'websiteUrl': '',
       'contactEmail': '',
       'contactName': '',
       'contactPhone': '',

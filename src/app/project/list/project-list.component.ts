@@ -1,4 +1,5 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -11,13 +12,19 @@ import { User } from '../../user/common/user';
 import { ImageDisplayService } from '../../_services/image-display.service';
 import {DataService} from '../../_services/data.service';
 
+declare var Materialize: any;
+
 @Component({
   selector: 'my-projects',
   templateUrl: 'project-list.component.html',
   styleUrls: ['project-list.component.scss']
 })
-export class ProjectListComponent implements OnInit, OnDestroy {
-  keyword: string;
+export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
+  skillsArray = new FormArray([]);
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    skills: this.skillsArray
+  });
   p = 0;
   projects: Project[];
   users: User[];
@@ -43,6 +50,14 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private idService: ImageDisplayService
   ) { }
 
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
+  }
+
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
     this.route.params.subscribe(
@@ -50,18 +65,22 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe(params => {
       if (params.keyword) {
-        this.keyword = params.keyword;
+        this.filterForm.controls.keyword.setValue(params.keyword);
       }
-      this.getProjects(this.keyword);
     });
 
     this.getSkills();
+
+    // Watch for changes to the form and update the list
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
+      this.getProjects();
+    });
   }
 
-  getProjects(keyword?: string, skills?: any[]): void {
+  getProjects(): void {
     /* TODO the logic to be integrated
      if ((!this.auth.authenticated()) || (this.from === 'opportunities')) {
-     this.projectsSubscription = this.projectService.getProjects().subscribe(
+     this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
      res => this.projects = res,
      error => console.log(error));
 
@@ -87,22 +106,19 @@ export class ProjectListComponent implements OnInit, OnDestroy {
      }
      */
 
-     const skillsParam = [];
+    const skills = this.filterForm.value.skills;
+    const skillsParam = [];
 
-     if (keyword) {
-       this.keyword = keyword;
-     }
-
-     if (skills) {
+    if (skills) {
       for (let i = 0; i < skills.length; i++) {
-        if (skills[i].checked) {
-          skillsParam.push(skills[i].id.toString());
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
         }
       }
     }
 
     this.projectsSubscription = this.projectService
-      .searchProjects(keyword, skillsParam)
+      .searchProjects(this.filterForm.value.keyword, skillsParam)
       .subscribe(
         res => {
           this.projects = res;
@@ -152,6 +168,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.skillService.getSkills().subscribe(res => {
         console.log(res);
         this.skills  = res.map(skill => {
+          this.skillsArray.push(new FormControl(false));
           return {name: skill.skillName, checked: false, id: skill.id}; });
       },
       error => console.error(error)
@@ -193,11 +210,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         },
         error => console.log(error)
       );
-  }
-
-  onCheck(id: number): void {
-    this.skills[id].checked = !this.skills[id].checked;
-    this.getProjects(this.keyword, this.skills);
   }
 
   ngOnDestroy() {

@@ -22,6 +22,15 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
+  getActiveProjects(): Observable<Project> {
+
+    const url = projectUrl + '/search';
+
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
   getProject(id: number): Observable<Project> {
 
     const url = projectUrl + '/' + id;

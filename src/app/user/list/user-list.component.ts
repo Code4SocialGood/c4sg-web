@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -15,7 +16,11 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-  searchTerm = '';
+  skillsArray = new FormArray([]);
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    skills: this.skillsArray
+  });
   totalItems = 0;
   p = 0;
   keyword: string;
@@ -37,9 +42,14 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getUsers(1);
+    this.getUsers(this.p);
     this.getSkills();
     this.getKeywords();
+
+    // Watch for changes to the form and update the list
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
+      this.getUsers(this.p);
+    });
   }
 
   // takes in array of strings and returns array of objects
@@ -75,6 +85,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.skillService.getSkills().subscribe(res => {
       console.log(res);
       this.skills = res.map(skill => {
+        this.skillsArray.push(new FormControl(false));
         return { name: skill.skillName, checked: false, id: skill.id };
       });
     },
@@ -82,23 +93,23 @@ export class UserListComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getUsers(page: number, keyword?: string, skills?: any[]): void {
+  public getUsers(page: number): void {
+    const skills = this.filterForm.value.skills;
     const skillsParam = [];
-
-    if (keyword) {
-      this.keyword = keyword;
-    }
 
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
-        if (skills[i].checked) {
-          skillsParam.push(skills[i].id.toString());
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
         }
       }
     }
 
-    this.usersSubscription = this.userService.searchUsers(page, keyword, skillsParam)
-      .subscribe(
+    this.usersSubscription = this.userService.searchUsers(
+      page,
+      this.filterForm.value.keyword,
+      skillsParam
+    ).subscribe(
       res => {
         // the called service returns a JSON object
         // consist of the array of pageable data
@@ -108,12 +119,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       },
       error => console.error(error)
       );
-  }
-
-  // takes in array index and category array (title / skill)
-  onSkillCheck(id: number): void {
-    this.skills[id].checked = !this.skills[id].checked;
-    this.getUsers(this.p, this.keyword, this.skills);
   }
 
   // selection callback

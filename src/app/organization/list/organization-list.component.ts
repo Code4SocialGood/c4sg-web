@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 declare const $: Function;
-declare var Materialize: any;
 
 @Component({
   selector: 'my-organizations',
@@ -13,8 +13,21 @@ declare var Materialize: any;
   styleUrls: ['organization-list.component.scss']
 })
 
-export class OrganizationListComponent implements OnInit, AfterViewChecked, AfterViewInit {
-
+export class OrganizationListComponent implements OnInit, AfterViewInit {
+  categories = [{
+    name: 'NonProfit'
+  }, {
+    name: 'Open Source'
+  }];
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    hasOpportunities: new FormControl(false),
+    categories: new FormArray([
+      new FormControl(false),
+      new FormControl(false),
+      new FormControl(false)
+    ])
+  });
   p = 0;
   organizations: Object[];
   selectedOrganization?: Organization;
@@ -31,6 +44,11 @@ export class OrganizationListComponent implements OnInit, AfterViewChecked, Afte
 
   ngOnInit(): void {
     this.getOrganizations();
+
+    // Watch for changes to the form and update the list
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
+      this.getOrganizations();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -42,43 +60,36 @@ export class OrganizationListComponent implements OnInit, AfterViewChecked, Afte
       });
   }
 
-  ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    if (Materialize && Materialize.updateTextFields) {
-      Materialize.updateTextFields();
-    }
-  }
-
   getOrganizations() {
-    this.organizationService.getOrganizations()
-        .subscribe( res => {
-            this.organizations = res;
-            res.forEach((o: Organization) => {
-            this.idService.displayImage(o.id,
-              this.organizationService.retrieveLogo.bind(this.organizationService))
-              .subscribe(logo => {
-                o.logo = logo.url;
-              });
-            });
-          },
-          error => console.log(error)
-        );
-  }
+    const categories = this.filterForm.value.categories;
+    const categoriesParam = [];
 
-  getOrganizationsByKeyword(keyword: string) {
-    keyword = keyword.trim();
-
-    if (!keyword) {
-      return;
+    if (categories) {
+      for (let i = 0; i < categories.length; i++) {
+        if (categories[i]) {
+          // TODO not sure if API will accept the name or some other id
+          // This might need to be changed when API is ready
+          categoriesParam.push(this.categories[i].name);
+        }
+      }
     }
 
-    this.organizationService
-        .getOrganizationsByKeyword(keyword)
-        .subscribe(
-          res => this.organizations = res,
-          error => console.log(error)
-        );
+    this.organizationService.searchOrganizations(
+      this.filterForm.value.keyword,
+      this.filterForm.value.hasOpportunities,
+      categoriesParam
+    ).subscribe( res => {
+      this.organizations = res;
+      res.forEach((o: Organization) => {
+        this.idService.displayImage(o.id,
+        this.organizationService.retrieveLogo.bind(this.organizationService))
+        .subscribe(logo => {
+          o.logo = logo.url;
+        });
+      });
+    },
+      error => console.log(error)
+    );
   }
 
   // pre delete
@@ -110,5 +121,4 @@ export class OrganizationListComponent implements OnInit, AfterViewChecked, Afte
     this.selectedOrganization = organization;
     this.router.navigate(['/nonprofit/edit', organization.id]);
   }
-
 }

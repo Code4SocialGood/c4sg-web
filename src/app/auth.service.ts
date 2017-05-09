@@ -119,7 +119,7 @@ export class AuthService {
                   userName: luserName, firstName: firstName,
                   lastName: lastName,
                   publicProfileFlag: 'N', chatFlag: 'N',
-                  forumFlag: 'N', developerFlag: 'N', status: 'ACTIVE'});
+                  forumFlag: 'N', status: 'ACTIVE'});
 
                 // Create a user
                 userService.add(newUser).subscribe(

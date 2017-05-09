@@ -11,7 +11,7 @@
               <div class="metainfo col m5 right-col">
                 <p class="location"><span class="city" *ngIf="user.city">{{user.city}}</span><span class="state" *ngIf="user.state">{{user.state}}</span><span class="zip" *ngIf="user.zip">{{user.zip}}</span></p>
                 <p class="country"><span class="country" *ngIf="user.country">{{user.country}}</span></p>
-                <p class="joined">Joined at: {{user.createdTime}}</p>
+                <p class="joined">Joined at: {{user.createdTime | date: 'MMM d, yyyy'}}</p>
               </div>
             </div>
           </div>
