@@ -19,7 +19,9 @@ declare var Materialize: any;
   templateUrl: 'project-list.component.html',
   styleUrls: ['project-list.component.scss']
 })
+
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
+
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
@@ -37,7 +39,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   from: string;
   userProjectStatus = 'A';
   skills: any[];
-
 
   constructor(
     private projectService: ProjectService,
