@@ -113,8 +113,8 @@ export class ProjectViewComponent implements OnInit {
           res => {
             let organization: Organization;
             organization = res[0];
-            if ((organization !== undefined) && (organization.id == this.project.organizationId)) {
-              this.displayEdit= true;
+            if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
+              this.displayEdit = true;
               this.displayDelete = true;
               this.displayShare = true;
             }
@@ -122,11 +122,11 @@ export class ProjectViewComponent implements OnInit {
           error => console.log(error)
         );
       } else if (this.authService.isAdmin()) {
-        this.displayEdit= true;
+        this.displayEdit = true;
         this.displayDelete = true;
         this.displayShare = true;
-      }  
-    }  
+      }
+    }
   }
 
   apply(): void {
