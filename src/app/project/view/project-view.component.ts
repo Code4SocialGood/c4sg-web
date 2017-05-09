@@ -11,6 +11,7 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   selector: 'my-view-project',
+  providers: [AuthService],
   templateUrl: 'project-view.component.html',
   styleUrls: ['project-view.component.scss']
 })
@@ -28,11 +29,17 @@ export class ProjectViewComponent implements OnInit {
   projectImage: any = '';
   orgImage: any = '';
 
+  displayApply = false;
+  displayBookmark = false;
+  displayShare = false;
+  displayEdit = false;
+  displayDelete = false;
+
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private route: ActivatedRoute,
               private router: Router,
-              private auth: AuthService,
+              private authService: AuthService,
               private location: Location,
               private imageDisplay: ImageDisplayService) {
   }
@@ -82,42 +89,58 @@ export class ProjectViewComponent implements OnInit {
                     }
                     );
 
+            this.displayButtons();
+
           },
           error => console.log(error)
           );
     });
   }
 
-  edit(): void {
-    this.router.navigate(['project/edit', this.project.id]);
+  displayButtons(): void {
+
+    if (!this.authService.authenticated()) {
+      this.displayApply = true;
+      this.displayBookmark = true;
+      this.displayShare = true;
+    } else if (this.authService.authenticated()) {
+      if (this.authService.isVolunteer()) {
+        this.displayApply = true;
+        this.displayBookmark = true;
+        this.displayShare = true;
+      } else if (this.authService.isOrganization()) {
+        this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
+          res => {
+            let organization: Organization;
+            organization = res[0];
+            if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
+              this.displayEdit = true;
+              this.displayDelete = true;
+              this.displayShare = true;
+            }
+          },
+          error => console.log(error)
+        );
+      } else if (this.authService.isAdmin()) {
+        this.displayEdit = true;
+        this.displayDelete = true;
+        this.displayShare = true;
+      }
+    }
   }
 
-  delete(): void {
-
-    this.projectService
-      .delete(this.project.id)
-      .subscribe(
-        response => {
-          this.router.navigate(['project/list']);
-          // display toast
-          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
-        },
-        error => {
-            console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
-        }
-      );
+  apply(): void {
+    // TODO
   }
 
   bookmark(): void {
     // check if user is logged in
-    this.currentUserId = this.auth.getCurrentUserId();
-    if (this.auth.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+    this.currentUserId = this.authService.getCurrentUserId();
+    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
             .bookmark(this.project.id, this.currentUserId)
             .subscribe(
                 response => {
-
                     // display toast
                     this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
 
@@ -131,5 +154,25 @@ export class ProjectViewComponent implements OnInit {
         // display toast when user is not logged in
         this.globalActions.emit({action: 'toast', params: ['Please login to add bookmark', 4000]});
     }
+  }
+
+  edit(): void {
+    this.router.navigate(['project/edit', this.project.id]);
+  }
+
+  delete(): void {
+    this.projectService
+      .delete(this.project.id)
+      .subscribe(
+        response => {
+          this.router.navigate(['project/list']);
+          // display toast
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
+        },
+        error => {
+            console.log(error);
+            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
+        }
+      );
   }
 }
