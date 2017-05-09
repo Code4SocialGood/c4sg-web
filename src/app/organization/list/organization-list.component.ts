@@ -3,6 +3,8 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
+import { Project } from '../../project/common/project';
+import { ProjectService } from '../../project/common/project.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
 declare const $: Function;
@@ -31,6 +33,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   p = 0;
   organizations: Object[];
   selectedOrganization?: Organization;
+  projects: Project[];
 
   // array of all items to be paged
   //   organizations: any[];
@@ -39,6 +42,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   constructor(
     private idService: ImageDisplayService,
     private organizationService: OrganizationService,
+    private projectService: ProjectService,
     private router: Router) {
   }
 
@@ -86,6 +90,15 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         .subscribe(logo => {
           o.logo = logo.url;
         });
+
+        this.projectService.getProjectByOrg(o.id)
+                              .subscribe( response => {
+                                  this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
+                                  o.opportunities = this.projects.length;
+                                       },
+                                error => console.log(error));
+
+
       });
     },
       error => console.log(error)
