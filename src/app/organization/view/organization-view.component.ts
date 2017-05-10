@@ -52,11 +52,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   setCategoryName(): void {
     if (this.organization.category === 'N') {
-      this.categoryName = "Nonprofit";
+      this.categoryName = 'Nonprofit';
     } else if (this.organization.category === 'O') {
-      this.categoryName = "Open Source";
+      this.categoryName = 'Open Source';
     } else if (this.organization.category === 'M') {
-      this.categoryName = "Misc";
+      this.categoryName = 'Misc';
     }
   }
 
