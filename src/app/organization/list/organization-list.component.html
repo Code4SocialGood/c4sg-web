@@ -50,9 +50,10 @@
                   <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
                       <div class="card-header">
-                        <h4 [routerLink]="['/nonprofit/view/'+org.id]">{{org.name}}</h4>
+                        <h4 [routerLink]="['/organization/view/'+org.id]">{{org.name}}</h4>
                         <div class="card-metainfo">
-                          <span class="card-location" *ngIf="org.state">{{org.state + ', ' + org.country}}</span>
+                          <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                          <span class="state">{{org.country}}</span>
                         </div>
                       </div>
                       <div class="card-content">

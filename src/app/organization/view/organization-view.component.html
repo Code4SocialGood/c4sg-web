@@ -1,37 +1,33 @@
 
 <div class="container">
   <div class="row main-row">
+    <div class="content" *ngIf="organization">
+      <h1 class="main-title" *ngIf="organization">{{organization.name}}</h1>
+    </div>
     <div class="col s8" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="organization">
-          <div class="row">
-            <h1 class="main-title">{{organization.name}}</h1>
-            <p class="subtitle" *ngIf="organization.websiteUrl">
-              <a [href]="organization.websiteUrl" target="_blank">{{organization.websiteUrl}}</a>
-            </p>
-          </div>
           <div class="row single-info">
             <div class="col m4">
-              <div class="info-avatar"><img [src]="organization.logo"></div>
+              <div class="info-avatar" *ngIf="organization"><img [src]="organization.logoUrl"></div>
             </div>
-            <div class="col m4 left-col">
-              <div class="info-location">
-                <h4>Address</h4>
-                <p>{{organization.address1}}</p>
-                <p>{{organization.address2}}</p>
-                <p><span class="city">{{organization.city}}</span><span class="state">{{organization.state}}</span><span class="state">{{organization.zip}}</span></p>
-                <p>{{organization.country}}</p>
-              </div>
-            </div>
-            <div class="col m4 right-col">
-              <div class="info-contact">
-                <h4>Contact</h4>
-              </div>
-            </div>
-            <div class="col m12">
-              <div class="action-btns"><a class="btn">Share</a></div>
+            <div class="col m8">
+              <p class="action-btns">
+                <a class="btn" *ngIf="displayShare">Share</a>
+                <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+                <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a></p>
+              <p class="subtitle" *ngIf="organization.websiteUrl">
+                <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
+              </p>
+              <p>Category: {{categoryName}}</p>
+              <p>
+                Location: 
+                <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                <span class="state">{{organization.country}}</span>
+              </p>
             </div>
             <div class="col m12">
+              <p>Description</p>
               <div class="info-description">
                 <p>{{ organization.description }}</p>
               </div>
@@ -44,24 +40,51 @@
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section" *ngIf="projects">
-            <h4>
-               Opportunities ({{projects.length}})</h4>
+            <h4>Contact</h4>
+            <div class="card">
+              <div class="card-content">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar" *ngIf="user"><img [src]="user.avatarUrl"></div>
+                  </div>
+                  <div class="col m8">
+                    <p>
+                      Name: 
+                      <span *ngIf="user.firstName">{{user.firstName}}, </span>
+                      <span>{{user.lastName}}</span>
+                    </p>
+                    <p>Title: {{user.title}}</p>
+                    <p>Phone: {{user.phone}}</p>
+                    <p>Email: {{user.email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4>Opportunities ({{projects.length}})</h4>
             <div class="section-body">
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
                     <div class="card">
-                      <div class="card-header">
-                        <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                      </div>
                       <div class="card-content">
+                        <div class="row single-info">
+                          <div class="col m4">
+                            <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                          </div>
+                          <div class="col m8">
+                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                            <div class="skills-list-wrapper">
+                                <div class="chip">Java</div>
+                                <div class="chip">C</div>
+                            </div>
+                          </div>
+                        </div>
                         <p>{{ pr.description }}</p>
                       </div>
                     </div>
                   </li>
                 </ul>
               </div>
-              <button class="btn">More...</button>
             </div>
           </div>
         </div>

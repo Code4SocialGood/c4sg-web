@@ -146,7 +146,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(): void {
-    if (this.organizationId === 0) { // organization hasn't been created by the nonprofit user
+    if (this.organizationId === 0) { // organization hasn't been created by the organization user
       // New organization, create the organization
       this.createOrganization();
     } else {
@@ -203,7 +203,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       })
       .subscribe(res => {
         // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+        this.router.navigate(['/organization/view/' + this.organization.id]);
       });
   }
 

@@ -195,7 +195,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       .subscribe(
         response => {
           this.getProjects();
-          this.router.navigate(['/nonprofits']);
+          this.router.navigate(['/organization/list']);
         },
         error => console.log(error)
       );
@@ -207,7 +207,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       .subscribe(
         response => { // An error occurred SyntaxError: Unexpected end of JSON input
           this.getProjects();
-          this.router.navigate(['/nonprofits']);
+          this.router.navigate(['/organization/list']);
         },
         error => console.log(error)
       );
