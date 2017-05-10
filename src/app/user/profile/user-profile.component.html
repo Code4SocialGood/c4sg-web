@@ -28,7 +28,10 @@
                        <input formControlName="zipcode" type="text" placeholder="Zip Code">
                     </div>
                     <div class="col s3">
-                       <input formControlName="country" type="text" placeholder="Country">
+                      <select  class="" formControlName="country" materialize="material_select" [materializeSelectOptions]="countries">
+                        <option value="" disabled>Choose country</option>
+                        <option *ngFor="let country of countries" [value]="country.value">{{country.name}}</option>
+                      </select>
                     </div>
                 </div>
 
@@ -48,7 +51,7 @@
                   <div class="row">
                         <div class="input-field col s12">
                           <textarea id="textarea1" class="materialize-textarea"></textarea>
-                          <label for="textarea1">My Introduction</label>
+                          <label for="textarea1">Summary</label>
                         </div>
                   </div>
 
@@ -61,25 +64,33 @@
                           <input formControlName="github" type="text" placeholder="Github URL">
                           <input formControlName="resume" type="text" placeholder="Resume">
                       </div>
-                      <div class="input-field col s4">
-                        <select materialize="material_select" multiple>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="1">Web Developer</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                        </select>
-                        <label>Title</label>
-                      </div>
-                      <div class="input-field col s4">
-                        <select materialize="material_select" multiple>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="1">CSS</option>
-                          <option value="2">Java</option>
-                          <option value="3">Option 3</option>
-                        </select>
-                        <label>Skills</label>
-                      </div>
+                    <div class="col s5">
+                      <h6>Skills(up to six)</h6>
 
+                      <select multiple class="center-align" formControlName="skills" materialize="material_select" [materializeSelectOptions]="skills">
+                        <option value="" disabled>Choose from below</option>
+                        <option *ngFor="let skill of skills">{{skill.skillName}}</option>
+                      </select>
+                    </div>
+                    <div class="container">
+
+                      <div class="col s4 input-field inline">
+
+
+                        <label class="center-align">Enter your own</label>
+
+                        <input type="text" placeholder="Skill 1">
+                        <input type="text" placeholder="Skill 2">
+                        <input type="text" placeholder="Skill 3">
+                      </div>
+                      <div class="col s4 input-field inline">
+
+                        <input type="text" placeholder="Skill 4">
+                        <input type="text" placeholder="Skill 5">
+                        <input type="text" placeholder="Skill 6">
+
+                      </div>
+                    </div>
                  </div>
 
 
