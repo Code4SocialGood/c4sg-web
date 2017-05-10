@@ -29,9 +29,9 @@ export class ProjectViewComponent implements OnInit {
   projectImage: any = '';
   orgImage: any = '';
 
+  displayShare = true;
   displayApply = false;
   displayBookmark = false;
-  displayShare = false;
   displayEdit = false;
   displayDelete = false;
 
@@ -102,12 +102,10 @@ export class ProjectViewComponent implements OnInit {
     if (!this.authService.authenticated()) {
       this.displayApply = true;
       this.displayBookmark = true;
-      this.displayShare = true;
     } else if (this.authService.authenticated()) {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
-        this.displayShare = true;
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
@@ -116,7 +114,6 @@ export class ProjectViewComponent implements OnInit {
             if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
               this.displayEdit = true;
               this.displayDelete = true;
-              this.displayShare = true;
             }
           },
           error => console.log(error)
@@ -124,7 +121,6 @@ export class ProjectViewComponent implements OnInit {
       } else if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
-        this.displayShare = true;
       }
     }
   }

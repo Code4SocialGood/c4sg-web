@@ -12,6 +12,7 @@ export class User {
         public latitude?: number,
         public longitude?: number,
         public title?: number,
+        public phone?: string,
         public introduction?: string,
         public linkedinUrl?: string,
         public personalUrl?: string,
