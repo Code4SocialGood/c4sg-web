@@ -88,7 +88,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         this.idService.displayImage(o.id,
         this.organizationService.retrieveLogo.bind(this.organizationService))
         .subscribe(logo => {
-          o.logoUrl = logo.url;
+          // o.logo = logo.url;
         });
 
         this.projectService.getProjectByOrg(o.id)
