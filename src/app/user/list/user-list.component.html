@@ -44,20 +44,14 @@
                     <div class="card">
                       <div class="card-header">
                         <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="user.state">{{user.state + ' ' +user.country}})</span><span class="joined-at" *ngIf="user.createdTime">{{user.createdTime | date: 'MMM d, yyyy'}}</span></div>
+                        <div class="card-metainfo">
+                          <span class="card-location" *ngIf="user.country">{{user.country}}</span>
+                        </div>
                       </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img [src]="user.avatarUrl" *ngIf="user.avatarUrl"></div>
-                        <div class="card-info">
-                          <h5>{{user.title}}</h5>
-                          <div class="skills-list-wrapper">
-                            <ul>
-                              <li class="chip">Javascript</li>
-                              <li class="chip">Python</li>
-                              <li class="chip">Linux Admin</li>
-                              <li class="chip">C</li>
-                            </ul>
-                          </div>
+                        <div class="card-avatar">
+                          <img [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+                          {{user.userName}}
                           <div class="card-info-bottom">
                             <div class="links-list-wrapper">
                               <ul>
@@ -68,6 +62,18 @@
                               </ul>
                             </div>
                           </div>
+                        </div>
+                        <div class="card-info">
+                          <h5>{{user.title}}</h5>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          {{user.introduction}}
                         </div>
                       </div>
                     </div>

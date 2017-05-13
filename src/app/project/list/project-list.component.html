@@ -70,21 +70,22 @@
       <div class="content-wrapper">
         <div class="content" *ngIf="projects">
           <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>Volunteer opportunities found</h1>
+            <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h1>
             <div class="col s12">
               <div class="items-list-wrapper">
                 <ul *ngIf="projects">
                   <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
-                      <div class="card-header">
-                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
-                        <div class="card-metainfo"><span class="card-location" *ngIf="project.status">{{project.status}}</span><span class="joined-at" *ngIf="project.createdTime">{{project.createdTime | date: 'MMM d, yyyy'}}</span></div>
-                      </div>
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-info">
-                          <p class="description">{{ project.description }}</p>
-                          <p>Required:</p>
+                          <div class="card-header">
+                            <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
+                            <div class="card-metainfo">
+                            <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
+                            <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span></div>
+                          </div>
+                          <p class="org-name" [routerLink]="['/nonprofit/view/', project.organizationId]">{{ project.organizationName }}</p>                        
                           <div class="skills-list-wrapper">
                             <ul>
                               <li class="chip">Javascript</li>
@@ -93,8 +94,8 @@
                               <li class="chip">C</li>
                             </ul>
                           </div>
-                          <div class="card-info-bottom">
-                            <p class="org-name" [routerLink]="['/nonprofit/view/', project.organizationId]">{{ project.organizationName }}</p>
+                          <div class="discription-wrapper">
+                            <p class="description">{{ project.description }}</p>
                           </div>
                         </div>
                       </div>
