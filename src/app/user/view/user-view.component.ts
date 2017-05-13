@@ -33,7 +33,6 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['userId'];
-    console.log("=======" + id);
     this.getUser(id);
     this.getAvatar(id);
     this.displayButtons(id);
@@ -43,7 +42,6 @@ export class UserViewComponent implements OnInit {
     this.userService.getUser(id).subscribe(
       res => {
         this.user = res;
-        console.log(this.user);
       },
       error => console.log(error)
     );
@@ -59,10 +57,10 @@ export class UserViewComponent implements OnInit {
 
     if (this.authService.authenticated()) {
       if (this.authService.isVolunteer() || this.authService.isOrganization()) {
-        if (Number(this.authService.getCurrentUserId()) == id) {
+        if (this.authService.getCurrentUserId() === String(id)) {
           this.displayEdit = true;
           this.displayDelete = true;
-        } 
+        }
       } else if (this.authService.isAdmin()) {
           this.displayEdit = true;
           this.displayDelete = true;
