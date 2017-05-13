@@ -1,5 +1,39 @@
 
 <div class="container">
+  <div class="list-container">
+    <div class="row">
+      <div class="section section-row"> 
+        <div class="input-search">
+          <form>
+            <div class="row">
+              <div class="col m3 right-align">
+                <label for="keyword">Keyword</label>
+              </div>
+              <div class="col m9 center-align">
+                <input id="keyword" #projectName materialize="autocomplete" type="search" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value=''">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="section section-row"> 
+        <div class="section-body"> 
+          <div class="skills-list-wrapper">
+            <ul *ngIf="skills">
+              <li *ngFor="let skill of skills, let i = index">
+                <input class="filled-in" type="checkbox" [id]="skill.name">
+                <label [for]="skill.name" (click)="onCheck(i, 'skills')">{{skill.name}}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  
+  
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper">

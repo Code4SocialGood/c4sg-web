@@ -3,6 +3,7 @@ body {
   font-family: Raleway;
   font-size: 14px;
   color: $main-color;
+  background: $main-bg-color;
 }
 
 .preloader-wrapper{
@@ -195,24 +196,35 @@ nav {
   .items-list-wrapper  {
     ul {
       li {
+        
         display: inline-block;
-        width: 100%;
         .card {
+          border: 1px solid #888888;
+          width: 100%;
+          max-height: 200px;
+          overflow: hidden;
+          margin: 100px;
+          border: none;
+          margin: 0;
           .card-content {
             padding: 0;
             .card-avatar {
+              padding: 0;
+              overflow: hidden;
               width: 40%;
               float: left;
               height: 100%;
               display: inline-block;
               > img {
+                object-fit: cover;
+                align: center;
               }
             }
             .card-info {
               width: 60%;
               float: right;
               display: inline-block;
-              max-height: 300px;
+              max-height: 250px;
               .card-header{
                 line-height: 50px;
                 padding-left: 35px;
