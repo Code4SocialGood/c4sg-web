@@ -18,8 +18,8 @@ import { equalValidator } from '../common/user.equal.validator';
 
 export class UserEditComponent implements OnInit {
 
-  private user: User;
-  public selectedUser: User;   
+  public user: User;
+  public selectedUser: User;
 
   public globalActions = new EventEmitter<string|MaterializeAction>();
   public skillsOption = [{value: '1', name: 'CSS'},
@@ -29,7 +29,7 @@ export class UserEditComponent implements OnInit {
   public states = [{value: 'testState', display: 'testState'}];
   public countries = [{value: 'testCountry', display: 'testCountry'}];
   modalActions = new EventEmitter<string|MaterializeAction>();
- 
+
   public mySettings = new FormGroup({
     userName: new FormControl('', Validators.required),
     email: new FormControl({value: '', disabled: true}, Validators.required),
@@ -79,7 +79,7 @@ export class UserEditComponent implements OnInit {
               linkedinUrl: user.linkedinUrl,
               personalUrl: user.personalUrl,
               facebookUrl: user.facebookUrl,
-              twitterUrl: user.twitterUrl,              
+              twitterUrl: user.twitterUrl,
               phone: user.phone
             });
 
