@@ -22,7 +22,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  getActiveProjects(): Observable<Project> {
+  getActiveProjects(): Observable<Project[]> {
 
     const url = projectUrl + '/search';
 
