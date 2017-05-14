@@ -35,7 +35,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
   public avatar: any = '';
-
+  public skillsOption = [{value: '1', name: 'CSS'},
+    {value: '2', name: 'option2'},
+    {value: '3', name: 'python'}];
   currentUserId: String;
   authSvc: AuthService;
 
@@ -55,18 +57,16 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.getFormConstants();
     this.initForm();
-    
+
     this.route.params.subscribe(params => {
       this.user.avatar = '';
       this.userId = +params['userId'];
       this.currentUserId = this.auth.getCurrentUserId();
-      console.log("%%%%%" + this.userId);
 
       this.userService.getUser(this.userId)
         .subscribe(
           res => {
           this.user = res;
-          console.log("=====" + this.user);
           this.initForm();
           }, error => console.log(error)
         );
@@ -77,7 +77,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       // const logoBase64 = `data:image/png;base64, ${logoText}`;
       // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
     });
-  }      
+  }
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -92,7 +92,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private initForm(): void {
-    
+
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'userName': [this.user.userName || '', [Validators.required]],

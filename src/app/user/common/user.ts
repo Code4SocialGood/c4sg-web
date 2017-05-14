@@ -21,7 +21,7 @@ export class User {
         public twitterUrl?: string,
         public avatarUrl?: string,
         public publishFlag?: string,
-        public notifyFlag?: string,        
+        public notifyFlag?: string,
         public chatFlag?: string,
         public forumFlag?: string,
         public status?: string,
