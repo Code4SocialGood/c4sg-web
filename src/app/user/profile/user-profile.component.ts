@@ -1,9 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { UserService } from '../common/user.service';
 import { User } from '../common/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
+import { FormConstantsService } from '../../_services/form-constants.service';
+import { SkillService } from '../../skill/common/skill.service';
 
 @Component({
   // moduleId: module.id,
@@ -16,13 +18,19 @@ import { MaterializeAction } from 'angular2-materialize';
 export class UserProfileComponent implements OnInit {
 
   private user: User;
+  public countries: any[];
+  public skills: any[];
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  public skillsOption = [{value: '1', name: 'CSS'},
-    {value: '2', name: 'option2'},
-    {value: '3', name: 'python'}];
+  public skillsOption: any[];
+  skillsArray = new FormArray([]);
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    skills: this.skillsArray
+  });
   public myProfile = new FormGroup({ });
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private fc: FormConstantsService,
+              private skillService: SkillService) { }
 
   ngOnInit() {
     //  this.route.params.subscribe(
@@ -71,7 +79,19 @@ export class UserProfileComponent implements OnInit {
         },
             error => console.log(error)
               );
-}
+
+    this.getFormConstants();
+    this.skillService.getSkills()
+      .subscribe(res => {
+          console.log(res);
+          this.skills  = res.map(skill => {
+            this.skillsArray.push(new FormControl(false));
+            return {name: skill.skillName, checked: false, id: skill.id}; });
+        },
+        error => console.error(error)
+      );
+
+  }
 
   updateProfile(event) {
 
@@ -105,6 +125,11 @@ export class UserProfileComponent implements OnInit {
           response => this.globalActions.emit('toast'),
           error => console.error('Do not submit, form has errors')
         );
+  }
+
+  private getFormConstants(): void {
+
+    this.countries = this.fc.getCountries();
   }
 
 }

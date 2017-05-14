@@ -27,15 +27,9 @@
                     <input id="state" type="text">
                   </div>
                   <div class="input-field col m6 s12">
-                    <select id="country" placeholder="Country" materialize="material_select">
-                      <option value=" " disabled selected>
-                         Country</option>
-                      <option value="1">
-                         United States</option>
-                      <option value="2">
-                         Canada</option>
-                      <option value="3">
-                         Mexico</option>
+                    <select id="country" placeholder="Country" materialize="material_select" [materializeSelectOptions]="countries">
+                      <option value="" disabled>Choose country</option>
+                      <option *ngFor="let country of countries" [value]="country.value">{{country.name}}</option>
                     </select>
                   </div>
                 </div>
@@ -86,9 +80,33 @@
                     </div>
                   </div>
                   <div class="input-field col l6 m12 s12">
-                    <label>Skills</label>
-                    <select id="skills" materialize="material_select" [materializeSelectOptions]="skillsOption" multiple></select>
+                    <h6>Skills(up to six)</h6>
+                    <select id="skills" materialize="material_select" [materializeSelectOptions]="skills" multiple>
+                      <option value="" disabled>Choose from below</option>
+                      <option *ngFor="let skill of skills">{{skill.name}}</option>
+                    </select>
                   </div>
+                  <div class="container">
+
+                    <div class="col 6 s3  input-field inline">
+
+
+                      <label class="center-align">Enter your own</label>
+
+                      <input type="text" placeholder="Skill 1">
+                      <input type="text" placeholder="Skill 2">
+                      <input type="text" placeholder="Skill 3">
+                    </div>
+
+                    <div class="col 6 s3 input-field inline">
+
+                      <input type="text" placeholder="Skill 4">
+                      <input type="text" placeholder="Skill 5">
+                      <input type="text" placeholder="Skill 6">
+                    </div>
+
+                    </div>
+
                 </div>
                 <div class="row group-wrapper">
                   <div class="col m6">
