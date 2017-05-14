@@ -118,7 +118,7 @@ export class AuthService {
                   role: luserRole.toUpperCase(),
                   userName: luserName, firstName: firstName,
                   lastName: lastName,
-                  publicProfileFlag: 'N', chatFlag: 'N',
+                  publishFlag: 'N', chatFlag: 'N',
                   forumFlag: 'N', status: 'ACTIVE'});
 
                 // Create a user
