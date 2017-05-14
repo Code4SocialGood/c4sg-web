@@ -87,23 +87,17 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
         error => console.log(error));
-    }
-    else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
-      console.log('volunteer');
+    } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
         res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
-    }
-    else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
+    } else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
-          console.log(response);
-          console.log(this.orgId);
           this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
             res => {
               this.projects = res.json();
-              console.log(res)
             },
             error => console.log(error));
         },
@@ -112,8 +106,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   }
 
 filterProjects() {
-  const skills = this.filterForm.value.skills;
-  const skillsParam = [];
+      const skills = this.filterForm.value.skills;
+      const skillsParam = [];
 
   if (skills) {
     for (let i = 0; i < skills.length; i++) {
