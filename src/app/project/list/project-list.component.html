@@ -8,7 +8,7 @@
             <h4>Keyword</h4>
             <div class="input-search">
               <div class="keyword-field">
-                <input id="keyword" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="keyword">
+                <input id="keyword" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
                 <label for="keyword"></label>
                 <button type="search" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
                   <i  class="material-icons transparent" id="keyword-icon">search</i>
@@ -72,7 +72,7 @@
                             </ul>
                           </div>
                           <div class="discription-wrapper">
-                            <p class="description">{{ project.description }}</p>
+                            <p class="description">{{ project.description }}<a [routerLink]="['/project/view',project.id]">(Learn more)</a></p>
                           </div>
                         </div>
                       </div>

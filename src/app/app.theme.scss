@@ -45,7 +45,7 @@ nav {
         line-height: $navbar-height - 2 * $line-sep-width;
         padding-left: 40px;
         padding-right: 40px;
-        border: solid $line-sep-width $line-sep-color;
+        
 
         padding-top: 0 - $line-sep-width;
         margin-top: 0 - $line-sep-width;
@@ -95,19 +95,17 @@ nav {
   margin-bottom: 0;
 }
 #left-col {
-  border-right: solid $line-sep-width $line-sep-color;
 }
 #right-col {
-  border-left: solid $line-sep-width $line-sep-color;
+
   margin-left: - $line-sep-width;
 }
 
 .left-col {
-  border-right: solid $line-sep-width $line-sep-color;
 }
 
 .right-col {
-  border-left: solid $line-sep-width $line-sep-color;
+
   margin-left: - $line-sep-width;
 }
 
@@ -120,34 +118,39 @@ nav {
   margin-right: 30px;
   .section {
     padding-top: 0px;
-    background-color: $section-bg-color;
+    background-color: #fff;
     margin-top: 15px;
+    border: 1px solid #009c7b;
     h4 {
       font-size: 1.15em;
-      background-color: $header-bg-color;
-      color: $main-color;
+      background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(229, 52, 113));
+      background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(229, 52, 113));
+      background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(229, 52, 113)); 
+      background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(229, 52, 113)); 
+      color: #fff;;
       margin: 0 0 0 0;
       padding-left: 35px;
       line-height: 50px;
       font-weight: bold;
-      border-bottom: solid $line-sep-width $line-sep-color;
+      border-bottom: solid 1px #00775e;
     }
     .input-search {
       padding: 40px 10px 10px 10px;
+
       #keyword {
         height: 45px;
-        border: #2ac6ff 1px solid;
+        border: #009c7b 1px solid;;
+        background: #fff;
       }
       #keyword-button {
-
         height: 47px;
-        border-left: #2ac6ff 2px solid;
-        border-right: #2ac6ff 2px solid;
-        border-top: #2ac6ff 2px solid;
-        border-bottom: #2ac6ff 2px solid;
+        border-left:  #009c7b 2px solid;
+        border-right: #009c7b 2px solid;
+        border-top: #009c7b 2px solid;
+        border-bottom: #009c7b 2px solid;
         padding-top: 5px;
         padding-bottom: 5px;
-        background: #2ac6ff;
+        background: #009c7b;
       }
       #keyword-icon {
         color: #fff;
@@ -160,7 +163,6 @@ nav {
 
     .section-body {
       padding: 25px;
-      
       h5 {
         cursor: pointer;
         font-size: 1em;
@@ -234,6 +236,7 @@ nav {
           border: none;
           margin: 7px 0;
           box-shadow: none;
+          border: 1px solid #71a841;
           .card-content {
             padding: 0;
             .card-avatar {
@@ -244,7 +247,7 @@ nav {
               height: 250px;
               display: inline-block;
               &:before {
-                content: "Learn more";
+                content: "";
                 font-weight: 800;
                 font-size: 2em;
                 color: #fff;
@@ -255,11 +258,12 @@ nav {
                 right: 0;
                 bottom: 0;
                 width: 30%;
-                background: rgba(235, 110, 68, 0.99);
+                background: #8dcdc1;
+                opacity: 0.8;
                 -webkit-transform: scaleX(0);
                 transform: scaleX(0);
-                -webkit-transform-origin: 0 50%;
-                transform-origin: 0 50%;
+                -webkit-transform-origin: 100% 50%;
+                transform-origin: 100% 50%;
                 -webkit-transition-property: transform;
                 transition-property: transform;
                 -webkit-transition-duration: 0.3s;
@@ -284,10 +288,10 @@ nav {
               width: 1%;
               height: 300px;
               float: right;
-              background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(84, 202, 182));
-              background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(84, 202, 182));
-              background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(84, 202, 182)); 
-              background: linear-gradient(to bottom right, rgb(132, 196, 76), rgb(84, 202, 182)); 
+              background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(0, 156, 123));
+              background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 156, 123));
+              background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 156, 123)); 
+              background: linear-gradient(to bottom right, rgb(132, 196, 76), rgb(0, 156, 123)); 
               border-left: #a8a8a8 solid 1px;
               display: inline-block;
             }
@@ -363,10 +367,10 @@ nav {
                     display: inline-block;
                     color: #fff;
                     border-radius: 3px;
-                    background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(132, 196, 76));
-                    background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(132, 196, 76));
-                    background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(132, 196, 76)); 
-                    background: linear-gradient(to bottom right, rgb(132, 196, 76), rgb(132, 196, 76)); 
+                    background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(0, 186, 146));
+                    background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 186, 146));
+                    background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 186, 146)); 
+                    background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(0, 186, 146)); 
                     text-align: center;
                     padding: 0;
                     font-size: 0.7em;
