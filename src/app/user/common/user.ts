@@ -26,6 +26,7 @@ export class User {
         public forumFlag?: string,
         public status?: string,
         public createdTime?: string,
-        public updatedTime?: string
+        public updatedTime?: string,
+        public skills?: string[]
     ) { }
 }

@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
+
 @Injectable()
 export class ProjectService {
 
@@ -48,6 +49,7 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
+ 
   searchProjects(keyword?: string, skills?: string[]): Observable<Project[]> {
     const params = new URLSearchParams();
 

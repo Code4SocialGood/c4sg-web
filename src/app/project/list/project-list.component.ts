@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import {Project} from '../common/project';
+import {Skill} from '../common/skill';
 import {ProjectService} from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
@@ -28,7 +29,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     skills: this.skillsArray
   });
   p = 0;
-  projects: Project[];
+  projects: Project[];  
+  temp: any[];
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -36,9 +38,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
+  projId: number;
   from: string;
   userProjectStatus = 'A';
   skills: any[];
+  pskills: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -98,7 +102,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
      user => {
      this.orgId = user.id;
      this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
-     res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+     res => {
+     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);    
+     },
      error => console.log(error));
      });
      },
@@ -127,8 +133,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             this.idService.displayImage(e.id,
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
-                e.image = image.url;
+                e.image = image.url;                  
               });
+
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                res => {
+                     e.skills = res;     
+                      });
           });
         },
         error => console.log(error)
