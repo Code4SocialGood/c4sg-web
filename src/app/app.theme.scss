@@ -116,6 +116,8 @@ nav {
 }
 
 .sidebar {
+  margin-top: 80px;
+  margin-right: 30px;
   .section {
     padding-top: 0px;
     background-color: $section-bg-color;
@@ -132,6 +134,24 @@ nav {
     }
     .input-search {
       padding: 40px 10px 10px 10px;
+      #keyword {
+        height: 45px;
+        border: #2ac6ff 1px solid;
+      }
+      #keyword-button {
+
+        height: 47px;
+        border-left: #2ac6ff 2px solid;
+        border-right: #2ac6ff 2px solid;
+        border-top: #2ac6ff 2px solid;
+        border-bottom: #2ac6ff 2px solid;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background: #2ac6ff;
+      }
+      #keyword-icon {
+        color: #fff;
+      }
     }
 
     &:first-of-type {
@@ -140,7 +160,7 @@ nav {
 
     .section-body {
       padding: 25px;
-      border: solid $line-sep-width $header-bg-color;
+      
       h5 {
         cursor: pointer;
         font-size: 1em;
@@ -165,7 +185,6 @@ nav {
                 border-color: $header-bg-color;
               }
             }
-
             input:checked + label:after {
               background-color: $header-bg-color;
             }
@@ -175,6 +194,14 @@ nav {
     }
   }
 }
+.sidebar:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+
+
 
 .content {
   padding-bottom: 50px;
@@ -183,84 +210,144 @@ nav {
     line-height: 50px;
     font-size: 1.15em;
     font-weight: bold;
-    padding: 0;
     margin: 0;
     padding-left: 50px;
-    border-bottom: solid $line-sep-width $navbar-border-color;
-
+    padding-top: 15px;
     .index-prefix {
       margin-right: 2em;
     }
+    
   }
-
+//preject list
   .items-list-wrapper  {
-    ul {
-      li {
-        
+    .card-list {
+      .card-wrapper {
         display: inline-block;
+        padding: 0 10px;
+        width: 100%;
         .card {
           border: 1px solid #888888;
+          border-radius: 5px;
           width: 100%;
-          max-height: 200px;
+          max-height: 250px;
           overflow: hidden;
-          margin: 100px;
           border: none;
-          margin: 0;
+          margin: 7px 0;
+          box-shadow: none;
           .card-content {
             padding: 0;
             .card-avatar {
               padding: 0;
               overflow: hidden;
-              width: 40%;
+              width: 30%;
               float: left;
-              height: 100%;
+              height: 250px;
               display: inline-block;
-              > img {
-                object-fit: cover;
-                align: center;
+              &:before {
+                content: "Learn more";
+                font-weight: 800;
+                font-size: 2em;
+                color: #fff;
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 30%;
+                background: rgba(235, 110, 68, 0.99);
+                -webkit-transform: scaleX(0);
+                transform: scaleX(0);
+                -webkit-transform-origin: 0 50%;
+                transform-origin: 0 50%;
+                -webkit-transition-property: transform;
+                transition-property: transform;
+                -webkit-transition-duration: 0.3s;
+                transition-duration: 0.3s;
+                -webkit-transition-timing-function: ease-out;
+                transition-timing-function: ease-out;
               }
+              &:hover:before {
+                -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+              }
+              .card-avatar-content {
+                overflow: hidden;
+                width: 100%;
+                height: 250px;
+                object-fit: cover;
+              }
+                
             }
+            
+            .card-right-border {
+              width: 1%;
+              height: 300px;
+              float: right;
+              background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(84, 202, 182));
+              background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(84, 202, 182));
+              background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(84, 202, 182)); 
+              background: linear-gradient(to bottom right, rgb(132, 196, 76), rgb(84, 202, 182)); 
+              border-left: #a8a8a8 solid 1px;
+              display: inline-block;
+            }
+
             .card-info {
-              width: 60%;
+              width: 69%;
               float: right;
               display: inline-block;
               max-height: 250px;
+              padding: 0px;
+              padding-bottom: 15px;
               .card-header{
-                line-height: 50px;
-                padding-left: 35px;
+                padding-left: 1vw;
                 padding-right: 35px;
-                background-color: $header-bg-color;
-                h4 {
+                .project-name {
                   cursor: pointer;
                   display: inline-block;
                   font-size: 1em;
                   font-weight: bold;
                   color: $main-color;
+                  padding: 0;
                   margin: 0;
                   line-height: 50px;
+                  width: 100%;
+                  max-height: 20%;
+
                 }
-                .card-metainfo {
-                  cursor: pointer;
-                  font-size: 0.9em;
-                  float: right;
-                  color: $main-color;
-    
-                  .card-location {
-                    margin-left: 1em;
-                    margin-right: 1em;
+                .info-row {
+                  margin-bottom: 0;
+                  .card-metainfo {
+                    cursor: pointer;
+                    font-size: 0.9em;
+                    color: $main-color;
+                    .card-location {
+                      margin-left: 1em;
+                      margin-right: 1em;
+                    }
                   }
+                }
+                hr {
+                  border: 0;
+                  height: 1px;
+                  width: 105%;
+                  background: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
+                  background: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
+                  background: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
+                  background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
                 }
               }
               .discription-wrapper {
+                margin: 10px;
                 overflow: hidden;
-                max-height: 80px;
+                .description {
+                  text-overflow: ellipsis; 
+                  padding: 11px;
+                  font-size: 0.8em;
+                  max-height: 5em;
+                }
               }
-              .description {
-                text-align: justify;
-                text-overflow: ellipsis; 
-                padding: 11px;
-                font-size: 10px;
-              }
+              
               h5 {
                 font-size: 1em;
                 font-weight: bold;
@@ -271,23 +358,32 @@ nav {
               .skills-list-wrapper {
                 padding: 5px 25px 5px 25px;
                 ul {
-                  li.chip {
-                    color: $main-color;
-                    border: solid $line-sep-width $header-bg-color;
-                    background-color: #fff;
-                    border-radius: 0px;
-                    margin-left: 0.25em;
-                    margin-right: 0.25em;
-                    min-width: 27%;
+                  .chip {
+                    float: left;
+                    display: inline-block;
+                    color: #fff;
+                    border-radius: 3px;
+                    background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(132, 196, 76));
+                    background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(132, 196, 76));
+                    background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(132, 196, 76)); 
+                    background: linear-gradient(to bottom right, rgb(132, 196, 76), rgb(132, 196, 76)); 
                     text-align: center;
-
+                    padding: 0;
+                    font-size: 0.7em;
+                    margin: 3px 5px;
+                    padding: 0px 10px;
+                    cursor: pointer;
                     &:hover {
-                      background-color: $bg-line-color;
+                      background: #8dcdc1;
                     }
                   }
-
                 }
-              }
+                &:after {
+                  content: '';
+                  display: block;
+                  clear: both;
+                }
+              } 
               .card-info-bottom {
                 background-color: $sec-bg-color;
                 padding-left: 25px;
@@ -296,7 +392,6 @@ nav {
                 left: 0;
                 right: 0;
                 bottom: 0;
-
                 .org-name {
                   cursor:pointer;
                   line-height: 50px;
