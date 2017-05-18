@@ -25,7 +25,7 @@
                   <div class="col s12 m6">
                     <div class="input-field">
                       <label for="email">Email Address *</label>
-                      <input id="email" formControlName="email" type="text">
+                      <input id="email" formControlName="email" type="text" disabled="true">
                     </div>
                   </div>
                 </div>
@@ -126,15 +126,17 @@
                         <label for="facebookUrl">Facebook URL</label>
                         <input id="facebookUrl" type="text" formControlName="facebookUrl">
                       </div>
-                      <label class="active" for="resume">Resume</label>
                       <div class="file-field input-field col s12" id="resume">
-                        <div class="btn">
-                          <span>Upload</span>
-                          <input type="file">
-                        </div>
-                        <div class="file-path-wrapper">
+                        <label class="active" for="resume">Resume</label>
+                        <div class="row">
+                        <div class="file-path-wrapper  col m9">
                           <input class="file-path validate" type="text">
                         </div>
+                        <div class="btn col m3">
+                          <span>Upload</span>
+                          <input type="file">
+                        </div>     
+                         </div>                    
                       </div>
                     </div>
                   </div>
@@ -148,7 +150,7 @@
                     <input id="notifyFlag" type="checkbox" formControlName="notifyFlag">
                     <label for="notifyFlag">Notify me for opportunities match my skills</label>
                   </div>
-                </div><!--
+                </div>
                 <div class="row">
                   <div class="col m12"> 
                     <div class="footer-btns center">
@@ -160,9 +162,9 @@
                       </button>
                     </div>
                   </div>
-                </div>-->
+                </div>
               </div>
-            </div>                
+            </div>            
           </form> <!--
           <div class="modal" id="modal1" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
             <div class="modal-content">
@@ -170,7 +172,7 @@
               <p>Are you sure you want to Delete?</p>
             </div>
             <div class="modal-footer">
-              <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cancel</a><a class="modal-action modal-close waves-effect waves-green btn-flat" routerlink="/" (click)="deleteUser(selectedUser)">Yes</a>
+              <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cancel</a><a class="modal-action modal-close waves-effect waves-green btn-flat" routerlink="/" (click)="delete()">Yes</a>
             </div>
           </div> -->
         </div>

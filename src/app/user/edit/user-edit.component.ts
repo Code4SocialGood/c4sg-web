@@ -136,58 +136,44 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     };
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-    const data = this.userForm.value;
-    console.log(event);
-    console.log(data);
-    if (this.userForm.errors === null) {
-      const user = new User(
-        this.user.id,
-        this.userForm.value.email,
-        this.user.role,
-        this.userForm.value.userName,
-        this.userForm.value.firstName,
-        this.userForm.value.lastName,
-        this.userForm.value.state,
-        this.userForm.value.country,
-        -1,
-        -1,
-        this.userForm.value.title,
-        this.userForm.value.introduction,
-        this.userForm.value.linkedinUrl,
-        this.userForm.value.personalUrl,
-        this.userForm.value.facebookUrl,
-        this.userForm.value.twitterUrl,
-        this.userForm.value.phone,
-        this.userForm.value.avatarUrl,
-        this.userForm.value.publishFlag,
-        this.userForm.value.notifyFlag,
-        this.userForm.value.chatFlag,
-        this.userForm.value.forumFlag,
-        this.userForm.value.status,
-        this.userForm.value.createdTime,
-        this.userForm.value.updatedTime);
-
-        this.userService
-          .update(user)
-          .subscribe(() => {
-            this.globalActions.emit('toast');
-      });
-    } else {
-      console.error('Do not submit, form has errors'); // for demo purposes only
-    }
-  }
-
   onUploadAvatar(fileInput: any): void {
     this.imageUploader.uploadImage(fileInput,
        this.user.id,
        this.userService.saveAvatar.bind(this.userService))
        .subscribe(res => {
          this.avatar = res.url;
-         console.log('Avatar successfully uploaded!');
        },
         err => { console.error(err, 'An error occurred'); } );
+  }
+
+  onSubmit(event): void {
+    this.user.userName = this.userForm.value.userName;
+    this.user.firstName = this.userForm.value.firstName;
+    this.user.lastName = this.userForm.value.lastName;
+    this.user.state = this.userForm.value.state;
+    this.user.country = this.userForm.value.country;
+    this.user.phone = this.userForm.value.phone;
+    this.user.title = this.userForm.value.title;
+    this.user.introduction = this.userForm.value.introduction;
+    this.user.linkedinUrl = this.userForm.value.linkedinUrl;
+    this.user.personalUrl = this.userForm.value.personalUrl;
+    this.user.githubUrl = this.userForm.value.githubUrl;
+    this.user.facebookUrl = this.userForm.value.facebookUrl;
+    this.user.twitterUrl = this.userForm.value.twitterUrl;
+    this.user.publishFlag = this.userForm.value.publishFlag;
+    this.user.notifyFlag = this.userForm.value.notifyFlag;
+
+    this.userService.update(this.user).subscribe(() => {
+        this.globalActions.emit('toast');
+       },
+        err => { console.error(err, 'An error occurred'); } );
+  }
+
+  delete(event): void {
+    this.userService.delete(this.user.id)
+        .subscribe(
+          error => console.log(error)
+        );
   }
 
   openModal(user) {
@@ -197,14 +183,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
-  }
-
-  deleteUser(user: User): void {
-    console.log(user.id);
-    this.userService.delete(user.id)
-        .subscribe(
-          error => console.log(error)
-        );
   }
 
 }
@@ -358,3 +336,4 @@ export class UserEditComponent implements OnInit {
     }
   }
   */
+
