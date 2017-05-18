@@ -142,7 +142,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
        this.userService.saveAvatar.bind(this.userService))
        .subscribe(res => {
          this.avatar = res.url;
-         console.log('Avatar successfully uploaded!');
        },
         err => { console.error(err, 'An error occurred'); } );
   }
@@ -163,10 +162,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.twitterUrl = this.userForm.value.twitterUrl;
     this.user.publishFlag = this.userForm.value.publishFlag;
     this.user.notifyFlag = this.userForm.value.notifyFlag;
-console.dir(this.user);
+
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
-    });
+       },
+        err => { console.error(err, 'An error occurred'); } );
   }
 
   delete(): void {
