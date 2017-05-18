@@ -74,11 +74,11 @@
 	              color: $main-color;
 	              &:after {
 	                top: 3px;
-	                border-color: $header-bg-color;
+	                border-color: #009c7b;
 	              }
 	            }
 	            input:checked + label:after {
-	              background-color: $header-bg-color;
+	              background-color: #009c7b;
 	            }
 	          }
 	        }
