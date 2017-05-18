@@ -13,16 +13,12 @@ import { Organization } from '../organization/common/organization';
 })
 
 export class HeaderComponent implements DoCheck, OnInit {
+
   currentUserId: string;
   organizationId: string;
   atHome = false;
+
   constructor(private router: Router, public authSvc: AuthService, private organizationService: OrganizationService) {
-
-  }
-
-  private setOrganizationId(organizationId: string): void {
-    this.organizationId = organizationId;
-    localStorage.setItem('userOrganizationId', organizationId);
   }
 
   ngOnInit(): void {
@@ -30,6 +26,11 @@ export class HeaderComponent implements DoCheck, OnInit {
     this.organizationService.organizationLinkedSource$.subscribe(res => {
       this.setOrganizationId(res);
     });
+  }
+
+  private setOrganizationId(organizationId: string): void {
+    this.organizationId = organizationId;
+    localStorage.setItem('userOrganizationId', organizationId);
   }
 
   // control nav style by changing the class name

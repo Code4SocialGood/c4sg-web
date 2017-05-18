@@ -42,10 +42,12 @@
                 <ul class="card-list" *ngIf="projects">
                   <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
+
                       <div class="card-content">
                         <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-right-border">&nbsp;</div>
                         <div class="card-info">
+
                           <div class="card-header">
                             <div class='project-name'>
                               <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
@@ -61,7 +63,7 @@
                             </div>
                             <hr>                            
                           </div>
-                                                  
+                          <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>                        
                           <div class="skills-list-wrapper">
                             <ul>
                               <li class="chip"><span>Javascript</span></li>

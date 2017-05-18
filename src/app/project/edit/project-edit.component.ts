@@ -15,7 +15,7 @@ import { SkillService } from '../../skill/common/skill.service';
 export class ProjectEditComponent implements OnInit {
   public countries: any[];
   public project: Project;
-  public projectImageUrl = '../../../assets/default_avatar.png';
+  public projectImageUrl = '../../../assets/default_image.png';
   public projectForm: FormGroup;
   public editFlag = false;
   public projectSkillsArray: string[] = [];
@@ -97,7 +97,7 @@ export class ProjectEditComponent implements OnInit {
 
     this.projectForm = this.fb.group({
       'projectName': [this.project.name || '', [Validators.required]],
-      'organizationName': [this.project.organization.name || '', [Validators.required]],
+      'organizationName': [this.project.organizationName || '', [Validators.required]],
       'projectDescription': [this.project.description || '', [Validators.required]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'address1': [this.project.address1 || '', [Validators.required]],
@@ -126,7 +126,7 @@ export class ProjectEditComponent implements OnInit {
     this.project.city = updatedData.city;
     this.project.country = updatedData.country;
     this.project.zip = updatedData.zip;
-    this.project.organization.name = updatedData.organizationName;
+    // this.project.organization.name = updatedData.organizationName;
     this.project.address1 = updatedData.address1;
     this.project.address2 = updatedData.address2;
     this.project.state = updatedData.state;
