@@ -6,17 +6,14 @@
 	  margin-right: 7px;
 	  .section {
 	    padding-top: 0px;
-	    //background-color: #f9f7e8;
 	    margin-top: 15px;
 	    border: 1px solid #009c7b;
-	    //border-radius: 5px;
 	    h4 {
 	      font-size: 1.15em;
 	      background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(0, 185, 145));
 	      background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
 	      background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145)); 
 	      background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
-	      //background: rgb(0, 156, 123);
 	      color: #fff;;
 	      margin: 0 0 0 0;
 	      padding-left: 35px;
@@ -117,7 +114,6 @@
 	        width: 100%;
 	
 	        .card {
-	          //border-radius: 5px;
 	          width: 100%;
 	          max-height: 250px;
 	          overflow: hidden;
@@ -125,7 +121,6 @@
 	          margin: 10px 0;
 	          border: 1px solid #71a841;
 	          box-shadow: 1px 1px 3px;
-	          //background: #fffcf4;
 	          .card-content {
 	            padding: 0;
 	            .card-avatar {
@@ -233,7 +228,6 @@
 	              .discription-wrapper {
 	                margin: 10px;
 	                overflow: hidden;
-	                //background: #fff9ec;
 	                .description {
 	                  text-overflow: ellipsis; 
 	                  padding: 11px;
