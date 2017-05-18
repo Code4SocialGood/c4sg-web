@@ -166,7 +166,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
        },
-        err => { console.error(err, 'An error occurred'); } );*/
+        err => { console.error(err, 'An error occurred'); } );
   }
 
   delete(event): void {
