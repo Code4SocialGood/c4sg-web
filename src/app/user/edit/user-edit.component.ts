@@ -146,7 +146,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         err => { console.error(err, 'An error occurred'); } );
   }
 
-  onSubmit(): void {
+  onSubmit(): void {/*
     this.user.userName = this.userForm.value.userName;
     this.user.firstName = this.userForm.value.firstName;
     this.user.lastName = this.userForm.value.lastName;
@@ -166,14 +166,14 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
        },
-        err => { console.error(err, 'An error occurred'); } );
+        err => { console.error(err, 'An error occurred'); } );*/
   }
 
-  delete(): void {
+  delete(): void {/*
     this.userService.delete(this.user.id)
         .subscribe(
           error => console.log(error)
-        );
+        );*/
   }
 
   openModal(user) {
