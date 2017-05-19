@@ -192,4 +192,5 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.projectsSubscription.unsubscribe();
     }
   }
+
 }
