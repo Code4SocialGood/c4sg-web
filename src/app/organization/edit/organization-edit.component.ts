@@ -146,11 +146,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(): void {
-    if (this.organizationId === 0) { // organization hasn't been created by the organization user
-      // New organization, create the organization
+    if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
-    } else {
-      // Existing organization, update the organization
+    } else { // Existing organization, update the organization
       this.updateOrganization();
     }
   }
@@ -207,6 +205,17 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  private updateOrganization(): void {
+    const formData = this.organizationForm.value;
+    formData.id = this.organization.id;
+
+    this.organizationService
+      .updateOrganization(formData)
+      .subscribe(res => {
+        Materialize.toast('Your organization is saved', 4000);
+      });
+  }
+
   private readLogo(fileInput: any): void {
     this.imageUploader
       .readImage(fileInput)
@@ -226,16 +235,5 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         }
       },
       err => { console.error(err, 'An error occurred'); });
-  }
-
-  private updateOrganization(): void {
-    const formData = this.organizationForm.value;
-    formData.id = this.organization.id;
-
-    this.organizationService
-      .updateOrganization(formData)
-      .subscribe(res => {
-        Materialize.toast('Your organization is saved', 4000);
-      });
   }
 }

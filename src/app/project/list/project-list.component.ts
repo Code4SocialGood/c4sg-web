@@ -29,7 +29,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     skills: this.skillsArray
   });
   p = 0;
-  projects: Project[];  
+  projects: Project[];
   temp: any[];
   users: User[];
   selectedProject: Project;
@@ -42,7 +42,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   from: string;
   userProjectStatus = 'A';
   skills: any[];
-  pskills: any[];
+
 
   constructor(
     private projectService: ProjectService,
@@ -103,7 +103,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
      this.orgId = user.id;
      this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
      res => {
-     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);    
+     this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body);
      },
      error => console.log(error));
      });
@@ -125,7 +125,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     }
 
     this.projectsSubscription = this.projectService
-      .searchProjects(this.filterForm.value.keyword, skillsParam)
+      .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
       .subscribe(
         res => {
           this.projects = res;
@@ -133,12 +133,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             this.idService.displayImage(e.id,
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
-                e.image = image.url;                  
-              });
+                e.image = image.url;
+                });
 
               this.skillService.getSkillsByProject(e.id).subscribe(
-                res => {
-                     e.skills = res;     
+                result => {
+                     e.skills = result;
                       });
           });
         },

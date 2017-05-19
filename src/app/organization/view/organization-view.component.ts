@@ -121,8 +121,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
             project.description = project.description.slice(0, 100) + '...';
           }
            this.skillService.getSkillsByProject(project.id).subscribe(
-                res => {
-                     project.skills = res;     
+                result => {
+                     project.skills = result;
                       });
         });
       },
