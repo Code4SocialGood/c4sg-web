@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="center-align">My Organization</h3>
   <div class="row">
-    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()" class="col s12">
+    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit(organizationForm.value, $event)" class="col s12">
       <div class="row">
 
         <div class="col m4 s12">

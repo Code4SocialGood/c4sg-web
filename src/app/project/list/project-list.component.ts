@@ -76,8 +76,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      if (value.keyword || value.skills.some(i => i))
+      if (value.keyword || value.skills.some(i => i)) {
         this.filterProjects();
+      }
     });
   }
 
@@ -105,8 +106,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         },
         error => console.log(error)
       );
-      console.log('inside myprojects')
-    }
+    };
   }
 
   filterProjects() {
