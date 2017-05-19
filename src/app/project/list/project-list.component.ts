@@ -1,15 +1,15 @@
 import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
 import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
-import { AuthService } from '../../auth.service';
-import { OrganizationService } from '../../organization/common/organization.service';
-import { SkillService } from '../../skill/common/skill.service';
-import { User } from '../../user/common/user';
-import { ImageDisplayService } from '../../_services/image-display.service';
+import {AuthService} from '../../auth.service';
+import {OrganizationService} from '../../organization/common/organization.service';
+import {SkillService} from '../../skill/common/skill.service';
+import {User} from '../../user/common/user';
+import {ImageDisplayService} from '../../_services/image-display.service';
 import {DataService} from '../../_services/data.service';
 
 declare const Materialize: any;
@@ -40,16 +40,15 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   userProjectStatus = 'A';
   skills: any[];
 
-  constructor(
-    private projectService: ProjectService,
-    private organizationService: OrganizationService,
-    private dataService: DataService,
-    private router: Router,
-    private auth: AuthService,
-    private route: ActivatedRoute,
-    private skillService: SkillService,
-    private idService: ImageDisplayService
-  ) { }
+  constructor(private projectService: ProjectService,
+              private organizationService: OrganizationService,
+              private dataService: DataService,
+              private router: Router,
+              private auth: AuthService,
+              private route: ActivatedRoute,
+              private skillService: SkillService,
+              private idService: ImageDisplayService) {
+  }
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -77,7 +76,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      if(value.keyword || value.skills.some(i=>i))
+      if (value.keyword || value.skills.some(i => i))
         this.filterProjects();
     });
   }
@@ -110,41 +109,42 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     }
   }
 
-filterProjects() {
-      const skills = this.filterForm.value.skills;
-      const skillsParam = [];
+  filterProjects() {
+    const skills = this.filterForm.value.skills;
+    const skillsParam = [];
 
-  if (skills) {
-    for (let i = 0; i < skills.length; i++) {
-      if (skills[i]) {
-        skillsParam.push(this.skills[i].id.toString());
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
+        }
       }
     }
-  }
 
-  this.projectsSubscription = this.projectService
-    .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
-    .subscribe(
-      res => {
-        this.projects = res;
-        res.forEach((e: Project) => {
-          this.idService.displayImage(e.id,
-            this.projectService.retrieveImage.bind(this.projectService))
-            .subscribe(image => {
-              e.image = image.url;
-            });
-        });
-      },
-      error => console.log(error)
-    );
-}
+    this.projectsSubscription = this.projectService
+      .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
+      .subscribe(
+        res => {
+          this.projects = res;
+          res.forEach((e: Project) => {
+            this.idService.displayImage(e.id,
+              this.projectService.retrieveImage.bind(this.projectService))
+              .subscribe(image => {
+                e.image = image.url;
+              });
+          });
+        },
+        error => console.log(error)
+      );
+  }
 
   getSkills(): void {
     this.skillService.getSkills().subscribe(res => {
         console.log(res);
-        this.skills  = res.map(skill => {
+        this.skills = res.map(skill => {
           this.skillsArray.push(new FormControl(false));
-          return {name: skill.skillName, checked: false, id: skill.id}; });
+          return {name: skill.skillName, checked: false, id: skill.id};
+        });
       },
       error => console.error(error)
     );
@@ -188,6 +188,8 @@ filterProjects() {
   }
 
   ngOnDestroy() {
-    if (this.projectsSubscription) { this.projectsSubscription.unsubscribe(); }
+    if (this.projectsSubscription) {
+      this.projectsSubscription.unsubscribe();
+    }
   }
 }
