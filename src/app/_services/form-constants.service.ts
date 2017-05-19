@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FormConstantsService {
+
   private states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
     'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
     'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV',
     'WI', 'WY', 'DC', 'PR', 'VI', 'AS', 'GU', 'MP'];
+
   private countries = [
     { code: 'USA', name: 'United States of America' },
     { code: 'ABW', name: 'Aruba' },
@@ -257,9 +259,12 @@ export class FormConstantsService {
     { code: 'ZMB', name: 'Zambia' },
     { code: 'ZWE', name: 'Zimbabwe' }
   ];
+
   private categories = [
-    {name: 'Non-Profit', value: 'N'},
-    {name: 'Open Source', value: 'O'}
+    {name: 'Nonprofit', value: 'N'},
+    {name: 'Open Source', value: 'O'},
+    {name: 'Social Enterprise', value: 'S'},
+    {name: 'Other', value: 'M'}
    ];
 
   constructor() { }

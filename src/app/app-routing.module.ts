@@ -15,8 +15,7 @@ import { OrganizationEditComponent } from './organization/edit/organization-edit
 
 import { UserListComponent } from './user/list/user-list.component';
 import { UserViewComponent } from './user/view/user-view.component';
-import { UserAccountComponent } from './user/account/user-account.component';
-import { UserProfileComponent } from './user/profile/user-profile.component';
+import { UserEditComponent } from './user/edit/user-edit.component';
 
 import { AuthRoleSelectionComponent } from './auth.role.component';
 import { AuthGuard } from './auth.guard';
@@ -33,17 +32,16 @@ const routes: Routes = [
   {path: 'project/delete/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
 
-  {path: 'nonprofit/list', component: OrganizationListComponent},
-  {path: 'nonprofit/view/:organizationId', component: OrganizationViewComponent},
-  {path: 'nonprofit/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
+  {path: 'organization/list', component: OrganizationListComponent},
+  {path: 'organization/view/:organizationId', component: OrganizationViewComponent},
+  {path: 'organization/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
-  {path: 'nonprofit/delete/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard],
+  {path: 'organization/delete/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ADMIN', 'ADMIN']}},
 
   {path: 'user/list', component: UserListComponent},
   {path: 'user/view/:userId', component: UserViewComponent},
-  {path: 'account/:userId', component: UserAccountComponent, canActivate: [AuthGuard]},
-  {path: 'profile/:userId', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/edit/:userId', component: UserEditComponent, canActivate: [AuthGuard]},
   {path: 'user/delete/:userId', component: UserViewComponent, canActivate: [AuthGuard]},
 
   {path: 'roleselect', component: AuthRoleSelectionComponent},

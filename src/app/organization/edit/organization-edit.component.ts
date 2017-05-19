@@ -31,7 +31,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public logoValid = true;
   private logoData: ImageReaderResponse;
-  private defaultAvatar = '../../../assets/default_avatar.png';
+  private defaultAvatar = '../../../assets/default_image.png';
 
   currentUserId: String;
   authSvc: AuthService;
@@ -109,7 +109,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteURL': [this.organization.websiteURL || '', [Validators.pattern(this.urlValidRegEx)]],
+      'websiteUrl': [this.organization.websiteUrl || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
       'contactName': [this.organization.contactName || '', []],
       'contactPhone': [this.organization.contactPhone || '', []],
@@ -146,11 +146,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(): void {
-    if (this.organizationId === 0) { // organization hasn't been created by the nonprofit user
-      // New organization, create the organization
+    if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
-    } else {
-      // Existing organization, update the organization
+    } else { // Existing organization, update the organization
       this.updateOrganization();
     }
   }
@@ -160,7 +158,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     return {
       'logo': '',
       'name': '',
-      'websiteURL': '',
+      'websiteUrl': '',
       'contactEmail': '',
       'contactName': '',
       'contactPhone': '',
@@ -203,7 +201,18 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       })
       .subscribe(res => {
         // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+        this.router.navigate(['/organization/view/' + this.organization.id]);
+      });
+  }
+
+  private updateOrganization(): void {
+    const formData = this.organizationForm.value;
+    formData.id = this.organization.id;
+
+    this.organizationService
+      .updateOrganization(formData)
+      .subscribe(res => {
+        Materialize.toast('Your organization is saved', 4000);
       });
   }
 
@@ -226,16 +235,5 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         }
       },
       err => { console.error(err, 'An error occurred'); });
-  }
-
-  private updateOrganization(): void {
-    const formData = this.organizationForm.value;
-    formData.id = this.organization.id;
-
-    this.organizationService
-      .updateOrganization(formData)
-      .subscribe(res => {
-        Materialize.toast('Your organization is saved', 4000);
-      });
   }
 }

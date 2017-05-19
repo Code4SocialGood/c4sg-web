@@ -19,7 +19,9 @@ declare var Materialize: any;
   templateUrl: 'project-list.component.html',
   styleUrls: ['project-list.component.scss']
 })
+
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
+
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
@@ -37,7 +39,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   from: string;
   userProjectStatus = 'A';
   skills: any[];
-
 
   constructor(
     private projectService: ProjectService,
@@ -194,7 +195,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       .subscribe(
         response => {
           this.getProjects();
-          this.router.navigate(['/nonprofits']);
+          this.router.navigate(['/organization/list']);
         },
         error => console.log(error)
       );
@@ -206,7 +207,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       .subscribe(
         response => { // An error occurred SyntaxError: Unexpected end of JSON input
           this.getProjects();
-          this.router.navigate(['/nonprofits']);
+          this.router.navigate(['/organization/list']);
         },
         error => console.log(error)
       );
