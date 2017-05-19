@@ -37,7 +37,6 @@ export class ProjectEditComponent implements OnInit {
     this.initForm();
 
     this.route.params.subscribe(params => {
-
       const id = params['projectId'];
 
       this.projectService.getProject(id)
