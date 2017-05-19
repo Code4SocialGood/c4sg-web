@@ -1,11 +1,28 @@
 export class Organization {
-  public id: number;
-  public name: string;
-  public logoUrl: any;
-  public websiteUrl: any;
-  public description: any;
-  public category: any;
-  public state: any;
-  public country: any;
-  public opportunities: any;
+  constructor (
+    public id: number,
+    public name: string,
+    public logoUrl: any,
+    public websiteUrl: any,
+    public description: any,
+    public category: any,
+    public address1: any,
+    public address2: any,
+    public city: any,
+    public zip: any,
+    public state: any,
+    public country: any,
+    public contactEmail: any,
+    public contactName: any,
+    public contactPhone: any,
+    public contactTitle: any,
+    public ein: any,
+    public opportunities: any
+  ) { }
 }
+
+
+
+
+
+
