@@ -77,7 +77,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      this.filterProjects();
+      if(value.keyword || value.skills.some(i=>i))
+        this.filterProjects();
     });
   }
 
@@ -87,6 +88,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
         error => console.log(error));
+
     } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
         res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
@@ -99,9 +101,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             res => {
               this.projects = res.json();
             },
-            error => console.log(error));
+            error => console.log(error)
+          );
         },
-        error => console.log(error));
+        error => console.log(error)
+      );
+      console.log('inside myprojects')
     }
   }
 
