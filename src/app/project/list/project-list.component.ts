@@ -119,7 +119,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     }
 
     this.projectsSubscription = this.projectService
-      .searchProjects(this.filterForm.value.keyword, skillsParam)
+      .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
       .subscribe(
         res => {
           this.projects = res;
