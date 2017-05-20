@@ -44,7 +44,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     private validationService: ValidationService,
     private auth: AuthService,
     private fc: FormConstantsService,
-    private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
@@ -63,22 +62,21 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
         // this.organization.logo = this.defaultAvatar;
-      }
+      } 
+        this.organizationService.getOrganization(this.organizationId)
+          .subscribe(
+            res => {
+              this.organization = res;
+              this.fillForm();
+            }, error => console.log(error)
+          );
 
-      this.organizationService.getOrganization(this.organizationId)
-        .subscribe(
-          res => {
-            this.organization = res;
-            this.fillForm();
-          }, error => console.log(error)
-        );
-
-      this.organizationService.retrieveLogo(this.organizationId)
-        .subscribe(
-          res => {
-          }, error => console.log(error)
-        );
-
+        this.organizationService.retrieveLogo(this.organizationId)
+          .subscribe(
+            res => {
+            }, error => console.log(error)
+          );
+      
       /*
       if (this.organizationId !== 0) { // organization has been created already
         this.organizationService.getOrganization(this.organizationId).toPromise()
@@ -91,7 +89,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           .then(res => {
             const logoText = res.text();
             const logoBase64 = `data:image/png;base64, ${logoText}`;
-
             // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
             this.fillForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
@@ -117,10 +114,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organizationForm = this.fb.group({
       'name': ['', []],
       'websiteUrl': ['', []],
-      'contactEmail': ['', []],
-      'contactName': ['', []],
-      'contactPhone': ['', []],
-      'contactTitle': ['', []],
       'ein': ['', []],
       'category': ['', []],
       'address1': ['', []],
@@ -138,10 +131,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
       'websiteUrl': [this.organization.websiteUrl || '', []],
-      'contactEmail': [this.organization.contactEmail || '', []],
-      'contactName': [this.organization.contactName || '', []],
-      'contactPhone': [this.organization.contactPhone || '', []],
-      'contactTitle': [this.organization.contactTitle || '', []],
       'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', []],
       'address1': [this.organization.address1 || '', []],
@@ -217,9 +206,20 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private updateOrganization(): void {
     const formData = this.organizationForm.value;
     formData.id = this.organization.id;
+    this.organization.name = formData.name;
+    this.organization.websiteUrl = formData.websiteUrl;
+    this.organization.ein = formData.ein;
+    this.organization.category = formData.category;
+    this.organization.address1 = formData.address1;
+    this.organization.address2 = formData.address2;
+    this.organization.city = formData.city;
+    this.organization.state = formData.state;
+    this.organization.country = formData.country;
+    this.organization.zip = formData.zip;
+    this.organization.description = formData.description;
 
     this.organizationService
-      .updateOrganization(formData)
+      .updateOrganization(this.organization)
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
       });
@@ -247,8 +247,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   validateForm() {
-    this.validHttp = !this.organizationForm.controls.websiteUrl.invalid 
-      && this.organizationForm.controls.websiteUrl.value.length > 4 
+    this.validHttp = !this.organizationForm.controls.websiteUrl.invalid
+      && this.organizationForm.controls.websiteUrl.value.length > 4
       && this.validationService.httpValidRegEx.test(this.organizationForm.controls.websiteUrl.value);
   }
 }

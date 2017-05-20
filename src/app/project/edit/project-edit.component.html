@@ -1,5 +1,6 @@
 <div class="container">
-  <h3 class="center-align">Edit Project</h3>
+  <h3 class="center-align" *ngIf="projectId != 0">Edit Project</h3>
+  <h3 class="center-align" *ngIf="projectId == 0">Create Project</h3>
   <div class="row main-row">
     <div class="col s3" id="left-col">
       <div class="info-avatar" *ngIf="project">

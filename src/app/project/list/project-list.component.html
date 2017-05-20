@@ -1,8 +1,13 @@
 
+<!-- This page is used: -->
+<!-- 1. From header, click Opportunities to display a list of projects with search panl to further filter result-->
+<!-- 2. Nonprofit user: click My Projects to display the projects th organization posted-->
+<!-- 3. Volunteer user: click My projects to display Bookmarked Projeccts and Applied Projects -->
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper">
+      <!-- Search Panel, only display for Opportunities -->  
+      <div class="sidebar-wrapper" *ngIf="from=='opportunities'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
           <div class="section">
             <h4>Keyword</h4>
@@ -34,6 +39,9 @@
     </div>
     <div class="col m8" id="right-col">
       <div class="content-wrapper">
+
+        <!-- 1. Opportunities -->  
+        <!-- 2. Nonprofit User: My Projects -->  
         <div class="content" *ngIf="projects">
           <div class="row">
             <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h1>
@@ -71,7 +79,7 @@
                     </div>
                   </li>
                 </ul>
-              </div>
+              </div>              
             </div>
           </div>
           <div class="row">
@@ -80,6 +88,93 @@
             </div>
           </div>
         </div>
+
+        <!-- Volunteer User: My Projects: Bookmarked Projects -->  
+        <div class="content" *ngIf="bookmarkedProjects">
+          <div class="row">
+            <h1 class="main-title">Bookmarked Projects</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="bookmarkedProjects">
+                  <li class="card-wrapper" *ngFor="let project of bookmarkedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
+                        <div class="card-metainfo">
+                          <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
+                          <span class="state" *ngIf="project.remoteFlag !== 'Y'">
+                              <span class="state" *ngIf="project.state">{{project.state}}, </span>
+                              <span class="state" *ngIf="project.country">{{project.country}} | </span>
+                          </span>
+                          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
+                        <div class="card-info">
+                          <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          <p class="description">{{ project.description }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>              
+            </div>
+          </div>
+        </div>
+
+        <!-- Volunteer User: My Projects: Applied Projects -->  
+        <div class="content" *ngIf="appliedProjects">
+          <div class="row">
+            <h1 class="main-title">Applied Projects</h1>
+            <div class="col s12">
+              <div class="items-list-wrapper">
+                <ul *ngIf="appliedProjects">
+                  <li class="card-wrapper" *ngFor="let project of appliedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
+                        <div class="card-metainfo">
+                          <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
+                          <span class="state" *ngIf="project.remoteFlag !== 'Y'">
+                              <span class="state" *ngIf="project.state">{{project.state}}, </span>
+                              <span class="state" *ngIf="project.country">{{project.country}} | </span>
+                          </span>
+                          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
+                        <div class="card-info">
+                          <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
+                          </div>
+                          <p class="description">{{ project.description }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>              
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

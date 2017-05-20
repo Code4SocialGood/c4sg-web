@@ -111,7 +111,9 @@ export class ProjectViewComponent implements OnInit {
           res => {
             let organization: Organization;
             organization = res[0];
-            if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
+            console.log("******" + organization.id);
+            console.log("******" + this.project.organizationId);
+            if ((organization !== undefined) && (organization.id == this.project.organizationId)) {
               this.displayEdit = true;
               this.displayDelete = true;
             }
