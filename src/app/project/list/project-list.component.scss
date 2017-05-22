@@ -7,7 +7,7 @@
 	background: -moz-linear-gradient(bottom right, rgb(91, 165, 91), rgb(91, 165, 91)); 
 	background: linear-gradient(to bottom right, rgb(91, 165, 91), rgb(91, 165, 91));
 	color: #fff;
-	padding-top: 5px;
+	padding-top: 20px;
 	padding-bottom: 5px;
 }
 .project-list-container {
@@ -16,8 +16,8 @@
 }
 #left-col {
 	padding: 0;
-	border-left: 3px solid #d9d9d9;
-	border-bottom: 3px solid #d9d9d9;
+	border-left: $border-width solid #d9d9d9;
+	border-bottom: $border-width solid #d9d9d9;
 	.sidebar-wrapper {
 		padding-top: 0;
 	}
@@ -30,13 +30,14 @@
 					color: #4b4b4b;
 					font-weight: bold;
 					padding-left: 1em;
+					color: #5ba55b;
 				}
 			.input-search {
 				height: 60px;
 				width: 100%;
 				margin-bottom: 0;
 				padding-top: 4px;
-				border-bottom: 3px solid #d9d9d9;
+				border-bottom: $border-width solid #d9d9d9;
 				display: block;
 				#keyword-title {
 					color: #5ba55b;
@@ -45,7 +46,7 @@
 					//display: inline-block;
 				}
 				#keyword {
-					height: 47px;
+					height: 42px;
 					border: #5ba55b 3px solid;
 					background: #fff;
 					border-radius: 0 0 0 5px;
@@ -54,7 +55,7 @@
 					//display: inline-block;
 				}
 				#keyword-button {
-					height: 47px;
+					height: 42px;
 					padding-top: 5px;
 					padding-bottom: 5px;
 					border: 0 solid #fff;
@@ -86,6 +87,7 @@
 					padding: 0;
 				}
 				.skills-list-wrapper {
+
 					ul {
 						list-style: none;
 						display: inline-block;
@@ -102,8 +104,9 @@
 									top: 5px;
 									width: 15px;
 									height: 15px;
-									border: 1px solid #4b4a4b;
+									border: 2px solid #4b4a4b;
 									background: #fff;
+									border-radius: 0;
 								}
 							}
 							input:checked + label:after {
@@ -115,7 +118,7 @@
 			}
 		}
 		.filter-title {
-			border-bottom: 3px solid #d9d9d9;
+			border-bottom: $border-width solid #d9d9d9;
 			h4 {
 					font-size: 1.15em;
 					color: #5ba55b;;
@@ -159,6 +162,7 @@
 			padding: 0;
 		}
 		.items-list-wrapper  {
+			margin-top: 0;
 			.card-list {
 				margin-top: 6px;
 				.card-wrapper {
@@ -242,7 +246,6 @@
 										line-height: 50px;
 										width: 100%;
 										max-height: 20%;
-
 									}
 									.info-row {
 										margin-bottom: 0;
@@ -277,13 +280,17 @@
 									.description {
 										overflow:hidden;
 										text-overflow: ellipsis; 
-										white-space: nowrap;
 										width: 100%;
 										margin: 0 17px;
 										font-size: 0.8em;
 										height: 30%;
 										color: #585858;
 										margin-left: 0;
+										display: -webkit-box;
+										line-height: 16px;
+										height: 96px; 
+										-webkit-line-clamp: 96; 
+										-webkit-box-orient: vertical;
 									}
 								}
 
@@ -355,4 +362,5 @@
 		}
 	}
 }
+
 
