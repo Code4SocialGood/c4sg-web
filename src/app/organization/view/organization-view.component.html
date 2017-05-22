@@ -73,13 +73,10 @@
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                          <div class="skills-list-wrapper">
-                          <ul *ngIf="pr.skills">
-                            <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}
-                            </li>
-                          </ul>                          
-                          </div>
-
+                            <div class="skills-list-wrapper">
+                                <div class="chip">Java</div>
+                                <div class="chip">C</div>
+                            </div>
                           </div>
                         </div>
                         <p>{{ pr.description }}</p>

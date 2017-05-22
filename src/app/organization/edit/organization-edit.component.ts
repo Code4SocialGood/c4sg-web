@@ -164,10 +164,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
+
     if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
     } else { // Existing organization, update the organization

@@ -148,6 +148,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
+
     this.user.userName = this.userForm.value.userName;
     this.user.firstName = this.userForm.value.firstName;
     this.user.lastName = this.userForm.value.lastName;
