@@ -65,6 +65,7 @@
                         <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-info">
 
+<<<<<<< HEAD
                           <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
                           <div class="skills-list-wrapper">
                           <ul *ngIf="project.skills">
@@ -112,14 +113,15 @@
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-info">
+=======
+>>>>>>> upstream/master
                           <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
                           <div class="skills-list-wrapper">
-                            <ul>
-                              <li class="chip">Javascript</li>
-                              <li class="chip">Python</li>
-                              <li class="chip">Linux Admin</li>
-                              <li class="chip">C</li>
-                            </ul>
+                          <ul *ngIf="project.skills">
+                            <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
+                            </li>
+                          </ul>
+                          
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>

@@ -29,10 +29,14 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
+<<<<<<< HEAD
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
   temp: any[];
 
+=======
+  temp: any[];
+>>>>>>> upstream/master
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
