@@ -29,6 +29,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
+  temp: any[];
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -36,11 +37,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
+  projId: number;
   from: string;
   userProjectStatus = 'A';
   skills: any[];
 
-  constructor(private projectService: ProjectService,
+constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
@@ -49,6 +51,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
               private skillService: SkillService,
               private idService: ImageDisplayService) {
   }
+
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -83,7 +86,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   }
 
   getProjects(): void {
-
     if (this.from === 'opportunities') {
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
@@ -131,7 +133,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
                 e.image = image.url;
-              });
+                });
+
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                result => {
+                     e.skills = result;
+                      });
           });
         },
         error => console.log(error)
