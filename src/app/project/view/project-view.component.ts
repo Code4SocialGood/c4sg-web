@@ -127,7 +127,7 @@ export class ProjectViewComponent implements OnInit {
   }
 
   apply(): void {
-    this.userProjectStatus = "A";
+    this.userProjectStatus = 'A';
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
@@ -151,7 +151,7 @@ export class ProjectViewComponent implements OnInit {
 
   bookmark(): void {
     // check if user is logged in
-    this.userProjectStatus = "B";
+    this.userProjectStatus = 'B';
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
