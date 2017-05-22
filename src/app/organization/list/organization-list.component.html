@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper" *ngIf="from=='organizations'">
+      <div class="sidebar-wrapper">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations()">
           <div class="section">
             <h4>Keyword</h4>
@@ -39,7 +39,6 @@
         </form>
       </div>
     </div>
-    
     <div class="col m8" id="right-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="organizations">
