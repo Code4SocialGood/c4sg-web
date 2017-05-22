@@ -161,6 +161,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
+
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
