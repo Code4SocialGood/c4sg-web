@@ -23,7 +23,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  getActiveProjects(): Observable<Project> {
+  getActiveProjects(): Observable<Project[]> {
 
     const url = projectUrl + '/search';
 
@@ -49,7 +49,7 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  searchProjects(keyword?: string, skills?: string[]): Observable<Project[]> {
+  searchProjects(keyword?: string, skills?: string[], status?: string, remote?: string): Observable<Project[]> {
     const params = new URLSearchParams();
 
     if (keyword) {

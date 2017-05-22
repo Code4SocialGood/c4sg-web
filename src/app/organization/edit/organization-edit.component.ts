@@ -22,7 +22,7 @@ declare var Materialize: any;
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: { [key: string]: any };
   public countries: any[];
-  public organization = this.initOrganization();
+  public organization: Organization;
   public organizationForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public descMaxLength = 255;
@@ -62,7 +62,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.route.params.subscribe(params => {
 
       this.getFormConstants();
-      this.organization.logo = '';
+      // this.organization.logo = '';
       this.initForm();
 
       this.organizationId = +params['organizationId'];
@@ -70,7 +70,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
-        this.organization.logo = this.defaultAvatar;
+        // this.organization.logo = this.defaultAvatar;
       }
 
       if (this.organizationId !== 0) { // organization has been created already
@@ -85,8 +85,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             const logoText = res.text();
             const logoBase64 = `data:image/png;base64, ${logoText}`;
 
-            this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
-            this.initForm();
+            // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
+            this.fillForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
       }
@@ -108,6 +108,26 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
+      'name': ['', []],
+      'websiteUrl': ['', []],
+      'contactEmail': ['', []],
+      'contactName': ['', []],
+      'contactPhone': ['', []],
+      'contactTitle': ['', []],
+      'ein': ['', []],
+      'category': ['', []],
+      'address1': ['', []],
+      'address2': ['', []],
+      'city': ['', []],
+      'state': ['', []],
+      'country': ['', []],
+      'zip': ['', []],
+      'description': ['', []]
+    });
+  }
+
+  private fillForm(): void {
+    this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
       'websiteUrl': [this.organization.websiteUrl || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
@@ -122,8 +142,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'state': [this.organization.state || '', []],
       'country': [this.organization.country || '', []],
       'zip': [this.organization.zip || '', [Validators.pattern(this.zipValidRegEx)]],
-      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]
-      ],
+      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
   }
 
@@ -145,35 +164,15 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onSubmit(): void {
+
+  onSubmit(updatedData: any, event): void {
+    event.preventDefault();
+    event.stopPropagation();
     if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
     } else { // Existing organization, update the organization
       this.updateOrganization();
     }
-  }
-
-  // initialize organization with blank values
-  private initOrganization(): any {
-    return {
-      'logo': '',
-      'name': '',
-      'websiteUrl': '',
-      'contactEmail': '',
-      'contactName': '',
-      'contactPhone': '',
-      'contactTitle': '',
-      'ein': '',
-      'category': '',
-      'address1': '',
-      'address2': '',
-      'city': '',
-      'state': '',
-      'country': '',
-      'zip': '',
-      'briefDescription': '',
-      'detailedDescription': ''
-    };
   }
 
   private createOrganization(): void {
@@ -220,7 +219,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.imageUploader
       .readImage(fileInput)
       .subscribe(res => {
-        this.organization.logo = res.base64Image;
+        this.organization.logoUrl = res.base64Image;
         this.logoData = res;
       });
   }
@@ -231,7 +230,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       this.organizationService.saveLogo.bind(this.organizationService))
       .subscribe(res => {
         if (res.url) {
-          this.organization.logo = res.url;
+          this.organization.logoUrl = res.url;
         }
       },
       err => { console.error(err, 'An error occurred'); });
