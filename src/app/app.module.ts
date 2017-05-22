@@ -34,7 +34,6 @@ import {MapViewerComponent} from './map-viewer/map-viewer.component';
 import {OrganizationService} from './organization/common/organization.service';
 import {ProjectService} from './project/common/project.service';
 import {UserService} from './user/common/user.service';
-import {SkillService} from './skill/common/skill.service';
 import {AuthService} from './auth.service';
 import {AuthGuard} from './auth.guard';
 import {FormConstantsService} from './_services/form-constants.service';
@@ -42,7 +41,7 @@ import {DeveloperService} from './about/common/developer.service';
 import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
-import {ValidationService} from './_services/validation.service';
+import {SkillService} from './skill/common/skill.service';
 
 @NgModule({
   imports: [
@@ -90,7 +89,6 @@ import {ValidationService} from './_services/validation.service';
     ImageDisplayService,
     ImageUploaderService,
     DataService,
-    ValidationService,
     SkillService],
 
   bootstrap: [AppComponent]

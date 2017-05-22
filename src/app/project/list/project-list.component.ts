@@ -29,8 +29,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
-  bookmarkedProjects: Project[];
-  appliedProjects: Project[];
   temp: any[];
   users: User[];
   selectedProject: Project;
@@ -41,6 +39,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   orgId: number;
   projId: number;
   from: string;
+  userProjectStatus = 'A';
   skills: any[];
 
 constructor(private projectService: ProjectService,
@@ -91,14 +90,12 @@ constructor(private projectService: ProjectService,
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
         error => console.log(error));
-    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
-        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+
+    } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
+        res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
-        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
+    } else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
