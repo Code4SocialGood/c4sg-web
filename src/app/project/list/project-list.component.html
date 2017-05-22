@@ -1,85 +1,99 @@
-<div class="project-list-title">
-  <h4>Opportunities</h4>
-</div>
-<div class="project-list-container">
+
+<div class="container">
   <div class="row main-row">
-    <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
-          <div class="section">
-            <div class="input-search row">
-                <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
-                <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
-                  <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
-                  <i  class="material-icons transparent" id="keyword-icon">search</i>
-                  </button>   
-            </div>
+    <div class="content" *ngIf="project">
+      <h1 class="main-title">{{project.name}}</h1>
+    </div>
+    <div class="col s3" id="left-col">
+      <div class="info-avatar" *ngIf="project">
+        <img [src]="project.imageUrl"> 
+      </div>
+    </div>
+    <div class="col s6" id="left-col">
+      <div class="content-wrapper">
+        <div class="content" *ngIf="project">
+          <div class="row">
+            <a class="btn" *ngIf="displayApply" (click)="apply()">Apply</a>
+            <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+            <a class="btn" *ngIf="displayShare" >Share</a>
+            <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+            <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Close</a>
           </div>
-          <div class="section">
-            
-          </div>
-          <div class="filter-title section">
-            <h4>Filter</h4>
-          </div>
-          <div class="section">
-            <h4>Skills</h4>
-            <div class="section-body">
+          <div class="row single-info">
+            <div class="col m12">
               <div class="skills-list-wrapper">
-                <ul *ngIf="skills" formArrayName="skills">
-                  <li *ngFor="let skill of skills, let i = index">
-                    <input class="filled-in" type="checkbox" [id]="skill.name" formControlName="{{i}}">
-                    <label [for]="skill.name">{{skill.name}}</label>
-                  </li>
+                <ul>
+                  <li class="chip">Javascript</li>
+                  <li class="chip">Python</li>
+                  <li class="chip">Linux Admin</li>
+                  <li class="chip">C</li>
                 </ul>
               </div>
             </div>
+            <div class="col m4 left-col">
+              <div class="info-location">
+                <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
+                <div *ngIf="project.remoteFlag !== 'Y'">
+                  <p>
+                    Location: 
+                    <span class="state" *ngIf="project.state">>{{project.state}}, </span>
+                    <span class="state">{{project.country}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col m4 right-col">
+              <div class="info-contact">
+                Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
+              </div>
+            </div>
+            <div class="col m12">
+              <p>Description</p>
+              <div class="info-description">
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-    <div class="col m8 s12" id="right-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="projects">
-          <div class="row">
-            <h4 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h4>
-            <div class="list-item-group col s12">
+    <div class="col m3" id="right-col">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="section" *ngIf="organization">
+            <h4><a [href]="organization.websiteUrl" target="_blank">{{organization.name}}</a></h4>
+            <div class="section-body row">
+              <div class="col m12">
+                <div class="info-avatar"><img [src]="organization.logoUrl"></div>
+              </div>
+              <div class="col m12">
+                <p class="description">{{organization.description}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="section sub" *ngIf="projects">
+            <h4>Opportunities</h4>
+            <div class="section-body">
               <div class="items-list-wrapper">
-                <ul class="card-list" *ngIf="projects">
-                  <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                <ul>
+                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0, 5)">
                     <div class="card">
+                      <div class="card-header">
+                        <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                      </div>
                       <div class="card-content">
-                        <div class="card-avatar-wrapper"><div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl" *ngIf="project.imageUrl"></div></div>
-                        <div class="card-info">
-                          <div class="card-info-wrapper">
-                            <div class="card-header">
-                              <div class='project-name'>
-                                <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
-                              </div>
-                              <div class="row info-row">
-                                <div class="org-name col m6">
-                                  <p [routerLink]="['/nonprofit/view/', project.organizationId]">{{ project.organizationName }}</p>
-                                </div> 
-                                <div class="card-metainfo col m6">
-                                  <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
-                                  <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
-                                </div>
-                              </div>
-                              <hr>                            
-                            </div>                      
+                        <div class="info-avatar"><img [src]="project.imageUrl"></div>
+                        <div class="row single-info">
+                          <div class="col m12">
                             <div class="skills-list-wrapper">
                               <ul>
-                                <li class="chip"><span>Javascript</span></li>
                                 <li class="chip">Python</li>
-                                <li class="chip">Linux Admin</li>
                                 <li class="chip">C</li>
                               </ul>
                             </div>
-                            <div class="discription-wrapper">
-                              <p class="description">{{ project.description }}<a [routerLink]="['/project/view',project.id]">&nbsp;(Learn more)</a></p>
-                            </div>
                           </div>
-                          
                         </div>
+                        <p *ngIf="pr.description">{{ pr.description }}</p>
                       </div>
                     </div>
                   </li>
@@ -87,13 +101,9 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="pagination">
-              <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

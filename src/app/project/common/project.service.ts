@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
+
 @Injectable()
 export class ProjectService {
 
@@ -22,7 +23,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  getActiveProjects(): Observable<Project> {
+  getActiveProjects(): Observable<Project[]> {
 
     const url = projectUrl + '/search';
 
@@ -48,7 +49,7 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  searchProjects(keyword?: string, skills?: string[]): Observable<Project[]> {
+  searchProjects(keyword?: string, skills?: string[], status?: string, remote?: string): Observable<Project[]> {
     const params = new URLSearchParams();
 
     if (keyword) {
@@ -59,6 +60,14 @@ export class ProjectService {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
       }
+    }
+
+    if (status) {
+      params.append('status', status);
+    }
+
+    if (remote) {
+      params.append('remote', remote);
     }
 
     return this.http

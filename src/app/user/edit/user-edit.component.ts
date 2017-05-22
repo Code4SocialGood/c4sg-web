@@ -23,7 +23,7 @@ declare var Materialize: any;
 export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public countries: any[];
-  public user = this.initUser();
+  public user: User;
   public selectedUser: User;
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
@@ -59,7 +59,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.initForm();
 
     this.route.params.subscribe(params => {
-      this.user.avatar = '';
+      // this.user.avatar = '';
       this.userId = +params['userId'];
       this.currentUserId = this.auth.getCurrentUserId();
 
@@ -67,7 +67,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         .subscribe(
           res => {
           this.user = res;
-          this.initForm();
+          this.fillForm();
           }, error => console.log(error)
         );
 
@@ -94,6 +94,28 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
 
     this.userForm = this.fb.group({
+      'email': ['', []],
+      'userName': ['', []],
+      'firstName': ['', []],
+      'lastName': ['', []],
+      'state': ['', []],
+      'country': ['', []],
+      'phone': ['', []],
+      'title': ['', []],
+      'introduction': ['', []],
+      'linkedinUrl': ['', []],
+      'personalUrl': ['', []],
+      'githubUrl': ['', []],
+      'facebookUrl': ['', []],
+      'twitterUrl': ['', []],
+      'publishFlag': ['', []],
+      'notifyFlag': ['', []]
+    });
+  }
+
+  private fillForm(): void {
+
+    this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', []],
@@ -113,29 +135,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  private initUser(): any {
-    return {
-      'email': '',
-      'role': '',
-      'userName': '',
-      'firstName': '',
-      'lastName': '',
-      'state': '',
-      'country': '',
-      'phone': '',
-      'title': '',
-      'introduction': '',
-      'linkedinUrl': '',
-      'personalUrl': '',
-      'githubUrl': '',
-      'facebookUrl': '',
-      'twitterUrl': '',
-      'avatarUrl': '',
-      'publishFlag': '',
-      'notifyFlag': ''
-    };
-  }
-
   onUploadAvatar(fileInput: any): void {
     this.imageUploader.uploadImage(fileInput,
        this.user.id,
@@ -146,7 +145,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         err => { console.error(err, 'An error occurred'); } );
   }
 
-  onSubmit(event): void {
+  onSubmit(updatedData: any, event): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.user.userName = this.userForm.value.userName;
     this.user.firstName = this.userForm.value.firstName;
     this.user.lastName = this.userForm.value.lastName;

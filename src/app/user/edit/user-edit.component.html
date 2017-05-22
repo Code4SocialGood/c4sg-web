@@ -3,7 +3,7 @@
     <div class="col s12 right-col" id="left-col">
       <div class="content-wrapper">
         <div class="content"> 
-          <form [formGroup]="userForm" (ngSubmit)="onSubmit($event)">        
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value, $event)">        
             <div class="row">
               <h1 class="main-title">My Account</h1>
             </div>

@@ -26,7 +26,7 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
-  getUserOrganization(id: number): Observable<Organization> {
+  getUserOrganization(id: number): Observable<Organization[]> {
     return this.http
                .get(`${organizationUrl}/user/${id}`)
                .map(res => res.json());
