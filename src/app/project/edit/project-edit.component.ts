@@ -16,6 +16,7 @@ import { MaterializeAction } from 'angular2-materialize';
 export class ProjectEditComponent implements OnInit {
   public countries: any[];
   public project: Project;
+  public projectId;
   public projectImageUrl = '../../../assets/default_image.png';
   public projectForm: FormGroup;
   public editFlag = false;
@@ -33,14 +34,16 @@ export class ProjectEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getFormConstants();
     this.initForm();
 
     this.route.params.subscribe(params => {
+      this.projectId = params['projectId'];
+    });
 
-      const id = params['projectId'];
-
-      this.projectService.getProject(id)
+    if (this.projectId !== 0) { // Edit Project
+      this.projectService.getProject(this.projectId)
         .subscribe(
           res => {
             this.project = res;
@@ -48,30 +51,28 @@ export class ProjectEditComponent implements OnInit {
           }, error => console.log(error)
         );
 
-      this.projectService.retrieveImage(id)
+      this.projectService.retrieveImage(this.projectId)
         .subscribe(
           res => {
           }, error => console.log(error)
         );
 
-      this.skillService.getSkillsByProject(id)
+      this.skillService.getSkillsByProject(this.projectId)
         .subscribe(
           res => {
             this.projectSkillsArray = res;
           }, error => console.log(error)
         );
+    }
 
-      this.skillService.getSkills()
-        .subscribe(
-          res => {
-            res.map((obj) => {
-              this.skillsArray.push(obj.skillName);
-            });
-            console.log(this.skillsArray);
-          }, error => console.log(error)
-        );
-
-    });
+    this.skillService.getSkills()
+      .subscribe(
+        res => {
+          res.map((obj) => {
+            this.skillsArray.push(obj.skillName);
+          });
+        }, error => console.log(error)
+      );
   }
 
   private getFormConstants(): void {
@@ -84,7 +85,7 @@ export class ProjectEditComponent implements OnInit {
       'projectName': ['', []],
       'organizationName': ['', []],
       'projectDescription': ['', []],
-      'remoteFlag': ['', [Validators.required]],
+      'remoteFlag': ['Y', []],
       'city': ['', []],
       'state': ['', []],
       'country': ['', []]
