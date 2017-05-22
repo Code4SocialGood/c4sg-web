@@ -1,12 +1,12 @@
 <div class="container">
   <h3 class="center-align">My Organization</h3>
   <div class="row">
-    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()" class="col s12">
+    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit(organizationForm.value, $event)" class="col s12">
       <div class="row">
 
         <div class="col m4 s12">
 
-          <img [src]="organization.logo" alt="Organization Logo" class="responsive-img" *ngIf="organization.logo"/>
+          <img [src]="organization.logoUrl" class="responsive-img" *ngIf="organization.logoUrl"/>
 
           <br>
           <div class="file-field input-field">
@@ -28,8 +28,8 @@
 
           <div class="input-field">
             <label for="website">Website</label>
-            <input type="url" id="website" class="" formControlName="websiteURL">
-            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.websiteURL.invalid && organizationForm.controls.websiteURL.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.websiteURL.value)">
+            <input type="url" id="website" class="" formControlName="websiteUrl">
+            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.websiteUrl.invalid && organizationForm.controls.websiteUrl.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.websiteUrl.value)">
               <h6 class="red-text darken-4">Starts with "http://" or "https://"</h6>
             </div>
           </div>

@@ -22,10 +22,9 @@ import {OrganizationListComponent} from './organization/list/organization-list.c
 import {OrganizationViewComponent} from './organization/view/organization-view.component';
 import {OrganizationEditComponent} from './organization/edit/organization-edit.component';
 
-import {UserAccountComponent} from './user/account/user-account.component';
-import {UserProfileComponent} from './user/profile/user-profile.component';
 import {UserListComponent} from './user/list/user-list.component';
 import {UserViewComponent} from './user/view/user-view.component';
+import {UserEditComponent} from './user/edit/user-edit.component';
 
 import {SkillComponent} from './skill/common/components/skill/skill.component';
 
@@ -73,8 +72,7 @@ import {SkillService} from './skill/common/skill.service';
 
     UserListComponent,
     UserViewComponent,
-    UserAccountComponent,
-    UserProfileComponent,
+    UserEditComponent,
 
     AuthRoleSelectionComponent,
 

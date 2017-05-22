@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
+import { MaterializeAction } from 'angular2-materialize';
 
 @Component({
   selector: 'my-edit-project',
@@ -15,12 +16,14 @@ import { SkillService } from '../../skill/common/skill.service';
 export class ProjectEditComponent implements OnInit {
   public countries: any[];
   public project: Project;
-  public projectImageUrl = '../../../assets/default_avatar.png';
+  public projectImageUrl = '../../../assets/default_image.png';
   public projectForm: FormGroup;
   public editFlag = false;
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
+  public globalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -41,7 +44,6 @@ export class ProjectEditComponent implements OnInit {
         .subscribe(
           res => {
             this.project = res;
-            console.log(res);
             this.fillForm();
           }, error => console.log(error)
         );
@@ -56,7 +58,6 @@ export class ProjectEditComponent implements OnInit {
         .subscribe(
           res => {
             this.projectSkillsArray = res;
-            console.log(this.projectSkillsArray);
           }, error => console.log(error)
         );
 
@@ -80,16 +81,13 @@ export class ProjectEditComponent implements OnInit {
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': ['', [Validators.required]],
-      'organizationName': ['', [Validators.required]],
-      'projectDescription': ['', [Validators.required]],
+      'projectName': ['', []],
+      'organizationName': ['', []],
+      'projectDescription': ['', []],
       'remoteFlag': ['', [Validators.required]],
-      'address1': ['', [Validators.required]],
-      'address2': ['', [Validators.required]],
-      'city': ['', [Validators.required]],
-      'state': ['', [Validators.required]],
-      'zip': ['', [Validators.required]],
-      'country': ['', [Validators.required]]
+      'city': ['', []],
+      'state': ['', []],
+      'country': ['', []]
     });
   }
 
@@ -97,15 +95,12 @@ export class ProjectEditComponent implements OnInit {
 
     this.projectForm = this.fb.group({
       'projectName': [this.project.name || '', [Validators.required]],
-      'organizationName': [this.project.organization.name || '', [Validators.required]],
-      'projectDescription': [this.project.description || '', [Validators.required]],
+      'organizationName': [this.project.organizationName || '', []],
+      'projectDescription': [this.project.description || '', []],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
-      'address1': [this.project.address1 || '', [Validators.required]],
-      'address2': [this.project.address2 || '', [Validators.required]],
-      'city': [this.project.city || '', [Validators.required]],
-      'state': [this.project.state || '', [Validators.required]],
-      'zip': [this.project.zip || '', [Validators.required]],
-      'country': [this.project.country || '', [Validators.required]]
+      'city': [this.project.city || '', []],
+      'state': [this.project.state || '', []],
+      'country': [this.project.country || '', []]
     });
   }
 
@@ -123,24 +118,20 @@ export class ProjectEditComponent implements OnInit {
 
     this.project.name = updatedData.projectName;
     this.project.description = updatedData.projectDescription;
-    this.project.city = updatedData.city;
-    this.project.country = updatedData.country;
-    this.project.zip = updatedData.zip;
-    this.project.organization.name = updatedData.organizationName;
-    this.project.address1 = updatedData.address1;
-    this.project.address2 = updatedData.address2;
-    this.project.state = updatedData.state;
     this.project.remoteFlag = updatedData.remoteFlag;
+    this.project.city = updatedData.city;
+    this.project.state = updatedData.state;
+    this.project.country = updatedData.country;
 
     this.projectService.update(this.project).subscribe(
       res => {
-        console.log('Project data was successfully updated');
+        this.globalActions.emit('toast');
       }, error => console.log(error)
     );
 
     this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
       res => {
-        console.log('Project skills were successfully updated');
+        this.globalActions.emit('toast');
       }, error => console.log(error)
     );
   }

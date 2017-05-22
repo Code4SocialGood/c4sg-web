@@ -22,7 +22,7 @@ declare var Materialize: any;
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: { [key: string]: any };
   public countries: any[];
-  public organization = this.initOrganization();
+  public organization: Organization;
   public organizationForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public descMaxLength = 255;
@@ -31,7 +31,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public logoValid = true;
   private logoData: ImageReaderResponse;
-  private defaultAvatar = '../../../assets/default_avatar.png';
+  private defaultAvatar = '../../../assets/default_image.png';
 
   currentUserId: String;
   authSvc: AuthService;
@@ -62,7 +62,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.route.params.subscribe(params => {
 
       this.getFormConstants();
-      this.organization.logo = '';
+      // this.organization.logo = '';
       this.initForm();
 
       this.organizationId = +params['organizationId'];
@@ -70,7 +70,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
-        this.organization.logo = this.defaultAvatar;
+        // this.organization.logo = this.defaultAvatar;
       }
 
       if (this.organizationId !== 0) { // organization has been created already
@@ -85,8 +85,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             const logoText = res.text();
             const logoBase64 = `data:image/png;base64, ${logoText}`;
 
-            this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
-            this.initForm();
+            // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
+            this.fillForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
       }
@@ -108,8 +108,28 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   private initForm(): void {
     this.organizationForm = this.fb.group({
+      'name': ['', []],
+      'websiteUrl': ['', []],
+      'contactEmail': ['', []],
+      'contactName': ['', []],
+      'contactPhone': ['', []],
+      'contactTitle': ['', []],
+      'ein': ['', []],
+      'category': ['', []],
+      'address1': ['', []],
+      'address2': ['', []],
+      'city': ['', []],
+      'state': ['', []],
+      'country': ['', []],
+      'zip': ['', []],
+      'description': ['', []]
+    });
+  }
+
+  private fillForm(): void {
+    this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteURL': [this.organization.websiteURL || '', [Validators.pattern(this.urlValidRegEx)]],
+      'websiteUrl': [this.organization.websiteUrl || '', [Validators.pattern(this.urlValidRegEx)]],
       'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
       'contactName': [this.organization.contactName || '', []],
       'contactPhone': [this.organization.contactPhone || '', []],
@@ -122,8 +142,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'state': [this.organization.state || '', []],
       'country': [this.organization.country || '', []],
       'zip': [this.organization.zip || '', [Validators.pattern(this.zipValidRegEx)]],
-      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]
-      ],
+      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
   }
 
@@ -145,37 +164,15 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onSubmit(): void {
-    if (this.organizationId === 0) { // organization hasn't been created by the nonprofit user
-      // New organization, create the organization
+  onSubmit(updatedData: any, event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
-    } else {
-      // Existing organization, update the organization
+    } else { // Existing organization, update the organization
       this.updateOrganization();
     }
-  }
-
-  // initialize organization with blank values
-  private initOrganization(): any {
-    return {
-      'logo': '',
-      'name': '',
-      'websiteURL': '',
-      'contactEmail': '',
-      'contactName': '',
-      'contactPhone': '',
-      'contactTitle': '',
-      'ein': '',
-      'category': '',
-      'address1': '',
-      'address2': '',
-      'city': '',
-      'state': '',
-      'country': '',
-      'zip': '',
-      'briefDescription': '',
-      'detailedDescription': ''
-    };
   }
 
   private createOrganization(): void {
@@ -203,29 +200,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       })
       .subscribe(res => {
         // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/nonprofit/view/' + this.organization.id]);
+        this.router.navigate(['/organization/view/' + this.organization.id]);
       });
-  }
-
-  private readLogo(fileInput: any): void {
-    this.imageUploader
-      .readImage(fileInput)
-      .subscribe(res => {
-        this.organization.logo = res.base64Image;
-        this.logoData = res;
-      });
-  }
-
-  private saveLogo(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-      this.organizationId,
-      this.organizationService.saveLogo.bind(this.organizationService))
-      .subscribe(res => {
-        if (res.url) {
-          this.organization.logo = res.url;
-        }
-      },
-      err => { console.error(err, 'An error occurred'); });
   }
 
   private updateOrganization(): void {
@@ -237,5 +213,26 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
       });
+  }
+
+  private readLogo(fileInput: any): void {
+    this.imageUploader
+      .readImage(fileInput)
+      .subscribe(res => {
+        this.organization.logoUrl = res.base64Image;
+        this.logoData = res;
+      });
+  }
+
+  private saveLogo(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+      this.organizationId,
+      this.organizationService.saveLogo.bind(this.organizationService))
+      .subscribe(res => {
+        if (res.url) {
+          this.organization.logoUrl = res.url;
+        }
+      },
+      err => { console.error(err, 'An error occurred'); });
   }
 }
