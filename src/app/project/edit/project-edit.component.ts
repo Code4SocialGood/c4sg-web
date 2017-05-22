@@ -42,7 +42,7 @@ export class ProjectEditComponent implements OnInit {
       this.projectId = params['projectId'];
     });
 
-    if (this.projectId != 0) { // Edit Project
+    if (this.projectId !== 0) { // Edit Project
       this.projectService.getProject(this.projectId)
         .subscribe(
           res => {

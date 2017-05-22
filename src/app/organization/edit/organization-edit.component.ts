@@ -62,7 +62,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
         // this.organization.logo = this.defaultAvatar;
-      } 
+      }
         this.organizationService.getOrganization(this.organizationId)
           .subscribe(
             res => {
@@ -76,7 +76,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             res => {
             }, error => console.log(error)
           );
-      
+
       /*
       if (this.organizationId !== 0) { // organization has been created already
         this.organizationService.getOrganization(this.organizationId).toPromise()

@@ -29,14 +29,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
-<<<<<<< HEAD
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
   temp: any[];
-
-=======
-  temp: any[];
->>>>>>> upstream/master
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -102,7 +97,7 @@ constructor(private projectService: ProjectService,
         error => console.log(error));
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
         res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));    
+        error => console.log(error));
     } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
