@@ -2,14 +2,14 @@
   <div class="row main-row">
     <div class="col s12 right-col" id="left-col">
       <div class="content-wrapper">
-        <div class="content"> 
-          <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value, $event)">        
+        <div class="content">
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value, $event)">
             <div class="row">
               <h1 class="main-title">My Account</h1>
             </div>
             <div class="row single-info">
               <div class="col m4">
-                <div class="avatar"><img class="responsive-img" id="responsive-img" [src]="user.avatarUrl"></div>
+                <div class="avatar"><img class="responsive-img" id="responsive-img" [src]="avatar"></div>
                 <div class="input-field file-field">
                   <div class="btn">Upload</div>
                 </div>
@@ -60,6 +60,7 @@
                     </div>
                   </div>
                 </div>
+                <div *ngIf = "displayPhone">
                 <div class="row">
                   <div class="col s12 m6">
                     <div class="input-field">
@@ -67,10 +68,12 @@
                       <input id="phone" formControlName="phone" type="text">
                     </div>
                   </div>
-                </div> 
-              </div> 
+                </div>
+                </div>
+              </div>
             </div>
 
+            <div *ngIf ="displayProfile">
             <div class="row">
               <h1 class="main-title">My Profile</h1>
             </div>
@@ -135,24 +138,24 @@
                         <div class="btn col m3">
                           <span>Upload</span>
                           <input type="file">
-                        </div>     
-                         </div>                    
+                        </div>
+                         </div>
                       </div>
                     </div>
                   </div>
-                </div>  
+                </div>
                 <div class="row group-wrapper">
                   <div class="col m6">
-                    <input id="publishFlag" type="checkbox" formControlName="publishFlag">
+                    <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked] = "checkPublish">
                     <label for="publishFlag">Publish my profile</label>
                   </div>
                   <div class="col m6">
-                    <input id="notifyFlag" type="checkbox" formControlName="notifyFlag">
+                    <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked] = "checkNotify">
                     <label for="notifyFlag">Notify me for opportunities match my skills</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col m12"> 
+                  <div class="col m12">
                     <div class="footer-btns center">
                       <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
                         Save
@@ -164,7 +167,8 @@
                   </div>
                 </div>
               </div>
-            </div>            
+            </div>
+              </div>
           </form> <!--
           <div class="modal" id="modal1" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
             <div class="modal-content">
