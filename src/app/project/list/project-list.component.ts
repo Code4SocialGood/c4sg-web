@@ -4,7 +4,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 
 import {Project} from '../common/project';
-import {Skill} from '../common/skill';
 import {ProjectService} from '../common/project.service';
 import {AuthService} from '../../auth.service';
 import {OrganizationService} from '../../organization/common/organization.service';
