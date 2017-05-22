@@ -1,14 +1,15 @@
+
 <div class="container">
   <div class="row main-row">
     <div class="content" *ngIf="project">
       <h1 class="main-title">{{project.name}}</h1>
     </div>
-    <div class="col m3 s12" id="left-col">
+    <div class="col s3" id="left-col">
       <div class="info-avatar" *ngIf="project">
         <img [src]="project.imageUrl"> 
       </div>
     </div>
-    <div class="col m6 s12" id="left-col">
+    <div class="col s6" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
           <div class="row">

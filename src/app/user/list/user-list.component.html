@@ -65,11 +65,13 @@
                         </div>
                         <div class="card-info">
                           <h5>{{user.title}}</h5>
-                          <div class="skills-list-wrapper">  
-                          <ul *ngIf="user.skills">
-                            <li class="chip" *ngFor="let skill of user.skills">{{ skill }}
-                            </li>
-                          </ul>
+                          <div class="skills-list-wrapper">
+                            <ul>
+                              <li class="chip">Javascript</li>
+                              <li class="chip">Python</li>
+                              <li class="chip">Linux Admin</li>
+                              <li class="chip">C</li>
+                            </ul>
                           </div>
                           {{user.introduction}}
                         </div>

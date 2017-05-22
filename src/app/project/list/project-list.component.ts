@@ -29,9 +29,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
-  bookmarkedProjects: Project[];
-  appliedProjects: Project[];
-  temp: any[];
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -39,11 +36,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
-  projId: number;
   from: string;
+  userProjectStatus = 'A';
   skills: any[];
 
-constructor(private projectService: ProjectService,
+  constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
@@ -52,7 +49,6 @@ constructor(private projectService: ProjectService,
               private skillService: SkillService,
               private idService: ImageDisplayService) {
   }
-
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -87,18 +83,17 @@ constructor(private projectService: ProjectService,
   }
 
   getProjects(): void {
+
     if (this.from === 'opportunities') {
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
         error => console.log(error));
-    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
-        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+
+    } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
+        res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
-        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
+    } else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
@@ -136,12 +131,7 @@ constructor(private projectService: ProjectService,
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
                 e.image = image.url;
-                });
-
-              this.skillService.getSkillsByProject(e.id).subscribe(
-                result => {
-                     e.skills = result;
-                      });
+              });
           });
         },
         error => console.log(error)

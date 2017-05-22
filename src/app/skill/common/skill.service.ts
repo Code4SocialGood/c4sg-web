@@ -26,13 +26,6 @@ export class SkillService {
       .catch(this.handleError);
   }
 
-  getSkillsForUser(id: number): Observable<any> {
-    const url = skillUrl + '/user?id=' + id;
-    return this.http.get(url)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
   updateSkills(projectSkillsArray, id) {
     const params: URLSearchParams = new URLSearchParams();
     params.set('id', id);
