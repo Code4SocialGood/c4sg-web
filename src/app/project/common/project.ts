@@ -1,5 +1,4 @@
 export class Project {
-  
   constructor(
     public id: number,
     public name: string,
@@ -17,7 +16,7 @@ export class Project {
     public state?: string,
     public createdTime?: any,
     public updatedTime?: any,
-    public remoteFlag?: string, 
+    public remoteFlag?: string,
     public skills?: string[]
   ) { }
 }
