@@ -8,6 +8,7 @@ import { UserService } from '../common/user.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 import { AuthService } from '../../auth.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 
 declare var Materialize: any;
@@ -33,6 +34,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public displayProfile = false;
   public checkPublish = false;
   public checkNotify = false;
+  public editFlag = false;
+  public projectSkillsArray: string[] = [];
+  public skillsArray: string[] = [];
+  public inputValue = '';
   private defaultAvatar = '../../../assets/default_image.png';
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
@@ -51,7 +56,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private imageUploader: ImageUploaderService
+    private imageUploader: ImageUploaderService,
+    private skillService: SkillService
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +80,23 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           this.fillForm();
           }, error => console.log(error)
         );
+      this.skillService.getSkillsForUser(this.userId)
+        .subscribe(
+          res => {
+            this.projectSkillsArray = res;
+          }, error => console.log(error)
+        );
+
+      this.skillService.getSkills()
+        .subscribe(
+          res => {
+            res.map((obj) => {
+              this.skillsArray.push(obj.skillName);
+            });
+            console.log(this.skillsArray);
+          }, error => console.log(error)
+        );
+
 
       // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
       // return this.userService.retrieveLogo(this.organizationId).toPromise();
@@ -164,6 +187,33 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.checkNotify = true;
     }
    }
+
+  onEditSkills() {
+    this.editFlag = !this.editFlag;
+  }
+
+  onDeleteSkill(skillToDelete) {
+    this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
+      return projectSkill !== skillToDelete;
+    });
+    console.log(this.projectSkillsArray);
+  }
+
+  onAddListedSkill(optionValue) {
+    console.log(optionValue.target.value);
+    this.projectSkillsArray.push(optionValue.target.value);
+    console.log(this.projectSkillsArray);
+  }
+
+
+  onAddOwnSkill(inputSkill) {
+    console.log(inputSkill.value);
+    if (inputSkill.value && inputSkill.value.trim()) {
+      this.projectSkillsArray.push(inputSkill.value);
+      this.inputValue = '';
+      console.log(this.projectSkillsArray);
+    }
+  }
 
 
   onSubmit(updatedData: any, event): void {
