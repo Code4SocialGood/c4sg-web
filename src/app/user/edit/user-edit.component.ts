@@ -93,7 +93,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             res.map((obj) => {
               this.skillsArray.push(obj.skillName);
             });
-            console.log(this.skillsArray);
           }, error => console.log(error)
         );
 
