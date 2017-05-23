@@ -51,7 +51,8 @@
                   <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
                       <div class="card-header">
-                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
+                        <h4 *ngIf="!auth.authenticated()" (click)="auth.login()">{{project.name}}</h4>
+                        <h4 *ngIf="auth.authenticated()" [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
                         <div class="card-metainfo">
                           <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
                           <span class="state" *ngIf="project.remoteFlag !== 'Y'">

@@ -47,7 +47,7 @@ constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
-              private auth: AuthService,
+              public auth: AuthService,
               private route: ActivatedRoute,
               private skillService: SkillService,
               private idService: ImageDisplayService) {
