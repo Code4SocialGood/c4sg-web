@@ -29,7 +29,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public organization: Organization;
   public organizationForm: FormGroup;
   currentUserId: String;
-  authSvc: AuthService;
 
   public loadedFile: any;
   public logoValid = true;

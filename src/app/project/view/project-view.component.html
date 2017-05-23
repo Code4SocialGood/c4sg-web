@@ -12,7 +12,8 @@
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
           <div class="row">
-            <a class="btn" *ngIf="displayApply" (click)="apply()">Apply</a>
+            <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
+            <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
             <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
             <a class="btn" *ngIf="displayShare" >Share</a>
             <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>

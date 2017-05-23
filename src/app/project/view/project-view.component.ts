@@ -29,6 +29,7 @@ export class ProjectViewComponent implements OnInit {
   projectImage: any = '';
   orgImage: any = '';
   userProjectStatus: string;
+  auth: AuthService;
 
   displayShare = true;
   displayApply = false;
@@ -40,12 +41,15 @@ export class ProjectViewComponent implements OnInit {
               private organizationService: OrganizationService,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService,
+              public authService: AuthService,
               private location: Location,
               private imageDisplay: ImageDisplayService) {
   }
 
   ngOnInit(): void {
+
+    this.auth = this.authService;
+
     this.route.params.subscribe(params => {
       const id = params['projectId'];
 
