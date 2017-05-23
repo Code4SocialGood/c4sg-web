@@ -105,6 +105,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     }
 
+    if(this.filterForm.value.keyword != null && skillsParam.length >0){
     this.usersSubscription = this.userService.searchUsers(
       page,
       this.filterForm.value.keyword,
@@ -116,17 +117,22 @@ export class UserListComponent implements OnInit, OnDestroy {
         // and the total number of data rows
         this.users = res;
         this.totalItems = res.length;
-          res.forEach((e: User) => {
-            this.skillService.getSkillsForUser(e.id).subscribe(
-                result => {
-                    // e.skills = result;
-                    // console.log(e.skills);
-                       });
-                 });
-
       },
       error => console.error(error)
       );
+  }else{
+  this.usersSubscription = this.userService.getAllUsers(     
+    ).subscribe(
+      res => {
+        // the called service returns a JSON object
+        // consist of the array of pageable data
+        // and the total number of data rows
+        this.users = res;
+        this.totalItems = res.length;
+      },
+      error => console.error(error)
+      );
+  }
   }
 
   // selection callback
