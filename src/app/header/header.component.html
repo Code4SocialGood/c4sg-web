@@ -2,9 +2,9 @@
 <nav [class.at-home]="isAtHome()">
   <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
-      <li><a routerLink="/project/list/opportunities" routerLinkActive="active">Opportunities</a></li>
-      <li><a routerLink="/user/list" routerLinkActive="active">Volunteers</a></li>
-      <li><a routerLink="/organization/list/organizations" routerLinkActive="active">Organizations</a></li>
+      <li><a (click)="loadOpportunities()" routerLinkActive="active">Opportunities</a></li>
+      <li><a (click)="loadVolunteers()" routerLinkActive="active">Volunteers</a></li>
+      <li><a (click)="loadOrganizations()" routerLinkActive="active">Organizations</a></li>
       <li><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">Community<i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content" id="dropdowncommunity">
           <li><a target="_blank" href="http://join-our-slack.code4socialgood.org/">Chat</a></li>
