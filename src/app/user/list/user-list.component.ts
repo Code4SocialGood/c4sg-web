@@ -116,6 +116,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         // and the total number of data rows
         this.users = res;
         this.totalItems = res.length;
+          res.forEach((e: User) => {
+            this.skillService.getSkillsForUser(e.id).subscribe(
+                result => {
+                    e.skills = result;
+                    console.log(e.skills);
+                       });
+                 });
+
       },
       error => console.error(error)
       );
