@@ -6,6 +6,7 @@ import { ProjectService} from '../../project/common/project.service';
 import { UserService } from '../../user/common/user.service';
 import { AuthService } from '../../auth.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { Project } from '../../project/common/project';
 import { User } from '../../user/common/user';
 import { Organization } from '../../organization/common/organization';
@@ -35,6 +36,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private projectService: ProjectService,
     private userService: UserService,
     private authService: AuthService,
+    private skillService: SkillService,
     private route: ActivatedRoute,
     private router: Router,
     private imageDisplay: ImageDisplayService) {
@@ -118,6 +120,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
           if (project.description && project.description.length > 100) {
             project.description = project.description.slice(0, 100) + '...';
           }
+           this.skillService.getSkillsByProject(project.id).subscribe(
+                result => {
+                     project.skills = result;
+                      });
         });
       },
       error => console.log(error)

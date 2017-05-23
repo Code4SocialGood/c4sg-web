@@ -29,6 +29,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   });
   p = 0;
   projects: Project[];
+  bookmarkedProjects: Project[];
+  appliedProjects: Project[];
+  temp: any[];
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -36,19 +39,20 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
+  projId: number;
   from: string;
-  userProjectStatus = 'A';
   skills: any[];
 
-  constructor(private projectService: ProjectService,
+constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
-              private auth: AuthService,
+              public auth: AuthService,
               private route: ActivatedRoute,
               private skillService: SkillService,
               private idService: ImageDisplayService) {
   }
+
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -83,17 +87,20 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   }
 
   getProjects(): void {
-
+    // Issue#300 - resetting form before reloading page to display all items
+    this.filterForm.reset();
     if (this.from === 'opportunities') {
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
         res => this.projects = res,
         error => console.log(error));
-
-    } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
-        res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
+        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
-    } else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
+        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+        error => console.log(error));
+    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
@@ -131,7 +138,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
                 e.image = image.url;
-              });
+                });
+
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                result => {
+                     e.skills = result;
+                      });
           });
         },
         error => console.log(error)

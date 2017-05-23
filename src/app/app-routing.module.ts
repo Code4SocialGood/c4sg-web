@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'project/delete/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
 
-  {path: 'organization/list', component: OrganizationListComponent},
+  {path: 'organization/list/:from', component: OrganizationListComponent},
   {path: 'organization/view/:organizationId', component: OrganizationViewComponent},
   {path: 'organization/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},

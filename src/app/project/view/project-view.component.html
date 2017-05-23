@@ -1,19 +1,19 @@
-
 <div class="container">
   <div class="row main-row">
     <div class="content" *ngIf="project">
       <h1 class="main-title">{{project.name}}</h1>
     </div>
-    <div class="col s3" id="left-col">
+    <div class="col m3 s12" id="left-col">
       <div class="info-avatar" *ngIf="project">
         <img [src]="project.imageUrl"> 
       </div>
     </div>
-    <div class="col s6" id="left-col">
+    <div class="col m6 s12" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
           <div class="row">
-            <a class="btn" *ngIf="displayApply" (click)="apply()">Apply</a>
+            <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
+            <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
             <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
             <a class="btn" *ngIf="displayShare" >Share</a>
             <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>

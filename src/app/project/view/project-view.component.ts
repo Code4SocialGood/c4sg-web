@@ -28,6 +28,8 @@ export class ProjectViewComponent implements OnInit {
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
   orgImage: any = '';
+  userProjectStatus: string;
+  auth: AuthService;
 
   displayShare = true;
   displayApply = false;
@@ -39,12 +41,15 @@ export class ProjectViewComponent implements OnInit {
               private organizationService: OrganizationService,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService,
+              public authService: AuthService,
               private location: Location,
               private imageDisplay: ImageDisplayService) {
   }
 
   ngOnInit(): void {
+
+    this.auth = this.authService;
+
     this.route.params.subscribe(params => {
       const id = params['projectId'];
 
@@ -126,15 +131,35 @@ export class ProjectViewComponent implements OnInit {
   }
 
   apply(): void {
-    // TODO
+    this.userProjectStatus = 'A';
+    this.currentUserId = this.authService.getCurrentUserId();
+    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+        this.projectService
+            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
+            .subscribe(
+                response => {
+                    // display toast
+                    this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
+
+                },
+                error => {
+                    // display toast when bookmar is already added
+                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
+                }
+            );
+    } else {
+        // display toast when user is not logged in
+        this.globalActions.emit({action: 'toast', params: ['Please login to apply', 4000]});
+    }
   }
 
   bookmark(): void {
     // check if user is logged in
+    this.userProjectStatus = 'B';
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
-            .bookmark(this.project.id, this.currentUserId)
+            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
             .subscribe(
                 response => {
                     // display toast
