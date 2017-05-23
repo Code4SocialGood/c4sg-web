@@ -119,8 +119,8 @@ export class UserListComponent implements OnInit, OnDestroy {
           res.forEach((e: User) => {
             this.skillService.getSkillsForUser(e.id).subscribe(
                 result => {
-                    e.skills = result;
-                    console.log(e.skills);
+                    // e.skills = result;
+                    // console.log(e.skills);
                        });
                  });
 
