@@ -87,7 +87,7 @@ constructor(private projectService: ProjectService,
   }
 
   getProjects(): void {
-    //Issue#300 - resetting form before reloading page to display all items
+    // Issue#300 - resetting form before reloading page to display all items
     this.filterForm.reset();
     if (this.from === 'opportunities') {
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
