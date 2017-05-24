@@ -12,7 +12,7 @@
           <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
         </ul>
       </li>
-      <li *ngIf="authSvc.authenticated()"><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" href="#!" data-activates="dropdownproject">{{authSvc.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
+      <li *ngIf="authSvc.authenticated()"><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">{{authSvc.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content" id="dropdownproject">
           <li><a routerLink="/user/edit/{{currentUserId}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['organization/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
