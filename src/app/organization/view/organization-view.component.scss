@@ -1,6 +1,5 @@
 @import "../../variables";
 
-
 .sidebar .section .section-body {
   padding: 0px;
   border: none;
@@ -30,15 +29,10 @@
   }
 }
 
-
 .subtitle {
   font-style: italic;
 }
-.action-btns {
-  text-align: center;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
+
 .single-info {
   h4 {
     font-size: 1.15em;
@@ -55,7 +49,7 @@
 
   .info-avatar {
     text-align: center;
-    img { 
+    img {
       width: 100%;
     }
   }
@@ -64,7 +58,16 @@
     padding: 25px;
 
   }
-  
 }
 
+.content-wrapper, .sidebar-wrapper {
+  padding-top: 0;
+}
+
+//Unused styles
+//.action-btns {
+//  text-align: center;
+//  padding-top: 1em;
+//  padding-bottom: 1em;
+//}
 

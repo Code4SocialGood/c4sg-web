@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { OrganizationService } from '../common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
+import { ValidationService } from '../../_services/validation.service';
 import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 import { AuthService } from '../../auth.service';
 
@@ -22,35 +23,26 @@ declare var Materialize: any;
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: { [key: string]: any };
   public countries: any[];
+  public states: String[];
+
+  public organizationId;
   public organization: Organization;
   public organizationForm: FormGroup;
-  public formPlaceholder: { [key: string]: any } = {};
-  public descMaxLength = 255;
-  public states: String[];
+  currentUserId: String;
+
   public loadedFile: any;
-  public organizationId;
   public logoValid = true;
   private logoData: ImageReaderResponse;
   private defaultAvatar = '../../../assets/default_image.png';
 
-  currentUserId: String;
-  authSvc: AuthService;
-
-  // RegEx validators
-  private einValidRegEx = /^[1-9]\d?-\d{7}$/;
-  // tslint:disable-next-line:max-line-length
-  private emailValidRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  public httpValidRegEx = /^https?:\/\//;
-  // tslint:disable-next-line:max-line-length
-  private urlValidRegEx = /^(https?):\/\/([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)$/;
-  public zipValidRegEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+  public validHttp = true;
 
   constructor(
     public fb: FormBuilder,
     private organizationService: OrganizationService,
+    private validationService: ValidationService,
     private auth: AuthService,
     private fc: FormConstantsService,
-    private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
@@ -59,12 +51,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
 
+    this.getFormConstants();
+    this.initForm();
+
     this.route.params.subscribe(params => {
-
-      this.getFormConstants();
-      // this.organization.logo = '';
-      this.initForm();
-
       this.organizationId = +params['organizationId'];
       this.currentUserId = this.auth.getCurrentUserId();
 
@@ -72,7 +62,21 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       if (this.organizationId === 0) {
         // this.organization.logo = this.defaultAvatar;
       }
+        this.organizationService.getOrganization(this.organizationId)
+          .subscribe(
+            res => {
+              this.organization = res;
+              this.fillForm();
+            }, error => console.log(error)
+          );
 
+        this.organizationService.retrieveLogo(this.organizationId)
+          .subscribe(
+            res => {
+            }, error => console.log(error)
+          );
+
+      /*
       if (this.organizationId !== 0) { // organization has been created already
         this.organizationService.getOrganization(this.organizationId).toPromise()
           .then(res => {
@@ -84,12 +88,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           .then(res => {
             const logoText = res.text();
             const logoBase64 = `data:image/png;base64, ${logoText}`;
-
             // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
             this.fillForm();
           }, err => console.error('An error occurred', err)) // for demo purposes only
           .catch(err => console.error('An error occurred', err)); // for demo purposes only
-      }
+      }*/
     });
   }
 
@@ -110,10 +113,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organizationForm = this.fb.group({
       'name': ['', []],
       'websiteUrl': ['', []],
-      'contactEmail': ['', []],
-      'contactName': ['', []],
-      'contactPhone': ['', []],
-      'contactTitle': ['', []],
       'ein': ['', []],
       'category': ['', []],
       'address1': ['', []],
@@ -124,25 +123,22 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'zip': ['', []],
       'description': ['', []]
     });
+
   }
 
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', [Validators.pattern(this.urlValidRegEx)]],
-      // 'contactEmail': [this.organization.contactEmail || '', [Validators.pattern(this.emailValidRegEx)]],
-      // 'contactName': [this.organization.contactName || '', []],
-      // 'contactPhone': [this.organization.contactPhone || '', []],
-      // 'contactTitle': [this.organization.contactTitle || '', []],
-      'ein': [this.organization.ein || '', [Validators.pattern(this.einValidRegEx)]],
+      'websiteUrl': [this.organization.websiteUrl || '', []],
+      'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', []],
       'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
       'country': [this.organization.country || '', []],
-      'zip': [this.organization.zip || '', [Validators.pattern(this.zipValidRegEx)]],
-      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
+      'zip': [this.organization.zip || '', []],
+      'description': [this.organization.description || '', [Validators.maxLength(this.validationService.descMaxLength)]]
     });
   }
 
@@ -164,10 +160,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
+
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
-
+    this.validateForm();
     if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
     } else { // Existing organization, update the organization
@@ -207,9 +204,20 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private updateOrganization(): void {
     const formData = this.organizationForm.value;
     formData.id = this.organization.id;
+    this.organization.name = formData.name;
+    this.organization.websiteUrl = formData.websiteUrl;
+    this.organization.ein = formData.ein;
+    this.organization.category = formData.category;
+    this.organization.address1 = formData.address1;
+    this.organization.address2 = formData.address2;
+    this.organization.city = formData.city;
+    this.organization.state = formData.state;
+    this.organization.country = formData.country;
+    this.organization.zip = formData.zip;
+    this.organization.description = formData.description;
 
     this.organizationService
-      .updateOrganization(formData)
+      .updateOrganization(this.organization)
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
       });
@@ -234,5 +242,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         }
       },
       err => { console.error(err, 'An error occurred'); });
+  }
+
+  validateForm() {
+    this.validHttp = !this.organizationForm.controls.websiteUrl.invalid
+      && this.organizationForm.controls.websiteUrl.value.length > 4
+      && this.validationService.httpValidRegEx.test(this.organizationForm.controls.websiteUrl.value);
   }
 }

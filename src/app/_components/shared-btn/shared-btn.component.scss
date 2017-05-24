@@ -1,0 +1,26 @@
+.share-button-block {
+  position: relative;
+  width: 200px;
+  height: 36px;
+
+  .fixed-action-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    &.horizontal ul {
+      right: 120px;
+      li {
+        margin-top: 0;
+      }
+    }
+  }
+  .btn.share-btn {
+    padding: 0 1rem;
+  }
+  .btn-floating {
+    text-align: center;
+    &:hover {
+      background-color: #2bbbad;
+    }
+  }
+}

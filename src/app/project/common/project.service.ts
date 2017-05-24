@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
+
 @Injectable()
 export class ProjectService {
 
@@ -99,8 +100,8 @@ export class ProjectService {
   }
 
 
-  bookmark(projectId: number, userId: string) {
-    const url = projectUrl + '/bookmark/projects/' + projectId + '/users/' + userId;
+  linkUserProject(projectId: number, userId: string, status: string) {
+    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
     return this.http
       .post(url, {headers: this.headers})
       .catch(this.handleError);
