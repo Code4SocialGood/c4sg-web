@@ -13,7 +13,6 @@
       .card {
         box-shadow: none;
         margin-top: 0;
-
         .card-header {
           background-color: $sec-bg-color;
           h5 {
@@ -29,7 +28,6 @@
   }
 }
 
-
 .subtitle {
   font-style: italic;
 }
@@ -37,38 +35,7 @@
 .content {
   position: relative;
 }
-.more-details {
-  position: absolute;
-  top: 0;
-  right: 0;
-  line-height: 50px;
-  .details {
-    margin: 0;
-    font-size: 0.75em; 
-    font-weight: bold;
-    font-style: italic;
-    
-    span {
-      &:after {
-        content: '|';
-        margin-left: 0.5em;
-        margin-right: 0.5em;
 
-      }
-      &:last-child {
-        &:after {
-          content: none;
-        }
-      }
-     
-    }
-  }
-}
-.action-btns {
-  text-align: center;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
 .single-info {
   h4 {
     font-size: 1.15em;
@@ -77,19 +44,16 @@
   .left-col {
     border-right: solid $line-sep-width $line-sep-color;
   }
-
   .right-col {
     border-left: solid $line-sep-width $line-sep-color;
     margin-left: - $line-sep-width;
   }
-
   .info-avatar {
     text-align: center;
   }
   .info-description {
     border: solid $line-sep-width $line-sep-color;
     padding: 25px;
-
   }
 }
 
@@ -113,13 +77,6 @@
   }
 }
 
-.action-btns {
-  text-align: center;
-  .btn {
-    margin: 0.75em;
-  }
-}
-
 .section {
   padding-bottom: 0;
   .description {
@@ -128,6 +85,7 @@
     padding-right: 20px;
   }
 }
+
 .info-avatar {
   img {
     max-width: 100%;
@@ -139,5 +97,48 @@
     background-color: transparent;
     border-bottom-color: $navbar-fg-color;
   }
-    
 }
+
+.content-wrapper, .sidebar-wrapper {
+  padding-top: 0;
+}
+
+//Unused styles
+//.more-details {
+//  position: absolute;
+//  top: 0;
+//  right: 0;
+//  line-height: 50px;
+//  .details {
+//    margin: 0;
+//    font-size: 0.75em;
+//    font-weight: bold;
+//    font-style: italic;
+//
+//    span {
+//      &:after {
+//        content: '|';
+//        margin-left: 0.5em;
+//        margin-right: 0.5em;
+//
+//      }
+//      &:last-child {
+//        &:after {
+//          content: none;
+//        }
+//      }
+//
+//    }
+//  }
+//}
+//.action-btns {
+//  text-align: center;
+//  padding-top: 1em;
+//  padding-bottom: 1em;
+//}
+//.action-btns {
+//  text-align: center;
+//  .btn {
+//    margin: 0.75em;
+//  }
+//}
