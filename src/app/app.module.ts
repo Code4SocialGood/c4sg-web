@@ -42,6 +42,7 @@ import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
 import {SkillService} from './skill/common/skill.service';
+import { SharedBtnComponent } from './_components/shared-btn/shared-btn.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import {SkillService} from './skill/common/skill.service';
 
     MapViewerComponent,
     SkillComponent,
+    SharedBtnComponent,
   ],
   providers: [ProjectService,
     OrganizationService,
