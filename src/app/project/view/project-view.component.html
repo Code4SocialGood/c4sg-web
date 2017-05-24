@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row main-row">
     <div class="content" *ngIf="project">
@@ -5,19 +6,30 @@
     </div>
     <div class="col m3 s12" id="left-col">
       <div class="info-avatar" *ngIf="project">
-        <img [src]="project.imageUrl"> 
+        <img [src]="project.imageUrl">
       </div>
     </div>
     <div class="col m6 s12" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
           <div class="row">
-            <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
-            <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
-            <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-            <a class="btn" *ngIf="displayShare" >Share</a>
-            <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-            <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Close</a>
+            <div class="col s12">
+              <div class="row">
+                <div class="col s12">
+                  <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
+                  <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
+                  <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+                  <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+                  <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
+                     [materializeActions]="deleteGlobalActions">Close</a>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row single-info">
             <div class="col m12">
@@ -35,7 +47,7 @@
                 <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
                 <div *ngIf="project.remoteFlag !== 'Y'">
                   <p>
-                    Location: 
+                    Location:
                     <span class="state" *ngIf="project.state">>{{project.state}}, </span>
                     <span class="state">{{project.country}}</span>
                   </p>
