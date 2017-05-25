@@ -82,6 +82,8 @@ constructor(private projectService: ProjectService,
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
       if (value.keyword || value.skills.some(i => i)) {
         this.filterProjects();
+      } else {
+        this.getProjects();
       }
     });
   }
