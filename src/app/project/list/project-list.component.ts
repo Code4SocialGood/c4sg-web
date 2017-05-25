@@ -91,7 +91,15 @@ constructor(private projectService: ProjectService,
     this.filterForm.reset();
     if (this.from === 'opportunities') {
       this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
-        res => this.projects = res,
+        res => {
+          this.projects = res;
+          res.forEach((e: Project) => {
+            this.skillService.getSkillsByProject(e.id).subscribe(
+              result => {
+                e.skills = result;
+              });
+          });
+        },
         error => console.log(error));
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
