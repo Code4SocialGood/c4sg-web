@@ -1,2 +1,7 @@
 @import "../../variables";
 
+.not-active {
+    pointer-events: none;
+    cursor: default;     
+    color: #9F9F9F !important;  
+}
