@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <!-- Search Panel, only display for Opportunities -->  
+      <!-- Search Panel, only display for Opportunities -->
       <div class="sidebar-wrapper" *ngIf="from=='opportunities'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
           <div class="section">
@@ -40,8 +40,8 @@
     <div class="col m8" id="right-col">
       <div class="content-wrapper">
 
-        <!-- 1. Opportunities -->  
-        <!-- 2. Nonprofit User: My Projects -->  
+        <!-- 1. Opportunities -->
+        <!-- 2. Nonprofit User: My Projects -->
         <div class="content" *ngIf="projects">
           <div class="row">
             <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h1>
@@ -64,15 +64,13 @@
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-info">
-
-<<<<<<< HEAD
                           <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
                           <div class="skills-list-wrapper">
                           <ul *ngIf="project.skills">
                             <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
                             </li>
                           </ul>
-                          
+
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>
@@ -80,7 +78,7 @@
                     </div>
                   </li>
                 </ul>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="row">
@@ -90,7 +88,7 @@
           </div>
         </div>
 
-        <!-- Volunteer User: My Projects: Bookmarked Projects -->  
+        <!-- Volunteer User: My Projects: Bookmarked Projects -->
         <div class="content" *ngIf="bookmarkedProjects">
           <div class="row">
             <h1 class="main-title">Bookmarked Projects</h1>
@@ -121,7 +119,7 @@
                             <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
                             </li>
                           </ul>
-                          
+
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>
@@ -129,12 +127,12 @@
                     </div>
                   </li>
                 </ul>
-              </div>              
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Volunteer User: My Projects: Applied Projects -->  
+        <!-- Volunteer User: My Projects: Applied Projects -->
         <div class="content" *ngIf="appliedProjects">
           <div class="row">
             <h1 class="main-title">Applied Projects</h1>
@@ -172,7 +170,7 @@
                     </div>
                   </li>
                 </ul>
-              </div>              
+              </div>
             </div>
           </div>
         </div>
