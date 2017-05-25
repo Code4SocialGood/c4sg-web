@@ -9,7 +9,7 @@
         <img [src]="project.imageUrl">
       </div>
     </div>
-    <div class="col m6 s12" id="left-col">
+    <div class="col m6 s12" id="left-col1">
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
           <div class="row">
@@ -34,11 +34,9 @@
           <div class="row single-info">
             <div class="col m12">
               <div class="skills-list-wrapper">
-                <ul>
-                  <li class="chip">Javascript</li>
-                  <li class="chip">Python</li>
-                  <li class="chip">Linux Admin</li>
-                  <li class="chip">C</li>
+                <ul *ngIf="project.skills">
+                  <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
+                  </li>
                 </ul>
               </div>
             </div>

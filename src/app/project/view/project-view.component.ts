@@ -6,6 +6,7 @@ import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { Organization } from '../../organization/common/organization';
 import { AuthService } from '../../auth.service';
+import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
@@ -39,6 +40,7 @@ export class ProjectViewComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
+              private skillService: SkillService,
               private route: ActivatedRoute,
               private router: Router,
               public authService: AuthService,
@@ -93,6 +95,12 @@ export class ProjectViewComponent implements OnInit {
                       this.orgImage = resi.url;
                     }
                     );
+            this.skillService.getSkillsByProject(id)
+              .subscribe(
+                result => {
+                  this.project.skills = result;
+                }
+              );
 
             this.displayButtons();
 
