@@ -9,12 +9,12 @@
         <img [src]="user.avatarUrl" *ngIf="user.avatarUrl"></div>
         <div class="col m6">
           <ul class="links-list">
-            <li>Email: {{user.email}}</li>
-            <li *ngIf="user.linkedinUrl"><a target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
-            <li *ngIf="user.personalUrl"><a target="_blank" [href]="user.personalUrl">Personal</a></li>
-            <li *ngIf="user.githubUrl"><a target="_blank" [href]="user.githubUrl">Github</a></li>
-            <li>Facebook: {{user.facebook}}</li>
-            <li>Twitter: {{user.twitter}}</li>
+            <li><a [class.not-active]="!user.email" href="mailto:{{user.email}}">Email</a></li>
+            <li><a [class.not-active]="!user.linkedinUrl" target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
+            <li><a [class.not-active]="!user.personalUrl" target="_blank" [href]="user.personalUrl">Personal</a></li>
+            <li><a [class.not-active]="!user.githubUrl" target="_blank" [href]="user.githubUrl">Github</a></li>
+            <li><a [class.not-active]="!user.facebookUrl" target="_blank" [href]="user.facebookUrl">Facebook</a></li>
+            <li><a [class.not-active]="!user.twitterUrl" target="_blank" [href]="user.twitterUrl">Twitter</a></li>
           </ul>
         </div>
     </div>
