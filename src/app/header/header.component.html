@@ -1,5 +1,5 @@
 
-<nav [class.at-home]="isAtHome()">
+<nav [ngClass]="isAtHome()">
   <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
       <li><a (click)="loadOpportunities()" routerLinkActive="active">Opportunities</a></li>

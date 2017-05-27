@@ -14,6 +14,46 @@
       a {
         border-color: none;
         background-color: transparent;
+        border: none;
+        &:hover {
+          border-color: $navbar-border-color;
+        }
+        &.active {
+          color: $navbar-fg-color;
+        }
+      }
+    }
+    .dropdown-content {
+      background-color: transparent;
+      li { 
+        background-color: transparent;
+        a {
+          //border-color: none;
+          background-color: transparent;
+          &:hover:after {
+            background-color: rgba(255,255,255,0.95);
+          }
+        }
+      }
+    }
+  }
+}
+
+.off-home {
+  background-color: rgba(255, 255, 255, 1);
+  background-image: none;
+  box-shadow: none;
+  border: none;
+  margin-top: 0;
+  .brand-logo {
+    height: 120%;
+  }
+  ul {
+      li { 
+      background-color: transparent;
+      a {
+        border-color: none;
+        background-color: transparent;
         &:hover {
           border-color: $navbar-border-color;
         }

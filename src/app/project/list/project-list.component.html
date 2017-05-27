@@ -3,23 +3,29 @@
 <!-- 1. From header, click Opportunities to display a list of projects with search panl to further filter result-->
 <!-- 2. Nonprofit user: click My Projects to display the projects th organization posted-->
 <!-- 3. Volunteer user: click My projects to display Bookmarked Projeccts and Applied Projects -->
-<div class="container">
+<div class="project-list-title">
+  <h4>Opportunities</h4>
+</div>
+<div class="project-list-container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <!-- Search Panel, only display for Opportunities -->
       <div class="sidebar-wrapper" *ngIf="from=='opportunities'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
           <div class="section">
-            <h4>Keyword</h4>
-            <div class="input-search">
-              <div class="input-field keyword-field">
-                <input id="keyword" name="keyword" materialize="autocomplete" type="search" formControlName="keyword">
-                <label for="keyword">Keyword</label>
-                <button type="search" class="keyword-field__btn btn waves-effect waves-light green darken-2">
-                  <i  class="large material-icons transparent">search</i>
-                </button>
-              </div>
+            <div class="input-search row">
+              <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+              <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
+              <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
+                <i  class="material-icons transparent" id="keyword-icon">search</i>
+              </button>   
             </div>
+          </div>
+          <div class="section">
+            
+          </div>
+          <div class="filter-title section">
+            <h4>Filter</h4>
           </div>
           <div class="section">
             <h4>Skills</h4>
@@ -37,40 +43,46 @@
         </form>
       </div>
     </div>
-    <div class="col m8" id="right-col">
+    <div class="col m8 s12" id="right-col">
       <div class="content-wrapper">
-
+        
         <!-- 1. Opportunities -->
         <!-- 2. Nonprofit User: My Projects -->
         <div class="content" *ngIf="projects">
           <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h1>
-            <div class="col s12">
+            <h4 class="main-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h4>
+            <div class="list-item-group col s12">
               <div class="items-list-wrapper">
-                <ul *ngIf="projects">
+                <ul class="card-list" *ngIf="projects">
                   <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
-                      <div class="card-header">
-                        <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
-                        <div class="card-metainfo">
-                          <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
-                          <span class="state" *ngIf="project.remoteFlag !== 'Y'">
-                              <span class="state" *ngIf="project.state">{{project.state}}, </span>
-                              <span class="state" *ngIf="project.country">{{project.country}} | </span>
-                          </span>
-                          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
-                        </div>
-                      </div>
                       <div class="card-content">
-                        <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
+                        <div class="card-avatar-wrapper"><div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl" *ngIf="project.imageUrl"></div></div>
                         <div class="card-info">
-                          <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
-                          <div class="skills-list-wrapper">
-                          <ul *ngIf="project.skills">
-                            <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
-                            </li>
-                          </ul>
-
+                          <div class="card-info-wrapper">
+                            <div class="card-header">
+                              <div class='project-name'>
+                                <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+                              </div>
+                              <div class="row info-row">
+                                <div class="org-name col m6">
+                                  <p [routerLink]="['/nonprofit/view/', project.organizationId]">{{ project.organizationName }}</p>
+                                </div> 
+                                <div class="card-metainfo col m6">
+                                  <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
+                                  <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+                                </div>
+                              </div>
+                              <hr>                            
+                            </div>                      
+                            <div class="skills-list-wrapper">
+                              <ul *ngIf="project.skills">
+                                <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
+                              </ul>
+                            </div>
+                            <div class="description-wrapper">
+                              <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                            </div>
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>
@@ -87,7 +99,7 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Volunteer User: My Projects: Bookmarked Projects -->
         <div class="content" *ngIf="bookmarkedProjects">
           <div class="row">
@@ -102,8 +114,8 @@
                         <div class="card-metainfo">
                           <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
                           <span class="state" *ngIf="project.remoteFlag !== 'Y'">
-                              <span class="state" *ngIf="project.state">{{project.state}}, </span>
-                              <span class="state" *ngIf="project.country">{{project.country}} | </span>
+                            <span class="state" *ngIf="project.state">{{project.state}}, </span>
+                            <span class="state" *ngIf="project.country">{{project.country}} | </span>
                           </span>
                           <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
                         </div>
@@ -111,15 +123,13 @@
                       <div class="card-content">
                         <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                         <div class="card-info">
-=======
->>>>>>> upstream/master
                           <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
                           <div class="skills-list-wrapper">
-                          <ul *ngIf="project.skills">
-                            <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
-                            </li>
-                          </ul>
-
+                            <ul *ngIf="project.skills">
+                              <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
+                              </li>
+                            </ul>
+                            
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>
@@ -131,7 +141,7 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Volunteer User: My Projects: Applied Projects -->
         <div class="content" *ngIf="appliedProjects">
           <div class="row">
@@ -146,8 +156,8 @@
                         <div class="card-metainfo">
                           <span class="state" *ngIf="project.remoteFlag === 'Y'">Remote | </span>
                           <span class="state" *ngIf="project.remoteFlag !== 'Y'">
-                              <span class="state" *ngIf="project.state">{{project.state}}, </span>
-                              <span class="state" *ngIf="project.country">{{project.country}} | </span>
+                            <span class="state" *ngIf="project.state">{{project.state}}, </span>
+                            <span class="state" *ngIf="project.country">{{project.country}} | </span>
                           </span>
                           <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
                         </div>
@@ -163,8 +173,7 @@
                               <li class="chip">Linux Admin</li>
                               <li class="chip">C</li>
                             </ul>
-                          </div>
-                          <p class="description">{{ project.description }}</p>
+                          </div>                          
                         </div>
                       </div>
                     </div>
@@ -174,7 +183,7 @@
             </div>
           </div>
         </div>
-
+        
       </div>
     </div>
   </div>
