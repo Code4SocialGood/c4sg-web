@@ -1,20 +1,20 @@
-
-<div class="container">
+<div class="list-title">
+  <h4>Volunteers</h4>
+</div>
+<div class="list-container">
   <div class="row main-row">
-    <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper">
+    <div class="col m4" id="list-left-col">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(p)">
           <div class="section">
-            <h4>Keyword</h4>
-            <div class="input-search">
-              <div class="input-field keyword-field">
-                <input id="autocomplete-input" name="searchTerm" materialize="autocomplete" type="search" [materializeParams]="keywords" formControlName="keyword">
-                <label for="autocomplete-input">Keyword</label>
-                <button type="submit" class="keyword-field__btn btn waves-effect waves-light green darken-2">
-                  <i  class="large material-icons transparent">search</i>
-                </button>
-              </div>
+            <div class="input-search row">
+              <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+              <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
+              <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
+                <i  class="material-icons transparent" id="keyword-icon">search</i>
+              </button>   
             </div>
+          </div>
+          <div class="section">
           </div>
           <div class="section">
             <h4>Skills</h4>
@@ -30,27 +30,22 @@
             </div>
           </div>
         </form>
-      </div>
     </div>
-    <div class="col m8" id="right-col">
+    <div class="col m8 s12" id="list-right-col">
       <div class="content-wrapper">
-        <div class="content">
+        <div class="content" *ngIf="users">
           <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{totalItems}}</span>Volunteers found</h1>
-            <div class="col s12">
+            <h4 class="main-title"><span class="index-prefix">{{totalItems}}</span>volunteers found</h4>
+            <div class="list-item-group col s12">
               <div class="items-list-wrapper">
-                <ul *ngIf="users">
-                  <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
+                <ul class="card-list" *ngIf="users">
+                  <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
-                      <div class="card-header">
-                        <h4 [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</h4>
-                        <div class="card-metainfo">
-                          <span class="card-location" *ngIf="user.country">{{user.country}}</span>
-                        </div>
-                      </div>
                       <div class="card-content">
-                        <div class="card-avatar">
-                          <img [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+                        <div class="card-avatar-wrapper">
+                          <div class="card-avatar">
+                            <img class="card-avatar-content" [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+                          </div>
                           {{user.userName}}
                           <div class="card-info-bottom">
                             <div class="links-list-wrapper">
@@ -66,14 +61,28 @@
                           </div>
                         </div>
                         <div class="card-info">
-                          <h5>{{user.title}}</h5>
-                          <div class="skills-list-wrapper">  
-                          <ul *ngIf="user.skills">
-                            <li class="chip" *ngFor="let skill of user.skills">{{ skill }}
-                            </li>
-                          </ul>
+                          <div class="card-info-wrapper">
+                            <div class="card-header">
+                              <div class='name'>
+                                <span [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
+                              </div>
+                              <div class="row info-row">
+                                <div class="card-metainfo col m6">
+                                  <p>{{user.title}}</p>
+                                </div>
+                                <div class="card-metainfo col m6">
+                                  <span class="card-location" *ngIf="user.country">{{user.country}}</span>
+                                </div>
+                              </div>
+                              <hr>                            
+                            </div>                      
+                            <div class="skills-list-wrapper">
+                              <ul *ngIf="user.skills">
+                                <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
+                              </ul>
+                            </div>
                           </div>
-                          {{user.introduction}}
+                          <p class="description">{{ user.introduction }}</p>
                         </div>
                       </div>
                     </div>
@@ -84,10 +93,10 @@
           </div>
           <div class="row">
             <div class="pagination">
-              <pagination-controls (pageChange)="getUsers(p = $event)" id="usersPages" autoHide="false"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" id="usersPages" autoHide="false"></pagination-controls>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
