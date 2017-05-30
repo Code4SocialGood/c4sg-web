@@ -1,80 +1,78 @@
 
 <div class="container">
-  <div class="row main-row" *ngIf="user">
-    <div class="content">
-      <h1 class="main-title">{{user.userName}}</h1>
+  <div class="row main-row">
+    <div class="content" *ngIf="user">
+      <h1 class="main-title" *ngIf="user">{{user.userName}}</h1>
     </div>
-    <div class="col m2">
-      <div class="avatar">
-        <img [src]="user.avatarUrl" *ngIf="user.avatarUrl"></div>
-        <div class="col m6">
-          <ul class="links-list">
-            <li><a [class.not-active]="!user.email" href="mailto:{{user.email}}">Email</a></li>
-            <li><a [class.not-active]="!user.linkedinUrl" target="_blank" [href]="user.linkedinUrl">LinkedIn</a></li>
-            <li><a [class.not-active]="!user.personalUrl" target="_blank" [href]="user.personalUrl">Personal</a></li>
-            <li><a [class.not-active]="!user.githubUrl" target="_blank" [href]="user.githubUrl">Github</a></li>
-            <li><a [class.not-active]="!user.facebookUrl" target="_blank" [href]="user.facebookUrl">Facebook</a></li>
-            <li><a [class.not-active]="!user.twitterUrl" target="_blank" [href]="user.twitterUrl">Twitter</a></li>
-          </ul>
-        </div>
-    </div>
-    <div class="col m8 offset-m2 right-col" id="left-col">
+
+    <div class="col s8" id="left-col">
       <div class="content-wrapper">
-        <div class="content">
-          <div class="row">
-            <div class="col s6 offset-s3">
-              <div class="buttons-block">
-                <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-                <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
+        <div class="content" *ngIf="user">
+          <div class="row single-info">
+            <div class="col m4">
+              <div class="info-avatar" *ngIf="user.avatarUrl"><img [src]="user.avatarUrl"></div>
+              <div class="card-info-bottom">
+                <div class="links-list-wrapper">
+                  <ul>
+                    <li><a class="mdi mdi-email" [class.not-active]="!user.email" href="mailto:{{user.email}}"></a></li>
+                    <li><a class="mdi mdi-linkedin-box" [class.not-active]="!user.linkedinUrl" name="linkedin" [href]="user.linkedinUrl"  target="_blank"></a></li>
+                    <li><a class="mdi mdi-facebook-box" [class.not-active]="!user.facebookUrl" name="facebook" [href]="user.facebookUrl" target="_blank"></a></li>
+                    <li><a class="mdi mdi-twitter-box" [class.not-active]="!user.twitterUrl" name="twitter" [href]="user.twitterUrl" target="_blank"> </a></li>
+                    <li><a class="mdi mdi-github-box" [class.not-active]="!user.githubUrl" name="twitter" [href]="user.githubUrl" target="_blank"> </a></li>
+                    <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="twitter" [href]="user.personalUrl" target="_blank"> </a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="subtitle row">
-              <div class="names">
-                <span class="first-name">{{user.firstName}}</span>
-                <span class="last-name">{{user.lastName}}</span>
+            <div class="col m8">
+              <div class="row">
+                <div class="col s12 action-btns">
+                  <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+                  <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
+                </div>
               </div>
               <div class="row">
-                <div class="col m12">
-                  <div class="main-info">
-                    <div class="user-title">
-                      <h5>{{user.title}}</h5>
+                <div class="subtitle row">
+                  <div class="names">
+                    <span class="first-name">{{user.firstName}}</span>
+                    <span class="last-name">{{user.lastName}}</span>
+                  </div>
+                  <div class="row">
+                    <div class="col m12">
+                      <div class="main-info">
+                        <div class="user-title">
+                          <h5>{{user.title}}</h5>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <p class="location">
+                      <span class="state" *ngIf="user.state">{{user.state}}, </span>
+                      <span class="country" *ngIf="user.country">{{user.country}}</span>
+                    </p>
+                    <p class="joined">Joined at: {{user.createdTime | date: 'MMM d, yyyy'}}</p>
+                  </div>
+                  <div class="row">
+                    <ul *ngIf="user.skills">
+                      <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
+                    </ul>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <p class="location">
-                  <span class="state" *ngIf="user.state">{{user.state}}, </span>
-                  <span class="country" *ngIf="user.country">{{user.country}}</span>
-                </p>
-                <p class="joined">Joined at: {{user.createdTime | date: 'MMM d, yyyy'}}</p>
-              </div>
             </div>
-          </div>
-          <p>Introduction</p>
-          <div class="row">
-            <div class="col s12">
-              <div class="intro-wrapper box">
-                <div class="intro">
-                  <p>{{user.introduction}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col m6">
-              <div class="skills-list-wrapper right-col">
-                <ul *ngIf="user.skills">
-                  <li class="chip" *ngFor="let skill of user.skills">{{ skill }}
-                  </li>
-                </ul>
+            <div class="col m12">
+              <p>Introduction</p>
+              <div class="info-description">
+                <p>{{ user.introduction }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    
+    <div class="col m4" id="right-col">
     </div>
   </div>
 </div>
