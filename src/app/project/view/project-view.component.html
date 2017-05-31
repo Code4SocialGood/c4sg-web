@@ -1,9 +1,8 @@
-
+<div class="page-title">
+  <h5>Opportunity</h5>
+</div>
 <div class="container">
   <div class="row main-row">
-    <div class="content" *ngIf="project">
-      <h1 class="main-title" *ngIf="project">{{project.name}}</h1>
-    </div>
     <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
       <div class="content-wrapper">
@@ -14,52 +13,41 @@
             </div>
             <div class="col m8">
               <div class="row">
-                <div class="col s12">
-                  <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+                <h1 class="main-title" *ngIf="project">{{project.name}}</h1>
+              </div>
+              <div class="row">
+                <div>
+                  <div *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                  <div class="state" *ngIf="project.remoteFlag !== 'Y'">
+                    Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
+                  </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 action-btns">
-                  <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
-                  <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
-                  <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-                  <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-                  <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
-                     [materializeActions]="deleteGlobalActions">Close</a>
-                </div>
+                  Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
               </div>
               <div class="row">
-                <div class="skills-list-wrapper">
+                <div class="skills-tag-wrapper">
                   <ul *ngIf="project.skills">
-                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
-                    </li>
+                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
                   </ul>
                 </div>
               </div>
-              <div class="row">
-                <div class="col m4 left-col">
-                  <div class="info-location">
-                    <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
-                    <div *ngIf="project.remoteFlag !== 'Y'">
-                      <p>
-                        Location:
-                        <span class="state" *ngIf="project.state">>{{project.state}}, </span>
-                        <span class="state">{{project.country}}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col m4 right-col">
-                  <div class="info-contact">
-                    Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
-                  </div>
-                </div>
-              </div>
             </div>
+            <hr>    
             <div class="col m12">
-              <p>Description</p>
-              <div class="info-description">
-                <p>{{ project.description }}</p>
+              <div class="info-title">Description</div>
+              <div class="info-description">{{ project.description }}</div>
+            </div>
+            <div class="row">
+              <div class="col s12 action-btns">
+                <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+                <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
+                <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
+                <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+                <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+                <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
+                   [materializeActions]="deleteGlobalActions">Close</a>
               </div>
             </div>
           </div>

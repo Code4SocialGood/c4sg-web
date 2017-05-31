@@ -9,14 +9,8 @@
   width: 100%;
   padding-left: 2em;
   .names {
-    .first-name {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .last-name {
-      margin-left: 1em;
-      font-size: 2em;
-    }
+    font-size: 1.5em;
+    font-weight: bold;  
   }
   .metainfo {
     padding-top: 1em;
@@ -27,18 +21,6 @@
       line-height: 2em;
     }
   }
-}
-
-.location {
-  line-height: 1em;
-  .state{
-    font-size: 0.75em;
-  }
-}
-
-.joined {
-  font-style: italic;
-  font-size: 0.75em;
 }
 
 .main-info{

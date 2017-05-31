@@ -3,12 +3,12 @@
 <!-- 1. From header, click Opportunities to display a list of projects with search panl to further filter result-->
 <!-- 2. Nonprofit user: click My Projects to display the projects th organization posted-->
 <!-- 3. Volunteer user: click My projects to display Bookmarked Projeccts and Applied Projects -->
-<div class="list-title">
-  <h4>Opportunities</h4>
+<div class="page-title">
+  <h5>Opportunities</h5>
 </div>
 <div class="list-container">
   <div class="row main-row">
-    <div class="col m4" id="list-left-col">
+    <div class="col m4" id="left-col">
       <!-- Search Panel, only display for Opportunities -->
       <div class="sidebar-wrapper" *ngIf="from=='opportunities'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
@@ -20,8 +20,6 @@
                 <i  class="material-icons transparent" id="keyword-icon">search</i>
               </button>   
             </div>
-          </div>
-          <div class="section">
           </div>
           <div class="section">
             <h4>Skills</h4>
@@ -40,7 +38,7 @@
       </div>
     </div>
     
-    <div class="col m8 s12" id="list-right-col">
+    <div class="col m8 s12" id="right-col">
       <div class="content-wrapper">
         <!-- 1. Opportunities -->
         <!-- 2. Nonprofit User: My Projects -->
@@ -69,9 +67,9 @@
                                   <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
                                 </div>
                               </div>
-                              <hr>                            
+                        
                             </div>                      
-                            <div class="skills-list-wrapper">
+                            <div class="skills-tag-wrapper">
                               <ul *ngIf="project.skills">
                                 <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
                               </ul>
