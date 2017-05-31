@@ -23,6 +23,7 @@ export class UserViewComponent implements OnInit {
   displayDelete = false;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  defaultAvatarUser = '../../assets/avatar.png';
 
   constructor(
     private userService: UserService,

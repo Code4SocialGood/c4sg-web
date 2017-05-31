@@ -42,6 +42,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projId: number;
   from: string;
   skills: any[];
+  defaultProjectAvatar = '../../assets/default_image.png';
 
 constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,

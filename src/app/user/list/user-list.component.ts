@@ -33,6 +33,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   usersCache: any[];
   users: User[];
   usersSubscription: Subscription;
+  defaultAvatarUser = '../../assets/avatar.png';
 
   constructor(private userService: UserService,
     private router: Router,

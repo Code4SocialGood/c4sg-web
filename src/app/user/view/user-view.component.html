@@ -11,6 +11,7 @@
           <div class="row single-info">
             <div class="col m4">
               <div class="info-avatar" *ngIf="user.avatarUrl"><img [src]="user.avatarUrl"></div>
+              <div class="info-avatar" *ngIf="!user.avatarUrl"><img [src]="defaultAvatarUser"></div>
               <div class="card-info-bottom">
                 <div class="links-list-wrapper">
                   <ul>

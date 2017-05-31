@@ -38,7 +38,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
-
+  defaultAvatarOrganization = '../../assets/default_image.png';
   // array of all items to be paged
   //   organizations: any[];
 
