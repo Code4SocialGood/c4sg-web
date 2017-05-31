@@ -10,7 +10,8 @@
         <div class="content" *ngIf="project">
           <div class="row single-info">
             <div class="col m4">
-              <div class="info-avatar" *ngIf="project"><img [src]="project.imageUrl"></div>
+              <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+              <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
             </div>
             <div class="col m8">
               <div class="row">
@@ -66,7 +67,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Right Panel: Organization and projects -->
     <div class="col m4" id="right-col">
       <div class="sidebar-wrapper">

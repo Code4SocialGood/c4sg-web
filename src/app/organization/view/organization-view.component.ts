@@ -27,6 +27,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  defaultAvatarOrganization = '../../assets/default_image.png';
 
   displayShare = true;
   displayEdit = false;

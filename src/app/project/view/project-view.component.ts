@@ -2,9 +2,9 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
+import { Organization } from '../../organization/common/organization';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
-import { Organization } from '../../organization/common/organization';
 import { AuthService } from '../../auth.service';
 import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
@@ -19,8 +19,8 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 
 export class ProjectViewComponent implements OnInit {
 
-  project: Project;
   organization: Organization;
+  project: Project;
   projects: Project[];
   numberOfProjects: number;
   params: Params;
@@ -31,6 +31,7 @@ export class ProjectViewComponent implements OnInit {
   orgImage: any = '';
   userProjectStatus: string;
   auth: AuthService;
+  defaultAvatarProject = '../../assets/default_image.png';
 
   displayShare = true;
   displayApply = false;
