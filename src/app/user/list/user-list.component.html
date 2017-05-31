@@ -82,7 +82,7 @@
                               </ul>
                             </div>
                           </div>
-                          <p class="description">{{ user.introduction }}</p>
+                          <p class="description">{{ user.introduction | slice:0:200 }} ...</p>
                         </div>
                       </div>
                     </div>
