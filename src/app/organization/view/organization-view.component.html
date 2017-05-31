@@ -4,7 +4,7 @@
     <div class="content" *ngIf="organization">
       <h1 class="main-title" *ngIf="organization">{{organization.name}}</h1>
     </div>
-
+    <!-- Left Panel: Organization -->
     <div class="col s8" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="organization">
@@ -44,7 +44,8 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- Right Panel: Projects from the organization -->
     <div class="col m4" id="right-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
@@ -91,7 +92,7 @@
 
                           </div>
                         </div>
-                        <p>{{ pr.description }}</p>
+                        <p>{{ pr.description | slice:0:100 }} ...}}</p>
                       </div>
                     </div>
                   </li>

@@ -4,7 +4,7 @@
     <div class="content" *ngIf="project">
       <h1 class="main-title" *ngIf="project">{{project.name}}</h1>
     </div>
-
+    <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="project">
@@ -67,11 +67,12 @@
       </div>
     </div>
     
+    <!-- Right Panel: Organization and projects -->
     <div class="col m4" id="right-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section" *ngIf="projects">
-          
+            <!-- Organization -->
             <h4>Organization</h4>
             <div class="card">
               <div class="card-content">
@@ -86,7 +87,7 @@
                 <p>{{organization.description}}</p>
               </div>
             </div>
-
+            <!-- Projects -->
             <h4>Opportunities ({{projects.length}})</h4>
             <div class="section-body">
               <div class="items-list-wrapper">
@@ -108,7 +109,7 @@
                           </div>
                           </div>
                         </div>
-                        <p>{{ pr.description }}</p>
+                        <p>{{ pr.description  | slice:0:100 }} ...}}</p>
                       </div>
                     </div>
                   </li>
