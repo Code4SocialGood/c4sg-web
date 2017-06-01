@@ -1,9 +1,9 @@
-<div class="list-title">
-  <h4>Volunteers</h4>
+<div class="page-title">
+  <h5>Volunteers</h5>
 </div>
 <div class="list-container">
   <div class="row main-row">
-    <div class="col m4" id="list-left-col">
+    <div class="col m4" id="left-col">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(p)">
           <div class="section">
             <div class="input-search row">
@@ -31,7 +31,7 @@
           </div>
         </form>
     </div>
-    <div class="col m8 s12" id="list-right-col">
+    <div class="col m8 s12" id="right-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="users">
           <div class="row">
@@ -49,19 +49,6 @@
                           <div class="card-avatar" *ngIf="!user.avatarUrl">
                             <img class="card-avatar-content" [src]="defaultAvatarUser">
                           </div>
-                          {{user.userName}}
-                          <div class="card-info-bottom">
-                            <div class="links-list-wrapper">
-                              <ul>
-                                <li><a class="mdi mdi-email" [class.not-active]="!user.email" href="mailto:{{user.email}}"></a></li>
-                                <li><a class="mdi mdi-linkedin-box" [class.not-active]="!user.linkedinUrl" name="linkedin" [href]="user.linkedinUrl"  target="_blank"></a></li>
-                                <li><a class="mdi mdi-facebook-box" [class.not-active]="!user.facebookUrl" name="facebook" [href]="user.facebookUrl" target="_blank"></a></li>
-                                <li><a class="mdi mdi-twitter-box" [class.not-active]="!user.twitterUrl" name="twitter" [href]="user.twitterUrl" target="_blank"> </a></li>
-                                <li><a class="mdi mdi-github-box" [class.not-active]="!user.githubUrl" name="twitter" [href]="user.githubUrl" target="_blank"> </a></li>
-                                <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="twitter" [href]="user.personalUrl" target="_blank"> </a></li>
-                              </ul>
-                            </div>
-                          </div>
                         </div>
                         <div class="card-info">
                           <div class="card-info-wrapper">
@@ -76,10 +63,9 @@
                                 <div class="card-metainfo col m6">
                                   <span class="card-location" *ngIf="user.country">{{user.country}}</span>
                                 </div>
-                              </div>
-                              <hr>
-                            </div>
-                            <div class="skills-list-wrapper">
+                              </div>                       
+                            </div>                      
+                            <div class="skills-tag-wrapper">
                               <ul *ngIf="user.skills">
                                 <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
                               </ul>

@@ -1,9 +1,9 @@
-<div class="list-title">
-  <h4>Organizations</h4>
+<div class="page-title">
+  <h5>Organizations</h5>
 </div>
 <div class="list-container">
   <div class="row main-row">
-    <div class="col m4" id="list-left-col">
+    <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='organizations'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations">
           <div class="section">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="col m8 s12" id="list-right-col">
+    <div class="col m8 s12" id="right-col">
       <div class="content-wrapper">
         <div class="content" *ngIf="organizations">
           <div class="row">
