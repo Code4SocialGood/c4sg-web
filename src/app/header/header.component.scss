@@ -6,7 +6,7 @@
   box-shadow: none;
   border: none;
   .brand-logo {
-    height: 120%;
+    height: 100%;
   }
   ul {
     li { 
@@ -46,7 +46,7 @@
   border: none;
   margin-top: 0;
   .brand-logo {
-    height: 120%;
+    height: 80%;
   }
   ul {
       li { 
@@ -80,13 +80,13 @@
 }
 
 
-//.right a{
-    //color: #989898;
-    //font-family: Century Gothic, sans-serif;;
-    //font-size: 1em;
-    //font-weight: 20;
-    //padding-top: 0.7em;
-//}
+.right a{
+    color: #989898;
+    font-family: Century Gothic, sans-serif;;
+    font-size: 1em;
+    font-weight: 20;
+    padding-top: 0.7em;
+}
 
 //.right a:hover{
   //background: rgba(100, 100 ,255 , 0.4);
