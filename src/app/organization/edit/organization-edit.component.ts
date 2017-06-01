@@ -36,9 +36,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   // private defaultAvatar = '../../../assets/default_image.png';
 
   public descMaxLength: number = this.validationService.descMaxLength;
-  public descMaxLengthEntered: boolean = false;
+  public descMaxLengthEntered = false;
   public descValueLength: number;
-  public descFieldFocused: boolean = false;
+  public descFieldFocused = false;
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -251,12 +251,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   // Validator website url
   urlValidator(control: FormControl): { [s: string]: boolean } {
     if (!control.value) {
-      return null
+      return null;
     }
     if (!this.validationService.urlValidRegEx.test(control.value)) {
       return {'urlIsNotValid': true};
     } else {
-      return null
+      return null;
     }
   }
 
