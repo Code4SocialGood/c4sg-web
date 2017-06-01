@@ -4,7 +4,7 @@
     <form [formGroup]="organizationForm" (ngSubmit)="onSubmit(organizationForm.value, $event)" class="col s12">
       <div class="row">
         <div class="col m4 s12">
-          <div class="info-avatar" *ngIf="organization"><img [src]="organization.logoUrl"></div>    
+          <div class="info-avatar" *ngIf="organization"><img [src]="organization.logoUrl"></div>
           <div class="file-field input-field">
             <div class="btn">
               <span>Upload</span>
@@ -18,8 +18,8 @@
 
         <div class="col m4 s12">
           <div class="input-field">
-            <label for="name">Organization Name *</label>
-            <input type="text" id="name" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}">
+            <input type="text" id="name" formControlName="name">
+            <label for="name" [ngClass]="{'red-text': organizationForm.get('name').invalid}">Organization Name *</label>
           </div>
           <div class="input-field">
             <select id="category" class="" formControlName="category" materialize="material_select">
@@ -29,12 +29,12 @@
             <label>Category</label>
           </div>
           <div class="input-field">
-            <label for="address1">Address 1</label>
             <input type="text" id="address1" class="" formControlName="address1">
+            <label for="address1">Address 1</label>
           </div>
           <div class="input-field">
-            <label for="city">City</label>
             <input type="text" id="city" class="" formControlName="city">
+            <label for="city">City</label>
           </div>
           <div class="input-field">
             <select id="country" class="" formControlName="country" materialize="material_select">
@@ -47,24 +47,26 @@
 
         <div class="col m4 s12">
           <div class="input-field">
-            <label for="website">Website</label>
             <input type="url" id="website" class="" formControlName="websiteUrl">
+            <label for="website"  [ngClass]="{'red-text': organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']}">Website
+              <span *ngIf="organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']">url is not valid!</span>
+            </label>
           </div>
           <div class="input-field">
-            <label for="ein">EIN</label>
             <input type="text" id="ein" class="" formControlName="ein">
+            <label for="ein">EIN</label>
           </div>
           <div class="input-field">
-            <label for="address2">Address 2</label>
             <input type="text" id="address2" class="" formControlName="address2">
+            <label for="address2">Address 2</label>
           </div>
           <div class="input-field">
-            <label for="state">State</label>
             <input type="text" id="state" class="" formControlName="state">
+            <label for="state">State</label>
           </div>
           <div class="input-field">
-            <label for="zip">Zip Code</label>
             <input type="text" id="ein" class="" formControlName="zip">
+            <label for="zip">Zip Code</label>
           </div>
         </div>
       </div>
@@ -72,10 +74,10 @@
       <div class="row">
         <div class="col m4 s12 offset-m4">
           <div class="input-field">
-            <textarea id="description" class="materialize-textarea" formControlName="description"></textarea>
-            <label for="description">Description</label><!--
-            <div *ngIf="!organizationForm.controls.description.pristine" class="right-align" [ngClass]="{'red-text': organizationForm.controls.description.value.length > descMaxLength}">{{organizationForm.controls.description.value.length}}/{{descMaxLength}}
-            </div>-->
+            <textarea id="description" class="materialize-textarea" formControlName="description" (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()" (blur)="onBlurDesc()"></textarea>
+            <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description
+            <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
+            </label>
           </div>
         </div>
       </div>
