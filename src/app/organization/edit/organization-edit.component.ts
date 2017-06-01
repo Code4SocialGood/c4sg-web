@@ -1,18 +1,18 @@
-import { Component, ElementRef, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser/';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Component, OnInit, AfterViewChecked} from '@angular/core';
+import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser/';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
-import { OrganizationService } from '../common/organization.service';
-import { FormConstantsService } from '../../_services/form-constants.service';
-import { ValidationService } from '../../_services/validation.service';
-import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
-import { AuthService } from '../../auth.service';
+import {OrganizationService} from '../common/organization.service';
+import {FormConstantsService} from '../../_services/form-constants.service';
+import {ValidationService} from '../../_services/validation.service';
+import {ImageUploaderService, ImageReaderResponse} from '../../_services/image-uploader.service';
+import {AuthService} from '../../auth.service';
 
-import { Organization } from '../common/organization';
+import {Organization} from '../common/organization';
 
-declare var Materialize: any;
+declare const Materialize: any;
 
 @Component({
   selector: 'my-edit-organization',
@@ -23,31 +23,34 @@ declare var Materialize: any;
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: { [key: string]: any };
   public countries: any[];
-  public states: String[];
+  // public states: String[];
 
   public organizationId;
   public organization: Organization;
   public organizationForm: FormGroup;
   currentUserId: String;
 
-  public loadedFile: any;
+  // public loadedFile: any;
   public logoValid = true;
   private logoData: ImageReaderResponse;
-  private defaultAvatar = '../../../assets/default_image.png';
+  // private defaultAvatar = '../../../assets/default_image.png';
 
-  public validHttp = true;
+  public descMaxLength: number = this.validationService.descMaxLength;
+  public descMaxLengthEntered = false;
+  public descValueLength: number;
+  public descFieldFocused = false;
 
-  constructor(
-    public fb: FormBuilder,
-    private organizationService: OrganizationService,
-    private validationService: ValidationService,
-    private auth: AuthService,
-    private fc: FormConstantsService,
-    private sanitizer: DomSanitizer,
-    private route: ActivatedRoute,
-    private router: Router,
-    private imageUploader: ImageUploaderService
-  ) { }
+  constructor(public fb: FormBuilder,
+              private organizationService: OrganizationService,
+              private validationService: ValidationService,
+              private auth: AuthService,
+              private fc: FormConstantsService,
+              // private sanitizer: DomSanitizer,
+              private route: ActivatedRoute,
+              private router: Router,
+              private imageUploader: ImageUploaderService) {
+    this.urlValidator = this.urlValidator.bind(this);
+  }
 
   ngOnInit(): void {
 
@@ -62,37 +65,37 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       if (this.organizationId === 0) {
         // this.organization.logo = this.defaultAvatar;
       }
-        this.organizationService.getOrganization(this.organizationId)
-          .subscribe(
-            res => {
-              this.organization = res;
-              this.fillForm();
-            }, error => console.log(error)
-          );
+      this.organizationService.getOrganization(this.organizationId)
+        .subscribe(
+          res => {
+            this.organization = res;
+            this.fillForm();
+          }, error => console.log(error)
+        );
 
-        this.organizationService.retrieveLogo(this.organizationId)
-          .subscribe(
-            res => {
-            }, error => console.log(error)
-          );
+      this.organizationService.retrieveLogo(this.organizationId)
+        .subscribe(
+          res => {
+          }, error => console.log(error)
+        );
 
       /*
-      if (this.organizationId !== 0) { // organization has been created already
-        this.organizationService.getOrganization(this.organizationId).toPromise()
-          .then(res => {
-            this.organization = res;
+       if (this.organizationId !== 0) { // organization has been created already
+       this.organizationService.getOrganization(this.organizationId).toPromise()
+       .then(res => {
+       this.organization = res;
 
-            // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-            return this.organizationService.retrieveLogo(this.organizationId).toPromise();
-          })
-          .then(res => {
-            const logoText = res.text();
-            const logoBase64 = `data:image/png;base64, ${logoText}`;
-            // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
-            this.fillForm();
-          }, err => console.error('An error occurred', err)) // for demo purposes only
-          .catch(err => console.error('An error occurred', err)); // for demo purposes only
-      }*/
+       // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
+       return this.organizationService.retrieveLogo(this.organizationId).toPromise();
+       })
+       .then(res => {
+       const logoText = res.text();
+       const logoBase64 = `data:image/png;base64, ${logoText}`;
+       // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
+       this.fillForm();
+       }, err => console.error('An error occurred', err)) // for demo purposes only
+       .catch(err => console.error('An error occurred', err)); // for demo purposes only
+       }*/
     });
   }
 
@@ -112,7 +115,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
     this.organizationForm = this.fb.group({
       'name': ['', []],
-      'websiteUrl': ['', []],
+      'websiteUrl': ['', [this.urlValidator]],
       'ein': ['', []],
       'category': ['', []],
       'address1': ['', []],
@@ -129,7 +132,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', []],
+      'websiteUrl': [this.organization.websiteUrl || '', [this.urlValidator]],
       'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', []],
       'address1': [this.organization.address1 || '', []],
@@ -138,7 +141,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'state': [this.organization.state || '', []],
       'country': [this.organization.country || '', []],
       'zip': [this.organization.zip || '', []],
-      'description': [this.organization.description || '', [Validators.maxLength(this.validationService.descMaxLength)]]
+      'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
   }
 
@@ -164,7 +167,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
-    this.validateForm();
     if (this.organizationId === 0) { // organization hasn't been created, create the organization
       this.createOrganization();
     } else { // Existing organization, update the organization
@@ -237,16 +239,45 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       this.organizationId,
       this.organizationService.saveLogo.bind(this.organizationService))
       .subscribe(res => {
-        if (res.url) {
-          this.organization.logoUrl = res.url;
-        }
-      },
-      err => { console.error(err, 'An error occurred'); });
+          if (res.url) {
+            this.organization.logoUrl = res.url;
+          }
+        },
+        err => {
+          console.error(err, 'An error occurred');
+        });
   }
 
-  validateForm() {
-    this.validHttp = !this.organizationForm.controls.websiteUrl.invalid
-      && this.organizationForm.controls.websiteUrl.value.length > 4
-      && this.validationService.httpValidRegEx.test(this.organizationForm.controls.websiteUrl.value);
+  // Validator website url
+  urlValidator(control: FormControl): { [s: string]: boolean } {
+    if (!control.value) {
+      return null;
+    }
+    if (!this.validationService.urlValidRegEx.test(control.value)) {
+      return {'urlIsNotValid': true};
+    } else {
+      return null;
+    }
+  }
+
+  // Count chars in description field
+  onCountCharDesc() {
+    this.descValueLength = this.organizationForm.value.description.length;
+    if (this.organizationForm.controls.description.invalid) {
+      this.descMaxLengthEntered = true;
+    } else {
+      this.descMaxLengthEntered = false;
+    }
+  }
+
+  onFocusDesc() {
+    this.descFieldFocused = true;
+    this.onCountCharDesc();
+  }
+
+  onBlurDesc() {
+    if (!this.organizationForm.controls.description.invalid) {
+      this.descFieldFocused = false;
+    }
   }
 }
