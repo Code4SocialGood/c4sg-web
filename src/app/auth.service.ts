@@ -154,7 +154,7 @@ export class AuthService {
       //Issue 356 - redirect user back to the page that requested login - project view page
       this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
       if(this.redirectAfterLogin){
-        setTimeout(() => this.router.navigate([this.redirectAfterLogin]));
+        setTimeout(() => {this.router.navigate([this.redirectAfterLogin])},50);
       }
       else{
         setTimeout(() => this.router.navigate(['/']));
