@@ -12,7 +12,7 @@
               <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
               <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
                 <i  class="material-icons transparent" id="keyword-icon">search</i>
-              </button>   
+              </button>
             </div>
           </div>
           <div class="section">
@@ -36,7 +36,7 @@
             </div>
           </div>
         </form>
-      </div>  
+      </div>
     </div>
 
     <div class="col m8 s12" id="right-col">
@@ -51,10 +51,13 @@
                     <div class="card">
                       <div class="card-content">
                         <div class="card-avatar-wrapper">
-                          <div class="card-avatar">
-                            <img class="card-avatar-content" [src]="org.logoUrl" *ngIf="org.logoUrl">
+                          <div class="card-avatar" *ngIf="org.logoUrl">
+                            <img class="card-avatar-content" [src]="org.logoUrl">
                           </div>
-                        </div>
+                          <div class="card-avatar" *ngIf="!org.logoUrl">
+                            <img class="card-avatar-content" [src]="defaultAvatarOrganization">
+                          </div>
+                          </div>
                         <div class="card-info">
                           <div class="card-info-wrapper">
                             <div class="card-header">
@@ -64,14 +67,14 @@
                               <div class="row info-row">
                                 <div class="card-metainfo col m6">
                                   <p>{{org.opportunities}} opportunities</p>
-                                </div> 
+                                </div>
                                 <div class="card-metainfo col m6">
                                   <span class="state" *ngIf="org.state">{{org.state}}, </span>
                                   <span class="state">{{org.country}}</span>
                                 </div>
                               </div>
-                              <hr>                            
-                            </div>                      
+                              <hr>
+                            </div>
                           </div>
                           <p class="description">{{ org.description | slice:0:200 }} ...</p>
                         </div>
@@ -87,7 +90,7 @@
               <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </div>

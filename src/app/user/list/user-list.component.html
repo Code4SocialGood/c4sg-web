@@ -11,7 +11,7 @@
               <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
               <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
                 <i  class="material-icons transparent" id="keyword-icon">search</i>
-              </button>   
+              </button>
             </div>
           </div>
           <div class="section">
@@ -43,8 +43,11 @@
                     <div class="card">
                       <div class="card-content">
                         <div class="card-avatar-wrapper">
-                          <div class="card-avatar">
-                            <img class="card-avatar-content" [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+                          <div class="card-avatar" *ngIf="user.avatarUrl">
+                            <img class="card-avatar-content" [src]="user.avatarUrl">
+                          </div>
+                          <div class="card-avatar" *ngIf="!user.avatarUrl">
+                            <img class="card-avatar-content" [src]="defaultAvatarUser">
                           </div>
                         </div>
                         <div class="card-info">
@@ -82,7 +85,7 @@
               <pagination-controls (pageChange)="p = $event" id="usersPages" autoHide="false"></pagination-controls>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </div>

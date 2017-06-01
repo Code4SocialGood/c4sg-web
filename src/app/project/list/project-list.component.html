@@ -18,7 +18,7 @@
               <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
               <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
                 <i  class="material-icons transparent" id="keyword-icon">search</i>
-              </button>   
+              </button>
             </div>
           </div>
           <div class="section">
@@ -36,8 +36,7 @@
           </div>
         </form>
       </div>
-    </div>
-    
+    </div> 
     <div class="col m8 s12" id="right-col">
       <div class="content-wrapper">
         <!-- 1. Opportunities -->
@@ -51,7 +50,8 @@
                   <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                     <div class="card">
                       <div class="card-content">
-                        <div class="card-avatar-wrapper"><div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl" *ngIf="project.imageUrl"></div></div>
+                        <div class="card-avatar-wrapper" *ngIf="project.imageUrl"><div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div></div>
+                        <div class="card-avatar-wrapper" *ngIf="!project.imageUrl"><div class ="card-avatar"><img class="card-avatar-content" [src]="defaultProjectAvatar"></div></div>
                         <div class="card-info">
                           <div class="card-info-wrapper">
                             <div class="card-header">
@@ -61,13 +61,12 @@
                               <div class="row info-row">
                                 <div class="card-metainfo col m6">
                                   <p [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
-                                </div> 
+                                </div>
                                 <div class="card-metainfo col m6">
                                   <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
                                   <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
                                 </div>
-                              </div>
-                        
+                              </div>                        
                             </div>                      
                             <div class="skills-tag-wrapper">
                               <ul *ngIf="project.skills">
@@ -90,7 +89,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Volunteer User: My Projects: Bookmarked Projects -->
         <div class="content" *ngIf="bookmarkedProjects">
           <div class="row">
@@ -120,7 +119,7 @@
                               <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
                               </li>
                             </ul>
-                            
+
                           </div>
                           <p class="description">{{ project.description }}</p>
                         </div>
@@ -132,7 +131,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Volunteer User: My Projects: Applied Projects -->
         <div class="content" *ngIf="appliedProjects">
           <div class="row">
@@ -164,7 +163,7 @@
                               <li class="chip">Linux Admin</li>
                               <li class="chip">C</li>
                             </ul>
-                          </div>                          
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -174,7 +173,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
