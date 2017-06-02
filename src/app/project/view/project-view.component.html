@@ -42,9 +42,8 @@
             </div>
             <div class="row">
               <div class="col s12 action-btns">
-                <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
-                <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
-                <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
+                <my-shared-btn [displayShare]="displayShare"></my-shared-btn>                
+                <a class="btn" (click)="apply()">Apply</a>
                 <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
                 <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
                 <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize

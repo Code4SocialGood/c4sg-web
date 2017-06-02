@@ -21,6 +21,7 @@ export class AuthService {
   email: string;
   firstName: string;
   lastName: string;
+  redirectAfterLogin: string;
 
   // These options are being added to customize signup
   options = {
@@ -37,6 +38,8 @@ export class AuthService {
       title: 'Code for Social Good'
     },
     auth : {
+        redirectUrl: window.location.origin,
+        responseType: 'token',
         params: {scope: 'openid email user_metadata app_metadata'},
     },
     // Add a user name input text
@@ -147,6 +150,13 @@ export class AuthService {
           );
         }
       });
+      // Issue 356 - redirect user back to the page that requested login - project view page
+      this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+      if (this.redirectAfterLogin) {
+        setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 50);
+      }else {
+        setTimeout(() => this.router.navigate(['/']));
+      }
     });
 
     // Function call to show errors
