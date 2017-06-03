@@ -1,54 +1,50 @@
-<div class="page-title">
-  <h5>Opportunity</h5>
-</div>
+<div class="page-title">Opportunity</div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="project">
-          <div class="row single-info">
-            <div class="col m4">
-              <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
-              <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
-            </div>
-            <div class="col m8">
-              <div class="row">
-                <h1 class="main-title" *ngIf="project">{{project.name}}</h1>
-              </div>
-              <div class="row">
-                <div>
-                  <div *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
-                  <div class="state" *ngIf="project.remoteFlag !== 'Y'">
-                    Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                  Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
-              </div>
-              <div class="row">
-                <div class="skills-tag-wrapper">
-                  <ul *ngIf="project.skills">
-                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <hr>    
-            <div class="col m12">
-              <div class="info-title">Description</div>
-              <div class="info-description">{{ project.description }}</div>
+      <div class="content" *ngIf="project">
+        <div class="row single-info">
+          <div class="col m4">
+            <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
+          </div>
+          <div class="col m8">
+            <div class="row">
+              <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
             </div>
             <div class="row">
-              <div class="col s12 action-btns">
-                <my-shared-btn [displayShare]="displayShare"></my-shared-btn>                
-                <a class="btn" (click)="apply()">Apply</a>
-                <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-                <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-                <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
-                   [materializeActions]="deleteGlobalActions">Close</a>
+              <div>
+                <div *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                <div class="state" *ngIf="project.remoteFlag !== 'Y'">
+                  Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
+                </div>
               </div>
+            </div>
+            <div class="row">
+                Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
+            </div>
+            <div class="row">
+              <div class="skills-tag-wrapper">
+                <ul *ngIf="project.skills">
+                  <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="col m12">
+            <div class="info-title">Description</div>
+            <div class="info-description">{{ project.description }}</div>
+          </div>
+          <div class="row">
+            <div class="col s12 action-btns">
+              <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+              <a class="btn" (click)="apply()">Apply</a>
+              <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+              <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+              <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
+                 [materializeActions]="deleteGlobalActions">Close</a>
             </div>
           </div>
         </div>
@@ -60,7 +56,6 @@
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section" *ngIf="projects">
-            <!-- Organization -->
             <h4>Organization</h4>
             <div class="card">
               <div class="card-content">
@@ -75,7 +70,6 @@
                 <p>{{organization.description}}</p>
               </div>
             </div>
-            <!-- Projects -->
             <h4>Opportunities ({{projects.length}})</h4>
             <div class="section-body">
               <div class="items-list-wrapper">
@@ -89,12 +83,11 @@
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          </div>  
                           <div class="skills-list-wrapper">
-                          <ul *ngIf="pr.skills">
-                            <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}
-                            </li>
-                          </ul>
-                          </div>
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
                           </div>
                         </div>
                         <p>{{ pr.description  | slice:0:100 }} ...}}</p>
