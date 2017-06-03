@@ -17,7 +17,7 @@ declare const Materialize: any;
 @Component({
   selector: 'my-edit-organization',
   templateUrl: 'organization-edit.component.html',
-  styleUrls: ['organization-edit.component.css']
+  styleUrls: ['organization-edit.component.scss']
 })
 
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {

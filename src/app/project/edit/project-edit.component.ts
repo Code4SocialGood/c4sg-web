@@ -10,7 +10,7 @@ import { MaterializeAction } from 'angular2-materialize';
 @Component({
   selector: 'my-edit-project',
   templateUrl: 'project-edit.component.html',
-  styleUrls: ['project-edit.component.css']
+  styleUrls: ['project-edit.component.scss']
 })
 
 export class ProjectEditComponent implements OnInit {
@@ -19,7 +19,6 @@ export class ProjectEditComponent implements OnInit {
   public projectId;
   public projectImageUrl = '../../../assets/default_image.png';
   public projectForm: FormGroup;
-  public editFlag = false;
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
@@ -107,10 +106,6 @@ export class ProjectEditComponent implements OnInit {
 
   changeImage(event) {
     this.projectImageUrl = event.target.files;
-  }
-
-  onEditSkills() {
-    this.editFlag = !this.editFlag;
   }
 
   onSubmit(updatedData: any, event): void {

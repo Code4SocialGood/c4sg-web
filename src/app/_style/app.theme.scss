@@ -96,15 +96,42 @@ nav {
   }
 }
 
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.content {
+  position: relative;
+  padding-top: $content-pad;
+  padding-bottom: $content-pad;
+  padding-left: $content-pad;
+  padding-right: $content-pad;
+
+}
+
+.content-title {
+  color: #5ba55b;
+  font-size: 1.15em;
+  font-weight: bold;
+  margin: 0;
+  padding-left: 0em; 
+  padding-top: 20px;
+  //padding-left: 3em; 
+  //background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(0, 185, 145));
+  //background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
+  //background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145)); 
+  //background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
+  //border-bottom: $border-width #5ba55b solid;
+  .index-prefix {
+    margin-right: 2em;
+    font-weight: bold;
+  }    
+}
+
 .footer {
   background-color: $footer-bg-color;
   padding-left: 50px;
-
-  .links-list-wrapper {
-    ul {
-
-    }
-  }
 }
 
 .left-col {
@@ -168,6 +195,8 @@ nav {
   color: #fff;
   padding-top: 5px;
   padding-bottom: 0px;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .popupCustom .leaflet-popup-content-wrapper {
@@ -193,8 +222,8 @@ nav {
   margin-left: - $line-sep-width;
 }
 
-.sidebar-wrapper, .content-wrapper {
-  padding-top: $content-pad-top;
+.sidebar-wrapper {
+  padding-top: $content-pad;
 }
 
 .sidebar:after {
@@ -245,7 +274,4 @@ nav {
   padding: 0;
   border-left: $border-width $border-color solid;
   border-right: $border-width $border-color solid;
-  .content-wrapper {
-    padding-top: 0;
-  }
 }

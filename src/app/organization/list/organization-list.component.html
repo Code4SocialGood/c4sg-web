@@ -1,7 +1,5 @@
-<div class="page-title">
-  <h5>Organizations</h5>
-</div>
-<div class="list-container">
+<div class="page-title">Organizations</div>
+<div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='organizations'">
@@ -40,103 +38,53 @@
     </div>
 
     <div class="col m8 s12" id="right-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="organizations">
-          <div class="row">
-            <h4 class="main-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h4>
-            <div class="list-item-group col s12">
-              <div class="items-list-wrapper">
-                <ul class="card-list" *ngIf="organizations">
-                  <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-avatar-wrapper">
-                          <div class="card-avatar" *ngIf="org.logoUrl">
-                            <img class="card-avatar-content" [src]="org.logoUrl">
+      <div class="content" *ngIf="organizations">
+        <div class="row">
+          <h4 class="content-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h4>
+          <div class="list-item-group col s12">
+            <div class="items-list-wrapper">
+              <ul class="card-list" *ngIf="organizations">
+                <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-avatar-wrapper">
+                        <div class="card-avatar" *ngIf="org.logoUrl">
+                          <img class="card-avatar-content" [src]="org.logoUrl">
+                        </div>
+                        <div class="card-avatar" *ngIf="!org.logoUrl">
+                          <img class="card-avatar-content" [src]="defaultAvatarOrganization">
+                        </div>
+                      </div>
+                      <div class="card-info">
+                        <div class="card-header">
+                          <div class='name'>
+                            <span [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
                           </div>
-                          <div class="card-avatar" *ngIf="!org.logoUrl">
-                            <img class="card-avatar-content" [src]="defaultAvatarOrganization">
-                          </div>
-                          </div>
-                        <div class="card-info">
-                          <div class="card-info-wrapper">
-                            <div class="card-header">
-                              <div class='name'>
-                                <span [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
-                              </div>
-                              <div class="row info-row">
-                                <div class="card-metainfo col m6">
-                                  <p>{{org.opportunities}} opportunities</p>
-                                </div>
-                                <div class="card-metainfo col m6">
-                                  <span class="state" *ngIf="org.state">{{org.state}}, </span>
-                                  <span class="state">{{org.country}}</span>
-                                </div>
-                              </div>
-                              <hr>
+                          <div class="row info-row">
+                            <div class="card-metainfo col m6">
+                              <p>{{org.opportunities}} opportunities</p>
+                            </div>
+                            <div class="card-metainfo col m6">
+                              <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                              <span class="state">{{org.country}}</span>
                             </div>
                           </div>
-                          <p class="description">{{ org.description | slice:0:200 }} ...</p>
                         </div>
+                        <p class="description">{{ org.description | slice:0:200 }} ...</p>
                       </div>
                     </div>
-                  </li>
-                </ul>
-              </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="row">
-            <div class="pagination">
-              <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
-            </div>
+        </div>
+        <div class="row">
+          <div class="pagination">
+            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-    <!--
-    <div class="col m8" id="right-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="organizations">
-          <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h1>
-            <div class="col s12">
-              <div class="items-list-wrapper">
-                <ul *ngIf="organizations">
-                  <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
-                    <div class="card">
-                      <div class="card-header">
-                        <h4 [routerLink]="['/organization/view/'+org.id]">{{org.name}}</h4>
-                        <div class="card-metainfo">
-                          <span class="state" *ngIf="org.state">{{org.state}}, </span>
-                          <span class="state">{{org.country}}</span>
-                        </div>
-                      </div>
-                      <div class="card-content">
-                        <div class="card-avatar"><img [src]="org.logoUrl" *ngIf="org.logoUrl"></div>
-                        <div class="card-info">
-                            <p class="description"><span>{{org.opportunities}}</span> opportunities</p>
-                          <p class="description">{{ org.description }}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="pagination">
-              <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
