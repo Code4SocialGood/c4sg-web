@@ -13,12 +13,6 @@ export class Organization {
     public state: any,
     public country: any,
     public ein: any,
-    public opportunities: any
+    public projects: any
   ) { }
 }
-
-
-
-
-
-

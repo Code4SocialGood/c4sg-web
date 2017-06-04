@@ -27,19 +27,22 @@ export class HeaderComponent implements DoCheck, OnInit {
       this.setOrganizationId(res);
     });
   }
-  loadOpportunities(): void {
+
+  loadProjects(): void {
     // This URL is used as dummy URL
-    this.router.navigate(['/project/list/opportunities', { keyword: '' }], {skipLocationChange: true});
-    setTimeout(() => this.router.navigate(['/project/list/opportunities']));
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/project/list/projects']));
     }
+
   loadVolunteers(): void {
     // This URL is used as dummy URL
-    this.router.navigate(['/project/list/opportunities', { keyword: '' }], {skipLocationChange: true});
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
     setTimeout(() => this.router.navigate(['/user/list']));
     }
+
   loadOrganizations(): void {
     // This URL is used as dummy URL
-    this.router.navigate(['/project/list/opportunities', { keyword: '' }], {skipLocationChange: true});
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
     setTimeout(() => this.router.navigate(['/organization/list/organizations']));
     }
 

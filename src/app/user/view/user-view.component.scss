@@ -1,5 +1,5 @@
 @import "../../_style/variables";
-@import "../../_style/app.page-view";
+@import "../../_style/app.page-single";
 
 .buttons-block {
   text-align: center;
@@ -26,11 +26,6 @@
 .main-info{
   display: table;
   width: 100%;
-  .avatar {
-    text-align: center;
-    vertical-align: middle;
-    display: table-cell;
-  }
   .user-title {
     display:table-cell;
     vertical-align: middle;

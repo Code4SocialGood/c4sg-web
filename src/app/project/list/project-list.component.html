@@ -1,13 +1,13 @@
 <!-- This page is used: -->
-<!-- 1. From header, click Opportunities to display a list of projects with search panl to further filter result-->
+<!-- 1. From header, click Projects to display a list of projects with search panl to further filter result-->
 <!-- 2. Nonprofit user: click My Projects to display the projects th organization posted-->
 <!-- 3. Volunteer user: click My projects to display Bookmarked Projeccts and Applied Projects -->
-<div class="page-title">Opportunities</div>
+<div class="page-title">Projects</div>
 <div class="container">
   <div class="row main-row">
-    <!-- Left Panel, only display for Opportunities page-->
+    <!-- Left Panel, only display for Projects page-->
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper" *ngIf="from=='opportunities'">
+      <div class="sidebar-wrapper" *ngIf="from=='projects'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
           <div class="section">
             <div class="input-search row">
@@ -37,11 +37,11 @@
 
     <!-- Right Panel -->
     <div class="col m8 s12" id="right-col">
-      <!-- 1. Opportunities -->
+      <!-- 1. Projects -->
       <!-- 2. Nonprofit User: My Projects -->
       <div class="content" *ngIf="projects">
         <div class="row">
-          <h4 class="content-title"><span class="index-prefix">{{projects.length}}</span>opportunities found</h4>
+          <h4 class="content-title"><span class="index-prefix">{{projects.length}}</span>projects found</h4>
           <div class="list-item-group col s12">
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="projects">
@@ -109,7 +109,7 @@
                         </span>
                         <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
                       </div>
-                    </div>  
+                    </div>
                     <div class="card-content">
                       <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                       <div class="card-info">

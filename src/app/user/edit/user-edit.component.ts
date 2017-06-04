@@ -80,6 +80,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           this.fillForm();
           }, error => console.log(error)
         );
+        
       this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
@@ -95,7 +96,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             });
           }, error => console.log(error)
         );
-
 
       // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
       // return this.userService.retrieveLogo(this.organizationId).toPromise();
@@ -161,31 +161,23 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  onUploadAvatar(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.user.id,
-       this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => {
-         this.avatar = res.url;
-       },
-        err => { console.error(err, 'An error occurred'); } );
-  }
   checkRole(userRole: String): void {
     if (this.auth.isOrganization()) {
       this.displayPhone = true;
     }
-    if (this.auth.isVolunteer()) {
+    if (this.auth.isVolunteer() || this.auth.isAdmin()) {
       this.displayProfile = true;
     }
   }
-   checkFlag(): void {
-    if (this.user.publishFlag === 'Y') {
-      this.checkPublish = true;
-    }
-    if (this.user.notifyFlag === 'Y' ) {
-      this.checkNotify = true;
-    }
-   }
+
+ checkFlag(): void {
+  if (this.user.publishFlag === 'Y') {
+    this.checkPublish = true;
+  }
+  if (this.user.notifyFlag === 'Y' ) {
+    this.checkNotify = true;
+  }
+ }
 
   onEditSkills() {
     this.editFlag = !this.editFlag;
@@ -204,7 +196,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     console.log(this.projectSkillsArray);
   }
 
-
   onAddOwnSkill(inputSkill) {
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
@@ -213,7 +204,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       console.log(this.projectSkillsArray);
     }
   }
-
 
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
@@ -238,6 +228,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.globalActions.emit('toast');
        },
         err => { console.error(err, 'An error occurred'); } );
+
+    // TODO pass skill names
+    //this.skillService.updateSkills(this.userSkillsArray, this.user.id).subscribe(
+    //  res => {
+    //    this.globalActions.emit('toast');
+    //  }, error => console.log(error)
+    //);    
   }
 
   delete(event): void {
