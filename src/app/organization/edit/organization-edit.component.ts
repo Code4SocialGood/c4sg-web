@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, AfterViewChecked, EventEmitter} from '@angular/core';
 import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser/';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {ImageUploaderService, ImageReaderResponse} from '../../_services/image-u
 import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
+import { MaterializeAction } from 'angular2-materialize';
 
 declare const Materialize: any;
 
@@ -39,6 +40,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public descMaxLengthEntered = false;
   public descValueLength: number;
   public descFieldFocused = false;
+
+  public globalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -237,6 +241,14 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     if (!this.organizationForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
+  }
+
+  openModal(user) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   onUploadImage(fileInput: any): void {

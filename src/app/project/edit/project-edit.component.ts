@@ -60,7 +60,7 @@ export class ProjectEditComponent implements OnInit {
             res => {
               this.projectSkillsArray = res;
             }, error => console.log(error)
-          ); 
+          );
       }
 
       this.skillService.getSkills()
@@ -71,7 +71,7 @@ export class ProjectEditComponent implements OnInit {
             });
           }, error => console.log(error)
         );
-    });   
+    });
   }
 
   private getFormConstants(): void {
@@ -122,11 +122,11 @@ export class ProjectEditComponent implements OnInit {
     );
 
     // TODO pass skill names
-    //this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
+    // this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
     //  res => {
     //    this.globalActions.emit('toast');
     //  }, error => console.log(error)
-    //);
+    // );
   }
 
   onAddListedSkill(optionValue) {
@@ -153,5 +153,13 @@ export class ProjectEditComponent implements OnInit {
 
   changeImage(event) {
     this.projectImageUrl = event.target.files;
+  }
+
+  openModal(user) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }
