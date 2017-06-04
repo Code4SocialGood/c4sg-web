@@ -1,17 +1,25 @@
 <div class="page-title">
-  <div *ngIf="projectId != 0">Edit Opportunity</div>
-  <div *ngIf="projectId == 0">Create Opportunity</div>
+  <div *ngIf="projectId != 0">Edit Project</div>
+  <div *ngIf="projectId == 0">Create Project</div>
 </div>
-<div class="list-container">
+<div class="container">
   <div class="row main-row">
-    <!-- Left Panel --> 
+    <!-- Left Panel -->
     <div class="col s3" id="left-col">
       <div class="content" *ngIf="project">
-        <div class="row single-info">   
+        <div class="row single-info">
           <div class="col m12">
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
             <div class="input-field file-field">
               <div class="btn">Upload</div>
+              <!-- TODO after S3 is available
+              <div class="btn">
+                <span>Upload</span>
+                <input type="file" (change)="onUploadImage($event)">
+              </div>
+              <div class="red lighten-5 center-align error-msg" *ngIf="!logoValid">
+                <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
+              </div>-->
             </div>
           </div>
         </div>
@@ -19,7 +27,7 @@
     </div>
 
     <!-- Right Panel -->
-    <div class="col s9" id="right-col"> 
+    <div class="col s9" id="right-col">
       <div class="content">
         <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
       <!--<div class="row">
@@ -28,17 +36,17 @@
                      placeholder="">
               <label for="organization_name">Organization Name</label>
             </div>
-          </div>-->      
+          </div>-->
           <div class="row">
             <div class="content-title">Introduction</div>
             <div class="input-field col s12">
               <input id="project_name" type="text" class="validate" formControlName="projectName">
-              <label for="project_name">Opportunity Name <sup>&#10033;</sup></label>
+              <label for="project_name">Project Name <sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
               <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
                     placeholder=""></textarea>
-              <label for="project_description">Opportunity Description</label>
+              <label for="project_description">Project Description</label>
             </div>
           </div>
           <div class="row">
@@ -112,14 +120,21 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
           <div class="row">
-            <div class="col l12">
-              <button type="submit" class="waves-effect waves-light btn">Save</button>
+            <div class="col m12">
+              <div class="footer-btns center">
+                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
+                  Save
+                </button>
+                <button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </form>
       </div>
     </div>
-  </div> 
+  </div>
 </div>

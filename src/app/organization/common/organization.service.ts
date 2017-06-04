@@ -34,7 +34,7 @@ export class OrganizationService {
 
   searchOrganizations(
     keyword?: string,
-    hasOpportunities?: boolean,
+    hasProjects?: boolean,
     categories?: string[]
   ): Observable<Organization[]> {
     const params = new URLSearchParams();
@@ -43,8 +43,8 @@ export class OrganizationService {
       params.set('keyWord', keyword);
     }
 
-    if (hasOpportunities) {
-      params.set('open', hasOpportunities.toString());
+    if (hasProjects) {
+      params.set('open', hasProjects.toString());
     }
 
     if (categories) {

@@ -68,20 +68,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     if (!this.authService.authenticated()) {
       this.displayShare = true;
     } else if (this.authService.authenticated()) {
-      if (this.authService.isVolunteer()) {
-      } else if (this.authService.isOrganization()) {
-        this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
-          res => {
-            let org: Organization;
-            org = res[0];
-            if ((org !== undefined) && (org.id === organizationId)) {
-              this.displayEdit = true;
-              this.displayDelete = true;
-            }
-          },
-          error => console.log(error)
-        );
-      } else if (this.authService.isAdmin()) {
+      if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
       }

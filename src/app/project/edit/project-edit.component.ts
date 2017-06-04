@@ -39,39 +39,39 @@ export class ProjectEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.projectId = params['projectId'];
+
+      if (this.projectId !== 0) { // Edit Project
+        this.projectService.getProject(this.projectId)
+          .subscribe(
+            res => {
+              this.project = res;
+              this.fillForm();
+            }, error => console.log(error)
+          );
+
+        this.projectService.retrieveImage(this.projectId)
+          .subscribe(
+            res => {
+            }, error => console.log(error)
+          );
+
+        this.skillService.getSkillsByProject(this.projectId)
+          .subscribe(
+            res => {
+              this.projectSkillsArray = res;
+            }, error => console.log(error)
+          );
+      }
+
+      this.skillService.getSkills()
+        .subscribe(
+          res => {
+            res.map((obj) => {
+              this.skillsArray.push(obj.skillName);
+            });
+          }, error => console.log(error)
+        );
     });
-
-    if (this.projectId !== 0) { // Edit Project
-      this.projectService.getProject(this.projectId)
-        .subscribe(
-          res => {
-            this.project = res;
-            this.fillForm();
-          }, error => console.log(error)
-        );
-
-      this.projectService.retrieveImage(this.projectId)
-        .subscribe(
-          res => {
-          }, error => console.log(error)
-        );
-
-      this.skillService.getSkillsByProject(this.projectId)
-        .subscribe(
-          res => {
-            this.projectSkillsArray = res;
-          }, error => console.log(error)
-        );
-    }
-
-    this.skillService.getSkills()
-      .subscribe(
-        res => {
-          res.map((obj) => {
-            this.skillsArray.push(obj.skillName);
-          });
-        }, error => console.log(error)
-      );
   }
 
   private getFormConstants(): void {
@@ -104,10 +104,6 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
-  changeImage(event) {
-    this.projectImageUrl = event.target.files;
-  }
-
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -125,11 +121,12 @@ export class ProjectEditComponent implements OnInit {
       }, error => console.log(error)
     );
 
-    this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
-      res => {
-        this.globalActions.emit('toast');
-      }, error => console.log(error)
-    );
+    // TODO pass skill names
+    // this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
+    //  res => {
+    //    this.globalActions.emit('toast');
+    //  }, error => console.log(error)
+    // );
   }
 
   onAddListedSkill(optionValue) {
@@ -152,5 +149,17 @@ export class ProjectEditComponent implements OnInit {
       this.inputValue = '';
       console.log(this.projectSkillsArray);
     }
+  }
+
+  changeImage(event) {
+    this.projectImageUrl = event.target.files;
+  }
+
+  openModal(user) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }

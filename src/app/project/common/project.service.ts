@@ -92,11 +92,16 @@ export class ProjectService {
   }
 
   update(project: Project) {
-    const url = projectUrl + '/' + project.id;
-    return this.http
-      .put(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    // const url = projectUrl + '/' + project.id;
+    // return this.http
+    //  .put(url, project, {headers: this.headers})
+    //  .map((res: Response) => res.json())
+    //  .catch(this.handleError);
+
+    return this.http.put(
+      `${projectUrl}/${project.id}`,
+      project
+      );
   }
 
 

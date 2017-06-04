@@ -110,11 +110,10 @@
     margin-left: - $line-sep-width;
   }
   .info-avatar {
-    padding-top: 20px;
-    text-align: center;
-    img {
-      width: 100%;
-    }
+  padding-top: 20px;
+  text-align: center;
+  img {
+    width: 100%;
   }
   .info-title {
     height: 40px;
@@ -124,6 +123,7 @@
   .info-description {
     padding-bottom: 20px;
   }
+
 }
 
 .subtitle {

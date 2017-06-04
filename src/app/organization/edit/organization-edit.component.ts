@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, AfterViewChecked, EventEmitter} from '@angular/core';
 import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser/';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {ImageUploaderService, ImageReaderResponse} from '../../_services/image-u
 import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
+import { MaterializeAction } from 'angular2-materialize';
 
 declare const Materialize: any;
 
@@ -31,14 +32,17 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   currentUserId: String;
 
   // public loadedFile: any;
-  public logoValid = true;
-  private logoData: ImageReaderResponse;
-  // private defaultAvatar = '../../../assets/default_image.png';
+  public imageValid = true;
+  private imageData: ImageReaderResponse;
+  // private defaultImage = '../../../assets/default_image.png';
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
   public descValueLength: number;
   public descFieldFocused = false;
+
+  public globalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -145,25 +149,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  onUploadLogo(fileInput: any): void {
-    // Make sure there are files before doing the upload
-    if (fileInput.target.files && fileInput.target.files.length) {
-
-      // Make sure the file is under 1MB
-      if (fileInput.target.files[0].size < 1048576) {
-        this.logoValid = true;
-        if (this.organizationId === 0) {
-          this.readLogo(fileInput);
-        } else {
-          this.saveLogo(fileInput);
-        }
-      } else {
-        this.logoValid = false;
-      }
-    }
-  }
-
-
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -188,10 +173,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         ];
 
         // Only need to save the logo if a logo was uploaded
-        if (this.logoData) {
+        if (this.imageData) {
           additionalCalls.push(
             this.organizationService
-              .saveLogo(this.organization.id, this.logoData.formData)
+              .saveLogo(this.organization.id, this.imageData.formData)
           );
         }
 
@@ -225,29 +210,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  private readLogo(fileInput: any): void {
-    this.imageUploader
-      .readImage(fileInput)
-      .subscribe(res => {
-        this.organization.logoUrl = res.base64Image;
-        this.logoData = res;
-      });
-  }
-
-  private saveLogo(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-      this.organizationId,
-      this.organizationService.saveLogo.bind(this.organizationService))
-      .subscribe(res => {
-          if (res.url) {
-            this.organization.logoUrl = res.url;
-          }
-        },
-        err => {
-          console.error(err, 'An error occurred');
-        });
-  }
-
   // Validator website url
   urlValidator(control: FormControl): { [s: string]: boolean } {
     if (!control.value) {
@@ -279,5 +241,64 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     if (!this.organizationForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
+  }
+
+  openModal(user) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
+
+  onUploadImage(fileInput: any): void {
+    // Make sure there are files before doing the upload
+    if (fileInput.target.files && fileInput.target.files.length) {
+
+      // Make sure the file is under 1MB
+      if (fileInput.target.files[0].size < 1048576) {
+        this.imageValid = true;
+        if (this.organizationId === 0) {
+          this.readImage(fileInput);
+        } else {
+          this.saveImage(fileInput);
+        }
+      } else {
+        this.imageValid = false;
+      }
+    }
+  }
+  /*
+  onUploadImage(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+       this.user.id,
+       this.userService.saveAvatar.bind(this.userService))
+       .subscribe(res => {
+         this.avatar = res.url;
+       },
+        err => { console.error(err, 'An error occurred'); } );
+  } */
+
+  private readImage(fileInput: any): void {
+    this.imageUploader
+      .readImage(fileInput)
+      .subscribe(res => {
+        this.organization.logoUrl = res.base64Image;
+        this.imageData = res;
+      });
+  }
+
+  private saveImage(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+      this.organizationId,
+      this.organizationService.saveLogo.bind(this.organizationService))
+      .subscribe(res => {
+          if (res.url) {
+            this.organization.logoUrl = res.url;
+          }
+        },
+        err => {
+          console.error(err, 'An error occurred');
+        });
   }
 }

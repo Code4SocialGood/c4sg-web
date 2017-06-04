@@ -23,7 +23,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public countries: any[];
   public user: User;
-  public selectedUser: User;
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public descMaxLength = 255;
@@ -80,6 +79,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           this.fillForm();
           }, error => console.log(error)
         );
+
       this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
@@ -95,7 +95,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             });
           }, error => console.log(error)
         );
-
 
       // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
       // return this.userService.retrieveLogo(this.organizationId).toPromise();
@@ -161,31 +160,23 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  onUploadAvatar(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.user.id,
-       this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => {
-         this.avatar = res.url;
-       },
-        err => { console.error(err, 'An error occurred'); } );
-  }
   checkRole(userRole: String): void {
     if (this.auth.isOrganization()) {
       this.displayPhone = true;
     }
-    if (this.auth.isVolunteer()) {
+    if (this.auth.isVolunteer() || this.auth.isAdmin()) {
       this.displayProfile = true;
     }
   }
-   checkFlag(): void {
-    if (this.user.publishFlag === 'Y') {
-      this.checkPublish = true;
-    }
-    if (this.user.notifyFlag === 'Y' ) {
-      this.checkNotify = true;
-    }
-   }
+
+ checkFlag(): void {
+  if (this.user.publishFlag === 'Y') {
+    this.checkPublish = true;
+  }
+  if (this.user.notifyFlag === 'Y' ) {
+    this.checkNotify = true;
+  }
+ }
 
   onEditSkills() {
     this.editFlag = !this.editFlag;
@@ -204,7 +195,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     console.log(this.projectSkillsArray);
   }
 
-
   onAddOwnSkill(inputSkill) {
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
@@ -213,7 +203,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       console.log(this.projectSkillsArray);
     }
   }
-
 
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
@@ -238,6 +227,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.globalActions.emit('toast');
        },
         err => { console.error(err, 'An error occurred'); } );
+
+    // TODO pass skill names
+    // this.skillService.updateSkills(this.userSkillsArray, this.user.id).subscribe(
+    //  res => {
+    //    this.globalActions.emit('toast');
+    //  }, error => console.log(error)
+    // );
   }
 
   delete(event): void {
@@ -249,7 +245,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   openModal(user) {
     this.modalActions.emit({action: 'modal', params: ['open']});
-    this.selectedUser = user;
   }
 
   closeModal() {
@@ -257,154 +252,3 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
 }
-
-/*
-import { Component, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
-import { Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { UserService } from '../common/user.service';
-import { User } from '../common/user';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MaterializeAction } from 'angular2-materialize';
-import { ImageUploaderService } from '../../_services/image-uploader.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
-import { FormConstantsService } from '../../_services/form-constants.service';
-import { equalValidator } from '../common/user.equal.validator';
-
-export class UserEditComponent implements OnInit {
-
-  public user: User = this.initUser();
-  public selectedUser: User;
-  public globalActions = new EventEmitter<string|MaterializeAction>();
-  public skillsOption = [{value: '1', name: 'CSS'},
-    {value: '2', name: 'option2'},
-    {value: '3', name: 'python'}];
-  public avatar: any = '';
-  public states = [{value: 'testState', display: 'testState'}];
-  public countries: any[];
-  modalActions = new EventEmitter<string|MaterializeAction>();
-  public userForm: FormGroup;
-
-  constructor( public fb: FormBuilder,
-               private changeDetectorRef: ChangeDetectorRef,
-               private route: ActivatedRoute,
-               private userService: UserService,
-               private fc: FormConstantsService,
-               private imageUploader: ImageUploaderService,
-               private imageDisplay: ImageDisplayService) { }
-
-  ngOnInit() {
-    const id = this.route.snapshot.params['userId'];
-    this.getFormConstants();
-
-    this.imageDisplay.displayImage(id,
-        this.userService.retrieveAvatar.bind(this.userService))
-        .subscribe(res => this.avatar = res.url);
-
-    this.userService.getUser(id)
-        .subscribe(
-          res => {
-            this.user = res;
-
-                this.userForm = this.fb.group({
-      'email': [this.user.email || '', [Validators.required]],
-      'userName': [this.user.userName || '', [Validators.required]],
-      'firstName': [this.user.firstName || '', []],
-      'lastName': [this.user.lastName || '', []],
-      'state': [this.user.state || '', []],
-      'country': [this.user.country || '', [Validators.required]],
-      'title': [this.user.title || '', []],
-      'introduction': [this.user.introduction || '', []],
-      'linkedinUrl': [this.user.linkedinUrl || '', []],
-      'personalUrl': [this.user.personalUrl || '', []],
-      'facebookUrl': [this.user.facebookUrl || '', []],
-      'twitterUrl': [this.user.twitterUrl || '', []],
-      'phone': [this.user.phone || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
-    });
-            // this.initForm();
-            },
-            error => console.log(error)
-          );
-  }
-
-  fileChange(input) {
-    this.image_loaded = false;
-    this.readFiles(input.files);
-  }
-
-  readFile(file, reader, callback) {
-
-    reader.onload = () => {
-      callback(reader.result);
-    };
-    reader.readAsDataURL(file);
-
-  }
-
-  readFiles(files, index = 0) {
-
-    let reader = new FileReader();
-    if (index in files) {
-
-      this.readFile(files[index], reader, (result) => {
-
-        let img = document.createElement('img');
-
-        img.src = result;
-        this.resize(img, 250, 250, (resized_jpeg, before, after) => {
-          this.debug_size_before = before;
-          this.debug_size_after = after;
-          this.file_srcs = resized_jpeg;
-          this.image_loaded = true;
-          this.readFiles(files, index + 1);
-        });
-      });
-    } else {
-
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
-  resize(img, MAX_WIDTH: number, MAX_HEIGHT: number, callback) {
-    return img.onload = () => {
-
-      let width = img.width;
-      let height = img.height;
-
-      if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-        }
-      } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-        }
-      }
-
-      let canvas = document.createElement('canvas');
-
-      canvas.width = width;
-      canvas.height = height;
-      let ctx = canvas.getContext('2d');
-
-      ctx.drawImage(img, 0, 0, width, height);
-
-      let dataUrl = canvas.toDataURL('image/jpeg');
-
-      callback(dataUrl, img.src.length, dataUrl.length);
-
-    };
-  }
-
-  getImage() {
-    if (this.image_loaded) {
-      return this.file_srcs;
-    } else {
-      return ['./assets/default_image.png'];
-    }
-  }
-  */
-

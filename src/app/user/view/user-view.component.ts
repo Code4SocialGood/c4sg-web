@@ -65,12 +65,7 @@ export class UserViewComponent implements OnInit {
   displayButtons(id: number): void {
 
     if (this.authService.authenticated()) {
-      if (this.authService.isVolunteer() || this.authService.isOrganization()) {
-        if (this.authService.getCurrentUserId() === String(id)) {
-          this.displayEdit = true;
-          this.displayDelete = true;
-        }
-      } else if (this.authService.isAdmin()) {
+      if (this.authService.isAdmin()) {
           this.displayEdit = true;
           this.displayDelete = true;
       }

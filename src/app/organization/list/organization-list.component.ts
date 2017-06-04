@@ -26,7 +26,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    hasOpportunities: new FormControl(false),
+    hasProjects: new FormControl(false),
     categories: new FormArray([
       new FormControl(false),
       new FormControl(false),
@@ -90,7 +90,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     if (this.from === 'organizations') { // from "Organizations" link
       this.organizationService.searchOrganizations(
         this.filterForm.value.keyword,
-        this.filterForm.value.hasOpportunities,
+        this.filterForm.value.hasProjects,
         categoriesParam
       ).subscribe( res => {
         this.organizations = res;
@@ -104,7 +104,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
           this.projectService.getProjectByOrg(o.id)
             .subscribe( response => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                o.opportunities = this.projects.length;
+                o.projects = this.projects.length;
                      },
               error => console.log(error));
         });
@@ -125,7 +125,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
           this.projectService.getProjectByOrg(o.id)
             .subscribe( response => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                o.opportunities = this.projects.length;
+                o.projects = this.projects.length;
                      },
               error => console.log(error));
         });
