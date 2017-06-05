@@ -82,7 +82,7 @@ export class ProjectService {
       .catch(this.handleError);
   }*/
 
-  add(project: Project): Observable<{project: Project}> {
+  createProject(project: Project): Observable<{project: Project}> {
       return this.http.post(
       `${projectUrl}`,
       project
@@ -97,16 +97,16 @@ export class ProjectService {
   }
 
   updateProject(project: Project) {
-    // const url = projectUrl + '/' + project.id;
-    // return this.http
-    //  .put(url, project, {headers: this.headers})
-    //  .map((res: Response) => res.json())
-    //  .catch(this.handleError);
+    const url = projectUrl + '/' + project.id;
+    return this.http
+      .put(url, project, {headers: this.headers})
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
 
-    return this.http.put(
-      `${projectUrl}/${project.id}`,
-      project
-      );
+    //return this.http.put(
+    // `${projectUrl}/${project.id}`,
+    //  project
+    // );
   }
 
 
