@@ -25,6 +25,10 @@ export class ProjectEditComponent implements OnInit {
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
+  public logoValid = true;
+  private logoData: ImageReaderResponse;
+  public editFlag = false;
+  
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
@@ -192,10 +196,7 @@ export class ProjectEditComponent implements OnInit {
       console.log(this.projectSkillsArray);
     }
   }
-
-  changeImage(event) {
-    this.projectImageUrl = event.target.files;
-  }
+  
 onUploadLogo(fileInput: any): void {
     // Make sure there are files before doing the upload
     if (fileInput.target.files && fileInput.target.files.length) {
