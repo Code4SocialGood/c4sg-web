@@ -80,23 +80,30 @@ constructor(private projectService: ProjectService,
     this.getSkills();
 
     // Watch for changes to the form and update the list
-    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      if (value.keyword || value.skills.some(i => i)) {
-        this.filterProjects();
-      } else {
-        this.getProjects();
-      }
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => { 
+      this.getProjects();
     });
   }
 
   getProjects(): void {
     // Issue#300 - resetting form before reloading page to display all items
-    this.filterForm.reset();
+    // this.filterForm.reset();
+
+    const skills = this.filterForm.value.skills;
+    const skillsParam = [];
+
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
+        }
+      }
+    }
 
     // Projects Page from header
     if (this.from === 'projects') {
       this.projectsSubscription = this.projectService
-      .searchProjects(null, null, 'A')
+      .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
       .subscribe(
         res => {
           this.projects = res;
@@ -140,40 +147,6 @@ constructor(private projectService: ProjectService,
         error => console.log(error)
       );
     };
-  }
-
-  filterProjects() {
-    const skills = this.filterForm.value.skills;
-    const skillsParam = [];
-
-    if (skills) {
-      for (let i = 0; i < skills.length; i++) {
-        if (skills[i]) {
-          skillsParam.push(this.skills[i].id.toString());
-        }
-      }
-    }
-
-    this.projectsSubscription = this.projectService
-      .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
-      .subscribe(
-        res => {
-          this.projects = res;
-          res.forEach((e: Project) => {
-            this.idService.displayImage(e.id,
-              this.projectService.retrieveImage.bind(this.projectService))
-              .subscribe(image => {
-                e.image = image.url;
-                });
-
-              this.skillService.getSkillsByProject(e.id).subscribe(
-                result => {
-                     e.skills = result;
-                      });
-          });
-        },
-        error => console.log(error)
-      );
   }
 
   getSkills(): void {

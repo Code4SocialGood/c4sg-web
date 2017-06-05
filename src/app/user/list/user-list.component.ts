@@ -39,7 +39,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     private router: Router,
     private skillService: SkillService,
     private auth: AuthService) {
-
   }
 
   ngOnInit(): void {
@@ -106,45 +105,22 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.filterForm.value.keyword != null && skillsParam.length > 0) {
     this.usersSubscription = this.userService.searchUsers(
-      page,
-      this.filterForm.value.keyword,
-      skillsParam
-    ).subscribe(
-      res => {
-        // the called service returns a JSON object
-        // consist of the array of pageable data
-        // and the total number of data rows
-        this.users = res;
-        this.totalItems = res.length;
-        res.forEach((e: User) => {
-          this.skillService.getSkillsForUser(e.id).subscribe(
-            result => {
-              e.skills = result;
-            });
-        });
-      },
-      error => console.error(error)
-      );
-  }else {
-  this.usersSubscription = this.userService.getAllUsers().subscribe(
-    res => {
-        // the called service returns a JSON object
-        // consist of the array of pageable data
-        // and the total number of data rows
-        this.users = res;
-        this.totalItems = res.length;
-      res.forEach((e: User) => {
-        this.skillService.getSkillsForUser(e.id).subscribe(
-          result => {
-            e.skills = result;
+      page, this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y')
+      .subscribe(
+        res => {
+          // the service returns a JSON object consist of the array of pageable data
+          this.users = res;
+          this.totalItems = res.length;
+          res.forEach((e: User) => {
+            this.skillService.getSkillsForUser(e.id).subscribe(
+              result => {
+                e.skills = result;
+              });
           });
-      });
-      },
-      error => console.error(error)
+        },
+        error => console.error(error)
       );
-  }
   }
 
   // selection callback
