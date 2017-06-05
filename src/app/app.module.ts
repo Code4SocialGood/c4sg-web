@@ -44,6 +44,7 @@ import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
 import {ValidationService} from './_services/validation.service';
+import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import {ValidationService} from './_services/validation.service';
     MapViewerComponent,
     SkillSelectComponent,
     SharedBtnComponent,
+    ScrollSkillsDirective
   ],
   providers: [ProjectService,
     OrganizationService,
