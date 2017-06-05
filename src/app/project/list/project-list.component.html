@@ -9,32 +9,41 @@
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='projects'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
-          <div class="section">
-            <div class="input-search row">
-              <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
-              <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
-              <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
-                <i  class="material-icons transparent" id="keyword-icon">search</i>
-              </button>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <div class="input-search">
+                  <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+                  <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search"
+                         formControlName="keyword" placeholder="   keyword">
+                  <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light"
+                          id="keyword-button">
+                    <i class="material-icons transparent" id="keyword-icon">search</i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="section">
-            <h4>Skills</h4>
-            <div class="section-body">
-              <div class="skills-list-wrapper">
-                <ul *ngIf="skills" formArrayName="skills">
-                  <li *ngFor="let skill of skills, let i = index">
-                    <input class="filled-in" type="checkbox" [id]="skill.name" formControlName="{{i}}">
-                    <label [for]="skill.name">{{skill.name}}</label>
-                  </li>
-                </ul>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <h4>Skills</h4>
+                <div class="section-body">
+                  <div class="skills-list-wrapper skill-section" myScrollSkills (onScrollEvent)="showSkills()">
+                    <ul *ngIf="skills" formArrayName="skills">
+                      <li *ngFor="let skill of skillsShowed, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="skill.name" [formControlName]="i">
+                        <label [for]="skill.name">{{skill.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </form>
       </div>
     </div>
-
     <!-- Right Panel -->
     <div class="col m8 s12" id="right-col">
       <!-- 1. Projects -->
@@ -45,14 +54,15 @@
           <div class="list-item-group col s12">
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="projects">
-                <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                <li class="card-wrapper"
+                    *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                   <div class="card">
                     <div class="card-content">
                       <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
                         <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
                       </div>
                       <div class="card-avatar-wrapper" *ngIf="!project.imageUrl">
-                        <div class ="card-avatar"><img class="card-avatar-content" [src]="defaultProjectAvatar"></div>
+                        <div class="card-avatar"><img class="card-avatar-content" [src]="defaultProjectAvatar"></div>
                       </div>
                       <div class="card-info">
                         <div class="card-header">
@@ -61,7 +71,8 @@
                           </div>
                           <div class="row info-row">
                             <div class="card-metainfo col m6">
-                              <p [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                              <p [routerLink]="['/organization/view/', project.organizationId]">{{
+                                project.organizationName }}</p>
                             </div>
                             <div class="card-metainfo col m6">
                               <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
@@ -97,7 +108,8 @@
           <div class="col s12">
             <div class="items-list-wrapper">
               <ul *ngIf="bookmarkedProjects">
-                <li class="card-wrapper" *ngFor="let project of bookmarkedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                <li class="card-wrapper"
+                    *ngFor="let project of bookmarkedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                   <div class="card">
                     <div class="card-header">
                       <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
@@ -113,7 +125,8 @@
                     <div class="card-content">
                       <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                       <div class="card-info">
-                        <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                        <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{
+                          project.organizationName }}</p>
                         <div class="skills-list-wrapper">
                           <ul *ngIf="project.skills">
                             <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
@@ -138,7 +151,8 @@
           <div class="col s12">
             <div class="items-list-wrapper">
               <ul *ngIf="appliedProjects">
-                <li class="card-wrapper" *ngFor="let project of appliedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+                <li class="card-wrapper"
+                    *ngFor="let project of appliedProjects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
                   <div class="card">
                     <div class="card-header">
                       <h4 [routerLink]="['/project/view',project.id]">{{project.name}}</h4>
@@ -154,7 +168,8 @@
                     <div class="card-content">
                       <div class="card-avatar"><img [src]="project.imageUrl" *ngIf="project.imageUrl"></div>
                       <div class="card-info">
-                        <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{ project.organizationName }}</p>
+                        <p class="org-name" [routerLink]="['/organization/view/', project.organizationId]">{{
+                          project.organizationName }}</p>
                         <div class="skills-list-wrapper">
                           <ul>
                             <li class="chip">Javascript</li>

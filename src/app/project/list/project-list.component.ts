@@ -21,12 +21,14 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
-
+  skills: any[];
+  skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     skills: this.skillsArray
   });
+
   p = 0;
   projects: Project[];
   bookmarkedProjects: Project[];
@@ -41,10 +43,10 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   orgId: number;
   projId: number;
   from: string;
-  skills: any[];
+
   defaultProjectAvatar = '../../assets/default_image.png';
 
-constructor(private projectService: ProjectService,
+  constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
@@ -146,19 +148,36 @@ constructor(private projectService: ProjectService,
         },
         error => console.log(error)
       );
-    };
+    }
+    ;
   }
 
   getSkills(): void {
     this.skillService.getSkills().subscribe(res => {
-        console.log(res);
         this.skills = res.map(skill => {
-          this.skillsArray.push(new FormControl(false));
           return {name: skill.skillName, checked: false, id: skill.id};
         });
+        this.showSkills();
       },
       error => console.error(error)
     );
+  }
+
+  showSkills(): void {
+    let addedSkills;
+    if (this.skillsShowed.length < this.skills.length) {
+      if (!this.skillsShowed.length) {
+        addedSkills = this.skills.slice(0, 10);
+      } else {
+        addedSkills = this.skills
+          .filter(i => !this.skillsShowed.includes(i));
+        addedSkills = addedSkills.filter((i, index) => index < 10);
+      }
+      for (const addedSkill of addedSkills) {
+        this.skillsShowed.push(addedSkill);
+        this.skillsArray.push(new FormControl(false));
+      }
+    }
   }
 
   onSelect(project: Project): void {
