@@ -34,7 +34,7 @@ export class ProjectViewComponent implements OnInit {
   defaultAvatarProject = '../../assets/default_image.png';
 
   modalActions = new EventEmitter<string|MaterializeAction>();
-  
+
   displayShare = true;
   displayApply = false;
   displayBookmark = false;

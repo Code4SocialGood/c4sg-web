@@ -76,7 +76,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 /*
-  add(project: Project): Observable<{project: Project}> { 
+  add(project: Project): Observable<{project: Project}> {
     const url = projectUrl;
     return this.http
       .post(url, project, {headers: this.headers})

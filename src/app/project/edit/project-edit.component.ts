@@ -141,10 +141,10 @@ export class ProjectEditComponent implements OnInit {
 
   private createProject(): void {
 
-    // TODO: 
+    // TODO:
     // For nonprofit user, find the organization of the user, assign organization ID to the project
     // For admin user, there should be a field to enter org ID
-    
+
     this.projectService
       .add(this.projectForm.value)
       .map(res => {
