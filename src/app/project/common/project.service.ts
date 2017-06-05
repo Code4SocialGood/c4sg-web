@@ -96,7 +96,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  update(project: Project) {
+  updateProject(project: Project) {
     // const url = projectUrl + '/' + project.id;
     // return this.http
     //  .put(url, project, {headers: this.headers})
