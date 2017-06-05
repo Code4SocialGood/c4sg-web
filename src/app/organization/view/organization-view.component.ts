@@ -135,8 +135,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       .delete(this.organization.id)
       .subscribe(
         response => {
-          this.router.navigate(['organization/list']);
-          // display toast
+          this.router.navigate(['/organization/list/organizations']);
           this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {

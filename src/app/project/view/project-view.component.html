@@ -44,6 +44,8 @@
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
                  [materializeActions]="deleteGlobalActions">Close</a>
+              <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
+              Delete</button>-->
               <my-shared-btn [displayShare]="displayShare"></my-shared-btn>   
             </div>
           </div>

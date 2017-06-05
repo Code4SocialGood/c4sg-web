@@ -235,20 +235,4 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     //  }, error => console.log(error)
     // );
   }
-
-  delete(event): void {
-    this.userService.delete(this.user.id)
-        .subscribe(
-          error => console.log(error)
-        );
-  }
-
-  openModal(user) {
-    this.modalActions.emit({action: 'modal', params: ['open']});
-  }
-
-  closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
-  }
-
 }

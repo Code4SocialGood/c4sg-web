@@ -152,9 +152,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
-    if (this.organizationId === 0) { // organization hasn't been created, create the organization
+    if (this.organizationId === 0) { // Create the organization
       this.createOrganization();
-    } else { // Existing organization, update the organization
+    } else { // Update the organization
       this.updateOrganization();
     }
   }
@@ -241,14 +241,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     if (!this.organizationForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
-  }
-
-  openModal(user) {
-    this.modalActions.emit({action: 'modal', params: ['open']});
-  }
-
-  closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   onUploadImage(fileInput: any): void {

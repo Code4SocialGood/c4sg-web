@@ -33,6 +33,8 @@ export class ProjectViewComponent implements OnInit {
   auth: AuthService;
   defaultAvatarProject = '../../assets/default_image.png';
 
+  modalActions = new EventEmitter<string|MaterializeAction>();
+
   displayShare = true;
   displayApply = false;
   displayBookmark = false;
@@ -205,8 +207,7 @@ export class ProjectViewComponent implements OnInit {
       .delete(this.project.id)
       .subscribe(
         response => {
-          this.router.navigate(['project/list']);
-          // display toast
+          this.router.navigate(['project/list/projects']);
           this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
         },
         error => {
@@ -214,5 +215,13 @@ export class ProjectViewComponent implements OnInit {
             this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
         }
       );
+  }
+
+  openModal(user) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }

@@ -75,13 +75,20 @@ export class ProjectService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-
-  add(project: Project): Observable<Project[]> {
+/*
+  add(project: Project): Observable<{project: Project}> {
     const url = projectUrl;
     return this.http
       .post(url, project, {headers: this.headers})
       .map((res: Response) => res.json())
       .catch(this.handleError);
+  }*/
+
+  add(project: Project): Observable<{project: Project}> {
+      return this.http.post(
+      `${projectUrl}`,
+      project
+      ).map(res => res.json());
   }
 
   delete(id: number) {
