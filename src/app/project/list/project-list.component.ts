@@ -80,7 +80,7 @@ constructor(private projectService: ProjectService,
     this.getSkills();
 
     // Watch for changes to the form and update the list
-    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => { 
+    this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
       this.getProjects();
     });
   }

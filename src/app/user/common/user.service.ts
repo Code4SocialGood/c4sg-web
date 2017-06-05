@@ -62,7 +62,7 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  searchUsers(page: number, keyword?: string, skills?: string[], status?: string, 
+  searchUsers(page: number, keyword?: string, skills?: string[], status?: string,
     role?: string, publicFlag?: string): Observable<User[]> {
     const params = new URLSearchParams();
 
