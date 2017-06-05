@@ -94,7 +94,7 @@ constructor(private projectService: ProjectService,
     this.filterForm.reset();
 
     // Projects Page from header
-    if (this.from === 'projects') { 
+    if (this.from === 'projects') {
       this.projectsSubscription = this.projectService
       .searchProjects(null, null, 'A')
       .subscribe(
@@ -117,7 +117,7 @@ constructor(private projectService: ProjectService,
       );
 
     // Volunteer user: My Projects
-    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { 
+    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
         res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
@@ -126,7 +126,7 @@ constructor(private projectService: ProjectService,
         error => console.log(error));
 
     // Nonprofit user: My Projects
-    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) { 
+    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
