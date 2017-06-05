@@ -92,18 +92,31 @@ constructor(private projectService: ProjectService,
   getProjects(): void {
     // Issue#300 - resetting form before reloading page to display all items
     this.filterForm.reset();
+
+    // Projects Page from header
     if (this.from === 'projects') {
-      this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
+      this.projectsSubscription = this.projectService
+      .searchProjects(null, null, 'A')
+      .subscribe(
         res => {
           this.projects = res;
           res.forEach((e: Project) => {
-            this.skillService.getSkillsByProject(e.id).subscribe(
-              result => {
-                e.skills = result;
-              });
+            this.idService.displayImage(e.id,
+              this.projectService.retrieveImage.bind(this.projectService))
+              .subscribe(image => {
+                e.image = image.url;
+                });
+
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                result => {
+                     e.skills = result;
+                      });
           });
         },
-        error => console.log(error));
+        error => console.log(error)
+      );
+
+    // Volunteer user: My Projects
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
         res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
@@ -111,6 +124,8 @@ constructor(private projectService: ProjectService,
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
         res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
+
+    // Nonprofit user: My Projects
     } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
