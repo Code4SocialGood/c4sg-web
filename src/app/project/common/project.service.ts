@@ -24,9 +24,7 @@ export class ProjectService {
   }
   /*
   getActiveProjects(): Observable<Project[]> {
-
     const url = projectUrl + '/search';
-
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
@@ -128,6 +126,12 @@ export class ProjectService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  saveLogo(id: number, formData: FormData): Observable<Response> {
+    return this.http
+               .post(`${projectUrl}/${id}/logo`,
+                 formData);
   }
 
 }
