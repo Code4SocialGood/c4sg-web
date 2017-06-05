@@ -104,11 +104,10 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  delete(id: number): Observable<Response> {
+  delete(id: number)  {
     const url = userUrl + '/' + id;
     return this.http
                .delete(url, {headers: this.headers})
-               .map((res: Response) => res.json())
                .catch(this.handleError);
   }
 
