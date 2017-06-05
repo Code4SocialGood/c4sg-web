@@ -6,7 +6,7 @@ import { Project } from '../common/project';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
-import { Observable } from 'rxjs/Observable;
+import { Observable } from 'rxjs/Observable';
 import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 declare const Materialize: any;
 
