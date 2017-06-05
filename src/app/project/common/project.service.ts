@@ -22,7 +22,7 @@ export class ProjectService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-
+  /*
   getActiveProjects(): Observable<Project[]> {
 
     const url = projectUrl + '/search';
@@ -30,7 +30,7 @@ export class ProjectService {
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
-  }
+  } */
 
   getProject(id: number): Observable<Project> {
 
