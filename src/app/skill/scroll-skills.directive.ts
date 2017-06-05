@@ -1,7 +1,7 @@
 import {Directive, ElementRef, EventEmitter, HostListener, Output} from '@angular/core';
 
 @Directive({
-  selector:'[appScrollSkills]'
+  selector: '[myScrollSkills]'
 })
 
 export class ScrollSkillsDirective {
@@ -9,9 +9,9 @@ export class ScrollSkillsDirective {
 
   constructor(private elementRef: ElementRef) {}
 
-  @HostListener('scroll') scroll(eventData: Event) {
-    let skillSectionElement = this.elementRef.nativeElement;
-    let lastShowedSkill = skillSectionElement.querySelector('li:last-child');
+  @HostListener('scroll') scroll() {
+    const skillSectionElement = this.elementRef.nativeElement;
+    const lastShowedSkill = skillSectionElement.querySelector('li:last-child');
     if (lastShowedSkill.offsetTop + lastShowedSkill.offsetHeight <= skillSectionElement.offsetHeight + skillSectionElement.scrollTop) {
       this.onScrollEvent.emit();
     }

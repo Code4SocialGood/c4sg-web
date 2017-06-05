@@ -24,7 +24,7 @@
               <div class="section">
                 <h4>Skills</h4>
                 <div class="section-body">
-                  <div class="skills-list-wrapper skill-section" appScrollSkills (onScrollEvent)="showSkills()">
+                  <div class="skills-list-wrapper skill-section" myScrollSkills (onScrollEvent)="showSkills()">
                     <ul *ngIf="skills" formArrayName="skills">
                       <li *ngFor="let skill of skillsShowed, let i = index">
                         <input class="filled-in" type="checkbox" [id]="skill.name" [formControlName]="i">

@@ -104,7 +104,7 @@ export class UserListComponent implements OnInit, OnDestroy {
           .filter(i => !this.skillsShowed.includes(i));
         addedSkills = addedSkills.filter((i, index) => index < 10);
       }
-      for (let addedSkill of addedSkills) {
+      for (const addedSkill of addedSkills) {
         this.skillsShowed.push(addedSkill);
         this.skillsArray.push(new FormControl(false));
       }
