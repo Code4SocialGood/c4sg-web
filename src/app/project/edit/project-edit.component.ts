@@ -6,7 +6,7 @@ import { Project } from '../common/project';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
-import { Observable } from 'rxjs/Observable
+import { Observable } from 'rxjs/Observable;
 import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 declare const Materialize: any;
 
@@ -37,8 +37,7 @@ export class ProjectEditComponent implements OnInit {
               private imageUploader: ImageUploaderService) {
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     this.route.params.subscribe(params => {
 
     this.getFormConstants();
@@ -65,8 +64,7 @@ export class ProjectEditComponent implements OnInit {
             res => {
               this.projectSkillsArray = res;
             }, error => console.log(error)
-          );
-    
+          ); 
 
       this.skillService.getSkills()
         .subscribe(
@@ -150,16 +148,15 @@ export class ProjectEditComponent implements OnInit {
   }
 
   private createProject(): void {
-    this.projectService.createProject(this.projectForm.value).subscribe(res => {   
-           this.project = res.project; 
-           this.skillService.updateSkills(this.projectSkillsArray, this.project.id);     
-     
-       // After all calls are successfully made, go to the view page
+    this.projectService.createProject(this.projectForm.value).subscribe(res => {
+           this.project = res.project;
+           this.skillService.updateSkills(this.projectSkillsArray, this.project.id); 
+           // After all calls are successfully made, go to the view page
         this.router.navigate(['/project/view/' + this.project.id]);
       }, error => console.log(error)
-      );
+     );
   }
-
+  
   private updateProject(): void {
   const formData = this.projectForm.value;
     formData.id = this.project.id;
@@ -167,14 +164,13 @@ export class ProjectEditComponent implements OnInit {
 
  this.projectService.updateProject(formData).subscribe(
     res => {
-        this.project = res.project; 
+        this.project = res.project;
         this.skillService.updateSkills(this.projectSkillsArray, this.project.id);
         // After all calls are successfully made, go to the view page
         this.router.navigate(['/project/view/' + this.project.id]);
-      }, error => console.log(error));    
-
-   
+      }, error => console.log(error));  
   }
+  
   onAddListedSkill(optionValue) {
     console.log(optionValue.target.value);
     this.projectSkillsArray.push(optionValue.target.value);
@@ -233,7 +229,7 @@ onUploadLogo(fileInput: any): void {
       this.projectService.saveLogo.bind(this.projectService))
       .subscribe(res => {
         if (res.url) {
-            this.project.imageUrl= res.url;
+            this.project.imageUrl = res.url;
         }
       },
       err => { console.error(err, 'An error occurred'); });
