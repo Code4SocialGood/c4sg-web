@@ -123,7 +123,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
       }
     }
-    
+
     this.usersSubscription = this.userService.searchUsers(
       page, this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y')
       .subscribe(
