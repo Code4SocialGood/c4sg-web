@@ -66,7 +66,12 @@
                     <div class="info-avatar" *ngIf="organization"><img [src]="organization.logoUrl"></div>
                   </div>
                   <div class="col m8">
-                    <p><a [href]="organization.websiteUrl" target="_blank">{{organization.name}}</a></p>
+                    <p>
+                      <a [href]="organization.websiteUrl" target="_blank" *ngIf="organization.websiteUrl">{{organization.name}}</a>
+                    </p>
+                    <p *ngIf="!organization.websiteUrl">
+                       {{organization.name}}
+                    </p>
                   </div>
                 </div>
                 <p>{{organization.description}}</p>
