@@ -21,13 +21,16 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   }, {
     name: 'Open Source'
   }, {
-    name: 'Spcial Enterprise'
+    name: 'Social Enterprise'
+  }, {
+    name: 'Team Project'
   }];
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     hasProjects: new FormControl(false),
     categories: new FormArray([
+      new FormControl(false),
       new FormControl(false),
       new FormControl(false),
       new FormControl(false)
