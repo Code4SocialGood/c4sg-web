@@ -135,7 +135,7 @@ export class ProjectViewComponent implements OnInit {
           res => {
             let organization: Organization;
             organization = res[0];
-            if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
+            if ((organization !== undefined) && (organization.id === Number(this.project.organizationId))) {
               this.displayEdit = true;
               this.displayDelete = true;
             }
@@ -217,7 +217,7 @@ export class ProjectViewComponent implements OnInit {
       );
   }
 
-  openModal(user) {
+  openModal(project) {
     this.modalActions.emit({action: 'modal', params: ['open']});
   }
 
