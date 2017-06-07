@@ -79,7 +79,7 @@ export class ProjectViewComponent implements OnInit {
                         this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
                       }
 
-                      if (this.organization.description.length > 100) {
+                      if (this.organization.description != null && this.organization.description.length > 100) {
                           this.organization.description = this.organization.description.slice(0, 100) + '...';
                       }
                     }
