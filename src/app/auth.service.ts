@@ -103,62 +103,60 @@ export class AuthService {
           this.email = profile.email;
 
           userService.getUserByEmail(this.email).subscribe(
-            res => {
-              const lemail = this.email;
-              const luserRole = this.userRole;
-              const luserName = this.userName;
-              const firstName =  this.firstName !== undefined ? this.firstName : '';
-              const lastName =  this.lastName !== undefined ? this.lastName : '';
-              // console.log(res);
-              // Check if response is undefined
-              if (res) {
-                  user = res;
-              }
-              // If user not found, then create the user
-              if (user === undefined) {
-                console.log('User does not exist');
-                const newUser: User = ({id: 0, email: lemail,
-                  role: luserRole.toUpperCase(),
-                  userName: luserName, firstName: firstName,
-                  lastName: lastName,
-                  publishFlag: 'N', chatFlag: 'N',
-                  forumFlag: 'N', status: 'ACTIVE'});
+                res => {
+                  const lemail = this.email;
+                  const luserRole = this.userRole;
+                  const luserName = this.userName;
+                  const firstName =  this.firstName !== undefined ? this.firstName : '';
+                  const lastName =  this.lastName !== undefined ? this.lastName : '';
+                  // console.log(res);
+                  // Check if response is undefined
+                  if (res) {
+                      user = res;
+                  }
+                  // If user not found, then create the user
+                  if (user === undefined) {
+                    console.log('User does not exist');
+                    const newUser: User = ({id: 0, email: lemail,
+                      role: luserRole.toUpperCase(),
+                      userName: luserName, firstName: firstName,
+                      lastName: lastName,
+                      publishFlag: 'N', chatFlag: 'N',
+                      forumFlag: 'N', status: 'ACTIVE'});
 
-                // Create a user
-                userService.add(newUser).subscribe(
-                  res1 => {
-                    user = res1;
+                    // Create a user
+                    userService.add(newUser).subscribe(
+                      res1 => {
+                        user = res1;
+                        localStorage.setItem('currentUserId', user.id);
+                        if (user.firstName !== '' && user.lastName !== '') {
+                          localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                        } else {
+                          localStorage.setItem('currentDisplayName', user.email);
+                        }
+                      },
+                      error1 => console.log(error1));
+                  }else {
+                    // Store user id and display name
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
-                  },
-                  error1 => console.log(error1));
-              }else {
-                // Store user id and display name
-                localStorage.setItem('currentUserId', user.id);
-                if (user.firstName !== '' && user.lastName !== '') {
-                  localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                } else {
-                  localStorage.setItem('currentDisplayName', user.email);
+                  }
+                },
+                error1 => console.log(error1)
+            );
+              // Issue 356 - redirect user back to the page that requested login - project view page
+                this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                if (this.redirectAfterLogin) {
+                    setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
+                }else {
+                    setTimeout(() => this.router.navigate(['/']));
                 }
-              }
-            },
-            error1 => console.log(error1)
-          );          
-          
-          // Issue 356 - redirect user back to the page that requested login - project view page
-            this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-            if (this.redirectAfterLogin) {
-                setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
-            }else {
-                setTimeout(() => this.router.navigate(['/']));
             }
-        }
-      });
-      
+        });
     });
 
     // Function call to show errors
