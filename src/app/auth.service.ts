@@ -252,12 +252,20 @@ export class AuthService {
 
   // Check if a user's role is ADMIN
   public isAdmin() {
-    if (this.hasRoles()) {
+  
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ADMIN
       if (this.bypassRole(AppRoles[0])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        if(this.userProfile.app_metadata.roles){
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        }
+        else{
+            return false;
+        }
+        
       }
     }
     return false;
@@ -265,12 +273,19 @@ export class AuthService {
 
   // Check if a user's role is VOLUNTEER
   public isVolunteer() {
-    if (this.hasRoles()) {
+  
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.VOLUNTEER
       if (this.bypassRole(AppRoles[1])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        if(this.userProfile.app_metadata.roles){
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        }
+        else{
+            return false;
+        }        
       }
     }
     return false;
@@ -278,12 +293,19 @@ export class AuthService {
 
   // Check if a user's role is ORGANIZATION
   public isOrganization() {
-    if (this.hasRoles()) {
+  
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ORGANIZATION
       if (this.bypassRole(AppRoles[2])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        if(this.userProfile.app_metadata.roles){
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        }
+        else{
+            return false;
+        }        
       }
     }
     return false;
