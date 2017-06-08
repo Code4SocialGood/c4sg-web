@@ -39,7 +39,8 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
-              <a class="btn" (click)="apply()">Apply</a>
+              <a class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply" *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply</a>
+              <a class="btn" *ngIf="displayApply && authService.authenticated()" (click)="apply()">Apply</a>
               <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="openModal(project)" materialize

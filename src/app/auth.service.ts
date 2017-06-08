@@ -103,60 +103,60 @@ export class AuthService {
           this.email = profile.email;
 
           userService.getUserByEmail(this.email).subscribe(
-            res => {
-              const lemail = this.email;
-              const luserRole = this.userRole;
-              const luserName = this.userName;
-              const firstName =  this.firstName !== undefined ? this.firstName : '';
-              const lastName =  this.lastName !== undefined ? this.lastName : '';
-              // console.log(res);
-              // Check if response is undefined
-              if (res) {
-                  user = res;
-              }
-              // If user not found, then create the user
-              if (user === undefined) {
-                console.log('User does not exist');
-                const newUser: User = ({id: 0, email: lemail,
-                  role: luserRole.toUpperCase(),
-                  userName: luserName, firstName: firstName,
-                  lastName: lastName,
-                  publishFlag: 'N', chatFlag: 'N',
-                  forumFlag: 'N', status: 'ACTIVE'});
+                res => {
+                  const lemail = this.email;
+                  const luserRole = this.userRole;
+                  const luserName = this.userName;
+                  const firstName =  this.firstName !== undefined ? this.firstName : '';
+                  const lastName =  this.lastName !== undefined ? this.lastName : '';
+                  // console.log(res);
+                  // Check if response is undefined
+                  if (res) {
+                      user = res;
+                  }
+                  // If user not found, then create the user
+                  if (user === undefined) {
+                    console.log('User does not exist');
+                    const newUser: User = ({id: 0, email: lemail,
+                      role: luserRole.toUpperCase(),
+                      userName: luserName, firstName: firstName,
+                      lastName: lastName,
+                      publishFlag: 'N', chatFlag: 'N',
+                      forumFlag: 'N', status: 'ACTIVE'});
 
-                // Create a user
-                userService.add(newUser).subscribe(
-                  res1 => {
-                    user = res1;
+                    // Create a user
+                    userService.add(newUser).subscribe(
+                      res1 => {
+                        user = res1;
+                        localStorage.setItem('currentUserId', user.id);
+                        if (user.firstName !== '' && user.lastName !== '') {
+                          localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                        } else {
+                          localStorage.setItem('currentDisplayName', user.email);
+                        }
+                      },
+                      error1 => console.log(error1));
+                  }else {
+                    // Store user id and display name
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
-                  },
-                  error1 => console.log(error1));
-              }else {
-                // Store user id and display name
-                localStorage.setItem('currentUserId', user.id);
-                if (user.firstName !== '' && user.lastName !== '') {
-                  localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                } else {
-                  localStorage.setItem('currentDisplayName', user.email);
+                  }
+                },
+                error1 => console.log(error1)
+            );
+              // Issue 356 - redirect user back to the page that requested login - project view page
+                this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                if (this.redirectAfterLogin) {
+                    setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
+                }else {
+                    setTimeout(() => this.router.navigate(['/']));
                 }
-              }
-            },
-            error1 => console.log(error1)
-          );
-        }
-      });
-      // Issue 356 - redirect user back to the page that requested login - project view page
-      this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-      if (this.redirectAfterLogin) {
-        setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 50);
-      }else {
-        setTimeout(() => this.router.navigate(['/']));
-      }
+            }
+        });
     });
 
     // Function call to show errors
@@ -252,12 +252,17 @@ export class AuthService {
 
   // Check if a user's role is ADMIN
   public isAdmin() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ADMIN
       if (this.bypassRole(AppRoles[0])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        }else {
+            return false;
+        }
       }
     }
     return false;
@@ -265,12 +270,17 @@ export class AuthService {
 
   // Check if a user's role is VOLUNTEER
   public isVolunteer() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.VOLUNTEER
       if (this.bypassRole(AppRoles[1])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        } else {
+            return false;
+        }
       }
     }
     return false;
@@ -278,12 +288,17 @@ export class AuthService {
 
   // Check if a user's role is ORGANIZATION
   public isOrganization() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ORGANIZATION
       if (this.bypassRole(AppRoles[2])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        } else {
+            return false;
+        }
       }
     }
     return false;
