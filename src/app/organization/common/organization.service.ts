@@ -34,8 +34,10 @@ export class OrganizationService {
 
   searchOrganizations(
     keyword?: string,
-    hasProjects?: boolean,
-    categories?: string[]
+    countries?: string[],
+    open?: boolean,
+    status?: string,
+    category?: string[]
   ): Observable<Organization[]> {
     const params = new URLSearchParams();
 
@@ -43,13 +45,23 @@ export class OrganizationService {
       params.set('keyWord', keyword);
     }
 
-    if (hasProjects) {
-      params.set('open', hasProjects.toString());
+    if (countries) {
+      for (let i = 0; i < countries.length; i++) {
+        params.append('countries', countries[i]);
+      }
     }
 
-    if (categories) {
-      for (let i = 0; i < categories.length; i++) {
-        params.append('categories', categories[i]);
+    if (open) {
+      params.set('open', open.toString());
+    }
+
+    if (status) {
+      params.append('status', status);
+    }
+
+    if (category) {
+      for (let i = 0; i < category.length; i++) {
+        params.append('category', category[i]);
       }
     }
 

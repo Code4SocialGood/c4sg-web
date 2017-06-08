@@ -101,7 +101,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   getProjects(id: number): void {
-    this.projectService.getProjectByOrg(id).subscribe(
+    this.projectService.getProjectByOrg(id, 'A').subscribe(
       res => {
         this.projects = res.json();
         this.projects.forEach((project) => {

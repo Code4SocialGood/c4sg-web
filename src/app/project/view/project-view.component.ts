@@ -86,7 +86,7 @@ export class ProjectViewComponent implements OnInit {
                     );
 
             // Projects for this organization
-            this.projectService.getProjectByOrg(res.organizationId)
+            this.projectService.getProjectByOrg(res.organizationId, 'A')
                   .subscribe(
                     resProjects => {
                       this.projects = resProjects.json();
