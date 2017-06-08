@@ -139,7 +139,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
-          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
+          // Returns project of any status: 'A' and' 'C'
+          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
             res => {
               this.projects = res.json();
             },

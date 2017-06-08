@@ -64,8 +64,8 @@
                 </div>
               </div>
             </div>
-            <h4>Projects ({{projects.length}})</h4>
-            <div class="section-body">
+            <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+            <div class="section-body" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
@@ -74,17 +74,20 @@
                         <div class="row single-info">
                           <div class="col m4">
                             <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarOrganization"></div>
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                            <div class="skills-tag-wrapper">
-                              <ul *ngIf="pr.skills">
-                                <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
-                              </ul>
-                            </div>
+                          </div>
+                          <div class="row">
+                          <div class="skills-tag-wrapper">
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
+                          </div>
                           </div>
                         </div>
-                        <p>{{ pr.description | slice:0:100 }} ...}}</p>
+                        <p>{{ pr.description  | slice:0:100 }} ...}}</p>
                       </div>
                     </div>
                   </li>

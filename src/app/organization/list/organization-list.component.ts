@@ -93,7 +93,9 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     if (this.from === 'organizations') { // from "Organizations" link
       this.organizationService.searchOrganizations(
         this.filterForm.value.keyword,
+        null,
         this.filterForm.value.hasProjects,
+        'A',
         categoriesParam
       ).subscribe( res => {
         this.organizations = res;
@@ -104,7 +106,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
             // o.logo = logo.url;
           });
 
-          this.projectService.getProjectByOrg(o.id)
+          this.projectService.getProjectByOrg(o.id, 'A')
             .subscribe( response => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
                 o.projects = this.projects.length;
@@ -115,8 +117,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         error => console.log(error)
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
-      this.organizationService.searchOrganizations(
-      ).subscribe( res => {
+      this.organizationService.searchOrganizations(null, null, null, 'P', null) // Org of Pending status
+      .subscribe( res => {
         this.organizations = res;
         res.forEach((o: Organization) => {
           this.idService.displayImage(o.id,
@@ -125,7 +127,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
             // o.logo = logo.url;
           });
 
-          this.projectService.getProjectByOrg(o.id)
+          this.projectService.getProjectByOrg(o.id, 'A')
             .subscribe( response => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
                 o.projects = this.projects.length;
