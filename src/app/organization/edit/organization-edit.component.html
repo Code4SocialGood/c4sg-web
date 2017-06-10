@@ -1,295 +1,116 @@
+<div class="page-title">My Organization</div>
 <div class="container">
-  <h3 class="center-align">My Organization</h3>
-  <div class="row">
-    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()" class="col s12">
-      <div class="row">
-
-        <div class="col m4 s12">
-
-          <img [src]="organization.logo" alt="Organization Logo" class="responsive-img" *ngIf="organization.logo"/>
-
-          <br>
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>Upload</span>
-              <input type="file" (change)="onUploadLogo($event)">
+  <div class="row main-row">
+    <!-- Left Panel -->
+    <div class="col s3" id="left-col">
+      <div class="content" *ngIf="organization">
+        <div class="row single-info">
+          <div class="col m12">
+            <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Upload</span>
+                <input type="file" (change)="onUploadImage($event)">
+              </div>
+              <div class="red lighten-5 center-align error-msg" *ngIf="!imageValid">
+                <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
+              </div>
             </div>
-            <div class="red lighten-5 center-align error-msg" *ngIf="!logoValid">
-              <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
-            </div>
-          </div>
-        </div>
-
-        <div class="col m4 s12">
-          <div class="input-field">
-            <label for="name">Organization Name *</label>
-            <input type="text" id="name" [ngClass]="{active: formPlaceholder.name}" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}">
-          </div>
-
-          <div class="input-field">
-            <label for="website">Website</label>
-            <input type="url" id="website" class="" formControlName="websiteUrl">
-            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.websiteUrl.invalid && organizationForm.controls.websiteUrl.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.websiteUrl.value)">
-              <h6 class="red-text darken-4">Starts with "http://" or "https://"</h6>
-            </div>
-          </div>
-
-          <div class="input-field">
-            <select id="category" class="" formControlName="category" materialize="material_select">
-              <option value="" disabled selected></option>
-              <option *ngFor="let category of categories" [value]="category.value" [selected]="category.value === organization?.category.value">{{category.name}}</option>
-            </select>
-            <label>
-              Category
-            </label>
-          </div>
-
-          <div class="input-field">
-            <label for="ein">EIN</label>
-            <input type="text" id="ein" class="" formControlName="ein">
-          </div>
-
-          <div class="input-field">
-            <label for="contact-name">Contact Name</label>
-            <input type="text" id="contact-name" class="" formControlName="contactName">
-          </div>
-
-          <div class="input-field">
-            <label for="contact-title">Contact Title</label>
-            <input type="text" id="contact-title" class="" formControlName="contactTitle">
-          </div>
-
-          <div class="input-field">
-            <label for="contact-email">Contact Email</label>
-            <input type="email" id="contact-email" class="" formControlName="contactEmail">
-          </div>
-
-        </div>
-
-        <div class="col m4 s12">
-          <div class="input-field">
-            <label for="address1">Address 1</label>
-            <input type="text" id="address1" class="" formControlName="address1">
-          </div>
-
-          <div class="input-field">
-            <label for="address2">Address 2</label>
-            <input type="text" id="address2" class="" formControlName="address2">
-          </div>
-
-          <div class="input-field">
-            <label for="city">City</label>
-            <input type="text" id="city" class="" formControlName="city">
-          </div>
-
-          <div class="input-field">
-            <label for="state">State</label>
-            <input type="text" id="state" class="" formControlName="state">
-          </div>
-
-          <div class="input-field">
-            <label for="zip">Zip Code</label>
-            <input type="text" id="ein" class="" formControlName="zip">
-          </div>
-
-          <div class="input-field">
-            <select id="country" class="" formControlName="country" materialize="material_select">
-              <option value="" disabled></option>
-              <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
-            </select>
-            <label>
-              Country
-            </label>
-          </div>
-
-          <div class="input-field">
-            <label for="contact-phone">Contact Phone</label>
-            <input type="tel" id="contact-phone" class="" formControlName="contactPhone">
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col m4 s12 offset-m4">
-          <div class="input-field">
-            <textarea id="description" class="materialize-textarea" formControlName="description">
-            </textarea>
-            <label for="description">Description</label>
-            <div *ngIf="!organizationForm.controls.description.pristine" class="right-align" [ngClass]="{'red-text': organizationForm.controls.description.value.length > descMaxLength}">{{organizationForm.controls.description.value.length}}/{{descMaxLength}}
+    <!-- Right Panel -->
+    <div class="col s9" id="right-col">
+      <div class="content">
+        <form [formGroup]="organizationForm" (ngSubmit)="onSubmit(organizationForm.value, $event)">
+          <div class="row">
+            <div class="col m4 s12">
+              <div class="input-field">
+                <input type="text" id="name" formControlName="name">
+                <label for="name" [ngClass]="{'red-text': organizationForm.get('name').invalid}">Organization Name *</label>
+              </div>
+              <div class="input-field">
+                <select id="category" class="" formControlName="category" materialize="material_select">
+                  <option value="" disabled selected></option>
+                  <option *ngFor="let category of categories" [value]="category.value"
+                          [selected]="category.value === organization?.category.value">{{category.name}}
+                  </option>
+                </select>
+                <label>Category</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="address1" class="" formControlName="address1">
+                <label for="address1">Address 1</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="city" class="" formControlName="city">
+                <label for="city">City</label>
+              </div>
+              <div class="input-field">
+                <select id="country" class="" formControlName="country" materialize="material_select">
+                  <option value="" disabled></option>
+                  <option *ngFor="let country of countries" [value]="country.code"
+                          [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
+                  </option>
+                </select>
+                <label>Country</label>
+              </div>
+            </div>
+
+            <div class="col m4 s12">
+              <div class="input-field">
+                <input type="url" id="website" class="" formControlName="websiteUrl">
+                <label for="website"
+                       [ngClass]="{'red-text': organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']}">Website
+                  <span
+                    *ngIf="organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']">url is not valid!</span>
+                </label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="ein" class="" formControlName="ein">
+                <label for="ein">EIN</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="address2" class="" formControlName="address2">
+                <label for="address2">Address 2</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="state" class="" formControlName="state">
+                <label for="state">State</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="ein" class="" formControlName="zip">
+                <label for="zip">Zip Code</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col m4 s12s">
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col s12 push-m8">
-          <button type="submit" class="waves-effect waves-light btn" [disabled]="!organizationForm.valid">Save</button>
-        </div>
-      </div>
+          <div class="row">
+            <div class="col m4 s12 offset-m4">
+              <div class="input-field">
+                <textarea id="description" class="materialize-textarea" formControlName="description"
+                          (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
+                          (blur)="onBlurDesc()"></textarea>
+                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description
+                  <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
 
-    </form>
+          <div class="row">
+            <div class="col m12">
+              <div class="footer-btns center">
+                <button class="btn waves-effect waves-light" type="submit" [disabled]="!organizationForm.valid" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
-
-<!--
-<div class="container">
-  <h3 class="center-align">Edit Organization</h3>
-  <div class="row">
-    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()" class="col s12">
-      <div class="row">
-
-        <div class="col m4 s12">
-
-          <img [src]="organization.logo" alt="Organization Logo" class="responsive-img" />
-
-          <br>
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>Upload</span>
-              <input type="file" (change)="onUploadLogo($event)">
-            </div>
-            <br><br>
-            <input class="file-path left-align" type="text">
-          </div>
-        </div>
-
-
-        <div class="col m4 s12">
-          <div class="input-field">
-            <label for="name">
-              Organization Name
-             <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-
-            <input placeholder="" type="text" id="name" [ngClass]="{active: formPlaceholder.name}" formControlName="name" [ngClass]="{'validate':!organizationForm.controls['name'].valid}">
-          </div>
-
-          <div class="input-field">
-            <label for="website">
-              <i class="material-icons">link</i>
-               Website
-            </label>
-            <input placeholder="" type="url" id="website" class="" formControlName="website">
-            <div class="red lighten-5 center-align error-msg" *ngIf="organizationForm.controls.website.invalid && organizationForm.controls.website.value.length > 4 && !httpValidRegEx.test(organizationForm.controls.website.value)">
-              <h6 class="red-text darken-4">Starts with "http://" or "https://"</h6>
-            </div>
-          </div>
-
-          <div class="input-field">
-            <label for="email">
-              <i class="material-icons">mail_outline</i>
-               Email
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-            <input placeholder="" type="email" id="email" class="" formControlName="email">
-          </div>
-
-          <div class="input-field">
-            <label for="phone">
-              <i class="material-icons">phone</i>
-              Phone
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-            <input placeholder="" type="tel" id="phone" class="" formControlName="phone">
-          </div>
-
-          <div class="input-field">
-            <select id="category" class="" formControlName="category" materialize="material_select">
-              <option value="" disabled selected>Choose category</option>
-              <option *ngFor="let category of categories" value="category" [selected]="category === organization.category">{{category}}</option>
-            </select>
-            <label>
-              Category
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-          </div>
-
-          <div class="input-field">
-            <label for="ein">EIN</label>
-            <input placeholder="" type="text" id="ein" class="" formControlName="ein">
-          </div>
-        </div>
-
-
-        <div class="col m4 s12">
-          <div class="input-field">
-            <label for="address1">
-              Address 1
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-            <input placeholder="" type="text" id="address1" class="" formControlName="address1">
-          </div>
-
-          <div class="input-field">
-            <label for="address2">Address 2</label>
-            <input placeholder="" type="text" id="address2" class="" formControlName="address2">
-          </div>
-
-          <div class="input-field">
-            <select id="state" class="" formControlName="state" materialize="material_select">
-              <option value="" disabled>Choose state</option>
-              <option *ngFor="let state of states" value="state" [selected]="state === organization?.state">{{state}}</option>
-            </select>
-            <label>State</label>
-          </div>
-
-          <div class="input-field">
-            <label for="city">City</label>
-            <input placeholder="" type="text" id="city" class="" formControlName="city">
-          </div>
-
-          <div class="input-field">
-            <label for="zip">Zip Code</label>
-            <input placeholder="" type="text" id="ein" class="" formControlName="zip">
-          </div>
-
-          <div class="input-field">
-            <select id="country" class="" formControlName="country" materialize="material_select">
-              <option value="" disabled>Choose country</option>
-              <option *ngFor="let country of countries" value="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
-            </select>
-            <label>
-              Country
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col m4 s12 offset-m4">
-          <div class="input-field">
-            <textarea placeholder="" id="shortDescription" class="materialize-textarea" formControlName="shortDescription">
-          </textarea>
-            <label for="shortDescription">
-              Short Description
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-            <div *ngIf="!organizationForm.controls.shortDescription.pristine" class="right-align" [ngClass]="{'red-text': organizationForm.controls.shortDescription.value.length > shortDescMaxLength}">{{organizationForm.controls.shortDescription.value.length}}/{{shortDescMaxLength}}</div>
-          </div>
-        </div>
-        <div class="col m4 s12">
-          <div class="input-field">
-            <textarea placeholder="" id="longDescription" class="materialize-textarea" formControlName="longDescription"></textarea>
-            <label for="longDescription">
-              Long Description
-              <i class="material-icons tiny req-field pull-right">star</i>
-            </label>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col s12 push-m8">
-          <button type="submit" class="waves-effect waves-light btn" [disabled]="!organizationForm.valid">Save</button>
-        </div>
-      </div>
-
-    </form>
-  </div>
-</div>
--->

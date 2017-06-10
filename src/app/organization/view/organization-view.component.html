@@ -1,67 +1,98 @@
-
+<div class="page-title">Organization</div>
 <div class="container">
   <div class="row main-row">
+    <!-- Left Panel: Organization -->
     <div class="col s8" id="left-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="organization">
-          <div class="row">
-            <h1 class="main-title">{{organization.name}}</h1>
+      <div class="content" *ngIf="organization">
+        <div class="row single-info">
+          <div class="col m4">
+            <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+            <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultAvatarOrganization"></div>
+          </div>
+          <div class="col m8">
+            <div class="row">
+                <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
+            </div>
             <p class="subtitle" *ngIf="organization.websiteUrl">
-              <a [href]="organization.websiteUrl" target="_blank">{{organization.websiteUrl}}</a>
+              <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
+            </p>
+            <p>Category: {{categoryName}}</p>
+            <p>
+              Location:
+              <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+              <span class="state">{{organization.country}}</span>
             </p>
           </div>
-          <div class="row single-info">
-            <div class="col m4">
-              <div class="info-avatar"><img [src]="organization.logo"></div>
-            </div>
-            <div class="col m4 left-col">
-              <div class="info-location">
-                <h4>Address</h4>
-                <p>{{organization.address1}}</p>
-                <p>{{organization.address2}}</p>
-                <p><span class="city">{{organization.city}}</span><span class="state">{{organization.state}}</span><span class="state">{{organization.zip}}</span></p>
-                <p>{{organization.country}}</p>
-              </div>
-            </div>
-            <div class="col m4 right-col">
-              <div class="info-contact">
-                <h4>Contact</h4>
-              </div>
-            </div>
-            <div class="col m12">
-              <div class="action-btns"><a class="btn">Share</a></div>
-            </div>
-            <div class="col m12">
-              <div class="info-description">
-                <p>{{ organization.description }}</p>
-              </div>
+          <hr>
+          <div class="col m12">
+            <div class="info-title">Introduction</div>
+            <div class="info-description">{{ organization.description }}</div>
+          </div>
+          <div class="col m12">
+            <div class="col s12 action-btns">
+              <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+              <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
+              <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Right Panel: Projects from the organization -->
     <div class="col m4" id="right-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
           <div class="section" *ngIf="projects">
-            <h4>
-               Opportunities ({{projects.length}})</h4>
-            <div class="section-body">
+            <h4>Contact</h4>
+            <div class="card">
+              <div class="card-content">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar" *ngIf="user"><img [src]="user.avatarUrl"></div>
+                  </div>
+                  <div class="col m8">
+                    <p>
+                      Name:
+                      <span *ngIf="user.firstName">{{user.firstName}}, </span>
+                      <span>{{user.lastName}}</span>
+                    </p>
+                    <p>Title: {{user.title}}</p>
+                    <p>Phone: {{user.phone}}</p>
+                    <p>Email: {{user.email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+            <div class="section-body" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
                     <div class="card">
-                      <div class="card-header">
-                        <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                      </div>
                       <div class="card-content">
-                        <p>{{ pr.description }}</p>
+                        <div class="row single-info">
+                          <div class="col m4">
+                            <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarOrganization"></div>
+                          </div>
+                          <div class="col m8">
+                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          </div>
+                          <div class="row">
+                          <div class="skills-tag-wrapper">
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
+                          </div>
+                          </div>
+                        </div>
+                        <p>{{ pr.description  | slice:0:100 }} ...}}</p>
                       </div>
                     </div>
                   </li>
                 </ul>
               </div>
-              <button class="btn">More...</button>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
-@import "../../variables";
+@import "../../_style/variables";
+@import "../../_style/app.page-single";
 
 .buttons-block {
   text-align: center;
@@ -8,14 +9,8 @@
   width: 100%;
   padding-left: 2em;
   .names {
-    .first-name {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .last-name {
-      margin-left: 1em;
-      font-size: 2em;
-    }
+    font-size: 1.5em;
+    font-weight: bold;  
   }
   .metainfo {
     padding-top: 1em;
@@ -28,25 +23,9 @@
   }
 }
 
-.location {
-  line-height: 1em;
-  .state{
-    font-size: 0.75em;
-  }
-}
-.joined {
-  font-style: italic;
-  font-size: 0.75em;
-}
-
 .main-info{
   display: table;
   width: 100%;
-  .avatar {
-    text-align: center;
-    vertical-align: middle;
-    display: table-cell;
-  }
   .user-title {
     display:table-cell;
     vertical-align: middle;
@@ -56,23 +35,8 @@
   }
 }
 
-.skills-list-wrapper {
-  padding: 5px 25px 5px 25px;
-  ul {
-    li.chip {
-      color: $main-color;
-      border: solid $line-sep-width $header-bg-color;
-      background-color: #fff;
-      border-radius: 0px;
-      margin-left: 0.25em;
-      margin-right: 0.25em;
-      min-width: 27%;
-      text-align: center;
-
-      &:hover {
-        background-color: $bg-line-color;
-      }
-    }
-
-  }
+.not-active {
+    pointer-events: none;
+    cursor: default;     
+    color: #9F9F9F !important;  
 }
