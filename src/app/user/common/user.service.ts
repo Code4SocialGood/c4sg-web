@@ -20,13 +20,14 @@ export class UserService {
   // Page data always starts at offset zero (0)
   // Only active users are retrieved
   // Returns a JSON object with the data array of Users and totalItems count
+  /*
   public getUsers(page: number): Observable<any> {
     const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,desc&sort=userName,asc';
     return this.http
                .get(url)
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
-  }
+  } */
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
@@ -61,10 +62,12 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  searchUsers(page: number, keyword?: string, skills?: string[]): Observable<User[]> {
+  searchUsers(page: number, keyword?: string, skills?: string[], status?: string,
+    role?: string, publicFlag?: string): Observable<User[]> {
     const params = new URLSearchParams();
 
-    // Might also want to append page, sort here
+    // TODO Append page, sort here
+
     if (keyword) {
       params.append('keyWord', keyword);
     }
@@ -73,6 +76,18 @@ export class UserService {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
       }
+    }
+
+    if (status) {
+      params.append('status', status);
+    }
+
+    if (role) {
+      params.append('role', role);
+    }
+
+    if (publicFlag) {
+      params.append('publicFlag', publicFlag);
     }
 
     return this.http
@@ -89,11 +104,10 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  delete(id: number): Observable<Response> {
+  delete(id: number)  {
     const url = userUrl + '/' + id;
     return this.http
                .delete(url, {headers: this.headers})
-               .map((res: Response) => res.json())
                .catch(this.handleError);
   }
 

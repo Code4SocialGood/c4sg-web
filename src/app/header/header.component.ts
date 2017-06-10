@@ -28,6 +28,24 @@ export class HeaderComponent implements DoCheck, OnInit {
     });
   }
 
+  loadProjects(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/project/list/projects']));
+    }
+
+  loadVolunteers(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/user/list']));
+    }
+
+  loadOrganizations(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/project/list/projects', { keyword: '' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/organization/list/organizations']));
+    }
+
   private setOrganizationId(organizationId: string): void {
     this.organizationId = organizationId;
     localStorage.setItem('userOrganizationId', organizationId);
@@ -36,9 +54,9 @@ export class HeaderComponent implements DoCheck, OnInit {
   // control nav style by changing the class name
   isAtHome() {
     if (this.router.url === '/' || this.router.url === '/#!') {
-      return true;
+      return 'at-home';
     }
-    return false;
+    return 'off-home';
   }
 
   ngDoCheck() {

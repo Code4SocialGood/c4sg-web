@@ -1,124 +1,108 @@
-
+<div class="page-title">Project</div>
 <div class="container">
   <div class="row main-row">
-    <div class="col s3" id="left-col">
-      <div class="info-avatar" *ngIf="project">
-        <img [src]="project.imageUrl"> 
-      </div>
-    </div>
-    <div class="col s6" id="left-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="project">
-          <div class="row">
-            <h1 class="main-title">{{project.name}}</h1>
+    <!-- Left Panel: Project -->
+    <div class="col s8" id="left-col">
+      <div class="content" *ngIf="project">
+        <div class="row single-info">
+          <div class="col m4">
+            <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
           </div>
-          <div class="row">
-            <a class="btn" *ngIf="displayApply" (click)="apply()">Apply</a>
-            <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-            <a class="btn" *ngIf="displayShare" >Share</a>
-            <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-            <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Close</a>
-          </div>
-          <div class="row single-info">
-<!--
+          <div class="col m8">
             <div class="row">
-                <div class="col s2 offset-s2"><button>Apply</button></div>
-                <div class="col s2 offset-s2">
-                    <button (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">
-                        Bookmark
-                    </button>
+              <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
+            </div>
+            <div class="row">
+              <div>
+                <div *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                <div class="state" *ngIf="project.remoteFlag !== 'Y'">
+                  Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
                 </div>
-                <div class="col s2 offset-s2">
-                    <div class="share-button-block">
-                        <div class="fixed-action-btn horizontal click-to-toggle">
-                            <a class="btn share-btn">
-                                <i class="mdi mdi-share-variant mdi-24px left"></i>share
-                            </a>
-                            <ul>
-                                <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i class="mdi mdi-facebook mdi-24px"></i></a></li>
-                                <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i class="mdi mdi-twitter mdi-24px"></i></a></li>
-                                <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i class="mdi mdi-email mdi-24px"></i></a></li>
-                                <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
-                <div class="col s4 offset-s2"><button (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Delete</button></div>
--->
-            <div class="col m12">
-              <div class="skills-list-wrapper">
-                <ul>
-                  <li class="chip">Javascript</li>
-                  <li class="chip">Python</li>
-                  <li class="chip">Linux Admin</li>
-                  <li class="chip">C</li>
+              </div>
+            </div>
+            <div class="row">
+                Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
+            </div>
+            <div class="row">
+              <div class="skills-tag-wrapper">
+                <ul *ngIf="project.skills">
+                  <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
                 </ul>
               </div>
             </div>
-            <div class="col m4 left-col">
-              <div class="info-location">
-                <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
-                <div *ngIf="project.remoteFlag !== 'Y'">
-                  <p>
-                    <span class="state">{{project.state}}, </span>
-                    <span class="state">{{project.country}}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col m4 right-col">
-              <div class="info-contact">
-                Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
-              </div>
-            </div>
-            <div class="col m12">
-              <p>Description</p>
-              <div class="info-description">
-                <p>{{ project.description }}</p>
-              </div>
+          </div>
+          <hr>
+          <div class="col m12">
+            <div class="info-title">Description</div>
+            <div class="info-description">{{ project.description }}</div>
+          </div>
+          <div class="row">
+            <div class="col s12 action-btns">
+              <a class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply" *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply</a>
+              <a class="btn" *ngIf="displayApply && authService.authenticated()" (click)="apply()">Apply</a>
+              <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
+              <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
+              <a class="btn" *ngIf="displayDelete" (click)="openModal(project)" materialize
+                 [materializeActions]="modalActions">Close</a>
+              <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
+              Delete</button>-->
+              <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col m3" id="right-col">
+
+    <!-- Right Panel: Organization and projects -->
+    <div class="col m4" id="right-col">
       <div class="sidebar-wrapper">
         <div class="sidebar">
-          <div class="section" *ngIf="organization">
-            <h4><a [href]="organization.websiteUrl" target="_blank">{{organization.name}}</a></h4>
-            <div class="section-body row">
-              <div class="col m12">
-                <div class="info-avatar"><img [src]="organization.logoUrl"></div>
-              </div>
-              <div class="col m12">
-                <p class="description">{{organization.description}}</p>
+          <div class="section">
+            <h4>Organization</h4>
+            <div class="card">
+              <div class="card-content" *ngIf="organization">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+                    <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultAvatarProject"></div>
+                  </div>
+                  <div class="col m8">
+                    <p>
+                      <a [href]="organization.websiteUrl" target="_blank" *ngIf="organization.websiteUrl">{{organization.name}}</a>
+                    </p>
+                    <p *ngIf="!organization.websiteUrl">
+                       {{organization.name}}
+                    </p>
+                  </div>
+                </div>
+                <p>{{organization.description}}</p>
               </div>
             </div>
-          </div>
-          <div class="section sub" *ngIf="projects">
-            <h4>Opportunities</h4>
-            <div class="section-body">
+            <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+            <div class="section-body" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
-                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0, 5)">
+                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
                     <div class="card">
-                      <div class="card-header">
-                        <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                      </div>
                       <div class="card-content">
-                        <div class="info-avatar"><img [src]="project.imageUrl"></div>
                         <div class="row single-info">
-                          <div class="col m12">
-                            <div class="skills-list-wrapper">
-                              <ul>
-                                <li class="chip">Python</li>
-                                <li class="chip">C</li>
-                              </ul>
-                            </div>
+                          <div class="col m4">
+                            <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarProject"></div>
+                          </div>
+                          <div class="col m8">
+                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          </div>
+                          <div class="row">
+                          <div class="skills-tag-wrapper">
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
+                          </div>
                           </div>
                         </div>
-                        <p *ngIf="pr.description">{{ pr.description }}</p>
+                        <p>{{ pr.description  | slice:0:100 }} ...}}</p>
                       </div>
                     </div>
                   </li>
@@ -129,5 +113,17 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm Project Deletion</h4>
+    <p>Are you sure you want to delete the project?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize
+       [materializeActions]="deleteGlobalActions">Yes</a>
   </div>
 </div>

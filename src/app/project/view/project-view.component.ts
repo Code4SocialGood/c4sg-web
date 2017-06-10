@@ -2,10 +2,11 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
+import { Organization } from '../../organization/common/organization';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
-import { Organization } from '../../organization/common/organization';
 import { AuthService } from '../../auth.service';
+import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ImageDisplayService } from '../../_services/image-display.service';
 
@@ -18,8 +19,8 @@ import { ImageDisplayService } from '../../_services/image-display.service';
 
 export class ProjectViewComponent implements OnInit {
 
-  project: Project;
   organization: Organization;
+  project: Project;
   projects: Project[];
   numberOfProjects: number;
   params: Params;
@@ -28,23 +29,32 @@ export class ProjectViewComponent implements OnInit {
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   projectImage: any = '';
   orgImage: any = '';
+  userProjectStatus: string;
+  auth: AuthService;
+  defaultAvatarProject = '../../assets/default_image.png';
 
+  modalActions = new EventEmitter<string|MaterializeAction>();
+
+  displayShare = true;
   displayApply = false;
   displayBookmark = false;
-  displayShare = false;
   displayEdit = false;
   displayDelete = false;
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
+              private skillService: SkillService,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService,
+              public authService: AuthService,
               private location: Location,
               private imageDisplay: ImageDisplayService) {
   }
 
   ngOnInit(): void {
+
+    this.auth = this.authService;
+
     this.route.params.subscribe(params => {
       const id = params['projectId'];
 
@@ -69,16 +79,24 @@ export class ProjectViewComponent implements OnInit {
                         this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
                       }
 
-                      if (this.organization.description.length > 100) {
+                      if (this.organization.description != null && this.organization.description.length > 100) {
                           this.organization.description = this.organization.description.slice(0, 100) + '...';
                       }
                     }
                     );
 
             // Projects for this organization
-            this.projectService.getProjectByOrg(res.organizationId)
+            this.projectService.getProjectByOrg(res.organizationId, 'A')
                   .subscribe(
-                      resProjects => this.projects = resProjects.json(),
+                    resProjects => {
+                      this.projects = resProjects.json();
+                      this.projects.forEach((e: Project) => {
+                        this.skillService.getSkillsByProject(e.id).subscribe(
+                          response => {
+                            e.skills = response;
+                          });
+                      });
+                    },
                       errorProjects => console.log(errorProjects)
                   );
 
@@ -88,6 +106,12 @@ export class ProjectViewComponent implements OnInit {
                       this.orgImage = resi.url;
                     }
                     );
+            this.skillService.getSkillsByProject(id)
+              .subscribe(
+                result => {
+                  this.project.skills = result;
+                }
+              );
 
             this.displayButtons();
 
@@ -102,21 +126,18 @@ export class ProjectViewComponent implements OnInit {
     if (!this.authService.authenticated()) {
       this.displayApply = true;
       this.displayBookmark = true;
-      this.displayShare = true;
     } else if (this.authService.authenticated()) {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
-        this.displayShare = true;
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
             let organization: Organization;
             organization = res[0];
-            if ((organization !== undefined) && (organization.id === this.project.organizationId)) {
+            if ((organization !== undefined) && (organization.id === Number(this.project.organizationId))) {
               this.displayEdit = true;
               this.displayDelete = true;
-              this.displayShare = true;
             }
           },
           error => console.log(error)
@@ -124,21 +145,40 @@ export class ProjectViewComponent implements OnInit {
       } else if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
-        this.displayShare = true;
       }
     }
   }
 
   apply(): void {
-    // TODO
+    this.userProjectStatus = 'A';
+    this.currentUserId = this.authService.getCurrentUserId();
+    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+        this.projectService
+            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
+            .subscribe(
+                response => {
+                    // display toast
+                    this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
+
+                },
+                error => {
+                    // display toast when bookmar is already added
+                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
+                }
+            );
+    } else {
+        localStorage.setItem('redirectAfterLogin', this.router.url);
+        this.authService.login();
+    }
   }
 
   bookmark(): void {
     // check if user is logged in
+    this.userProjectStatus = 'B';
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
-            .bookmark(this.project.id, this.currentUserId)
+            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
             .subscribe(
                 response => {
                     // display toast
@@ -165,8 +205,7 @@ export class ProjectViewComponent implements OnInit {
       .delete(this.project.id)
       .subscribe(
         response => {
-          this.router.navigate(['project/list']);
-          // display toast
+          this.router.navigate(['project/list/projects']);
           this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
         },
         error => {
@@ -174,5 +213,13 @@ export class ProjectViewComponent implements OnInit {
             this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
         }
       );
+  }
+
+  openModal(project) {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }
