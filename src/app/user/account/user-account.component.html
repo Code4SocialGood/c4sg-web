@@ -9,7 +9,7 @@
           </div>
           <div class="row single-info">
             <div class="col m4">
-              <div class="avatar"><img class="responsive-img" id="responsive-img" [src]="user.avatarUrl"></div>
+              <div class="avatar"><img class="responsive-img" alt="my avatar" id="responsive-img" [src]=user.avatarUrl onError="this.src='../../assets/avatar.png'"></div>
               <div class="input-field file-field">
                 <div class="btn">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadAvatar($event)">

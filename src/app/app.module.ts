@@ -43,6 +43,7 @@ import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
 import {SkillService} from './skill/common/skill.service';
+import {ExtFileHandlerService} from './_services/extfilehandler.service';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import {SkillService} from './skill/common/skill.service';
     ImageDisplayService,
     ImageUploaderService,
     DataService,
-    SkillService],
+    SkillService,
+    ExtFileHandlerService],
 
   bootstrap: [AppComponent]
 })

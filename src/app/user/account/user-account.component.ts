@@ -1,15 +1,18 @@
-import { Component, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnChanges, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../common/user.service';
 import { ImageUploaderService } from '../../_services/image-uploader.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
+import { ImageDisplayService, ImageDisplay } from '../../_services/image-display.service';
 
 import { equalValidator } from '../common/user.equal.validator';
 import { User } from '../common/user';
 
 import { MaterializeAction } from 'angular2-materialize';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 @Component({
   // moduleId: module.id,
@@ -36,14 +39,15 @@ export class UserAccountComponent implements OnInit {
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     userName: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required)
+    phone: new FormControl('', Validators.required),
   });
 
   constructor( private changeDetectorRef: ChangeDetectorRef,
                private route: ActivatedRoute,
                private userService: UserService,
                private imageUploader: ImageUploaderService,
-               private imageDisplay: ImageDisplayService) { }
+               private imageDisplay: ImageDisplayService,
+               private extfilehandler: ExtFileHandlerService) { }
 
 
   updateAccount(event) {
@@ -69,7 +73,7 @@ export class UserAccountComponent implements OnInit {
         this.user.personalUrl,
         this.user.facebookUrl,
         this.user.twitterUrl,
-        this.user.avatarUrl,
+        //this.user.avatarUrl,
         this.user.publicProfileFlag,
         this.user.chatFlag,
         this.user.forumFlag,
@@ -164,16 +168,25 @@ export class UserAccountComponent implements OnInit {
 
   }
 */
-
+  /*
+    Orchestrates the avatar image upload sequence of steps 
+  */
   onUploadAvatar(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.user.id,
-       this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => {
-         this.avatar = res.url;
-         console.log('Avatar successfully uploaded!');
-       },
-        err => { console.error(err, 'An error occurred'); } );
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
+    // Calls the function to save the avatar image url to the user's row 
+    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res), 
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() == '') {
+            this.avatar = res.outerValue; //temp assignment; may not be needed
+            this.user.avatarUrl = this.avatar;
+            console.log('Avatar successfully uploaded!');            
+        } else {
+          console.error('Saving user avatar: Not expecting a response body');
+        }}, (e) => {
+          console.error('Avatar not saved. Not expecting a response body');
+        });    
   }
 
   openModal(user) {
@@ -197,11 +210,13 @@ export class UserAccountComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['userId'];
-    this.imageDisplay.displayImage(id,
+/*    this.imageDisplay.displayImage(id,
             this.userService.retrieveAvatar.bind(this.userService))
             .subscribe(res => this.avatar = res.url);
-    this.userService.getUser(id).subscribe(
+    this.avatar = 'https://s3-us-west-2.amazonaws.com/dev.c4sg.images/111ronin.jpg';        
+*/    this.userService.getUser(id).subscribe(
       (res) => {
+        console.log('res returned: '  + res);
         const user = res;
         console.log(user);
         this.user = new User(
@@ -221,6 +236,7 @@ export class UserAccountComponent implements OnInit {
           user.personalUrl,
           user.facebookUrl,
           user.twitterUrl,
+          user.avatarUrl, //added this JC
           user.status,
           user.publicProfileFlag,
           user.chatFlag,
@@ -228,6 +244,8 @@ export class UserAccountComponent implements OnInit {
           user.createdTime,
           user.updatedTime);
 
+          
+//this.user.avatarUrl = 'https://s3-us-west-2.amazonaws.com/dev.c4sg.images/111ronin.jpg'; //added this
           this.myAccount.setValue({
             userName: user.userName,
             firstName: user.firstName,
@@ -237,5 +255,9 @@ export class UserAccountComponent implements OnInit {
             country: user.country
           });
       });
+      // if (!this.user) {
+      //   this.user = new User(111,'jekcosty@gmail.com','ORGANIZATION');
+      //   this.user.avatarUrl = 'https://s3-us-west-2.amazonaws.com/dev.c4sg.images/111ronin.jpg'; //added this
+      // }
   }
 }

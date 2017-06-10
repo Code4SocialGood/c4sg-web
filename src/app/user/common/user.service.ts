@@ -115,6 +115,16 @@ export class UserService {
                .post(`${userUrl}/${id}/avatar`, formData);
   }
 
+  /*
+    Http call to save the avatar image
+  */
+  saveAvatarImg(id: number, imgUrl: string) {
+    let requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.http
+      .put(`${userUrl}/${id}/avatar`, '', requestOptions);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
