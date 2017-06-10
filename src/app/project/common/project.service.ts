@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
+
 @Injectable()
 export class ProjectService {
 
@@ -21,7 +22,7 @@ export class ProjectService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-
+  /*
   getActiveProjects(): Observable<Project[]> {
 
     const url = projectUrl + '/search';
@@ -29,7 +30,7 @@ export class ProjectService {
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
-  }
+  } */
 
   getProject(id: number): Observable<Project> {
 
@@ -40,8 +41,8 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  getProjectByOrg(id: number): Observable<Response> {
-    return this.http.get(`${projectUrl}/organizations/${id}`);
+  getProjectByOrg(id: number, projectStatus: string): Observable<Response> {
+    return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);
   }
 
   getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
@@ -74,13 +75,20 @@ export class ProjectService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-
-  add(project: Project): Observable<Project[]> {
+/*
+  add(project: Project): Observable<{project: Project}> {
     const url = projectUrl;
     return this.http
       .post(url, project, {headers: this.headers})
       .map((res: Response) => res.json())
       .catch(this.handleError);
+  }*/
+
+  add(project: Project): Observable<{project: Project}> {
+      return this.http.post(
+      `${projectUrl}`,
+      project
+      ).map(res => res.json());
   }
 
   delete(id: number) {
@@ -91,16 +99,21 @@ export class ProjectService {
   }
 
   update(project: Project) {
-    const url = projectUrl + '/' + project.id;
-    return this.http
-      .put(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    // const url = projectUrl + '/' + project.id;
+    // return this.http
+    //  .put(url, project, {headers: this.headers})
+    //  .map((res: Response) => res.json())
+    //  .catch(this.handleError);
+
+    return this.http.put(
+      `${projectUrl}/${project.id}`,
+      project
+      );
   }
 
 
-  bookmark(projectId: number, userId: string) {
-    const url = projectUrl + '/bookmark/projects/' + projectId + '/users/' + userId;
+  linkUserProject(projectId: number, userId: string, status: string) {
+    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
     return this.http
       .post(url, {headers: this.headers})
       .catch(this.handleError);

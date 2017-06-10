@@ -6,6 +6,7 @@ import { ProjectService} from '../../project/common/project.service';
 import { UserService } from '../../user/common/user.service';
 import { AuthService } from '../../auth.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { Project } from '../../project/common/project';
 import { User } from '../../user/common/user';
 import { Organization } from '../../organization/common/organization';
@@ -26,6 +27,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  defaultAvatarOrganization = '../../assets/default_image.png';
 
   displayShare = true;
   displayEdit = false;
@@ -35,6 +37,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private projectService: ProjectService,
     private userService: UserService,
     private authService: AuthService,
+    private skillService: SkillService,
     private route: ActivatedRoute,
     private router: Router,
     private imageDisplay: ImageDisplayService) {
@@ -65,20 +68,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     if (!this.authService.authenticated()) {
       this.displayShare = true;
     } else if (this.authService.authenticated()) {
-      if (this.authService.isVolunteer()) {
-      } else if (this.authService.isOrganization()) {
-        this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
-          res => {
-            let org: Organization;
-            org = res[0];
-            if ((org !== undefined) && (org.id === organizationId)) {
-              this.displayEdit = true;
-              this.displayDelete = true;
-            }
-          },
-          error => console.log(error)
-        );
-      } else if (this.authService.isAdmin()) {
+      if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
       }
@@ -111,13 +101,17 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   getProjects(id: number): void {
-    this.projectService.getProjectByOrg(id).subscribe(
+    this.projectService.getProjectByOrg(id, 'A').subscribe(
       res => {
         this.projects = res.json();
         this.projects.forEach((project) => {
           if (project.description && project.description.length > 100) {
             project.description = project.description.slice(0, 100) + '...';
           }
+           this.skillService.getSkillsByProject(project.id).subscribe(
+                result => {
+                     project.skills = result;
+                      });
         });
       },
       error => console.log(error)
@@ -141,8 +135,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       .delete(this.organization.id)
       .subscribe(
         response => {
-          this.router.navigate(['organization/list']);
-          // display toast
+          this.router.navigate(['/organization/list/organizations']);
           this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {

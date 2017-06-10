@@ -1,0 +1,42 @@
+@import "../../_style/variables";
+@import "../../_style/app.page-single";
+
+.error-msg {
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.file-field .error-msg {
+  clear: both;
+}
+
+.file-field .btn {
+  margin-bottom: 20px;
+}
+
+.file-path {
+  max-width: 200px;
+}
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+.material-icons.req-field {
+  vertical-align: super !important;
+  font-size: 0.5rem !important;
+}
+
+.ng-invalid:not(form) {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 0 0 0 #F44336 !important;
+}
+
+input[type=text]:focus:not([readonly]).ng-invalid:not(form),
+input[type=url]:focus:not([readonly]).ng-invalid:not(form),
+textarea.materialize-textarea:focus:not([readonly]).ng-invalid:not(form) {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336 !important;
+}

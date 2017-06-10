@@ -1,26 +1,23 @@
-
+<div class="page-title">Organizations</div>
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations()">
+      <div class="sidebar-wrapper" *ngIf="from=='organizations'">
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations">
           <div class="section">
-            <h4>Keyword</h4>
-            <div class="input-search">
-              <div class="input-field keyword-field">
-                <input id="name" name="keyword" materialize="autocomplete" type="search" formControlName="keyword">
-                <label for="name">Keyword</label>
-                <button class="keyword-form__btn" type="submit" class="keyword-field__btn btn waves-effect waves-light green darken-2">
-                  <i  class="large material-icons transparent">search</i>
-                </button>
-                </div>
+            <div class="input-search row">
+              <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+              <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
+              <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
+                <i  class="material-icons transparent" id="keyword-icon">search</i>
+              </button>
             </div>
           </div>
           <div class="section">
-            <h4>Opportunities</h4>
+            <h4>Projects</h4>
             <div class="section-body">
-              <input type="checkbox" id="openOpportunity" formControlName="hasOpportunities"/>
-              <label for="openOpportunity">Has Open Opportunities</label>
+              <input type="checkbox" id="openProject" formControlName="hasProjects"/>
+              <label for="openProjec">Has Open Projects</label>
             </div>
           </div>
           <div class="section">
@@ -39,40 +36,52 @@
         </form>
       </div>
     </div>
-    <div class="col m8" id="right-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="organizations">
-          <div class="row">
-            <h1 class="main-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h1>
-            <div class="col s12">
-              <div class="items-list-wrapper">
-                <ul *ngIf="organizations">
-                  <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
-                    <div class="card">
-                      <div class="card-header">
-                        <h4 [routerLink]="['/organization/view/'+org.id]">{{org.name}}</h4>
-                        <div class="card-metainfo">
-                          <span class="state" *ngIf="org.state">{{org.state}}, </span>
-                          <span class="state">{{org.country}}</span>
+
+    <div class="col m8 s12" id="right-col">
+      <div class="content" *ngIf="organizations">
+        <div class="row">
+          <h4 class="content-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h4>
+          <div class="list-item-group col s12">
+            <div class="items-list-wrapper">
+              <ul class="card-list" *ngIf="organizations">
+                <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-avatar-wrapper">
+                        <div class="card-avatar" *ngIf="org.logoUrl">
+                          <img class="card-avatar-content" [src]="org.logoUrl">
+                        </div>
+                        <div class="card-avatar" *ngIf="!org.logoUrl">
+                          <img class="card-avatar-content" [src]="defaultAvatarOrganization">
                         </div>
                       </div>
-                      <div class="card-content">
-                        <div class="card-avatar"><img [src]="org.logoUrl" *ngIf="org.logoUrl"></div>
-                        <div class="card-info">
-                            <p class="description"><span>{{org.opportunities}}</span> opportunities</p>
-                          <p class="description">{{ org.description }}</p>
+                      <div class="card-info">
+                        <div class="card-header">
+                          <div class='name'>
+                            <span [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                          </div>
+                          <div class="row info-row">
+                            <div class="card-metainfo col m6">
+                              <p>{{org.projects}} projects</p>
+                            </div>
+                            <div class="card-metainfo col m6">
+                              <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                              <span class="state">{{org.country}}</span>
+                            </div>
+                          </div>
                         </div>
+                        <p class="description">{{ org.description | slice:0:200 }} ...</p>
                       </div>
                     </div>
-                  </li>
-                </ul>
-              </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="row">
-            <div class="pagination">
-              <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
-            </div>
+        </div>
+        <div class="row">
+          <div class="pagination">
+            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>

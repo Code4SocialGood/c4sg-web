@@ -1,40 +1,21 @@
-@import "../../variables";
+@import "../../_style/variables";
+@import "../../_style/app.page-list";
 
-//@mixin border-radius($radius) {
-//  -webkit-border-radius: $radius;
-//     -moz-border-radius: $radius;
-//      -ms-border-radius: $radius;
-//          border-radius: $radius;
-//}
-//
-//.row {
-//	margin-bottom: 0;
-//}
-//.container {
-//	background-color: $main-bg-color;
-//	border: none;
-//	.list-container {
-//		margin-top: 3vh;
-//		.section-row {
-//			border: solid #c8c8c8 3px;
-//			background-color: #fff;
-//			form {
-//				margin: 1em;
-//			}
-//			form label {
-//				font-size: 2em;
-//				width: 20%
-//			}
-//			form input {
-//				width: 80%;
-//			}
-//		}
-//		#left-col {
-//			margin-top: 8vh;
-//			position: fixed;
-//		}
-//		#right-col {
-//			float: right;
-//		}
-//	}
-//}	
+.row {
+  margin-bottom: 0;
+}
+.section-body {
+  padding-top: 0 !important;
+}
+.skills-list-wrapper.skill-section {
+  height: 155px;
+  overflow-y: auto;
+  position: relative;
+}
+input[type="search"] {
+  margin-bottom: 0 !important;
+}
+
+
+
+

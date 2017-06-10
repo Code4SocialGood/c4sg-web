@@ -21,14 +21,19 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
-
+  skills: any[];
+  skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     skills: this.skillsArray
   });
+
   p = 0;
   projects: Project[];
+  bookmarkedProjects: Project[];
+  appliedProjects: Project[];
+  temp: any[];
   users: User[];
   selectedProject: Project;
   pagedItems: any[]; // paged items
@@ -36,19 +41,21 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projectsSubscription: Subscription;
   userId: number;
   orgId: number;
+  projId: number;
   from: string;
-  userProjectStatus = 'A';
-  skills: any[];
+
+  defaultProjectAvatar = '../../assets/default_image.png';
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
               private router: Router,
-              private auth: AuthService,
+              public auth: AuthService,
               private route: ActivatedRoute,
               private skillService: SkillService,
               private idService: ImageDisplayService) {
   }
+
 
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
@@ -76,40 +83,14 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      if (value.keyword || value.skills.some(i => i)) {
-        this.filterProjects();
-      }
+      this.getProjects();
     });
   }
 
   getProjects(): void {
+    // Issue#300 - resetting form before reloading page to display all items
+    // this.filterForm.reset();
 
-    if (this.from === 'opportunities') {
-      this.projectsSubscription = this.projectService.getActiveProjects().subscribe(
-        res => this.projects = res,
-        error => console.log(error));
-
-    } else if ((this.auth.isVolunteer()) && (this.from === 'myProjects')) {
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, this.userProjectStatus).subscribe(
-        res => this.projects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-    } else if ((this.auth.isOrganization()) && (this.from === 'myProjects')) {
-      this.organizationService.getUserOrganization(this.userId).subscribe(
-        response => {
-          this.orgId = response.reduce((acc) => acc).id;
-          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId).subscribe(
-            res => {
-              this.projects = res.json();
-            },
-            error => console.log(error)
-          );
-        },
-        error => console.log(error)
-      );
-    };
-  }
-
-  filterProjects() {
     const skills = this.filterForm.value.skills;
     const skillsParam = [];
 
@@ -121,7 +102,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
     }
 
-    this.projectsSubscription = this.projectService
+    // Projects Page from header
+    if (this.from === 'projects') {
+      this.projectsSubscription = this.projectService
       .searchProjects(this.filterForm.value.keyword, skillsParam, 'A')
       .subscribe(
         res => {
@@ -131,23 +114,71 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
                 e.image = image.url;
-              });
+                });
+
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                result => {
+                     e.skills = result;
+                      });
           });
         },
         error => console.log(error)
       );
+
+    // Volunteer user: My Projects
+    } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) {
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
+        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+        error => console.log(error));
+      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
+        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+        error => console.log(error));
+
+    // Nonprofit user: My Projects
+    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
+      this.organizationService.getUserOrganization(this.userId).subscribe(
+        response => {
+          this.orgId = response.reduce((acc) => acc).id;
+          // Returns project of any status: 'A' and' 'C'
+          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
+            res => {
+              this.projects = res.json();
+            },
+            error => console.log(error)
+          );
+        },
+        error => console.log(error)
+      );
+    }
+    ;
   }
 
   getSkills(): void {
     this.skillService.getSkills().subscribe(res => {
-        console.log(res);
         this.skills = res.map(skill => {
-          this.skillsArray.push(new FormControl(false));
           return {name: skill.skillName, checked: false, id: skill.id};
         });
+        this.showSkills();
       },
       error => console.error(error)
     );
+  }
+
+  showSkills(): void {
+    let addedSkills;
+    if (this.skillsShowed.length < this.skills.length) {
+      if (!this.skillsShowed.length) {
+        addedSkills = this.skills.slice(0, 10);
+      } else {
+        addedSkills = this.skills
+          .filter(i => !this.skillsShowed.includes(i));
+        addedSkills = addedSkills.filter((i, index) => index < 10);
+      }
+      for (const addedSkill of addedSkills) {
+        this.skillsShowed.push(addedSkill);
+        this.skillsArray.push(new FormControl(false));
+      }
+    }
   }
 
   onSelect(project: Project): void {

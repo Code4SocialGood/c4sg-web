@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'my-project-skill',
-  templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.scss']
+  selector: 'my-select-skill',
+  templateUrl: './skill-select.component.html',
+  styleUrls: ['./skill-select.component.scss']
 })
 
-export class SkillComponent implements OnInit {
+export class SkillSelectComponent implements OnInit {
   @Input() projectSkillsArray: string[];
   @Output() onDeleteSkill = new EventEmitter<string>();
 

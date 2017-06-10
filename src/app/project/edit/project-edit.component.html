@@ -1,120 +1,133 @@
+<div class="page-title">
+  <div *ngIf="projectId != 0">Edit Project</div>
+  <div *ngIf="projectId == 0">Create Project</div>
+</div>
 <div class="container">
-  <div class="content-wrapper">
-    <div class="row main-row">
-      <div class="col s3" id="left-col">
-        <img [src]="projectImageUrl" alt="project image" class="responsive-img">
-        <br>
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>Upload</span><input type="file">
-          </div>
-        </div>
-      </div> 
-
-      <div class="col s6" id="right-col">
-        <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="project_name" type="text" class="validate" formControlName="projectName" placeholder="">
-              <label for="project_name">Project Name <sup>&#10033;</sup></label>
+  <div class="row main-row">
+    <!-- Left Panel -->
+    <div class="col s3" id="left-col">
+      <div class="content" *ngIf="project">
+        <div class="row single-info">
+          <div class="col m12">
+            <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+            <div class="input-field file-field">
+              <div class="btn">Upload</div>
+              <!-- TODO after S3 is available
+              <div class="btn">
+                <span>Upload</span>
+                <input type="file" (change)="onUploadImage($event)">
+              </div>
+              <div class="red lighten-5 center-align error-msg" *ngIf="!logoValid">
+                <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
+              </div>-->
             </div>
           </div>
-          <div class="row">
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="col s9" id="right-col">
+      <div class="content">
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
+      <!--<div class="row">
             <div class="input-field col s12">
               <input id="organization_name" type="text" class="validate" formControlName="organizationName"
                      placeholder="">
               <label for="organization_name">Organization Name</label>
             </div>
-          </div>
+          </div>-->
           <div class="row">
-            <div class="col s12">
-              <div class="input-field">
-                <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
-                      placeholder=""></textarea>
-                <label for="project_description">Project description</label>
-              </div>
+            <div class="content-title">Introduction</div>
+            <div class="input-field col s12">
+              <input id="project_name" type="text" class="validate" formControlName="projectName">
+              <label for="project_name">Project Name <sup>&#10033;</sup></label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
+                    placeholder=""></textarea>
+              <label for="project_description">Project Description</label>
             </div>
           </div>
           <div class="row">
+            <div class="content-title">Location</div>
             <div class="col s12 l6">
               <div class="row">
                 <div class="col s12">
-                  <p>
-                    <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y"
-                           formControlName="remoteFlag"/>
-                    <label for="btn-remote">Remote</label>
-                  </p>
-                  <p>
-                    <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N"
-                           formControlName="remoteFlag"/>
-                    <label for="btn-local">Local</label>
-                  </p>
+                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y"
+                         formControlName="remoteFlag"/>
+                  <label for="btn-remote">Remote</label>
                 </div>
               </div>
-              <div [ngClass]="{hide: projectForm.controls.remoteFlag.value === 'Y'}">
+            </div>
+            <div class="col s12 l6">
+              <div class="row">
+                <div class="col s12">
+                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N"
+                         formControlName="remoteFlag"/>
+                  <label for="btn-local">Local</label>
+                </div>
+              </div>
+              <div [ngClass]="{disabled: projectForm.controls.remoteFlag.value === 'Y'}">
                 <div class="row">
                   <div class="input-field col s6">
-                    <input id="city" type="text" class="validate" formControlName="city" placeholder="">
+                    <input id="city" type="text" class="validate" formControlName="city">
                     <label for="city">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input id="state" type="text" class="validate" formControlName="state" placeholder="">
+                    <input id="state" type="text" class="validate" formControlName="state">
                     <label for="state">State</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col s12">
-                    <div class="input-field">
-                      <select id="country" class="" formControlName="country" materialize="material_select">
-                        <option value="" disabled>Choose country</option>
-                        <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
-                          country.code +
-                          ')'}}
-                        </option>
-                      </select>
-                      <label for="country">Country</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 l5 offset-l1">
-              <h4>Skills</h4>
-              <div class="row">
-                <div class="col s10">
-                  <my-project-skill [projectSkillsArray]="projectSkillsArray"
-                                 (onDeleteSkill)="onDeleteSkill($event)"></my-project-skill>
-                </div>
-                <div class="col s2">
-                  <a (click)="onEditSkills()" class="btn-floating btn-large waves-effect waves-light"><i
-                    class="material-icons">mode_edit</i></a>
-                </div>
-              </div>
-              <div *ngIf="editFlag === true" class="row">
-                <div class="col s12 select-wrapper">
-                  <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
-                    <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}
-                    </option>
-                  </select>
-                  <label for="skillSelect">Choose from below</label>
-                </div>
-                <div class="input-field col s12 newSkill-wrapper">
-                  <div class="col s10">
-                    <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
-                           [ngModelOptions]="{standalone: true}">
-                    <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
-                  </div>
-                  <div class="col s2">
-                    <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
-                      class="material-icons">add</i></a>
+                  <div class="input-field col s12">
+                    <select id="country" class="" formControlName="country" materialize="material_select">
+                      <option value="" disabled>Choose country</option>
+                      <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
+                        country.code + ')'}}
+                      </option>
+                    </select>
+                    <label for="country">Country</label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col l12">
-              <button type="submit" class="waves-effect waves-light btn">Save</button>
+            <div class="content-title">Skills</div>
+            <div class="row">
+              <div class="col s10">
+                <my-select-skill [projectSkillsArray]="projectSkillsArray"
+                               (onDeleteSkill)="onDeleteSkill($event)"></my-select-skill>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6">
+                <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
+                  <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
+                </select>
+                <label for="skillSelect">Choose from below</label>
+              </div>
+              <div class="col s6">
+                <div class="input-field col s10">
+                  <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
+                         [ngModelOptions]="{standalone: true}">
+                  <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
+                </div>
+                <div class="col s2">
+                  <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
+                    class="material-icons">add</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col m12">
+              <div class="footer-btns center">
+                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </form>

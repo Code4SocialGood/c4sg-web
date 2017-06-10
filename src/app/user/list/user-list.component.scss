@@ -1,2 +1,22 @@
-@import "../../variables";
+@import "../../_style/variables";
+@import "../../_style/app.page-list";
 
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  color: #9F9F9F !important;
+}
+.row {
+  margin-bottom: 0;
+}
+.section-body {
+  padding-top: 0 !important;
+}
+.skills-list-wrapper.skill-section {
+  height: 155px;
+  overflow-y: auto;
+  position: relative;
+}
+input[type="search"] {
+  margin-bottom: 0 !important;
+}

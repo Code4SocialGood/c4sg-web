@@ -4,6 +4,7 @@ import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { ImageDisplayService } from '../../_services/image-display.service';
 import { MaterializeAction } from 'angular2-materialize';
 
@@ -22,10 +23,12 @@ export class UserViewComponent implements OnInit {
   displayDelete = false;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  defaultAvatarUser = '../../assets/avatar.png';
 
   constructor(
     private userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
+    private skillService: SkillService,
     private router: Router,
     private route: ActivatedRoute,
     private imageDisplay: ImageDisplayService) {
@@ -42,6 +45,12 @@ export class UserViewComponent implements OnInit {
     this.userService.getUser(id).subscribe(
       res => {
         this.user = res;
+        this.skillService.getSkillsForUser(id).subscribe(
+          result => {
+            this.user.skills = result;
+          },
+          error => console.log(error)
+        );
       },
       error => console.log(error)
     );
@@ -56,12 +65,7 @@ export class UserViewComponent implements OnInit {
   displayButtons(id: number): void {
 
     if (this.authService.authenticated()) {
-      if (this.authService.isVolunteer() || this.authService.isOrganization()) {
-        if (this.authService.getCurrentUserId() === String(id)) {
-          this.displayEdit = true;
-          this.displayDelete = true;
-        }
-      } else if (this.authService.isAdmin()) {
+      if (this.authService.isAdmin()) {
           this.displayEdit = true;
           this.displayDelete = true;
       }
@@ -87,5 +91,4 @@ export class UserViewComponent implements OnInit {
         }
       );
   }
-
 }

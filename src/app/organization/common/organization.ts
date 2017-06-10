@@ -12,17 +12,7 @@ export class Organization {
     public zip: any,
     public state: any,
     public country: any,
-    public contactEmail: any,
-    public contactName: any,
-    public contactPhone: any,
-    public contactTitle: any,
     public ein: any,
-    public opportunities: any
+    public projects: any
   ) { }
 }
-
-
-
-
-
-
