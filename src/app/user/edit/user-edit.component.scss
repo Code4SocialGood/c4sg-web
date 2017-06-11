@@ -22,12 +22,18 @@
 		margin: 0 auto;
 	}
 	.avatar-upload-button {
-		margin: 35px;
+		float: none;
+		display: inherit;
+		margin: 40px 25%;
+		padding: 0;
 	}
 }
 
 #right-col {
-	padding: 20px;
+	padding: 20px 10%;
+	.content-title {
+		color: #888888;
+	}
 }
 .input-field {
 	//to clear out the annoying magin-top property from materialize, this margin makes a mess to the row align
@@ -65,15 +71,24 @@
 		width: 59%;
 		border: solid 3px $border-color;
 		border-left: none;
+		text-indent: 1em;
 	}
 }
-//For the select input. I think materialize render the content of select input after this style sheet is rendered, so I failed to style it by selecting according to its default class name. In order to add border to it. I added wrapper to the part, it's in class .theme-select.
+//For the select input. I think materialize render the content of select input after this style sheet is rendered, so I failed to style 
+//it by selecting according to its default class name. In order to add border to it. I added wrapper to the part, it's in class 
+//.theme-select.
+//The underline of the select inputs is the border-bottom. I tried to delete this setting. But after that, the area won't as it 
+//supposed to be. The area is smaller than I expect.
 .theme-select, #newSkill {
 	padding: 0;
 	float: left;
 	height: 43.5px;
 	width: 59%;
 	border: solid 3px $border-color;
+	border-left: none;
+}
+.theme-select:nth-child(1) {
+	border-left: solid 3px $border-color;
 }
 .select-dropdown {
 	border-bottom: none;
