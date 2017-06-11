@@ -23,6 +23,7 @@ export class UserViewComponent implements OnInit {
   displayDelete = false;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
   defaultAvatarUser = '../../assets/avatar.png';
 
   constructor(
@@ -90,5 +91,13 @@ export class UserViewComponent implements OnInit {
             this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a user', 4000]});
         }
       );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }

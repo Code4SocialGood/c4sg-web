@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <hr>   
+          <hr>
           <div class="col m12">
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ user.introduction }}</div>
@@ -58,7 +58,7 @@
           <div class="col m12">
             <div class="col s12 action-btns">
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-              <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
+              <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
             </div>
             </div>
         </div>
@@ -69,5 +69,18 @@
     <div class="col m4" id="right-col">
     Volunteer History
     </div>
+  </div>
+</div>
+
+
+<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm User Deletion</h4>
+    <p>Are you sure you want to delete the user?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize
+       [materializeActions]="deleteGlobalActions">Yes</a>
   </div>
 </div>
