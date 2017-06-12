@@ -34,15 +34,15 @@ export class ExtFileHandlerService {
   */
   uploadFile(fileInput: any, id: number, filetype: string) : Observable<string> {
     // declare an aws service    
-    let AWSService = (<any> window).AWS;
+    const AWSService = (<any> window).AWS;
     // assign the file to upload    
-    let file = fileInput.target.files[0];
+    const file = fileInput.target.files[0];
     // assign the key name
-    let keyName = id.toString() + fileInput.target.files[0].name; 
+    const keyName = id.toString() + fileInput.target.files[0].name; 
     // determine which bucket based on file type
-    let bucketName = (filetype == 'doc' ? environment.AWS_DOCS_BUCKET : environment.AWS_IMAGE_BUCKET);
+    const bucketName = (filetype == 'doc' ? environment.AWS_DOCS_BUCKET : environment.AWS_IMAGE_BUCKET);
     // create an s3 service
-    let s3 = new AWSService.S3({signatureVersion: 'v4', 
+    const s3 = new AWSService.S3({signatureVersion: 'v4', 
       credentials: credentials,
       region: environment.AWS_REGION});
     // define params  
