@@ -27,6 +27,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
   defaultAvatarOrganization = '../../assets/default_image.png';
 
   displayShare = true;
@@ -147,5 +148,13 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.routeSubscription) { this.routeSubscription.unsubscribe(); }
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }
