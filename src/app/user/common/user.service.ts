@@ -133,7 +133,7 @@ export class UserService {
     Http call to save the avatar image
   */
   saveAvatarImg(id: number, imgUrl: string) {
-    let requestOptions = new RequestOptions();
+    const requestOptions = new RequestOptions();
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
     return this.http
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
