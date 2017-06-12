@@ -10,6 +10,7 @@ import { ImageUploaderService, ImageReaderResponse } from '../../_services/image
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare var Materialize: any;
 
@@ -56,7 +57,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private router: Router,
     private imageUploader: ImageUploaderService,
-    private skillService: SkillService
+    private skillService: SkillService,
+    private extfilehandler: ExtFileHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -234,5 +236,26 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     //    this.globalActions.emit('toast');
     //  }, error => console.log(error)
     // );
+  }
+
+  /*
+    Orchestrates the avatar image upload sequence of steps
+  */
+  onUploadAvatar(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
+    // Calls the function to save the avatar image url to the user's row
+    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.avatar = res.outerValue;
+            this.user.avatarUrl = this.avatar;
+            console.log('Avatar successfully uploaded!');
+        } else {
+          console.error('Saving user avatar: Not expecting a response body');
+        }}, (e) => {
+          console.error('Avatar not saved. Not expecting a response body');
+        });
   }
 }

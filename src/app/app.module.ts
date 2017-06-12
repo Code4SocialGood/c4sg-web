@@ -43,6 +43,7 @@ import {DeveloperService} from './about/common/developer.service';
 import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
+import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 
@@ -94,7 +95,8 @@ import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
     ImageUploaderService,
     DataService,
     ValidationService,
-    SkillService],
+    SkillService,
+    ExtFileHandlerService],
 
   bootstrap: [AppComponent]
 })

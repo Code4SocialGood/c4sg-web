@@ -118,7 +118,7 @@ export class AuthService {
                   if (user === undefined) {
                     console.log('User does not exist');
                     const newUser: User = ({id: 0, email: lemail,
-                      role: luserRole.toUpperCase(),
+                      role: luserRole.toUpperCase().substr(0, 1),
                       userName: luserName, firstName: firstName,
                       lastName: lastName,
                       publishFlag: 'N', chatFlag: 'N',

@@ -7,19 +7,13 @@
         <div class="row single-info">
           <div class="col m12">
             <h4 id="avatar-title">Profile Image</h4>
-            <div class="info-avatar"><img class="responsive-img" id="responsive-img" [src]="avatar"></div>
+            <div class="info-avatar"><img class="responsive-img" id="responsive-img" [src]="avatar" onError="this.src='../../assets/avatar.png'"></div>
             <div>
                 <div class="input-field file-field row">
-                <div class="btn avatar-upload-button">Upload</div>
-                <!-- TODO after S3 is available
-                <div class="btn">
-                  <span>Upload</span>
-                  <input type="file" (change)="onUploadImage($event)">
+                <div class="btn avatar-upload-button">Upload
+                  <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadAvatar($event)">
                 </div>
-                <div class="red lighten-5 center-align error-msg" *ngIf="!logoValid">
-                  <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
-                </div>-->
-              </div>
+                </div>
             </div>
           </div>
         </div>
