@@ -239,23 +239,23 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   /*
-    Orchestrates the avatar image upload sequence of steps 
+    Orchestrates the avatar image upload sequence of steps
   */
   onUploadAvatar(fileInput: any): void {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
-    // Calls the function to save the avatar image url to the user's row 
-    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res), 
+    // Calls the function to save the avatar image url to the user's row
+    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
       (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
       .subscribe(res => {
-        if (res.innerValue.text() == '') {
-            this.avatar = res.outerValue; //temp assignment; may not be needed
+        if (res.innerValue.text() === '') {
+            this.avatar = res.outerValue;
             this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');            
+            console.log('Avatar successfully uploaded!');
         } else {
           console.error('Saving user avatar: Not expecting a response body');
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
-        });    
+        });
   }
 }

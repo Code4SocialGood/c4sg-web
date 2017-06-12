@@ -13,5 +13,5 @@ export const environment = {
     AWS_IMAGE_BUCKET: 'c4sg.dev.images',
     AWS_DOCS_BUCKET: 'c4sg.dev.docs',
     AWS_REGION: 'us-west-2',
-    AWS_SIGNATURE_VERSION: 'v4'    
+    AWS_SIGNATURE_VERSION: 'v4'
 };
