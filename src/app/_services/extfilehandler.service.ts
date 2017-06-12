@@ -59,10 +59,7 @@ export class ExtFileHandlerService {
 
     // submit an http request
     return this.http.request(new Request(this.optionArgs))
-      .map(res =>
-      {
-        return res.url.substr(0, res.url.indexOf('?'));
-      }) //a put request does not have any data in the body
+      .map(res => res.url.substr(0, res.url.indexOf('?'))) // a put request does not have any data in the body
       .catch(this.handleError);
   }
 
