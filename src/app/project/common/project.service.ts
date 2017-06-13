@@ -24,9 +24,7 @@ export class ProjectService {
   }
   /*
   getActiveProjects(): Observable<Project[]> {
-
     const url = projectUrl + '/search';
-
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
@@ -84,7 +82,7 @@ export class ProjectService {
       .catch(this.handleError);
   }*/
 
-  add(project: Project): Observable<{project: Project}> {
+  createProject(project: Project): Observable<{project: Project}> {
       return this.http.post(
       `${projectUrl}`,
       project
@@ -98,17 +96,17 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  update(project: Project) {
-    // const url = projectUrl + '/' + project.id;
-    // return this.http
-    //  .put(url, project, {headers: this.headers})
-    //  .map((res: Response) => res.json())
-    //  .catch(this.handleError);
+  updateProject(project: Project) {
+    const url = projectUrl + '/' + project.id;
+    return this.http
+      .put(url, project, {headers: this.headers})
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
 
-    return this.http.put(
-      `${projectUrl}/${project.id}`,
-      project
-      );
+    //return this.http.put(
+    // `${projectUrl}/${project.id}`,
+    //  project
+    // );
   }
 
 
@@ -128,6 +126,12 @@ export class ProjectService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  saveLogo(id: number, formData: FormData): Observable<Response> {
+    return this.http
+               .post(`${projectUrl}/${id}/logo`,
+                 formData);
   }
 
 }
