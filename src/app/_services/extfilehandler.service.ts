@@ -9,11 +9,6 @@ import { ImageDisplayService, ImageDisplay } from './image-display.service';
 import { environment } from '../../environments/environment';
 import 'aws-sdk/dist/aws-sdk';
 
-const credentials = {
-  accessKeyId: environment.AWS_ACCESS_KEY_ID,
-  secretAccessKey: environment.AWS_SECRET_ACCESS_KEY,
-};
-
 const allowedTypesImages = ['jpg', 'png'];
 const allowedTypesDocs = ['doc', 'pdf', 'docx', 'csv', 'xls', 'xlsx'];
 
@@ -33,6 +28,10 @@ export class ExtFileHandlerService {
     Uploads a file using a pre-signed url
   */
   uploadFile(fileInput: any, id: number, filetype: string): Observable<string> {
+    const credentials = {
+      accessKeyId: `${localStorage.getItem('amzId')}`,
+      secretAccessKey: `${localStorage.getItem('amzsecId')}`
+    };
     // declare an aws service
     const AWSService = (<any> window).AWS;
     // assign the file to upload
