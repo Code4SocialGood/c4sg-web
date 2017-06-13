@@ -98,6 +98,8 @@ export class AuthService {
           }
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('amzId', profile.app_metadata.amzid);
+          localStorage.setItem('amzsecId', profile.app_metadata.amzsecid);
           this.userProfile = profile;
 
           this.email = profile.email;
