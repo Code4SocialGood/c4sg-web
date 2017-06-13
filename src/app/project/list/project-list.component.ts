@@ -113,7 +113,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             this.idService.displayImage(e.id,
               this.projectService.retrieveImage.bind(this.projectService))
               .subscribe(image => {
-                e.image = image.url;
+                e.imageUrl = image.url;
                 });
 
               this.skillService.getSkillsByProject(e.id).subscribe(
@@ -196,7 +196,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     const project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
 
     this.projectService
-      .add(project)
+      .createProject(project)
       .subscribe(
         response => {
           this.getProjects();
