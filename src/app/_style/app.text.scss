@@ -1,0 +1,15 @@
+@import 'variables';
+
+.page-title {
+  padding-left: 10%;
+  border-bottom: $border-width #5ba55b solid;
+  background: -webkit-linear-gradient(left top, rgb(91, 165, 91), rgb(91, 165, 91));
+  background: -o-linear-gradient(bottom right, rgb(91, 165, 91), rgb(91, 165, 91));
+  background: -moz-linear-gradient(bottom right, rgb(91, 165, 91), rgb(91, 165, 91)); 
+  background: linear-gradient(to bottom right, rgb(91, 165, 91), rgb(91, 165, 91));
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  font-size: 2em;
+  font-weight: bold;
+}
