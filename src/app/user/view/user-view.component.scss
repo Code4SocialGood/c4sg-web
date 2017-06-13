@@ -1,42 +1,31 @@
-@import "../../_style/variables";
-@import "../../_style/app.page-single";
-
-.buttons-block {
-  text-align: center;
-}
-
-.subtitle {
-  width: 100%;
-  padding-left: 2em;
-  .names {
-    font-size: 1.5em;
-    font-weight: bold;  
-  }
-  .metainfo {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    p {
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: 2em;
-    }
-  }
-}
-
-.main-info{
-  display: table;
-  width: 100%;
-  .user-title {
-    display:table-cell;
-    vertical-align: middle;
-    h5 {
-      font-weight: bold;
-    }
-  }
-}
+@import "../../_style/app.theme";
 
 .not-active {
-    pointer-events: none;
-    cursor: default;     
-    color: #9F9F9F !important;  
+  pointer-events: none;
+  cursor: default;
+  color: #9F9F9F !important;
+}
+
+.names {
+  font-size: 1em;
+  //font-weight: bold;  
+}
+
+.location {
+  line-height: 1em;
+  //padding-left: 1em;
+  font-size: 0.75em;
+}
+
+.user-title {
+  display:table-cell;
+  vertical-align: middle;
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.username {
+  line-height: 1em;
+  text-align: center;
 }

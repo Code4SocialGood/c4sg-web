@@ -45,27 +45,29 @@
         <div class="sidebar">
           <div class="section" *ngIf="projects">
             <h4>Contact</h4>
-            <div class="card">
-              <div class="card-content">
-                <div class="row single-info">
-                  <div class="col m4">
-                    <div class="info-avatar" *ngIf="user"><img [src]="user.avatarUrl"></div>
-                  </div>
-                  <div class="col m8">
-                    <p>
-                      Name:
-                      <span *ngIf="user.firstName">{{user.firstName}}, </span>
-                      <span>{{user.lastName}}</span>
-                    </p>
-                    <p>Title: {{user.title}}</p>
-                    <p>Phone: {{user.phone}}</p>
-                    <p>Email: {{user.email}}</p>
+            <div class="section-body-organization">
+              <div class="card">
+                <div class="card-content">
+                  <div class="row single-info">
+                    <div class="col m4">
+                      <div class="info-avatar" *ngIf="user"><img [src]="user.avatarUrl"></div>
+                    </div>
+                    <div class="col m8">
+                      <p>
+                        Name:
+                        <span *ngIf="user.firstName">{{user.firstName}}, </span>
+                        <span>{{user.lastName}}</span>
+                      </p>
+                      <p>Title: {{user.title}}</p>
+                      <p>Phone: {{user.phone}}</p>
+                      <p>Email: {{user.email}}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </div>  
             </div>
             <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
-            <div class="section-body" *ngIf="projects">
+            <div class="section-body-project" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">

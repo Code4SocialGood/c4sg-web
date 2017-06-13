@@ -60,6 +60,7 @@
         <div class="sidebar">
           <div class="section">
             <h4>Organization</h4>
+            <div class="section-body-organization">
             <div class="card">
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">
@@ -76,11 +77,12 @@
                     </p>
                   </div>
                 </div>
-                <p>{{organization.description}}</p>
+                <p>{{ organization.description  | slice:0:100 }} ...}}</p>
               </div>
             </div>
+            </div>
             <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
-            <div class="section-body" *ngIf="projects">
+            <div class="section-body-project" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
