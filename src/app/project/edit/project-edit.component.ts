@@ -6,7 +6,8 @@ import { Project } from '../common/project';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
-
+import { Observable } from 'rxjs/Observable';
+import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 declare const Materialize: any;
 
 @Component({
@@ -24,6 +25,10 @@ export class ProjectEditComponent implements OnInit {
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
+  public logoValid = true;
+  private logoData: ImageReaderResponse;
+  public editFlag = false;
+  
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
@@ -32,16 +37,16 @@ export class ProjectEditComponent implements OnInit {
               private fc: FormConstantsService,
               private route: ActivatedRoute,
               private router: Router,
-              private skillService: SkillService) {
+              private skillService: SkillService,
+              private imageUploader: ImageUploaderService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.route.params.subscribe(params => {
 
     this.getFormConstants();
     this.initForm();
-
-    this.route.params.subscribe(params => {
-      this.projectId = +params['projectId'];
+    this.projectId = +params['projectId'];
 
       if (this.projectId !== 0) { // Edit Project
         this.projectService.getProject(this.projectId)
@@ -63,8 +68,7 @@ export class ProjectEditComponent implements OnInit {
             res => {
               this.projectSkillsArray = res;
             }, error => console.log(error)
-          );
-      }
+          ); 
 
       this.skillService.getSkills()
         .subscribe(
@@ -74,6 +78,7 @@ export class ProjectEditComponent implements OnInit {
             });
           }, error => console.log(error)
         );
+       }
     });
   }
 
@@ -84,10 +89,10 @@ export class ProjectEditComponent implements OnInit {
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': ['', []],
-      'organizationName': ['', []],
-      'projectDescription': ['', []],
-      'remoteFlag': ['Y', []],
+      'name': ['', []],
+      'organizationId': ['', []],
+      'description': ['', []],
+      'remoteFlag': ['', [Validators.required]],
       'city': ['', []],
       'state': ['', []],
       'country': ['', []]
@@ -97,14 +102,22 @@ export class ProjectEditComponent implements OnInit {
   private fillForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': [this.project.name || '', [Validators.required]],
-      'organizationName': [this.project.organizationName || '', []],
-      'projectDescription': [this.project.description || '', []],
+      'name': [this.project.name || '', [Validators.required]],
+      'organizationId': [this.project.organizationId || '', []],
+      'description': [this.project.description || '', []],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
       'state': [this.project.state || '', []],
       'country': [this.project.country || '', []]
     });
+  }
+
+  changeImage(event) {
+    this.projectImageUrl = event.target.files;
+  }
+
+  onEditSkills() {
+    this.editFlag = !this.editFlag;
   }
 
   onSubmit(updatedData: any, event): void {
@@ -124,7 +137,6 @@ export class ProjectEditComponent implements OnInit {
     this.project.city = updatedData.city;
     this.project.state = updatedData.state;
     this.project.country = updatedData.country;
-
     this.projectService.update(this.project).subscribe(
       res => {
         this.globalActions.emit('toast');
@@ -140,53 +152,29 @@ export class ProjectEditComponent implements OnInit {
   }
 
   private createProject(): void {
-
-    // TODO:
-    // For nonprofit user, find the organization of the user, assign organization ID to the project
-    // For admin user, there should be a field to enter org ID
-
-    this.projectService
-      .add(this.projectForm.value)
-      .map(res => {
-        this.project = res.project;
-
-        // Only need to save the logo if a logo was uploaded
-        /* TODO
-        if (this.imageData) {
-          additionalCalls.push(
-            this.organizationService
-              .saveLogo(this.organization.id, this.imageData.formData)
-          );
-        }*/
-
-        // return Observable.forkJoin(additionalCalls);
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
+    this.projectService.createProject(this.projectForm.value).subscribe(res => {
+           this.project = res.project;
+           this.skillService.updateSkills(this.projectSkillsArray, this.project.id); 
+           // After all calls are successfully made, go to the view page
         this.router.navigate(['/project/view/' + this.project.id]);
-      });
+      }, error => console.log(error)
+     );
   }
-
+  
   private updateProject(): void {
-
-    const formData = this.projectForm.value;
+  const formData = this.projectForm.value;
     formData.id = this.project.id;
+    formData.status = 'A';
 
-    this.project.name = formData.projectName;
-    this.project.description = formData.projectDescription;
-    this.project.remoteFlag = formData.remoteFlag;
-    this.project.city = formData.city;
-    this.project.state = formData.state;
-    this.project.country = formData.country;
-
-    this.projectService
-      .update(this.project)
-      .subscribe(res => {
-        Materialize.toast('Your project is saved', 4000);
-        // this.globalActions.emit('toast');
-      });
+ this.projectService.updateProject(formData).subscribe(
+    res => {
+        this.project = res.project;
+        this.skillService.updateSkills(this.projectSkillsArray, this.project.id);
+        // After all calls are successfully made, go to the view page
+        this.router.navigate(['/project/view/' + this.project.id]);
+      }, error => console.log(error));  
   }
-
+  
   onAddListedSkill(optionValue) {
     console.log(optionValue.target.value);
     this.projectSkillsArray.push(optionValue.target.value);
@@ -208,8 +196,43 @@ export class ProjectEditComponent implements OnInit {
       console.log(this.projectSkillsArray);
     }
   }
+  
+onUploadLogo(fileInput: any): void {
+    // Make sure there are files before doing the upload
+    if (fileInput.target.files && fileInput.target.files.length) {
 
-  changeImage(event) {
-    this.projectImageUrl = event.target.files;
+      // Make sure the file is under 1MB
+      if (fileInput.target.files[0].size < 1048576) {
+        this.logoValid = true;
+        if (this.projectId === 0) {
+          this.readLogo(fileInput);
+        } else {
+          this.saveLogo(fileInput);
+        }
+      } else {
+        this.logoValid = false;
+      }
+    }
+  }
+
+  private readLogo(fileInput: any): void {
+    this.imageUploader
+      .readImage(fileInput)
+      .subscribe(res => {
+        this.project.imageUrl = res.base64Image;
+        this.logoData = res;
+      });
+  }
+
+  private saveLogo(fileInput: any): void {
+    this.imageUploader.uploadImage(fileInput,
+      this.projectId,
+      this.projectService.saveLogo.bind(this.projectService))
+      .subscribe(res => {
+        if (res.url) {
+            this.project.imageUrl = res.url;
+        }
+      },
+      err => { console.error(err, 'An error occurred'); });
   }
 }
