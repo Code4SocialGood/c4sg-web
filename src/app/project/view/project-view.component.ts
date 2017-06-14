@@ -30,6 +30,8 @@ export class ProjectViewComponent implements OnInit {
   projectImage: any = '';
   orgImage: any = '';
   userProjectStatus: string;
+  projectStatusApplied = false;
+  projectStatusBookmarked = false;
   auth: AuthService;
   defaultAvatarProject = '../../assets/default_image.png';
 
@@ -151,6 +153,7 @@ export class ProjectViewComponent implements OnInit {
 
   apply(): void {
     this.userProjectStatus = 'A';
+    this.projectStatusApplied = true;
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
@@ -175,6 +178,7 @@ export class ProjectViewComponent implements OnInit {
   bookmark(): void {
     // check if user is logged in
     this.userProjectStatus = 'B';
+    this.projectStatusBookmarked = true;
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
