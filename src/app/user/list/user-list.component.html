@@ -3,7 +3,7 @@
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(p)">
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(1)">
           <div class="row">
             <div class="col s12">
               <div class="section">
@@ -45,8 +45,7 @@
           <h4 class="content-title">{{totalItems}} volunteers found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="users">
-              <li class="card-wrapper"
-                  *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}; let i = index">
+              <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">    
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
@@ -86,7 +85,7 @@
         </div>
         <div class="row">
           <div class="pagination">
-            <pagination-controls (pageChange)="p = $event" id="usersPages" autoHide="false"></pagination-controls>
+            <pagination-controls (pageChange)="getUsers(p = $event)" id="usersPages" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>
