@@ -7,6 +7,9 @@
   margin: 0;
   border-radius: 0;
   box-shadow: 0 0 0;
+        &:hover {
+        background: #8dcdc1;
+      }
 }
 
 .card-avatar-wrapper {
@@ -96,7 +99,7 @@
   //padding: 0px;
   padding: 0 2em;
   padding-bottom: 15px;
-  border-left: 1px solid #efefef;
+  //border-left: 1px solid #efefef;
   h5 {
     font-size: 1em;
     font-weight: bold;
