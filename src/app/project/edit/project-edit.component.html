@@ -39,14 +39,18 @@
           </div>-->
           <div class="row">
             <div class="content-title">Introduction</div>
-            <div class="input-field col s12">
-              <input id="project_name" type="text" class="validate" formControlName="projectName">
-              <label for="project_name">Project Name <sup>&#10033;</sup></label>
+            <div class="input-field col s12" *ngIf="displayOrgField">
+              <input id="organizationId" type="number" class="validate" formControlName="organizationId">
+              <label for="organizationId">Organization Id <sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
-              <textarea id="project_description" class="materialize-textarea" formControlName="projectDescription"
+              <input id="name" type="text" class="validate" formControlName="name">
+              <label for="name">Project Name <sup>&#10033;</sup></label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="description" class="materialize-textarea" formControlName="description"
                     placeholder=""></textarea>
-              <label for="project_description">Project Description</label>
+              <label for="description">Project Description</label>
             </div>
           </div>
           <div class="row">
