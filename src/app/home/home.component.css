@@ -67,8 +67,9 @@
 
 @font-face {
   font-family: "aniFont";
-  src: url("/assets/Gotham-Black-Regular.ttf");
-  // src: url("/assets/Thruster-Regular.ttf");
+  src: url("/assets/fonts/Gotham-Black-Regular.ttf");
+  //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
+  // src: url("/assets/fonts/Thruster-Regular.ttf");
 }
 
 #aniSlogan {
