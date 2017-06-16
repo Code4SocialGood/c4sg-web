@@ -12,7 +12,11 @@ export class AboutComponent implements OnInit {
 
   usersSubscription: Subscription;
   developers: User[];
-
+  // google maps zoom level
+  zoom = 2;
+  // initial center position for the map
+  lat = 0;
+  lng = 0;
   constructor(
     private uService: UserService
   ) { }
@@ -31,3 +35,4 @@ export class AboutComponent implements OnInit {
     );
   }
 }
+
