@@ -47,6 +47,8 @@ import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -56,7 +58,10 @@ import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAq8AkZC-7OkXqM7bLjJ5OQQNDn1hW92o0'
+    })
   ],
   declarations: [
     AppComponent,

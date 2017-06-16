@@ -7,9 +7,32 @@
         <div class="row">
           <h1 class="content-title">Meet the Volunteers of Code for Social Good</h1>
           <div class="col s12">
-            <div class="map-viewer-wrapper" *ngIf="developers">
+            <!--<div class="map-viewer-wrapper" *ngIf="developers">
               <my-map-viewer [developers]="developers"></my-map-viewer>
-            </div>
+            </div>-->
+              <div>
+                  <agm-map 
+                          [latitude]="lat"
+                          [longitude]="lng"
+                          [zoom]="zoom">
+    
+                      <agm-marker 
+                          *ngFor="let d of developers"                          
+                          [latitude]="d.latitude"
+                          [longitude]="d.longitude">
+
+                        <agm-info-window>                          
+                              <div>
+                                <p> {{d.userName}} </p>
+                                <img [src]="d.avatarUrl" />
+                                <p>State:{{d.state}}</p>
+                              </div>                          
+                        </agm-info-window>
+
+                      </agm-marker>
+                  </agm-map>
+              
+              </div>
           </div>
         </div>
       </div>
