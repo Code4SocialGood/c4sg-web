@@ -20,7 +20,7 @@ export class UserService {
   // Page data always starts at offset zero (0)
   // Only active users are retrieved
   // Returns a JSON object with the data array of Users and totalItems count
-  /*
+  /* obsolete
   public getUsers(page: number): Observable<any> {
     const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,desc&sort=userName,asc';
     return this.http
@@ -62,8 +62,8 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  searchUsers(page: number, keyword?: string, skills?: string[], status?: string,
-    role?: string, publicFlag?: string): Observable<User[]> {
+  searchUsers(keyword?: string, skills?: string[], status?: string,
+    role?: string, publicFlag?: string, page?: number, size?: number): Observable<any> {
     const params = new URLSearchParams();
 
     // TODO Append page, sort here
@@ -90,9 +90,17 @@ export class UserService {
       params.append('publicFlag', publicFlag);
     }
 
+    if (page) {
+      params.append('page', String(page - 1));
+    }
+
+    if (size) {
+      params.append('size', String(size));
+    }
+
     return this.http
                .get(`${userUrl}/search`, {search: params})
-               .map( res => res.json())
+               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
 
