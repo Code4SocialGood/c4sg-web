@@ -46,6 +46,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     {value: '2', name: 'option2'},
     {value: '3', name: 'python'}];
   currentUserId: String;
+  public isSkillExists = false;
+  public skill = '';
 
   constructor(
     public fb: FormBuilder,
@@ -193,15 +195,21 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   onAddListedSkill(optionValue) {
     console.log(optionValue.target.value);
-    this.projectSkillsArray.push(optionValue.target.value);
+    this.checkSkillList (optionValue.target.value);
+    if (!this.isSkillExists) {
+      this.projectSkillsArray.push(optionValue.target.value);
+    }
     console.log(this.projectSkillsArray);
   }
 
   onAddOwnSkill(inputSkill) {
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.projectSkillsArray.push(inputSkill.value);
-      this.inputValue = '';
+      this.checkSkillList (inputSkill.value);
+      if (!this.isSkillExists) {
+        this.projectSkillsArray.push(inputSkill.value);
+        this.inputValue = '';
+      }
       console.log(this.projectSkillsArray);
     }
   }
@@ -257,5 +265,15 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
+  }
+
+  checkSkillList(selectedSkill) {
+    this.isSkillExists = false;
+    for ( this.skill of this.projectSkillsArray ) {
+      if (selectedSkill === this.skill) {
+        this.isSkillExists = true;
+        this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+      }
+    }
   }
 }

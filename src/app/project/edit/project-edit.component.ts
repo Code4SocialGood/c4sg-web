@@ -35,6 +35,8 @@ export class ProjectEditComponent implements OnInit {
   modalActions = new EventEmitter<string|MaterializeAction>();
   public displayOrgField = false;
   public isOrganization = false;
+  public isSkillExists = false;
+  public skill = '';
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -211,7 +213,10 @@ export class ProjectEditComponent implements OnInit {
 
   onAddListedSkill(optionValue) {
     console.log(optionValue.target.value);
-    this.projectSkillsArray.push(optionValue.target.value);
+    this.checkSkillList (optionValue.target.value);
+    if (!this.isSkillExists) {
+      this.projectSkillsArray.push(optionValue.target.value);
+    }
     console.log(this.projectSkillsArray);
   }
 
@@ -225,9 +230,12 @@ export class ProjectEditComponent implements OnInit {
   onAddOwnSkill(inputSkill) {
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.projectSkillsArray.push(inputSkill.value);
-      this.inputValue = '';
-      console.log(this.projectSkillsArray);
+      this.checkSkillList (inputSkill.value);
+      if (!this.isSkillExists) {
+        this.projectSkillsArray.push(inputSkill.value);
+        this.inputValue = '';
+        console.log(this.projectSkillsArray);
+      }
     }
   }
 
@@ -251,6 +259,16 @@ export class ProjectEditComponent implements OnInit {
           }, error => console.log(error)
         );
 
+    }
+  }
+
+  checkSkillList(selectedSkill) {
+    this.isSkillExists = false;
+    for ( this.skill of this.projectSkillsArray ) {
+      if (selectedSkill === this.skill) {
+        this.isSkillExists = true;
+        this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+      }
     }
   }
 }
