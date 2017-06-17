@@ -6,26 +6,27 @@
   padding-bottom: $content-pad;
   padding-left: $content-pad;
   padding-right: $content-pad;
-
 }
 
 .content-title {
-  color: #5ba55b;
-  font-size: 1.15em;
-  font-weight: bold;
   margin: 0;
-  padding-left: 0em; 
+  padding-left: 0em;
   padding-top: 10px;
-  //padding-left: 3em; 
+  @include content-title-font;
+  //padding-left: 3em;
   //background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(0, 185, 145));
   //background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
-  //background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145)); 
+  //background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
   //background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
   //border-bottom: $border-width #5ba55b solid;
   //.index-prefix {
   //  margin-right: 2em;
   //  font-weight: bold;
-  //}    
+  //}
+}
+
+.content-subtitle {
+  @include content-subtitle-font;
 }
 
 .single-info {
@@ -48,8 +49,7 @@
   }
   .info-title {
     height: 40px;
-    font-size: 1.15em;
-    font-weight: bold;   
+    @include content-subtitle-font;
   }
   .info-description {
     padding-bottom: 20px;

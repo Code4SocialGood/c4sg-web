@@ -1,4 +1,4 @@
-<div class="page-title">Volunteers</div>
+<div class="page-title"><h1>Volunteers</h1></div>
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
@@ -45,7 +45,7 @@
           <h4 class="content-title">{{totalItems}} volunteers found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="users">
-              <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">    
+              <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">

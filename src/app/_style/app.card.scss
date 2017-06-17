@@ -2,14 +2,14 @@
 
 .card {
   width: 100%;
-  height: 200px;
+  max-height: 200px;
   overflow: hidden;
   margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
   border-radius: 0;
   box-shadow: 0 0 0;
-        &:hover {
-        background: #8dcdc1;
-      }
+  background: $main-bg-color;
 }
 
 .card-avatar-wrapper {
@@ -36,7 +36,7 @@
       background: #000;
     }
     .card-avatar-content {
-      overflow: hidden;  
+      overflow: hidden;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -44,8 +44,8 @@
       left: 0;
       background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(0, 212, 166));
       background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
-      background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166)); 
-      background: linear-gradient(to bottom right,rgb(132, 196, 76), rgb(0, 212, 166)); 
+      background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
+      background: linear-gradient(to bottom right,rgb(132, 196, 76), rgb(0, 212, 166));
       &:before {
         content: "";
         background: #000;
@@ -118,7 +118,7 @@
   margin-top: 6px;
   .card-wrapper {
     display: inline-block;
-    width: 100%;            
+    width: 100%;
     border-bottom: $border-width $border-color solid;
   }
 }
