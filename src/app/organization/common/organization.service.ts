@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
@@ -111,5 +111,15 @@ export class OrganizationService {
     return this.http.get(
       `${organizationUrl}/${id}/logo`
     );
+  }
+
+  /*
+    Http call to save the logo image
+  */
+  saveLogoImg(id: number, imgUrl: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.http
+      .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
   }
 }

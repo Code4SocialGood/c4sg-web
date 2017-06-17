@@ -110,11 +110,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         res => {
           this.projects = res;
           res.forEach((e: Project) => {
-            this.idService.displayImage(e.id,
-              this.projectService.retrieveImage.bind(this.projectService))
-              .subscribe(image => {
-                e.image = image.url;
-                });
+                                //  this.idService.displayImage(e.id,
+                                //    this.projectService.retrieveImage.bind(this.projectService))
+                                //    .subscribe(image => {
+                                //      e.imageUrl = image.url;
+                               //       });
 
               this.skillService.getSkillsByProject(e.id).subscribe(
                 result => {

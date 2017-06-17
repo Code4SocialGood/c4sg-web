@@ -125,4 +125,14 @@ describe('OrganizationService', () => {
                          );
     })
   );
+
+  /*
+    Http call to save the avatar image
+  */
+  saveAvatarImg(id: number, imgUrl: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.http
+      .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
+  }
 });

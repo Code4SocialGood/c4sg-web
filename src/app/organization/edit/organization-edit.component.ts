@@ -12,6 +12,7 @@ import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
 import { MaterializeAction } from 'angular2-materialize';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -43,6 +44,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
+  public logoUrl: any = '';
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -52,7 +54,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
               // private sanitizer: DomSanitizer,
               private route: ActivatedRoute,
               private router: Router,
-              private imageUploader: ImageUploaderService) {
+              private imageUploader: ImageUploaderService,
+              private extfilehandler: ExtFileHandlerService
+              ) {
     this.urlValidator = this.urlValidator.bind(this);
   }
 
@@ -73,6 +77,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         .subscribe(
           res => {
             this.organization = res;
+            this.logoUrl = this.organization.logoUrl;
             this.fillForm();
           }, error => console.log(error)
         );
@@ -291,6 +296,27 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         },
         err => {
           console.error(err, 'An error occurred');
+        });
+  }
+
+  /*
+    Orchestrates the organization logo upload sequence of steps
+  */
+  onUploadLogo(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
+    // Calls the function to save the logo image url to the organization's row
+    upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.logoUrl = res.outerValue;
+            this.organization.logoUrl = this.logoUrl;
+            console.log('Logo successfully uploaded!');
+        } else {
+          console.error('Saving organization logo: Not expecting a response body');
+        }}, (e) => {
+          console.error('Logo not saved. Not expecting a response body');
         });
   }
 }

@@ -100,11 +100,11 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       ).subscribe( res => {
         this.organizations = res;
         res.forEach((o: Organization) => {
-          this.idService.displayImage(o.id,
-          this.organizationService.retrieveLogo.bind(this.organizationService))
-          .subscribe(logo => {
-            // o.logo = logo.url;
-          });
+                        //    this.idService.displayImage(o.id,
+                        //    this.organizationService.retrieveLogo.bind(this.organizationService))
+                        //    .subscribe(logo => {
+                              // o.logo = logo.url;
+                        //    });
 
           this.projectService.getProjectByOrg(o.id, 'A')
             .subscribe( response => {
