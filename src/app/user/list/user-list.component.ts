@@ -125,13 +125,14 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
 
     this.usersSubscription = this.userService.searchUsers(
-      page, this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y')
+      this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page + 1, 10)
       .subscribe(
         res => {
           // the service returns a JSON object consist of the array of pageable data
-          this.users = res;
-          this.totalItems = res.length;
-          res.forEach((e: User) => {
+          this.users = res.data;
+          this.totalItems = res.totalItems;
+          this.usersCache = this.users.slice(0);
+          res.data.forEach((e: User) => {
             this.skillService.getSkillsForUser(e.id).subscribe(
               result => {
                 e.skills = result;

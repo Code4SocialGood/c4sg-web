@@ -1,15 +1,22 @@
-$main-color: #2d2000;
-$main-bg-color: #fff;
+$main-color: #4B4B4C;
+$main-bg-color: #F9F9F9;
+$secondary-bg-color: #84c44c;
 $bg-line-color: #e0f3cd;
-$header-bg-color: #84c44c;
+$header-bg-color: $secondary-bg-color;
 $selected-bg-color: #e0f3cd;
 $section-bg-color: #f9f9f9;
 $navbar-border-color: #3dd768;
+//$navbar-fg-color-selected: #fff;
+//$navbar-fg-color: #27c854;
 $navbar-fg-color-selected: #fff;
-$navbar-fg-color: #27c854;
+$navbar-fg-color: black;
+$navbar-link-color: #4B4B4C;
+$navbar-link-selected-color: #84C44C;
 $footer-bg-color: #f2f2f2;
 $sec-bg-color: #ccff99;
 $border-color: #d9d9d9;
+$page-title-bg-color: $secondary-bg-color;
+$content-title-color: #84C44C;
 
 $page-top: 10px;
 $page-bottom: 10px;
@@ -18,10 +25,9 @@ $sidebar-right: 5px;
 $border-width: 4px;
 
 $line-sep-color: #e0f3cd;
-$line-sep-width: 2px;
+$line-sep-width: 3px;
 
 $navbar-height: 75px;
 $dropdown-line-height: 40px;
 
 $content-pad: 20px;
-

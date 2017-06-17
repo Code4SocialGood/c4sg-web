@@ -39,7 +39,7 @@ export class SkillService {
     params.set('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
     return this.http
-      .post(url, null, {search: params})
+      .put(url, null, {search: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

@@ -21,10 +21,10 @@
           <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/edit/0" routerLinkActive="active">Create Organization</a></li>
           <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
           <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/list/approve" routerLinkActive="active">Approve Organizations</a></li>
+          <li><a class="log-reg" routerLink="" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
         </ul>
       </li>
       <li><a class="log-reg" routerLink="" (click)="authSvc.login()" *ngIf="!authSvc.authenticated()">Log In</a></li>
-      <li><a class="log-reg" routerLink="" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
     </ul>
   </div>
 </nav>

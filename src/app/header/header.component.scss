@@ -25,13 +25,16 @@
       }
     }
     .dropdown-content {
-      background-color: transparent;
+      background-color: gray;
       li { 
         background-color: transparent;
         a {
           //border-color: none;
           background-color: transparent;
-          &:hover:after {
+         // &:hover:after {
+           // background-color: rgba(255,255,255,0.95);
+           &:hover {
+            border-color: $navbar-fg-color;
             background-color: rgba(255,255,255,0.95);
           }
         }
@@ -65,7 +68,7 @@
       }
     }
     .dropdown-content {
-      background-color: transparent;
+      background-color: gray;
       li { 
         background-color: transparent;
         a {

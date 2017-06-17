@@ -43,8 +43,11 @@ import {DeveloperService} from './about/common/developer.service';
 import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
+import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -55,7 +58,10 @@ import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAq8AkZC-7OkXqM7bLjJ5OQQNDn1hW92o0'
+    })
   ],
   declarations: [
     AppComponent,
@@ -94,7 +100,8 @@ import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
     ImageUploaderService,
     DataService,
     ValidationService,
-    SkillService],
+    SkillService,
+    ExtFileHandlerService],
 
   bootstrap: [AppComponent]
 })

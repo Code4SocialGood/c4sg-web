@@ -1,0 +1,54 @@
+@import "variables";
+
+.pagination {
+  // border-top: solid $line-sep-width $line-sep-color;
+  // border-bottom: solid $line-sep-width $line-sep-color;
+  .ng2-pagination  {
+    font-size: 0px;
+    margin: 0;
+    padding: 0 ;
+    margin-top: - $line-sep-width;
+    margin-bottom: - 2 * $line-sep-width;
+    text-align: center;
+    line-height: 50px;
+    li {
+      margin: 0;
+      height: 50px;
+      a {
+        min-width:50px;
+        position: relative;
+        font-size: 12px;
+        line-height: 50px;
+        height: 50px;
+        border: solid $line-sep-width $line-sep-color;
+        margin-left: - $line-sep-width;
+        z-index: 100;
+        color: $header-bg-color;
+        font-weight: bold;
+
+        &:hover {
+          background-color: white;
+          border-color: $navbar-border-color;
+          z-index: 102;
+        }
+      }
+      &.current {
+        background-color: transparent;
+        padding: 0;
+        min-width:50px;
+        position: relative;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 50px;
+        height: 50px + $line-sep-width;
+        border: solid $line-sep-width $line-sep-color;
+        margin-left: - $line-sep-width;
+        z-index: 100;
+        border-color: $navbar-border-color;
+        background-color: $header-bg-color;
+        z-index: 101;
+        color: white;
+      }
+    }
+  }
+}

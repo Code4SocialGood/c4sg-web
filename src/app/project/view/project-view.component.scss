@@ -1,18 +1,5 @@
-@import "../../_style/variables";
-@import "../../_style/app.page-single";
+@import "../../_style/app.theme";
 
-.section {
-  padding-bottom: 0;
-  .description {
-    font-size: 0.9em;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-.section.sub {
-  h4 {
-    background-color: transparent;
-    border-bottom-color: $navbar-fg-color;
-  }
+.organization-name {
+  @include content-subtitle-font;
 }
