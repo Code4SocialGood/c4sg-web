@@ -42,7 +42,7 @@ export class ProjectService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-  
+
   getProject(id: number): Observable<Project> {
 
     const url = projectUrl + '/' + id;
@@ -131,7 +131,7 @@ export class ProjectService {
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
-  } 
+  }
 
   getProjects(): Observable<Project[]> {
     return this.http
