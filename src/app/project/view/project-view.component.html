@@ -15,8 +15,8 @@
             </div>
             <div class="row">
               <div>
-                <div *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
-                <div class="state" *ngIf="project.remoteFlag !== 'Y'">
+                <div class="content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                <div class="content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
                   Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
                 </div>
               </div>
@@ -68,7 +68,7 @@
                     <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
                     <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultAvatarProject"></div>
                   </div>
-                  <div class="col m8">
+                  <div class="col m8 organization-name">
                     <p>
                       <a [href]="organization.websiteUrl" target="_blank" *ngIf="organization.websiteUrl">{{organization.name}}</a>
                     </p>
@@ -77,11 +77,11 @@
                     </p>
                   </div>
                 </div>
-                <p>{{ organization.description  | slice:0:100 }} ...}}</p>
+                <p>{{ organization.description  | slice:0:100 }} ...</p>
               </div>
             </div>
             </div>
-            <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+            <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
             <div class="section-body-project" *ngIf="projects">
               <div class="items-list-wrapper">
                 <ul>
@@ -104,7 +104,7 @@
                           </div>
                           </div>
                         </div>
-                        <p>{{ pr.description  | slice:0:100 }} ...}}</p>
+                        <p>{{ pr.description  | slice:0:100 }} ...</p>
                       </div>
                     </div>
                   </li>

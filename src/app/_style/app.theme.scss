@@ -148,3 +148,9 @@ hr {
     }
   }
 }
+
+
+.btn {
+  background-color: $secondary-bg-color;
+  @include button-font;
+}
