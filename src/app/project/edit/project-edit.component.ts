@@ -9,6 +9,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import {AuthService} from '../../auth.service';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -37,6 +38,7 @@ export class ProjectEditComponent implements OnInit {
   public isOrganization = false;
   public isSkillExists = false;
   public skill = '';
+  public imageUrl: any = '';
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -45,7 +47,9 @@ export class ProjectEditComponent implements OnInit {
               private route: ActivatedRoute,
               private auth: AuthService,
               private router: Router,
-              private skillService: SkillService) {
+              private skillService: SkillService,
+              private extfilehandler: ExtFileHandlerService
+              ) {
   }
 
   ngOnInit(): void {
@@ -63,15 +67,16 @@ export class ProjectEditComponent implements OnInit {
           .subscribe(
             res => {
               this.project = res;
+              this.imageUrl = this.project.imageUrl;
               this.fillForm();
             }, error => console.log(error)
           );
 
-        this.projectService.retrieveImage(this.projectId)
-          .subscribe(
-            res => {
-            }, error => console.log(error)
-          );
+      //  this.projectService.retrieveImage(this.projectId)
+      //    .subscribe(
+      //      res => {
+      //      }, error => console.log(error)
+      //    );
 
         this.skillService.getSkillsByProject(this.projectId)
           .subscribe(
@@ -270,5 +275,26 @@ export class ProjectEditComponent implements OnInit {
         this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
       }
     }
+  }
+
+  /*
+    Orchestrates the project image upload sequence of steps
+  */
+  onUploadImage(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.project.id, 'image');
+    // Calls the function to save the project image url to the project's row
+    upload$.switchMap( (res) => this.projectService.saveProjectImg(this.project.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.imageUrl = res.outerValue;
+            this.project.imageUrl = this.imageUrl;
+            console.log('Image successfully uploaded!');
+        } else {
+          console.error('Saving project image: Not expecting a response body');
+        }}, (e) => {
+          console.error('Image not saved. Not expecting a response body');
+        });
   }
 }
