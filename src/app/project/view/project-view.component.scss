@@ -1,1 +1,5 @@
 @import "../../_style/app.theme";
+
+.organization-name {
+  @include content-subtitle-font;
+}
