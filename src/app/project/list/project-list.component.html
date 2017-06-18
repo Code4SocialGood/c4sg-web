@@ -2,13 +2,13 @@
 <!-- 1. From header, click Projects to display a list of projects with search panl to further filter result-->
 <!-- 2. Nonprofit user: click My Projects to display the projects th organization posted-->
 <!-- 3. Volunteer user: click My projects to display Bookmarked Projeccts and Applied Projects -->
-<div class="page-title">Projects</div>
+<div class="page-title"><h1>Projects</h1></div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel, only display for Projects page-->
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='projects'">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects()">
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects(1)">
           <div class="row">
             <div class="col s12">
               <div class="section">
@@ -50,11 +50,10 @@
       <!-- 2. Nonprofit User: My Projects -->
       <div class="content" *ngIf="projects">
         <div class="row">
-          <h4 class="content-title">{{projects.length}} projects found</h4>
+          <h4 class="content-title">{{totalItems}} projects found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="projects">
-              <li class="card-wrapper"
-                  *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsList', currentPage: p, totalItems: totalItems}; let i = index">
+              <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
@@ -93,8 +92,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="pagination">
-            <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>
+          <div class="pagination"><!--
+            <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>-->
+            <pagination-controls (pageChange)="getProjects(p = $event)" id="projectsPages" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>

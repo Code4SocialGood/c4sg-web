@@ -62,8 +62,14 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  searchUsers(keyword?: string, skills?: string[], status?: string,
-    role?: string, publicFlag?: string, page?: number, size?: number): Observable<any> {
+  searchUsers(
+    keyword?: string,
+    skills?: string[],
+    status?: string,
+    role?: string,
+    publicFlag?: string,
+    page?: number,
+    size?: number): Observable<any> {
     const params = new URLSearchParams();
 
     // TODO Append page, sort here

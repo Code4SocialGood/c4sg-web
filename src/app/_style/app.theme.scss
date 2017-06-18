@@ -12,7 +12,7 @@ a {
 }
 
 body {
-  font-family: Raleway;
+  font-family: $main-font;
   font-size: 14px;
   color: $main-color;
   background: $main-bg-color;
@@ -22,10 +22,10 @@ hr {
   border: 0;
   height: 1px;
   width: 105%;
-  background: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
 }
 
 .container {
@@ -114,8 +114,8 @@ hr {
       border-radius: 4px;
       background: -webkit-linear-gradient(left top, rgb(216, 238, 203), rgb(216, 238, 203));
       background: -o-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
-      background: -moz-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203)); 
-      background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203)); 
+      background: -moz-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
+      background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
       text-align: center;
       font-size: 0.7em;
       margin: 6px 5px;
@@ -133,7 +133,7 @@ hr {
     display: block;
     clear: both;
   }
-} 
+}
 
 .links-list-wrapper {
   ul {
@@ -149,3 +149,8 @@ hr {
   }
 }
 
+
+.btn {
+  background-color: $secondary-bg-color;
+  @include button-font;
+}

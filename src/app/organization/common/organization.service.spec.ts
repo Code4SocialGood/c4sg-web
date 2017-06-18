@@ -96,7 +96,7 @@ describe('OrganizationService', () => {
                          );
     })
   );
-
+  /*
   it('searchOrganizations should return an observable',
     inject([OrganizationService, MockBackend], (organizationService, mockBackend) => {
 
@@ -124,5 +124,5 @@ describe('OrganizationService', () => {
                            }
                          );
     })
-  );
+  );*/
 });

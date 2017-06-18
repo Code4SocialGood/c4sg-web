@@ -1,4 +1,4 @@
-<div class="page-title">Organization</div>
+<div class="page-title"><h1>Organization</h1></div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel: Organization -->
@@ -50,7 +50,7 @@
                 <div class="card-content">
                   <div class="row single-info">
                     <div class="col m4">
-                      <div class="info-avatar" *ngIf="user"><img [src]="user.avatarUrl"></div>
+                      <div class="info-avatar" *ngIf="user"><img class='circle' [src]="user.avatarUrl"></div>
                     </div>
                     <div class="col m8">
                       <p>
@@ -64,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-              </div>  
+              </div>
             </div>
             <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
             <div class="section-body-project" *ngIf="projects">

@@ -211,7 +211,7 @@ export class AuthService {
 
     this.userProfile = undefined;
 
-    window.location.href = logoutURL;
+    this.router.navigate(['/']);
   }
 
   // Returns user profile

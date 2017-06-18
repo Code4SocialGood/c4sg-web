@@ -58,10 +58,10 @@ export class ProjectViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = params['projectId'];
 
-      this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
-          .subscribe (
-              res => this.projectImage = res.url
-              );
+   //   this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
+    //      .subscribe (
+    //          res => this.projectImage = res.url
+     //         );
 
       this.projectService.getProject(id)
       .subscribe(

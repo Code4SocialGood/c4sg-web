@@ -1,4 +1,4 @@
-<div class="page-title">My Organization</div>
+<div class="page-title"><h1>My Organization</h1></div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel -->
@@ -6,15 +6,13 @@
       <div class="content" *ngIf="organization">
         <div class="row single-info">
           <div class="col m12">
-            <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-            <div class="file-field input-field">
-              <div class="btn">
-                <span>Upload</span>
-                <input type="file" (change)="onUploadImage($event)">
-              </div>
-              <div class="red lighten-5 center-align error-msg" *ngIf="!imageValid">
-                <h6 class="red-text darken-4">Max file size allowed is 1MB</h6>
-              </div>
+            <div class="info-avatar"><img class="responsive-img" id="responsive-img" [src]="logoUrl" onError="this.src='../../assets/avatar.png'"></div>
+            <div>
+                <div class="input-field file-field row">
+                <div class="btn avatar-upload-button">Upload
+                  <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadLogo($event)">
+                </div>
+                </div>
             </div>
           </div>
         </div>
