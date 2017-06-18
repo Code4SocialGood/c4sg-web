@@ -95,7 +95,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       error => console.error(error)
     );
   }
-  
+
   getKeywords(): void {
     // TODO: Need REST API & userService to provide a list of getKeywords
     // to work with autocomplete in the search box (so user doesn't have to guess)

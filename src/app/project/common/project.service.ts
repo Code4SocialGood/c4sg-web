@@ -17,11 +17,11 @@ export class ProjectService {
   }
 
   searchProjects(
-    keyword?: string, 
-    skills?: string[], 
-    status?: string, 
-    remote?: string, 
-    page?: number, 
+    keyword?: string,
+    skills?: string[],
+    status?: string,
+    remote?: string,
+    page?: number,
     size?: number): Observable<any> {
     const params = new URLSearchParams();
 
@@ -50,7 +50,7 @@ export class ProjectService {
     if (size) {
       params.append('size', String(size));
     }
-    
+
     return this.http
       .get(`${projectUrl}/search`, {search: params})
       .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))

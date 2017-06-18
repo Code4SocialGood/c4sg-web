@@ -37,8 +37,8 @@ export class OrganizationService {
     countries?: string[],
     open?: boolean,
     status?: string,
-    category?: string[], 
-    page?: number, 
+    category?: string[],
+    page?: number,
     size?: number
   ): Observable<any> {
     const params = new URLSearchParams();

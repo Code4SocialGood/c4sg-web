@@ -63,12 +63,12 @@ export class UserService {
   }
 
   searchUsers(
-    keyword?: string, 
-    skills?: string[], 
+    keyword?: string,
+    skills?: string[],
     status?: string,
-    role?: string, 
-    publicFlag?: string, 
-    page?: number, 
+    role?: string,
+    publicFlag?: string,
+    page?: number,
     size?: number): Observable<any> {
     const params = new URLSearchParams();
 
