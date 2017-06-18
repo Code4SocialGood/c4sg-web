@@ -16,7 +16,13 @@ export class ProjectService {
   constructor(private http: Http) {
   }
 
-  searchProjects(keyword?: string, skills?: string[], status?: string, remote?: string): Observable<Project[]> {
+  searchProjects(
+    keyword?: string, 
+    skills?: string[], 
+    status?: string, 
+    remote?: string, 
+    page?: number, 
+    size?: number): Observable<any> {
     const params = new URLSearchParams();
 
     if (keyword) {
@@ -37,9 +43,17 @@ export class ProjectService {
       params.append('remote', remote);
     }
 
+    if (page) {
+      params.append('page', String(page - 1));
+    }
+
+    if (size) {
+      params.append('size', String(size));
+    }
+    
     return this.http
       .get(`${projectUrl}/search`, {search: params})
-      .map(res => res.json())
+      .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
       .catch(this.handleError);
   }
 

@@ -3,7 +3,7 @@
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='organizations'">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations">
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations(1)">
           <div class="section">
             <div class="section-body-keyword row">
               <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
@@ -40,10 +40,10 @@
     <div class="col m8 s12" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
-          <h4 class="content-title">{{organizations.length}} organizations found</h4>
+          <h4 class="content-title">{{totalItems}} organizations found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="organizations">
-              <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
+              <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
@@ -78,8 +78,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="pagination">
-            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
+          <div class="pagination"><!--
+            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>-->
+            <pagination-controls (pageChange)="getOrganizations(p = $event)" id="organizationsPages" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>

@@ -28,8 +28,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   p = 0;
   keyword: string;
   keywords: any;
-  pagedItems: any[]; // paged items
-  pager: any = {}; // pager Object
+  // pagedItems: any[]; // paged items
+  // pager: any = {}; // pager Object
   selectedUser: User;
   skillsFilter: string[] = [];
   usersCache: any[];
@@ -53,64 +53,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.getUsers(this.p);
     });
   }
-
-  // takes in array of strings and returns array of objects
-  private createCheckBoxObj(arr) {
-    return arr.map(
-      val => {
-        return {
-          name: val,
-          checked: false
-        };
-      }
-    );
-  }
-
-  getKeywords(): void {
-    // TODO: Need REST API & userService to provide a list of getKeywords
-    // to work with autocomplete in the search box (so user doesn't have to guess)
-
-    // this is the format angular2-materialize expects
-    this.keywords = [
-      {
-        'data': {
-          'keyword1': null,
-          'keyword2': null,
-          'javascript': null,
-          'angular': null,
-        }
-      }
-    ];
-  }
-
-  getSkills(): void {
-    this.skillService.getSkills().subscribe(res => {
-        this.skills = res.map(skill => {
-          return {name: skill.skillName, checked: false, id: skill.id};
-        });
-        this.showSkills();
-      },
-      error => console.error(error)
-    );
-  }
-
-  showSkills(): void {
-    let addedSkills;
-    if (this.skillsShowed.length < this.skills.length) {
-      if (!this.skillsShowed.length) {
-        addedSkills = this.skills.slice(0, 10);
-      } else {
-        addedSkills = this.skills
-          .filter(i => !this.skillsShowed.includes(i));
-        addedSkills = addedSkills.filter((i, index) => index < 10);
-      }
-      for (const addedSkill of addedSkills) {
-        this.skillsShowed.push(addedSkill);
-        this.skillsArray.push(new FormControl(false));
-      }
-    }
-  }
-
 
   public getUsers(page: number): void {
     const skills = this.filterForm.value.skills;
@@ -142,6 +84,65 @@ export class UserListComponent implements OnInit, OnDestroy {
         error => console.error(error)
       );
   }
+
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(res => {
+        this.skills = res.map(skill => {
+          return {name: skill.skillName, checked: false, id: skill.id};
+        });
+        this.showSkills();
+      },
+      error => console.error(error)
+    );
+  }
+  
+  getKeywords(): void {
+    // TODO: Need REST API & userService to provide a list of getKeywords
+    // to work with autocomplete in the search box (so user doesn't have to guess)
+
+    // this is the format angular2-materialize expects
+    this.keywords = [
+      {
+        'data': {
+          'keyword1': null,
+          'keyword2': null,
+          'javascript': null,
+          'angular': null,
+        }
+      }
+    ];
+  }
+
+  // takes in array of strings and returns array of objects
+  private createCheckBoxObj(arr) {
+    return arr.map(
+      val => {
+        return {
+          name: val,
+          checked: false
+        };
+      }
+    );
+  }
+
+  showSkills(): void {
+    let addedSkills;
+    if (this.skillsShowed.length < this.skills.length) {
+      if (!this.skillsShowed.length) {
+        addedSkills = this.skills.slice(0, 10);
+      } else {
+        addedSkills = this.skills
+          .filter(i => !this.skillsShowed.includes(i));
+        addedSkills = addedSkills.filter((i, index) => index < 10);
+      }
+      for (const addedSkill of addedSkills) {
+        this.skillsShowed.push(addedSkill);
+        this.skillsArray.push(new FormControl(false));
+      }
+    }
+  }
+
+
 
   // selection callback
   onSelect(user: User): void {
