@@ -113,7 +113,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     ];
   }
 
-  // takes in array of strings and returns array of objects
   private createCheckBoxObj(arr) {
     return arr.map(
       val => {
@@ -142,9 +141,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
-  // selection callback
   onSelect(user: User): void {
     this.selectedUser = user;
     this.router.navigate(['user/view', user.id]);
