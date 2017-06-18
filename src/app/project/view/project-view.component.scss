@@ -3,3 +3,13 @@
 .organization-name {
   @include content-subtitle-font;
 }
+
+
+.icon {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  stroke-width: 0;
+  stroke: #5ba55b;
+  fill: #5ba55b;
+}

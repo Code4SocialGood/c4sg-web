@@ -9,7 +9,7 @@
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
             <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
           </div>
-          <div class="col m8">
+          <div class="col m6">
             <div class="row">
               <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
             </div>
@@ -32,6 +32,16 @@
               </div>
             </div>
           </div>
+          <div class="col m2">
+            <div class="row">
+              <svg class="icon">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+              </svg>
+              <svg class="icon icon-bookmarked">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+              </svg>
+            </div>
+          </div>
           <hr>
           <div class="col m12">
             <div class="info-title">Description</div>
@@ -39,12 +49,20 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
-              <button type="button"class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply" *ngIf="displayApply && !authService.authenticated()" (click)="apply()" [disabled]="projectStatusApplied">Apply</button>
-              <button type="button"  class="btn" *ngIf="displayApply && authService.authenticated()" (click)="apply()" [disabled]="projectStatusApplied">Apply</button>
-              <button type="button"  class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions" [disabled]="projectStatusBookmarked">Bookmark</button>
-              <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-              <a class="btn" *ngIf="displayDelete" (click)="openModal(project)" materialize
-                 [materializeActions]="modalActions">Close</a>
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
+                      *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply</button>
+              <button type="button" class="btn"
+                      *ngIf="displayApply && authService.authenticated()" (click)="apply()" [disabled]="projectStatusApplied">Apply</button>
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
+                      *ngIf="displayBookmark && !authService.authenticated()" (click)="bookmark()">Bookmark</button>
+              <button type="button" class="btn"
+                      *ngIf="displayBookmark && authService.authenticated()" (click)="bookmark()" [disabled]="projectStatusBookmarked">Bookmark</button>
+              <!--<button type="button" class="btn" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
+                      <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
+              <button type="button" class="btn"
+                      *ngIf="displayEdit" (click)="edit()">Edit</button>
+              <button type="button" class="btn" materialize [materializeActions]="modalActions"
+                      *ngIf="displayDelete" (click)="openModal(project)">Close</button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
               Delete</button>-->
               <my-shared-btn [displayShare]="displayShare"></my-shared-btn>

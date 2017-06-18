@@ -153,7 +153,6 @@ export class ProjectViewComponent implements OnInit {
 
   apply(): void {
     this.userProjectStatus = 'A';
-    this.projectStatusApplied = true;
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
@@ -162,6 +161,7 @@ export class ProjectViewComponent implements OnInit {
                 response => {
                     // display toast
                     this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
+                    this.projectStatusApplied = true;
 
                 },
                 error => {
@@ -178,7 +178,6 @@ export class ProjectViewComponent implements OnInit {
   bookmark(): void {
     // check if user is logged in
     this.userProjectStatus = 'B';
-    this.projectStatusBookmarked = true;
     this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
@@ -186,8 +185,8 @@ export class ProjectViewComponent implements OnInit {
             .subscribe(
                 response => {
                     // display toast
-                    this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-
+                  this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
+                  this.projectStatusBookmarked = true;
                 },
                 error => {
                     // display toast when bookmar is already added
