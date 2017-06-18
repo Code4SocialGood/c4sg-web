@@ -49,11 +49,11 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
-                      <div class="card-avatar" *ngIf="user.avatarUrl">
-                        <img class="card-avatar-content" [src]="user.avatarUrl">
+                      <div *ngIf="user.avatarUrl">
+                        <img class="card-avatar-content card-avatar" [src]="user.avatarUrl">
                       </div>
-                      <div class="card-avatar" *ngIf="!user.avatarUrl">
-                        <img class="card-avatar-content" [src]="defaultAvatarUser">
+                      <div *ngIf="!user.avatarUrl">
+                        <img class="card-avatar-content card-avatar" [src]="defaultAvatarUser">
                       </div>
                     </div>
                     <div class="card-info">

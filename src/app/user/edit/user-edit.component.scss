@@ -73,10 +73,10 @@
 		text-indent: 1em;
 	}
 }
-//For the select input. I think materialize render the content of select input after this style sheet is rendered, so I failed to style 
-//it by selecting according to its default class name. In order to add border to it. I added wrapper to the part, it's in class 
+//For the select input. I think materialize render the content of select input after this style sheet is rendered, so I failed to style
+//it by selecting according to its default class name. In order to add border to it. I added wrapper to the part, it's in class
 //.theme-select.
-//The underline of the select inputs is the border-bottom. I tried to delete this setting. But after that, the area won't as it 
+//The underline of the select inputs is the border-bottom. I tried to delete this setting. But after that, the area won't as it
 //supposed to be. The area is smaller than I expect.
 .theme-select, #newSkill {
 	padding: 0;
@@ -100,4 +100,8 @@
 	width: 100%;
 	height: 100%;
 	font-size: 0.8em;
+}
+
+#responsive-img {
+  border-radius: 50% !important;
 }
