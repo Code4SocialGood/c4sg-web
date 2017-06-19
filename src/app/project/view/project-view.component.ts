@@ -162,7 +162,6 @@ export class ProjectViewComponent implements OnInit {
                     // display toast
                     this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
                     this.projectStatusApplied = true;
-
                 },
                 error => {
                     // display toast when bookmar is already added

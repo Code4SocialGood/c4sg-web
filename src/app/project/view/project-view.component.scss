@@ -4,12 +4,23 @@
   @include content-subtitle-font;
 }
 
-
-.icon {
+.project-marked {
   display: inline-block;
-  width: 2em;
-  height: 2em;
-  stroke-width: 0;
-  stroke: #5ba55b;
-  fill: #5ba55b;
+ //padding-left: 1em;
+  //margin-bottom: 1em;
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2em;
+    height: 1.2em;
+    stroke-width: 0;
+    stroke: #84c44c;
+    fill: #84c44c;
+    margin-right: 0.5em;
+  }
+
+  span {
+    color: #84c44c;
+  }
 }
+
