@@ -28,14 +28,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   p = 0;
   keyword: string;
   keywords: any;
-  // pagedItems: any[]; // paged items
-  // pager: any = {}; // pager Object
   selectedUser: User;
   skillsFilter: string[] = [];
   usersCache: any[];
   users: User[];
   usersSubscription: Subscription;
-  defaultAvatarUser = '../../assets/avatar.png';
+  defaultAvatar = '../../assets/default_avatar.png';
 
   constructor(private userService: UserService,
     private router: Router,

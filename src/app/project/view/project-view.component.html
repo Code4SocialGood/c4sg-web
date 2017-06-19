@@ -7,7 +7,7 @@
         <div class="row single-info">
           <div class="col m4">
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
-            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
+            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultImage"></div>
           </div>
           <div class="col s12 m8">
             <div class="row">
@@ -114,7 +114,7 @@
                   <div class="row single-info">
                     <div class="col m4">
                       <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-                      <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultAvatarProject"></div>
+                      <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultImage"></div>
                     </div>
                     <div class="col m8 organization-name">
                       <p>
@@ -140,7 +140,7 @@
                         <div class="row single-info">
                           <div class="col m4">
                             <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarProject"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>

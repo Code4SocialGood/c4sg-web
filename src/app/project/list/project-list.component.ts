@@ -9,7 +9,6 @@ import {AuthService} from '../../auth.service';
 import {OrganizationService} from '../../organization/common/organization.service';
 import {SkillService} from '../../skill/common/skill.service';
 import {User} from '../../user/common/user';
-import {ImageDisplayService} from '../../_services/image-display.service';
 import {DataService} from '../../_services/data.service';
 
 declare const Materialize: any;
@@ -36,8 +35,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   temp: any[];
   users: User[];
   selectedProject: Project;
-  // pagedItems: any[]; // paged items
-  // pager: any = {}; // pager Object
   totalItems = 0;
   projectsCache: any[];
   projectsSubscription: Subscription;
@@ -45,8 +42,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   orgId: number;
   projId: number;
   from: string;
-
-  defaultProjectAvatar = '../../assets/default_image.png';
+  defaultImage = '../../assets/default_image.png';
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
@@ -54,8 +50,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
               private router: Router,
               public auth: AuthService,
               private route: ActivatedRoute,
-              private skillService: SkillService,
-              private idService: ImageDisplayService) {
+              private skillService: SkillService) {
   }
 
   ngAfterViewChecked(): void {
