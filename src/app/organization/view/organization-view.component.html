@@ -76,7 +76,7 @@
                         <div class="row single-info">
                           <div class="col m4">
                             <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarOrganization"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultLogo"></div>
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
