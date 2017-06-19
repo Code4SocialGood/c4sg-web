@@ -30,6 +30,8 @@ export class ProjectViewComponent implements OnInit {
   projectImage: any = '';
   orgImage: any = '';
   userProjectStatus: string;
+  projectStatusApplied = false;
+  projectStatusBookmarked = false;
   auth: AuthService;
   defaultAvatarProject = '../../assets/default_image.png';
 
@@ -159,7 +161,7 @@ export class ProjectViewComponent implements OnInit {
                 response => {
                     // display toast
                     this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
-
+                    this.projectStatusApplied = true;
                 },
                 error => {
                     // display toast when bookmar is already added
@@ -182,8 +184,8 @@ export class ProjectViewComponent implements OnInit {
             .subscribe(
                 response => {
                     // display toast
-                    this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-
+                  this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
+                  this.projectStatusBookmarked = true;
                 },
                 error => {
                     // display toast when bookmar is already added

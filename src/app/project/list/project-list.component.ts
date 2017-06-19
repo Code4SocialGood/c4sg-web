@@ -68,8 +68,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
+
     this.route.params.subscribe(
       params => {
+        this.skillsArray.controls.forEach(skillControl => {
+          return skillControl.setValue(false);
+        });
         this.from = params['from'];
         this.getProjects(this.p);
       });
