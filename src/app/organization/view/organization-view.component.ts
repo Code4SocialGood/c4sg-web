@@ -5,7 +5,6 @@ import { OrganizationService } from '../common/organization.service';
 import { ProjectService} from '../../project/common/project.service';
 import { UserService } from '../../user/common/user.service';
 import { AuthService } from '../../auth.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { Project } from '../../project/common/project';
 import { User } from '../../user/common/user';
@@ -28,7 +27,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  defaultAvatarOrganization = '../../assets/default_image.png';
+  defaultLogo = '../../assets/default_image.png';
 
   displayShare = true;
   displayEdit = false;
@@ -40,8 +39,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private skillService: SkillService,
     private route: ActivatedRoute,
-    private router: Router,
-    private imageDisplay: ImageDisplayService) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -81,7 +79,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       (res) => {
         const org = res;
         this.organization = org;
-        this.getLogo(org.id);
         this.getProjects(org.id);
         this.setCategoryName();
         // Validation rules should force websiteUrl to start with http but add check just in case
@@ -93,12 +90,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         console.error('An error occurred', err); // for demo purposes only
       }
     );
-  }
-
-  getLogo(id: number): void {
-    this.imageDisplay.displayImage(id,
-      this.organizationService.retrieveLogo.bind(this.organizationService))
-      .subscribe(res => this.organization.logo = res.url);
   }
 
   getProjects(id: number): void {

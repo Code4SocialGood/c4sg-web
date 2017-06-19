@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
-import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
@@ -38,7 +37,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
-  private defaultAvatar = '../../../assets/default_image.png';
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
   public avatar: any = '';
@@ -58,7 +56,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private imageUploader: ImageUploaderService,
     private skillService: SkillService,
     private extfilehandler: ExtFileHandlerService
   ) { }
@@ -99,12 +96,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             });
           }, error => console.log(error)
         );
-
-      // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-      // return this.userService.retrieveLogo(this.organizationId).toPromise();
-      // const logoText = res.text();
-      // const logoBase64 = `data:image/png;base64, ${logoText}`;
-      // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
     });
   }
 
@@ -210,7 +201,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.projectSkillsArray.push(inputSkill.value);
         this.inputValue = '';
       }
-      console.log(this.projectSkillsArray);
     }
   }
 
