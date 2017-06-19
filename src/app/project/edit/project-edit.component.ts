@@ -8,7 +8,7 @@ import { OrganizationService } from '../../organization/common/organization.serv
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
-import {AuthService} from '../../auth.service';
+import { AuthService} from '../../auth.service';
 import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
@@ -27,7 +27,6 @@ export class ProjectEditComponent implements OnInit {
   public organizationId;
   public projectId;
   public currentUserId;
-  public projectImageUrl = '../../../assets/default_image.png';
   public projectForm: FormGroup;
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
@@ -173,15 +172,6 @@ export class ProjectEditComponent implements OnInit {
       .map(res => {
         this.project = res.project;
 
-        // Only need to save the logo if a logo was uploaded
-        /* TODO
-        if (this.imageData) {
-          additionalCalls.push(
-            this.organizationService
-              .saveLogo(this.organization.id, this.imageData.formData)
-          );
-        }*/
-
         // return Observable.forkJoin(additionalCalls);
         this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
           result => {
@@ -242,10 +232,6 @@ export class ProjectEditComponent implements OnInit {
         console.log(this.projectSkillsArray);
       }
     }
-  }
-
-  changeImage(event) {
-    this.projectImageUrl = event.target.files;
   }
 
   displayOrgId() {

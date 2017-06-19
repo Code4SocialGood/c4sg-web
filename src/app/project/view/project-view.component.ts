@@ -8,7 +8,6 @@ import { OrganizationService } from '../../organization/common/organization.serv
 import { AuthService } from '../../auth.service';
 import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
-import { ImageDisplayService } from '../../_services/image-display.service';
 
 @Component({
   selector: 'my-view-project',
@@ -27,11 +26,11 @@ export class ProjectViewComponent implements OnInit {
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
-  projectImage: any = '';
-  orgImage: any = '';
   userProjectStatus: string;
+  projectStatusApplied = false;
+  projectStatusBookmarked = false;
   auth: AuthService;
-  defaultAvatarProject = '../../assets/default_image.png';
+  defaultImage = '../../assets/default_image.png';
 
   modalActions = new EventEmitter<string|MaterializeAction>();
 
@@ -47,8 +46,7 @@ export class ProjectViewComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               public authService: AuthService,
-              private location: Location,
-              private imageDisplay: ImageDisplayService) {
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -57,11 +55,6 @@ export class ProjectViewComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       const id = params['projectId'];
-
-   //   this.imageDisplay.displayImage(id, this.projectService.retrieveImage.bind(this.projectService))
-    //      .subscribe (
-    //          res => this.projectImage = res.url
-     //         );
 
       this.projectService.getProject(id)
       .subscribe(
@@ -100,12 +93,6 @@ export class ProjectViewComponent implements OnInit {
                       errorProjects => console.log(errorProjects)
                   );
 
-            this.imageDisplay.displayImage(res.organizationId, this.organizationService.retrieveLogo.bind(this.organizationService))
-                .subscribe (
-                    resi => {
-                      this.orgImage = resi.url;
-                    }
-                    );
             this.skillService.getSkillsByProject(id)
               .subscribe(
                 result => {
@@ -159,7 +146,7 @@ export class ProjectViewComponent implements OnInit {
                 response => {
                     // display toast
                     this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
-
+                    this.projectStatusApplied = true;
                 },
                 error => {
                     // display toast when bookmar is already added
@@ -182,8 +169,8 @@ export class ProjectViewComponent implements OnInit {
             .subscribe(
                 response => {
                     // display toast
-                    this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-
+                  this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
+                  this.projectStatusBookmarked = true;
                 },
                 error => {
                     // display toast when bookmar is already added

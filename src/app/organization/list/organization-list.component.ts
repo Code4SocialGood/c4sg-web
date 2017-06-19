@@ -5,8 +5,7 @@ import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
 import { Project } from '../../project/common/project';
 import { ProjectService } from '../../project/common/project.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
-import {Subscription} from 'rxjs/Rx';
+import { Subscription} from 'rxjs/Rx';
 
 declare const $: Function;
 
@@ -42,17 +41,12 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
-  defaultAvatarOrganization = '../../assets/default_image.png';
+  defaultLogo = '../../assets/default_image.png';
   organizationsSubscription: Subscription;
   totalItems = 0;
   organizationsCache: any[];
-  // array of all items to be paged
-  //   organizations: any[];
-  // pagedItems: any[]; // paged items
-  // pager: any = {}; // pager Object
 
   constructor(
-    private idService: ImageDisplayService,
     private organizationService: OrganizationService,
     private projectService: ProjectService,
     private route: ActivatedRoute,
@@ -118,12 +112,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       .subscribe( res => {
         this.organizations = res;
         res.forEach((o: Organization) => {
-          this.idService.displayImage(o.id,
-          this.organizationService.retrieveLogo.bind(this.organizationService))
-          .subscribe(logo => {
-            // o.logo = logo.url;
-          });
-
           this.projectService.getProjectByOrg(o.id, 'A')
             .subscribe( response => {
                 this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);

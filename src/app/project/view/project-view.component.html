@@ -7,28 +7,58 @@
         <div class="row single-info">
           <div class="col m4">
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
-            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultAvatarProject"></div>
+            <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultImage"></div>
           </div>
-          <div class="col m8">
+          <div class="col s12 m8">
             <div class="row">
-              <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
-            </div>
-            <div class="row">
-              <div>
-                <div class="content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
-                <div class="content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
-                  Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
-                </div>
+              <div class="col s12">
+                <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
               </div>
             </div>
             <div class="row">
-                Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
+              <div class="col s12 l7">
+                <div class="row">
+                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                  <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
+                    Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <span>Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="row" *ngIf="projectStatusApplied">
+                    <div class="col s12">
+                      <div class="project-marked">
+                        <svg class="icon">
+                          <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                        </svg>
+                        <span>Applied</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="projectStatusBookmarked">
+                    <div class="col s12">
+                      <div class="project-marked">
+                        <svg class="icon icon-bookmarked">
+                          <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                        </svg>
+                        <span>Bookmarked</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
             </div>
             <div class="row">
-              <div class="skills-tag-wrapper">
-                <ul *ngIf="project.skills">
-                  <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
-                </ul>
+              <div class="col s12">
+                <div class="skills-tag-wrapper">
+                  <ul *ngIf="project.skills">
+                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -39,12 +69,30 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
-              <a class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply" *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply</a>
-              <a class="btn" *ngIf="displayApply && authService.authenticated()" (click)="apply()">Apply</a>
-              <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-              <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-              <a class="btn" *ngIf="displayDelete" (click)="openModal(project)" materialize
-                 [materializeActions]="modalActions">Close</a>
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10"
+                      data-tooltip="Login to Apply"
+                      *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply
+              </button>
+              <button type="button" class="btn"
+                      *ngIf="displayApply && authService.authenticated()" (click)="apply()"
+                      [disabled]="projectStatusApplied">Apply
+              </button>
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10"
+                      data-tooltip="Login to Bookmark"
+                      *ngIf="displayBookmark && !authService.authenticated()" (click)="bookmark()">Bookmark
+              </button>
+              <button type="button" class="btn"
+                      *ngIf="displayBookmark && authService.authenticated()" (click)="bookmark()"
+                      [disabled]="projectStatusBookmarked">Bookmark
+              </button>
+              <!--<button type="button" class="btn" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
+              <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
+              <button type="button" class="btn"
+                      *ngIf="displayEdit" (click)="edit()">Edit
+              </button>
+              <button type="button" class="btn" materialize [materializeActions]="modalActions"
+                      *ngIf="displayDelete" (click)="openModal(project)">Close
+              </button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
               Delete</button>-->
               <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
@@ -61,25 +109,26 @@
           <div class="section">
             <h4>Organization</h4>
             <div class="section-body-organization">
-            <div class="card">
-              <div class="card-content" *ngIf="organization">
-                <div class="row single-info">
-                  <div class="col m4">
-                    <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-                    <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultAvatarProject"></div>
+              <div class="card">
+                <div class="card-content" *ngIf="organization">
+                  <div class="row single-info">
+                    <div class="col m4">
+                      <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+                      <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultImage"></div>
+                    </div>
+                    <div class="col m8 organization-name">
+                      <p>
+                        <a [href]="organization.websiteUrl" target="_blank"
+                           *ngIf="organization && organization.websiteUrl">{{organization.name}}</a>
+                      </p>
+                      <p *ngIf="!organization || organization.websiteUrl">
+                        {{organization && organization.name}}
+                      </p>
+                    </div>
                   </div>
-                  <div class="col m8 organization-name">
-                    <p>
-                      <a [href]="organization.websiteUrl" target="_blank" *ngIf="organization.websiteUrl">{{organization.name}}</a>
-                    </p>
-                    <p *ngIf="!organization.websiteUrl">
-                       {{organization.name}}
-                    </p>
-                  </div>
+                  <p>{{ organization && organization.description | slice:0:100 }} ...</p>
                 </div>
-                <p>{{ organization.description  | slice:0:100 }} ...</p>
               </div>
-            </div>
             </div>
             <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
             <div class="section-body-project" *ngIf="projects">
@@ -91,20 +140,20 @@
                         <div class="row single-info">
                           <div class="col m4">
                             <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultAvatarProject"></div>
+                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
                           </div>
                           <div class="col m8">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                           </div>
                           <div class="row">
-                          <div class="skills-tag-wrapper">
-                            <ul *ngIf="pr.skills">
-                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
-                            </ul>
-                          </div>
+                            <div class="skills-tag-wrapper">
+                              <ul *ngIf="pr.skills">
+                                <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
-                        <p>{{ pr.description  | slice:0:100 }} ...</p>
+                        <p>{{ pr.description | slice:0:100 }} ...</p>
                       </div>
                     </div>
                   </li>
@@ -118,7 +167,8 @@
   </div>
 </div>
 
-<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="modalActions">
   <div class="modal-content">
     <h4>Confirm Project Deletion</h4>
     <p>Are you sure you want to delete the project?</p>
