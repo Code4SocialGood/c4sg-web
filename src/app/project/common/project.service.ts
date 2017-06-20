@@ -69,8 +69,9 @@ export class ProjectService {
   getProjectByOrg(id: number, projectStatus: string): Observable<Response> {
       if (projectStatus) {
         return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);
-      } else
+      } else {
         return this.http.get(`${projectUrl}/organization?organizationId=${id}`);
+      }
   }
 
   getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
