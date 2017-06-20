@@ -91,18 +91,20 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     // Issue#300 - resetting form before reloading page to display all items
     // this.filterForm.reset();
 
-    const skills = this.filterForm.value.skills;
-    const skillsParam = [];
-
-    if (skills) {
-      for (let i = 0; i < skills.length; i++) {
-        if (skills[i]) {
-          skillsParam.push(this.skills[i].id.toString());
-        }
-      }
-    }
 
     if (this.from === 'projects') { // Projects Page from header
+
+      const skills = this.filterForm.value.skills;
+      const skillsParam = [];
+
+      if (skills) {
+        for (let i = 0; i < skills.length; i++) {
+          if (skills[i]) {
+            skillsParam.push(this.skills[i].id.toString());
+          }
+        }
+      }
+
       this.projectsSubscription = this.projectService.searchProjects(
         this.filterForm.value.keyword, skillsParam, 'A', null, page + 1, 10)
         .subscribe(
