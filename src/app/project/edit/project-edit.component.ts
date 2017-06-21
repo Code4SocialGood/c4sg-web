@@ -235,7 +235,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
   displayOrgId() {
-    if (this.auth.isAdmin()) {
+    if (this.auth.isAdmin() && this.projectId === 0) { // Display Org ID fwhen admin user create a project
       this.displayOrgField = true;
     }
     if (this.auth.isOrganization()) {
