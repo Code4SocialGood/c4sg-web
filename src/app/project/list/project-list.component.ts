@@ -28,7 +28,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     skills: this.skillsArray
   });
 
-  p = 0;
+  p = 1; //Holds page number
   projects: Project[];
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
@@ -106,7 +106,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
 
       this.projectsSubscription = this.projectService.searchProjects(
-        this.filterForm.value.keyword, skillsParam, 'A', null, page + 1, 10)
+        this.filterForm.value.keyword, skillsParam, 'A', null, page, 10)
         .subscribe(
           res => {
             this.projects = res.data;

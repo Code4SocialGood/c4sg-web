@@ -36,7 +36,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       new FormControl(false)
     ])
   });
-  p = 0;
+  p = 1; //Holds page number
   organizations: Object[];
   selectedOrganization?: Organization;
   projects: Project[];
@@ -90,7 +90,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
     if (this.from === 'organizations') { // from "Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-        this.filterForm.value.keyword, null, this.filterForm.value.hasProjects, 'A', categoriesParam, page + 1, 10)
+        this.filterForm.value.keyword, null, this.filterForm.value.hasProjects, 'A', categoriesParam, page, 10)
         .subscribe( res => {
           this.organizations = res.data;
           this.totalItems = res.totalItems;
@@ -108,7 +108,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, page + 1, 10) // Org of Pending status
+      null, null, null, 'P', null, page, 10) // Org of Pending status
       .subscribe( res => {
         this.organizations = res;
         res.forEach((o: Organization) => {
