@@ -3,11 +3,13 @@
   <div class="row main-row">
     <!-- Left Panel: User -->
     <div class="col s8" id="left-col">
-      <div class="content" *ngIf="user">
+      <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
           <div class="col m4">
-            <div class="info-avatar" *ngIf="user.avatarUrl"><img class='view-avatar' [src]="user.avatarUrl"></div>
-            <div class="info-avatar" *ngIf="!user.avatarUrl"><img class='view-avatar' [src]="defaultAvatar"></div>
+            <div class="info-avatar" *ngIf="user.avatarUrl">
+              <img class='card-avatar-content card-avatar' [src]="user.avatarUrl"></div>
+            <div class="info-avatar" *ngIf="!user.avatarUrl">
+              <img class='card-avatar-content card-avatar' [src]="defaultAvatar"></div>
             <div class="username">{{user.userName}}</div>
               <div class="links-list-wrapper" *ngIf="authService.authenticated()">
                 <ul>

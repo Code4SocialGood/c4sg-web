@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper" *ngIf="from=='organizations'">
+      <div class="sidebar-wrapper panel-background-color" *ngIf="from=='organizations'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations(1)">
           <div class="section">
             <div class="section-body-keyword row">
@@ -38,13 +38,13 @@
     </div>
 
     <div class="col m8 s12" id="right-col">
-      <div class="content" *ngIf="organizations">
+      <div class="content panel-background-color" *ngIf="organizations">
         <div class="row">
           <h4 class="content-title">{{totalItems}} organizations found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="organizations">
               <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
-                <div class="card">
+                <div class="card panel-background-color">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
                       <div class="card-avatar" *ngIf="org.logoUrl">
