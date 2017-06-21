@@ -7,7 +7,7 @@
   <div class="row main-row">
     <!-- Left Panel, only display for Projects page-->
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper" *ngIf="from=='projects'">
+      <div class="sidebar-wrapper panel-background-color" *ngIf="from=='projects'">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getProjects(1)">
           <div class="row">
             <div class="col s12">
@@ -48,13 +48,13 @@
     <div class="col m8 s12" id="right-col">
       <!-- 1. Projects -->
       <!-- 2. Nonprofit User: My Projects -->
-      <div class="content" *ngIf="projects">
+      <div class="content panel-background-color" *ngIf="projects">
         <div class="row">
           <h4 class="content-title">{{totalItems}} projects found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="projects">
               <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
-                <div class="card">
+                <div class="card panel-background-color">
                   <div class="card-content">
                     <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
                       <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
