@@ -28,7 +28,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     skills: this.skillsArray
   });
 
-  p = 1; //Holds page number
+  p = 1; // Holds page number
   projects: Project[];
   bookmarkedProjects: Project[];
   appliedProjects: Project[];

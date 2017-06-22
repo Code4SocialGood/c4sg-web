@@ -36,7 +36,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       new FormControl(false)
     ])
   });
-  p = 1; //Holds page number
+  p = 1; // Holds page number
   organizations: Object[];
   selectedOrganization?: Organization;
   projects: Project[];
