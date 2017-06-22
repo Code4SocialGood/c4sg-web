@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
@@ -19,7 +19,7 @@ declare const Materialize: any;
   styleUrls: ['project-edit.component.scss']
 })
 
-export class ProjectEditComponent implements OnInit {
+export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
   public project: Project;
   public organization: Organization;
