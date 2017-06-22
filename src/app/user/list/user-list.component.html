@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
-      <div class="sidebar-wrapper panel-background-color">
+      <div class="sidebar-wrapper">
         <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(1)">
           <div class="row">
             <div class="col s12">
@@ -40,13 +40,13 @@
       </div>
     </div>
     <div class="col m8 s12" id="right-col">
-      <div class="content panel-background-color" *ngIf="users">
+      <div class="content" *ngIf="users">
         <div class="row">
           <h4 class="content-title">{{totalItems}} volunteers found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="users">
               <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
-                <div class="card panel-background-color">
+                <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
                       <div *ngIf="user.avatarUrl">

@@ -78,17 +78,17 @@ hr {
   top: 48vh;
 }
 
-.left-col {
-}
-
-.right-col {
-  margin-left: - $line-sep-width;
+#left-col {
+  margin-bottom: 40px;
 }
 
 #right-col {
   padding: 0;
   border-left: $border-width $border-color solid;
   border-right: $border-width $border-color solid;
+  border-bottom: $border-width $border-color solid;
+  margin-left: - $line-sep-width;
+  margin-bottom: 40px;
 }
 
 .main-row {
