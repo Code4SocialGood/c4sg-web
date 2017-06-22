@@ -6,7 +6,7 @@
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
-      <div class="content sidebar-wrapper" *ngIf="project">
+      <div class="content sidebar-wrapper panel-background-color" *ngIf="project">
         <div class="row single-info">
           <div class="col m12">
             <div class="info-avatar">
@@ -25,7 +25,7 @@
     </div>
 
     <!-- Right Panel -->
-    <div class="col s9" id="right-col">
+    <div class="col s9 panel-background-color" id="right-col">
       <div class="content">
         <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
           <div class="row">

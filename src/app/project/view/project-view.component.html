@@ -3,7 +3,7 @@
   <div class="row main-row">
     <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
-      <div class="content  sidebar-wrapper" *ngIf="project">
+      <div class="content  sidebar-wrapper panel-background-color" *ngIf="project">
         <div class="row single-info">
           <div class="col m4">
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
@@ -104,12 +104,12 @@
 
     <!-- Right Panel: Organization and projects -->
     <div class="col m4" id="right-col">
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper panel-background-color">
         <div class="sidebar">
           <div class="section">
             <h4>Organization</h4>
             <div class="section-body-organization">
-              <div class="card">
+              <div class="card panel-background-color">
                 <div class="card-content" *ngIf="organization">
                   <div class="row single-info">
                     <div class="col m4">
@@ -135,7 +135,7 @@
               <div class="items-list-wrapper">
                 <ul>
                   <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
-                    <div class="card">
+                    <div class="card panel-background-color">
                       <div class="card-content">
                         <div class="row single-info">
                           <div class="col m4">

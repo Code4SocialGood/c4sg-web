@@ -3,7 +3,7 @@
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
-      <div class="content sidebar-wrapper" *ngIf="user">
+      <div class="content sidebar-wrapper panel-background-color" *ngIf="user">
         <div class="row single-info">
           <div class="col m12">
             <h4 id="avatar-title">Profile Image</h4>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Right Panel -->
-    <div class="col s9" id="right-col">
+    <div class="col s9 panel-background-color" id="right-col">
       <div class="content">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value, $event)">
           <div class="row"><div class="content-title">My Account</div></div>
