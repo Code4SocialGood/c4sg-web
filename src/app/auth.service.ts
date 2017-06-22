@@ -31,7 +31,7 @@ export class AuthService {
     rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
-      logo: '../assets/favicon-32x32.png'
+      logo: '../assets/favicon.png'
             },
     // Override the title
     languageDictionary: {
