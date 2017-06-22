@@ -11,7 +11,7 @@ $main-font: MyriadPro-Regular, 'Myriad Pro Regular', MyriadPro, 'Myriad Pro', He
 /* FONT MIXINS */
 @mixin nav-font {
   font-family: $main-font;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
   color: $navbar-link-color;
 }
@@ -44,3 +44,16 @@ $main-font: MyriadPro-Regular, 'Myriad Pro Regular', MyriadPro, 'Myriad Pro', He
   font-size: 12px;
   font-weight: normal;
 }
+
+.page-title {
+  padding-left: 10%;
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+  }
+}  

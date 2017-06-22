@@ -26,8 +26,8 @@ nav {
       a {
         position: relative;
         line-height: $navbar-height - 2 * $line-sep-width;
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
         padding-top: 0 - $line-sep-width;
         margin-top: 0 - $line-sep-width;
         margin-left: - $line-sep-width;
@@ -59,6 +59,7 @@ nav {
       margin-left: - $line-sep-width;
       li {
         a {
+        @include nav-font;
           color: $navbar-fg-color;
           line-height: $dropdown-line-height;
           margin-left: 0;
