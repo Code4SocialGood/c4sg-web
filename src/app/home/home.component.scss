@@ -1,3 +1,5 @@
+@import "../_style/app.theme";
+
 .cover {
   height: 100vh;
   overflow: hidden;
@@ -50,7 +52,7 @@
 }
 
 .input-pre {
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid $secondary-bg-color;
 }
 
 /* Scaling size of Title down as Page size decreases */
