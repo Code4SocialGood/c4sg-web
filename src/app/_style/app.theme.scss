@@ -149,8 +149,13 @@ hr {
   }
 }
 
-
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
+}
+
+.image-upload-button {
+  float: none;
+  display: inherit;
+  padding: 0;
 }
