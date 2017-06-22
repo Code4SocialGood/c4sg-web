@@ -8,7 +8,7 @@ import {DataService} from '../_services/data.service';
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.css' ],
+  styleUrls: [ 'home.component.scss' ],
   animations: [
     trigger('buttonState', [
       state('inactive', style({
