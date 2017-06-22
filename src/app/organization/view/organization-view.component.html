@@ -3,7 +3,7 @@
   <div class="row main-row">
     <!-- Left Panel: Organization -->
     <div class="col s8" id="left-col">
-      <div class="content  sidebar-wrapper" *ngIf="organization">
+      <div class="content sidebar-wrapper panel-background-color" *ngIf="organization">
         <div class="row single-info">
           <div class="col m4">
             <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
@@ -41,7 +41,7 @@
 
     <!-- Right Panel: Projects from the organization -->
     <div class="col m4" id="right-col">
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper panel-background-color">
         <div class="sidebar">
           <div class="section" *ngIf="projects">
             <h4>Contact</h4>

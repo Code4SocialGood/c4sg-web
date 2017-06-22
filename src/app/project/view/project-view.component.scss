@@ -1,5 +1,9 @@
 @import "../../_style/app.theme";
 
+.panel-background-color{
+  background-color: white;
+}
+
 .organization-name {
   @include content-subtitle-font;
 }
