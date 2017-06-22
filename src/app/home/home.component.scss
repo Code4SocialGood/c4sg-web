@@ -51,10 +51,6 @@
   text-shadow: 0px 0px 5px #000;
 }
 
-.input-pre {
-  border-bottom: 1px solid $secondary-bg-color;
-}
-
 /* Scaling size of Title down as Page size decreases */
 @media screen and (max-width: 915px) {
   #home-page-title {
@@ -79,7 +75,7 @@
   font-size: 3em;
   font-weight: 100;
   color: #383838;
-  padding-top: 1.7em;
+  padding-top: 0.5em;
 }
 
 #aniWord {
@@ -87,3 +83,26 @@
   color: #383838;
 }
 
+.input-pre {
+  border-bottom: 2px solid $secondary-bg-color;
+}
+
+ /* label color */
+ .input-field label {
+   color: $main-color;
+ }
+
+/* label focus color */
+.input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+ color: $main-color !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+ border-bottom: 1px solid $main-color !important;
+ box-shadow: 0 1px 0 0 $main-color !important;
+}
+
+.search_button {
+  padding: 0 1rem;
+}
