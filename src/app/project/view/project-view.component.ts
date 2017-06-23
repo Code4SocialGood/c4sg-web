@@ -31,6 +31,7 @@ export class ProjectViewComponent implements OnInit {
   projectStatusBookmarked = false;
   auth: AuthService;
   defaultImage = '../../assets/default_image.png';
+  categoryName: string;
 
   modalActions = new EventEmitter<string|MaterializeAction>();
 
@@ -75,6 +76,8 @@ export class ProjectViewComponent implements OnInit {
                       if (this.organization.description != null && this.organization.description.length > 100) {
                           this.organization.description = this.organization.description.slice(0, 100) + '...';
                       }
+
+                      this.setCategoryName();
                     }
                     );
 
@@ -208,5 +211,15 @@ export class ProjectViewComponent implements OnInit {
 
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
+  }
+
+  setCategoryName(): void {
+    if (this.organization.category === 'N') {
+      this.categoryName = 'Nonprofit';
+    } else if (this.organization.category === 'O') {
+      this.categoryName = 'Open Source';
+    } else if (this.organization.category === 'M') {
+      this.categoryName = 'Misc';
+    }
   }
 }
