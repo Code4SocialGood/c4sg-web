@@ -143,7 +143,9 @@
                             <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
                           </div>
                           <div class="col m8">
+                            <div class="row">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                            </div>
                           </div>
                           <div class="row">
                             <div class="skills-tag-wrapper">
