@@ -144,13 +144,15 @@
                           <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
                         </div>
                         <div class="col m8">
-                          <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                        </div>
-                        <div class="row">
-                          <div class="skills-tag-wrapper">
-                            <ul *ngIf="pr.skills">
-                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
-                            </ul>
+                          <div class="row">
+                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          </div>
+                          <div class="row">
+                            <div class="skills-tag-wrapper">
+                              <ul *ngIf="pr.skills">
+                                <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </div>
