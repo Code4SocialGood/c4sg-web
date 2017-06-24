@@ -64,6 +64,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     }
 
+    this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
     this.usersSubscription = this.userService.searchUsers(
       this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page, 10)
       .subscribe(
