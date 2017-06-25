@@ -1,0 +1,94 @@
+<div class="page-title"><h1>Volunteers</h1></div>
+<div class="container">
+  <div class="row main-row">
+    <div class="col m4" id="left-col">
+      <div class="sidebar-wrapper">
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getUsers(1)">
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <div class="section-body-keyword">
+                  <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+                  <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search"
+                         formControlName="keyword" placeholder="   keyword">
+                  <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light"
+                          id="keyword-button">
+                    <i class="material-icons transparent" id="keyword-icon">search</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <h4>Skills</h4>
+                <div class="section-body-skills">
+                  <div class="skills-list" myScrollSkills (onScrollEvent)="showSkills()">
+                    <ul *ngIf="skills" formArrayName="skills">
+                      <li *ngFor="let skill of skillsShowed, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="skill.name" [formControlName]="i">
+                        <label [for]="skill.name">{{skill.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col m8 s12" id="right-col">
+      <div class="content" *ngIf="users">
+        <div class="row">
+          <h4 class="content-title">{{totalItems}} volunteers found</h4>
+          <div class="items-list-wrapper">
+            <ul class="card-list" *ngIf="users">
+              <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="card-avatar-wrapper">
+                      <div *ngIf="user.avatarUrl">
+                        <img class="card-avatar-content card-avatar" [src]="user.avatarUrl">
+                      </div>
+                      <div *ngIf="!user.avatarUrl">
+                        <img class="card-avatar-content card-avatar" [src]="defaultAvatar">
+                      </div>
+                    </div>
+                    <div class="card-info">
+                      <div class="card-header">
+                        <div class='name'>
+                          <span [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
+                        </div>
+                        <div class="row info-row">
+                          <div class="card-metainfo col m6">
+                            <p>{{user.title}}</p>
+                          </div>
+                          <div class="card-metainfo col m6">
+                            <span class="card-location" *ngIf="user.country">{{user.country}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="skills-tag-wrapper">
+                        <ul *ngIf="user.skills">
+                          <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
+                        </ul>
+                      </div>
+                      <p class="description">{{ user.introduction | slice:0:200 }} ...</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="pagination">
+            <pagination-controls (pageChange)="getUsers(p = $event)" id="usersPages" autoHide="false"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

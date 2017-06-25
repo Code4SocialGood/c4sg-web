@@ -1,0 +1,36 @@
+@import "../../_style/app.theme";
+
+.card-avatar-content {
+  border-radius: 50% !important;
+}
+
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  color: #9F9F9F !important;
+}
+
+.names {
+  font-size: 1em;
+  //font-weight: bold;  
+}
+
+.location {
+  line-height: 1em;
+  //padding-left: 1em;
+  font-size: 0.75em;
+}
+
+.user-title {
+  display:table-cell;
+  vertical-align: middle;
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.username {
+  line-height: 1em;
+  text-align: center;
+}

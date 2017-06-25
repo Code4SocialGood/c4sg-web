@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- "7"
+cache:
+  directories:
+  - node_modules
+script:
+- npm run test_single_run
+- npm run lint
+- npm run buildProdHeroku
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: ./dist/
+  domain: dev.code4socialgood.org
