@@ -220,8 +220,18 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.githubUrl = this.userForm.value.githubUrl;
     this.user.facebookUrl = this.userForm.value.facebookUrl;
     this.user.twitterUrl = this.userForm.value.twitterUrl;
-    this.user.publishFlag = this.userForm.value.publishFlag;
-    this.user.notifyFlag = this.userForm.value.notifyFlag;
+
+    if (this.userForm.value.publishFlag == true || this.userForm.value.publishFlag === 'Y' ) {
+      this.user.publishFlag = 'Y';
+    } else {
+      this.user.publishFlag = 'N';
+    }
+
+    if (this.userForm.value.notifyFlag == true || this.userForm.value.notifyFlag === 'Y' ) {
+      this.user.notifyFlag = 'Y';
+    } else {
+      this.user.notifyFlag = 'N'
+    }
 
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
