@@ -206,6 +206,11 @@ ngAfterViewChecked(): void {
         Materialize.toast('Your project is saved', 4000);
         // this.globalActions.emit('toast');
       });
+    this.skillService
+      .updateSkills(this.projectSkillsArray, this.project.id)
+      .subscribe(result => {
+        this.globalActions.emit('toast');
+      }, error => console.log(error));
   }
 
   onAddListedSkill(optionValue) {
