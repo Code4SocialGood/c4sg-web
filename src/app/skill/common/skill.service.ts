@@ -40,12 +40,7 @@ export class SkillService {
     const url = skillUrl + '/project/skills';
     return this.http
       .put(url, null, {search: params})
-      .map((res: Response) => {
-        if (res.status !== 200 || res.type !== 2) {
-          console.error('An error occurred');
-          return Promise.reject('An error occurred');
-        }
-      })
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
