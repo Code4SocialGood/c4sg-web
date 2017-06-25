@@ -2,10 +2,23 @@
 <nav [ngClass]="isAtHome()">
   <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
-      <li><a (click)="loadProjects()" routerLinkActive="active">Projects</a></li>
-      <li><a (click)="loadVolunteers()" routerLinkActive="active">Volunteers</a></li>
-      <li><a (click)="loadOrganizations()" routerLinkActive="active">Organizations</a></li>
-      <li><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">Community<i class="material-icons right">arrow_drop_down</i></a>
+      <li class="nav-link-container">
+          <a class="nav-link" routerLink='/project/list/projects' routerLinkActive="active"><span>Projects</span></a>
+          <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+      </li>
+      <li class="nav-link-container">
+        <a class="nav-link" routerLink='/user/list' routerLinkActive="active"><span>Volunteers</span></a>
+        <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+      </li>
+      <li class="nav-link-container">
+        <a class="nav-link" routerLink='/organization/list/organizations' routerLinkActive="active"><span>Organizations</span></a>
+        <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+      </li>
+      <li class="nav-link-container">
+        <a class="nav-link dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">
+          <span class="left">Community</span><i class="material-icons right left">arrow_drop_down</i>
+        </a>
+        <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <ul class="dropdown-content" id="dropdowncommunity">
           <li><a target="_blank" href="http://join-our-slack.code4socialgood.org/">Chat</a></li>
           <li><a target="_blank" href="http://forum.code4socialgood.org/">Forum</a></li>
@@ -24,7 +37,7 @@
           <li><a class="log-reg" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
         </ul>
       </li>
-      <li><a class="log-reg" (click)="authSvc.login()" *ngIf="!authSvc.authenticated()">Log In</a></li>
+      <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span>Log In</span></a></li>
     </ul>
   </div>
 </nav>

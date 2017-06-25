@@ -62,7 +62,6 @@
               </div>
             </div>
           </div>
-          <hr>
           <div class="col m12">
             <div class="info-title">Description</div>
             <div class="info-description">{{ project.description }}</div>
@@ -104,45 +103,48 @@
 
     <!-- Right Panel: Organization and projects -->
     <div class="col m4" id="right-col">
-      <div class="sidebar-wrapper">
-        <div class="sidebar">
-          <div class="section">
-            <h4>Organization</h4>
-            <div class="section-body-organization">
-              <div class="card">
-                <div class="card-content" *ngIf="organization">
-                  <div class="row single-info">
-                    <div class="col m4">
-                      <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-                      <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultImage"></div>
-                    </div>
-                    <div class="col m8 organization-name">
-                      <p>
-                        <a [href]="organization.websiteUrl" target="_blank"
-                           *ngIf="organization && organization.websiteUrl">{{organization.name}}</a>
-                      </p>
-                      <p *ngIf="!organization || organization.websiteUrl">
-                        {{organization && organization.name}}
-                      </p>
-                    </div>
+      <div class="sidebar">
+        <div class="section">
+          <h4>Organization</h4>
+          <div class="section-body-organization">
+            <div class="card">
+              <div class="card-content" *ngIf="organization">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+                    <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultImage"></div>
                   </div>
-                  <p>{{ organization && organization.description | slice:0:100 }} ...</p>
+                  <div class="col m8 organization-name">
+                    <p *ngIf="organization.websiteUrl"><a [href]="organization.websiteUrl" target="_blank" >{{organization.name}}</a></p>
+                    <p *ngIf="!organization.websiteUrl">{{organization.name}}</p>
+                  </div>
+                  <div class="col m8">
+                    <p>Category: {{categoryName}}</p>
+                    <p>
+                      Location:
+                      <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                      <span class="state">{{organization.country}}</span>
+                    </p>
+                  </div>
                 </div>
+                <p>{{ organization && organization.description | slice:0:100 }} ...</p>
               </div>
             </div>
-            <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
-            <div class="section-body-project" *ngIf="projects">
-              <div class="items-list-wrapper">
-                <ul>
-                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="row single-info">
-                          <div class="col m4">
-                            <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                            <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
-                          </div>
-                          <div class="col m8">
+          </div>
+          <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
+          <div class="section-body-project" *ngIf="projects">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="row single-info">
+                        <div class="col m4">
+                          <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
+                        </div>
+                        <div class="col m8">
+                          <div class="row">
                             <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                           </div>
                           <div class="row">
@@ -153,12 +155,12 @@
                             </div>
                           </div>
                         </div>
-                        <p>{{ pr.description | slice:0:100 }} ...</p>
                       </div>
+                      <p>{{ pr.description | slice:0:100 }} ...</p>
                     </div>
-                  </li>
-                </ul>
-              </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

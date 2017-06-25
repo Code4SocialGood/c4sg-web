@@ -28,7 +28,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     skills: this.skillsArray
   });
 
-  p = 0;
+  p = 1; // Holds page number
   projects: Project[];
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
@@ -91,8 +91,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     // Issue#300 - resetting form before reloading page to display all items
     // this.filterForm.reset();
 
-
-    if (this.from === 'projects') { // Projects Page from header
+      if (this.from === 'projects') { // Projects Page from header
 
       const skills = this.filterForm.value.skills;
       const skillsParam = [];
@@ -104,9 +103,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           }
         }
       }
-
+      this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
       this.projectsSubscription = this.projectService.searchProjects(
-        this.filterForm.value.keyword, skillsParam, 'A', null, page + 1, 10)
+        this.filterForm.value.keyword, skillsParam, 'A', null, page, 10)
         .subscribe(
           res => {
             this.projects = res.data;

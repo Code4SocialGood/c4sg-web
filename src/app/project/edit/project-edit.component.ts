@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
@@ -19,7 +19,7 @@ declare const Materialize: any;
   styleUrls: ['project-edit.component.scss']
 })
 
-export class ProjectEditComponent implements OnInit {
+export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
   public project: Project;
   public organization: Organization;
@@ -71,12 +71,6 @@ export class ProjectEditComponent implements OnInit {
             }, error => console.log(error)
           );
 
-      //  this.projectService.retrieveImage(this.projectId)
-      //    .subscribe(
-      //      res => {
-      //      }, error => console.log(error)
-      //    );
-
         this.skillService.getSkillsByProject(this.projectId)
           .subscribe(
             res => {
@@ -95,6 +89,14 @@ export class ProjectEditComponent implements OnInit {
         );
     });
   }
+
+ngAfterViewChecked(): void {
+  // Work around for bug in Materialize library, form labels overlap prefilled inputs
+  // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+  if (Materialize && Materialize.updateTextFields) {
+    Materialize.updateTextFields();
+  }
+}
 
   private getFormConstants(): void {
     this.countries = this.fc.getCountries();

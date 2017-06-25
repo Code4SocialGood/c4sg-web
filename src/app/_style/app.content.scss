@@ -2,10 +2,11 @@
 
 .content {
   position: relative;
-  padding-top: $content-pad;
-  padding-bottom: $content-pad;
-  padding-left: $content-pad;
-  padding-right: $content-pad;
+  padding-top: $content-pad-top;
+  padding-bottom: $content-pad-bottom;
+  padding-left: $content-pad-left;
+  padding-right: $content-pad-right;
+  background-color: white;
 }
 
 .content-title {

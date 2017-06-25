@@ -8,7 +8,7 @@ import {DataService} from '../_services/data.service';
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.css' ],
+  styleUrls: [ 'home.component.scss' ],
   animations: [
     trigger('buttonState', [
       state('inactive', style({
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
     if (!keyword) { return; }
-    this.router.navigate(['/project/list/home'], {
+    this.router.navigate(['/project/list/projects'], {
       queryParams: {
         keyword: keyword
       }

@@ -21,8 +21,7 @@
                   <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="twitter" [href]="user.personalUrl" target="_blank"> </a></li>
                 </ul>
               </div>
-
-          </div>
+            </div>
           <div class="col m8">
             <div class="row">
               <div class="names">{{user.firstName}} {{user.lastName}}</div>
@@ -35,7 +34,6 @@
               </div>
             </div>
           </div>
-          <hr>
           <div class="col m12">
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ user.introduction }}</div>
@@ -52,11 +50,23 @@
 
     <!-- Right Panel: User Volunteer History -->
     <div class="col m4" id="right-col">
-    Volunteer History
+      <div class="sidebar">
+        <div class="section">
+          <h4>Volunteer History</h4>
+          <div class="section-body-organization">
+            <div class="card">
+              <div class="card-content">
+                <div class="row single-info">
+                  <p>Coming soon ...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 
 <div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">

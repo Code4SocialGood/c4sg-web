@@ -57,7 +57,7 @@ export class UserService {
     skills?: string[],
     status?: string,
     role?: string,
-    publicFlag?: string,
+    publishFlag?: string,
     page?: number,
     size?: number): Observable<any> {
     const params = new URLSearchParams();
@@ -82,8 +82,8 @@ export class UserService {
       params.append('role', role);
     }
 
-    if (publicFlag) {
-      params.append('publicFlag', publicFlag);
+    if (publishFlag) {
+      params.append('publishFlag', publishFlag);
     }
 
     if (page) {

@@ -1,6 +1,5 @@
 @import 'variables';
 @import 'app.fonts';
-@import 'app.text';
 @import 'app.nav';
 @import 'app.content';
 @import 'app.card';
@@ -78,17 +77,17 @@ hr {
   top: 48vh;
 }
 
-.left-col {
-}
-
-.right-col {
-  margin-left: - $line-sep-width;
+#left-col {
+  margin-bottom: 40px;
 }
 
 #right-col {
   padding: 0;
   border-left: $border-width $border-color solid;
   border-right: $border-width $border-color solid;
+  border-bottom: $border-width $border-color solid;
+  margin-left: - $line-sep-width;
+  margin-bottom: 40px;
 }
 
 .main-row {
@@ -149,8 +148,13 @@ hr {
   }
 }
 
-
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
+}
+
+.image-upload-button {
+  float: none;
+  display: inherit;
+  padding: 0;
 }

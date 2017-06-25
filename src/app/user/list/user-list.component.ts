@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   });
 
   totalItems = 0;
-  p = 0;
+  p = 1;
   keyword: string;
   keywords: any;
   selectedUser: User;
@@ -64,8 +64,9 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     }
 
+    this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
     this.usersSubscription = this.userService.searchUsers(
-      this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page + 1, 10)
+      this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page, 10)
       .subscribe(
         res => {
           // the service returns a JSON object consist of the array of pageable data
