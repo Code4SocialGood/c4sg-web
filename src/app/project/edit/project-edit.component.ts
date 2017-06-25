@@ -36,8 +36,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public displayOrgField = false;
   public isOrganization = false;
   public isSkillExists = false;
+  public isSkillLimit = false;
   public skill = '';
   public imageUrl: any = '';
+  public skillCounter = 0;
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -209,9 +211,10 @@ ngAfterViewChecked(): void {
   }
 
   onAddListedSkill(optionValue) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(optionValue.target.value);
     this.checkSkillList (optionValue.target.value);
-    if (!this.isSkillExists) {
+    if (!this.isSkillExists && !this.isSkillLimit) {
       this.projectSkillsArray.push(optionValue.target.value);
     }
     console.log(this.projectSkillsArray);
@@ -225,10 +228,11 @@ ngAfterViewChecked(): void {
   }
 
   onAddOwnSkill(inputSkill) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
       this.checkSkillList (inputSkill.value);
-      if (!this.isSkillExists) {
+      if (!this.isSkillExists && !this.isSkillLimit) {
         this.projectSkillsArray.push(inputSkill.value);
         this.inputValue = '';
         console.log(this.projectSkillsArray);
@@ -257,10 +261,18 @@ ngAfterViewChecked(): void {
 
   checkSkillList(selectedSkill) {
     this.isSkillExists = false;
-    for ( this.skill of this.projectSkillsArray ) {
-      if (selectedSkill === this.skill) {
-        this.isSkillExists = true;
-        this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+    this.isSkillLimit = false;
+    this.skillCounter = this.skillCounter + 1;
+    if ( this.skillCounter > 10 ) {
+      this.isSkillLimit = true;
+      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+    }
+    if (!this.isSkillLimit) {
+      for (this.skill of this.projectSkillsArray) {
+        if (selectedSkill === this.skill) {
+          this.isSkillExists = true;
+          this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+        }
       }
     }
   }
