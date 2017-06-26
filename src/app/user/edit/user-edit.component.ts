@@ -45,7 +45,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     {value: '3', name: 'python'}];
   currentUserId: String;
   public isSkillExists = false;
+  public isSkillLimit = false;
   public skill = '';
+  public skillCounter = 0;
 
   constructor(
     public fb: FormBuilder,
@@ -185,19 +187,21 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onAddListedSkill(optionValue) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(optionValue.target.value);
     this.checkSkillList (optionValue.target.value);
-    if (!this.isSkillExists) {
+    if (!this.isSkillExists && !this.isSkillLimit) {
       this.projectSkillsArray.push(optionValue.target.value);
     }
     console.log(this.projectSkillsArray);
   }
 
   onAddOwnSkill(inputSkill) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
       this.checkSkillList (inputSkill.value);
-      if (!this.isSkillExists) {
+      if (!this.isSkillExists && !this.isSkillLimit) {
         this.projectSkillsArray.push(inputSkill.value);
         this.inputValue = '';
       }
@@ -269,11 +273,19 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   checkSkillList(selectedSkill) {
     this.isSkillExists = false;
+    this.isSkillLimit = false;
+    this.skillCounter = this.skillCounter + 1;
+    if ( this.skillCounter > 10 ) {
+      this.isSkillLimit = true;
+      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+    }
+    if (!this.isSkillLimit) {
     for ( this.skill of this.projectSkillsArray ) {
       if (selectedSkill === this.skill) {
         this.isSkillExists = true;
         this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
       }
+    }
     }
   }
 }
