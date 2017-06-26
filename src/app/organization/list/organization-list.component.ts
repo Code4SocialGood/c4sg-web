@@ -17,13 +17,17 @@ declare const $: Function;
 
 export class OrganizationListComponent implements OnInit, AfterViewInit {
   categories = [{
-    name: 'Nonprofit'
+    name: 'Nonprofit',
+    value:'N'
   }, {
-    name: 'Open Source'
+    name: 'Open Source',
+    value:'O'
   }, {
-    name: 'Social Enterprise'
+    name: 'Social Enterprise',
+    value:'S'
   }, {
-    name: 'Team Project'
+    name: 'Team Project',
+    value:'T'
   }];
 
   filterForm = new FormGroup({
@@ -83,7 +87,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     if (categories) {
       for (let i = 0; i < categories.length; i++) {
         if (categories[i]) {
-          categoriesParam.push(this.categories[i].name);
+          categoriesParam.push(this.categories[i].value);
         }
       }
     }
