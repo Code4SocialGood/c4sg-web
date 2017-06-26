@@ -173,21 +173,17 @@ ngAfterViewChecked(): void {
     }
     this.projectService
       .add(this.projectForm.value)
-      .map(res => {
+      .subscribe(res => {
         this.project = res.project;
 
         // return Observable.forkJoin(additionalCalls);
         this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
           result => {
-            this.globalActions.emit('toast');
+            // After all calls are successfully made, go to the detail page
+            this.router.navigate(['/project/view/' + this.project.id]);
           }, error => console.log(error)
         );
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/project/view/' + this.project.id]);
-        this.globalActions.emit({action: 'toast', params: ['Project Created Successfully', 4000]});
-              });
+      });
   }
 
   private updateProject(): void {
@@ -205,14 +201,13 @@ ngAfterViewChecked(): void {
     this.projectService
       .update(this.project)
       .subscribe(res => {
-        Materialize.toast('Your project is saved', 4000);
-        // this.globalActions.emit('toast');
+        this.skillService
+          .updateSkills(this.projectSkillsArray, this.project.id)
+          .subscribe(result => {
+            this.router.navigate(['/project/view/' + this.project.id]);
+            Materialize.toast('Your changes have been saved', 4000);
+          }, error => console.log(error));
       });
-    this.skillService
-      .updateSkills(this.projectSkillsArray, this.project.id)
-      .subscribe(result => {
-        this.globalActions.emit('toast');
-      }, error => console.log(error));
   }
 
   onAddListedSkill(optionValue) {
