@@ -2,9 +2,13 @@
   "name": "c4sg-web",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "7.10.0",
+    "npm": "4.6.1"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "startHeroku": "ng serve --environment=dev_remote",
     "build": "ng build && npm run surgeExtras",
     "buildProd": "ng build --prod --aot && npm run surgeExtras",
@@ -13,13 +17,16 @@
     "test": "ng test",
     "test_single_run": "ng test --single-run",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --prod --aot --environment=prod_remote"
   },
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.0",
+    "@angular/cli": "1.0.0",
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",
+    "@angular/compiler-cli": "^2.4.0",
     "@angular/core": "^2.4.0",
     "@angular/forms": "^2.4.0",
     "@angular/http": "^2.4.0",
@@ -31,6 +38,7 @@
     "angular2-materialize": "^6.7.1",
     "aws-sdk": "^2.57.0",
     "core-js": "^2.4.1",
+    "express": "^4.15.3",
     "fs-extra": "^2.1.2",
     "intl": "^1.2.5",
     "jquery": "^2.2.4",
@@ -43,8 +51,6 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
-    "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.1.1",
