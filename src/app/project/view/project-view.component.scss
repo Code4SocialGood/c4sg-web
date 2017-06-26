@@ -24,3 +24,19 @@
   }
 }
 
+.square-container{
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  margin-bottom: 0.75em;
+
+  .square{
+    width: auto!important;
+    position: absolute;
+    height: 100%;
+    left: -100%;
+    right: -100%;
+    margin: auto;
+  }
+}

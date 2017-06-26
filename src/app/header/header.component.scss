@@ -95,7 +95,11 @@ ul.right.hide-on-med-and-down{
     height: 100%;
     position: relative;
 
-    .nav-link.active + .active-header-icon{
+    .hidden-link{
+      display: none;
+    }
+
+    &.active > .active-header-icon{
       display: block;
     }
 
@@ -124,7 +128,7 @@ ul.right.hide-on-med-and-down{
         transform: translateY(-50%);
         display: block;
 
-        &left{
+        &.left{
           float: left;
         }
       }
