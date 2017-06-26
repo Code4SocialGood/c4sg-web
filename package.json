@@ -8,6 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
+    "serve": "ng serve",
     "start": "node server.js",
     "startHeroku": "ng serve --environment=dev_remote",
     "build": "ng build && npm run surgeExtras",
