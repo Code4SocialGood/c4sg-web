@@ -48,11 +48,13 @@
     "ng2-pagination": "^2.0.1",
     "rxjs": "^5.1.0",
     "underscore": "^1.8.3",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.7.6",
+    "ts-node": "~2.0.0",
+    "typescript": "~2.2.2",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "~6.0.60"
   },
   "devDependencies": {
-    "@types/jasmine": "2.5.38",
-    "@types/node": "~6.0.60",
     "codelyzer": "~2.1.1",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
@@ -65,8 +67,6 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
     "protractor": "~5.1.0",
-    "ts-node": "~2.0.0",
-    "tslint": "~4.4.2",
-    "typescript": "~2.2.2"
+    "tslint": "~4.4.2"
   }
 }
