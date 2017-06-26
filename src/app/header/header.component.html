@@ -2,21 +2,24 @@
 <nav [ngClass]="isAtHome()">
   <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
     <ul class="right hide-on-med-and-down">
-      <li class="nav-link-container">
-          <a class="nav-link" routerLink='/project/list/projects' routerLinkActive="active"><span>Projects</span></a>
+      <li class="nav-link-container" routerLinkActive="active">
+          <a class="nav-link" routerLink='/project/list/projects'><span>Projects</span></a>
           <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+          <a class="hidden-link" routerLink='/project'></a>
       </li>
-      <li class="nav-link-container">
-        <a class="nav-link" routerLink='/user/list' routerLinkActive="active"><span>Volunteers</span></a>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" routerLink='/user/list'><span>Volunteers</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+        <a class="hidden-link" routerLink='/user'></a>
       </li>
-      <li class="nav-link-container">
-        <a class="nav-link" routerLink='/organization/list/organizations' routerLinkActive="active"><span>Organizations</span></a>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" routerLink='/organization/list/organizations' ><span>Organizations</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+        <a class="hidden-link" routerLink='/organization'></a>
       </li>
       <li class="nav-link-container">
         <a class="nav-link dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">
-          <span class="left">Community</span><i class="material-icons right left">arrow_drop_down</i>
+          <span class="left">Community</span><i class="material-icons right">arrow_drop_down</i>
         </a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <ul class="dropdown-content" id="dropdowncommunity">
@@ -25,7 +28,7 @@
           <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
         </ul>
       </li>
-      <li *ngIf="authSvc.authenticated()"><a class="dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">{{authSvc.getCurrentDisplayName()}}<i class="material-icons right">arrow_drop_down</i></a>
+      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject"><span class="left">{{authSvc.getCurrentDisplayName()}}</span><i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content" id="dropdownproject">
           <li><a routerLink="/user/edit/{{currentUserId}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['organization/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
