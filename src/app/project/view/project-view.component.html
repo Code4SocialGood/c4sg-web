@@ -127,7 +127,11 @@
                     </p>
                   </div>
                 </div>
-                <p>{{ organization && organization.description | slice:0:100 }} ...</p>
+                  <p *ngIf="organization && organization.description">{{ organization && organization.description | slice:0:100 }} ...
+                    
+                  </p>
+                  
+                <!-- <p>{{ organization && organization.description | slice:0:100 }} ...</p>-->
               </div>
             </div>
           </div>
