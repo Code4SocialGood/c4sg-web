@@ -111,8 +111,8 @@
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">
                   <div class="col m4">
-                    <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-                    <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultImage"></div>
+                    <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
+                    <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="defaultImage"></div>
                   </div>
                   <div class="col m8 organization-name">
                     <p *ngIf="organization.websiteUrl"><a [href]="organization.websiteUrl" target="_blank" >{{organization.name}}</a></p>
@@ -140,8 +140,8 @@
                     <div class="card-content">
                       <div class="row single-info">
                         <div class="col m4">
-                          <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultImage"></div>
+                          <div class="info-avatar square-container" *ngIf="pr.imageUrl"><img class="square" [src]="pr.imageUrl"></div>
+                          <div class="info-avatar square-container" *ngIf="!pr.imageUrl"><img class="square" [src]="defaultImage"></div>
                         </div>
                         <div class="col m8">
                           <div>
