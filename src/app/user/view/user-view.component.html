@@ -5,7 +5,7 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
-          <div class="col m4">
+          <div class="col m2">
             <div class="info-avatar" *ngIf="user.avatarUrl">
               <img class='card-avatar-content card-avatar' [src]="user.avatarUrl"></div>
             <div class="info-avatar" *ngIf="!user.avatarUrl">
@@ -22,7 +22,7 @@
                 </ul>
               </div>
             </div>
-          <div class="col m8">
+          <div class="col m10">
             <div class="row">
               <div class="names">{{user.firstName}} {{user.lastName}}</div>
               <div class="user-title"><h5>{{user.title}}</h5></div>

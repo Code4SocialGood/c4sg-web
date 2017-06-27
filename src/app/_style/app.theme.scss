@@ -79,6 +79,24 @@ hr {
 
 #left-col {
   margin-bottom: 40px;
+
+  .info-avatar{
+    width: 100%;
+    position: relative;
+    padding-bottom: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 0.75em;
+
+    img{
+      width: auto;
+      height: 100%;
+      position: absolute;
+      left: -50%;
+      right: -50%;
+      margin: auto;
+    }
+  }
 }
 
 #right-col {

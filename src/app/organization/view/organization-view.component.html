@@ -5,11 +5,11 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="organization">
         <div class="row single-info">
-          <div class="col m4">
+          <div class="col m2">
             <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
             <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultLogo"></div>
           </div>
-          <div class="col m8">
+          <div class="col m10">
             <div class="row">
                 <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
             </div>
