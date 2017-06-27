@@ -109,7 +109,7 @@ ul.right.hide-on-med-and-down{
       margin: auto;
       max-width: 40px;
       position: absolute;
-      top: 10px;
+      top: 18px;
       display: none;
     }
 
@@ -123,9 +123,9 @@ ul.right.hide-on-med-and-down{
       }
 
       span, i{
-        top: 50%;
+        top: 60%;
         position: relative;
-        transform: translateY(-50%);
+        transform: translateY(-40%);
         display: block;
 
         &.left{
