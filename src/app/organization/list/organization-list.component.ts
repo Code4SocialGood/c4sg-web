@@ -63,13 +63,11 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(
       params => {
-        
         this.categoriesArray.controls.forEach(categoryControl => {
           return categoryControl.setValue(false);
         });
-        
         this.from = params['from'];
-        if(this.from === 'reload'){
+        if (this.from === 'reload') {
             this.p = 1;
             this.filterForm.controls.keyword.setValue('');
             this.filterForm.controls.hasProjects.setValue(false);

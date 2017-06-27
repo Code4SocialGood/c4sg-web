@@ -43,20 +43,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  
     this.route.params.subscribe(
-      params => {        
-        
+      params => {
         this.skillsArray.controls.forEach(skillControl => {
               return skillControl.setValue(false);
             });
-        
-        if(params['from'] === 'reload')
-        {   
+        if (params['from'] === 'reload') {
             this.p = 1;
             this.filterForm.controls.keyword.setValue('');
-            this.filterForm.controls.skills = this.skillsArray;            
-        }        
+            this.filterForm.controls.skills = this.skillsArray;
+        }
       });
     this.getUsers(this.p);
     this.getSkills();
