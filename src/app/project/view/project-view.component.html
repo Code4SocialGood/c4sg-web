@@ -7,11 +7,11 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
-          <div class="col m4">
+          <div class="col m2">
             <div class="info-avatar" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
             <div class="info-avatar" *ngIf="!project.imageUrl"><img [src]="defaultImage"></div>
           </div>
-          <div class="col s12 m8">
+          <div class="col s12 m10">
             <div class="row">
               <div class="col s12">
                 <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
