@@ -79,7 +79,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   getOrganizations(page: number): void {
     const categories = this.filterForm.value.categories;
     const categoriesParam = [];
-
+    window.scrollTo(0, 0);
     if (categories) {
       for (let i = 0; i < categories.length; i++) {
         if (categories[i]) {

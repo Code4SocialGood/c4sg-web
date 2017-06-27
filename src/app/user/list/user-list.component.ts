@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   public getUsers(page: number): void {
     const skills = this.filterForm.value.skills;
     const skillsParam = [];
-
+    window.scrollTo(0, 0);
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
         if (skills[i]) {
