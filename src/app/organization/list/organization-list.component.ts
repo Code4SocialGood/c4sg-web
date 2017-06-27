@@ -18,16 +18,16 @@ declare const $: Function;
 export class OrganizationListComponent implements OnInit, AfterViewInit {
   categories = [{
     name: 'Nonprofit',
-    value:'N'
+    value: 'N'
   }, {
     name: 'Open Source',
-    value:'O'
+    value: 'O'
   }, {
     name: 'Social Enterprise',
-    value:'S'
+    value: 'S'
   }, {
     name: 'Team Project',
-    value:'T'
+    value: 'T'
   }];
 
   filterForm = new FormGroup({
