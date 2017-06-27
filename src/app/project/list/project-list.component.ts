@@ -69,7 +69,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         this.skillsArray.controls.forEach(skillControl => {
           return skillControl.setValue(false);
         });
-        this.from = params['from'];
+        this.from = params['from']; 
+        if(this.from === 'reload')
+        {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.skills = this.skillsArray;            
+        }
         this.getProjects(this.p);
       });
 
