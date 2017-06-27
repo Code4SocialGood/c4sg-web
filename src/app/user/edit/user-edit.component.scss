@@ -1,1 +1,13 @@
 @import "../../_style/app.theme";
+
+#left-col{
+  .single-info{
+    .info-avatar{
+      border-radius: 50%;
+
+      img{
+        max-width: none;
+      }
+    }
+  }
+}
