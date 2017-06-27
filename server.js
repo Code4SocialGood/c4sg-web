@@ -20,7 +20,8 @@ const forceSSL = function () {
 };
 
 // instruct app to use forceSSL middleware
-app.use(forceSSL());
+// todo: enable this when SSL is enabled for the servers
+// app.use(forceSSL());
 
 app.use(express.static(__dirname + '/dist'));
 
