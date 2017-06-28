@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 
 import {User} from '../common/user';
@@ -38,10 +38,22 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
     private router: Router,
     private skillService: SkillService,
-    private auth: AuthService) {
+    private auth: AuthService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(
+      params => {
+        this.skillsArray.controls.forEach(skillControl => {
+              return skillControl.setValue(false);
+            });
+        if (params['from'] === 'reload') {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.skills = this.skillsArray;
+        }
+      });
     this.getUsers(this.p);
     this.getSkills();
     this.getKeywords();

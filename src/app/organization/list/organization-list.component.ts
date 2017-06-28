@@ -30,15 +30,17 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     value: 'T'
   }];
 
-  filterForm = new FormGroup({
-    keyword: new FormControl(''),
-    hasProjects: new FormControl(false),
-    categories: new FormArray([
+
+    categoriesArray = new FormArray([
       new FormControl(false),
       new FormControl(false),
       new FormControl(false),
       new FormControl(false)
-    ])
+    ]);
+  filterForm = new FormGroup({
+    keyword: new FormControl(''),
+    hasProjects: new FormControl(false),
+    categories: this.categoriesArray
   });
   p = 1; // Holds page number
   organizations: Object[];
@@ -61,7 +63,16 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(
       params => {
+        this.categoriesArray.controls.forEach(categoryControl => {
+          return categoryControl.setValue(false);
+        });
         this.from = params['from'];
+        if (this.from === 'reload') {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.hasProjects.setValue(false);
+            this.filterForm.controls.categories =  this.categoriesArray;
+        }
         this.getOrganizations(this.p);
       });
 
