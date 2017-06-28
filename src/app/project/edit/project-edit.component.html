@@ -97,18 +97,19 @@
           </div>
           <div class="row">
             <div class="col s5">
+               <label for="skillSelect">Choose from below</label>
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
                   <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
                 </select>
-              <label for="skillSelect">Choose from below</label>
+             
             </div>
             <div class="col s7">
               <div class="input-field col s7 skills-margin">
                 <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
                 <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s2">
-                <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
+              <div class="col s2 skills-margin">
+                <a class="btn-floating btn waves-effect waves-light " (click)="onAddOwnSkill(inputSkill)"><i
                     class="material-icons">add</i></a>
               </div>
             </div>
