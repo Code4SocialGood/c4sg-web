@@ -2,8 +2,23 @@
 
 .subtitle {
   font-style: italic;
+  a:hover {
+    text-decoration: underline #84c44c;  
+    }
 }
 
+.proj-name{
+  h5:hover{
+     text-decoration: underline #84c44c;  
+  }
+}
+
+.user-name{
+  span:hover{
+  text-decoration: underline #84c44c;
+  cursor: pointer;
+  }
+}
 .subtitle {
   width: 100%;
   padding-left: 2em;
