@@ -140,8 +140,8 @@
                           <div class="info-avatar square-container" *ngIf="!pr.imageUrl"><img class="square" [src]="defaultImage"></div>
                         </div>
                         <div class="col m8">
-                          <div>
-                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          <div class="available-opp-proj-name">
+                            <h5  [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                           </div>
                           <div>
                             <div class="skills-tag-wrapper">

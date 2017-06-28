@@ -65,11 +65,11 @@
                     <div class="card-info">
                       <div class="card-header">
                         <div class='name'>
-                          <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+                          <span class='name' [routerLink]="['/project/view',project.id]">{{project.name}}</span>
                         </div>
                         <div class="row info-row">
                           <div class="card-metainfo col m6">
-                            <p [routerLink]="['/organization/view/', project.organizationId]">{{
+                            <p class="card-metainfo" [routerLink]="['/organization/view/', project.organizationId]">{{
                               project.organizationName }}</p>
                           </div>
                           <div class="card-metainfo col m6">
