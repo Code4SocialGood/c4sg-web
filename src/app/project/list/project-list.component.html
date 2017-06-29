@@ -76,9 +76,9 @@
     <div class="col m8 s12 offset-m2" *ngIf="projects && from === 'myProjects'">
       <div class="content">
         <!-- My Projects: Active Projects -->
-        <div class="row">
+        <div class="row" *ngIf="activeProjects.length">
           <div class="col s12">
-            <h4 class="content-title">{{activeProjects.length | i18nPlural: {'=0': 'No projects', '=1': '1 project', 'other': '# projects'} }} found</h4>
+            <h4 class="content-title">{{activeProjects.length | i18nPlural: {'=1': '1 active project', 'other': '# active projects'} }} found</h4>
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="projects">
                 <li class="card-wrapper" *ngFor="let project of activeProjects">
@@ -89,9 +89,9 @@
           </div>
         </div>
         <!-- My Projects: Closed Projects -->
-        <div class="row">
+        <div class="row" *ngIf="closedProjects.length">
           <div class="col s12">
-            <h4 class="content-title">{{closedProjects.length | i18nPlural: {'=0': 'No projects', '=1': '1 project', 'other': '# projects'} }} found</h4>
+            <h4 class="content-title">{{closedProjects.length | i18nPlural: {'=1': '1 closed project', 'other': '# closed projects'} }} found</h4>
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="projects">
                 <li class="card-wrapper" *ngFor="let project of closedProjects">
@@ -99,6 +99,12 @@
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+        <!-- My Projects: No Projects -->
+        <div class="row" *ngIf="!activeProjects.length && !closedProjects.length">
+          <div class="col s12">
+            <h4 class="content-title">No projects found</h4>
           </div>
         </div>
       </div>
