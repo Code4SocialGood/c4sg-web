@@ -5,8 +5,8 @@
     <div class="col s3" id="left-col">
       <div class="content sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
-          <div class="col m12">
-            <h4 id="avatar-title">Profile Image</h4>
+          <h4 id="avatar-title" class="col s12 m12 l12 image-title">My Avatar</h4>
+          <div class="col s12 m12 l7 avatar-container">
             <div class="info-avatar">
               <img class="responsive-img" id="responsive-img" [src]="avatar" onError="this.src='../../assets/default_avatar.png'">
             </div>
@@ -106,7 +106,7 @@
 
             <div class="row">
               <div class="content-title">My Skills</div>
-            </div>  
+            </div>
             <div class="row">
               <div class="row" style="padding: 0 30px">
                 <div class="col s10">
@@ -201,8 +201,8 @@
               </div>
             </div>
           </div>
-        </form> 
-      </div> 
+        </form>
+      </div>
     </div>
   </div>
 </div>
