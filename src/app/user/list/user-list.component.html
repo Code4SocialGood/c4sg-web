@@ -62,8 +62,8 @@
                           <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
                         </div>
                         <div class="row info-row">
-                          <div class="card-metainfo col m6">
-                            <p>{{user.title}}</p>
+                          <div class="card-metainfo col m6 ">
+                            <p class=" title-cursor">{{user.title}}</p>
                           </div>
                           <div class="card-metainfo col m6">
                             <span class="card-location" *ngIf="user.country">{{user.country}}</span>
