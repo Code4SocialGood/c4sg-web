@@ -1,15 +1,15 @@
-import { AfterViewChecked, Component, OnInit, OnDestroy } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
 
-import { Project } from '../common/project';
-import { ProjectService } from '../common/project.service';
-import { AuthService } from '../../auth.service';
-import { OrganizationService } from '../../organization/common/organization.service';
-import { SkillService } from '../../skill/common/skill.service';
-import { User } from '../../user/common/user';
-import { DataService } from '../../_services/data.service';
+import {Project} from '../common/project';
+import {ProjectService} from '../common/project.service';
+import {AuthService} from '../../auth.service';
+import {OrganizationService} from '../../organization/common/organization.service';
+import {SkillService} from '../../skill/common/skill.service';
+import {User} from '../../user/common/user';
+import {DataService} from '../../_services/data.service';
 
 declare const Materialize: any;
 
@@ -32,6 +32,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projects: Project[];
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
+  activeProjects: Project[];
+  closedProjects: Project[];
   temp: any[];
   users: User[];
   selectedProject: Project;
@@ -45,12 +47,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   defaultImage = '../../assets/default_image.png';
 
   constructor(private projectService: ProjectService,
-    private organizationService: OrganizationService,
-    private dataService: DataService,
-    private router: Router,
-    public auth: AuthService,
-    private route: ActivatedRoute,
-    private skillService: SkillService) {
+              private organizationService: OrganizationService,
+              private dataService: DataService,
+              private router: Router,
+              public auth: AuthService,
+              private route: ActivatedRoute,
+              private skillService: SkillService) {
   }
 
   ngAfterViewChecked(): void {
@@ -112,18 +114,18 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.projectsSubscription = this.projectService.searchProjects(
         this.filterForm.value.keyword, skillsParam, 'A', null, page, 10)
         .subscribe(
-        res => {
-          this.projects = res.data;
-          this.totalItems = res.totalItems;
-          this.projectsCache = this.projects.slice(0);
-          res.data.forEach((e: Project) => {
-            this.skillService.getSkillsByProject(e.id).subscribe(
-              result => {
-                e.skills = result;
-              });
-          });
-        },
-        error => console.log(error)
+          res => {
+            this.projects = res.data;
+            this.totalItems = res.totalItems;
+            this.projectsCache = this.projects.slice(0);
+            res.data.forEach((e: Project) => {
+              this.skillService.getSkillsByProject(e.id).subscribe(
+                result => {
+                  e.skills = result;
+                });
+            });
+          },
+          error => console.log(error)
         );
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { // Volunteer user: My Projects
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
@@ -143,6 +145,14 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             res => {
               this.projects = res.json();
               this.totalItems = this.projects.length;
+              this.projects.forEach((e: Project) => {
+                this.skillService.getSkillsByProject(e.id).subscribe(
+                  result => {
+                    e.skills = result;
+                  });
+              });
+              this.activeProjects = this.projects.filter((project) => project.status === 'A');
+              this.closedProjects = this.projects.filter((project) => project.status === 'C');
             },
             error => console.log(error)
           );
@@ -155,11 +165,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   getSkills(): void {
     this.skillService.getSkills().subscribe(res => {
-      this.skills = res.map(skill => {
-        return { name: skill.skillName, checked: false, id: skill.id };
-      });
-      this.showSkills();
-    },
+        this.skills = res.map(skill => {
+          return {name: skill.skillName, checked: false, id: skill.id};
+        });
+        this.showSkills();
+      },
       error => console.error(error)
     );
   }
@@ -198,11 +208,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     this.projectService
       .add(project)
       .subscribe(
-      response => {
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
+        response => {
+          this.getProjects(this.p);
+          this.router.navigate(['/organization/list']);
+        },
+        error => console.log(error)
       );
   }
 
@@ -210,11 +220,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     this.projectService
       .delete(project.id)
       .subscribe(
-      response => { // An error occurred SyntaxError: Unexpected end of JSON input
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
+        response => { // An error occurred SyntaxError: Unexpected end of JSON input
+          this.getProjects(this.p);
+          this.router.navigate(['/organization/list']);
+        },
+        error => console.log(error)
       );
   }
 

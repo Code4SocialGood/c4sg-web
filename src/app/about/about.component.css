@@ -10,3 +10,9 @@ agm-map {
    height: 500px;
    background-color: rgba(0,0,0,0.5);
 }
+.content-title{
+  text-align: center;
+}
+#right-col{
+  border: 0;
+}

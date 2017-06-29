@@ -17,6 +17,7 @@ export class Project {
     public createdTime?: any,
     public updatedTime?: any,
     public remoteFlag?: string,
-    public skills?: string[]
+    public skills?: string[],
+    public status?: string
   ) { }
 }
