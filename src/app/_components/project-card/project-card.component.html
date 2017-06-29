@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-content">
+    <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
+      <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
+    </div>
+    <div class="card-avatar-wrapper" *ngIf="!project.imageUrl">
+      <div class="card-avatar"><img class="card-avatar-content" [src]="defaultImage"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <div class='name'>
+          <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+        </div>
+        <div class="row info-row">
+          <div class="col s12">
+          <div class="card-metainfo col m6">
+            <p [routerLink]="['/organization/view/', project.organizationId]">{{
+              project.organizationName }}</p>
+          </div>
+          <div class="card-metainfo col m6">
+            <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
+            <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="skills-tag-wrapper">
+        <ul *ngIf="project.skills">
+          <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
+        </ul>
+      </div>
+      <p class="description">{{ project.description | slice:0:200 }} ...</p>
+    </div>
+  </div>
+</div>

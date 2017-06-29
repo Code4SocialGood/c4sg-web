@@ -45,62 +45,74 @@
       </div>
     </div>
     <!-- Right Panel -->
-    <div class="col m8 s12" id="right-col">
-      <!-- 1. Projects -->
-      <!-- 2. Nonprofit User: My Projects -->
-      <div class="content" *ngIf="projects">
+    <!-- 1. Projects -->
+    <div class="col m8 s12" *ngIf="projects && from === 'projects'" id="right-col">
+      <div class="content">
         <div class="row">
-          <h4 class="content-title">{{totalItems}} projects found</h4>
-          <div class="items-list-wrapper">
-            <ul class="card-list" *ngIf="projects">
-              <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
-                      <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
-                    </div>
-                    <div class="card-avatar-wrapper" *ngIf="!project.imageUrl">
-                      <div class="card-avatar"><img class="card-avatar-content" [src]="defaultImage"></div>
-                    </div>
-                    <div class="card-info">
-                      <div class="card-header">
-                        <div class='name'>
-                          <span class='name' [routerLink]="['/project/view',project.id]">{{project.name}}</span>
-                        </div>
-                        <div class="row info-row">
-                          <div class="card-metainfo col m6">
-                            <p class="card-metainfo" [routerLink]="['/organization/view/', project.organizationId]">{{
-                              project.organizationName }}</p>
-                          </div>
-                          <div class="card-metainfo col m6">
-                            <span class="joined-at">Remote</span> &nbsp;&nbsp;| &nbsp;&nbsp;
-                            <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="skills-tag-wrapper">
-                        <ul *ngIf="project.skills">
-                          <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
-                        </ul>
-                      </div>
-                      <p class="description">{{ project.description | slice:0:200 }} ...</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+          <div class="col s12">
+            <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No projects', '=1': '1 project', 'other': '# projects'} }} found</h4>
+            <div class="items-list-wrapper">
+              <ul class="card-list" *ngIf="projects">
+                <li class="card-wrapper"
+                    *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
+                  <my-project-card [project]="project"></my-project-card>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="row">
-          <div class="pagination"><!--
+          <div class="col s12">
+            <div class="pagination"><!--
             <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>-->
-            <pagination-controls (pageChange)="getProjects(p = $event)" id="projectsPages" autoHide="false"></pagination-controls>
+              <pagination-controls (pageChange)="getProjects(p = $event)" id="projectsPages" autoHide="false"></pagination-controls>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Volunteer User: My Projects: Bookmarked Projects -->
-      <div class="content" *ngIf="bookmarkedProjects">
+    <!-- 2. Nonprofit User: My Projects -->
+    <div class="col m8 s12 offset-m2" *ngIf="projects && from === 'myProjects'">
+      <div class="content">
+        <!-- My Projects: Active Projects -->
+        <div class="row" *ngIf="activeProjects.length">
+          <div class="col s12">
+            <h4 class="content-title">{{activeProjects.length | i18nPlural: {'=1': '1 active project', 'other': '# active projects'} }} found</h4>
+            <div class="items-list-wrapper">
+              <ul class="card-list" *ngIf="projects">
+                <li class="card-wrapper" *ngFor="let project of activeProjects">
+                  <my-project-card [project]="project"></my-project-card>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- My Projects: Closed Projects -->
+        <div class="row" *ngIf="closedProjects.length">
+          <div class="col s12">
+            <h4 class="content-title">{{closedProjects.length | i18nPlural: {'=1': '1 closed project', 'other': '# closed projects'} }} found</h4>
+            <div class="items-list-wrapper">
+              <ul class="card-list" *ngIf="projects">
+                <li class="card-wrapper" *ngFor="let project of closedProjects">
+                  <my-project-card [project]="project"></my-project-card>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- My Projects: No Projects -->
+        <div class="row" *ngIf="!activeProjects.length && !closedProjects.length">
+          <div class="col s12">
+            <h4 class="content-title">No projects found</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteer User: My Projects: Bookmarked Projects -->
+    <div class="col m8 s12 offset-m2" *ngIf="bookmarkedProjects">
+      <div class="content">
         <div class="row">
           <h1 class="content-title">Bookmarked Projects</h1>
           <div class="col s12">
@@ -141,9 +153,11 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Volunteer User: My Projects: Applied Projects -->
-      <div class="content" *ngIf="appliedProjects">
+    <!-- Volunteer User: My Projects: Applied Projects -->
+    <div class="col m8 s12 offset-m2" *ngIf="appliedProjects">
+      <div class="content">
         <div class="row">
           <h1 class="content-title">Applied Projects</h1>
           <div class="col s12">
@@ -188,3 +202,4 @@
     </div>
   </div>
 </div>
+
