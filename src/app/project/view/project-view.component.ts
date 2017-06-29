@@ -181,8 +181,8 @@ export class ProjectViewComponent implements OnInit {
                 }
             );
     } else {
-        // display toast when user is not logged in
-        this.globalActions.emit({action: 'toast', params: ['Please login to add bookmark', 4000]});
+        localStorage.setItem('redirectAfterLogin', this.router.url);
+        this.authService.login();
     }
   }
 
