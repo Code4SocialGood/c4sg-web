@@ -76,25 +76,56 @@ hr {
   left: 48%;
   top: 48vh;
 }
+.single-info{
 
+}
 #left-col {
   margin-bottom: 40px;
 
-  .info-avatar{
-    width: 100%;
-    position: relative;
-    padding-bottom: 100%;
-    overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 0.75em;
+  .single-info{
 
-    img{
-      width: auto;
-      height: 100%;
-      position: absolute;
-      left: -50%;
-      right: -50%;
+    .image-title{
+      font-size: 17px;
+      color: #84c44c;
+      text-align: center;
+    }
+
+    .avatar-container{
       margin: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 1rem;
+
+      .row{
+        margin-left: 0;
+        margin-right: 0;
+
+        .btn.avatar-upload-button{
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    .info-avatar{
+      width: 100%;
+      position: relative;
+      padding-bottom: 100%;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 0.75em;
+
+      img{
+        width: auto;
+        max-width: none;
+        height: 100%;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        margin: auto;
+      }
     }
   }
 }
