@@ -96,6 +96,17 @@ hr {
       left: 50%;
       transform: translateX(-50%);
       margin-bottom: 1rem;
+
+      .row{
+        margin-left: 0;
+        margin-right: 0;
+
+        .btn.avatar-upload-button{
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
     }
 
     .info-avatar{
