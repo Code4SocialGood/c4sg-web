@@ -3,7 +3,7 @@
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
-      <div class="content sidebar-wrapper" *ngIf="organization">
+      <div class="content sidebar-wrapper">
         <div class="row single-info">
           <div class="col m12">
             <div class="info-avatar">
@@ -26,7 +26,7 @@
       <div class="content">
         <form [formGroup]="organizationForm" (ngSubmit)="onSubmit(organizationForm.value, $event)">
           <div class="row">
-            <div class="col m4 s12">
+            <div class="col m6 s12">
               <div class="input-field">
                 <input type="text" id="name" formControlName="name">
                 <label for="name" [ngClass]="{'red-text': organizationForm.get('name').invalid}">Organization Name *</label>
@@ -59,7 +59,7 @@
               </div>
             </div>
 
-            <div class="col m4 s12">
+            <div class="col m6 s12">
               <div class="input-field">
                 <input type="url" id="website" class="" formControlName="websiteUrl">
                 <label for="website"
@@ -88,7 +88,7 @@
           </div>
 
           <div class="row">
-            <div class="col m4 s12 offset-m4">
+            <div class="col m12 s12">
               <div class="input-field">
                 <textarea id="description" class="materialize-textarea" formControlName="description"
                           (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
@@ -102,9 +102,9 @@
 
           <div class="row">
             <div class="col m12">
-              <div class="btn center">
+              <div class="footer-btns center">
                 <button class="btn waves-effect waves-light" type="submit" [disabled]="!organizationForm.valid" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
-                  Save
+                 Save
                 </button>
               </div>
             </div>
