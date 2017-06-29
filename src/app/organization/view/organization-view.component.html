@@ -7,14 +7,14 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="organization">
         <div class="row single-info">
-          <div class="col m2">
-            <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-            <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultLogo"></div>
+          <div class="col s6 m3 l2">
+            <div class="info-avatar z-depth-2" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+            <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="defaultLogo"></div>
           </div>
-          <div class="col m10">
-            <div class="row">
-              <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
-            </div>
+          <div class="col s12 m9 l10">
+
+            <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
+
             <p class="subtitle" *ngIf="organization.websiteUrl">
               <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
             </p>
@@ -65,7 +65,7 @@
                       <span *ngIf="user.firstName">{{user.firstName}}, </span>
                       <span>{{user.lastName}}</span>
                     </p>-->
-                    
+
                     <p>Title: {{user.title}}</p>
                     <p>Phone: {{user.phone}}</p>
                     <p>Email: {{user.email}}</p>

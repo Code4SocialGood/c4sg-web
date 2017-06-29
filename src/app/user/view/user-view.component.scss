@@ -1,9 +1,12 @@
 @import "../../_style/app.theme";
 
-.card-avatar-content {
+.card-avatar, .card-avatar-content {
   border-radius: 50% !important;
 }
 
+.mg-top-10px{
+  margin-top: 10px;
+}
 
 .not-active {
   pointer-events: none;
@@ -13,7 +16,7 @@
 
 .names {
   font-size: 1em;
-  //font-weight: bold;  
+  //font-weight: bold;
 }
 
 .location {

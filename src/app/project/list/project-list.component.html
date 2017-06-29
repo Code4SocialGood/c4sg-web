@@ -57,10 +57,10 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
-                      <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
+                      <div class="card-avatar z-depth-2"><img class="card-avatar-content" [src]="project.imageUrl"></div>
                     </div>
                     <div class="card-avatar-wrapper" *ngIf="!project.imageUrl">
-                      <div class="card-avatar"><img class="card-avatar-content" [src]="defaultImage"></div>
+                      <div class="card-avatar z-depth-2"><img class="card-avatar-content" [src]="defaultImage"></div>
                     </div>
                     <div class="card-info">
                       <div class="card-header">
