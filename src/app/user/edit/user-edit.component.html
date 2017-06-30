@@ -30,15 +30,13 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="userName"></label>
-                <span>Username *</span>
+                <label for="userName">Username *</label>
                 <input class="theme-input" id="userName" formControlName="userName" type="text">
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="email"></label>
-                <span>Email Address *</span>
+                <label for="email">Email Address *</label>
                 <input class="theme-input" id="email" formControlName="email" type="text" disabled="true">
               </div>
             </div>
@@ -46,15 +44,13 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="firstName"></label>
-                <span>First Name</span>
+                <label for="firstName">First Name</label>
                 <input class="theme-input" id="firstName" formControlName="firstName" type="text">
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="lastName"></label>
-                <span>Last Name</span>
+                <label for="lastName">Last Name</label>
                 <input class="theme-input" id="lastName" formControlName="lastName" type="text">
               </div>
             </div>
@@ -62,28 +58,24 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="state"></label>
-                <span>State</span>
+                <label for="state">State</label>
                 <input class="theme-input" id="state" formControlName="state" type="text">
               </div>
             </div>
             <div class="col s12 m6">
-              <div class="input-field">
-                <span>Country</span>
-                <div class="theme-select">
-                  <select id="country" formControlName="country" materialize="material_select">
-                    <option value="" disabled></option>
-                    <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
-                  </select>
-                </div>
+              <label for="country">Country</label>
+              <div class="theme-select user-edit-dropdown">
+                <select id="country" formControlName="country" materialize="material_select">
+                  <option value="" disabled></option>
+                  <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                </select>
               </div>
             </div>
           </div>
           <div class="row" *ngIf = "displayPhone">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="phone"></label>
-                <span>Phone</span>
+                <label for="phone">Phone</label>
                 <input id="phone" formControlName="phone" type="text">
               </div>
             </div>
@@ -92,13 +84,12 @@
             <div class="row"><div class="content-title">My Profile</div></div>
             <div class="row">
               <div class="input-field col s12">
-                <label for="title"></label>
-                <span class="small-span">Title</span>
+                <label for="title">Title</label>
                 <input class="theme-input" id="title" type="text" formControlName="title">
               </div>
               <div class="input-field col s12">
                 <label for="introduction"></label>
-                <span class="small-span">Summary</span>
+                <label for="introduction">Summary</label>
                 <textarea class="materialize-textarea theme-input" id="introduction" type="text" formControlName="introduction">
                 </textarea>
               </div>
@@ -115,20 +106,17 @@
                 </div>
               </div>
               <div class="row" style="padding: 0 30px">
-                <div class="col s6 theme-select">
+                <div class="col s6 theme-select user-edit-dropdown">
                   <label for="skillSelect">Choose from below</label>
                   <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
                     <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }} </option>
                   </select>
-                 
                 </div>
                 <div class="col s6">
                   <div class="input-field col s10 skills-margin">
-                    <!--<span>Add My Own</span>-->
                     <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
                     <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
                            [ngModelOptions]="{standalone: true}">
-                   
                   </div>
                   <div class="col s2 skills-margin">
                     <a class="btn-floating btn waves-effect waves-light add-button" (click)="onAddOwnSkill(inputSkill)"><i
@@ -141,38 +129,33 @@
             <div class="row"><div class="content-title">My Personal URLs</div></div>
             <div class="col l6 m12 s12">
               <div class="input-field col s12">
-                <label for="linkedinUrl"></label>
-                <span>LinkedIn URL</span>
+                <label for="linkedinUrl">LinkedIn URL</label>
                 <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
               </div>
               <div class="input-field col s12">
-                <label for="personalUrl"></label>
-                <span>My Website</span>
+                <label for="personalUrl">My Website</label>
                 <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
               </div>
               <div class="input-field col s12">
-                <label for="githubUrl"></label>
-                <span>GitHub URL</span>
+                <label for="githubUrl">GitHub URL</label>
                 <input class="theme-input" id="githubUrl" type="text" formControlName="githubUrl">
               </div>
             </div>
             <div class="input-field col l6 m12 s12">
-              <div class="input-field col s12">
-                <label for="twitterUrl"></label>
-                <span>Twitter URL</span>
+              <div class="input-field col s12 second-column">
+                <label for="twitterUrl">Twitter URL</label>
                 <input class="theme-input" id="twitterUrl" type="text" formControlName="twitterUrl">
               </div>
               <div class="input-field col s12">
-                <label for="facebookUrl"></label>
-                <span>Facebook URL</span>
+                <label for="facebookUrl">Facebook URL</label>
                 <input class="theme-input" id="facebookUrl" type="text" formControlName="facebookUrl">
               </div>
               <div class="file-field input-field col s12" id="resume">
                 <label class="active" for="resume"></label>
                 <div class="row">
                 <div class="file-path-wrapper  col m9">
-                  <span>Resume</span>
-                  <input class="file-path validate theme-input" type="text">
+                  <label for="resumeInput">Resume</label>
+                  <input class="file-path validate theme-input" id="resumeInput" type="text">
                 </div>
                 <div class="btn col m3">
                   <span id="resume-upload-button">Upload</span>
