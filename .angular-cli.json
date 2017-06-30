@@ -31,9 +31,11 @@
 	    ],
 	    "environmentSource": "environments/environment.ts",
 	    "environments": {
-		"dev": "environments/environment.ts",
+		"dev_local": "environments/environment.dev-local.ts",
 		"dev_remote": "environments/environment.dev-remote.ts",
-		"prod": "environments/environment.prod.ts",
+		"staging_local": "environments/environment.staging-local.ts",
+		"staging_remote": "environments/environment.staging-remote.ts",
+		"prod_local": "environments/environment.prod-local.ts",
 		"prod_remote": "environments/environment.prod-remote.ts"
 	    }
 	}

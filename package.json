@@ -9,16 +9,24 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
+
     "start": "node server.js",
-    "startHeroku": "ng serve --environment=dev_remote",
+    "start:dev:remote": "ng serve --environment=dev_remote",
+    "start:dev:local": "ng serve --environment=dev_local",
+    "start:staging:remote": "ng serve --aot --environment=staging_remote",
+    "start:staging:local": "ng serve --aot --environment=staging_local",
+    "start:prod:remote": "ng serve --aot --prod --environment=prod_remote",
+    "start:prod:local": "ng serve --aot --prod --environment=prod_local",
+
     "build": "ng build",
-    "buildProd": "ng build --prod --aot",
-    "buildProdHeroku": "ng build --prod --aot --environment=prod_remote",
+    "build:prod:local": "ng build --prod --aot --environment=prod_local",
+    "build:prod:heroku": "ng build --prod --aot --environment=prod_remote",
+
     "test": "ng test",
     "test_single_run": "ng test --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod --aot --environment=prod_remote"
+    "postinstall": "ng build --prod --aot --environment=$NG_ENVIRONMENT"
   },
   "private": true,
   "dependencies": {
