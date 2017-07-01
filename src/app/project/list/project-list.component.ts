@@ -84,6 +84,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   orgId: number;
   projId: number;
   from: string;
+  isVolunteer = false;
+  isNonprofit = false;
   defaultImage = '../../assets/default_image.png';
 
   constructor(private projectService: ProjectService,
@@ -142,7 +144,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     // Issue#300 - resetting form before reloading page to display all items
     // this.filterForm.reset();
     window.scrollTo(0, 0);
-    if (this.from === 'projects') { // Projects Page from header
+    if (this.from === 'projects') { // Projects Menu Item
 
       const skills = this.filterForm.value.skills;
       const skillsParam = [];
@@ -171,7 +173,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           },
           error => console.log(error)
         );
+
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { // Volunteer user: My Projects
+      this.isVolunteer = true;
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
         res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
@@ -179,8 +183,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
 
-      // Nonprofit user: My Projects
-    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
+    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) { // Nonprofit user: My Projects
+      this.isNonprofit = true;
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
