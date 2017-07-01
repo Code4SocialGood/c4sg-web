@@ -41,7 +41,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     value: 'B'
   }, {
     name: 'Project Manager',
-    value: 'P'            
+    value: 'P'
   }, {
     name: 'Sales & Marketing',
     value: 'S'
@@ -54,7 +54,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     new FormControl(false),
     new FormControl(false),
     new FormControl(false),
-    new FormControl(false),    
+    new FormControl(false),
     new FormControl(false),
     new FormControl(false)
   ]);

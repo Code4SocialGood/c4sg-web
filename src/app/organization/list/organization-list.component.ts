@@ -37,7 +37,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     new FormControl(false),
     new FormControl(false)
   ]);
-  
+
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     hasProjects: new FormControl(false),
