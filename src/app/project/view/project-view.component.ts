@@ -120,6 +120,35 @@ export class ProjectViewComponent implements OnInit {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
+
+        // Checks whether login user applied or bookmarked this project, to determine whether to disable Apply/Bookmark button
+        this.currentUserId = this.authService.getCurrentUserId();
+
+        this.projectService.getProjectByUser(Number(this.currentUserId), 'A')
+          .subscribe(
+            resProjects => {
+              this.projects = resProjects.json();
+              this.projects.forEach((e: Project) => {
+                if (e.id === this.project.id) {
+                  this.projectStatusApplied = true;
+                }
+              });
+            },
+              errorProjects => console.log(errorProjects)
+        );
+
+        this.projectService.getProjectByUser(Number(this.currentUserId), 'B')
+          .subscribe(
+            resProjects => {
+              this.projects = resProjects.json();
+              this.projects.forEach((e: Project) => {
+                if (e.id === this.project.id) {
+                  this.projectStatusBookmarked = true;
+                }
+              });
+            },
+              errorProjects => console.log(errorProjects)
+        );
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
