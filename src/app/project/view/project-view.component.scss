@@ -21,13 +21,16 @@
     width: 1.2em;
     height: 1.2em;
     stroke-width: 0;
-    stroke: #84c44c;
-    fill: #84c44c;
+    //stroke: #84c44c;
+    //fill: #84c44c;
+    stroke: $secondary-color;
+    fill: $secondary-color;
     margin-right: 0.5em;
   }
 
   span {
-    color: #84c44c;
+   // color: #84c44c;
+      font-weight: bold;
   }
 }
 
