@@ -18,7 +18,10 @@
               project.organizationName }}</p>
           </div>
           <div class="card-metainfo col m6">
-            <span class="joined-at">Remote</span> &nbsp;| &nbsp;
+            <span class="state" *ngIf="project.state">{{project.state}}, </span>
+            <span class="state" *ngIf="project.country">{{project.country}}</span>
+            <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span> 
+            &nbsp;| &nbsp;
             <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
           </div>
           </div>

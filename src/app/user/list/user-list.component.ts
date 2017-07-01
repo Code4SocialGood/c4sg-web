@@ -16,11 +16,51 @@ import {AuthService} from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+
+  roles = [{
+    name: 'Developer',
+    value: 'D'
+  }, {
+    name: 'UI/UX Designer',
+    value: 'U'
+  }, {
+    name: 'Tester',
+    value: 'Q'
+  }, {
+    name: 'Architect',
+    value: 'A'
+  }, {
+    name: 'Build & Release Engineer',
+    value: 'E'
+  }, {
+    name: 'Business Analyst',
+    value: 'B'
+  }, {
+    name: 'Project Manager',
+    value: 'P'
+  }, {
+    name: 'Sales & Marketing',
+    value: 'S'
+  }];
+
+
+  rolesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
+
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
+    roles: this.rolesArray,
     skills: this.skillsArray
   });
 
@@ -45,6 +85,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(
       params => {
+        this.rolesArray.controls.forEach(roleControl => {
+          return roleControl.setValue(false);
+        });
         this.skillsArray.controls.forEach(skillControl => {
               return skillControl.setValue(false);
             });

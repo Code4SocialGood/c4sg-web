@@ -27,6 +27,23 @@
           <div class="row">
             <div class="col s12">
               <div class="section">
+                <h4>Roles</h4>
+                <div class="section-body-projects">
+                  <div class="projects-list-wrapper">
+                    <ul formArrayName="roles">
+                      <li *ngFor="let role of roles, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="role.name" formControlName="{{i}}">
+                        <label [for]="role.name">{{role.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
                 <h4>Skills</h4>
                 <div class="section-body-skills">
                   <div class="skills-list" myScrollSkills (onScrollEvent)="showSkills()">

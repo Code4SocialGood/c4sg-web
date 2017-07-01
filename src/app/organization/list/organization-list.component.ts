@@ -31,12 +31,13 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   }];
 
 
-    categoriesArray = new FormArray([
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false)
-    ]);
+  categoriesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
+
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     hasProjects: new FormControl(false),
