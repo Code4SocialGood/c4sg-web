@@ -81,7 +81,7 @@
                           </div>
                         </div>
                       </div>
-                      <p class="description">{{ org.description | slice:0:200 }} ...</p>
+                      <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
                     </div>
                   </div>
                 </div>

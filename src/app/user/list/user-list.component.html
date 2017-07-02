@@ -92,7 +92,7 @@
                           <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
                         </ul>
                       </div>
-                      <p class="description">{{ user.introduction | slice:0:200 }} ...</p>
+                      <p class="description" *ngIf="user && user.introduction">{{ user && user.introduction | slice:0:200 }} ...</p>
                     </div>
                   </div>
                 </div>
