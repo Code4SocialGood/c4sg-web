@@ -109,8 +109,8 @@
                     <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="defaultImage"></div>
                   </div>
                   <div class="col m8 organization-name">
-                    <p *ngIf="organization.websiteUrl"><a [href]="organization.websiteUrl" target="_blank">{{organization.name}}</a></p>
-                    <p *ngIf="!organization.websiteUrl">{{organization.name}}</p>
+                    <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
+                    <p *ngIf="!organization.id">{{organization.name}}</p>
                   </div>
                   <div class="col m8">
                     <p>Category: {{categoryName}}</p>
