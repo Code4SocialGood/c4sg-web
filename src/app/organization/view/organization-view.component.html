@@ -97,7 +97,7 @@
                           </div>
                         </div>
                       </div>
-                      <p>{{ pr.description | slice:0:100 }} ...}}</p>
+                      <p class="description" *ngIf="pr && pr.description">{{ pr && pr.description | slice:0:100 }} ...</p>
                     </div>
                   </div>
                 </li>
