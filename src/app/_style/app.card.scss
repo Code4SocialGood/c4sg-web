@@ -65,7 +65,6 @@
 .card-header{
   .name {
     cursor: pointer;
-
     display: inline-block;
     font-size: 1em;
     font-weight: bold;
@@ -76,10 +75,8 @@
     width: 100%;
     max-height: 20%;
     .name:hover {
-    text-decoration: underline #84c44c;
-
+      text-decoration: underline #84c44c;
     }
-
   }
   .info-row {
     margin-bottom: 0;

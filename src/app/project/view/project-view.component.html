@@ -100,39 +100,20 @@
           <div class="col s12">
             <h4 class="content-title">Applicants</h4>
             <div class="items-list-wrapper">
-              <ul class="card-list" *ngIf="applicants">
-                <li class="card-wrapper" *ngFor="let user of applicants">
-                  <div class="card">
-                    <div class="card-content">
-                      <div class="card-avatar-wrapper">
-                        <div *ngIf="user.avatarUrl" class="card-avatar z-depth-2">
-                          <img class="card-avatar-content" [src]="user.avatarUrl">
-                        </div>
-                        <div *ngIf="!user.avatarUrl" class="card-avatar z-depth-2">
-                          <img class="card-avatar-content" [src]="constantsService.defaultAvatar">
-                        </div>
-                      </div>
-                      <div class="card-info">
-                        <div class="card-header">
-                          <div class='name'>
-                            <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
-                          </div>
-                          <div class="row info-row">
-                            <div class="card-metainfo col m6">
-                              <p>{{user.title}}</p>
-                            </div>
-                            <div class="card-metainfo col m6">
-                              <span class="card-location" *ngIf="user.country">{{user.country}}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="skills-tag-wrapper">
-                          <ul *ngIf="user.skills">
-                            <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
-                          </ul>
-                        </div>
-                        <p class="description" *ngIf="user && user.introduction">{{ user && user.introduction | slice:0:200 }} ...</p>
-                      </div>
+              <ul class="user-list" *ngIf="applicants">
+                <li class="user-wrapper" *ngFor="let user of applicants">
+                  <div class="user">
+                    <div class="user-info col s4">
+                      <div class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</div>
+                      <div>{{user.title}}</div>                 
+                    </div>                      
+                    <div class="user-info col s4">
+                      <div>Applied at: {{user.updatedTime | date: 'MMM d, yyyy'}}</div>
+                      <div>Accepted at: {{user.updatedTime | date: 'MMM d, yyyy'}}</div>
+                      <div>Declined at: {{user.updatedTime | date: 'MMM d, yyyy'}}</div>                    
+                    </div>
+                    <div class="user-info col s4">
+                      <div>ACCEPTED</div>                 
                     </div>
                   </div>
                 </li>
