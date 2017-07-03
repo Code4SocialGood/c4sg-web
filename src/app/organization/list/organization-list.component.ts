@@ -6,6 +6,7 @@ import { OrganizationService } from '../common/organization.service';
 import { Project } from '../../project/common/project';
 import { ProjectService } from '../../project/common/project.service';
 import { Subscription} from 'rxjs/Rx';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 declare const $: Function;
 
@@ -48,7 +49,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
-  defaultLogo = '../../assets/default_image.png';
+
   organizationsSubscription: Subscription;
   totalItems = 0;
   organizationsCache: any[];
@@ -56,6 +57,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   constructor(
     private organizationService: OrganizationService,
     private projectService: ProjectService,
+    public constantsService: FormConstantsService,
     private route: ActivatedRoute,
     private router: Router) {
   }

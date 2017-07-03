@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-
+import { FormConstantsService } from '../../_services/form-constants.service';
 import {User} from '../common/user';
 import {UserService} from '../common/user.service';
 import {SkillService} from '../../skill/common/skill.service';
@@ -73,11 +73,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   usersCache: any[];
   users: User[];
   usersSubscription: Subscription;
-  defaultAvatar = '../../assets/default_avatar.png';
 
   constructor(private userService: UserService,
     private router: Router,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private auth: AuthService,
     private route: ActivatedRoute) {
   }

@@ -50,6 +50,14 @@ export class UserService {
                .catch(this.handleError);
   }
 
+  getUsersByOrganization(organizationId: number): Observable<User[]> {
+    const url = userUrl + '/organization/' + [organizationId];
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
+  }
+
   // Page data always starts at offset zero (0)
   // Returns a JSON object with the data array of Users and totalItems count
   searchUsers(
@@ -141,6 +149,14 @@ export class UserService {
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
     return this.http
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
+  }
+
+  public getApplicants(id: number): Observable<User[]> {
+    const url = userUrl + '/applicant/' + id;
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

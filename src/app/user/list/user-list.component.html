@@ -70,7 +70,7 @@
                         <img class="card-avatar-content" [src]="user.avatarUrl">
                       </div>
                       <div *ngIf="!user.avatarUrl" class="card-avatar z-depth-2">
-                        <img class="card-avatar-content" [src]="defaultAvatar">
+                        <img class="card-avatar-content" [src]="constantsService.defaultAvatar">
                       </div>
                     </div>
                     <div class="card-info">

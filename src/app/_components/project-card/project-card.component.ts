@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Project} from '../../project/common/project';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
   selector: 'my-project-card',
@@ -9,9 +10,7 @@ import {Project} from '../../project/common/project';
 export class ProjectCardComponent implements OnInit {
   @Input () project: Project;
 
-  defaultImage = '../../assets/default_image.png';
-
-  constructor() { }
+  constructor(public constantsService: FormConstantsService) { }
 
   ngOnInit() {
   }
