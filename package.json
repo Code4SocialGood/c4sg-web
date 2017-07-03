@@ -26,7 +26,7 @@
     "test_single_run": "ng test --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod --aot --environment=$NG_ENVIRONMENT"
+    "postinstall": "ng build --prod --aot --environment=prod_remote"
   },
   "private": true,
   "dependencies": {
