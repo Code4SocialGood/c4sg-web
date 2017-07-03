@@ -240,6 +240,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
+        this.router.navigate(['/user/view', this.user.id]);
        },
         err => { console.error(err, 'An error occurred'); } );
 
