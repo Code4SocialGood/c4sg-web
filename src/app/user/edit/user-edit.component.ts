@@ -53,7 +53,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     public fb: FormBuilder,
     private userService: UserService,
     private auth: AuthService,
-    private fc: FormConstantsService,
+    public constantsService: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
@@ -111,7 +111,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private getFormConstants(): void {
-    this.countries = this.fc.getCountries();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {

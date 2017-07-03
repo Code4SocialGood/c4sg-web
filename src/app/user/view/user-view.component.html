@@ -9,7 +9,7 @@
             <div class="info-avatar card-avatar z-depth-2" *ngIf="user.avatarUrl">
               <img class='card-avatar-content' [src]="user.avatarUrl"></div>
             <div class="info-avatar card-avatar z-depth-2" *ngIf="!user.avatarUrl">
-              <img class='card-avatar-content' [src]="defaultAvatar"></div>
+              <img class='card-avatar-content' [src]="constantsService.defaultAvatar"></div>
             <div class="username">{{user.userName}}</div>
               <div class="links-list-wrapper" *ngIf="authService.authenticated()">
                 <ul>

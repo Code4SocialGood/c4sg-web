@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-
+import { FormConstantsService } from '../../_services/form-constants.service';
 import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
 import {AuthService} from '../../auth.service';
@@ -86,11 +86,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   from: string;
   isVolunteer = false;
   isNonprofit = false;
-  defaultImage = '../../assets/default_image.png';
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
+              public constantsService: FormConstantsService,
               private router: Router,
               public auth: AuthService,
               private route: ActivatedRoute,
