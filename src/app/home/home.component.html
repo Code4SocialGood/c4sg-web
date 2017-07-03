@@ -12,8 +12,12 @@
         <label for="name">Project Keyword</label>
       </td>
       <td>
-        <button [@buttonState]="state" (click)="getProjectsByKeyword(projectName.value); projectName.value='';" routerLink="/project/list/home"
-          (mouseover)="toggleState()" (mouseout)="toggleState()" class="btn waves-effect waves-light #84c44c search_button">
+        <button  [@buttonState]="state"
+                 (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
+                 routerLink="/project/list/projects"
+                 (mouseover)="toggleState()"
+                 (mouseout)="toggleState()"
+                 class="btn waves-effect waves-light #84c44c search_button">
             <i  class="large material-icons transparent" >search</i>
         </button>
       </td>
