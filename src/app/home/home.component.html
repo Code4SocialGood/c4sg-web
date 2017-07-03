@@ -12,7 +12,7 @@
         <label for="name">Project Keyword</label>
       </td>
       <td>
-        <button type="submit"  [@buttonState]="state"
+        <button [@buttonState]="state"
                  (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
                  routerLink="/project/list/home"
                  (mouseover)="toggleState()"
