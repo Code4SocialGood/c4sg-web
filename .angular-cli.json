@@ -30,7 +30,8 @@
 		"../node_modules/leaflet/dist/leaflet.js"
 	    ],
 	    "environmentSource": "environments/environment.ts",
-	    "environments": {
+  	  "environments": {
+                "dev": "environments/environment.dev-local.ts",
 		"dev_local": "environments/environment.dev-local.ts",
 		"dev_remote": "environments/environment.dev-remote.ts",
 		"staging_local": "environments/environment.staging-local.ts",
