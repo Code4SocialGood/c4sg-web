@@ -264,6 +264,17 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       );
   }
 
+  defineUserProjectStatus(projectID) {
+    const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+    if (projectsIDs.appliedProjectsIDs.includes(projectID)) {
+      return 'applied';
+    } else {
+      if (projectsIDs.bookmarkedProjectsIDs.includes(projectID)) {
+        return 'bookmarked';
+      }
+    }
+  }
+
   delete(project: Project): void {
     this.projectService
       .delete(project.id)
