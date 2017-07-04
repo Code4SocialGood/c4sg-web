@@ -27,7 +27,6 @@
     margin-top: 10%;
     top: 12%;
     width: 70%;
-    box-shadow: 1px 1px 2px;
     border-radius: 3px;
     &:before {
       content: "";
@@ -43,10 +42,11 @@
       object-fit: cover;
       position: absolute;
       left: 0;
-      background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(0, 212, 166));
-      background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
-      background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
-      background: linear-gradient(to bottom right,rgb(132, 196, 76), rgb(0, 212, 166));
+      //remove backgound per issue 565
+      // background: -webkit-linear-gradient(left top, rgb(132, 196, 76), rgb(0, 212, 166));
+      // background: -o-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
+      // background: -moz-linear-gradient(bottom right, rgb(132, 196, 76), rgb(0, 212, 166));
+      // background: linear-gradient(to bottom right,rgb(132, 196, 76), rgb(0, 212, 166));
       &:before {
         content: "";
         background: #000;
@@ -74,6 +74,9 @@
     line-height: 50px;
     width: 100%;
     max-height: 20%;
+    .name:hover {
+      text-decoration: underline #84c44c;
+    }
   }
   .info-row {
     margin-bottom: 0;
@@ -81,15 +84,21 @@
       padding-left: 0;
     }
     .card-metainfo {
-      cursor: pointer;
+      //cursor: pointer;
       font-size: 0.9em;
       color: $main-color;
+      padding: 0;
       .card-location {
         margin-left: 1em;
         margin-right: 1em;
       }
+       .card-metainfo:hover {
+        text-decoration: underline #84c44c;
+
+        }
     }
   }
+
 }
 
 .card-info {
@@ -116,7 +125,7 @@
 }
 
 .card-list {
-  margin-top: 6px;
+  margin: 0;
   .card-wrapper {
     display: inline-block;
     width: 100%;

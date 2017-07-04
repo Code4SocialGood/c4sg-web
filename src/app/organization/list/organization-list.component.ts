@@ -6,6 +6,7 @@ import { OrganizationService } from '../common/organization.service';
 import { Project } from '../../project/common/project';
 import { ProjectService } from '../../project/common/project.service';
 import { Subscription} from 'rxjs/Rx';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 declare const $: Function;
 
@@ -18,34 +19,37 @@ declare const $: Function;
 export class OrganizationListComponent implements OnInit, AfterViewInit {
   categories = [{
     name: 'Nonprofit',
-    value:'N'
+    value: 'N'
   }, {
     name: 'Open Source',
-    value:'O'
+    value: 'O'
   }, {
     name: 'Social Enterprise',
-    value:'S'
+    value: 'S'
   }, {
     name: 'Team Project',
-    value:'T'
+    value: 'T'
   }];
+
+
+  categoriesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     hasProjects: new FormControl(false),
-    categories: new FormArray([
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false)
-    ])
+    categories: this.categoriesArray
   });
   p = 1; // Holds page number
   organizations: Object[];
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
-  defaultLogo = '../../assets/default_image.png';
+
   organizationsSubscription: Subscription;
   totalItems = 0;
   organizationsCache: any[];
@@ -53,6 +57,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   constructor(
     private organizationService: OrganizationService,
     private projectService: ProjectService,
+    public constantsService: FormConstantsService,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -61,7 +66,16 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(
       params => {
+        this.categoriesArray.controls.forEach(categoryControl => {
+          return categoryControl.setValue(false);
+        });
         this.from = params['from'];
+        if (this.from === 'reload') {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.hasProjects.setValue(false);
+            this.filterForm.controls.categories =  this.categoriesArray;
+        }
         this.getOrganizations(this.p);
       });
 
@@ -83,7 +97,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   getOrganizations(page: number): void {
     const categories = this.filterForm.value.categories;
     const categoriesParam = [];
-
+    window.scrollTo(0, 0);
     if (categories) {
       for (let i = 0; i < categories.length; i++) {
         if (categories[i]) {

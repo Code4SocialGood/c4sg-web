@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, OnInit, OnDestroy} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-
+import { FormConstantsService } from '../../_services/form-constants.service';
 import {Project} from '../common/project';
 import {ProjectService} from '../common/project.service';
 import {AuthService} from '../../auth.service';
@@ -20,11 +20,51 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
+
+  roles = [{
+    name: 'Developer',
+    value: 'D'
+  }, {
+    name: 'UI/UX Designer',
+    value: 'U'
+  }, {
+    name: 'Tester',
+    value: 'Q'
+  }, {
+    name: 'Architect',
+    value: 'A'
+  }, {
+    name: 'Build & Release Engineer',
+    value: 'E'
+  }, {
+    name: 'Business Analyst',
+    value: 'B'
+  }, {
+    name: 'Project Manager',
+    value: 'P'
+  }, {
+    name: 'Sales & Marketing',
+    value: 'S'
+  }];
+
+
+  rolesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
+
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
+    roles: this.rolesArray,
     skills: this.skillsArray
   });
 
@@ -32,6 +72,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   projects: Project[];
   bookmarkedProjects: Project[];
   appliedProjects: Project[];
+  activeProjects: Project[];
+  closedProjects: Project[];
   temp: any[];
   users: User[];
   selectedProject: Project;
@@ -42,11 +84,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   orgId: number;
   projId: number;
   from: string;
-  defaultImage = '../../assets/default_image.png';
+  isVolunteer = false;
+  isNonprofit = false;
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
               private dataService: DataService,
+              public constantsService: FormConstantsService,
               private router: Router,
               public auth: AuthService,
               private route: ActivatedRoute,
@@ -66,10 +110,19 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     this.route.params.subscribe(
       params => {
+        this.rolesArray.controls.forEach(roleControl => {
+          return roleControl.setValue(false);
+        });
         this.skillsArray.controls.forEach(skillControl => {
           return skillControl.setValue(false);
         });
         this.from = params['from'];
+        if (this.from === 'reload') {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.roles =  this.rolesArray;
+            this.filterForm.controls.skills = this.skillsArray;
+        }
         this.getProjects(this.p);
       });
 
@@ -90,8 +143,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   getProjects(page: number): void {
     // Issue#300 - resetting form before reloading page to display all items
     // this.filterForm.reset();
-
-      if (this.from === 'projects') { // Projects Page from header
+    window.scrollTo(0, 0);
+    if (this.from === 'projects') { // Projects Menu Item
 
       const skills = this.filterForm.value.skills;
       const skillsParam = [];
@@ -114,13 +167,15 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
             res.data.forEach((e: Project) => {
               this.skillService.getSkillsByProject(e.id).subscribe(
                 result => {
-                     e.skills = result;
-                      });
+                  e.skills = result;
+                });
             });
           },
           error => console.log(error)
         );
+
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { // Volunteer user: My Projects
+      this.isVolunteer = true;
       this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
         res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
@@ -128,8 +183,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
         error => console.log(error));
 
-    // Nonprofit user: My Projects
-    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) {
+    } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) { // Nonprofit user: My Projects
+      this.isNonprofit = true;
       this.organizationService.getUserOrganization(this.userId).subscribe(
         response => {
           this.orgId = response.reduce((acc) => acc).id;
@@ -137,6 +192,15 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
             res => {
               this.projects = res.json();
+              this.totalItems = this.projects.length;
+              this.projects.forEach((e: Project) => {
+                this.skillService.getSkillsByProject(e.id).subscribe(
+                  result => {
+                    e.skills = result;
+                  });
+              });
+              this.activeProjects = this.projects.filter((project) => project.status === 'A');
+              this.closedProjects = this.projects.filter((project) => project.status === 'C');
             },
             error => console.log(error)
           );
@@ -180,7 +244,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     this.router.navigate(['/project/view', project.id]);
   }
 
-// TODO Don't provide the identity colume value
+  // TODO Don't provide the identity colume value
   add(name: string): void {
     name = name.trim();
     if (!name) {

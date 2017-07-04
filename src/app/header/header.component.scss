@@ -109,9 +109,18 @@ ul.right.hide-on-med-and-down{
       margin: auto;
       max-width: 40px;
       position: absolute;
-      top: 10px;
+      top: 18px;
       display: none;
     }
+      
+    .profile-img{
+      left: -50px;
+      right: 0;      
+      margin: auto;
+      max-width: 35px;
+      position: absolute;
+      top: 25px;      
+    }      
 
     .nav-link{
       line-height: normal;
@@ -123,9 +132,9 @@ ul.right.hide-on-med-and-down{
       }
 
       span, i{
-        top: 50%;
+        top: 60%;
         position: relative;
-        transform: translateY(-50%);
+        transform: translateY(-40%);
         display: block;
 
         &.left{
@@ -138,8 +147,14 @@ ul.right.hide-on-med-and-down{
       line-height: normal;
       height: auto;
     }
+      
+    .dropdown-content-width{
+        min-width: 150px;
+     }
   }
 }
+
+
 //.right a{
     //color: #989898;
     //font-family: Century Gothic, sans-serif;;

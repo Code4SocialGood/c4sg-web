@@ -1,18 +1,20 @@
-<div class="page-title"><h1>Organization</h1></div>
+<div class="page-title">
+  <h1>Organization</h1>
+</div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel: Organization -->
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="organization">
         <div class="row single-info">
-          <div class="col m4">
-            <div class="info-avatar" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-            <div class="info-avatar" *ngIf="!organization.logoUrl"><img [src]="defaultLogo"></div>
+          <div class="col s6 m3 l2">
+            <div class="info-avatar z-depth-2" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
+            <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="constantsService.defaultLogo"></div>
           </div>
-          <div class="col m8">
-            <div class="row">
-                <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
-            </div>
+          <div class="col s12 m9 l10">
+
+            <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
+
             <p class="subtitle" *ngIf="organization.websiteUrl">
               <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
             </p>
@@ -50,12 +52,20 @@
                   <div class="col m4">
                     <div class="info-avatar" *ngIf="user"><img class='circle' [src]="user.avatarUrl"></div>
                   </div>
-                  <div class="col m8">
-                    <p>
+                  <div class="col m8" >
+                     Name:
+                     <p class='user-name'>
+                      <span *ngIf="user.firstName && user.publishFlag"  [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
+                     </p>
+                     <p class='user-name'>
+                      <span *ngIf="user.firstName && !user.publishFlag">{{user.firstName}},{{user.lastName}}</span>
+                      </p>
+                    <!-- <p>
                       Name:
                       <span *ngIf="user.firstName">{{user.firstName}}, </span>
                       <span>{{user.lastName}}</span>
-                    </p>
+                    </p>-->
+
                     <p>Title: {{user.title}}</p>
                     <p>Phone: {{user.phone}}</p>
                     <p>Email: {{user.email}}</p>
@@ -74,20 +84,20 @@
                       <div class="row single-info">
                         <div class="col m4">
                           <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultLogo"></div>
+                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="constantsService.defaultLogo"></div>
                         </div>
-                        <div class="col m8">
+                        <div class="col m8 proj-name">
                           <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                         </div>
                         <div class="row">
-                        <div class="skills-tag-wrapper">
-                          <ul *ngIf="pr.skills">
-                            <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
-                          </ul>
-                        </div>
+                          <div class="skills-tag-wrapper">
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                      <p>{{ pr.description  | slice:0:100 }} ...}}</p>
+                      <p class="description" *ngIf="pr && pr.description">{{ pr && pr.description | slice:0:100 }} ...</p>
                     </div>
                   </div>
                 </li>
@@ -107,7 +117,6 @@
   </div>
   <div class="modal-footer">
     <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize
-       [materializeActions]="deleteGlobalActions">Yes</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Yes</a>
   </div>
 </div>

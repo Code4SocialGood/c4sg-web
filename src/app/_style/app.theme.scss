@@ -76,9 +76,58 @@ hr {
   left: 48%;
   top: 48vh;
 }
+.single-info{
 
+}
 #left-col {
   margin-bottom: 40px;
+
+  .single-info{
+
+    .image-title{
+      font-size: 17px;
+      color: #84c44c;
+      text-align: center;
+    }
+
+    .avatar-container{
+      margin: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 1rem;
+
+      .row{
+        margin-left: 0;
+        margin-right: 0;
+
+        .btn.avatar-upload-button{
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    .info-avatar{
+      width: 100%;
+      position: relative;
+      padding-bottom: 100%;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 0.75em;
+
+      img{
+        width: auto;
+        max-width: none;
+        height: 100%;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        margin: auto;
+      }
+    }
+  }
 }
 
 #right-col {
@@ -92,6 +141,17 @@ hr {
 
 .main-row {
   margin-bottom: 0;
+  [type="radio"]:checked+label:after {
+  background-color: #84c44c;
+  border: 2px solid #84c44c;
+  }
+
+  [type="checkbox"]:checked + label:before
+    {
+    border: 2px solid #84c44c;
+    border-top:2px transparent;
+    border-left:2px transparent;
+    }
 }
 
 .row {

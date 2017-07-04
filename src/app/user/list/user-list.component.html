@@ -22,6 +22,23 @@
           <div class="row">
             <div class="col s12">
               <div class="section">
+                <h4>Roles</h4>
+                <div class="section-body-projects">
+                  <div class="projects-list-wrapper">
+                    <ul formArrayName="roles">
+                      <li *ngFor="let role of roles, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="role.name" formControlName="{{i}}">
+                        <label [for]="role.name">{{role.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
                 <h4>Skills</h4>
                 <div class="section-body-skills">
                   <div class="skills-list" myScrollSkills (onScrollEvent)="showSkills()">
@@ -49,17 +66,17 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
-                      <div *ngIf="user.avatarUrl">
-                        <img class="card-avatar-content card-avatar" [src]="user.avatarUrl">
+                      <div *ngIf="user.avatarUrl" class="card-avatar z-depth-2">
+                        <img class="card-avatar-content" [src]="user.avatarUrl">
                       </div>
-                      <div *ngIf="!user.avatarUrl">
-                        <img class="card-avatar-content card-avatar" [src]="defaultAvatar">
+                      <div *ngIf="!user.avatarUrl" class="card-avatar z-depth-2">
+                        <img class="card-avatar-content" [src]="constantsService.defaultAvatar">
                       </div>
                     </div>
                     <div class="card-info">
                       <div class="card-header">
                         <div class='name'>
-                          <span [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
+                          <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
                         </div>
                         <div class="row info-row">
                           <div class="card-metainfo col m6">
@@ -75,7 +92,7 @@
                           <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
                         </ul>
                       </div>
-                      <p class="description">{{ user.introduction | slice:0:200 }} ...</p>
+                      <p class="description" *ngIf="user && user.introduction">{{ user && user.introduction | slice:0:200 }} ...</p>
                     </div>
                   </div>
                 </div>
