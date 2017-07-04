@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
+import { Applicant } from './applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 
@@ -151,11 +152,11 @@ export class UserService {
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
-  public getApplicants(id: number): Observable<User[]> {
+  public getApplicants(id: number): Observable<Applicant[]> {
     const url = userUrl + '/applicant/' + id;
     return this.http
                .get(url)
-               .map( res => { return res.json() as User[]; })
+               .map( res => { return res.json() as Applicant[]; })
                .catch(this.handleError);
   }
 
