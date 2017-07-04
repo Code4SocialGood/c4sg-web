@@ -28,10 +28,10 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     name: 'UI/UX Designer',
     value: 'U'
   }, {
-    name: 'Tester',
+    name: 'QA Engineer',
     value: 'Q'
   }, {
-    name: 'Architect',
+    name: 'Software Architect',
     value: 'A'
   }, {
     name: 'Build & Release Engineer',
