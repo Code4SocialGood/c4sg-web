@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
 import { OrganizationService } from '../organization/common/organization.service';
 import { Organization } from '../organization/common/organization';
-import {Subscription} from 'rxjs';
 import {ProjectService} from '../project/common/project.service';
+import {Subscription} from 'rxjs/Rx';
 
 @Component({
 // moduleId: module.id,  // For webpack, remove this
@@ -81,17 +81,17 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
           error => console.log(error)
         );
       }
-      if (this.authSvc.isVolunteer()) { // Volunteer user: My Projects
-        // Store user profile
+      if (this.authSvc.isVolunteer()) { // if user is Volunteer
+        // Save the appliedProjectIDs and bookmarkedProjectIDs in local storage
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'B').subscribe(
           res => {
-           const bookmarkedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project)=> project.id);
-            localStorage.setItem('bookmarkedProjectsIDs', bookmarkedProjectsIDs.toString())},
+           const bookmarkedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('bookmarkedProjectsIDs', bookmarkedProjectsIDs.toString()); },
           error => console.log(error));
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'A').subscribe(
           res => {
-            const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project)=> project.id);
-            localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString())},
+            const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString()); },
           error => console.log(error));
       }
     }

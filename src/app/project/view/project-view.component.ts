@@ -77,7 +77,6 @@ export class ProjectViewComponent implements OnInit {
             this.getOrganization(res.organizationId);
             this.getProjects(res.organizationId);
             this.getApplicants(id);
-
           },
           error => console.log(error)
           );
@@ -155,12 +154,11 @@ export class ProjectViewComponent implements OnInit {
         this.displayBookmark = true;
 
         // Checks whether login user applied or bookmarked this project, to determine whether to disable Apply/Bookmark button
-        this.currentUserId = this.authService.getCurrentUserId();
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)){
+        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
           this.projectStatusApplied = true;
         }
-          if(projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+          if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
             this.projectStatusBookmarked = true;
           }
         }
@@ -220,7 +218,6 @@ export class ProjectViewComponent implements OnInit {
 
   apply(): void {
     this.userProjectStatus = 'A';
-    //this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
             .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
@@ -244,7 +241,6 @@ export class ProjectViewComponent implements OnInit {
   bookmark(): void {
     // check if user is logged in
     this.userProjectStatus = 'B';
-    //this.currentUserId = this.authService.getCurrentUserId();
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         this.projectService
             .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
