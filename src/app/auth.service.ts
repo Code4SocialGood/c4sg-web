@@ -145,7 +145,7 @@ export class AuthService {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
-                    }                    
+                    }
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   }
                   // Issue 356 - redirect user back to the page that requested login - project view page
@@ -229,7 +229,6 @@ export class AuthService {
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
   }
-  
   getCurrentUserAvatar() {
     return localStorage.getItem('currentUserAvatar');
   }
