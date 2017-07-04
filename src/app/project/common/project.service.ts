@@ -105,10 +105,25 @@ export class ProjectService {
       );
   }
 
+  getUserProjectStatusFromLocalStorage() {
+    const bookmarkedProjectsIDs = localStorage.getItem('bookmarkedProjectsIDs');
+    const appliedProjectsIDs = localStorage.getItem('appliedProjectsIDs');
+    return {'bookmarkedProjectsIDs': bookmarkedProjectsIDs, 'appliedProjectsIDs': appliedProjectsIDs}
+  }
+
   linkUserProject(projectId: number, userId: string, status: string) {
     const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
     return this.http
       .post(url, {headers: this.headers})
+      .do(()=> {
+        const projectsIDs = this.getUserProjectStatusFromLocalStorage();
+       if (status === 'A'){
+         localStorage.setItem('appliedProjectsIDs',(projectsIDs.appliedProjectsIDs + ',' + projectId));
+       }
+        if (status === 'B'){
+          localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + projectId));
+        }
+      })
       .catch(this.handleError);
   }
 

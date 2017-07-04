@@ -30,6 +30,7 @@ export class ProjectViewComponent implements OnInit {
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  userProjectStatus: string;
   projectStatusApplied = false;
   projectStatusBookmarked = false;
   auth: AuthService;
@@ -44,6 +45,8 @@ export class ProjectViewComponent implements OnInit {
   displayDelete = false;
   displayApplicants = false;
   applicants: Applicant[];
+
+  projectId;
 
   constructor(private projectService: ProjectService,
               private organizationService: OrganizationService,
@@ -151,31 +154,16 @@ export class ProjectViewComponent implements OnInit {
         this.displayBookmark = true;
 
         // Checks whether login user applied or bookmarked this project, to determine whether to disable Apply/Bookmark button
-        this.projectService.getProjectByUser(Number(this.currentUserId), 'A')
-          .subscribe(
-            resProjects => {
-              this.projects = resProjects.json();
-              this.projects.forEach((e: Project) => {
-                if (e.id === this.project.id) {
-                  this.projectStatusApplied = true;
-                }
-              });
-            },
-              errorProjects => console.log(errorProjects)
-        );
+        this.currentUserId = this.authService.getCurrentUserId();
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)){
+          this.projectStatusApplied = true;
+        }
+          if(projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+            this.projectStatusBookmarked = true;
+          }
+        }
 
-        this.projectService.getProjectByUser(Number(this.currentUserId), 'B')
-          .subscribe(
-            resProjects => {
-              this.projects = resProjects.json();
-              this.projects.forEach((e: Project) => {
-                if (e.id === this.project.id) {
-                  this.projectStatusBookmarked = true;
-                }
-              });
-            },
-              errorProjects => console.log(errorProjects)
-        );
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
@@ -195,7 +183,7 @@ export class ProjectViewComponent implements OnInit {
         this.displayApplicants = true;
       }
     }
-  }
+
 
   saveUserProject(userId, status): void {
 
@@ -228,7 +216,7 @@ export class ProjectViewComponent implements OnInit {
         this.authService.login();
     }
   }
-/*
+
   apply(): void {
     this.userProjectStatus = 'A';
     //this.currentUserId = this.authService.getCurrentUserId();
@@ -275,7 +263,7 @@ export class ProjectViewComponent implements OnInit {
         this.authService.login();
     }
   }
-*/
+
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
   }
