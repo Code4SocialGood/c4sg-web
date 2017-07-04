@@ -66,6 +66,7 @@ export class ProjectViewComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       const id = params['projectId'];
+      this.projectId = id;
 
       this.projectService.getProject(id)
       .subscribe(
