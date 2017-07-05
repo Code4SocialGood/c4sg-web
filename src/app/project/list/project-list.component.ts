@@ -265,6 +265,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   }
 
   defineUserProjectStatus(projectID) {
+   if (this.auth.isVolunteer()) {
     const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
     if (projectsIDs.appliedProjectsIDs.includes(projectID)) {
       return 'applied';
@@ -273,6 +274,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         return 'bookmarked';
       }
     }
+   }
   }
 
   delete(project: Project): void {
