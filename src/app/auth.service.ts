@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
 
 declare const Auth0Lock: any;
+declare const auth0: any;
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,7 @@ export class AuthService {
   firstName: string;
   lastName: string;
   redirectAfterLogin: string;
+  idToken: string;
 
   // These options are being added to customize signup
   options = {
@@ -31,11 +33,11 @@ export class AuthService {
     rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
-      logo: '../assets/favicon.png'
+      logo: '../assets/logo.png'
             },
     // Override the title
     languageDictionary: {
-      title: 'Code for Social Good'
+      title: 'C4SG'
     },
     auth : {
         redirectUrl: window.location.origin,
@@ -71,6 +73,8 @@ export class AuthService {
   // Configure Auth0 with options
   lock = new Auth0Lock(environment.auth_clientID, environment.auth_domain, this.options);
 
+  webauth = new auth0.WebAuth({ domain : environment.auth_domain, clientID: environment.auth_clientID });
+
   constructor(private userService: UserService, private router: Router) {
 
     // set uset profile of already saved profile
@@ -78,7 +82,7 @@ export class AuthService {
 
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('id_token', this.idToken = authResult.idToken);
       localStorage.setItem('accessToken', authResult.accessToken);
 
       // Get the user profile
@@ -98,8 +102,8 @@ export class AuthService {
           }
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
-          localStorage.setItem('amzId', profile.app_metadata.amzid);
-          localStorage.setItem('amzsecId', profile.app_metadata.amzsecid);
+          localStorage.setItem('delgId', profile.app_metadata.amzid);
+          localStorage.setItem('delgSecId', profile.app_metadata.amzsecid);
           this.userProfile = profile;
 
           this.email = profile.email;
@@ -148,13 +152,18 @@ export class AuthService {
                     }
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   }
+
+                  if (environment.production) {
+                    this.getDelegationToken();
+                  }
+                  
                   // Issue 356 - redirect user back to the page that requested login - project view page
-                    this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-                    if (this.redirectAfterLogin) {
-                        setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
-                    }else {
-                        setTimeout(() => this.router.navigate(['/']));
-                    }
+                  this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                  if (this.redirectAfterLogin) {
+                      setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
+                  }else {
+                      setTimeout(() => this.router.navigate(['/']));
+                  }
                 },
                 error1 => console.log(error1)
             );
@@ -174,6 +183,25 @@ export class AuthService {
     });
   }
 
+  private getDelegationToken() {
+    const opt = {
+      client_id: environment.auth_clientID,
+      id_token: this.idToken,
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      scope: 'openid',
+      api_type: 'aws'
+    };
+    this.webauth.client.delegation(opt, function(err, delegationResult) {
+      if (!err) {
+        localStorage.removeItem('delgId');
+        localStorage.removeItem('delgSecId');
+        localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
+      }
+      else {
+        console.warn('Unable to get delegation token');
+      }
+    });
+  }
   public login() {
     // Call the show method to display the widget.
     this.lock.show();
