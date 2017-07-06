@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
-import { ImageUploaderService, ImageReaderResponse } from '../../_services/image-uploader.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
@@ -38,7 +37,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
-  private defaultAvatar = '../../../assets/default_image.png';
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
   public avatar: any = '';
@@ -46,17 +44,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     {value: '2', name: 'option2'},
     {value: '3', name: 'python'}];
   currentUserId: String;
+  public isSkillExists = false;
+  public isSkillLimit = false;
+  public skill = '';
+  public skillCounter = 0;
 
   constructor(
     public fb: FormBuilder,
     private userService: UserService,
     private auth: AuthService,
-    private fc: FormConstantsService,
+    public constantsService: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private imageUploader: ImageUploaderService,
     private skillService: SkillService,
     private extfilehandler: ExtFileHandlerService
   ) { }
@@ -97,12 +98,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             });
           }, error => console.log(error)
         );
-
-      // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-      // return this.userService.retrieveLogo(this.organizationId).toPromise();
-      // const logoText = res.text();
-      // const logoBase64 = `data:image/png;base64, ${logoText}`;
-      // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
     });
   }
 
@@ -110,12 +105,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
     if (Materialize && Materialize.updateTextFields) {
-      Materialize.updateTextFields();
+      // *** Does not seem to be needed - also prevents labels from moving when clicked ***
+       Materialize.updateTextFields();
     }
   }
 
   private getFormConstants(): void {
-    this.countries = this.fc.getCountries();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {
@@ -192,17 +188,24 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onAddListedSkill(optionValue) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(optionValue.target.value);
-    this.projectSkillsArray.push(optionValue.target.value);
+    this.checkSkillList (optionValue.target.value);
+    if (!this.isSkillExists && !this.isSkillLimit) {
+      this.projectSkillsArray.push(optionValue.target.value);
+    }
     console.log(this.projectSkillsArray);
   }
 
   onAddOwnSkill(inputSkill) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.projectSkillsArray.push(inputSkill.value);
-      this.inputValue = '';
-      console.log(this.projectSkillsArray);
+      this.checkSkillList (inputSkill.value);
+      if (!this.isSkillExists && !this.isSkillLimit) {
+        this.projectSkillsArray.push(inputSkill.value);
+        this.inputValue = '';
+      }
     }
   }
 
@@ -222,11 +225,22 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.githubUrl = this.userForm.value.githubUrl;
     this.user.facebookUrl = this.userForm.value.facebookUrl;
     this.user.twitterUrl = this.userForm.value.twitterUrl;
-    this.user.publishFlag = this.userForm.value.publishFlag;
-    this.user.notifyFlag = this.userForm.value.notifyFlag;
+
+    if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
+      this.user.publishFlag = 'Y';
+    } else {
+      this.user.publishFlag = 'N';
+    }
+
+    if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
+      this.user.notifyFlag = 'Y';
+    } else {
+      this.user.notifyFlag = 'N';
+    }
 
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
+        this.router.navigate(['/user/view', this.user.id]);
        },
         err => { console.error(err, 'An error occurred'); } );
 
@@ -257,5 +271,23 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
+  }
+
+  checkSkillList(selectedSkill) {
+    this.isSkillExists = false;
+    this.isSkillLimit = false;
+    this.skillCounter = this.skillCounter + 1;
+    if ( this.skillCounter > 10 ) {
+      this.isSkillLimit = true;
+      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+    }
+    if (!this.isSkillLimit) {
+    for ( this.skill of this.projectSkillsArray ) {
+      if (selectedSkill === this.skill) {
+        this.isSkillExists = true;
+        this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+      }
+    }
+    }
   }
 }

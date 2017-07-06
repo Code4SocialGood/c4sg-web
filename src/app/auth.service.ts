@@ -31,7 +31,7 @@ export class AuthService {
     rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
-      logo: '../assets/favicon-32x32.png'
+      logo: '../assets/favicon.png'
             },
     // Override the title
     languageDictionary: {
@@ -146,17 +146,18 @@ export class AuthService {
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
+                    localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   }
+                  // Issue 356 - redirect user back to the page that requested login - project view page
+                    this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                    if (this.redirectAfterLogin) {
+                        setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
+                    }else {
+                        setTimeout(() => this.router.navigate(['/']));
+                    }
                 },
                 error1 => console.log(error1)
             );
-              // Issue 356 - redirect user back to the page that requested login - project view page
-                this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-                if (this.redirectAfterLogin) {
-                    setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
-                }else {
-                    setTimeout(() => this.router.navigate(['/']));
-                }
             }
         });
     });
@@ -211,7 +212,7 @@ export class AuthService {
 
     this.userProfile = undefined;
 
-    window.location.href = logoutURL;
+    this.router.navigate(['/']);
   }
 
   // Returns user profile
@@ -227,6 +228,9 @@ export class AuthService {
   // Returns current user's first name + last name OR email
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
+  }
+  getCurrentUserAvatar() {
+    return localStorage.getItem('currentUserAvatar');
   }
 
   // Code below is used to override role

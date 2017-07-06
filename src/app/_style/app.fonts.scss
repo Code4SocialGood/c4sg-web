@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import 'variables';
+
+@font-face {
+  font-family: 'Raleway', sans-serif;
+    font-weight:normal;
+    font-style: normal;
+}
+
+/* FONT VARIABLES */
+$main-font: MyriadPro-Regular, 'Myriad Pro Regular', MyriadPro, 'Myriad Pro', Helvetica, Arial, sans-serif;
+
+/* FONT MIXINS */
+@mixin nav-font {
+  font-family: $main-font;
+  font-size: 15px;
+  font-weight: bold;
+  color: $navbar-link-color;
+}
+
+@mixin page-title-font {
+  font-size: 25px;
+  font-weight: bold;
+  color: #FFF;
+}
+
+@mixin content-title-font {
+  font-size: 17px;
+  font-weight: bold;
+  color: $content-title-color;
+}
+
+@mixin content-subtitle-font {
+  font-size: 15px;
+  font-weight: bold;
+  color: $main-color;
+}
+
+@mixin button-font {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+@mixin small-paragraph {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.page-title {
+  padding-left: 10%;
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+  }
+}

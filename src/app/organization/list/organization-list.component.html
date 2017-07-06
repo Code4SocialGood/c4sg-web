@@ -1,35 +1,47 @@
-<div class="page-title">Organizations</div>
+<div class="page-title"><h1>Organizations</h1></div>
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
       <div class="sidebar-wrapper" *ngIf="from=='organizations'">
-        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations">
-          <div class="section">
-            <div class="input-search row">
-              <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
-              <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
-              <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
-                <i  class="material-icons transparent" id="keyword-icon">search</i>
-              </button>
+        <form class="sidebar" [formGroup]="filterForm" (ngSubmit)="getOrganizations(1)">
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <div class="section-body-keyword">
+                  <h4 id="keyword-title" class="col m3 s12">Keyword</h4>
+                  <input id="keyword" class="col m6 s9" name="keyword" materialize="autocomplete" type="search" formControlName="keyword" placeholder="   keyword">
+                  <button type="search" class="col m3 s3" class="keyword-field__btn waves-effect waves-light" id="keyword-button">
+                    <i  class="material-icons transparent" id="keyword-icon">search</i>
+                  </button>
+                </div>
+              </div>
+           </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <h4>Projects</h4>
+                <div class="section-body-projects">
+                  <input type="checkbox" id="openProject" formControlName="hasProjects"/>
+                  <label for="openProject">Has Open Projects</label>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="section">
-            <h4>Projects</h4>
-            <div class="section-body">
-              <input type="checkbox" id="openProject" formControlName="hasProjects"/>
-              <label for="openProjec">Has Open Projects</label>
-            </div>
-          </div>
-          <div class="section">
-            <h4>Category</h4>
-            <div class="section-body">
-              <div class="categories-list-wrapper">
-                <ul formArrayName="categories">
-                  <li *ngFor="let category of categories, let i = index">
-                    <input class="filled-in" type="checkbox" [id]="category.name" formControlName="{{i}}">
-                    <label [for]="category.name">{{category.name}}</label>
-                  </li>
-                </ul>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
+                <h4>Category</h4>
+                <div class="section-body-category">
+                  <div class="categories-list-wrapper">
+                    <ul formArrayName="categories">
+                      <li *ngFor="let category of categories, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="category.name" formControlName="{{i}}">
+                        <label [for]="category.name">{{category.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -40,48 +52,47 @@
     <div class="col m8 s12" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
-          <h4 class="content-title"><span class="index-prefix">{{organizations.length}}</span>organizations found</h4>
-          <div class="list-item-group col s12">
-            <div class="items-list-wrapper">
-              <ul class="card-list" *ngIf="organizations">
-                <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'orgsList', currentPage: p, totalItems: totalItems}; let i = index">
-                  <div class="card">
-                    <div class="card-content">
-                      <div class="card-avatar-wrapper">
-                        <div class="card-avatar" *ngIf="org.logoUrl">
-                          <img class="card-avatar-content" [src]="org.logoUrl">
-                        </div>
-                        <div class="card-avatar" *ngIf="!org.logoUrl">
-                          <img class="card-avatar-content" [src]="defaultAvatarOrganization">
-                        </div>
+          <h4 class="content-title">{{totalItems}} organizations found</h4>
+          <div class="items-list-wrapper">
+            <ul class="card-list" *ngIf="organizations">
+              <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="card-avatar-wrapper">
+                      <div class="card-avatar z-depth-2" *ngIf="org.logoUrl">
+                        <img class="card-avatar-content" [src]="org.logoUrl">
                       </div>
-                      <div class="card-info">
-                        <div class="card-header">
-                          <div class='name'>
-                            <span [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
-                          </div>
-                          <div class="row info-row">
-                            <div class="card-metainfo col m6">
-                              <p>{{org.projects}} projects</p>
-                            </div>
-                            <div class="card-metainfo col m6">
-                              <span class="state" *ngIf="org.state">{{org.state}}, </span>
-                              <span class="state">{{org.country}}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <p class="description">{{ org.description | slice:0:200 }} ...</p>
+                      <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
+                        <img class="card-avatar-content" [src]="constantsService.defaultLogo">
                       </div>
                     </div>
+                    <div class="card-info">
+                      <div class="card-header">
+                        <div class='name'>
+                          <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                        </div>
+                        <div class="row info-row">
+                          <div class="card-metainfo col m6">
+                            <p>{{org.projects}} projects</p>
+                          </div>
+                          <div class="card-metainfo col m6">
+                            <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                            <span class="state">{{org.country}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
+                    </div>
                   </div>
-                </li>
-              </ul>
-            </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="row">
-          <div class="pagination">
-            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>
+          <div class="pagination"><!--
+            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>-->
+            <pagination-controls (pageChange)="getOrganizations(p = $event)" id="organizationsPages" autoHide="false"></pagination-controls>
           </div>
         </div>
       </div>

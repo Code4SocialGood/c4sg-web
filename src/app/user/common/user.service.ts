@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
+import { Applicant } from './applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 
@@ -16,18 +17,6 @@ export class UserService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http, private jsonp: Jsonp) { }
-
-  // Page data always starts at offset zero (0)
-  // Only active users are retrieved
-  // Returns a JSON object with the data array of Users and totalItems count
-  /*
-  public getUsers(page: number): Observable<any> {
-    const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,desc&sort=userName,asc';
-    return this.http
-               .get(url)
-               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
-               .catch(this.handleError);
-  } */
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
@@ -62,8 +51,24 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  searchUsers(page: number, keyword?: string, skills?: string[], status?: string,
-    role?: string, publicFlag?: string): Observable<User[]> {
+  getUsersByOrganization(organizationId: number): Observable<User[]> {
+    const url = userUrl + '/organization/' + [organizationId];
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
+  }
+
+  // Page data always starts at offset zero (0)
+  // Returns a JSON object with the data array of Users and totalItems count
+  searchUsers(
+    keyword?: string,
+    skills?: string[],
+    status?: string,
+    role?: string,
+    publishFlag?: string,
+    page?: number,
+    size?: number): Observable<any> {
     const params = new URLSearchParams();
 
     // TODO Append page, sort here
@@ -86,13 +91,21 @@ export class UserService {
       params.append('role', role);
     }
 
-    if (publicFlag) {
-      params.append('publicFlag', publicFlag);
+    if (publishFlag) {
+      params.append('publishFlag', publishFlag);
+    }
+
+    if (page) {
+      params.append('page', String(page - 1));
+    }
+
+    if (size) {
+      params.append('size', String(size));
     }
 
     return this.http
                .get(`${userUrl}/search`, {search: params})
-               .map( res => res.json())
+               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
 
@@ -139,9 +152,28 @@ export class UserService {
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
+  public getApplicants(id: number): Observable<Applicant[]> {
+    const url = userUrl + '/applicant/' + id;
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as Applicant[]; })
+               .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
 
+  /* obsolete
+  // Page data always starts at offset zero (0)
+  // Only active users are retrieved
+  // Returns a JSON object with the data array of Users and totalItems count
+  public getUsers(page: number): Observable<any> {
+    const url = userUrl + '/active?page=' + (page - 1) + '&size=10' + '&sort=id,desc&sort=userName,asc';
+    return this.http
+               .get(url)
+               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
+               .catch(this.handleError);
+  } */
 }
