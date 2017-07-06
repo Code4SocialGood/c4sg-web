@@ -73,7 +73,7 @@
               <ul class="card-list" *ngIf="projects">
                 <li class="card-wrapper"
                     *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
-                  <my-project-card [project]="project" [userProjectStatus]="defineUserProjectStatus(project.id)" ></my-project-card>
+                  <my-project-card [project]="project" [from]="from" [userProjectStatus]="defineUserProjectStatus(project.id)" ></my-project-card>
                 </li>
               </ul>
             </div>
@@ -100,7 +100,7 @@
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="activeProjects">
                 <li class="card-wrapper" *ngFor="let project of activeProjects">
-                  <my-project-card [project]="project"></my-project-card>
+                  <my-project-card [project]="project" [from]="from"></my-project-card>
                 </li>
               </ul>
             </div>
@@ -118,7 +118,7 @@
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="closedProjects">
                 <li class="card-wrapper" *ngFor="let project of closedProjects">
-                  <my-project-card [project]="project"></my-project-card>
+                  <my-project-card [project]="project" [from]="from"></my-project-card>
                 </li>
               </ul>
             </div>
@@ -133,7 +133,7 @@
     </div>
 
     <!-- 3. Volunteer User: My Projects Menu Item-->
-    <div class="col m8 s12 offset-m2" *ngIf="isVolunteer && from === 'myProjects'">
+    <div class="col m8 s12 offset-m2" *ngIf="isVolunteer && from === 'myProjects'" id="right-col">
       <div class="content">
         <!-- Applied Projects -->
         <div class="row">
@@ -141,10 +141,14 @@
             <h4 class="content-title">Applied Projects</h4>
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="appliedProjects">
-                <li class="card-wrapper" *ngFor="let project of appliedProjects">
-                  <my-project-card [project]="project" [userProjectStatus]="'applied'"></my-project-card>
+                 <li class="card-wrapper" *ngFor="let project of appliedProjects">
+                  <div class="card">
+                   <div class="card-content">
+                   <my-project-card [project]="project" [from]="from"></my-project-card>
+                   </div>
+                  </div>
                 </li>
-              </ul>
+             </ul>
             </div>
             <div class="row" *ngIf="appliedProjects && appliedProjects.length == 0">
               <div class="col s12">
@@ -155,13 +159,18 @@
         </div>
         </div>
         <!-- Bookmarked Projects-->
+       <div class="content">
         <div class="row">
           <div class="col s12">
             <h4 class="content-title">Bookmarked Projects</h4>
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="bookmarkedProjects">
                 <li class="card-wrapper" *ngFor="let project of bookmarkedProjects">
-                  <my-project-card [project]="project" [userProjectStatus]="'bookmarked'"></my-project-card>
+                  <div class="card">
+                    <div class="card-content">
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -171,6 +180,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

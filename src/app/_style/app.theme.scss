@@ -218,3 +218,53 @@ hr {
   display: inherit;
   padding: 0;
 }
+/* input label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom-color: $secondary-bg-color;
+  box-shadow: 0 1px 0 0 $secondary-bg-color;
+}
+
+/* input label underline focus color */
+textarea.materialize-textarea:focus {
+  border-bottom-color: solid $secondary-bg-color;
+  box-shadow: 0 1px 0 0 $secondary-bg-color;
+}
+
+/* input label color */
+ .input-field label {
+   color: $secondary-bg-color;
+ }
+
+/* input label focus color */
+.input-field input[type=text] + label {
+ color: $secondary-bg-color;
+}
+
+/* input label focus color */
+textarea.materialize-textarea:focus + label {
+  color: $secondary-bg-color;
+}
+
+/* checkbock, checked */
+[type="checkbox"]:checked + label:before {
+  border-right-color: $secondary-bg-color;
+  border-bottom-color: $secondary-bg-color;
+}
+
+/* radio button color, selected, outter */
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border-color: $secondary-bg-color;
+}
+/* radio button color, selected, inner */
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+  background-color: $secondary-bg-color;
+}
+
+/* select, selected option */
+.select-wrapper {
+  color: $secondary-bg-color;
+}
+/* selector selections color */
+.select-dropdown li span{
+  color: $secondary-bg-color;
+}
