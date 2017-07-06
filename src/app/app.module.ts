@@ -46,7 +46,6 @@ import {DataService} from './_services/data.service';
 import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
-
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
 
