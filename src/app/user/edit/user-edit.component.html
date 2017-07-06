@@ -94,7 +94,6 @@
                 <input class="theme-input" id="title" type="text" formControlName="title">
               </div>
               <div class="input-field col s12">
-                <label for="introduction"></label>
                 <label for="introduction">Summary</label>
                 <textarea class="materialize-textarea theme-input" id="introduction" type="text" formControlName="introduction">
                 </textarea>
@@ -114,15 +113,16 @@
               <div class="row" style="padding: 0 30px">
                 <div class="col s6 theme-select user-edit-dropdown">
                   <label for="skillSelect">Choose from below</label>
-                  <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
+                  <select id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
                     <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }} </option>
                   </select>
                 </div>
                 <div class="col s6">
-                  <div class="col s10  user-edit-dropdown">
-                    <!--<label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>-->
-                    <span class="skills-enter-own">Enter your own</span>
-                    <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+                  <div class="input-field col s10 skills-margin">
+                    <!--<span>Add My Own</span>-->
+                    <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
+                    <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
+                           [ngModelOptions]="{standalone: true}">
                   </div>
                   <div class="col s2 skills-margin">
                     <a class="btn-floating btn waves-effect waves-light add-button" (click)="onAddOwnSkill(inputSkill)"><i
