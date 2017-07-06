@@ -11,7 +11,7 @@
         <div class='name'>
         <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
           <div class="right">
-              <div class="col s12" *ngIf="userProjectStatus === 'applied'">
+              <div class="col s12" *ngIf="userProjectStatus === 'applied' && from!=='myProjects'">
                 <div class="project-marked">
                   <svg class="icon">
                     <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
@@ -19,7 +19,7 @@
                   <span>Applied</span>
                 </div>
               </div>
-              <div class="col s12" *ngIf="userProjectStatus === 'bookmarked'">
+              <div class="col s12" *ngIf="userProjectStatus === 'bookmarked' && from!=='myProjects'">
                 <div class="project-marked">
                   <svg class="icon icon-bookmarked">
                     <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
