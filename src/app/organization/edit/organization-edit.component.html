@@ -43,11 +43,11 @@
               </div>
               <div class="input-field">
                 <input type="text" id="address1" class="" formControlName="address1">
-                <label for="address1">Address 1</label>
+                <label for="address1" class="active">Address 1</label>
               </div>
               <div class="input-field">
                 <input type="text" id="city" class="" formControlName="city">
-                <label for="city">City</label>
+                <label for="city" class="active">City</label>
               </div>
               <div class="input-field">
                 <select id="country" class="" formControlName="country" materialize="material_select">
@@ -56,34 +56,33 @@
                           [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
                   </option>
                 </select>
-                <label for="country">Country</label>
+                <label for="country" class="active">Country</label>
               </div>
             </div>
-
             <div class="col m6 s12">
               <div class="input-field">
                 <input type="url" id="website" class="" formControlName="websiteUrl">
                 <label for="website"
-                       [ngClass]="{'red-text': organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']}">Website
+                       [ngClass]="{'red-text': organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']}" class="active">Website
                   <span
                     *ngIf="organizationForm.get('websiteUrl').errors && organizationForm.get('websiteUrl').errors['urlIsNotValid']">url is not valid!</span>
                 </label>
               </div>
               <div class="input-field">
                 <input type="text" id="ein" class="" formControlName="ein">
-                <label for="ein">EIN</label>
+                <label for="ein" class="active">EIN</label>
               </div>
               <div class="input-field" style="margin-top:0">
                 <input type="text" id="address2" class="" formControlName="address2">
-                <label for="address2">Address 2</label>
+                <label for="address2" class="active">Address 2</label>
               </div>
               <div class="input-field">
                 <input type="text" id="state" class="" formControlName="state">
-                <label for="state">State</label>
+                <label for="state" class="active">State</label>
               </div>
               <div class="input-field">
                 <input type="text" id="ein" class="" formControlName="zip">
-                <label for="zip">Zip Code</label>
+                <label for="zip" class="active">Zip Code</label>
               </div>
             </div>
           </div>
@@ -94,7 +93,7 @@
                 <textarea id="description" class="materialize-textarea" formControlName="description"
                           (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
                           (blur)="onBlurDesc()"></textarea>
-                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description
+                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}" class="active">Description
                   <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
                 </label>
               </div>
