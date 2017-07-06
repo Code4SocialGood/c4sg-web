@@ -44,7 +44,7 @@
               <label for="name">Project Name <sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
-              <textarea id="description" class="materialize-textarea" formControlName="description" placeholder=""></textarea>
+              <textarea id="description" class="materialize-textarea theme-input" formControlName="description"></textarea>
               <label for="description">Project Description</label>
             </div>
           </div>
@@ -79,7 +79,7 @@
                 <div class="row">
                   <div class="input-field col s12">
                     <select id="country" class="" formControlName="country" materialize="material_select">
-                      <option value="" disabled>Choose country</option>
+                      <option value="" disabled selected>Choose country</option>
                       <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
                         country.code + ')'}}
                       </option>
@@ -100,9 +100,8 @@
             <div class="col s5">
               <label for="skillSelect">Choose from below</label>
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
-                  <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
-                </select>
-              
+                <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
+              </select>
             </div>
             <div class="col s7">
               <div class="input-field col s7 skills-margin">

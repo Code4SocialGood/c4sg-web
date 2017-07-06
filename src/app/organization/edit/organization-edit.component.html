@@ -34,12 +34,12 @@
               </div>
               <div class="input-field">
                 <select id="category" class="" formControlName="category" materialize="material_select">
-                  <option value="" disabled selected></option>
+                  <option value="" disabled selected>Choose Category</option>
                   <option *ngFor="let category of categories" [value]="category.value"
                           [selected]="category.value === organization?.category.value">{{category.name}}
                   </option>
                 </select>
-                <label>Category</label>
+                <label for="category">Category</label>
               </div>
               <div class="input-field">
                 <input type="text" id="address1" class="" formControlName="address1">
@@ -51,12 +51,12 @@
               </div>
               <div class="input-field">
                 <select id="country" class="" formControlName="country" materialize="material_select">
-                  <option value="" disabled></option>
+                  <option value="" disabled selected>Choose Country</option>
                   <option *ngFor="let country of countries" [value]="country.code"
                           [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
                   </option>
                 </select>
-                <label>Country</label>
+                <label for="country">Country</label>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
                 <input type="text" id="ein" class="" formControlName="ein">
                 <label for="ein">EIN</label>
               </div>
-              <div class="input-field">
+              <div class="input-field" style="margin-top:0">
                 <input type="text" id="address2" class="" formControlName="address2">
                 <label for="address2">Address 2</label>
               </div>
