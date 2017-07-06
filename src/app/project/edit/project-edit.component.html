@@ -19,9 +19,9 @@
             </div>
             <div>
               <div class="input-field file-field row">
-                <div class="btn avatar-upload-button">Upload
+                <button class="btn avatar-upload-button" [disabled]="projectId===0">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
-                </div>
+                </button>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-
+import { FormConstantsService } from '../../_services/form-constants.service';
 import {User} from '../common/user';
 import {UserService} from '../common/user.service';
 import {SkillService} from '../../skill/common/skill.service';
@@ -16,11 +16,51 @@ import {AuthService} from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+
+  roles = [{
+    name: 'Developer',
+    value: 'D'
+  }, {
+    name: 'UI/UX Designer',
+    value: 'U'
+  }, {
+    name: 'QA Engineer',
+    value: 'Q'
+  }, {
+    name: 'Software Architect',
+    value: 'A'
+  }, {
+    name: 'Build & Release Engineer',
+    value: 'E'
+  }, {
+    name: 'Business Analyst',
+    value: 'B'
+  }, {
+    name: 'Project Manager',
+    value: 'P'
+  }, {
+    name: 'Sales & Marketing',
+    value: 'S'
+  }];
+
+
+  rolesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
+
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
+    roles: this.rolesArray,
     skills: this.skillsArray
   });
 
@@ -33,11 +73,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   usersCache: any[];
   users: User[];
   usersSubscription: Subscription;
-  defaultAvatar = '../../assets/default_avatar.png';
 
   constructor(private userService: UserService,
     private router: Router,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private auth: AuthService,
     private route: ActivatedRoute) {
   }
@@ -45,6 +85,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(
       params => {
+        this.rolesArray.controls.forEach(roleControl => {
+          return roleControl.setValue(false);
+        });
         this.skillsArray.controls.forEach(skillControl => {
               return skillControl.setValue(false);
             });

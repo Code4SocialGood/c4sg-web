@@ -1,6 +1,6 @@
 export const environment = {
-    production: false,
-    backend_url: 'https://c4sg-test.herokuapp.com',
+    production: true,
+    backend_url: 'http://localhost:8080',
     auth_clientID: '332DZAQiUiXAXYYKvzJy6EodylS2rze5',
     auth_domain: 'c4sg.auth0.com',
     AWS_IMAGE_BUCKET: 'c4sg.dev.images',

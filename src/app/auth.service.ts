@@ -136,6 +136,7 @@ export class AuthService {
                         } else {
                           localStorage.setItem('currentDisplayName', user.email);
                         }
+                        localStorage.setItem('currentUserAvatar', user.avatarUrl);
                       },
                       error1 => console.log(error1));
                   }else {
@@ -146,6 +147,7 @@ export class AuthService {
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
+                    localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   }
                   // Issue 356 - redirect user back to the page that requested login - project view page
                     this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
@@ -227,6 +229,9 @@ export class AuthService {
   // Returns current user's first name + last name OR email
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
+  }
+  getCurrentUserAvatar() {
+    return localStorage.getItem('currentUserAvatar');
   }
 
   // Code below is used to override role
