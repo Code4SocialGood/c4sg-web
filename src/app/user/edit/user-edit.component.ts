@@ -53,7 +53,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     public fb: FormBuilder,
     private userService: UserService,
     private auth: AuthService,
-    private fc: FormConstantsService,
+    public constantsService: FormConstantsService,
     private el: ElementRef,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
@@ -105,12 +105,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
     if (Materialize && Materialize.updateTextFields) {
-      Materialize.updateTextFields();
+      // *** Does not seem to be needed - also prevents labels from moving when clicked ***
+       Materialize.updateTextFields();
     }
   }
 
   private getFormConstants(): void {
-    this.countries = this.fc.getCountries();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {
@@ -239,6 +240,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
+        this.router.navigate(['/user/view', this.user.id]);
        },
         err => { console.error(err, 'An error occurred'); } );
 
