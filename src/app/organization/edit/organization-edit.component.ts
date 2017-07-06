@@ -7,11 +7,11 @@ import {Observable} from 'rxjs/Observable';
 import {OrganizationService} from '../common/organization.service';
 import {FormConstantsService} from '../../_services/form-constants.service';
 import {ValidationService} from '../../_services/validation.service';
-import {ImageUploaderService, ImageReaderResponse} from '../../_services/image-uploader.service';
 import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
 import { MaterializeAction } from 'angular2-materialize';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -24,17 +24,11 @@ declare const Materialize: any;
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public categories: { [key: string]: any };
   public countries: any[];
-  // public states: String[];
 
   public organizationId;
   public organization: Organization;
   public organizationForm: FormGroup;
   currentUserId: String;
-
-  // public loadedFile: any;
-  public imageValid = true;
-  private imageData: ImageReaderResponse;
-  // private defaultImage = '../../../assets/default_image.png';
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
@@ -43,16 +37,17 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
+  public logoUrl: any = '';
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
               private validationService: ValidationService,
               private auth: AuthService,
-              private fc: FormConstantsService,
-              // private sanitizer: DomSanitizer,
+              public constantsService: FormConstantsService,
               private route: ActivatedRoute,
               private router: Router,
-              private imageUploader: ImageUploaderService) {
+              private extfilehandler: ExtFileHandlerService
+              ) {
     this.urlValidator = this.urlValidator.bind(this);
   }
 
@@ -67,12 +62,13 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
-        // this.organization.logo = this.defaultAvatar;
       }
+
       this.organizationService.getOrganization(this.organizationId)
         .subscribe(
           res => {
             this.organization = res;
+            this.logoUrl = this.organization.logoUrl;
             this.fillForm();
           }, error => console.log(error)
         );
@@ -82,24 +78,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           res => {
           }, error => console.log(error)
         );
-
-      /*
-       if (this.organizationId !== 0) { // organization has been created already
-       this.organizationService.getOrganization(this.organizationId).toPromise()
-       .then(res => {
-       this.organization = res;
-
-       // NOTE: Logo retrieval is a temporary fix until form can be properly submitted with logo
-       return this.organizationService.retrieveLogo(this.organizationId).toPromise();
-       })
-       .then(res => {
-       const logoText = res.text();
-       const logoBase64 = `data:image/png;base64, ${logoText}`;
-       // this.organization.logo = logoText ? this.sanitizer.bypassSecurityTrustUrl(logoBase64) : this.defaultAvatar;
-       this.fillForm();
-       }, err => console.error('An error occurred', err)) // for demo purposes only
-       .catch(err => console.error('An error occurred', err)); // for demo purposes only
-       }*/
     });
   }
 
@@ -112,8 +90,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   private getFormConstants(): void {
-    this.categories = this.fc.getCategories();
-    this.countries = this.fc.getCountries();
+    this.categories = this.constantsService.getCategories();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {
@@ -171,14 +149,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           this.organizationService
             .linkUserOrganization(this.currentUserId, this.organization.id)
         ];
-
-        // Only need to save the logo if a logo was uploaded
-        if (this.imageData) {
-          additionalCalls.push(
-            this.organizationService
-              .saveLogo(this.organization.id, this.imageData.formData)
-          );
-        }
 
         return Observable.forkJoin(additionalCalls);
       })
@@ -243,54 +213,24 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onUploadImage(fileInput: any): void {
-    // Make sure there are files before doing the upload
-    if (fileInput.target.files && fileInput.target.files.length) {
-
-      // Make sure the file is under 1MB
-      if (fileInput.target.files[0].size < 1048576) {
-        this.imageValid = true;
-        if (this.organizationId === 0) {
-          this.readImage(fileInput);
-        } else {
-          this.saveImage(fileInput);
-        }
-      } else {
-        this.imageValid = false;
-      }
-    }
-  }
   /*
-  onUploadImage(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-       this.user.id,
-       this.userService.saveAvatar.bind(this.userService))
-       .subscribe(res => {
-         this.avatar = res.url;
-       },
-        err => { console.error(err, 'An error occurred'); } );
-  } */
-
-  private readImage(fileInput: any): void {
-    this.imageUploader
-      .readImage(fileInput)
+    Orchestrates the organization logo upload sequence of steps
+  */
+  onUploadLogo(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
+    // Calls the function to save the logo image url to the organization's row
+    upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
       .subscribe(res => {
-        this.organization.logoUrl = res.base64Image;
-        this.imageData = res;
-      });
-  }
-
-  private saveImage(fileInput: any): void {
-    this.imageUploader.uploadImage(fileInput,
-      this.organizationId,
-      this.organizationService.saveLogo.bind(this.organizationService))
-      .subscribe(res => {
-          if (res.url) {
-            this.organization.logoUrl = res.url;
-          }
-        },
-        err => {
-          console.error(err, 'An error occurred');
+        if (res.innerValue.text() === '') {
+            this.logoUrl = res.outerValue;
+            this.organization.logoUrl = this.logoUrl;
+            console.log('Logo successfully uploaded!');
+        } else {
+          console.error('Saving organization logo: Not expecting a response body');
+        }}, (e) => {
+          console.error('Logo not saved. Not expecting a response body');
         });
   }
 }

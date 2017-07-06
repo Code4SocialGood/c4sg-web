@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
@@ -37,8 +37,10 @@ export class OrganizationService {
     countries?: string[],
     open?: boolean,
     status?: string,
-    category?: string[]
-  ): Observable<Organization[]> {
+    category?: string[],
+    page?: number,
+    size?: number
+  ): Observable<any> {
     const params = new URLSearchParams();
 
     if (keyword) {
@@ -65,9 +67,18 @@ export class OrganizationService {
       }
     }
 
+    if (page) {
+      params.append('page', String(page - 1));
+    }
+
+    if (size) {
+      params.append('size', String(size));
+    }
+
     return this.http
-               .get(`${organizationUrl}/search`, {search: params})
-               .map(res => res.json());
+      .get(`${organizationUrl}/search`, {search: params})
+      .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
+      .catch(this.handleError);
   }
 
   createOrganization(organization: Organization): Observable<{organization: Organization}> {
@@ -111,5 +122,20 @@ export class OrganizationService {
     return this.http.get(
       `${organizationUrl}/${id}/logo`
     );
+  }
+
+  /*
+    Http call to save the logo image
+  */
+  saveLogoImg(id: number, imgUrl: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.http
+      .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 }

@@ -1,104 +1,31 @@
-@import "../../_style/variables";
-@import "../../_style/app.page-single";
+@import "../../_style/app.theme";
 
-.group-wrapper {
-  padding-bottom: 2em;
-  border-bottom: solid $line-sep-width $line-sep-color;
-}
-#description {
-  min-height: 100px;
-}
-#left-col {
-	#avatar-title {
-		text-align: center
-	}
-	.info-avatar {
-		padding-top: 0;
-		width: 168px;
-		height: 168px;
-		border-radius: 84px;
-		border: 1px solid #888;
-		overflow: hidden;
-		margin: 0 auto;
-	}
-	.avatar-upload-button {
-		float: none;
-		display: inherit;
-		margin: 40px 25%;
-		padding: 0;
-	}
+#left-col{
+  .single-info{
+    .info-avatar{
+      border-radius: 50%;
+
+      img{
+        max-width: none;
+      }
+    }
+  }
 }
 
-#right-col {
-	padding: 20px 10%;
-	.content-title {
-		color: #888888;
-	}
-}
-.input-field {
-	//to clear out the annoying magin-top property from materialize, this margin makes a mess to the row align
-	margin: 0;
-	//the label will not stay inline with the input field. So for appearance purpose, I added the span instead of label. Anyway, I kept the label in case of bug. You can delete those labels, if it will cause no trouble by doing that
-	span {
-		clear:both;
-		border: solid 2px #5ba55b;
-		max-height: 49.5px;
-    	line-height: 48.5px;
-    	display: inline-block;
-    	text-align: center;
-    	font-size: 1rem;
-    	float: left;
-    	width: 35%;
-    	background: #5ba55b;
-    	color: #fff;
-    	overflow: hidden;
-	}
-	//.small-span & #title is to specify the title span width, overriding the common span property. You can do this whenever you want to customize certain item.
-	.small-span {
-		width: 20%;
-	}
-	#title {
-		width: 79%;
-	}
-	#introduction {
-		width: 100%;
-		border-left: solid 3px $border-color;
-	}
-	//I added .theme-input class property to override the origin materialize. Materialize is so stubburn.
-	.theme-input {
-		float: left;
-		height: 43.5px;
-		width: 59%;
-		border: solid 3px $border-color;
-		border-left: none;
-		text-indent: 1em;
-	}
-}
-//For the select input. I think materialize render the content of select input after this style sheet is rendered, so I failed to style 
-//it by selecting according to its default class name. In order to add border to it. I added wrapper to the part, it's in class 
-//.theme-select.
-//The underline of the select inputs is the border-bottom. I tried to delete this setting. But after that, the area won't as it 
-//supposed to be. The area is smaller than I expect.
-.theme-select, #newSkill {
-	padding: 0;
-	float: left;
-	height: 43.5px;
-	width: 59%;
-	border: solid 3px $border-color;
-	border-left: none;
-}
-.theme-select:nth-child(1) {
-	border-left: solid 3px $border-color;
-}
-.select-dropdown {
-	border-bottom: none;
-}
-.add-button, .btn {
-	border-radius: 0;
-	background: #5ba55b;
-}
-#resume-upload-button {
-	width: 100%;
-	height: 100%;
-	font-size: 0.8em;
-}
+ .skills-margin{
+   margin-top: 5.5%;
+ }
+
+ .skills-enter-own{
+   font-size: 0.8rem;
+  color: #9e9e9e;
+  
+ }
+
+ .second-column{
+   margin: 0;
+ }
+
+ .user-edit-dropdown{
+   margin-top: -6px;
+ }

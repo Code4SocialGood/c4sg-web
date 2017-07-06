@@ -1,18 +1,9 @@
-@import "../../_style/variables";
-@import "../../_style/app.page-single";
-
-.section {
-  padding-bottom: 0;
-  .description {
-    font-size: 0.9em;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+@import "../../_style/app.theme";
+.panel-background-color{
+  background-color: white;
 }
 
-.section.sub {
-  h4 {
-    background-color: transparent;
-    border-bottom-color: $navbar-fg-color;
-  }
+
+.skills-margin{
+  margin-top: 5%;
 }

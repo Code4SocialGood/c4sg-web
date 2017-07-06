@@ -1,11 +1,17 @@
 @import 'variables';
+@import 'app.fonts';
+@import 'app.nav';
+@import 'app.content';
+@import 'app.card';
+@import 'app.pagination';
+@import 'app.sidebar';
 
 a {
   color: $main-color;
 }
 
 body {
-  font-family: Raleway;
+  font-family: $main-font;
   font-size: 14px;
   color: $main-color;
   background: $main-bg-color;
@@ -15,85 +21,10 @@ hr {
   border: 0;
   height: 1px;
   width: 105%;
-  background: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-  background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0)); 
-}
-
-nav {
-  background-image: url("/assets/header-bg.png");
-  margin-top: $page-top;
-  height: $navbar-height;
-  background-color: white;
-  border-top: solid $line-sep-width $line-sep-color;
-  border-bottom: solid $line-sep-width $line-sep-color;
-  box-shadow: none;
-  line-height: $navbar-height;
-
-  .brand-logo {
-    display: table-cell;
-    text-align: center;
-    height: 95%;
-    transition: 1s;
-    > img {
-      height: 100%;
-      vertical-align: middle;
-    }
-  }
-
-  ul {
-    li {
-      a {
-        position: relative;
-        color: $navbar-fg-color;
-        line-height: $navbar-height - 2 * $line-sep-width;
-        padding-left: 40px;
-        padding-right: 40px;
-        
-
-        padding-top: 0 - $line-sep-width;
-        margin-top: 0 - $line-sep-width;
-        margin-left: - $line-sep-width;
-
-        z-index: 100;
-        &:hover{
-          border-color: $navbar-border-color;
-          //color: $navbar-fg-color;
-          background-color: transparent;
-          z-index: 102;
-        }
-
-        &.active {
-          background-color: $header-bg-color;
-          color: $navbar-fg-color;
-          border-color: $navbar-border-color;
-          font-weight: bold;
-          z-index: 101;
-        }
-
-      }
-
-      &:last-child {
-        a {
-        }
-      }
-    }
-
-    &.dropdown-content {
-      margin-left: - $line-sep-width;
-      li {
-        a {
-          color: $navbar-fg-color;
-          line-height: $dropdown-line-height;
-          margin-left: 0;
-          &.active {
-            color: $navbar-fg-color-selected;
-          }
-        }
-      }
-    }
-  }
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+  background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
 }
 
 .container {
@@ -101,58 +32,9 @@ nav {
   margin: 0 auto;
 }
 
-.content {
-  position: relative;
-  padding-top: $content-pad;
-  padding-bottom: $content-pad;
-  padding-left: $content-pad;
-  padding-right: $content-pad;
-
-}
-
-.content-title {
-  color: #5ba55b;
-  font-size: 1.15em;
-  font-weight: bold;
-  margin: 0;
-  padding-left: 0em; 
-  padding-top: 20px;
-  //padding-left: 3em; 
-  //background: -webkit-linear-gradient(left top, rgb(0, 156, 123), rgb(0, 185, 145));
-  //background: -o-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
-  //background: -moz-linear-gradient(bottom right, rgb(0, 156, 123), rgb(0, 185, 145)); 
-  //background: linear-gradient(to bottom right, rgb(0, 156, 123), rgb(0, 185, 145));
-  //border-bottom: $border-width #5ba55b solid;
-  .index-prefix {
-    margin-right: 2em;
-    font-weight: bold;
-  }    
-}
-
 .footer {
   background-color: $footer-bg-color;
   padding-left: 50px;
-}
-
-.left-col {
-}
-
-.links-list-wrapper {
-  ul {
-    margin: 0;
-    text-align: center;
-    li {
-      display: inline-block;
-      line-height: 50px;
-      a {
-        color: $main-color;
-      }
-    }
-  }
-}
-
-.main-row {
-  margin-bottom: 0;
 }
 
 .modal {
@@ -176,29 +58,6 @@ nav {
   }
 }
 
-.most-right-item {
-  text-align: center;
-  a {
-    img {
-      width: 125px;
-    }
-  }
-}
-
-.page-title {
-  padding-left: 10%;
-  border-bottom: $border-width #5ba55b solid;
-  background: -webkit-linear-gradient(left top, rgb(91, 165, 91), rgb(91, 165, 91));
-  background: -o-linear-gradient(bottom right, rgb(91, 165, 91), rgb(91, 165, 91));
-  background: -moz-linear-gradient(bottom right, rgb(91, 165, 91), rgb(91, 165, 91)); 
-  background: linear-gradient(to bottom right, rgb(91, 165, 91), rgb(91, 165, 91));
-  color: #fff;
-  padding-top: 5px;
-  padding-bottom: 0px;
-  font-size: 2em;
-  font-weight: bold;
-}
-
 .popupCustom .leaflet-popup-content-wrapper {
   h4 {
     font-size: 1em;
@@ -217,19 +76,90 @@ nav {
   left: 48%;
   top: 48vh;
 }
+.single-info{
 
-.right-col {
+}
+#left-col {
+  margin-bottom: 40px;
+
+  .single-info{
+
+    .image-title{
+      font-size: 17px;
+      color: #84c44c;
+      text-align: center;
+    }
+
+    .avatar-container{
+      margin: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 1rem;
+
+      .row{
+        margin-left: 0;
+        margin-right: 0;
+
+        .btn.avatar-upload-button{
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    .info-avatar{
+      width: 100%;
+      position: relative;
+      padding-bottom: 100%;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 0.75em;
+
+      img{
+        width: auto;
+        max-width: none;
+        height: 100%;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        margin: auto;
+      }
+    }
+  }
+}
+
+#right-col {
+  padding: 0;
+  border-left: $border-width $border-color solid;
+  border-right: $border-width $border-color solid;
+  border-bottom: $border-width $border-color solid;
   margin-left: - $line-sep-width;
+  margin-bottom: 40px;
 }
 
-.sidebar-wrapper {
-  padding-top: $content-pad;
+.main-row {
+  margin-bottom: 0;
+  [type="radio"]:checked+label:after {
+  background-color: #84c44c;
+  border: 2px solid #84c44c;
+  }
+
+  [type="checkbox"]:checked + label:before
+    {
+    border: 2px solid #84c44c;
+    border-top:2px transparent;
+    border-left:2px transparent;
+    }
 }
 
-.sidebar:after {
-  content: '';
-  display: block;
-  clear: both;
+.row {
+  margin-bottom: 0;
+}
+
+.items-list-wrapper  {
+  margin-top: 0;
 }
 
 .skills-tag-wrapper {
@@ -243,15 +173,15 @@ nav {
       border-radius: 4px;
       background: -webkit-linear-gradient(left top, rgb(216, 238, 203), rgb(216, 238, 203));
       background: -o-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
-      background: -moz-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203)); 
-      background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203)); 
+      background: -moz-linear-gradient(bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
+      background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
       text-align: center;
       font-size: 0.7em;
       margin: 6px 5px;
-      cursor: pointer;
-      &:hover {
-        background: #8dcdc1;
-      }
+      //cursor: pointer;
+      //&:hover {
+      //  background: #8dcdc1;
+      //}
       &:first-child {
         margin-left: 0;
       }
@@ -262,16 +192,29 @@ nav {
     display: block;
     clear: both;
   }
-} 
-
-.sidebar-wrapper {
-  border-left: $border-width solid #d9d9d9;
-  border-right: $border-width solid #d9d9d9;
-  border-bottom: $border-width solid #d9d9d9;
 }
 
-#right-col {
+.links-list-wrapper {
+  ul {
+    margin: 0;
+    text-align: center;
+    li {
+      display: inline-block;
+      line-height: 50px;
+      a {
+        color: $main-color;
+      }
+    }
+  }
+}
+
+.btn {
+  background-color: $secondary-bg-color;
+  @include button-font;
+}
+
+.image-upload-button {
+  float: none;
+  display: inherit;
   padding: 0;
-  border-left: $border-width $border-color solid;
-  border-right: $border-width $border-color solid;
 }

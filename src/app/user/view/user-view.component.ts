@@ -5,8 +5,8 @@ import { User } from '../common/user';
 import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
 import { MaterializeAction } from 'angular2-materialize';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
   // moduleId: module.id,
@@ -24,21 +24,19 @@ export class UserViewComponent implements OnInit {
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  defaultAvatarUser = '../../assets/avatar.png';
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private router: Router,
-    private route: ActivatedRoute,
-    private imageDisplay: ImageDisplayService) {
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['userId'];
     this.getUser(id);
-    this.getAvatar(id);
     this.displayButtons(id);
   }
 
@@ -55,12 +53,6 @@ export class UserViewComponent implements OnInit {
       },
       error => console.log(error)
     );
-  }
-
-  getAvatar(id: number) {
-    this.imageDisplay.displayImage(id,
-      this.userService.retrieveAvatar.bind(this.userService))
-      .subscribe(res => this.avatar = res.url);
   }
 
   displayButtons(id: number): void {

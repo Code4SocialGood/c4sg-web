@@ -1,19 +1,23 @@
-<div class="page-title">User Settings</div>
+<div class="page-title">
+  <h1>User Settings</h1>
+</div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
       <div class="content sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
-          <div class="col m12">
-            <h4 id="avatar-title">Profile Image</h4>
-            <div class="info-avatar"><img class="responsive-img" id="responsive-img" [src]="avatar" onError="this.src='../../assets/avatar.png'"></div>
+          <h4 id="avatar-title" class="col s12 m12 l12 image-title">My Avatar</h4>
+          <div class="col s12 m12 l7 avatar-container">
+            <div class="info-avatar z-depth-2">
+              <img class="responsive-img" id="responsive-img" [src]="avatar" onError="this.src='../../assets/default_avatar.png'">
+            </div>
             <div>
-                <div class="input-field file-field row">
-                <div class="btn avatar-upload-button">Upload
+              <div class="input-field file-field row">
+                <div class="btn image-upload-button center">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadAvatar($event)">
                 </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -24,199 +28,186 @@
     <div class="col s9" id="right-col">
       <div class="content">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value, $event)">
-          <div class="row single-info">
-            <div class="row"><h1 class="content-title">My Account</h1></div>
-            <div class="row">
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="userName"></label>
-                  <span>Username *</span>
-                  <input class="theme-input" id="userName" formControlName="userName" type="text">
-                </div>
-              </div>
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="email"></label>
-                  <span>Email Address *</span>
-                  <input class="theme-input" id="email" formControlName="email" type="text" disabled="true">
-                </div>
+          <div class="row">
+            <div class="content-title">My Account</div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="userName">Username *</label>
+                <input class="theme-input" id="userName" formControlName="userName" type="text">
               </div>
             </div>
-            <div class="row">
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="firstName"></label>
-                  <span>First Name</span>
-                  <input class="theme-input" id="firstName" formControlName="firstName" type="text">
-                </div>
-              </div>
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="lastName"></label>
-                  <span>Last Name</span>
-                  <input class="theme-input" id="lastName" formControlName="lastName" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="state"></label>
-                  <span>State</span>
-                  <input class="theme-input" id="state" formControlName="state" type="text">
-                </div>
-              </div>
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <span>Country</span>
-                  <div class="theme-select">
-                    <select id="country" formControlName="country" materialize="material_select">
-                      <option value="" disabled></option>
-                      <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
-                    </select>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="row" *ngIf = "displayPhone">
-              <div class="col s12 m6">
-                <div class="input-field">
-                  <label for="phone"></label>
-                  <span>Phone</span>
-                  <input id="phone" formControlName="phone" type="text">
-                </div>
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="email">Email Address *</label>
+                <input class="theme-input" id="email" formControlName="email" type="text" disabled="true">
               </div>
             </div>
           </div>
-          <hr>
-          <div *ngIf ="displayProfile">
-            <div class="row single-info">
-              <div class="row"><h1 class="content-title">My Profile</h1></div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <label for="title"></label>
-                  <span class="small-span">Title</span>
-                  <input class="theme-input" id="title" type="text" formControlName="title">
-                </div>
-                <div class="input-field col s12">
-                  <label for="introduction"></label>
-                  <span class="small-span">Summary</span>
-                  <textarea class="materialize-textarea theme-input" id="introduction" type="text" formControlName="introduction">
-                  </textarea>
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="firstName">First Name</label>
+                <input class="theme-input" id="firstName" formControlName="firstName" type="text">
+              </div>
+            </div>
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="lastName">Last Name</label>
+                <input class="theme-input" id="lastName" formControlName="lastName" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="state">State</label>
+                <input class="theme-input" id="state" formControlName="state" type="text">
+              </div>
+            </div>
+            <div class="col s12 m6">
+              <label for="country">Country</label>
+              <div class="theme-select user-edit-dropdown">
+                <select id="country" formControlName="country" materialize="material_select">
+                  <option value="" disabled></option>
+                  <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="displayPhone">
+            <div class="col s12 m6">
+              <div class="input-field">
+                <label for="phone">Phone</label>
+                <input id="phone" formControlName="phone" type="text">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="displayProfile">
+            <div class="row">
+              <div class="content-title">My Profile</div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <label for="title">Title</label>
+                <input class="theme-input" id="title" type="text" formControlName="title">
+              </div>
+              <div class="input-field col s12">
+                <label for="introduction"></label>
+                <label for="introduction">Summary</label>
+                <textarea class="materialize-textarea theme-input" id="introduction" type="text" formControlName="introduction">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="content-title">My Skills</div>
+            </div>
+            <div class="row">
+              <div class="row" style="padding: 0 30px">
+                <div class="col s10">
+                  <my-select-skill [projectSkillsArray]="projectSkillsArray" (onDeleteSkill)="onDeleteSkill($event)">
+                  </my-select-skill>
                 </div>
               </div>
-            </div>   
-            <hr>
-            <div class="row single-info">            
-              <div class="row"><h1 class="content-title">My Skills</h1></div>
-              <div class="row">
-                <div class="row" style="padding: 0 30px">
-                  <div class="col s10">
-                    <my-select-skill [projectSkillsArray]="projectSkillsArray"
-                                   (onDeleteSkill)="onDeleteSkill($event)"></my-select-skill>
-                  </div>
+              <div class="row" style="padding: 0 30px">
+                <div class="col s6 theme-select user-edit-dropdown">
+                  <label for="skillSelect">Choose from below</label>
+                  <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
+                    <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }} </option>
+                  </select>
                 </div>
-                <div class="row" style="padding: 0 30px">
-                  <div class="col s6 theme-select">
-                    <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
-                      <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }} </option>
-                    </select>
-                    <label for="skillSelect"></label>
+                <div class="col s6">
+                  <div class="col s10  user-edit-dropdown">
+                    <!--<label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>-->
+                    <span class="skills-enter-own">Enter your own</span>
+                    <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
                   </div>
-                  <div class="col s6">
-                    <div class="input-field col s10">
-                      <span>Add More</span>
-                      <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue"
-                             [ngModelOptions]="{standalone: true}">
-                      <label [ngClass]="{active: inputValue}" for="newSkill"></label>
-                    </div>
-                    <div class="col s2">
-                      <a class="btn-floating btn waves-effect waves-light add-button" (click)="onAddOwnSkill(inputSkill)"><i
-                        class="material-icons">add</i></a>
-                    </div>
+                  <div class="col s2 skills-margin">
+                    <a class="btn-floating btn waves-effect waves-light add-button" (click)="onAddOwnSkill(inputSkill)"><i
+                      class="material-icons">add</i></a>
                   </div>
                 </div>
               </div>
             </div>
-            <hr>
-            <div class="row single-info">
-              <div class="row"><h1 class="content-title">My Personal URLs</h1></div>
-              <div class="col l6 m12 s12">
-                <div class="input-field col s12">
-                  <label for="linkedinUrl"></label>
-                  <span>LinkedIn URL</span>
-                  <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
-                </div>
-                <div class="input-field col s12">
-                  <label for="personalUrl"></label>
-                  <span>My Website</span>
-                  <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
-                </div>
-                <div class="input-field col s12">
-                  <label for="githubUrl"></label>
-                  <span>GitHub URL</span>
-                  <input class="theme-input" id="githubUrl" type="text" formControlName="githubUrl">
-                </div>
+
+            <div class="row">
+              <div class="content-title">My Personal URLs</div>
+            </div>
+            <div class="col l6 m12 s12">
+              <div class="input-field col s12">
+                <label for="linkedinUrl">LinkedIn URL</label>
+                <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
               </div>
-              <div class="input-field col l6 m12 s12">
-                <div class="input-field col s12">
-                  <label for="twitterUrl"></label>
-                  <span>Twitter URL</span>
-                  <input class="theme-input" id="twitterUrl" type="text" formControlName="twitterUrl">
-                </div>
-                <div class="input-field col s12">
-                  <label for="facebookUrl"></label>
-                  <span>Facebook URL</span>
-                  <input class="theme-input" id="facebookUrl" type="text" formControlName="facebookUrl">
-                </div>
-                <div class="file-field input-field col s12" id="resume">
-                  <label class="active" for="resume"></label>
-                  <div class="row">
+              <div class="input-field col s12">
+                <label for="personalUrl">My Website</label>
+                <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
+              </div>
+              <div class="input-field col s12">
+                <label for="githubUrl">GitHub URL</label>
+                <input class="theme-input" id="githubUrl" type="text" formControlName="githubUrl">
+              </div>
+            </div>
+            <div class="input-field col l6 m12 s12">
+              <div class="input-field col s12 second-column">
+                <label for="twitterUrl">Twitter URL</label>
+                <input class="theme-input" id="twitterUrl" type="text" formControlName="twitterUrl">
+              </div>
+              <div class="input-field col s12">
+                <label for="facebookUrl">Facebook URL</label>
+                <input class="theme-input" id="facebookUrl" type="text" formControlName="facebookUrl">
+              </div>
+              <div class="file-field input-field col s12" id="resume">
+                <label class="active" for="resume"></label>
+                <div class="row">
                   <div class="file-path-wrapper  col m9">
-                    <span>Resume</span>
-                    <input class="file-path validate theme-input" type="text">
+                    <label for="resumeInput">Resume</label>
+                    <input class="file-path validate theme-input" id="resumeInput" type="text">
                   </div>
                   <div class="btn col m3">
                     <span id="resume-upload-button">Upload</span>
                     <input type="file">
                   </div>
-                   </div>
                 </div>
               </div>
             </div>
+
             <div class="row  single-info">
               <div class="col m6">
-                <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked] = "checkPublish">
-                <label for="publishFlag">Publish my profile</label>
+                <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="checkPublish">
+                <label for="publishFlag">Publish me on the web site</label>
               </div>
               <div class="col m6">
-                <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked] = "checkNotify">
-                <label for="notifyFlag">Notify me for projects match my skills</label>
+                <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="checkNotify">
+                <label for="notifyFlag">Notify me on new projects</label>
               </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col m12">
-              <div class="footer-btns center">
-                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
+              <div class="btn center">
+                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
+                  [materializeActions]="globalActions">
                   Save
                 </button>
               </div>
             </div>
           </div>
-        </form> <!--
-        <div class="modal" id="modal1" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
-          <div class="modal-content">
-            <h4>CONFIRM USER DELETE</h4>
-            <p>Are you sure you want to Delete?</p>
-          </div>
-          <div class="modal-footer">
-            <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cancel</a><a class="modal-action modal-close waves-effect waves-green btn-flat" routerlink="/" (click)="delete()">Yes</a>
-          </div>
-        </div> -->
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<!--
+      <div class="modal" id="modal1" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+        <div class="modal-content">
+          <h4>CONFIRM USER DELETE</h4>
+          <p>Are you sure you want to Delete?</p>
+        </div>
+        <div class="modal-footer">
+          <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cancel</a><a class="modal-action modal-close waves-effect waves-green btn-flat" routerlink="/" (click)="delete()">Yes</a>
+        </div>
+      </div> -->

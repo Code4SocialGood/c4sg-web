@@ -1,2 +1,38 @@
-@import "../../_style/variables";
-@import "../../_style/app.page-single";
+@import "../../_style/app.theme";
+
+.subtitle {
+  font-style: italic;
+  a:hover {
+    text-decoration: underline #84c44c;  
+    }
+}
+
+.proj-name{
+  h5:hover{
+     text-decoration: underline #84c44c;  
+  }
+}
+
+.user-name{
+  span:hover{
+  text-decoration: underline #84c44c;
+  cursor: pointer;
+  }
+}
+.subtitle {
+  width: 100%;
+  padding-left: 2em;
+  .names {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .metainfo {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 2em;
+    }
+  }
+}

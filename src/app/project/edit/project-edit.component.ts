@@ -1,11 +1,15 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
+import { Organization } from '../../organization/common/organization';
+import { OrganizationService } from '../../organization/common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
+import { AuthService} from '../../auth.service';
+import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -15,29 +19,45 @@ declare const Materialize: any;
   styleUrls: ['project-edit.component.scss']
 })
 
-export class ProjectEditComponent implements OnInit {
+export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
   public project: Project;
+  public organization: Organization;
+  public organizations: Organization[];
+  public organizationId;
   public projectId;
-  public projectImageUrl = '../../../assets/default_image.png';
+  public currentUserId;
   public projectForm: FormGroup;
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
   public globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
+  public displayOrgField = false;
+  public isOrganization = false;
+  public isSkillExists = false;
+  public isSkillLimit = false;
+  public skill = '';
+  public imageUrl: any = '';
+  public skillCounter = 0;
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
-              private fc: FormConstantsService,
+              private organizationService: OrganizationService,
+              public constantsService: FormConstantsService,
               private route: ActivatedRoute,
+              private auth: AuthService,
               private router: Router,
-              private skillService: SkillService) {
+              private skillService: SkillService,
+              private extfilehandler: ExtFileHandlerService
+              ) {
   }
 
   ngOnInit(): void {
 
     this.getFormConstants();
+    this.currentUserId = this.auth.getCurrentUserId();
+    this.displayOrgId();
     this.initForm();
 
     this.route.params.subscribe(params => {
@@ -48,13 +68,8 @@ export class ProjectEditComponent implements OnInit {
           .subscribe(
             res => {
               this.project = res;
+              this.imageUrl = this.project.imageUrl;
               this.fillForm();
-            }, error => console.log(error)
-          );
-
-        this.projectService.retrieveImage(this.projectId)
-          .subscribe(
-            res => {
             }, error => console.log(error)
           );
 
@@ -77,16 +92,24 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
+ngAfterViewChecked(): void {
+  // Work around for bug in Materialize library, form labels overlap prefilled inputs
+  // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+  if (Materialize && Materialize.updateTextFields) {
+    Materialize.updateTextFields();
+  }
+}
+
   private getFormConstants(): void {
-    this.countries = this.fc.getCountries();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': ['', []],
-      'organizationName': ['', []],
-      'projectDescription': ['', []],
+      'name': ['', []],
+      'organizationId': ['', []],
+      'description': ['', []],
       'remoteFlag': ['Y', []],
       'city': ['', []],
       'state': ['', []],
@@ -97,9 +120,9 @@ export class ProjectEditComponent implements OnInit {
   private fillForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': [this.project.name || '', [Validators.required]],
-      'organizationName': [this.project.organizationName || '', []],
-      'projectDescription': [this.project.description || '', []],
+      'name': [this.project.name || '', [Validators.required]],
+      'organizationId': [this.project.organizationId || '', [Validators.required]],
+      'description': [this.project.description || '', []],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
       'state': [this.project.state || '', []],
@@ -144,26 +167,22 @@ export class ProjectEditComponent implements OnInit {
     // TODO:
     // For nonprofit user, find the organization of the user, assign organization ID to the project
     // For admin user, there should be a field to enter org ID
-
+    if (this.isOrganization) {
+      const formData = this.projectForm.value;
+      formData.organizationId = this.organizationId;
+    }
     this.projectService
       .add(this.projectForm.value)
-      .map(res => {
+      .subscribe(res => {
         this.project = res.project;
 
-        // Only need to save the logo if a logo was uploaded
-        /* TODO
-        if (this.imageData) {
-          additionalCalls.push(
-            this.organizationService
-              .saveLogo(this.organization.id, this.imageData.formData)
-          );
-        }*/
-
         // return Observable.forkJoin(additionalCalls);
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/project/view/' + this.project.id]);
+        this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
+          result => {
+            // After all calls are successfully made, go to the detail page
+            this.router.navigate(['/project/view/' + this.project.id]);
+          }, error => console.log(error)
+        );
       });
   }
 
@@ -182,14 +201,22 @@ export class ProjectEditComponent implements OnInit {
     this.projectService
       .update(this.project)
       .subscribe(res => {
-        Materialize.toast('Your project is saved', 4000);
-        // this.globalActions.emit('toast');
+        this.skillService
+          .updateSkills(this.projectSkillsArray, this.project.id)
+          .subscribe(result => {
+            this.router.navigate(['/project/view/' + this.project.id]);
+            Materialize.toast('Your changes have been saved', 4000);
+          }, error => console.log(error));
       });
   }
 
   onAddListedSkill(optionValue) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(optionValue.target.value);
-    this.projectSkillsArray.push(optionValue.target.value);
+    this.checkSkillList (optionValue.target.value);
+    if (!this.isSkillExists && !this.isSkillLimit) {
+      this.projectSkillsArray.push(optionValue.target.value);
+    }
     console.log(this.projectSkillsArray);
   }
 
@@ -201,15 +228,73 @@ export class ProjectEditComponent implements OnInit {
   }
 
   onAddOwnSkill(inputSkill) {
+    this.skillCounter = this.projectSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.projectSkillsArray.push(inputSkill.value);
-      this.inputValue = '';
-      console.log(this.projectSkillsArray);
+      this.checkSkillList (inputSkill.value);
+      if (!this.isSkillExists && !this.isSkillLimit) {
+        this.projectSkillsArray.push(inputSkill.value);
+        this.inputValue = '';
+        console.log(this.projectSkillsArray);
+      }
     }
   }
 
-  changeImage(event) {
-    this.projectImageUrl = event.target.files;
+  displayOrgId() {
+    if (this.auth.isAdmin() && this.projectId === 0) { // Display Org ID fwhen admin user create a project
+      this.displayOrgField = true;
+    }
+    if (this.auth.isOrganization()) {
+      this.organizationService.getUserOrganization(this.currentUserId)
+        .subscribe(
+          res => {
+            this.isOrganization = true;
+            this.organizations = res;
+            this.organizations.forEach((org: Organization) => {
+              this.organizationId = org.id;
+            });
+          }, error => console.log(error)
+        );
+
+    }
+  }
+
+  checkSkillList(selectedSkill) {
+    this.isSkillExists = false;
+    this.isSkillLimit = false;
+    this.skillCounter = this.skillCounter + 1;
+    if ( this.skillCounter > 10 ) {
+      this.isSkillLimit = true;
+      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+    }
+    if (!this.isSkillLimit) {
+      for (this.skill of this.projectSkillsArray) {
+        if (selectedSkill === this.skill) {
+          this.isSkillExists = true;
+          this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+        }
+      }
+    }
+  }
+
+  /*
+    Orchestrates the project image upload sequence of steps
+  */
+  onUploadImage(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.project.id, 'image');
+    // Calls the function to save the project image url to the project's row
+    upload$.switchMap( (res) => this.projectService.saveProjectImg(this.project.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.imageUrl = res.outerValue;
+            this.project.imageUrl = this.imageUrl;
+            console.log('Image successfully uploaded!');
+        } else {
+          console.error('Saving project image: Not expecting a response body');
+        }}, (e) => {
+          console.error('Image not saved. Not expecting a response body');
+        });
   }
 }
