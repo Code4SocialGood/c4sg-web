@@ -10,6 +10,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 export class ProjectCardComponent implements OnInit {
   @Input () project: Project;
   @Input () userProjectStatus: string;
+  @Input () from: string;
 
   constructor(public constantsService: FormConstantsService) { }
 

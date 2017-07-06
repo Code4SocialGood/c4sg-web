@@ -73,7 +73,7 @@
               <ul class="card-list" *ngIf="projects">
                 <li class="card-wrapper"
                     *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
-                  <my-project-card [project]="project" [userProjectStatus]="defineUserProjectStatus(project.id)" ></my-project-card>
+                  <my-project-card [project]="project" [from]="from" [userProjectStatus]="defineUserProjectStatus(project.id)" ></my-project-card>
                 </li>
               </ul>
             </div>
@@ -100,7 +100,7 @@
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="activeProjects">
                 <li class="card-wrapper" *ngFor="let project of activeProjects">
-                  <my-project-card [project]="project"></my-project-card>
+                  <my-project-card [project]="project" [from]="from"></my-project-card>
                 </li>
               </ul>
             </div>
@@ -118,7 +118,7 @@
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="closedProjects">
                 <li class="card-wrapper" *ngFor="let project of closedProjects">
-                  <my-project-card [project]="project"></my-project-card>
+                  <my-project-card [project]="project" [from]="from"></my-project-card>
                 </li>
               </ul>
             </div>
@@ -144,7 +144,7 @@
                  <li class="card-wrapper" *ngFor="let project of appliedProjects">
                   <div class="card">
                    <div class="card-content">
-                   <my-project-card [project]="project" [userProjectStatus]="'applied'"></my-project-card>
+                   <my-project-card [project]="project" [from]="from"></my-project-card>
                    </div>
                   </div>
                 </li>
@@ -168,7 +168,7 @@
                 <li class="card-wrapper" *ngFor="let project of bookmarkedProjects">
                   <div class="card">
                     <div class="card-content">
-                      <my-project-card [project]="project" [userProjectStatus]="'bookmarked'"></my-project-card>
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
                     </div>
                   </div>
                 </li>
