@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
-import {Project} from './project';
-import {environment} from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { Project } from './project';
+import { environment } from '../../../environments/environment';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
@@ -11,7 +11,7 @@ const projectUrl = `${environment.backend_url}/api/projects`;
 @Injectable()
 export class ProjectService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({ 'Content-Type': 'application/json' });
 
   constructor(private http: Http) {
   }
@@ -52,8 +52,8 @@ export class ProjectService {
     }
 
     return this.http
-      .get(`${projectUrl}/search`, {search: params})
-      .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
+      .get(`${projectUrl}/search`, { search: params })
+      .map(res => ({ data: res.json().content, totalItems: res.json().totalElements }))
       .catch(this.handleError);
   }
 
@@ -67,28 +67,28 @@ export class ProjectService {
   }
 
   getProjectByOrg(id: number, projectStatus: string): Observable<Response> {
-      if (projectStatus) {
-        return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);
-      } else {
-        return this.http.get(`${projectUrl}/organization?organizationId=${id}`);
-      }
+    if (projectStatus) {
+      return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);
+    } else {
+      return this.http.get(`${projectUrl}/organization?organizationId=${id}`);
+    }
   }
 
   getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  add(project: Project): Observable<{project: Project}> {
-      return this.http.post(
+  add(project: Project): Observable<{ project: Project }> {
+    return this.http.post(
       `${projectUrl}`,
       project
-      ).map(res => res.json());
+    ).map(res => res.json());
   }
 
   delete(id: number) {
     const url = projectUrl + '/' + id;
     return this.http
-      .delete(url, {headers: this.headers})
+      .delete(url, { headers: this.headers })
       .catch(this.handleError);
   }
 
@@ -102,27 +102,39 @@ export class ProjectService {
     return this.http.put(
       `${projectUrl}/${project.id}`,
       project
-      );
+    );
   }
 
   getUserProjectStatusFromLocalStorage() {
     const bookmarkedProjectsIDs = localStorage.getItem('bookmarkedProjectsIDs');
     const appliedProjectsIDs = localStorage.getItem('appliedProjectsIDs');
-    return {'bookmarkedProjectsIDs': bookmarkedProjectsIDs, 'appliedProjectsIDs': appliedProjectsIDs};
+    const acceptedProjectsIDs = localStorage.getItem('acceptedProjectsIDs');
+    const declinedProjectsIDs = localStorage.getItem('declinedProjectsIDs');
+    return {
+      'bookmarkedProjectsIDs': bookmarkedProjectsIDs, 'appliedProjectsIDs': appliedProjectsIDs,
+      'acceptedProjectsIDs': acceptedProjectsIDs,
+      'declinedProjectsIDs': declinedProjectsIDs
+    };
   }
 
   linkUserProject(projectId: number, userId: string, status: string) {
     const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
     return this.http
-      .post(url, {headers: this.headers})
+      .post(url, { headers: this.headers })
       .do(() => {
         const projectsIDs = this.getUserProjectStatusFromLocalStorage();
         // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied or bookmarked another project
-       if (status === 'A') {
-         localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + projectId));
-       }
+        if (status === 'A') {
+          localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + projectId));
+        }
         if (status === 'B') {
           localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + projectId));
+        }
+        if (status === 'C') {
+          localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + projectId));
+        }
+        if (status === 'D') {
+          localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + projectId));
         }
       })
       .catch(this.handleError);
