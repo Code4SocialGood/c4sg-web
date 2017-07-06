@@ -136,6 +136,7 @@ export class AuthService {
                         } else {
                           localStorage.setItem('currentDisplayName', user.email);
                         }
+                        localStorage.setItem('currentUserAvatar', user.avatarUrl);
                       },
                       error1 => console.log(error1));
                   }else {
