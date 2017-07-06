@@ -9,7 +9,7 @@
         <div class="row single-info">
           <div class="col s6 m3 l2">
             <div class="info-avatar z-depth-2" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
-            <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="defaultLogo"></div>
+            <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="constantsService.defaultLogo"></div>
           </div>
           <div class="col s12 m9 l10">
 
@@ -84,7 +84,7 @@
                       <div class="row single-info">
                         <div class="col m4">
                           <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="defaultLogo"></div>
+                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="constantsService.defaultLogo"></div>
                         </div>
                         <div class="col m8 proj-name">
                           <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
@@ -97,7 +97,7 @@
                           </div>
                         </div>
                       </div>
-                      <p>{{ pr.description | slice:0:100 }} ...}}</p>
+                      <p class="description" *ngIf="pr && pr.description">{{ pr && pr.description | slice:0:100 }} ...</p>
                     </div>
                   </div>
                 </li>

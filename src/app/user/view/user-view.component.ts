@@ -6,6 +6,7 @@ import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
   // moduleId: module.id,
@@ -23,12 +24,12 @@ export class UserViewComponent implements OnInit {
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  defaultAvatar = '../../assets/default_avatar.png';
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private router: Router,
     private route: ActivatedRoute) {
   }

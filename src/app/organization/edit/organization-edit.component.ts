@@ -43,7 +43,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
               private organizationService: OrganizationService,
               private validationService: ValidationService,
               private auth: AuthService,
-              private fc: FormConstantsService,
+              public constantsService: FormConstantsService,
               private route: ActivatedRoute,
               private router: Router,
               private extfilehandler: ExtFileHandlerService
@@ -62,8 +62,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
       // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
       if (this.organizationId === 0) {
-        // this.organization.logo = this.defaultAvatar;
       }
+
       this.organizationService.getOrganization(this.organizationId)
         .subscribe(
           res => {
@@ -91,8 +91,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   }
 
   private getFormConstants(): void {
-    this.categories = this.fc.getCategories();
-    this.countries = this.fc.getCountries();
+    this.categories = this.constantsService.getCategories();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {

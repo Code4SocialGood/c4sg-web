@@ -10,6 +10,7 @@ import { Project } from '../../project/common/project';
 import { User } from '../../user/common/user';
 import { Organization } from '../../organization/common/organization';
 import { MaterializeAction } from 'angular2-materialize';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
   selector: 'my-organization',
@@ -27,7 +28,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
-  defaultLogo = '../../assets/default_image.png';
 
   displayShare = true;
   displayEdit = false;
@@ -38,6 +38,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private authService: AuthService,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -57,8 +58,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       this.categoryName = 'Nonprofit';
     } else if (this.organization.category === 'O') {
       this.categoryName = 'Open Source';
-    } else if (this.organization.category === 'M') {
-      this.categoryName = 'Misc';
+    } else if (this.organization.category === 'S') {
+      this.categoryName = 'Social Enterprise';
+    } else if (this.organization.category === 'U') {
+      this.categoryName = 'Startup';
     }
   }
 

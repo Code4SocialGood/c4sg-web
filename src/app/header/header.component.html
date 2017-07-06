@@ -28,8 +28,10 @@
           <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
         </ul>
       </li>
-      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject"><span class="left">{{authSvc.getCurrentDisplayName()}}</span><i class="material-icons right">arrow_drop_down</i></a>
-        <ul class="dropdown-content" id="dropdownproject">
+      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
+          <img [src]="authSvc.getCurrentUserAvatar()" onError="this.src='../../assets/default_avatar.png'" alt="" class="circle responsive-img profile-img">
+          <i class="material-icons right">arrow_drop_down</i></a>
+        <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
           <li><a routerLink="/user/edit/{{currentUserId}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['organization/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId == undefined"><a [routerLink]="['organization/edit', 0]" routerLinkactive="active">My Organization</a></li>

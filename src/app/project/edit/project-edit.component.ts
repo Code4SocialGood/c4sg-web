@@ -44,7 +44,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
               private organizationService: OrganizationService,
-              private fc: FormConstantsService,
+              public constantsService: FormConstantsService,
               private route: ActivatedRoute,
               private auth: AuthService,
               private router: Router,
@@ -102,7 +102,7 @@ ngAfterViewChecked(): void {
 }
 
   private getFormConstants(): void {
-    this.countries = this.fc.getCountries();
+    this.countries = this.constantsService.getCountries();
   }
 
   private initForm(): void {
