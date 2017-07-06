@@ -180,7 +180,7 @@ export class ProjectViewComponent implements OnInit {
         this.displayApplicants = true;
       }
     }
-  }  
+  }
 
 
   saveUserProject(userId, status): void {
