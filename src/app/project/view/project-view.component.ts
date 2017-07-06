@@ -158,11 +158,9 @@ export class ProjectViewComponent implements OnInit {
         if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
           this.projectStatusApplied = true;
         }
-          if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
-            this.projectStatusBookmarked = true;
-          }
+        if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+          this.projectStatusBookmarked = true;
         }
-
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
@@ -182,6 +180,7 @@ export class ProjectViewComponent implements OnInit {
         this.displayApplicants = true;
       }
     }
+  }  
 
 
   saveUserProject(userId, status): void {
