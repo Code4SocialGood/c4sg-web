@@ -27,8 +27,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     name: 'Social Enterprise',
     value: 'S'
   }, {
-    name: 'Team Project',
-    value: 'T'
+    name: 'Startup',
+    value: 'U'
   }];
 
 
