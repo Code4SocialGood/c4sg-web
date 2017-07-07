@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkPublish = false;
   public checkNotify = false;
   public editFlag = false;
-  public projectSkillsArray: string[] = [];
+  public userSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
   public globalActions = new EventEmitter<string|MaterializeAction>();
@@ -93,7 +93,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
-            this.projectSkillsArray = res;
+            this.userSkillsArray = res;
           }, error => console.log(error)
         );
 
@@ -188,20 +188,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onDeleteSkill(skillToDelete) {
-    this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
+    this.userSkillsArray = this.userSkillsArray.filter((projectSkill) => {
       return projectSkill !== skillToDelete;
     });
-    console.log(this.projectSkillsArray);
+    console.log(this.userSkillsArray);
   }
 
   onAddListedSkill(optionValue) {
-    this.skillCounter = this.projectSkillsArray.length;
+    this.skillCounter = this.userSkillsArray.length;
     console.log(optionValue.target.value);
     this.checkSkillList (optionValue.target.value);
     if (!this.isSkillExists && !this.isSkillLimit) {
-      this.projectSkillsArray.push(optionValue.target.value);
+      this.userSkillsArray.push(optionValue.target.value);
     }
-    console.log(this.projectSkillsArray);
+    console.log(this.userSkillsArray);
   }
 
   // Count chars in introduction field
@@ -226,12 +226,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onAddOwnSkill(inputSkill) {
-    this.skillCounter = this.projectSkillsArray.length;
+    this.skillCounter = this.userSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
       this.checkSkillList (inputSkill.value);
       if (!this.isSkillExists && !this.isSkillLimit) {
-        this.projectSkillsArray.push(inputSkill.value);
+        this.userSkillsArray.push(inputSkill.value);
         this.inputValue = '';
       }
     }
@@ -273,11 +273,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         err => { console.error(err, 'An error occurred'); } );
 
     // TODO pass skill names
-    // this.skillService.updateSkills(this.userSkillsArray, this.user.id).subscribe(
-    //  res => {
-    //    this.globalActions.emit('toast');
-    //  }, error => console.log(error)
-    // );
+     this.skillService.updateUserSkills(this.userSkillsArray, this.user.id).subscribe(
+      res => {
+        this.globalActions.emit('toast');
+      }, error => console.log(error)
+     );
   }
 
   /*
@@ -310,7 +310,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
     }
     if (!this.isSkillLimit) {
-    for ( this.skill of this.projectSkillsArray ) {
+    for ( this.skill of this.userSkillsArray ) {
       if (selectedSkill === this.skill) {
         this.isSkillExists = true;
         this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
