@@ -37,7 +37,9 @@ export class SkillService {
     const params: URLSearchParams = new URLSearchParams();
     params.set('id', id);
     params.set('skillsList', projectSkillsArray.join(','));
-    const url = skillUrl + '/project/skills';
+ //   const url = skillUrl + '/project/skills';
+    const url = skillUrl + '/user/skills';
+ 
     return this.http
       .put(url, null, {search: params})
       .map((res: Response) => {
