@@ -37,7 +37,7 @@
                 <input class="theme-input" id="userName" formControlName="userName" type="text">
                 <label for="userName"
                   [ngClass]="{'red-text':!userForm.get('userName').valid && !userForm.get('userName').pristine}">Username
-                <span *ngIf="!userForm.get('userName').valid && !userForm.get('userName').pristine"> is required.</span>
+                <span *ngIf="!userForm.get('userName').valid && !userForm.get('userName').pristine"> is required</span>
                 </label>
               </div>
             </div>
@@ -108,8 +108,11 @@
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <label for="title">Title *</label>
                 <input class="theme-input" id="title" type="text" formControlName="title">
+                <label for="title"
+                  [ngClass]="{'red-text':!userForm.get('title').valid && !userForm.get('title').pristine}">Title
+                <span *ngIf="!userForm.get('title').valid && !userForm.get('title').pristine"> is required</span>
+                </label>
               </div>
               <div class="input-field col s12">
                    <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" formControlName="introduction"

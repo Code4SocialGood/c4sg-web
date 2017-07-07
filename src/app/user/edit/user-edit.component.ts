@@ -154,7 +154,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'country': [this.user.country || '', [Validators.required]],
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
-      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(100)])]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
