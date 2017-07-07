@@ -21,19 +21,20 @@
                           [latitude]="d.latitude"
                           [longitude]="d.longitude"
                           (mouseOver)="handleMarkerMouseOver($event)"
-                          (mouseOut)="handleMarkerMouseOut($event)"
                           >
 
                         <agm-info-window>
-                              <div>
-                                <a [routerLink]="['/user/view',d.id]">
+                              <div class="info-window">
+                                <a class="info-container" [routerLink]="['/user/view',d.id]">
+                                  <div class="info-avatar">
                                     <img [src]="d.avatarUrl" onError="this.src='../../assets/default_avatar.png'">
-                                    <div>{{d.userName}}</div>
-                                    <div>Location:
-                                            <span *ngIf="d.state">{{d.state}}</span>
-                                            <span *ngIf="d.state && d.country">,</span>
-                                            <span *ngIf="d.country">{{d.country}}</span>
-                                    </div>
+                                  </div>
+                                  <div class="user-name">{{d.userName}}</div>
+                                  <div class="user-location">Location:
+                                          <span *ngIf="d.state">{{d.state}}</span>
+                                          <span *ngIf="d.state && d.country">,</span>
+                                          <span *ngIf="d.country">{{d.country}}</span>
+                                  </div>
                                 </a>
                               </div>
                         </agm-info-window>

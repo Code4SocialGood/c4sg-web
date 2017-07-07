@@ -8,7 +8,7 @@ require('./agmMarkerProto.js');
 @Component({
   selector: 'my-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
 
@@ -30,11 +30,6 @@ export class AboutComponent implements OnInit {
   handleMarkerMouseOver(event): void {
     event.target.infoWindow.forEach(function(infoWindow){
       return infoWindow.open();
-    });
-  }
-  handleMarkerMouseOut(event): void {
-    event.target.infoWindow.forEach(function(infoWindow){
-      return infoWindow.close();
     });
   }
 
