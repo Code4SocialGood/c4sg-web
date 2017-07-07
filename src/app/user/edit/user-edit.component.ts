@@ -278,6 +278,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     //    this.globalActions.emit('toast');
     //  }, error => console.log(error)
     // );
+
+    this.skillService.updateSkills(this.projectSkillsArray, this.user.id).subscribe(
+     res => {
+        this.globalActions.emit('toast');
+      }, error => console.log(error)
+     );
   }
 
   /*
