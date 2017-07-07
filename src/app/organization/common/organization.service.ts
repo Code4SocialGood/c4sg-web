@@ -32,8 +32,11 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
-  approve(id: number, status?: string) {
-    return this.http.put(`${organizationUrl}/${id}/approve`, status);
+  approve(organizationId: number, status: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`status=${status}`);
+    return this.http
+      .put(`${organizationUrl}/${organizationId}/approve`, '', requestOptions);
   }
 
   searchOrganizations(

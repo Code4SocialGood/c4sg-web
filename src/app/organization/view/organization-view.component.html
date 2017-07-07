@@ -12,9 +12,7 @@
             <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="constantsService.defaultLogo"></div>
           </div>
           <div class="col s12 m9 l10">
-
             <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
-
             <p class="subtitle" *ngIf="organization.websiteUrl">
               <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
             </p>
@@ -24,6 +22,18 @@
               <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
               <span class="state">{{organization.country}}</span>
             </p>
+            <div class="right">
+              <div class="row" *ngIf="organization.status === 'P'">
+                <div class="col s12">
+                  <div class="project-marked">
+                    <svg class="icon">
+                      <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                    </svg>
+                    <span>Pending Approval</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col m12">
             <div class="info-title">Introduction</div>
@@ -33,8 +43,11 @@
             <div class="col s12 action-btns">
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
-              <button class="btn waves-effect waves-light" (click)="approve()"  materialize [materializeParams]="['The organization is approved',4000]" [materializeActions]="globalActions">
-               Save
+              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="approve()"  materialize [materializeParams]="['The organization is approved',4000]" [materializeActions]="globalActions">
+                Approve
+              </button>
+              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="decline()"  materialize [materializeParams]="['The organization is declined',4000]" [materializeActions]="globalActions">
+                Decline
               </button>
             </div>
           </div>
