@@ -10,6 +10,7 @@ import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
+import { ValidationService } from '../../_services/validation.service';
 
 declare var Materialize: any;
 
@@ -49,6 +50,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public skill = '';
   public skillCounter = 0;
 
+  public introMaxLength: number = this.validationService.introMaxLength;
+  public introMaxLengthEntered = false;
+  public introValueLength: number;
+  public introFieldFocused = false;
+
   constructor(
     public fb: FormBuilder,
     private userService: UserService,
@@ -59,7 +65,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private router: Router,
     private skillService: SkillService,
-    private extfilehandler: ExtFileHandlerService
+    private extfilehandler: ExtFileHandlerService,
+    private validationService: ValidationService
   ) { }
 
   ngOnInit(): void {
@@ -141,13 +148,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'userName': [this.user.userName || '', [Validators.required]],
-      'firstName': [this.user.firstName || '', []],
-      'lastName': [this.user.lastName || '', []],
+      'firstName': [this.user.firstName || '', [Validators.required]],
+      'lastName': [this.user.lastName || '', [Validators.required]],
       'state': [this.user.state || '', []],
       'country': [this.user.country || '', [Validators.required]],
       'phone': [this.user.phone || '', []],
-      'title': [this.user.title || '', []],
-      'introduction': [this.user.introduction || '', []],
+      'title': [this.user.title || '', [Validators.required]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
@@ -195,6 +202,27 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.projectSkillsArray.push(optionValue.target.value);
     }
     console.log(this.projectSkillsArray);
+  }
+
+  // Count chars in introduction field
+  onCountCharIntro() {
+    this.introValueLength = this.userForm.value.introduction.length;
+    if (this.userForm.controls.introduction.invalid) {
+      this.introMaxLengthEntered = true;
+    } else {
+      this.introMaxLengthEntered = false;
+    }
+  }
+
+  onFocusIntro() {
+    this.introFieldFocused = true;
+    this.onCountCharIntro();
+  }
+
+  onBlurIntro() {
+    if (!this.userForm.controls.introduction.invalid) {
+      this.introFieldFocused = false;
+    }
   }
 
   onAddOwnSkill(inputSkill) {
