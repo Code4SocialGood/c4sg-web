@@ -268,3 +268,8 @@ textarea.materialize-textarea:focus + label {
 .select-dropdown li span{
   color: $secondary-bg-color;
 }
+
+/* fix pagination cursor */
+.pagination li, .pagination li.current {
+  cursor: pointer;
+}

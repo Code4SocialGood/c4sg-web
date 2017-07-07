@@ -157,12 +157,12 @@ export class AuthService {
                   if (environment.production) {
                     this.getDelegationToken();
                   }
-                  
+
                   // Issue 356 - redirect user back to the page that requested login - project view page
                   this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
                   if (this.redirectAfterLogin) {
                       setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
-                  }else {
+                  } else {
                       setTimeout(() => this.router.navigate(['/']));
                   }
                 },
@@ -197,8 +197,7 @@ export class AuthService {
         localStorage.removeItem('delgId');
         localStorage.removeItem('delgSecId');
         localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
-      }
-      else {
+      }else {
         console.warn('Unable to get delegation token');
       }
     });
