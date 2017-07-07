@@ -74,9 +74,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
-        if (this.organization.status === 'P') { // Pending Approval
-          this.displayApprove = true;
-        }
       }
     }
   }
@@ -91,6 +88,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         // Validation rules should force websiteUrl to start with http but add check just in case
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
+        if (this.authService.authenticated() && this.authService.isAdmin() && this.organization.status === 'P') {
+          this.displayApprove = true;
         }
       },
       (err) => {
