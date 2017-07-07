@@ -30,12 +30,12 @@ export class AboutComponent implements OnInit {
   handleMarkerMouseOver(event): void {
     event.target.infoWindow.forEach(function(infoWindow){
       return infoWindow.open();
-    })
+    });
   }
   handleMarkerMouseOut(event): void {
     event.target.infoWindow.forEach(function(infoWindow){
       return infoWindow.close();
-    })
+    });
   }
 
   private getDevelopers(): void {
