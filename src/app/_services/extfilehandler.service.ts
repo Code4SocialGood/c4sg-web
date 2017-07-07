@@ -28,12 +28,19 @@ export class ExtFileHandlerService {
     Uploads a file using a pre-signed url
   */
   uploadFile(fileInput: any, id: number, filetype: string): Observable<string> {
-    const credentials = {
-      accessKeyId: `${localStorage.getItem('amzId')}`,
-      secretAccessKey: `${localStorage.getItem('amzsecId')}`
+    let credentials = {
+      accessKeyId: `${localStorage.getItem('delgId')}`,
+      secretAccessKey: `${localStorage.getItem('delgSecId')}`
     };
+
     // declare an aws service
     const AWSService = (<any> window).AWS;
+    if (environment.production) {
+      const creds: any = JSON.parse(localStorage.getItem('delgcred'));
+      credentials = new AWSService.Credentials(creds.AccessKeyId,
+                                creds.SecretAccessKey,
+                                creds.SessionToken);
+    }
     // assign the file to upload
     const file = fileInput.target.files[0];
     // assign the key name

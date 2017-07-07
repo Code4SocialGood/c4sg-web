@@ -32,6 +32,10 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
+  approve(id: number, status?: string) {
+    return this.http.put(`${organizationUrl}/${id}/approve`, status);
+  }
+
   searchOrganizations(
     keyword?: string,
     countries?: string[],
