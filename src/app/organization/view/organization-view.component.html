@@ -33,7 +33,9 @@
             <div class="col s12 action-btns">
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
-              <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+              <button class="btn waves-effect waves-light" (click)="approve()"  materialize [materializeParams]="['The organization is approved',4000]" [materializeActions]="globalActions">
+               Save
+              </button>
             </div>
           </div>
         </div>

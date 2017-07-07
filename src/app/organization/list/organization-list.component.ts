@@ -126,7 +126,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, page, 10) // Org of Pending status
+      null, null, null, 'P', null, null, null)
       .subscribe( res => {
         this.organizations = res;
         res.forEach((o: Organization) => {
