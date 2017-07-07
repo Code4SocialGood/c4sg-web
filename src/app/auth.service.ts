@@ -154,7 +154,7 @@ export class AuthService {
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   }
 
-                  if (environment.production) {
+                  if (environment.production && !environment.auth_tenant_shared) {
                     this.getDelegationToken();
                   }
 
