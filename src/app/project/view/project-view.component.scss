@@ -50,3 +50,42 @@
     margin: auto;
   }
 }
+
+.user-list {
+  margin: 0;
+  .user-wrapper {
+    display: inline-block;
+    width: 100%;
+    border-bottom: $border-width $border-color solid;
+  }
+
+  .user {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: 0 0 0;
+    background: $main-bg-color;
+    background-color: white;
+
+    .user-info {
+      //float: right;
+      //display: inline-block;
+      //padding: 0 2em;
+      //padding-bottom: 15px;
+      font-size: 0.9em;
+      color: $main-color;
+      .name {
+        cursor: pointer;
+        //display: inline-block;
+        font-size: 1em;
+        font-weight: bold;
+        .name:hover {
+          text-decoration: underline #84c44c;
+        }
+      }
+    }
+  }
+}

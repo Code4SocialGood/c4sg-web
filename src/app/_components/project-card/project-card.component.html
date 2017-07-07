@@ -9,8 +9,26 @@
     <div class="card-info">
       <div class="card-header">
         <div class='name'>
-          <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
-        </div>
+        <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+          <div class="right">
+              <div class="col s12" *ngIf="userProjectStatus === 'applied' && from!=='myProjects'">
+                <div class="project-marked">
+                  <svg class="icon">
+                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                  </svg>
+                  <span>Applied</span>
+                </div>
+              </div>
+              <div class="col s12" *ngIf="userProjectStatus === 'bookmarked' && from!=='myProjects'">
+                <div class="project-marked">
+                  <svg class="icon icon-bookmarked">
+                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                  </svg>
+                  <span>Bookmarked</span>
+                </div>
+              </div>
+          </div>
+      </div>
         <div class="row info-row">
           <div class="col s12">
           <div class="card-metainfo col m6">
@@ -20,7 +38,7 @@
           <div class="card-metainfo col m6">
             <span class="state" *ngIf="project.state">{{project.state}}, </span>
             <span class="state" *ngIf="project.country">{{project.country}}</span>
-            <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span> 
+            <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>
             &nbsp;| &nbsp;
             <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
           </div>

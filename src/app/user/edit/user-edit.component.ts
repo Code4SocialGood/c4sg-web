@@ -113,7 +113,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
     if (Materialize && Materialize.updateTextFields) {
       // *** Does not seem to be needed - also prevents labels from moving when clicked ***
-      // Materialize.updateTextFields();
+       Materialize.updateTextFields();
     }
   }
 
@@ -268,6 +268,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userService.update(this.user).subscribe(() => {
         this.globalActions.emit('toast');
+        this.router.navigate(['/user/view', this.user.id]);
        },
         err => { console.error(err, 'An error occurred'); } );
 

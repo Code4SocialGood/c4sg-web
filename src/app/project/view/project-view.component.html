@@ -71,14 +71,18 @@
           <div class="row">
             <div class="col s12 action-btns">
               <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="apply()">Apply
+                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
+                Apply
               </button>
-              <button type="button" class="btn" *ngIf="displayApply && authService.authenticated()" (click)="apply()" [disabled]="projectStatusApplied">Apply
+              <button type="button" class="btn" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" [disabled]="projectStatusApplied">
+                Apply
               </button>
               <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
-                *ngIf="displayBookmark && !authService.authenticated()" (click)="bookmark()">Bookmark
+                *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
+                Bookmark
               </button>
-              <button type="button" class="btn" *ngIf="displayBookmark && authService.authenticated()" (click)="bookmark()" [disabled]="projectStatusBookmarked">Bookmark
+              <button type="button" class="btn" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')" [disabled]="projectStatusBookmarked">
+                Bookmark
               </button>
               <!--<button type="button" class="btn" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
               <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
@@ -100,39 +104,31 @@
           <div class="col s12">
             <h4 class="content-title">Applicants</h4>
             <div class="items-list-wrapper">
-              <ul class="card-list" *ngIf="applicants">
-                <li class="card-wrapper" *ngFor="let user of applicants">
-                  <div class="card">
-                    <div class="card-content">
-                      <div class="card-avatar-wrapper">
-                        <div *ngIf="user.avatarUrl" class="card-avatar z-depth-2">
-                          <img class="card-avatar-content" [src]="user.avatarUrl">
-                        </div>
-                        <div *ngIf="!user.avatarUrl" class="card-avatar z-depth-2">
-                          <img class="card-avatar-content" [src]="constantsService.defaultAvatar">
-                        </div>
+              <ul class="user-list" *ngIf="applicants">
+                <li class="user-wrapper" *ngFor="let applicant of applicants">
+                  <div class="user">
+                    <div class="user-info col s4">
+                      <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
+                      <div>{{applicant.title}}</div>                 
+                    </div>                      
+                    <div class="user-info col s4">
+                      <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
+                      <div *ngIf="applicant.applicationStatus === 'C'">
+                        Accepted on: {{applicant.acceptedTime | date: 'MMM d, yyyy'}}
                       </div>
-                      <div class="card-info">
-                        <div class="card-header">
-                          <div class='name'>
-                            <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
-                          </div>
-                          <div class="row info-row">
-                            <div class="card-metainfo col m6">
-                              <p>{{user.title}}</p>
-                            </div>
-                            <div class="card-metainfo col m6">
-                              <span class="card-location" *ngIf="user.country">{{user.country}}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="skills-tag-wrapper">
-                          <ul *ngIf="user.skills">
-                            <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
-                          </ul>
-                        </div>
-                        <p class="description" *ngIf="user && user.introduction">{{ user && user.introduction | slice:0:200 }} ...</p>
-                      </div>
+                      <div *ngIf="applicant.applicationStatus === 'D'">
+                        Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
+                      </div>                    
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C')">Accept</button></div>     
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D')">Decline</button></div>          
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
+                      <div>ACCEPTED</div>
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'D'">
+                      <div>DECLINED</div>
                     </div>
                   </div>
                 </li>
