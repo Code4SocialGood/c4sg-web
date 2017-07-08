@@ -32,6 +32,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   displayShare = true;
   displayEdit = false;
   displayDelete = false;
+  displayApprove = false;
 
   constructor(private organizationService: OrganizationService,
     private projectService: ProjectService,
@@ -88,6 +89,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
         }
+        if (this.authService.authenticated() && this.authService.isAdmin() && this.organization.status === 'P') {
+          this.displayApprove = true;
+        }
       },
       (err) => {
         console.error('An error occurred', err); // for demo purposes only
@@ -134,10 +138,36 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
           this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {
-            console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
+          console.log(error);
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
         }
       );
+  }
+
+  approve(): void {
+    this.organizationService
+      .approve(this.organization.id, 'A')
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/view/' + this.organization.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  decline(): void {
+  this.organizationService
+    .approve(this.organization.id, 'D')
+    .subscribe(
+      response => {
+        this.router.navigate(['/organization/view/' + this.organization.id]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnDestroy(): void {

@@ -10,6 +10,7 @@ import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
+import { ValidationService } from '../../_services/validation.service';
 
 declare var Materialize: any;
 
@@ -34,7 +35,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkPublish = false;
   public checkNotify = false;
   public editFlag = false;
-  public projectSkillsArray: string[] = [];
+  public userSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public inputValue = '';
   public globalActions = new EventEmitter<string|MaterializeAction>();
@@ -49,6 +50,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public skill = '';
   public skillCounter = 0;
 
+  public introMaxLength: number = this.validationService.introMaxLength;
+  public introMaxLengthEntered = false;
+  public introValueLength: number;
+  public introFieldFocused = false;
+
   constructor(
     public fb: FormBuilder,
     private userService: UserService,
@@ -59,7 +65,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private router: Router,
     private skillService: SkillService,
-    private extfilehandler: ExtFileHandlerService
+    private extfilehandler: ExtFileHandlerService,
+    private validationService: ValidationService
   ) { }
 
   ngOnInit(): void {
@@ -86,7 +93,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
-            this.projectSkillsArray = res;
+            this.userSkillsArray = res;
           }, error => console.log(error)
         );
 
@@ -141,13 +148,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'userName': [this.user.userName || '', [Validators.required]],
-      'firstName': [this.user.firstName || '', []],
-      'lastName': [this.user.lastName || '', []],
+      'firstName': [this.user.firstName || '', [Validators.required]],
+      'lastName': [this.user.lastName || '', [Validators.required]],
       'state': [this.user.state || '', []],
       'country': [this.user.country || '', [Validators.required]],
       'phone': [this.user.phone || '', []],
-      'title': [this.user.title || '', []],
-      'introduction': [this.user.introduction || '', []],
+      'title': [this.user.title || '', [Validators.required]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
@@ -181,29 +188,50 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onDeleteSkill(skillToDelete) {
-    this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
+    this.userSkillsArray = this.userSkillsArray.filter((projectSkill) => {
       return projectSkill !== skillToDelete;
     });
-    console.log(this.projectSkillsArray);
+    console.log(this.userSkillsArray);
   }
 
   onAddListedSkill(optionValue) {
-    this.skillCounter = this.projectSkillsArray.length;
+    this.skillCounter = this.userSkillsArray.length;
     console.log(optionValue.target.value);
     this.checkSkillList (optionValue.target.value);
     if (!this.isSkillExists && !this.isSkillLimit) {
-      this.projectSkillsArray.push(optionValue.target.value);
+      this.userSkillsArray.push(optionValue.target.value);
     }
-    console.log(this.projectSkillsArray);
+    console.log(this.userSkillsArray);
+  }
+
+  // Count chars in introduction field
+  onCountCharIntro() {
+    this.introValueLength = this.userForm.value.introduction.length;
+    if (this.userForm.controls.introduction.invalid) {
+      this.introMaxLengthEntered = true;
+    } else {
+      this.introMaxLengthEntered = false;
+    }
+  }
+
+  onFocusIntro() {
+    this.introFieldFocused = true;
+    this.onCountCharIntro();
+  }
+
+  onBlurIntro() {
+    if (!this.userForm.controls.introduction.invalid) {
+      this.introFieldFocused = false;
+    }
   }
 
   onAddOwnSkill(inputSkill) {
-    this.skillCounter = this.projectSkillsArray.length;
+    this.skillCounter = this.userSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
       this.checkSkillList (inputSkill.value);
       if (!this.isSkillExists && !this.isSkillLimit) {
-        this.projectSkillsArray.push(inputSkill.value);
+        this.userSkillsArray.push(inputSkill.value);
         this.inputValue = '';
       }
     }
@@ -245,11 +273,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         err => { console.error(err, 'An error occurred'); } );
 
     // TODO pass skill names
-    // this.skillService.updateSkills(this.userSkillsArray, this.user.id).subscribe(
-    //  res => {
-    //    this.globalActions.emit('toast');
-    //  }, error => console.log(error)
-    // );
+     this.skillService.updateUserSkills(this.userSkillsArray, this.user.id).subscribe(
+      res => {
+        this.globalActions.emit('toast');
+      }, error => console.log(error)
+     );
   }
 
   /*
@@ -282,7 +310,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
     }
     if (!this.isSkillLimit) {
-    for ( this.skill of this.projectSkillsArray ) {
+    for ( this.skill of this.userSkillsArray ) {
       if (selectedSkill === this.skill) {
         this.isSkillExists = true;
         this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});

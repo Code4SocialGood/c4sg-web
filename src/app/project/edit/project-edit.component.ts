@@ -178,7 +178,7 @@ ngAfterViewChecked(): void {
         this.project = res.project;
 
         // return Observable.forkJoin(additionalCalls);
-        this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
+        this.skillService.updateProjectSkills(this.projectSkillsArray, this.project.id).subscribe(
           result => {
             // After all calls are successfully made, go to the detail page
             this.router.navigate(['/project/view/' + this.project.id]);
@@ -203,7 +203,7 @@ ngAfterViewChecked(): void {
       .update(this.project)
       .subscribe(res => {
         this.skillService
-          .updateSkills(this.projectSkillsArray, this.project.id)
+          .updateProjectSkills(this.projectSkillsArray, this.project.id)
           .subscribe(result => {
             this.router.navigate(['/project/view/' + this.project.id]);
             Materialize.toast('Your changes have been saved', 4000);
