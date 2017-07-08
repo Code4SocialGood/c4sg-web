@@ -62,7 +62,7 @@ export class AuthService {
         placeholder: 'Sign up as a',
         options: [
           {value: 'VOLUNTEER', label: 'Volunteer User'},
-          {value: 'ORGANIZATION', label: 'Non-profit User'},
+          {value: 'ORGANIZATION', label: 'Organization User'},
           {value: 'ADMIN', label: 'Admin User'}
         ],
         prefill: 'VOLUNTEER'
