@@ -7,3 +7,18 @@
 .skills-margin{
   margin-top: 5%;
 }
+
+input[type=text]:focus:not([readonly]).ng-touched:not(form) {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336 !important;
+} 
+
+input[type=text]:focus:not([readonly]).ng-touched.ng-valid:not(form) {
+    border-bottom-color: #84c44c !important;
+    box-shadow: 0 1px 0 0 #84c44c !important;
+}
+
+.red-text {
+  color: #F44336;
+  box-shadow: 0 0 0 0 #F44336 !important;
+}
