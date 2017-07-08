@@ -26,7 +26,7 @@
     "test_single_run": "ng test --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod --aot --environment=${C4SG_NG_ENV-'prod_remote'}"
+    "postinstall": "ng build --prod --aot --environment=${C4SG_NG_ENV}"
   },
   "private": true,
   "dependencies": {
