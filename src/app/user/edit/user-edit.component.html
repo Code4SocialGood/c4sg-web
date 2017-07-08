@@ -36,7 +36,7 @@
               <div class="input-field">
                 <input class="theme-input" id="userName" formControlName="userName" type="text">
                 <label for="userName"
-                  [ngClass]="{'red-text':!userForm.get('userName').valid && !userForm.get('userName').pristine}">Username
+                  [ngClass]="{'red-text':!userForm.get('userName').valid && !userForm.get('userName').pristine}">Username *
                 <span *ngIf="!userForm.get('userName').valid && !userForm.get('userName').pristine"> is required</span>
                 </label>
               </div>
@@ -45,7 +45,7 @@
               <div class="input-field">
                 <input class="theme-input" id="email" formControlName="email" type="text" disabled="true">
                 <label for="email"
-                  [ngClass]="{'red-text':!userForm.get('email').valid && !userForm.get('email').pristine}">Email address
+                  [ngClass]="{'red-text':!userForm.get('email').valid && !userForm.get('email').pristine}">Email address *
                 <span *ngIf="!userForm.get('email').valid && !userForm.get('email').pristine"> is required.</span>
                 </label>
               </div> 
@@ -54,22 +54,19 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-
                 <input class="theme-input" id="firstName" formControlName="firstName" type="text">
                 <label for="firstName"                       
-                
-                [ngClass]="{'red-text': !userForm.get('firstName').valid && !userForm.get('firstName').pristine}">First name
+                [ngClass]="{'red-text': !userForm.get('firstName').valid && !userForm.get('firstName').pristine}">First name *
                   <span
                     *ngIf="!userForm.get('firstName').valid && !userForm.get('firstName').pristine">is required</span>
                 </label>
-                
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
                 <input class="theme-input" id="lastName" formControlName="lastName" type="text">
                 <label for="lastName"
-                [ngClass]="{'red-text': !userForm.get('lastName').valid && !userForm.get('lastName').pristine}">Last Name
+                [ngClass]="{'red-text': !userForm.get('lastName').valid && !userForm.get('lastName').pristine}">Last Name *
                  <span
                     *ngIf="!userForm.get('lastName').valid && !userForm.get('lastName').pristine">is required</span>
                 </label>
@@ -119,7 +116,7 @@
                           (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"
                           (blur)="onBlurIntro()">
                   </textarea>
-               <label for="introduction" [ngClass]="{'red-text': !userForm.get('introduction').valid}">Summary
+               <label for="introduction" [ngClass]="{'red-text': !userForm.get('introduction').valid}">Summary *
                   <span *ngIf="introFieldFocused">{{ introValueLength + '/' + introMaxLength }}</span>
                 </label>
               </div>
@@ -166,26 +163,22 @@
                 <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
               </div>
               <div class="input-field col s12">
-                <label for="personalUrl">My Website</label>
-                <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
-              </div>
-              <div class="input-field col s12">
                 <label for="githubUrl">GitHub URL</label>
                 <input class="theme-input" id="githubUrl" type="text" formControlName="githubUrl">
               </div>
             </div>
-            <div class="input-field col l6 m12 s12">
-              <div class="input-field col s12 second-column">
-                <label for="twitterUrl">Twitter URL</label>
-                <input class="theme-input" id="twitterUrl" type="text" formControlName="twitterUrl">
+            <div class="col l6 m12 s12">
+              <div class="input-field col s12">
+                <label for="personalUrl">My Website</label>
+                <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
               </div>
               <div class="input-field col s12">
-                <label for="facebookUrl">Facebook URL</label>
-                <input class="theme-input" id="facebookUrl" type="text" formControlName="facebookUrl">
-              </div>
+                <label for="githubUrl">Slack Username</label>
+                <input class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
+              </div> <!--
               <div class="file-field input-field col s12" id="resume">
                 <label class="active" for="resume"></label>
-                <div class="row">
+                <div class="row"> 
                   <div class="file-path-wrapper  col m9">
                     <label for="resumeInput">Resume</label>
                     <input class="file-path validate theme-input" id="resumeInput" type="text">
@@ -195,28 +188,27 @@
                     <input type="file">
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
-
             <div class="section">
-            <div class="row  single-info">
-              <div class="col m6">
-                <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="checkPublish">
-                <label for="publishFlag">Publish me on the web site</label>
+              <div class="row  single-info">
+                <div class="col m6">
+                  <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="checkPublish">
+                  <label for="publishFlag">Publish me on the web site</label>
+                </div>
+                <div class="col m6">
+                  <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="checkNotify">
+                  <label for="notifyFlag">Notify me on new projects</label>
+                </div>
               </div>
-              <div class="col m6">
-                <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="checkNotify">
-                <label for="notifyFlag">Notify me on new projects</label>
-              </div>
-            </div>
             </div>
           </div>
-<div class="divider"></div>
+        <div class="divider"></div>
 
-<div class="section">
+        <div class="section">
           <div class="row">
             <div class="col m12">
-              <div>
+              <div class="footer-btns center">
                 <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
                   [materializeActions]="globalActions" [disabled]="!userForm.valid">
                   Save

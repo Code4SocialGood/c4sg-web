@@ -39,7 +39,7 @@
                           [selected]="category.value === organization?.category.value">{{category.name}}
                   </option>
                 </select>
-                <label>Category</label>
+                <label>Category *</label>
               </div>
               <div class="input-field">
                 <input type="text" id="address1" class="" formControlName="address1">
@@ -56,7 +56,7 @@
                           [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
                   </option>
                 </select>
-                <label>Country</label>
+                <label>Country *</label>
               </div>
             </div>
 
@@ -94,7 +94,7 @@
                 <textarea id="description" class="materialize-textarea" formControlName="description"
                           (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
                           (blur)="onBlurDesc()"></textarea>
-                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description
+                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description *
                   <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
                 </label>
               </div>

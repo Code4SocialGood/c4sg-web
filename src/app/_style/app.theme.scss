@@ -231,13 +231,14 @@ textarea.materialize-textarea:focus {
 }
 
 /* input label color */
- .input-field label {
+/* Kepp label as original color when not focused
+.input-field label {
    color: $secondary-bg-color;
- }
+ }*/
 
 /* input label focus color */
-.input-field input[type=text] + label {
- color: $secondary-bg-color;
+.input-field input[type=text]:focus + label {
+  color: $secondary-bg-color;
 }
 
 /* input label focus color */
