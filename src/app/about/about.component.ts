@@ -30,13 +30,13 @@ export class AboutComponent implements OnInit {
   }
 
   handleMarkerMouseOver(event): void {
-    if(this.activeInfoWindow){
+    if (this.activeInfoWindow) {
       this.activeInfoWindow.forEach(function(infoWindow){
         return infoWindow.close();
-      })
+      });
     }
 
-    let window = event.target.infoWindow;
+    const window = event.target.infoWindow;
     this.activeInfoWindow = window;
     window.forEach(function(infoWindow){
       return infoWindow.open();
