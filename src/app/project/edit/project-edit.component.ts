@@ -10,6 +10,7 @@ import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { AuthService} from '../../auth.service';
 import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
+import { ValidationService } from '../../_services/validation.service';
 
 declare const Materialize: any;
 
@@ -40,6 +41,12 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public skill = '';
   public imageUrl: any = '';
   public skillCounter = 0;
+  
+
+  public descMaxLength: number = this.validationService.descMaxLength;
+  public descMaxLengthEntered = false;
+  public descValueLength: number;
+  public descFieldFocused = false;
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -49,7 +56,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private auth: AuthService,
               private router: Router,
               private skillService: SkillService,
-              private extfilehandler: ExtFileHandlerService
+              private extfilehandler: ExtFileHandlerService,
+              private validationService: ValidationService
               ) {
   }
 
@@ -107,7 +115,7 @@ ngAfterViewChecked(): void {
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'name': ['', []],
+      'projectName': ['', []],
       'organizationId': ['', []],
       'description': ['', []],
       'remoteFlag': ['Y', []],
@@ -120,14 +128,44 @@ ngAfterViewChecked(): void {
   private fillForm(): void {
 
     this.projectForm = this.fb.group({
-      'name': [this.project.name || '', [Validators.required]],
+      'projectName': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
-      'description': [this.project.description || '', []],
+      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
       'state': [this.project.state || '', []],
       'country': [this.project.country || '', []]
     });
+  }
+
+    // Count chars in introduction field
+  onCountCharDescription() {
+    this.descValueLength = this.projectForm.value.description.length;
+    if (this.projectForm.controls.description.invalid) {
+      this.descMaxLengthEntered = true;
+    } else {
+      this.descMaxLengthEntered = false;
+    }
+  }
+
+  onFocusDescription() {
+    this.descFieldFocused = true;
+    this.onCountCharDescription();
+  }
+
+  onBlurDescription() {
+    if (!this.projectForm.controls.description.invalid) {
+      this.descFieldFocused = false;
+    }
+  }
+
+  onBlurName() {
+    if (this.projectForm.controls.projectName.value < 1) {
+      console.log('invalid');
+      this.projectForm.controls.projectName.invalid;
+    } else {
+      console.log('valid');
+    }
   }
 
   onSubmit(updatedData: any, event): void {
