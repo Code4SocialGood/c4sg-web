@@ -268,7 +268,7 @@ export class FormConstantsService {
     {name: 'Nonprofit', value: 'N'},
     {name: 'Open Source', value: 'O'},
     {name: 'Social Enterprise', value: 'S'},
-    {name: 'Other', value: 'M'}
+    {name: 'Startup', value: 'U'}
    ];
 
   constructor() { }
