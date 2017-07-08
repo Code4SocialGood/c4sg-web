@@ -101,7 +101,15 @@ ul.right.hide-on-med-and-down{
 
     &.active > .active-header-icon{
       display: block;
+
+      &.left-neg-24pc{
+        left: -24.7%;
+      }
     }
+
+    // .active-header-icon.left-neg-24pc{
+    //   left: -24.7%;
+    // }
 
     .active-header-icon{
       left: 0;
@@ -112,15 +120,15 @@ ul.right.hide-on-med-and-down{
       top: 18px;
       display: none;
     }
-      
+
     .profile-img{
       left: -50px;
-      right: 0;      
+      right: 0;
       margin: auto;
       max-width: 35px;
       position: absolute;
-      top: 25px;      
-    }      
+      top: 25px;
+    }
 
     .nav-link{
       line-height: normal;
@@ -147,7 +155,7 @@ ul.right.hide-on-med-and-down{
       line-height: normal;
       height: auto;
     }
-      
+
     .dropdown-content-width{
         min-width: 150px;
      }
