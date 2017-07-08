@@ -84,9 +84,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
           this.user = res;
           this.avatar = this.user.avatarUrl;
-          this.checkRole(this.user.role);
           this.checkFlag();
           this.fillForm();
+          this.checkRole(this.user.role);
           }, error => console.log(error)
         );
 
@@ -168,6 +168,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   checkRole(userRole: String): void {
     if (this.auth.isOrganization()) {
       this.displayPhone = true;
+      this.userForm.controls.title.clearValidators();
     }
     if (this.auth.isVolunteer() || this.auth.isAdmin()) {
       this.displayProfile = true;
