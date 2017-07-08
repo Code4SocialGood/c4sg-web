@@ -40,22 +40,14 @@
               <label for="organizationId">Organization Id <sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
- <-- BranchIssue634 Todo validate merge
-              <input id="name" type="text" class="validate" formControlName="name">
-              <label for="name" class="active">Project Name *<sup>&#10033;</sup></label>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="description" class="materialize-textarea" formControlName="description"></textarea>
-              <label for="description" class="active">Project Description *</label>
--->
               <input class="theme-input" id="projectName" type="text" formControlName="projectName" required>
               <label for="projectName" class="active" 
-                [ngClass]="{'red-text': !projectForm.get('projectName').valid && projectForm.get('projectName').touched}">Project name *
+                [ngClass]="{'red-text': !projectForm.get('projectName').valid && projectForm.get('projectName').touched}">Project Name *
                  <span *ngIf="!projectForm.get('projectName').valid && projectForm.get('projectName').touched">is required</span>
                 </label>
             </div>
             <div class="input-field col s12">
-              <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" placeholder=""
+              <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" 
                 (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()"
                  (blur)="onBlurDescription()">
               </textarea>
@@ -113,16 +105,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s5">
-              <label for="skillSelect">Choose from below</label>
+            <div class="col s6">
+              <label for="skillSelect">Choose from popular skills below</label>
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
                 <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
               </select>
             </div>
-            <div class="col s7">
-              <div class="input-field col s7 skills-margin">
-                <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
-                <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+            <div class="col s6">
+              <div class="input-field col s10 skills-margin">
+                <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
+                <input id="newSkill" type="text" placeholder="" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i

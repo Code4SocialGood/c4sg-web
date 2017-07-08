@@ -56,7 +56,7 @@
               <div class="input-field">
                 <input class="theme-input" id="firstName" formControlName="firstName" type="text">
                 <label for="firstName"                       
-                [ngClass]="{'red-text': !userForm.get('firstName').valid && !userForm.get('firstName').pristine}">First name *
+                [ngClass]="{'red-text': !userForm.get('firstName').valid && !userForm.get('firstName').pristine}">First Name *
                   <span
                     *ngIf="!userForm.get('firstName').valid && !userForm.get('firstName').pristine">is required</span>
                 </label>
