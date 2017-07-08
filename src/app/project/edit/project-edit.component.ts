@@ -41,7 +41,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public skill = '';
   public imageUrl: any = '';
   public skillCounter = 0;
-  
+
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
@@ -156,15 +156,6 @@ ngAfterViewChecked(): void {
   onBlurDescription() {
     if (!this.projectForm.controls.description.invalid) {
       this.descFieldFocused = false;
-    }
-  }
-
-  onBlurName() {
-    if (this.projectForm.controls.projectName.value < 1) {
-      console.log('invalid');
-      this.projectForm.controls.projectName.invalid;
-    } else {
-      console.log('valid');
     }
   }
 
