@@ -159,15 +159,6 @@ ngAfterViewChecked(): void {
     }
   }
 
-  onBlurName() {
-    if (this.projectForm.controls.projectName.value < 1) {
-      console.log('invalid');
-      this.projectForm.controls.projectName.invalid;
-    } else {
-      console.log('valid');
-    }
-  }
-
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
