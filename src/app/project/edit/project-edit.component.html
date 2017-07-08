@@ -40,9 +40,17 @@
               <label for="organizationId">Organization Id <sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
+ <-- BranchIssue634 Todo validate merge
+              <input id="name" type="text" class="validate" formControlName="name">
+              <label for="name" class="active">Project Name *<sup>&#10033;</sup></label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="description" class="materialize-textarea" formControlName="description"></textarea>
+              <label for="description" class="active">Project Description *</label>
+-->
               <input class="theme-input" id="projectName" type="text" formControlName="projectName" required>
-              <label for="projectName"
-                [ngClass]="{'red-text': !projectForm.get('projectName').valid && projectForm.get('projectName').touched}">Project name
+              <label for="projectName" class="active" 
+                [ngClass]="{'red-text': !projectForm.get('projectName').valid && projectForm.get('projectName').touched}">Project name *
                  <span *ngIf="!projectForm.get('projectName').valid && projectForm.get('projectName').touched">is required</span>
                 </label>
             </div>
@@ -51,7 +59,7 @@
                 (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()"
                  (blur)="onBlurDescription()">
               </textarea>
-              <label for="description" [ngClass]="{'red-text': !projectForm.get('description').valid}">Project Description
+              <label for="description" class="active" [ngClass]="{'red-text': !projectForm.get('description').valid}">Project Description *
                   <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
               </label>
             </div>
@@ -87,7 +95,7 @@
                 <div class="row">
                   <div class="input-field col s12">
                     <select id="country" class="" formControlName="country" materialize="material_select">
-                      <option value="" disabled>Choose country</option>
+                      <option value="" disabled selected>Choose country</option>
                       <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
                         country.code + ')'}}
                       </option>
@@ -108,9 +116,8 @@
             <div class="col s5">
               <label for="skillSelect">Choose from below</label>
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
-                  <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
-                </select>
-              
+                <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
+              </select>
             </div>
             <div class="col s7">
               <div class="input-field col s7 skills-margin">

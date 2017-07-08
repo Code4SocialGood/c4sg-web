@@ -104,7 +104,8 @@ ngAfterViewChecked(): void {
   // Work around for bug in Materialize library, form labels overlap prefilled inputs
   // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
   if (Materialize && Materialize.updateTextFields) {
-    Materialize.updateTextFields();
+    // *** Does not seem to be needed - also prevents labels from moving when clicked ***
+    // Materialize.updateTextFields();
   }
 }
 
