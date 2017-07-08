@@ -41,7 +41,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public skill = '';
   public imageUrl: any = '';
   public skillCounter = 0;
-  
+
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
