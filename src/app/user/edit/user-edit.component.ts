@@ -274,7 +274,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // TODO pass skill names
      this.skillService.updateUserSkills(this.userSkillsArray, this.user.id).subscribe(
       res => {
-        this.globalActions.emit('toast');
+      //  this.globalActions.emit('toast');
       }, error => console.log(error)
      );
   }
