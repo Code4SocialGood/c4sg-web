@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
 import { OrganizationService } from '../organization/common/organization.service';
 import { Organization } from '../organization/common/organization';
-import {ProjectService} from '../project/common/project.service';
-import {Subscription} from 'rxjs/Rx';
+import { Project } from '../project/common/project';
+import { ProjectService} from '../project/common/project.service';
+import { Subscription} from 'rxjs/Rx';
 
 @Component({
 // moduleId: module.id,  // For webpack, remove this
@@ -18,6 +19,7 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
 
   currentUserId: string;
   organizationId: string;
+  projectId: string;
   atHome = false;
   projectsSubscription: Subscription;
 
@@ -33,11 +35,13 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
       this.setOrganizationId(res);
     });
   }
+
   loadProjects(): void {
     // This URL is used as dummy URL
     this.router.navigate(['/project/list', 'reload'], {skipLocationChange: true});
     setTimeout(() => this.router.navigate(['/project/list/projects']));
   }
+
   loadVolunteers(): void {
     // This URL is used as dummy URL
     this.router.navigate(['/user/list', { from: 'reload' }], {skipLocationChange: true});
@@ -66,22 +70,25 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
   ngDoCheck() {
     if (this.authSvc.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.authSvc.getCurrentUserId();
-      if (this.currentUserId !== '0' && this.currentUserId !== null ) {
-        // for a non-profit user, get the associated org-id
-        this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
-          res => {
-            let organization: Organization;
-            // will contain at most 1 entry in the array when a match is found,
-            // otherwise, data is undefined
-            organization = res[0];
-            if (organization !== undefined) {
-              this.setOrganizationId(organization.id.toString());
-            }
-          },
-          error => console.log(error)
-        );
+
+      if (this.authSvc.isOrganization()) { // if user is Organization User
+        if (this.currentUserId !== '0' && this.currentUserId !== null ) {
+          // Get the associated organzation id
+          this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
+            res => {
+              let organization: Organization;
+              // will contain at most 1 entry in the array when a match is found, otherwise, data is undefined
+              organization = res[0];
+              if (organization !== undefined) {
+                this.setOrganizationId(organization.id.toString());
+              }
+            },
+            error => console.log(error)
+          );
+        }
       }
-      if (this.authSvc.isVolunteer()) { // if user is Volunteer
+
+      if (this.authSvc.isVolunteer()) { // if user is Volunteer User
         // Save the appliedProjectIDs and bookmarkedProjectIDs in local storage
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'B').subscribe(
           res => {
@@ -95,7 +102,7 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
           error => console.log(error));
       }
     }
-}
+  }
 
   ngOnDestroy() {
     if (this.projectsSubscription) {

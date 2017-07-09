@@ -33,11 +33,10 @@
           <i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
           <li><a routerLink="/user/edit/{{currentUserId}}" routerLinkActive="active">My Settings</a></li>
-          <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId != undefined"><a [routerLink]="['organization/edit', organizationId]" routerLinkactive="active">My Organization</a></li>
-          <li *ngIf="authSvc.isOrganization() &amp;&amp; organizationId == undefined"><a [routerLink]="['organization/edit', 0]" routerLinkactive="active">My Organization</a></li>
+          <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{organizationId}}" routerLinkactive="active">My Organization</a></li>    
           <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
-          <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/edit/0" routerLinkActive="active">Create Organization</a></li>
-          <li *ngIf="!authSvc.isVolunteer()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
+          <li *ngIf="authSvc.isAdmin()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
+          <li *ngIf="authSvc.isOrganization()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
           <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/list/approve" routerLinkActive="active">Approve Organizations</a></li>
           <li><a class="log-reg" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
         </ul>
