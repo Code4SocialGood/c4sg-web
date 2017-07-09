@@ -113,7 +113,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
     if (Materialize && Materialize.updateTextFields) {
       // *** Does not seem to be needed - also prevents labels from moving when clicked ***
-      // Materialize.updateTextFields();
+      Materialize.updateTextFields();
     }
   }
 
@@ -136,8 +136,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'linkedinUrl': ['', []],
       'personalUrl': ['', []],
       'githubUrl': ['', []],
-      'facebookUrl': ['', []],
-      'twitterUrl': ['', []],
+      'chatUsername': ['', []],
       'publishFlag': ['', []],
       'notifyFlag': ['', []]
     });
@@ -158,8 +157,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
-      'facebookUrl': [this.user.facebookUrl || '', []],
-      'twitterUrl': [this.user.twitterUrl || '', []],
+      'chatUsername': [this.user.chatUsername || '', []],
       'publishFlag': [this.user.publishFlag || '', []],
       'notifyFlag': [this.user.notifyFlag || '', []]
     });
@@ -169,8 +167,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (this.auth.isOrganization()) {
       this.displayPhone = true;
       this.userForm.controls.title.clearValidators();
+      this.userForm.controls.description.clearValidators();
     }
-    if (this.auth.isVolunteer() || this.auth.isAdmin()) {
+    if (this.auth.isVolunteer()) {
       this.displayProfile = true;
     }
   }
@@ -252,8 +251,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.linkedinUrl = this.userForm.value.linkedinUrl;
     this.user.personalUrl = this.userForm.value.personalUrl;
     this.user.githubUrl = this.userForm.value.githubUrl;
-    this.user.facebookUrl = this.userForm.value.facebookUrl;
-    this.user.twitterUrl = this.userForm.value.twitterUrl;
+    this.user.chatUsername = this.userForm.value.chatUsername;
 
     if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
       this.user.publishFlag = 'Y';
