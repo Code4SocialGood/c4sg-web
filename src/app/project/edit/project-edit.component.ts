@@ -202,8 +202,6 @@ ngAfterViewChecked(): void {
       formData.organizationId = this.organizationId;
     }
 
-    console.log("*******************" + JSON.stringify(this.projectForm.value));
-
     this.projectService
       .add(this.projectForm.value)
       .subscribe(res => {
