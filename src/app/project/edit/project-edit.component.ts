@@ -116,7 +116,7 @@ ngAfterViewChecked(): void {
   private initForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': ['', []],
+      'name': ['', []],
       'organizationId': ['', []],
       'description': ['', []],
       'remoteFlag': ['Y', []],
@@ -129,7 +129,7 @@ ngAfterViewChecked(): void {
   private fillForm(): void {
 
     this.projectForm = this.fb.group({
-      'projectName': [this.project.name || '', [Validators.required]],
+      'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
       'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
@@ -139,7 +139,7 @@ ngAfterViewChecked(): void {
     });
   }
 
-    // Count chars in introduction field
+  // Count chars in introduction field
   onCountCharDescription() {
     this.descValueLength = this.projectForm.value.description.length;
     if (this.projectForm.controls.description.invalid) {
@@ -171,8 +171,8 @@ ngAfterViewChecked(): void {
     }
 
     /*
-    this.project.name = updatedData.projectName;
-    this.project.description = updatedData.projectDescription;
+    this.project.name = updatedData.name;
+    this.project.description = updatedData.description;
     this.project.remoteFlag = updatedData.remoteFlag;
     this.project.city = updatedData.city;
     this.project.state = updatedData.state;
@@ -201,6 +201,7 @@ ngAfterViewChecked(): void {
       const formData = this.projectForm.value;
       formData.organizationId = this.organizationId;
     }
+
     this.projectService
       .add(this.projectForm.value)
       .subscribe(res => {
@@ -221,8 +222,8 @@ ngAfterViewChecked(): void {
     const formData = this.projectForm.value;
     formData.id = this.project.id;
 
-    this.project.name = formData.projectName;
-    this.project.description = formData.projectDescription;
+    this.project.name = formData.name;
+    this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
     this.project.city = formData.city;
     this.project.state = formData.state;

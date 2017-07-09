@@ -125,10 +125,12 @@ export class AuthService {
                     console.log('User does not exist');
                     const newUser: User = ({id: 0, email: lemail,
                       role: luserRole.toUpperCase().substr(0, 1),
-                      userName: luserName, firstName: firstName,
+                      userName: luserName,
+                      firstName: firstName,
                       lastName: lastName,
-                      publishFlag: 'N', chatFlag: 'N',
-                      forumFlag: 'N', status: 'ACTIVE'});
+                      publishFlag: 'N',
+                      notifyFlag: 'N',
+                      status: 'ACTIVE'});
 
                     // Create a user
                     userService.add(newUser).subscribe(
