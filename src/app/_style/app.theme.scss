@@ -178,7 +178,7 @@ hr {
       background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
       text-align: center;
       font-size: 0.7em;
-      margin: 6px 5px;
+      margin: 5px 2px;
       //cursor: pointer;
       //&:hover {
       //  background: #8dcdc1;
@@ -286,4 +286,15 @@ textarea.materialize-textarea:focus + label {
 
 .backdrop{
     background-color: $secondary-color;
+}
+
+.chip {
+  height: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  .close{
+    line-height: 14px;
+    padding-top:2px;
+    float:right;
+  }
 }
