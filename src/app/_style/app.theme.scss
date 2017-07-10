@@ -212,6 +212,7 @@ hr {
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
+  
 }
 
 .image-upload-button {
@@ -230,6 +231,7 @@ textarea.materialize-textarea:focus {
   border-bottom-color: solid $secondary-bg-color;
   box-shadow: 0 1px 0 0 $secondary-bg-color;
 }
+
 
 /* input label color */
 /* Kepp label as original color when not focused
@@ -274,4 +276,14 @@ textarea.materialize-textarea:focus + label {
 /* fix pagination cursor */
 .pagination li, .pagination li.current {
   cursor: pointer;
+}
+
+#toast-container {
+  .toast {
+    background-color: $secondary-color;
+  }
+}
+
+.backdrop{
+    background-color: $secondary-color;
 }
