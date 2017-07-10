@@ -1,8 +1,8 @@
 <div class="page-title">
-  <div *ngIf="projectId != 0">
+  <div *ngIf="!isCreate">
     <h1>Edit Project</h1>
   </div>
-  <div *ngIf="projectId == 0">
+  <div *ngIf="isCreate">
     <h1>Create Project</h1>
   </div>
 </div>
@@ -15,11 +15,12 @@
           <h4 class="col s12 m12 l12 image-title">Project Image</h4>
           <div class="col s12  m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
-              <img class="responsive-img" id="responsive-img" [src]="imageUrl" onError="this.src='../../assets/default_image.png'">
+              <img class="responsive-img" *ngIf="imageUrl" id="responsive-img" [src]="imageUrl">
+              <img class="responsive-img" *ngIf="!imageUrl" id="responsive-img" [src]="constantsService.defaultImage">
             </div>
             <div>
               <div class="input-field file-field row">
-                  <button class="btn avatar-upload-button" [disabled]="projectId===0">Upload
+                  <button class="btn avatar-upload-button">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
                 </button>
               </div>
@@ -35,10 +36,6 @@
         <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12" novalidate>
           <div class="row">
             <div class="content-title">Introduction</div>
-            <div class="input-field col s12" *ngIf="displayOrgField">
-              <input id="organizationId" type="number" class="validate" formControlName="organizationId">
-              <label for="organizationId">Organization Id *<sup>&#10033;</sup></label>
-            </div>
             <div class="input-field col s12">
               <input id="name" type="text" formControlName="name" class="validate" required>
               <label for="name">Project Name *</label>
@@ -111,7 +108,7 @@
             <div class="col s6">
               <div class="input-field col s10 skills-margin">
                 <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
-                <input id="newSkill" type="text" placeholder="" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+                <input id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i

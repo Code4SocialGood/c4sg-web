@@ -22,38 +22,40 @@ declare var Materialize: any;
 
 export class UserEditComponent implements OnInit, AfterViewChecked {
 
+  currentUserId: String;
   public countries: any[];
+
+  public userId;
   public user: User;
-  public userForm: FormGroup;
-  public formPlaceholder: { [key: string]: any } = {};
-  public descMaxLength = 255;
   public states: String[];
   public loadedFile: any;
-  public userId;
+
+  public userSkillsArray: string[] = [];
+  public skillsArray: string[] = [];
+  public skill = '';
+  public skillCounter = 0;
+
+  public inputValue = '';
+  public avatar: any = '';
+
   public displayPhone = false;
   public displayProfile = false;
   public checkPublish = false;
   public checkNotify = false;
   public editFlag = false;
-  public userSkillsArray: string[] = [];
-  public skillsArray: string[] = [];
-  public inputValue = '';
-  public globalActions = new EventEmitter<string|MaterializeAction>();
-  modalActions = new EventEmitter<string|MaterializeAction>();
-  public avatar: any = '';
-  public skillsOption = [{value: '1', name: 'CSS'},
-    {value: '2', name: 'option2'},
-    {value: '3', name: 'python'}];
-  currentUserId: String;
   public isSkillExists = false;
   public isSkillLimit = false;
-  public skill = '';
-  public skillCounter = 0;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
   public introValueLength: number;
   public introFieldFocused = false;
+
+  public descMaxLength = 255;
+
+  public userForm: FormGroup;
+  public formPlaceholder: { [key: string]: any } = {};
+  public globalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -71,13 +73,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
 
+    this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
     this.initForm();
 
     this.route.params.subscribe(params => {
-      // this.user.avatar = '';
       this.userId = +params['userId'];
-      this.currentUserId = this.auth.getCurrentUserId();
 
       this.userService.getUser(this.userId)
         .subscribe(
@@ -106,15 +107,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           }, error => console.log(error)
         );
     });
-  }
-
-  ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    if (Materialize && Materialize.updateTextFields) {
-      // *** Does not seem to be needed - also prevents labels from moving when clicked ***
-      Materialize.updateTextFields();
-    }
   }
 
   private getFormConstants(): void {
@@ -183,60 +175,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
  }
 
-  onEditSkills() {
-    this.editFlag = !this.editFlag;
-  }
-
-  onDeleteSkill(skillToDelete) {
-    this.userSkillsArray = this.userSkillsArray.filter((projectSkill) => {
-      return projectSkill !== skillToDelete;
-    });
-    console.log(this.userSkillsArray);
-  }
-
-  onAddListedSkill(optionValue) {
-    this.skillCounter = this.userSkillsArray.length;
-    console.log(optionValue.target.value);
-    this.checkSkillList (optionValue.target.value);
-    if (!this.isSkillExists && !this.isSkillLimit) {
-      this.userSkillsArray.push(optionValue.target.value);
-    }
-    console.log(this.userSkillsArray);
-  }
-
-  // Count chars in introduction field
-  onCountCharIntro() {
-    this.introValueLength = this.userForm.value.introduction.length;
-    if (this.userForm.controls.introduction.invalid) {
-      this.introMaxLengthEntered = true;
-    } else {
-      this.introMaxLengthEntered = false;
-    }
-  }
-
-  onFocusIntro() {
-    this.introFieldFocused = true;
-    this.onCountCharIntro();
-  }
-
-  onBlurIntro() {
-    if (!this.userForm.controls.introduction.invalid) {
-      this.introFieldFocused = false;
-    }
-  }
-
-  onAddOwnSkill(inputSkill) {
-    this.skillCounter = this.userSkillsArray.length;
-    console.log(inputSkill.value);
-    if (inputSkill.value && inputSkill.value.trim()) {
-      this.checkSkillList (inputSkill.value);
-      if (!this.isSkillExists && !this.isSkillLimit) {
-        this.userSkillsArray.push(inputSkill.value);
-        this.inputValue = '';
-      }
-    }
-  }
-
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -279,25 +217,37 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
      );
   }
 
-  /*
-    Orchestrates the avatar image upload sequence of steps
-  */
-  onUploadAvatar(fileInput: any): void {
-    // Function call to upload the file to AWS S3
-    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
-    // Calls the function to save the avatar image url to the user's row
-    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
-      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
-      .subscribe(res => {
-        if (res.innerValue.text() === '') {
-            this.avatar = res.outerValue;
-            this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');
-        } else {
-          console.error('Saving user avatar: Not expecting a response body');
-        }}, (e) => {
-          console.error('Avatar not saved. Not expecting a response body');
-        });
+  onEditSkills() {
+    this.editFlag = !this.editFlag;
+  }
+
+  onDeleteSkill(skillToDelete) {
+    this.userSkillsArray = this.userSkillsArray.filter((projectSkill) => {
+      return projectSkill !== skillToDelete;
+    });
+    console.log(this.userSkillsArray);
+  }
+
+  onAddListedSkill(optionValue) {
+    this.skillCounter = this.userSkillsArray.length;
+    console.log(optionValue.target.value);
+    this.checkSkillList (optionValue.target.value);
+    if (!this.isSkillExists && !this.isSkillLimit) {
+      this.userSkillsArray.push(optionValue.target.value);
+    }
+    console.log(this.userSkillsArray);
+  }
+
+  onAddOwnSkill(inputSkill) {
+    this.skillCounter = this.userSkillsArray.length;
+    console.log(inputSkill.value);
+    if (inputSkill.value && inputSkill.value.trim()) {
+      this.checkSkillList (inputSkill.value);
+      if (!this.isSkillExists && !this.isSkillLimit) {
+        this.userSkillsArray.push(inputSkill.value);
+        this.inputValue = '';
+      }
+    }
   }
 
   checkSkillList(selectedSkill) {
@@ -317,4 +267,54 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     }
     }
   }
+
+  // Count chars in introduction field
+  onCountCharIntro() {
+    this.introValueLength = this.userForm.value.introduction.length;
+    if (this.userForm.controls.introduction.invalid) {
+      this.introMaxLengthEntered = true;
+    } else {
+      this.introMaxLengthEntered = false;
+    }
+  }
+
+  onFocusIntro() {
+    this.introFieldFocused = true;
+    this.onCountCharIntro();
+  }
+
+  onBlurIntro() {
+    if (!this.userForm.controls.introduction.invalid) {
+      this.introFieldFocused = false;
+    }
+  }
+
+  // Orchestrates the avatar image upload sequence of steps
+  onUploadAvatar(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
+    // Calls the function to save the avatar image url to the user's row
+    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.avatar = res.outerValue;
+            this.user.avatarUrl = this.avatar;
+            console.log('Avatar successfully uploaded!');
+        } else {
+          console.error('Saving user avatar: Not expecting a response body');
+        }}, (e) => {
+          console.error('Avatar not saved. Not expecting a response body');
+        });
+  }
+
+  // Does not seem to be needed - also prevents labels from moving when clicked
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    // if (Materialize && Materialize.updateTextFields) {
+    // Materialize.updateTextFields();
+    // }
+  }
+
 }

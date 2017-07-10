@@ -8,7 +8,8 @@
           <h4 class="col s12 m12 l12 image-title">Organization Logo</h4>
           <div class="col s12 m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
-              <img class="responsive-img" id="responsive-img" [src]="logoUrl" onError="this.src='../../assets/default_image.png'">
+              <img class="responsive-img" *ngIf="logoUrl" id="responsive-img" [src]="logoUrl">
+              <img class="responsive-img" *ngIf="!logoUrl" id="responsive-img" [src]="constantsService.defaultLogo">
             </div>
             <div>
                 <div class="input-field file-field row">
