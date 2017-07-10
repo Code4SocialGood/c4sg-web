@@ -71,43 +71,57 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.route.params.subscribe(params => {
       this.projectId = +params['projectId'];
 
-      if (this.projectId !== 0) { // Edit Project
-        this.projectService.getProject(this.projectId)
-          .subscribe(
-            res => {
-              this.project = res;
-              this.imageUrl = this.project.imageUrl;
-              this.fillForm();
-            }, error => console.log(error)
-          );
-
-        this.skillService.getSkillsByProject(this.projectId)
-          .subscribe(
-            res => {
-              this.projectSkillsArray = res;
-            }, error => console.log(error)
-          );
-      }
-
-      this.skillService.getSkills()
-        .subscribe(
+       // For nonprofit user creating project, retrieves new project id from backend
+      if (this.auth.isOrganization() && this.projectId === 0) {
+        this.projectService.getProjectByOrg(Number(localStorage.getItem('userOrganizationId')), 'N').subscribe(
           res => {
-            res.map((obj) => {
-              this.skillsArray.push(obj.skillName);
+            let projects: Project[];
+            projects = res.json();
+            projects.forEach((e: Project) => {
+              this.projectId = e.id.toString();
             });
-          }, error => console.log(error)
+
+            if (this.projectId !== 0) { // Edit Project
+              this.projectService.getProject(this.projectId)
+              .subscribe(
+                resProjects => {
+                  this.project = resProjects;
+                  this.imageUrl = this.project.imageUrl;
+                  this.fillForm();
+                }, error => console.log(error)
+              );
+
+              this.skillService.getSkillsByProject(this.projectId)
+                .subscribe(
+                  resSkillsProjects => {
+                    this.projectSkillsArray = resSkillsProjects;
+                  }, error => console.log(error)
+                );
+          }
+
+          this.skillService.getSkills()
+            .subscribe(
+              resSkills => {
+                resSkills.map((obj) => {
+                  this.skillsArray.push(obj.skillName);
+                });
+              }, error => console.log(error)
+            );
+          },
+          error => console.log(error)
         );
+      }
     });
   }
 
-ngAfterViewChecked(): void {
-  // Work around for bug in Materialize library, form labels overlap prefilled inputs
-  // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-  if (Materialize && Materialize.updateTextFields) {
-    // *** Does not seem to be needed - also prevents labels from moving when clicked ***
-    // Materialize.updateTextFields();
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    if (Materialize && Materialize.updateTextFields) {
+      // *** Does not seem to be needed - also prevents labels from moving when clicked ***
+      // Materialize.updateTextFields();
+    }
   }
-}
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
@@ -228,6 +242,9 @@ ngAfterViewChecked(): void {
     this.project.city = formData.city;
     this.project.state = formData.state;
     this.project.country = formData.country;
+    if (this.project.status === 'N') { // nonprofit user createing a new project
+      this.project.status = 'A';
+    }
 
     this.projectService
       .update(this.project)
