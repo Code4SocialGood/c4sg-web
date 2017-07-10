@@ -119,8 +119,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   getUser(orgId: number): void {
     // TODO pending backend findUserForOrg
-    this.userService.getUser(orgId).subscribe(
-      response => this.user = response,
+    this.userService.getUsersByOrganization(orgId).subscribe(
+      response => this.user = response[0],
       errorProjects => console.log(errorProjects)
     );
   }
