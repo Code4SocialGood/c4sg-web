@@ -30,7 +30,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public project: Project;
   public organization: Organization;
   public organizations: Organization[];
-  
+
   public inputValue = '';
   public imageUrl: any = '';
 
@@ -38,7 +38,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public skillsArray: string[] = [];
   public skill = '';
   public skillCounter = 0;
-  
+
   public isCreate = false; // Create Project or Edit Project
   public isSkillExists = false;
   public isSkillLimit = false;
@@ -106,7 +106,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           );
 
         // Skills are empty for this new project
-        this.projectSkillsArray = [];  
+        this.projectSkillsArray = [];
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -118,7 +118,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
-        // Populates skills for the project    
+        // Populates skills for the project
         this.skillService.getSkillsByProject(this.projectId)
           .subscribe(
             resSkillsProjects => {
@@ -187,92 +187,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             Materialize.toast('Your changes have been saved', 4000);
           }, error => console.log(error));
       });
-  }  
-
-/*
-  onSubmit(updatedData: any, event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (this.isCreate) {
-      this.createProject();
-    } else { 
-      this.updateProject();
-    } */
-
-    /*
-    this.project.name = updatedData.name;
-    this.project.description = updatedData.description;
-    this.project.remoteFlag = updatedData.remoteFlag;
-    this.project.city = updatedData.city;
-    this.project.state = updatedData.state;
-    this.project.country = updatedData.country;
-
-    this.projectService.update(this.project).subscribe(
-      res => {
-        this.globalActions.emit('toast');
-      }, error => console.log(error)
-    );*/
-
-    /* TODO pass skill names
-    this.skillService.updateSkills(this.projectSkillsArray, this.project.id).subscribe(
-      res => {
-        this.globalActions.emit('toast');
-      }, error => console.log(error)
-    ); */
- // }
-
-/*
-  private createProject(): void {
-
-    // For organization user, find the organization of the user, assign organization ID to the project
-    // For admin user, there should be a field to enter org ID
-    if (this.isOrganization) {
-      const formData = this.projectForm.value;
-      formData.organizationId = this.organizationId;
-    }
-
-    this.projectService
-      .add(this.projectForm.value)
-      .subscribe(res => {
-        this.project = res.project;
-
-        // return Observable.forkJoin(additionalCalls);
-        this.skillService.updateProjectSkills(this.projectSkillsArray, this.project.id).subscribe(
-          result => {
-            this.router.navigate(['/project/view/' + this.project.id]); // Redirect to the detail page
-          }, error => console.log(error)
-        );
-      });
   }
 
-  private updateProject(): void {
-
-    const formData = this.projectForm.value;
-    formData.id = this.project.id;
-
-    this.project.name = formData.name;
-    this.project.description = formData.description;
-    this.project.remoteFlag = formData.remoteFlag;
-    this.project.city = formData.city;
-    this.project.state = formData.state;
-    this.project.country = formData.country;
-    if (this.project.status === 'N') { // nonprofit user createing a new project
-      this.project.status = 'A';
-    }
-
-    this.projectService
-      .update(this.project)
-      .subscribe(res => {
-        this.skillService
-          .updateProjectSkills(this.projectSkillsArray, this.project.id)
-          .subscribe(result => {
-            this.router.navigate(['/project/view/' + this.project.id]);
-            Materialize.toast('Your changes have been saved', 4000);
-          }, error => console.log(error));
-      });
-  }
-*/
   onAddListedSkill(optionValue) {
     this.skillCounter = this.projectSkillsArray.length;
     this.checkSkillList (optionValue.target.value);
@@ -344,10 +260,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {      
+    // if (Materialize && Materialize.updateTextFields) {
     //  Materialize.updateTextFields();
     // }
-  } 
+  }
 
   // Count chars in introduction field
   onCountCharDescription() {

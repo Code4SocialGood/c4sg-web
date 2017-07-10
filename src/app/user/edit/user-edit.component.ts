@@ -79,7 +79,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.route.params.subscribe(params => {
       this.userId = +params['userId'];
-      
+
       this.userService.getUser(this.userId)
         .subscribe(
           res => {

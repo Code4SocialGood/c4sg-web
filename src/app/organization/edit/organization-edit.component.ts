@@ -185,9 +185,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // Work around for bug in Materialize library, form labels overlap prefilled inputs
     // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {      
+    // if (Materialize && Materialize.updateTextFields) {
     //  Materialize.updateTextFields();
-    //}
+    // }
   }
 
   /* Obsolete - Organization is always created when organization user registers.
