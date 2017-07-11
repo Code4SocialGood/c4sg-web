@@ -121,8 +121,8 @@
                       </div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant, 'C')">Accept</button></div>
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant, 'D')">Decline</button></div>
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button></div>
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button></div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
                       <div>ACCEPTED</div>
