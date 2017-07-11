@@ -38,7 +38,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public avatar: any = '';
 
   public displayPhone = false;
-  public displayProfile = false;
+  public isVolunteer = false;
+  public isOrganization = false;
   public checkPublish = false;
   public checkNotify = false;
   public isSkillExists = false;
@@ -75,6 +76,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.getFormConstants();
     this.initForm();
 
+    if (this.auth.isOrganization()) {
+      this.isOrganization = true;
+    } else if (this.auth.isVolunteer()) {
+      this.isVolunteer = true;
+    }
+
     this.skillService.getSkills()
       .subscribe(
         res => {
@@ -93,7 +100,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
-
             this.fillForm();
 
             if (this.user.publishFlag === 'Y') {
@@ -102,14 +108,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
             if (this.user.notifyFlag === 'Y' ) {
               this.checkNotify = true;
-            }
-
-            if (this.auth.isOrganization()) {
-              this.displayPhone = true;
-              this.userForm.controls.title.clearValidators();
-              this.userForm.controls.description.clearValidators();
-            } else if (this.auth.isVolunteer()) {
-              this.displayProfile = true;
             }
           }, error => console.log(error)
         );
