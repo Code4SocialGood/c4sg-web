@@ -30,7 +30,7 @@ export class ProjectViewComponent implements OnInit {
   currentUserId: string;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
-  userProjectStatus: string;
+  // userProjectStatus: string;
   projectStatusApplied = false;
   projectStatusBookmarked = false;
   auth: AuthService;
@@ -183,11 +183,11 @@ export class ProjectViewComponent implements OnInit {
   }
 
 
-  saveUserProject(userId, status): void {
+  saveUserProject(user, status) {
 
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        this.projectService
-            .linkUserProject(this.project.id, userId, status)
+        return this.projectService
+            .linkUserProject(this.project.id, user.userId, status)
             .subscribe(
                 response => {
                     // display toast
@@ -198,67 +198,71 @@ export class ProjectViewComponent implements OnInit {
                       this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
                       this.projectStatusBookmarked = true;
                     } else if (status === 'C') {
-                      this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
-                    } else if (status === 'D') {
-                      this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-                    }
+                    this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
+                    user.applicationStatus = 'C';
+
+                  } else if (status === 'D') {
+                    this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
+                      user.applicationStatus = 'D';
+                  }
                     this.router.navigate(['/project/view', this.project.id]);
                 },
                 error => {
-                    // display toast when bookmar is already added
+                    // display error toast
                     this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
                 }
             );
     } else {
         localStorage.setItem('redirectAfterLogin', this.router.url);
-        this.authService.login();
+       this.authService.login();
     }
-  }
+}
 
-  apply(): void {
-    this.userProjectStatus = 'A';
-    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        this.projectService
-            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-            .subscribe(
-                response => {
-                    // display toast
-                    this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
-                    this.projectStatusApplied = true;
-                },
-                error => {
-                    // display toast when bookmar is already added
-                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-                }
-            );
-    } else {
-        localStorage.setItem('redirectAfterLogin', this.router.url);
-        this.authService.login();
-    }
-  }
+  // apply(): void {
+  //   this.userProjectStatus = 'A';
+  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+  //     debugger;
+  //       this.projectService
+  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
+  //           .subscribe(
+  //               response => {
+  //                   // display toast
+  //                   this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
+  //                   this.projectStatusApplied = true;
+  //               },
+  //               error => {
+  //                   // display toast when bookmar is already added
+  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
+  //               }
+  //           );
+  //   } else {
+  //       localStorage.setItem('redirectAfterLogin', this.router.url);
+  //       this.authService.login();
+  //   }
+  // }
 
-  bookmark(): void {
-    // check if user is logged in
-    this.userProjectStatus = 'B';
-    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        this.projectService
-            .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-            .subscribe(
-                response => {
-                    // display toast
-                  this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-                  this.projectStatusBookmarked = true;
-                },
-                error => {
-                    // display toast when bookmar is already added
-                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-                }
-            );
-    } else {
-        localStorage.setItem('redirectAfterLogin', this.router.url);
-        this.authService.login();
-    }
-  }
+  // bookmark(): void {
+  //   // check if user is logged in
+  //   this.userProjectStatus = 'B';
+  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+  //       this.projectService
+  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
+  //           .subscribe(
+  //               response => {
+  //                   // display toast
+  //                 this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
+  //                 this.projectStatusBookmarked = true;
+  //               },
+  //               error => {
+  //                   // display toast when bookmar is already added
+  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
+  //               }
+  //           );
+  //   } else {
+  //       localStorage.setItem('redirectAfterLogin', this.router.url);
+  //       this.authService.login();
+  //   }
+  // }
 
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
