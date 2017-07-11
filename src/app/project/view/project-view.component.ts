@@ -212,11 +212,10 @@ export class ProjectViewComponent implements OnInit {
                     this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
                 }
             );
-    }
-    else {
+    } else {
         localStorage.setItem('redirectAfterLogin', this.router.url);
+       this.authService.login();
     }
-    this.authService.login();
 }
 
   // apply(): void {
