@@ -195,14 +195,12 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     if (!this.isSkillExists && !this.isSkillLimit) {
       this.projectSkillsArray.push(optionValue.target.value);
     }
-    // console.log(this.projectSkillsArray);
   }
 
   onDeleteSkill(skillToDelete) {
     this.projectSkillsArray = this.projectSkillsArray.filter((projectSkill) => {
       return projectSkill !== skillToDelete;
     });
-    // console.log(this.projectSkillsArray);
   }
 
   onAddOwnSkill(inputSkill) {
@@ -212,7 +210,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
       if (!this.isSkillExists && !this.isSkillLimit) {
         this.projectSkillsArray.push(inputSkill.value);
         this.inputValue = '';
-        // console.log(this.projectSkillsArray);
       }
     }
   }

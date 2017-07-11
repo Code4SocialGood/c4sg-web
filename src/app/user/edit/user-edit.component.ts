@@ -27,7 +27,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public userId;
   public user: User;
-  public states: String[];
   public loadedFile: any;
 
   public userSkillsArray: string[] = [];
@@ -42,7 +41,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public displayProfile = false;
   public checkPublish = false;
   public checkNotify = false;
-  public editFlag = false;
   public isSkillExists = false;
   public isSkillLimit = false;
 
@@ -77,33 +75,50 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.getFormConstants();
     this.initForm();
 
+    this.skillService.getSkills()
+      .subscribe(
+        res => {
+          res.map((obj) => {
+            this.skillsArray.push(obj.skillName);
+          });
+        }, error => console.log(error)
+      );
+
     this.route.params.subscribe(params => {
       this.userId = +params['userId'];
 
+      // Populate user
       this.userService.getUser(this.userId)
         .subscribe(
           res => {
-          this.user = res;
-          this.avatar = this.user.avatarUrl;
-          this.checkFlag();
-          this.fillForm();
-          this.checkRole(this.user.role);
+            this.user = res;
+            this.avatar = this.user.avatarUrl;
+
+            this.fillForm();
+
+            if (this.user.publishFlag === 'Y') {
+              this.checkPublish = true;
+            }
+
+            if (this.user.notifyFlag === 'Y' ) {
+              this.checkNotify = true;
+            }
+
+            if (this.auth.isOrganization()) {
+              this.displayPhone = true;
+              this.userForm.controls.title.clearValidators();
+              this.userForm.controls.description.clearValidators();
+            } else if (this.auth.isVolunteer()) {
+              this.displayProfile = true;
+            }
           }, error => console.log(error)
         );
 
+      // Populate skills list
       this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
             this.userSkillsArray = res;
-          }, error => console.log(error)
-        );
-
-      this.skillService.getSkills()
-        .subscribe(
-          res => {
-            res.map((obj) => {
-              this.skillsArray.push(obj.skillName);
-            });
           }, error => console.log(error)
         );
     });
@@ -155,29 +170,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  checkRole(userRole: String): void {
-    if (this.auth.isOrganization()) {
-      this.displayPhone = true;
-      this.userForm.controls.title.clearValidators();
-      this.userForm.controls.description.clearValidators();
-    }
-    if (this.auth.isVolunteer()) {
-      this.displayProfile = true;
-    }
-  }
-
- checkFlag(): void {
-  if (this.user.publishFlag === 'Y') {
-    this.checkPublish = true;
-  }
-  if (this.user.notifyFlag === 'Y' ) {
-    this.checkNotify = true;
-  }
- }
-
   onSubmit(updatedData: any, event): void {
+
     event.preventDefault();
     event.stopPropagation();
+
     this.user.userName = this.userForm.value.userName;
     this.user.firstName = this.userForm.value.firstName;
     this.user.lastName = this.userForm.value.lastName;
@@ -203,29 +200,27 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'N';
     }
 
-    this.userService.update(this.user).subscribe(() => {
+    this.userService.update(this.user)
+      .subscribe(() => {
         this.globalActions.emit('toast');
         this.router.navigate(['/user/view', this.user.id]);
-       },
-        err => { console.error(err, 'An error occurred'); } );
+      },
+        err => { console.error(err, 'An error occurred'); }
+      );
 
-    // TODO pass skill names
-     this.skillService.updateUserSkills(this.userSkillsArray, this.user.id).subscribe(
-      res => {
-      //  this.globalActions.emit('toast');
-      }, error => console.log(error)
-     );
-  }
-
-  onEditSkills() {
-    this.editFlag = !this.editFlag;
+    // Update skills for user
+    this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
+      .subscribe(
+        res => {
+        },
+        err => { console.error(err, 'An error occurred'); }
+      );
   }
 
   onDeleteSkill(skillToDelete) {
     this.userSkillsArray = this.userSkillsArray.filter((projectSkill) => {
       return projectSkill !== skillToDelete;
     });
-    console.log(this.userSkillsArray);
   }
 
   onAddListedSkill(optionValue) {
@@ -235,7 +230,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (!this.isSkillExists && !this.isSkillLimit) {
       this.userSkillsArray.push(optionValue.target.value);
     }
-    console.log(this.userSkillsArray);
   }
 
   onAddOwnSkill(inputSkill) {
@@ -259,12 +253,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
     }
     if (!this.isSkillLimit) {
-    for ( this.skill of this.userSkillsArray ) {
-      if (selectedSkill === this.skill) {
-        this.isSkillExists = true;
-        this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+      for ( this.skill of this.userSkillsArray ) {
+        if (selectedSkill === this.skill) {
+          this.isSkillExists = true;
+          this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+        }
       }
-    }
     }
   }
 
@@ -316,5 +310,4 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // Materialize.updateTextFields();
     // }
   }
-
 }

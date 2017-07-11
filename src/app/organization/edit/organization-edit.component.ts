@@ -68,12 +68,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             this.fillForm();
           }, error => console.log(error)
         );
-
-      this.organizationService.retrieveLogo(this.organizationId)
-        .subscribe(
-          res => {
-          }, error => console.log(error)
-        );
     });
   }
 
@@ -85,7 +79,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
     this.organizationForm = this.fb.group({
       'name': ['', []],
-      'websiteUrl': ['', []], // [this.urlValidator]]
+      'websiteUrl': ['', []],
       'ein': ['', []],
       'category': ['', []],
       'address1': ['', []],
@@ -104,12 +98,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'name': [this.organization.name || '', [Validators.required]],
       'websiteUrl': [this.organization.websiteUrl || '', []], // [this.urlValidator]]
       'ein': [this.organization.ein || '', []],
-      'category': [this.organization.category || '', []],
+      'category': [this.organization.category || '', [Validators.required]],
       'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', []],
+      'country': [this.organization.country || '', [Validators.required]],
       'zip': [this.organization.zip || '', []],
       'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
@@ -121,6 +115,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
     const formData = this.organizationForm.value;
     formData.id = this.organization.id;
+
     this.organization.name = formData.name;
     this.organization.websiteUrl = formData.websiteUrl;
     this.organization.ein = formData.ein;
@@ -144,6 +139,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   onUploadLogo(fileInput: any): void {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
+
     // Calls the function to save the logo image url to the organization's row
     upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
       (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
@@ -159,7 +155,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // TODO - Should onCountCharDesc(), onFocusDesc(), onBlurDesc() on app scope to support orgs, project, and user
   // Count chars in description field
   onCountCharDesc() {
     this.descValueLength = this.organizationForm.value.description.length;
