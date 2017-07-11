@@ -156,26 +156,11 @@ export class ProjectService {
   }
 
   /*
-  retrieveImage(id: number) {
-    const url = projectUrl + '/' + id + '/image';
-    return this.http
-      .get(url);
-  }
-
   add(project: Project): Observable<{project: Project}> {
     const url = projectUrl;
     return this.http
       .post(url, project, {headers: this.headers})
       .map((res: Response) => res.json())
-      .catch(this.handleError);
-  }
-
-  getActiveProjects(): Observable<Project[]> {
-
-    const url = projectUrl + '/search';
-
-    return this.http.get(url)
-      .map(res => res.json())
       .catch(this.handleError);
   }
 

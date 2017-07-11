@@ -119,18 +119,6 @@ export class OrganizationService {
     return this.http.delete(`${organizationUrl}/${id}`);
   }
 
-  saveLogo(id: number, formData: FormData): Observable<Response> {
-    return this.http
-               .post(`${organizationUrl}/${id}/logo`,
-                 formData);
-  }
-
-  retrieveLogo(id: number): Observable<Response> {
-    return this.http.get(
-      `${organizationUrl}/${id}/logo`
-    );
-  }
-
   /*
     Http call to save the logo image
   */
