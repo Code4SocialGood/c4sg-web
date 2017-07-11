@@ -13,5 +13,5 @@ deploy:
   api_key:
     secure: "$HEROKU_API_KEY"
   app:
-    master: c4sg-dev
-    staging: c4sg-staging
+    master: c4sg-web-dev
+    staging: c4sg-web-staging
