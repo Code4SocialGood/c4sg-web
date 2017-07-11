@@ -183,11 +183,11 @@ export class ProjectViewComponent implements OnInit {
   }
 
 
-  saveUserProject(user, status) {
+  saveUserProject(userId, status, applicant) {
 
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         return this.projectService
-            .linkUserProject(this.project.id, user.userId, status)
+            .linkUserProject(this.project.id, userId, status)
             .subscribe(
                 response => {
                     // display toast
@@ -199,11 +199,11 @@ export class ProjectViewComponent implements OnInit {
                       this.projectStatusBookmarked = true;
                     } else if (status === 'C') {
                     this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
-                    user.applicationStatus = 'C';
+                    applicant.applicationStatus = 'C';
 
                   } else if (status === 'D') {
                     this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-                      user.applicationStatus = 'D';
+                      applicant.applicationStatus = 'D';
                   }
                     this.router.navigate(['/project/view', this.project.id]);
                 },
