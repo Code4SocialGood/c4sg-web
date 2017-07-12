@@ -2,7 +2,7 @@
   <h1>Project</h1>
 </div>
 <div class="container">
-  <div class="row main-row">
+  <div class="row main-row"  materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
@@ -71,7 +71,7 @@
           <div class="row">
             <div class="col s12 action-btns">
               <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
+                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" >
                 Apply
               </button>
               <button type="button" class="btn" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" [disabled]="projectStatusApplied">
@@ -99,18 +99,18 @@
       </div>
 
       <!-- Nonprofit User - Applicants -->
-      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true">
+      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true && project.status === 'A'">
         <div class="row">
           <div class="col s12">
             <h4 class="content-title">Applicants</h4>
             <div class="items-list-wrapper">
-              <ul class="user-list" *ngIf="applicants">
+              <ul class="user-list" *ngIf="applicants" >
                 <li class="user-wrapper" *ngFor="let applicant of applicants">
                   <div class="user">
                     <div class="user-info col s4">
                       <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
-                      <div>{{applicant.title}}</div>                 
-                    </div>                      
+                      <div>{{applicant.title}}</div>
+                    </div>
                     <div class="user-info col s4">
                       <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
                       <div *ngIf="applicant.applicationStatus === 'C'">
@@ -118,11 +118,11 @@
                       </div>
                       <div *ngIf="applicant.applicationStatus === 'D'">
                         Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
-                      </div>                    
+                      </div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C')">Accept</button></div>     
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D')">Decline</button></div>          
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button></div>
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button></div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
                       <div>ACCEPTED</div>

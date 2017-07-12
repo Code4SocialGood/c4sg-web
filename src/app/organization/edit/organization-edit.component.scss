@@ -27,15 +27,3 @@
   vertical-align: super !important;
   font-size: 0.5rem !important;
 }
-
-.ng-invalid:not(form) {
-  border-bottom: 1px solid #F44336 !important;
-  box-shadow: 0 0 0 0 #F44336 !important;
-}
-
-input[type=text]:focus:not([readonly]).ng-invalid:not(form),
-input[type=url]:focus:not([readonly]).ng-invalid:not(form),
-textarea.materialize-textarea:focus:not([readonly]).ng-invalid:not(form) {
-  border-bottom: 1px solid #F44336 !important;
-  box-shadow: 0 1px 0 0 #F44336 !important;
-}

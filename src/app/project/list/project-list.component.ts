@@ -275,9 +275,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   defineUserProjectStatus(projectID) {
     if (this.auth.isVolunteer()) {
       const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-      if (projectsIDs.appliedProjectsIDs != null && projectsIDs.appliedProjectsIDs.includes(projectID)) {
+      if (projectsIDs.appliedProjectsIDs !== null && projectsIDs.appliedProjectsIDs.includes(projectID)) {
         return 'applied';
-      } else if (projectsIDs.bookmarkedProjectsIDs != null && projectsIDs.bookmarkedProjectsIDs.includes(projectID)) {
+      } else if (projectsIDs.bookmarkedProjectsIDs !== null && projectsIDs.bookmarkedProjectsIDs.includes(projectID)) {
         return 'bookmarked';
       } else if (projectsIDs.acceptedProjectsIDs !== null && projectsIDs.acceptedProjectsIDs.includes(projectID)) {
         return 'accepted';
