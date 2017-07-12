@@ -101,6 +101,10 @@ ul.right.hide-on-med-and-down{
 
     &.active > .active-header-icon{
       display: block;
+
+      &.left-neg-24pc{
+        left: -24.7%;
+      }
     }
 
     .active-header-icon{
@@ -111,6 +115,15 @@ ul.right.hide-on-med-and-down{
       position: absolute;
       top: 18px;
       display: none;
+    }
+
+    .profile-img{
+      left: -50px;
+      right: 0;
+      margin: auto;
+      max-width: 35px;
+      position: absolute;
+      top: 25px;
     }
 
     .nav-link{
@@ -138,8 +151,14 @@ ul.right.hide-on-med-and-down{
       line-height: normal;
       height: auto;
     }
+
+    .dropdown-content-width{
+        min-width: 150px;
+     }
   }
 }
+
+
 //.right a{
     //color: #989898;
     //font-family: Century Gothic, sans-serif;;

@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="col m8 s12" id="right-col">
+    <div class="col m8 s12" *ngIf="organizations && from === 'organizations'" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
           <h4 class="content-title">{{totalItems}} organizations found</h4>
@@ -97,5 +97,49 @@
         </div>
       </div>
     </div>
+
+    <div class="col m8 s12" *ngIf="organizations && from === 'approve'" id="right-col">
+      <div class="content" *ngIf="organizations">
+        <div class="row">
+          <h4 class="content-title">{{totalItems}} organizations found</h4>
+          <div class="items-list-wrapper">
+            <ul class="card-list" *ngIf="organizations">
+              <li class="card-wrapper" *ngFor="let org of organizations">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="card-avatar-wrapper">
+                      <div class="card-avatar z-depth-2" *ngIf="org.logoUrl">
+                        <img class="card-avatar-content" [src]="org.logoUrl">
+                      </div>
+                      <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
+                        <img class="card-avatar-content" [src]="constantsService.defaultLogo">
+                      </div>
+                    </div>
+                    <div class="card-info">
+                      <div class="card-header">
+                        <div class='name'>
+                          <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                        </div>
+                        <div class="row info-row">
+                          <div class="card-metainfo col m6">
+                            <p>{{org.projects}} projects</p>
+                          </div>
+                          <div class="card-metainfo col m6">
+                            <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                            <span class="state">{{org.country}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

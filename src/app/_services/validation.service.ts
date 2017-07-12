@@ -14,5 +14,7 @@ export class ValidationService {
   // tslint:disable-next-line:max-line-length
 
   public descMaxLength = 1000;
+  public introMaxLength = 1000;
+
 
 }

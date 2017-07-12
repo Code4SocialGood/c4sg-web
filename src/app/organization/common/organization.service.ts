@@ -32,6 +32,13 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
+  approve(organizationId: number, status: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`status=${status}`);
+    return this.http
+      .put(`${organizationUrl}/${organizationId}/approve`, '', requestOptions);
+  }
+
   searchOrganizations(
     keyword?: string,
     countries?: string[],
@@ -110,18 +117,6 @@ export class OrganizationService {
 
   delete(id: number): Observable<Response> {
     return this.http.delete(`${organizationUrl}/${id}`);
-  }
-
-  saveLogo(id: number, formData: FormData): Observable<Response> {
-    return this.http
-               .post(`${organizationUrl}/${id}/logo`,
-                 formData);
-  }
-
-  retrieveLogo(id: number): Observable<Response> {
-    return this.http.get(
-      `${organizationUrl}/${id}/logo`
-    );
   }
 
   /*

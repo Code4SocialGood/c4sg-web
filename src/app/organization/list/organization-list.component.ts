@@ -27,8 +27,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     name: 'Social Enterprise',
     value: 'S'
   }, {
-    name: 'Team Project',
-    value: 'T'
+    name: 'Startup',
+    value: 'U'
   }];
 
 
@@ -69,13 +69,15 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         this.categoriesArray.controls.forEach(categoryControl => {
           return categoryControl.setValue(false);
         });
-        this.from = params['from'];
+
+        this.from = params['from']; // from can be: organizations, reload, pending
         if (this.from === 'reload') {
             this.p = 1;
             this.filterForm.controls.keyword.setValue('');
             this.filterForm.controls.hasProjects.setValue(false);
             this.filterForm.controls.categories =  this.categoriesArray;
         }
+
         this.getOrganizations(this.p);
       });
 
@@ -126,17 +128,10 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, page, 10) // Org of Pending status
+      null, null, null, 'P', null, null, null)
       .subscribe( res => {
-        this.organizations = res;
-        res.forEach((o: Organization) => {
-          this.projectService.getProjectByOrg(o.id, 'A')
-            .subscribe( response => {
-                this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                o.projects = this.projects.length;
-                     },
-              error => console.log(error));
-        });
+        this.organizations = res.data;
+        this.totalItems = res.totalItems;
       },
         error => console.log(error)
       );

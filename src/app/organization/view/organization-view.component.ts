@@ -32,6 +32,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   displayShare = true;
   displayEdit = false;
   displayDelete = false;
+  displayApprove = false;
 
   constructor(private organizationService: OrganizationService,
     private projectService: ProjectService,
@@ -58,8 +59,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       this.categoryName = 'Nonprofit';
     } else if (this.organization.category === 'O') {
       this.categoryName = 'Open Source';
-    } else if (this.organization.category === 'M') {
-      this.categoryName = 'Misc';
+    } else if (this.organization.category === 'S') {
+      this.categoryName = 'Social Enterprise';
+    } else if (this.organization.category === 'U') {
+      this.categoryName = 'Startup';
     }
   }
 
@@ -85,6 +88,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         // Validation rules should force websiteUrl to start with http but add check just in case
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
+        if (this.authService.authenticated() && this.authService.isAdmin() && this.organization.status === 'P') {
+          this.displayApprove = true;
         }
       },
       (err) => {
@@ -113,8 +119,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   getUser(orgId: number): void {
     // TODO pending backend findUserForOrg
-    this.userService.getUser(2).subscribe(
-      response => this.user = response,
+    this.userService.getUsersByOrganization(orgId).subscribe(
+      response => this.user = response[0],
       errorProjects => console.log(errorProjects)
     );
   }
@@ -132,10 +138,36 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
           this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {
-            console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
+          console.log(error);
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
         }
       );
+  }
+
+  approve(): void {
+    this.organizationService
+      .approve(this.organization.id, 'A')
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/view/' + this.organization.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  decline(): void {
+  this.organizationService
+    .approve(this.organization.id, 'D')
+    .subscribe(
+      response => {
+        this.router.navigate(['/organization/view/' + this.organization.id]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnDestroy(): void {
