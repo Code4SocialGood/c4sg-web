@@ -12,9 +12,9 @@
             </div>
             <div>
                 <div class="input-field file-field row">
-                <div class="btn avatar-upload-button">Upload
+                <button class="btn avatar-upload-button" [disabled]="organizationId===0">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadLogo($event)">
-                </div>
+                </button>
                 </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
                           [selected]="category.value === organization?.category.value">{{category.name}}
                   </option>
                 </select>
-                <label>Category</label>
+                <label>Category *</label>
               </div>
               <div class="input-field">
                 <input type="text" id="address1" class="" formControlName="address1">
@@ -56,7 +56,7 @@
                           [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
                   </option>
                 </select>
-                <label>Country</label>
+                <label>Country *</label>
               </div>
             </div>
 
@@ -94,7 +94,7 @@
                 <textarea id="description" class="materialize-textarea" formControlName="description"
                           (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
                           (blur)="onBlurDesc()"></textarea>
-                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description
+                <label for="description" [ngClass]="{'red-text': organizationForm.get('description').invalid}">Description *
                   <span *ngIf="descFieldFocused">{{ descValueLength + '/' + descMaxLength }}</span>
                 </label>
               </div>

@@ -19,9 +19,9 @@
             </div>
             <div>
               <div class="input-field file-field row">
-                <div class="btn avatar-upload-button">Upload
+                <button class="btn avatar-upload-button" [disabled]="projectId===0">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -41,11 +41,11 @@
             </div>
             <div class="input-field col s12">
               <input id="name" type="text" class="validate" formControlName="name">
-              <label for="name">Project Name <sup>&#10033;</sup></label>
+              <label for="name">Project Name *<sup>&#10033;</sup></label>
             </div>
             <div class="input-field col s12">
               <textarea id="description" class="materialize-textarea" formControlName="description" placeholder=""></textarea>
-              <label for="description">Project Description</label>
+              <label for="description">Project Description *</label>
             </div>
           </div>
           <div class="row">
@@ -115,13 +115,15 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col m12">
-              <div class="footer-btns center">
-                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions">
-                   Save
-                </button>
+          <div class="section">
+            <div class="row">
+              <div class="col m12">
+                <div class="footer-btns center">
+                  <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
+                    [materializeActions]="globalActions">
+                     Save
+                  </button>
+                </div>
               </div>
             </div>
           </div>

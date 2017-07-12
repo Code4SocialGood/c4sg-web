@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user/common/user.service';
 import { Subscription } from 'rxjs/Rx';
 import { User } from '../user/common/user';
+require('./agmMarkerProto.js');
+
 
 @Component({
   selector: 'my-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
 
@@ -25,6 +27,12 @@ export class AboutComponent implements OnInit {
     this.getDevelopers();
   }
 
+  handleMarkerMouseOver(event): void {
+    event.target.infoWindow.forEach(function(infoWindow){
+      return infoWindow.open();
+    });
+  }
+
   private getDevelopers(): void {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
@@ -35,4 +43,3 @@ export class AboutComponent implements OnInit {
     );
   }
 }
-
