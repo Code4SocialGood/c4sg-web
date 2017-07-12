@@ -16,3 +16,14 @@
     margin-right: 0.5em;
   }
 }
+
+.organization-name {
+  cursor: pointer;
+}
+
+.card-header {
+  .organization-name:hover, .name:hover {
+  text-decoration: underline;
+  text-decoration-color: $secondary-bg-color;
+  }
+}
