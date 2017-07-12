@@ -35,7 +35,7 @@ export class ExtFileHandlerService {
 
     // declare an aws service
     const AWSService = (<any> window).AWS;
-    if (environment.production) {
+    if (environment.production && !environment.auth_tenant_shared) {
       const creds: any = JSON.parse(localStorage.getItem('delgcred'));
       credentials = new AWSService.Credentials(creds.AccessKeyId,
                                 creds.SecretAccessKey,

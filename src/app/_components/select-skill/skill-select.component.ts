@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export class SkillSelectComponent implements OnInit {
   @Input() projectSkillsArray: string[];
+  @Input() userSkillsArray: string[];
   @Output() onDeleteSkill = new EventEmitter<string>();
 
   constructor() {
