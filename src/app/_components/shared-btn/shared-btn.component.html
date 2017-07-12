@@ -4,13 +4,13 @@
       <i class="mdi mdi-share-variant mdi-24px left"></i>share
     </a>
     <ul>
-      <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i
+      <li><a (click)="shareOnFacebook($event)" class="btn-floating"><i
         class="mdi mdi-facebook mdi-24px"></i></a></li>
-      <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i
+      <li><a (click)="shareOnTwitter($event)" class="btn-floating"><i
         class="mdi mdi-twitter mdi-24px"></i></a></li>
-      <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i
+      <li><a (click)="shareByEmail($event)" class="btn-floating"><i
         class="mdi mdi-email mdi-24px"></i></a></li>
-      <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i
+      <li><a (click)="shareOnLinkedin($event)" class="btn-floating"><i
         class="mdi mdi-linkedin mdi-24px"></i></a></li>
     </ul>
   </div>
