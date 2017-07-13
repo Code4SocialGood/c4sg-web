@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser/';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../common/user';
+import { JobTitle } from '../common/job-title';
 import { UserService } from '../common/user.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { AuthService } from '../../auth.service';
@@ -27,6 +28,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public userId;
   public user: User;
+  public jobTitlesArray: JobTitle[] = [];
   public loadedFile: any;
 
   public userSkillsArray: string[] = [];
@@ -93,7 +95,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.route.params.subscribe(params => {
       this.userId = +params['userId'];
-
+      this.userService.getAllJobTitles()
+        .subscribe(
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
+        );
       // Populate user
       this.userService.getUser(this.userId)
         .subscribe(
@@ -130,6 +137,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userForm = this.fb.group({
       'email': ['', []],
+      'jobTitleId': ['', []],
       'userName': ['', []],
       'firstName': ['', []],
       'lastName': ['', []],
@@ -151,6 +159,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
+      'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
       'lastName': [this.user.lastName || '', [Validators.required]],
@@ -185,6 +194,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.personalUrl = this.userForm.value.personalUrl;
     this.user.githubUrl = this.userForm.value.githubUrl;
     this.user.chatUsername = this.userForm.value.chatUsername;
+    this.user.jobTitleId = this.userForm.value.jobTitleId;
 
     if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
       this.user.publishFlag = 'Y';

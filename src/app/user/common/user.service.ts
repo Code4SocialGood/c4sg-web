@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
+import { JobTitle } from './job-title';
 import { Applicant } from './applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
@@ -164,7 +165,13 @@ export class UserService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
+  public getAllJobTitles(): Observable<JobTitle[]> {
+    const url = userUrl + '/jobTitles';
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as JobTitle[]; })
+               .catch(this.handleError);
+  }
   /* obsolete
   // Page data always starts at offset zero (0)
   // Only active users are retrieved
