@@ -4,7 +4,7 @@ constructor (
     public id: number,
     public email: string,
     public role: string,
-    public jobTitleId?:number,
+    public jobTitleId?: number,
     public userName?: string,
     public firstName?: string,
     public lastName?: string,
