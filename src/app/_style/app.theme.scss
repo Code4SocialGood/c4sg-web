@@ -298,3 +298,8 @@ textarea.materialize-textarea:focus + label {
   min-height: 1rem;
   height: 1rem;
 }
+
+// Make social media links colored when hovering
+.mdi:hover:not(.not-active) {
+  color: $secondary-bg-color;
+}
