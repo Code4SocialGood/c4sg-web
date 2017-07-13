@@ -1,65 +1,39 @@
-@import "../../variables";
-@import "../../app.page-view";
+@import "../../_style/app.theme";
 
-.buttons-block {
-  text-align: center;
+.card-avatar, .card-avatar-content {
+  border-radius: 50% !important;
 }
 
-.subtitle {
-  width: 100%;
-  padding-left: 2em;
-  .names {
-    .first-name {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .last-name {
-      margin-left: 1em;
-      font-size: 2em;
-    }
-  }
-  .metainfo {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    p {
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: 2em;
-    }
-  }
-}
-
-.location {
-  line-height: 1em;
-  .state{
-    font-size: 0.75em;
-  }
-}
-
-.joined {
-  font-style: italic;
-  font-size: 0.75em;
-}
-
-.main-info{
-  display: table;
-  width: 100%;
-  .avatar {
-    text-align: center;
-    vertical-align: middle;
-    display: table-cell;
-  }
-  .user-title {
-    display:table-cell;
-    vertical-align: middle;
-    h5 {
-      font-weight: bold;
-    }
-  }
+.mg-top-10px{
+  margin-top: 10px;
 }
 
 .not-active {
-    pointer-events: none;
-    cursor: default;     
-    color: #9F9F9F !important;  
+  pointer-events: none;
+  cursor: default;
+  color: #9F9F9F !important;
+}
+
+.names {
+  font-size: 1em;
+  //font-weight: bold;
+}
+
+.location {
+  line-height: 1.5em;
+  //padding-left: 1em;
+  font-size: 0.75em;
+}
+
+.user-title {
+  display:table-cell;
+  vertical-align: middle;
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.username {
+  line-height: 1em;
+  text-align: center;
 }

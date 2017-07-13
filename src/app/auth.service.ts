@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
 
 declare const Auth0Lock: any;
+declare const auth0: any;
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,8 @@ export class AuthService {
   email: string;
   firstName: string;
   lastName: string;
+  redirectAfterLogin: string;
+  idToken: string;
 
   // These options are being added to customize signup
   options = {
@@ -30,13 +33,15 @@ export class AuthService {
     rememberLastLogin: false,
     // Override the Auth0 logo
     theme:  {
-      logo: '../assets/favicon-32x32.png'
+      logo: '../assets/logo.png'
             },
     // Override the title
     languageDictionary: {
-      title: 'Code for Social Good'
+      title: 'C4SG'
     },
     auth : {
+        redirectUrl: window.location.origin,
+        responseType: 'token',
         params: {scope: 'openid email user_metadata app_metadata'},
     },
     // Add a user name input text
@@ -57,7 +62,7 @@ export class AuthService {
         placeholder: 'Sign up as a',
         options: [
           {value: 'VOLUNTEER', label: 'Volunteer User'},
-          {value: 'ORGANIZATION', label: 'Non-profit User'},
+          {value: 'ORGANIZATION', label: 'Organization User'},
           {value: 'ADMIN', label: 'Admin User'}
         ],
         prefill: 'VOLUNTEER'
@@ -68,6 +73,8 @@ export class AuthService {
   // Configure Auth0 with options
   lock = new Auth0Lock(environment.auth_clientID, environment.auth_domain, this.options);
 
+  webauth = new auth0.WebAuth({ domain : environment.auth_domain, clientID: environment.auth_clientID });
+
   constructor(private userService: UserService, private router: Router) {
 
     // set uset profile of already saved profile
@@ -75,7 +82,7 @@ export class AuthService {
 
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('id_token', this.idToken = authResult.idToken);
       localStorage.setItem('accessToken', authResult.accessToken);
 
       // Get the user profile
@@ -95,58 +102,76 @@ export class AuthService {
           }
           // Store user profile
           localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('delgId', profile.app_metadata.amzid);
+          localStorage.setItem('delgSecId', profile.app_metadata.amzsecid);
           this.userProfile = profile;
 
           this.email = profile.email;
 
           userService.getUserByEmail(this.email).subscribe(
-            res => {
-              const lemail = this.email;
-              const luserRole = this.userRole;
-              const luserName = this.userName;
-              const firstName =  this.firstName !== undefined ? this.firstName : '';
-              const lastName =  this.lastName !== undefined ? this.lastName : '';
-              // console.log(res);
-              // Check if response is undefined
-              if (res) {
-                  user = res;
-              }
-              // If user not found, then create the user
-              if (user === undefined) {
-                console.log('User does not exist');
-                const newUser: User = ({id: 0, email: lemail,
-                  role: luserRole.toUpperCase(),
-                  userName: luserName, firstName: firstName,
-                  lastName: lastName,
-                  publishFlag: 'N', chatFlag: 'N',
-                  forumFlag: 'N', status: 'ACTIVE'});
+                res => {
+                  const lemail = this.email;
+                  const luserRole = this.userRole;
+                  const luserName = this.userName;
+                  const firstName =  this.firstName !== undefined ? this.firstName : '';
+                  const lastName =  this.lastName !== undefined ? this.lastName : '';
+                  // console.log(res);
+                  // Check if response is undefined
+                  if (res) {
+                      user = res;
+                  }
+                  // If user not found, then create the user
+                  if (user === undefined) {
+                    console.log('User does not exist');
+                    const newUser: User = ({id: 0, email: lemail,
+                      role: luserRole.toUpperCase().substr(0, 1),
+                      userName: luserName,
+                      firstName: firstName,
+                      lastName: lastName,
+                      publishFlag: 'N',
+                      notifyFlag: 'N',
+                      status: 'ACTIVE'});
 
-                // Create a user
-                userService.add(newUser).subscribe(
-                  res1 => {
-                    user = res1;
+                    // Create a user
+                    userService.add(newUser).subscribe(
+                      res1 => {
+                        user = res1;
+                        localStorage.setItem('currentUserId', user.id);
+                        if (user.firstName !== '' && user.lastName !== '') {
+                          localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                        } else {
+                          localStorage.setItem('currentDisplayName', user.email);
+                        }
+                        localStorage.setItem('currentUserAvatar', user.avatarUrl);
+                      },
+                      error1 => console.log(error1));
+                  }else {
+                    // Store user id and display name
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
-                  },
-                  error1 => console.log(error1));
-              }else {
-                // Store user id and display name
-                localStorage.setItem('currentUserId', user.id);
-                if (user.firstName !== '' && user.lastName !== '') {
-                  localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                } else {
-                  localStorage.setItem('currentDisplayName', user.email);
-                }
-              }
-            },
-            error1 => console.log(error1)
-          );
-        }
-      });
+                    localStorage.setItem('currentUserAvatar', user.avatarUrl);
+                  }
+
+                  if (environment.production && !environment.auth_tenant_shared) {
+                    this.getDelegationToken();
+                  }
+
+                  // Issue 356 - redirect user back to the page that requested login - project view page
+                  this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                  if (this.redirectAfterLogin) {
+                      setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
+                  } else {
+                      setTimeout(() => this.router.navigate(['/']));
+                  }
+                },
+                error1 => console.log(error1)
+            );
+            }
+        });
     });
 
     // Function call to show errors
@@ -161,6 +186,24 @@ export class AuthService {
     });
   }
 
+  private getDelegationToken() {
+    const opt = {
+      client_id: environment.auth_clientID,
+      id_token: this.idToken,
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      scope: 'openid',
+      api_type: 'aws'
+    };
+    this.webauth.client.delegation(opt, function(err, delegationResult) {
+      if (!err) {
+        localStorage.removeItem('delgId');
+        localStorage.removeItem('delgSecId');
+        localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
+      }else {
+        console.warn('Unable to get delegation token');
+      }
+    });
+  }
   public login() {
     // Call the show method to display the widget.
     this.lock.show();
@@ -199,7 +242,7 @@ export class AuthService {
 
     this.userProfile = undefined;
 
-    window.location.href = logoutURL;
+    this.router.navigate(['/']);
   }
 
   // Returns user profile
@@ -215,6 +258,9 @@ export class AuthService {
   // Returns current user's first name + last name OR email
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
+  }
+  getCurrentUserAvatar() {
+    return localStorage.getItem('currentUserAvatar');
   }
 
   // Code below is used to override role
@@ -242,12 +288,17 @@ export class AuthService {
 
   // Check if a user's role is ADMIN
   public isAdmin() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ADMIN
       if (this.bypassRole(AppRoles[0])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        }else {
+            return false;
+        }
       }
     }
     return false;
@@ -255,12 +306,17 @@ export class AuthService {
 
   // Check if a user's role is VOLUNTEER
   public isVolunteer() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.VOLUNTEER
       if (this.bypassRole(AppRoles[1])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+        } else {
+            return false;
+        }
       }
     }
     return false;
@@ -268,12 +324,17 @@ export class AuthService {
 
   // Check if a user's role is ORGANIZATION
   public isOrganization() {
-    if (this.hasRoles()) {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    if (this.userProfile) {
       // against AppRoles.ORGANIZATION
       if (this.bypassRole(AppRoles[2])) {
         return true;
       } else {
-        return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        if (this.userProfile.app_metadata.roles) {
+            return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+        } else {
+            return false;
+        }
       }
     }
     return false;

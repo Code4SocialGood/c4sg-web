@@ -1,8 +1,5 @@
-@import "../../variables";
-@import "../../app.page-list";
+@import "../../_style/app.theme";
 
-.not-active {
-    pointer-events: none;
-    cursor: default;     
-    color: #9F9F9F !important;  
+.card-avatar, .card-avatar-content {
+  border-radius: 50% !important;
 }

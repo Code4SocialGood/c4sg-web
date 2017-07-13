@@ -1,0 +1,29 @@
+@import "../../_style/app.theme";
+.project-marked {
+  display: inline-block;
+  //padding-left: 1em;
+  //margin-bottom: 1em;
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2em;
+    height: 1.2em;
+    stroke-width: 0;
+    //stroke: #84c44c;
+    //fill: #84c44c;
+    stroke: $secondary-color;
+    fill: $secondary-color;
+    margin-right: 0.5em;
+  }
+}
+
+.organization-name {
+  cursor: pointer;
+}
+
+.card-header {
+  .organization-name:hover, .name:hover {
+  text-decoration: underline;
+  text-decoration-color: $secondary-bg-color;
+  }
+}

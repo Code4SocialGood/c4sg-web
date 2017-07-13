@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-
-import { User } from '../common/user';
-import { UserService } from '../common/user.service';
-import { SkillService } from '../../skill/common/skill.service';
-import { AuthService } from '../../auth.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import { FormConstantsService } from '../../_services/form-constants.service';
+import {User} from '../common/user';
+import {UserService} from '../common/user.service';
+import {SkillService} from '../../skill/common/skill.service';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'my-userlist',
@@ -16,19 +16,59 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
+
+  roles = [{
+    name: 'Developer',
+    value: 'D'
+  }, {
+    name: 'UI/UX Designer',
+    value: 'U'
+  }, {
+    name: 'QA Engineer',
+    value: 'Q'
+  }, {
+    name: 'Software Architect',
+    value: 'A'
+  }, {
+    name: 'Build & Release Engineer',
+    value: 'E'
+  }, {
+    name: 'Business Analyst',
+    value: 'B'
+  }, {
+    name: 'Project Manager',
+    value: 'P'
+  }, {
+    name: 'Sales & Marketing',
+    value: 'S'
+  }];
+
+
+  rolesArray = new FormArray([
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false),
+    new FormControl(false)
+  ]);
+
+  skills: any[];
+  skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
+    roles: this.rolesArray,
     skills: this.skillsArray
   });
+
   totalItems = 0;
-  p = 0;
+  p = 1;
   keyword: string;
   keywords: any;
-  pagedItems: any[]; // paged items
-  pager: any = {}; // pager Object
   selectedUser: User;
-  skills: any[];
   skillsFilter: string[] = [];
   usersCache: any[];
   users: User[];
@@ -37,11 +77,26 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
     private router: Router,
     private skillService: SkillService,
-    private auth: AuthService) {
-
+    public constantsService: FormConstantsService,
+    private auth: AuthService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(
+      params => {
+        this.rolesArray.controls.forEach(roleControl => {
+          return roleControl.setValue(false);
+        });
+        this.skillsArray.controls.forEach(skillControl => {
+              return skillControl.setValue(false);
+            });
+        if (params['from'] === 'reload') {
+            this.p = 1;
+            this.filterForm.controls.keyword.setValue('');
+            this.filterForm.controls.skills = this.skillsArray;
+        }
+      });
     this.getUsers(this.p);
     this.getSkills();
     this.getKeywords();
@@ -52,15 +107,46 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // takes in array of strings and returns array of objects
-  private createCheckBoxObj(arr) {
-    return arr.map(
-      val => {
-        return {
-          name: val,
-          checked: false
-        };
+  public getUsers(page: number): void {
+    const skills = this.filterForm.value.skills;
+    const skillsParam = [];
+    window.scrollTo(0, 0);
+    if (skills) {
+      for (let i = 0; i < skills.length; i++) {
+        if (skills[i]) {
+          skillsParam.push(this.skills[i].id.toString());
+        }
       }
+    }
+
+    this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
+    this.usersSubscription = this.userService.searchUsers(
+      this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page, 10)
+      .subscribe(
+        res => {
+          // the service returns a JSON object consist of the array of pageable data
+          this.users = res.data;
+          this.totalItems = res.totalItems;
+          this.usersCache = this.users.slice(0);
+          res.data.forEach((e: User) => {
+            this.skillService.getSkillsForUser(e.id).subscribe(
+              result => {
+                e.skills = result;
+              });
+          });
+        },
+        error => console.error(error)
+      );
+  }
+
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(res => {
+        this.skills = res.map(skill => {
+          return {name: skill.skillName, checked: false, id: skill.id};
+        });
+        this.showSkills();
+      },
+      error => console.error(error)
     );
   }
 
@@ -81,72 +167,34 @@ export class UserListComponent implements OnInit, OnDestroy {
     ];
   }
 
-  private getSkills(): void {
-    this.skillService.getSkills().subscribe(res => {
-      console.log(res);
-      this.skills = res.map(skill => {
-        this.skillsArray.push(new FormControl(false));
-        return { name: skill.skillName, checked: false, id: skill.id };
-      });
-    },
-      error => console.error(error)
+  private createCheckBoxObj(arr) {
+    return arr.map(
+      val => {
+        return {
+          name: val,
+          checked: false
+        };
+      }
     );
   }
 
-  public getUsers(page: number): void {
-    const skills = this.filterForm.value.skills;
-    const skillsParam = [];
-
-    if (skills) {
-      for (let i = 0; i < skills.length; i++) {
-        if (skills[i]) {
-          skillsParam.push(this.skills[i].id.toString());
-        }
+  showSkills(): void {
+    let addedSkills;
+    if (this.skillsShowed.length < this.skills.length) {
+      if (!this.skillsShowed.length) {
+        addedSkills = this.skills.slice(0, 10);
+      } else {
+        addedSkills = this.skills
+          .filter(i => !this.skillsShowed.includes(i));
+        addedSkills = addedSkills.filter((i, index) => index < 10);
+      }
+      for (const addedSkill of addedSkills) {
+        this.skillsShowed.push(addedSkill);
+        this.skillsArray.push(new FormControl(false));
       }
     }
-
-    if (this.filterForm.value.keyword != null && skillsParam.length > 0) {
-    this.usersSubscription = this.userService.searchUsers(
-      page,
-      this.filterForm.value.keyword,
-      skillsParam
-    ).subscribe(
-      res => {
-        // the called service returns a JSON object
-        // consist of the array of pageable data
-        // and the total number of data rows
-        this.users = res;
-        this.totalItems = res.length;
-        res.forEach((e: User) => {
-          this.skillService.getSkillsForUser(e.id).subscribe(
-            result => {
-              e.skills = result;
-            });
-        });
-      },
-      error => console.error(error)
-      );
-  }else {
-  this.usersSubscription = this.userService.getAllUsers().subscribe(
-    res => {
-        // the called service returns a JSON object
-        // consist of the array of pageable data
-        // and the total number of data rows
-        this.users = res;
-        this.totalItems = res.length;
-      res.forEach((e: User) => {
-        this.skillService.getSkillsForUser(e.id).subscribe(
-          result => {
-            e.skills = result;
-          });
-      });
-      },
-      error => console.error(error)
-      );
-  }
   }
 
-  // selection callback
   onSelect(user: User): void {
     this.selectedUser = user;
     this.router.navigate(['user/view', user.id]);

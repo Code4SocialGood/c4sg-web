@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Jsonp } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
@@ -32,30 +32,60 @@ export class OrganizationService {
                .map(res => res.json());
   }
 
+  approve(organizationId: number, status: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`status=${status}`);
+    return this.http
+      .put(`${organizationUrl}/${organizationId}/approve`, '', requestOptions);
+  }
+
   searchOrganizations(
     keyword?: string,
-    hasOpportunities?: boolean,
-    categories?: string[]
-  ): Observable<Organization[]> {
+    countries?: string[],
+    open?: boolean,
+    status?: string,
+    category?: string[],
+    page?: number,
+    size?: number
+  ): Observable<any> {
     const params = new URLSearchParams();
 
     if (keyword) {
       params.set('keyWord', keyword);
     }
 
-    if (hasOpportunities) {
-      params.set('open', hasOpportunities.toString());
-    }
-
-    if (categories) {
-      for (let i = 0; i < categories.length; i++) {
-        params.append('categories', categories[i]);
+    if (countries) {
+      for (let i = 0; i < countries.length; i++) {
+        params.append('countries', countries[i]);
       }
     }
 
+    if (open) {
+      params.set('open', open.toString());
+    }
+
+    if (status) {
+      params.append('status', status);
+    }
+
+    if (category) {
+      for (let i = 0; i < category.length; i++) {
+        params.append('category', category[i]);
+      }
+    }
+
+    if (page) {
+      params.append('page', String(page - 1));
+    }
+
+    if (size) {
+      params.append('size', String(size));
+    }
+
     return this.http
-               .get(`${organizationUrl}/search`, {search: params})
-               .map(res => res.json());
+      .get(`${organizationUrl}/search`, {search: params})
+      .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
+      .catch(this.handleError);
   }
 
   createOrganization(organization: Organization): Observable<{organization: Organization}> {
@@ -89,15 +119,18 @@ export class OrganizationService {
     return this.http.delete(`${organizationUrl}/${id}`);
   }
 
-  saveLogo(id: number, formData: FormData): Observable<Response> {
+  /*
+    Http call to save the logo image
+  */
+  saveLogoImg(id: number, imgUrl: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
     return this.http
-               .post(`${organizationUrl}/${id}/logo`,
-                 formData);
+      .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
   }
 
-  retrieveLogo(id: number): Observable<Response> {
-    return this.http.get(
-      `${organizationUrl}/${id}/logo`
-    );
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 }

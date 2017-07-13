@@ -1,0 +1,50 @@
+@import "variables";
+
+.pagination {
+  .ng2-pagination  {
+    font-size: 12px;
+    //margin: 0;
+    //padding: 0 ;
+    //margin-top: - $line-sep-width;
+    //margin-bottom: - 2 * $line-sep-width;
+    text-align: center;
+    line-height: 30px;
+    li {
+      margin: 0;
+      height: 30px;
+      a {
+        font-size: 12px;
+        min-width:30px;
+        position: relative;
+        line-height: 30px;
+        height: 30px;
+        border: solid $line-sep-width $navbar-border-color-inactive;
+        margin-left: - $line-sep-width;
+        z-index: 100;
+        color: $header-bg-color;
+        font-weight: bold;
+
+        &:hover {
+          background-color: $navbar-bg-color;
+          z-index: 102;
+          cursor: pointer;
+        }
+      }
+      &.current {
+        min-width:30px;
+        position: relative;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+        margin-left: - $line-sep-width;
+        margin-right: $line-sep-width;
+        background-color: $header-bg-color;
+        z-index: 101;
+        color: white;
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+}

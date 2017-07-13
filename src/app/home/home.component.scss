@@ -1,0 +1,108 @@
+@import "../_style/app.theme";
+
+.cover {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.cover:before{
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.cover img{
+  position:relative;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
+}
+
+.action {
+
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image.jpeg") no-repeat center center;
+    background-attachment:fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    text-align: center;
+}
+
+.home-title {
+  padding-top: 2em;
+  font-family: aniFont;
+  font-weight: 200;
+  font-size: 7em;
+  max-width: 15em;
+  color: #E75D54;
+  text-shadow: 0px 0px 5px #000;
+}
+
+/* Scaling size of Title down as Page size decreases */
+@media screen and (max-width: 915px) {
+  #home-page-title {
+    font-size: 2.5em;
+  }
+}
+  @media screen and (max-width: 650px) {
+    #home-page-title {
+      font-size: 2em;
+    }
+  }
+
+@font-face {
+  font-family: "aniFont";
+  src: url("/assets/fonts/Gotham-Black-Regular.ttf");
+  //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
+  // src: url("/assets/fonts/Thruster-Regular.ttf");
+}
+
+#aniSlogan {
+  font-family: "aniFont";
+  font-size: 3em;
+  font-weight: 100;
+  color: #383838;
+  padding-top: 0.5em;
+}
+
+#aniWord {
+  font-family: inherit;
+  color: #383838;
+}
+
+.input-pre {
+  border-bottom: 2px solid $secondary-bg-color;
+}
+
+ /* label color */
+ .input-field label {
+   color: $main-color;
+ }
+
+/* label focus color */
+.input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+ color: $main-color !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+ border-bottom: 1px solid $main-color !important;
+ box-shadow: 0 1px 0 0 $main-color !important;
+}
+
+.search_button {
+  padding: 0 1rem;
+}

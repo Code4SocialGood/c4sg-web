@@ -1,123 +1,225 @@
-
+<div class="page-title">
+  <h1>Project</h1>
+</div>
 <div class="container">
-  <div class="row main-row">
-    <div class="content" *ngIf="project">
-      <h1 class="main-title" *ngIf="project">{{project.name}}</h1>
-    </div>
-
+  <div class="row main-row"  materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
+    <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
-      <div class="content-wrapper">
-        <div class="content" *ngIf="project">
-          <div class="row single-info">
-            <div class="col m4">
-              <div class="info-avatar" *ngIf="project"><img [src]="project.imageUrl"></div>
+      <div class="content  sidebar-wrapper" *ngIf="project">
+        <div class="row single-info">
+          <div class="col s6 m3 l2">
+            <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+            <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
+          </div>
+          <div class="col s12 m9 l10">
+            <div class="row">
+              <div class="col s12">
+                <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
+              </div>
             </div>
-            <div class="col m8">
-              <div class="row">
-                <div class="col s12">
-                  <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+            <div class="row">
+              <div class="col s12 l7">
+                <div class="row">
+                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                  <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
+                    Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <span>Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}</span>
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col s12 action-btns">
-                  <a class="btn" *ngIf="!authService.authenticated()" (click)="authService.login()">Apply</a>
-                  <a class="btn" *ngIf="authService.authenticated()" (click)="apply()">Apply</a>
-                  <a class="btn" *ngIf="displayBookmark" (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">Bookmark</a>
-                  <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-                  <a class="btn" *ngIf="displayDelete" (click)="delete()" materialize
-                     [materializeActions]="deleteGlobalActions">Close</a>
+              <div class="right">
+                <div class="row" *ngIf="projectStatusApplied">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                      </svg>
+                      <span>Applied</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="projectStatusBookmarked">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon icon-bookmarked">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>
+                      <span>Bookmarked</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="skills-list-wrapper">
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="skills-tag-wrapper">
                   <ul *ngIf="project.skills">
-                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}
-                    </li>
+                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
                   </ul>
                 </div>
               </div>
-              <div class="row">
-                <div class="col m4 left-col">
-                  <div class="info-location">
-                    <div *ngIf="project.remoteFlag === 'Y'">Remote</div>
-                    <div *ngIf="project.remoteFlag !== 'Y'">
-                      <p>
-                        Location:
-                        <span class="state" *ngIf="project.state">>{{project.state}}, </span>
-                        <span class="state">{{project.country}}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col m4 right-col">
-                  <div class="info-contact">
-                    Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="col m12">
-              <p>Description</p>
-              <div class="info-description">
-                <p>{{ project.description }}</p>
-              </div>
+          </div>
+          <div class="col m12">
+            <div class="info-title">Description</div>
+            <div class="info-description">{{ project.description }}</div>
+          </div>
+          <div class="row">
+            <div class="col s12 action-btns">
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
+                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" >
+                Apply
+              </button>
+              <button type="button" class="btn" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" [disabled]="projectStatusApplied">
+                Apply
+              </button>
+              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
+                *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
+                Bookmark
+              </button>
+              <button type="button" class="btn" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')" [disabled]="projectStatusBookmarked">
+                Bookmark
+              </button>
+              <!--<button type="button" class="btn" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
+              <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
+              <button type="button" class="btn" *ngIf="displayEdit" (click)="edit()">Edit
+              </button>
+              <button type="button" class="btn" materialize [materializeActions]="modalActions" *ngIf="displayDelete" (click)="openModal(project)">Close
+              </button>
+              <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
+              Delete</button>-->
+              <my-shared-btn [displayShare]="displayShare" [project]="project"></my-shared-btn>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="col m4" id="right-col">
-      <div class="sidebar-wrapper">
-        <div class="sidebar">
-          <div class="section" *ngIf="projects">
-          
-            <h4>Organization</h4>
-            <div class="card">
-              <div class="card-content">
-                <div class="row single-info">
-                  <div class="col m4">
-                    <div class="info-avatar" *ngIf="organization"><img [src]="organization.logoUrl"></div>
-                  </div>
-                  <div class="col m8">
-                    <p><a [href]="organization.websiteUrl" target="_blank">{{organization.name}}</a></p>
-                  </div>
-                </div>
-                <p>{{organization.description}}</p>
-              </div>
-            </div>
 
-            <h4>Opportunities ({{projects.length}})</h4>
-            <div class="section-body">
-              <div class="items-list-wrapper">
-                <ul>
-                  <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="row single-info">
-                          <div class="col m4">
-                            <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                          </div>
-                          <div class="col m8">
-                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                          <div class="skills-list-wrapper">
-                          <ul *ngIf="pr.skills">
-                            <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}
-                            </li>
-                          </ul>
-                          </div>
-                          </div>
-                        </div>
-                        <p>{{ pr.description }}</p>
+      <!-- Nonprofit User - Applicants -->
+      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true && project.status === 'A'">
+        <div class="row">
+          <div class="col s12">
+            <h4 class="content-title">Applicants</h4>
+            <div class="items-list-wrapper">
+              <ul class="user-list" *ngIf="applicants" >
+                <li class="user-wrapper" *ngFor="let applicant of applicants">
+                  <div class="user">
+                    <div class="user-info col s4">
+                      <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
+                      <div>{{applicant.title}}</div>
+                    </div>
+                    <div class="user-info col s4">
+                      <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
+                      <div *ngIf="applicant.applicationStatus === 'C'">
+                        Accepted on: {{applicant.acceptedTime | date: 'MMM d, yyyy'}}
+                      </div>
+                      <div *ngIf="applicant.applicationStatus === 'D'">
+                        Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
                       </div>
                     </div>
-                  </li>
-                </ul>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button></div>
+                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button></div>
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
+                      <div>ACCEPTED</div>
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'D'">
+                      <div>DECLINED</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="row" *ngIf="applicants && applicants.length == 0">
+              <div class="col s12">
+                <div class="info">No applicants found</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Right Panel: Organization and projects -->
+    <div class="col m4" id="right-col">
+      <div class="sidebar">
+        <div class="section">
+          <h4>Organization</h4>
+          <div class="section-body-organization">
+            <div class="card">
+              <div class="card-content" *ngIf="organization">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
+                    <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="constantsService.defaultImage"></div>
+                  </div>
+                  <div class="col m8 organization-name">
+                    <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
+                    <p *ngIf="!organization.id">{{organization.name}}</p>
+                  </div>
+                  <div class="col m8">
+                    <p>Category: {{categoryName}}</p>
+                    <p>
+                      Location:
+                      <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                      <span class="state">{{organization.country}}</span>
+                    </p>
+                  </div>
+                </div>
+                <p *ngIf="organization && organization.description">{{ organization && organization.description | slice:0:100 }} ...
+                </p>
+              </div>
+            </div>
+          </div>
+          <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
+          <div class="section-body-project" *ngIf="projects">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="row single-info">
+                        <div class="col m4">
+                          <div class="info-avatar square-container" *ngIf="pr.imageUrl"><img class="square" [src]="pr.imageUrl"></div>
+                          <div class="info-avatar square-container" *ngIf="!pr.imageUrl"><img class="square" [src]="constantsService.defaultImage"></div>
+                        </div>
+                        <div class="col m8">
+                          <div class="available-opp-proj-name">
+                            <h5  [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                          </div>
+                          <div>
+                            <div class="skills-tag-wrapper">
+                              <ul *ngIf="pr.skills">
+                                <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <p>{{ pr.description | slice:0:100 }} ...</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm Project Deletion</h4>
+    <p>Are you sure you want to delete the project?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Yes</a>
   </div>
 </div>

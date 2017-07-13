@@ -5,12 +5,12 @@ import { OrganizationService } from '../common/organization.service';
 import { ProjectService} from '../../project/common/project.service';
 import { UserService } from '../../user/common/user.service';
 import { AuthService } from '../../auth.service';
-import { ImageDisplayService } from '../../_services/image-display.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { Project } from '../../project/common/project';
 import { User } from '../../user/common/user';
 import { Organization } from '../../organization/common/organization';
 import { MaterializeAction } from 'angular2-materialize';
+import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
   selector: 'my-organization',
@@ -27,19 +27,21 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string|MaterializeAction>();
 
   displayShare = true;
   displayEdit = false;
   displayDelete = false;
+  displayApprove = false;
 
   constructor(private organizationService: OrganizationService,
     private projectService: ProjectService,
     private userService: UserService,
     private authService: AuthService,
     private skillService: SkillService,
+    public constantsService: FormConstantsService,
     private route: ActivatedRoute,
-    private router: Router,
-    private imageDisplay: ImageDisplayService) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -57,8 +59,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       this.categoryName = 'Nonprofit';
     } else if (this.organization.category === 'O') {
       this.categoryName = 'Open Source';
-    } else if (this.organization.category === 'M') {
-      this.categoryName = 'Misc';
+    } else if (this.organization.category === 'S') {
+      this.categoryName = 'Social Enterprise';
+    } else if (this.organization.category === 'U') {
+      this.categoryName = 'Startup';
     }
   }
 
@@ -67,20 +71,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     if (!this.authService.authenticated()) {
       this.displayShare = true;
     } else if (this.authService.authenticated()) {
-      if (this.authService.isVolunteer()) {
-      } else if (this.authService.isOrganization()) {
-        this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
-          res => {
-            let org: Organization;
-            org = res[0];
-            if ((org !== undefined) && (org.id === organizationId)) {
-              this.displayEdit = true;
-              this.displayDelete = true;
-            }
-          },
-          error => console.log(error)
-        );
-      } else if (this.authService.isAdmin()) {
+      if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
       }
@@ -92,12 +83,14 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       (res) => {
         const org = res;
         this.organization = org;
-        this.getLogo(org.id);
         this.getProjects(org.id);
         this.setCategoryName();
         // Validation rules should force websiteUrl to start with http but add check just in case
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
+        if (this.authService.authenticated() && this.authService.isAdmin() && this.organization.status === 'P') {
+          this.displayApprove = true;
         }
       },
       (err) => {
@@ -106,14 +99,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  getLogo(id: number): void {
-    this.imageDisplay.displayImage(id,
-      this.organizationService.retrieveLogo.bind(this.organizationService))
-      .subscribe(res => this.organization.logo = res.url);
-  }
-
   getProjects(id: number): void {
-    this.projectService.getProjectByOrg(id).subscribe(
+    this.projectService.getProjectByOrg(id, 'A').subscribe(
       res => {
         this.projects = res.json();
         this.projects.forEach((project) => {
@@ -132,8 +119,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   getUser(orgId: number): void {
     // TODO pending backend findUserForOrg
-    this.userService.getUser(2).subscribe(
-      response => this.user = response,
+    this.userService.getUsersByOrganization(orgId).subscribe(
+      response => this.user = response[0],
       errorProjects => console.log(errorProjects)
     );
   }
@@ -147,18 +134,51 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       .delete(this.organization.id)
       .subscribe(
         response => {
-          this.router.navigate(['organization/list']);
-          // display toast
+          this.router.navigate(['/organization/list/organizations']);
           this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {
-            console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
+          console.log(error);
+          this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
         }
       );
   }
 
+  approve(): void {
+    this.organizationService
+      .approve(this.organization.id, 'A')
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/view/' + this.organization.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  decline(): void {
+  this.organizationService
+    .approve(this.organization.id, 'D')
+    .subscribe(
+      response => {
+        this.router.navigate(['/organization/view/' + this.organization.id]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   ngOnDestroy(): void {
     if (this.routeSubscription) { this.routeSubscription.unsubscribe(); }
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 }

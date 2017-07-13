@@ -1,7 +1,0 @@
-.developers_list li {
-  display: inline-block;
-  margin-right: 10px;
-}
-.developers_list li:last-child {
-  margin-right: 0;
-}

@@ -26,10 +26,11 @@ import {UserListComponent} from './user/list/user-list.component';
 import {UserViewComponent} from './user/view/user-view.component';
 import {UserEditComponent} from './user/edit/user-edit.component';
 
-import {SkillComponent} from './skill/common/components/skill/skill.component';
-
 import {AuthRoleSelectionComponent} from './auth.role.component';
 import {MapViewerComponent} from './map-viewer/map-viewer.component';
+
+import {SharedBtnComponent} from './_components/shared-btn/shared-btn.component';
+import {SkillSelectComponent} from './_components/select-skill/skill-select.component';
 
 import {OrganizationService} from './organization/common/organization.service';
 import {ProjectService} from './project/common/project.service';
@@ -42,8 +43,11 @@ import {DeveloperService} from './about/common/developer.service';
 import {ImageDisplayService} from './_services/image-display.service';
 import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
+import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
-import { SharedBtnComponent } from './_components/shared-btn/shared-btn.component';
+import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
+import { AgmCoreModule } from '@agm/core';
+import { ProjectCardComponent } from './_components/project-card/project-card.component';
 
 @NgModule({
   imports: [
@@ -54,7 +58,10 @@ import { SharedBtnComponent } from './_components/shared-btn/shared-btn.componen
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAq8AkZC-7OkXqM7bLjJ5OQQNDn1hW92o0'
+    })
   ],
   declarations: [
     AppComponent,
@@ -77,10 +84,11 @@ import { SharedBtnComponent } from './_components/shared-btn/shared-btn.componen
     UserEditComponent,
 
     AuthRoleSelectionComponent,
-
     MapViewerComponent,
-    SkillComponent,
+    SkillSelectComponent,
     SharedBtnComponent,
+    ScrollSkillsDirective,
+    ProjectCardComponent
   ],
   providers: [ProjectService,
     OrganizationService,
@@ -93,7 +101,8 @@ import { SharedBtnComponent } from './_components/shared-btn/shared-btn.componen
     ImageUploaderService,
     DataService,
     ValidationService,
-    SkillService],
+    SkillService,
+    ExtFileHandlerService],
 
   bootstrap: [AppComponent]
 })

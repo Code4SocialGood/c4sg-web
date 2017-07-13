@@ -5,11 +5,44 @@
     <div class="col m12" id="right-col">
       <div class="content" *ngIf="developers">
         <div class="row">
-          <h1 class="main-title">Meet the Volunteers of Code for Social Good</h1>
+          <h1 class="content-title">Meet the Volunteers of Code for Social Good</h1>
           <div class="col s12">
-            <div class="map-viewer-wrapper" *ngIf="developers">
+            <!--<div class="map-viewer-wrapper" *ngIf="developers">
               <my-map-viewer [developers]="developers"></my-map-viewer>
-            </div>
+            </div>-->
+              <div>
+                  <agm-map
+                          [latitude]="lat"
+                          [longitude]="lng"
+                          [zoom]="zoom">
+
+                      <agm-marker
+                          *ngFor="let d of developers"
+                          [latitude]="d.latitude"
+                          [longitude]="d.longitude"
+                          (mouseOver)="handleMarkerMouseOver($event)"
+                          >
+
+                        <agm-info-window>
+                              <div class="info-window">
+                                <a class="info-container" [routerLink]="['/user/view',d.id]">
+                                  <div class="info-avatar">
+                                    <img [src]="d.avatarUrl" onError="this.src='../../assets/default_avatar.png'">
+                                  </div>
+                                  <div class="user-name">{{d.userName}}</div>
+                                  <div class="user-location">Location:
+                                          <span *ngIf="d.state">{{d.state}}</span>
+                                          <span *ngIf="d.state && d.country">,</span>
+                                          <span *ngIf="d.country">{{d.country}}</span>
+                                  </div>
+                                </a>
+                              </div>
+                        </agm-info-window>
+
+                      </agm-marker>
+                  </agm-map>
+
+              </div>
           </div>
         </div>
       </div>

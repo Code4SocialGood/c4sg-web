@@ -7,9 +7,11 @@ cache:
 script:
 - npm run test_single_run
 - npm run lint
-- npm run buildProdHeroku
+- npm run build:prod:heroku
 deploy:
-  skip_cleanup: true
-  provider: surge
-  project: ./dist/
-  domain: dev.code4socialgood.org
+  provider: heroku
+  api_key:
+    secure: "$HEROKU_API_KEY"
+  app:
+    master: c4sg-web-dev
+    staging: c4sg-web-staging

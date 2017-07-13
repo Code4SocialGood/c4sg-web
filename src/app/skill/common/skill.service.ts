@@ -33,14 +33,35 @@ export class SkillService {
       .catch(this.handleError);
   }
 
-  updateSkills(projectSkillsArray, id) {
+  updateProjectSkills(projectSkillsArray, id) {
     const params: URLSearchParams = new URLSearchParams();
     params.set('id', id);
     params.set('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
     return this.http
-      .post(url, null, {search: params})
-      .map((res: Response) => res.json())
+      .put(url, null, {search: params})
+      .map((res: Response) => {
+        if (res.status !== 200 || res.type !== 2) {
+          console.error('An error occurred');
+          return Promise.reject('An error occurred');
+        }
+      })
+      .catch(this.handleError);
+  }
+
+  updateUserSkills(userSkillsArray, id) {
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('id', id);
+    params.set('skillsList', userSkillsArray.join(','));
+    const url = skillUrl + '/user/skills';
+    return this.http
+      .put(url, null, {search: params})
+      .map((res: Response) => {
+        if (res.status !== 200 || res.type !== 2) {
+          console.error('An error occurred');
+          return Promise.reject('An error occurred');
+        }
+      })
       .catch(this.handleError);
   }
 
