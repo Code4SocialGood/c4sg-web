@@ -166,7 +166,7 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
   public getAllJobTitles(): Observable<JobTitle[]> {
-    const url = userUrl+'/jobTitles';
+    const url = userUrl + '/jobTitles';
     return this.http
                .get(url)
                .map( res => { return res.json() as JobTitle[]; })
