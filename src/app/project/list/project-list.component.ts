@@ -21,50 +21,14 @@ declare const Materialize: any;
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
 
-  roles = [{
-    name: 'Developer',
-    value: 'D'
-  }, {
-    name: 'UI/UX Designer',
-    value: 'U'
-  }, {
-    name: 'QA Engineer',
-    value: 'Q'
-  }, {
-    name: 'Software Architect',
-    value: 'A'
-  }, {
-    name: 'Build & Release Engineer',
-    value: 'E'
-  }, {
-    name: 'Business Analyst',
-    value: 'B'
-  }, {
-    name: 'Project Manager',
-    value: 'P'
-  }, {
-    name: 'Sales & Marketing',
-    value: 'S'
-  }];
-
-
-  rolesArray = new FormArray([
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false)
-  ]);
+  roles: any[];
 
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    roles: this.rolesArray,
+    jobTitle: new FormControl(false),
     skills: this.skillsArray
   });
 
@@ -112,17 +76,14 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     this.route.params.subscribe(
       params => {
-        this.rolesArray.controls.forEach(roleControl => {
-          return roleControl.setValue(false);
-        });
-        this.skillsArray.controls.forEach(skillControl => {
+          this.skillsArray.controls.forEach(skillControl => {
           return skillControl.setValue(false);
         });
         this.from = params['from'];
         if (this.from === 'reload') {
           this.p = 1;
           this.filterForm.controls.keyword.setValue('');
-          this.filterForm.controls.roles = this.rolesArray;
+          this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
         }
         this.getProjects(this.p);
@@ -135,6 +96,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     });
 
     this.getSkills();
+    this.getProjectTitles();
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
@@ -147,8 +109,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     // this.filterForm.reset();
     window.scrollTo(0, 0);
     if (this.from === 'projects') { // Projects Menu Item
-
       const skills = this.filterForm.value.skills;
+      const jobTitle = this.filterForm.value.jobTitle;
       const skillsParam = [];
 
       if (skills) {
@@ -160,7 +122,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
       this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
       this.projectsSubscription = this.projectService.searchProjects(
-        this.filterForm.value.keyword, skillsParam, 'A', null, page, 10)
+        this.filterForm.value.keyword, jobTitle, skillsParam, 'A', null, page, 10)
         .subscribe(
         res => {
           this.projects = res.data;
@@ -226,6 +188,16 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       });
       this.showSkills();
     },
+      error => console.error(error)
+    );
+  }
+
+  getProjectTitles(): void {
+    this.projectService.getProjectJobTitles().subscribe(res => {
+        this.roles = res.map(role => {
+          return {name: role.jobTitle, checked: false, id: role.id};
+        });
+      },
       error => console.error(error)
     );
   }
