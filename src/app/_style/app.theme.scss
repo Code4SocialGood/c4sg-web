@@ -273,11 +273,6 @@ textarea.materialize-textarea:focus + label {
   color: $secondary-bg-color;
 }
 
-/* fix pagination cursor */
-.pagination li, .pagination li.current {
-  cursor: pointer;
-}
-
 #toast-container {
   .toast {
     background-color: $secondary-color;
