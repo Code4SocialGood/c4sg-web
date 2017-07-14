@@ -171,6 +171,9 @@ export class ProjectViewComponent implements OnInit {
               this.displayDelete = true;
               this.displayApplicants = true;
             }
+            if (this.project.status === 'C') {
+              this.displayDelete = false;
+            }
           },
           error => console.log(error)
         );
@@ -178,6 +181,9 @@ export class ProjectViewComponent implements OnInit {
         this.displayEdit = true;
         this.displayDelete = true;
         this.displayApplicants = true;
+        if (this.project.status === 'C') {
+              this.displayDelete = false;
+            }
       }
     }
   }
