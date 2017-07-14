@@ -276,6 +276,7 @@ textarea.materialize-textarea:focus + label {
 #toast-container {
   .toast {
     background-color: $secondary-color;
+    min-height:34px;
   }
 }
 
