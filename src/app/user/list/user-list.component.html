@@ -25,11 +25,13 @@
                 <h4>Roles</h4>
                 <div class="section-body-projects">
                  <div class="project-list">
-                    <ul formArrayName="roles">
+                    <ul  >
                  <!-- <div class="projects-list-wrapper">
                     <ul> -->
                       <li *ngFor="let role of roles, let i = index">
-                        <input class="filled-in" type="radio" [id]="role.name" formControlName="jobTitle" [value] = "role.id">
+                        <!--<input class="filled-in" type="radio" [id]="role.name" formControlName="jobTitle" [value] = "role.id">-->
+                          <input class="filled-in" type="radio" [id]="role.name" formControlName="jobTitle" [value] = "role.id">
+                      
                         <label [for]="role.name">{{role.name}}</label>
                       </li>
                     </ul>
