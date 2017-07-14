@@ -38,7 +38,7 @@
             <div class="content-title">Introduction</div>
             <div class="input-field col s6">
               <input id="name" type="text" formControlName="name" class="validate" required>
-              <label for="name">Project Name *</label>
+              <label for="name" id="name-label">Project Name *</label>
             </div>
             <div class="input-field col s6">
               <div class="theme-select ">
@@ -54,7 +54,7 @@
               <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required
                 (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()" (blur)="onBlurDescription()">
               </textarea>
-              <label for="description">Project Description *
+              <label for="description" id="desc-label">Project Description *
                 <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
               </label>
             </div>
@@ -133,7 +133,7 @@
               <div class="divider"></div>
               <label for="saveBtn" class="red-text">
                   <div *ngIf="projectForm.get('name').pristine && !projectForm.get('name').valid">
-                    Please enter Project Name 
+                    Please enter Project Name
                   </div>
                   <div *ngIf="projectForm.get('description').pristine && !projectForm.get('description').valid">
                     Please enter Project Description
