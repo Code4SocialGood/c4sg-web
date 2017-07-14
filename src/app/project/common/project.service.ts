@@ -83,7 +83,7 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  getProjectJobTitles(): Observable<any> {
+  getAllJobTitles(): Observable<any> {
     const titleUrl = projectUrl + '/' + 'jobTitles';
     return this.http.get(titleUrl)
       .map(res => res.json())

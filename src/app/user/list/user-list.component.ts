@@ -16,51 +16,14 @@ import {AuthService} from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-
-  roles = [{
-    name: 'Developer',
-    value: 'D'
-  }, {
-    name: 'UI/UX Designer',
-    value: 'U'
-  }, {
-    name: 'QA Engineer',
-    value: 'Q'
-  }, {
-    name: 'Software Architect',
-    value: 'A'
-  }, {
-    name: 'Build & Release Engineer',
-    value: 'E'
-  }, {
-    name: 'Business Analyst',
-    value: 'B'
-  }, {
-    name: 'Project Manager',
-    value: 'P'
-  }, {
-    name: 'Sales & Marketing',
-    value: 'S'
-  }];
-
-
-  rolesArray = new FormArray([
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false)
-  ]);
+  roles: any[];
 
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    roles: this.rolesArray,
+    jobTitle: new FormControl(false),
     skills: this.skillsArray
   });
 
@@ -85,21 +48,20 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(
       params => {
-        this.rolesArray.controls.forEach(roleControl => {
-          return roleControl.setValue(false);
-        });
         this.skillsArray.controls.forEach(skillControl => {
               return skillControl.setValue(false);
             });
         if (params['from'] === 'reload') {
             this.p = 1;
             this.filterForm.controls.keyword.setValue('');
+          this.filterForm.controls.jobTitle.setValue(false);
             this.filterForm.controls.skills = this.skillsArray;
         }
       });
     this.getUsers(this.p);
     this.getSkills();
     this.getKeywords();
+    this.getJobTitles();
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
@@ -109,6 +71,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   public getUsers(page: number): void {
     const skills = this.filterForm.value.skills;
+    const jobTitle = this.filterForm.value.jobTitle;
     const skillsParam = [];
     window.scrollTo(0, 0);
     if (skills) {
@@ -121,7 +84,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
     this.usersSubscription = this.userService.searchUsers(
-      this.filterForm.value.keyword, skillsParam, 'A', 'V', 'Y', page, 10)
+      this.filterForm.value.keyword, jobTitle, skillsParam, 'A', 'V', 'Y', page, 10)
       .subscribe(
         res => {
           // the service returns a JSON object consist of the array of pageable data
@@ -165,6 +128,16 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
       }
     ];
+  }
+
+  getJobTitles(): void {
+    this.userService.getAllJobTitles().subscribe(res => {
+        this.roles = res.map(role => {
+          return {name: role.jobTitle, checked: false, id: role.id};
+        });
+      },
+      error => console.error(error)
+    );
   }
 
   private createCheckBoxObj(arr) {
