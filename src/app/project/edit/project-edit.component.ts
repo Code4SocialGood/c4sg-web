@@ -83,8 +83,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
       );
 
-      
-
     this.route.params.subscribe(params => {
       this.projectId = +params['projectId'];
 
@@ -132,7 +130,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           );
       }
 
-     
       this.userService.getAllJobTitles()
         .subscribe(
         res => {
