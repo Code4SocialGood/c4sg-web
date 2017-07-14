@@ -1,4 +1,6 @@
-<div class="page-title"><h1>Organizations</h1></div>
+<div class="page-title">
+  <h1>Organizations</h1>
+</div>
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
@@ -15,16 +17,19 @@
                   </button>
                 </div>
               </div>
-           </div>
+            </div>
           </div>
           <div class="row">
             <div class="col s12">
               <div class="section">
                 <h4>Projects</h4>
-                <div class="section-body-projects">
-                  <input type="checkbox" id="openProject" formControlName="hasProjects"/>
-                  <label for="openProject">Has Open Projects</label>
+                <div class="section-body-skills">
+                  <div class="project-search-checkbox">
+                    <input class="filled-in" type="checkbox" id="openProject" formControlName="hasProjects" />
+                    <label for="openProject">Has Open Projects</label>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -32,8 +37,8 @@
             <div class="col s12">
               <div class="section">
                 <h4>Category</h4>
-                <div class="section-body-category">
-                  <div class="categories-list-wrapper">
+                <div class="section-body-skills">
+                  <div class="skills-list">
                     <ul formArrayName="categories">
                       <li *ngFor="let category of categories, let i = index">
                         <input class="filled-in" type="checkbox" [id]="category.name" formControlName="{{i}}">
@@ -90,7 +95,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="pagination"><!--
+          <div class="pagination">
+            <!--
             <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>-->
             <pagination-controls (pageChange)="getOrganizations(p = $event)" id="organizationsPages" autoHide="false"></pagination-controls>
           </div>
