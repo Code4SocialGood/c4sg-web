@@ -54,16 +54,13 @@ export class AboutComponent implements OnInit {
       error => console.error(error)
     );
   }
-  
-  private getCountryName(countryCode): string{
-    let countries = this.constantsService.getCountries();    
-    let country = countries.find(c => c.code === countryCode);
-    if(country){
+  public getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
         return country.name;
-    }
-    else
-    {
-        return "";
+    } else {
+        return '';
     }
   }
 }
