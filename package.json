@@ -9,7 +9,6 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
-
     "start": "node server.js",
     "start:dev:remote": "ng serve --environment=dev_remote",
     "start:dev:local": "ng serve --environment=dev_local",
@@ -17,11 +16,9 @@
     "start:staging:local": "ng serve --aot --environment=staging_local",
     "start:prod:remote": "ng serve --aot --prod --environment=prod_remote",
     "start:prod:local": "ng serve --aot --prod --environment=prod_local",
-
     "build": "ng build",
     "build:prod:local": "ng build --prod --aot --environment=prod_local",
     "build:prod:heroku": "ng build --prod --aot --environment=prod_remote",
-
     "test": "ng test",
     "test_single_run": "ng test --single-run",
     "lint": "ng lint",
@@ -41,7 +38,9 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "@types/jasmine": "2.5.38",
     "@types/leaflet": "^1.0.60",
+    "@types/node": "~6.0.60",
     "angular2-jwt": "^0.1.28",
     "angular2-materialize": "^6.7.1",
     "aws-sdk": "^2.57.0",
@@ -53,14 +52,12 @@
     "leaflet": "^1.0.3",
     "materialize-css": "^0.97.8",
     "mdi": "^1.8.36",
-    "ng2-pagination": "^2.0.1",
+    "ngx-pagination": "^3.0.1",
     "rxjs": "^5.1.0",
-    "underscore": "^1.8.3",
-    "zone.js": "^0.7.6",
     "ts-node": "~2.0.0",
     "typescript": "~2.2.2",
-    "@types/jasmine": "2.5.38",
-    "@types/node": "~6.0.60"
+    "underscore": "^1.8.3",
+    "zone.js": "^0.7.6"
   },
   "devDependencies": {
     "codelyzer": "~2.1.1",

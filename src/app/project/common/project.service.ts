@@ -18,6 +18,7 @@ export class ProjectService {
 
   searchProjects(
     keyword?: string,
+    jobTitle?: number,
     skills?: string[],
     status?: string,
     remote?: string,
@@ -27,6 +28,10 @@ export class ProjectService {
 
     if (keyword) {
       params.append('keyWord', keyword);
+    }
+
+    if (jobTitle) {
+      params.append('jobTitle', String(jobTitle));
     }
 
     if (skills) {
@@ -77,6 +82,14 @@ export class ProjectService {
   getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
+
+  getAllJobTitles(): Observable<any> {
+    const titleUrl = projectUrl + '/' + 'jobTitles';
+    return this.http.get(titleUrl)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
 
   add(project: Project): Observable<{ project: Project }> {
     return this.http.post(

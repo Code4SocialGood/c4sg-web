@@ -212,7 +212,7 @@ hr {
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
-  
+
 }
 
 .image-upload-button {
@@ -273,14 +273,10 @@ textarea.materialize-textarea:focus + label {
   color: $secondary-bg-color;
 }
 
-/* fix pagination cursor */
-.pagination li, .pagination li.current {
-  cursor: pointer;
-}
-
 #toast-container {
   .toast {
     background-color: $secondary-color;
+    min-height:34px;
   }
 }
 
@@ -297,9 +293,14 @@ textarea.materialize-textarea:focus + label {
     padding-top:2px;
     float:right;
   }
-}  
+}
 
 .materialize-textarea{
   min-height: 1rem;
   height: 1rem;
+}
+
+// Make social media links colored when hovering
+.mdi:hover:not(.not-active) {
+  color: $secondary-bg-color;
 }

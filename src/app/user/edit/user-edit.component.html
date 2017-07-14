@@ -90,9 +90,19 @@
               <div class="content-title">My Profile</div>
             </div>
             <div class="row">
-              <div class="input-field col s12">
+              <div class="input-field col s6">
                 <input class="theme-input" id="title" type="text" formControlName="title" required>
                 <label for="title">Title *</label>
+              </div>
+              <div class="input-field col s6">
+                <div class="theme-select ">
+                  <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+                     <option value="0">Choose Role</option>
+                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle}}</option>
+                 <!-- <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle + ' (' + jobTitle.id + ')'}}</option>-->
+                  </select>
+                  <label for="jobTitleId">Role </label>
+                </div>
               </div>
               <div class="input-field col s12">
                  <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea"  required formControlName="introduction"
