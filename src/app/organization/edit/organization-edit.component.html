@@ -1,4 +1,6 @@
-<div class="page-title"><h1>My Organization</h1></div>
+<div class="page-title">
+  <h1>My Organization</h1>
+</div>
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel -->
@@ -12,11 +14,11 @@
               <img class="responsive-img" *ngIf="!logoUrl" id="responsive-img" [src]="constantsService.defaultLogo">
             </div>
             <div>
-                <div class="input-field file-field row">
-                <button class="btn avatar-upload-button" [disabled]="organizationId===0">Upload
+              <div class="input-field file-field row">
+                <button class="btn waves-effect waves-light avatar-upload-button" [disabled]="organizationId===0">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadLogo($event)">
                 </button>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -96,9 +98,8 @@
           <div class="row">
             <div class="col m12 s12">
               <div class="input-field">
-                <textarea id="description" class="materialize-textarea" formControlName="description" required
-                          (click)="onCountCharDesc()" (input)="onCountCharDesc()" (focus)="onFocusDesc()"
-                          (blur)="onBlurDesc()">
+                <textarea id="description" class="materialize-textarea" formControlName="description" required (click)="onCountCharDesc()"
+                  (input)="onCountCharDesc()" (focus)="onFocusDesc()" (blur)="onBlurDesc()">
                 </textarea>
                 <label for="description">Organization Description *
                   <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
@@ -130,7 +131,8 @@
                   </div>
               </label> -->
               <div class="footer-btns center">
-                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!organizationForm.valid" materialize [materializeParams]="['Your changes have been saved',4000]" [materializeActions]="globalActions">
+                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!organizationForm.valid" materialize [materializeParams]="['Your changes have been saved',4000]"
+                  [materializeActions]="globalActions">
                  Save
                 </button>
               </div>

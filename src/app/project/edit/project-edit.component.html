@@ -20,7 +20,7 @@
             </div>
             <div>
               <div class="input-field file-field row">
-                  <button class="btn avatar-upload-button">Upload
+                <button class="btn waves-effect waves-light avatar-upload-button">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
                 </button>
               </div>
@@ -40,19 +40,19 @@
               <input id="name" type="text" formControlName="name" class="validate" required>
               <label for="name">Project Name *</label>
             </div>
-             <div class="input-field col s6">
-                <div class="theme-select ">
-                  <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+            <div class="input-field col s6">
+              <div class="theme-select ">
+                <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
                      <option value="0">Choose Role</option>
                      <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                  <!-- <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle + ' (' + jobTitle.id + ')'}}</option>-->
                   </select>
-                  <label for="jobTitleId">Role </label>
-                </div>
+                <label for="jobTitleId">Role </label>
               </div>
+            </div>
             <div class="input-field col s12">
-              <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()"
-                 (blur)="onBlurDescription()">
+              <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required
+                (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()" (blur)="onBlurDescription()">
               </textarea>
               <label for="description">Project Description *
                 <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
