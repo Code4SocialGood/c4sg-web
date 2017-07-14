@@ -19,6 +19,8 @@ export class AboutComponent implements OnInit {
   // initial center position for the map
   lat = 0;
   lng = 0;
+  activeInfoWindow = null;
+
   constructor(
     private uService: UserService
   ) { }
@@ -28,7 +30,15 @@ export class AboutComponent implements OnInit {
   }
 
   handleMarkerMouseOver(event): void {
-    event.target.infoWindow.forEach(function(infoWindow){
+    if (this.activeInfoWindow) {
+      this.activeInfoWindow.forEach(function(infoWindow){
+        return infoWindow.close();
+      });
+    }
+
+    const window = event.target.infoWindow;
+    this.activeInfoWindow = window;
+    window.forEach(function(infoWindow){
       return infoWindow.open();
     });
   }

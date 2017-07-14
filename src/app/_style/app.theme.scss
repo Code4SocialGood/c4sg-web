@@ -5,6 +5,7 @@
 @import 'app.card';
 @import 'app.pagination';
 @import 'app.sidebar';
+@import 'app.validate';
 
 a {
   color: $main-color;
@@ -177,7 +178,7 @@ hr {
       background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
       text-align: center;
       font-size: 0.7em;
-      margin: 6px 5px;
+      margin: 5px 2px;
       //cursor: pointer;
       //&:hover {
       //  background: #8dcdc1;
@@ -211,6 +212,7 @@ hr {
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
+
 }
 
 .image-upload-button {
@@ -230,14 +232,16 @@ textarea.materialize-textarea:focus {
   box-shadow: 0 1px 0 0 $secondary-bg-color;
 }
 
+
 /* input label color */
- .input-field label {
+/* Kepp label as original color when not focused
+.input-field label {
    color: $secondary-bg-color;
- }
+ }*/
 
 /* input label focus color */
-.input-field input[type=text] + label {
- color: $secondary-bg-color;
+.input-field input[type=text]:focus + label {
+  color: $secondary-bg-color;
 }
 
 /* input label focus color */
@@ -269,7 +273,34 @@ textarea.materialize-textarea:focus + label {
   color: $secondary-bg-color;
 }
 
-/* fix pagination cursor */
-.pagination li, .pagination li.current {
-  cursor: pointer;
+#toast-container {
+  .toast {
+    background-color: $secondary-color;
+    min-height:34px;
+  }
+}
+
+.backdrop{
+    background-color: $secondary-color;
+}
+
+.chip {
+  height: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  .close{
+    line-height: 14px;
+    padding-top:2px;
+    float:right;
+  }
+}
+
+.materialize-textarea{
+  min-height: 1rem;
+  height: 1rem;
+}
+
+// Make social media links colored when hovering
+.mdi:hover:not(.not-active) {
+  color: $secondary-bg-color;
 }

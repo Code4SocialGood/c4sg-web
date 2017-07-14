@@ -22,22 +22,22 @@ declare const Materialize: any;
 })
 
 export class OrganizationEditComponent implements OnInit, AfterViewChecked {
-  public categories: { [key: string]: any };
+
+  public currentUserId: String;
   public countries: any[];
+  public categories: { [key: string]: any };
 
   public organizationId;
   public organization: Organization;
-  public organizationForm: FormGroup;
-  currentUserId: String;
+  public logoUrl: any = '';
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
   public descValueLength: number;
   public descFieldFocused = false;
 
+  public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  modalActions = new EventEmitter<string|MaterializeAction>();
-  public logoUrl: any = '';
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -48,21 +48,17 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
               private router: Router,
               private extfilehandler: ExtFileHandlerService
               ) {
-    this.urlValidator = this.urlValidator.bind(this);
+    // this.urlValidator = this.urlValidator.bind(this); // No URL validation
   }
 
   ngOnInit(): void {
 
+    this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
     this.initForm();
 
     this.route.params.subscribe(params => {
       this.organizationId = +params['organizationId'];
-      this.currentUserId = this.auth.getCurrentUserId();
-
-      // OrgID = 0 means new organization.  The header should be updated with the new id when the org is created.
-      if (this.organizationId === 0) {
-      }
 
       this.organizationService.getOrganization(this.organizationId)
         .subscribe(
@@ -72,21 +68,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
             this.fillForm();
           }, error => console.log(error)
         );
-
-      this.organizationService.retrieveLogo(this.organizationId)
-        .subscribe(
-          res => {
-          }, error => console.log(error)
-        );
     });
-  }
-
-  ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    if (Materialize && Materialize.updateTextFields) {
-      Materialize.updateTextFields();
-    }
   }
 
   private getFormConstants(): void {
@@ -97,7 +79,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private initForm(): void {
     this.organizationForm = this.fb.group({
       'name': ['', []],
-      'websiteUrl': ['', [this.urlValidator]],
+      'websiteUrl': ['', []],
       'ein': ['', []],
       'category': ['', []],
       'address1': ['', []],
@@ -114,14 +96,14 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', [this.urlValidator]],
+      'websiteUrl': [this.organization.websiteUrl || '', []], // [this.urlValidator]]
       'ein': [this.organization.ein || '', []],
-      'category': [this.organization.category || '', []],
+      'category': [this.organization.category || '', [Validators.required]],
       'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', []],
+      'country': [this.organization.country || '', [Validators.required]],
       'zip': [this.organization.zip || '', []],
       'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
@@ -130,37 +112,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   onSubmit(updatedData: any, event): void {
     event.preventDefault();
     event.stopPropagation();
-    if (this.organizationId === 0) { // Create the organization
-      this.createOrganization();
-    } else { // Update the organization
-      this.updateOrganization();
-    }
-  }
 
-  private createOrganization(): void {
-    this.organizationService
-      .createOrganization(this.organizationForm.value)
-      .flatMap(res => {
-        this.organization = res.organization;
-
-        // additionalCalls that need to be made AFTER the org is saved
-        // This includes the call to link the user and the organization
-        const additionalCalls = [
-          this.organizationService
-            .linkUserOrganization(this.currentUserId, this.organization.id)
-        ];
-
-        return Observable.forkJoin(additionalCalls);
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/organization/view/' + this.organization.id]);
-      });
-  }
-
-  private updateOrganization(): void {
     const formData = this.organizationForm.value;
     formData.id = this.organization.id;
+
     this.organization.name = formData.name;
     this.organization.websiteUrl = formData.websiteUrl;
     this.organization.ein = formData.ein;
@@ -180,16 +135,24 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  // Validator website url
-  urlValidator(control: FormControl): { [s: string]: boolean } {
-    if (!control.value) {
-      return null;
-    }
-    if (!this.validationService.urlValidRegEx.test(control.value)) {
-      return {'urlIsNotValid': true};
-    } else {
-      return null;
-    }
+  // Orchestrates the organization logo upload sequence of steps
+  onUploadLogo(fileInput: any): void {
+    // Function call to upload the file to AWS S3
+    const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
+
+    // Calls the function to save the logo image url to the organization's row
+    upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+      .subscribe(res => {
+        if (res.innerValue.text() === '') {
+            this.logoUrl = res.outerValue;
+            this.organization.logoUrl = this.logoUrl;
+            console.log('Logo successfully uploaded!');
+        } else {
+          console.error('Saving organization logo: Not expecting a response body');
+        }}, (e) => {
+          console.error('Logo not saved. Not expecting a response body');
+        });
   }
 
   // Count chars in description field
@@ -213,24 +176,48 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  /*
-    Orchestrates the organization logo upload sequence of steps
-  */
-  onUploadLogo(fileInput: any): void {
-    // Function call to upload the file to AWS S3
-    const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
-    // Calls the function to save the logo image url to the organization's row
-    upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
-      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
-      .subscribe(res => {
-        if (res.innerValue.text() === '') {
-            this.logoUrl = res.outerValue;
-            this.organization.logoUrl = this.logoUrl;
-            console.log('Logo successfully uploaded!');
-        } else {
-          console.error('Saving organization logo: Not expecting a response body');
-        }}, (e) => {
-          console.error('Logo not saved. Not expecting a response body');
-        });
+  // Does not seem to be needed - also prevents labels from moving when clicked
+  ngAfterViewChecked(): void {
+    // Work around for bug in Materialize library, form labels overlap prefilled inputs
+    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
+    // if (Materialize && Materialize.updateTextFields) {
+    //  Materialize.updateTextFields();
+    // }
   }
+
+  /* Obsolete - Organization is always created when organization user registers.
+  private createOrganization(): void {
+    this.organizationService
+      .createOrganization(this.organizationForm.value)
+      .flatMap(res => {
+        this.organization = res.organization;
+
+        // additionalCalls that need to be made AFTER the org is saved
+        // This includes the call to link the user and the organization
+        const additionalCalls = [
+          this.organizationService
+            .linkUserOrganization(this.currentUserId, this.organization.id)
+        ];
+
+        return Observable.forkJoin(additionalCalls);
+      })
+      .subscribe(res => {
+        // After all calls are successfully made, go to the detail page
+        this.router.navigate(['/organization/view/' + this.organization.id]);
+      });
+  }
+  */
+
+  /* Obsolete - No Validation on website url
+  urlValidator(control: FormControl): { [s: string]: boolean } {
+    if (!control.value) {
+      return null;
+    }
+    if (!this.validationService.urlValidRegEx.test(control.value)) {
+      return {'urlIsNotValid': true};
+    } else {
+      return null;
+    }
+  }
+  */
 }
