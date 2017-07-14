@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
-import { JobTitle } from '../common/job-title';
+import { JobTitle } from '../../job-title';
 import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';

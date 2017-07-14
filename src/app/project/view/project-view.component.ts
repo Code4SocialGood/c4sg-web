@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Project } from '../common/project';
 import { Organization } from '../../organization/common/organization';
 import { User } from '../../user/common/user';
+import { JobTitle } from '../../job-title';
 import { Applicant } from '../../user/common/applicant';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
@@ -25,6 +26,7 @@ export class ProjectViewComponent implements OnInit {
   organization: Organization;
   project: Project;
   projects: Project[];
+  public jobTitlesArray: JobTitle[] = [];
   numberOfProjects: number;
   params: Params;
   currentUserId: string;
@@ -80,6 +82,13 @@ export class ProjectViewComponent implements OnInit {
           },
           error => console.log(error)
           );
+
+          this.userService.getAllJobTitles()
+      .subscribe(
+      res => {
+        this.jobTitlesArray = res;
+      }, error => console.log(error)
+      );
     });
   }
 
