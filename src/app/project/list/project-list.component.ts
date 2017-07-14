@@ -96,7 +96,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     });
 
     this.getSkills();
-    this.getProjectTitles();
+    this.getJobTitles();
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
@@ -192,8 +192,8 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     );
   }
 
-  getProjectTitles(): void {
-    this.projectService.getProjectJobTitles().subscribe(res => {
+  getJobTitles(): void {
+    this.projectService.getAllJobTitles().subscribe(res => {
         this.roles = res.map(role => {
           return {name: role.jobTitle, checked: false, id: role.id};
         });
