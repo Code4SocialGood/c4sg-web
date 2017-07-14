@@ -15,3 +15,4 @@ deploy:
   app:
     master: c4sg-web-dev
     staging: c4sg-web-staging
+    prod: c4sg-web-prod

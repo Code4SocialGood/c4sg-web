@@ -5,7 +5,7 @@
     <div class="col m12" id="right-col">
       <div class="content" *ngIf="developers">
         <div class="row">
-          <h1 class="content-title">Meet the Volunteers of Code for Social Good</h1>
+          <h1 class="content-title">Meet the Volunteers of Code 4 Social Good</h1>
           <div class="col s12">
             <!--<div class="map-viewer-wrapper" *ngIf="developers">
               <my-map-viewer [developers]="developers"></my-map-viewer>
@@ -30,10 +30,10 @@
                                     <img [src]="d.avatarUrl" onError="this.src='../../assets/default_avatar.png'">
                                   </div>
                                   <div class="user-name">{{d.userName}}</div>
-                                  <div class="user-location">Location:
+                                  <div class="user-location">
                                           <span *ngIf="d.state">{{d.state}}</span>
                                           <span *ngIf="d.state && d.country">,</span>
-                                          <span *ngIf="d.country">{{d.country}}</span>
+                                          <span *ngIf="d.country">{{getCountryName(d.country)}}</span>
                                   </div>
                                 </a>
                               </div>
