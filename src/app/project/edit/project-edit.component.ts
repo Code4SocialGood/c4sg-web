@@ -3,7 +3,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
+import { JobTitle } from '../../job-title';
 import { Organization } from '../../organization/common/organization';
+import { UserService } from '../../user/common/user.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { SkillService } from '../../skill/common/skill.service';
@@ -33,7 +35,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
   public inputValue = '';
   public imageUrl: any = '';
-
+  public jobTitlesArray: JobTitle[] = [];
   public projectSkillsArray: string[] = [];
   public skillsArray: string[] = [];
   public skill = '';
@@ -60,7 +62,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private router: Router,
               private skillService: SkillService,
               private extfilehandler: ExtFileHandlerService,
-              private validationService: ValidationService
+              private validationService: ValidationService,
+               private userService: UserService,
               ) {
   }
 
@@ -126,6 +129,13 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
       }
+
+      this.userService.getAllJobTitles()
+        .subscribe(
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
+        );
     });
   }
 
@@ -138,6 +148,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.projectForm = this.fb.group({
       'name': ['', []],
       'organizationId': ['', []],
+      'jobTitleId': ['', []],
       'description': ['', []],
       'remoteFlag': ['Y', []],
       'city': ['', []],
@@ -151,6 +162,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.projectForm = this.fb.group({
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
+       'jobTitleId': [this.project.jobTitleId || '', []],
       'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
@@ -172,6 +184,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.city = formData.city;
     this.project.state = formData.state;
     this.project.country = formData.country;
+    this.project.jobTitleId = formData.jobTitleId;
 
     if (this.isCreate) {
       this.project.status = 'A';
