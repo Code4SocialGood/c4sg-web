@@ -171,7 +171,7 @@ export class ProjectViewComponent implements OnInit {
               this.displayDelete = true;
               this.displayApplicants = true;
             }
-            if(this.project.status === 'C') {
+            if (this.project.status === 'C') {
               this.displayDelete = false;
             }
           },
