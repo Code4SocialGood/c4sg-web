@@ -162,7 +162,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', [Validators.required]],
+      'lastName': [this.user.lastName || '', []],
       'state': [this.user.state || '', []],
       'country': [this.user.country || '', [Validators.required]],
       'phone': [this.user.phone || '', []],
