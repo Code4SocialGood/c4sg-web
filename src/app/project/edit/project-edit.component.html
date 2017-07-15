@@ -88,14 +88,14 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s12">
-                    <select id="country" class="validate" formControlName="country" materialize="material_select">
-                      <option value="" disabled selected>Choose country</option>
-                      <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
-                        country.code + ')'}}
-                      </option>
-                    </select>
+                  <div class="col s12 m12">
                     <label for="country">Country</label>
+                    <div class="theme-select dropdown">
+                      <select id="country" formControlName="country" materialize="material_select">
+                        <option value="" disabled selected>Choose country</option>
+                        <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === project?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

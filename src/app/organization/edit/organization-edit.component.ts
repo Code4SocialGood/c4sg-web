@@ -96,7 +96,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', []], // [this.urlValidator]]
+      'websiteUrl': [this.organization.websiteUrl || '', []], // []]
       'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', [Validators.required]],
       'address1': [this.organization.address1 || '', []],
