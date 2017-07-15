@@ -310,12 +310,19 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    // Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    document.getElementById('username-label').classList.add('active');
+    document.getElementById('email-label').classList.add('active');
+    document.getElementById('firstname-label').classList.add('active');
+    document.getElementById('lastname-label').classList.add('active');
+    document.getElementById('state-label').classList.add('active');
+    document.getElementById('phone-label').classList.add('active');
+    document.getElementById('title-label').classList.add('active');
+    document.getElementById('summary-label').classList.add('active');
+    document.getElementById('linkedin-label').classList.add('active');
+    document.getElementById('github-label').classList.add('active');
+    document.getElementById('personal-label').classList.add('active');
+    document.getElementById('slack-label').classList.add('active');
   }
 }

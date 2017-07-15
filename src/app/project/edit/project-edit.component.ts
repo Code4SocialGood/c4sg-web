@@ -270,6 +270,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     // Activate the labels so that the text does not overlap
     document.getElementById('name-label').classList.add('active');
     document.getElementById('desc-label').classList.add('active');
+    document.getElementById('city-label').classList.add('active');
+    document.getElementById('state-label').classList.add('active');
   }
 
   // Count chars in introduction field
