@@ -96,7 +96,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', []], // [this.urlValidator]]
+      'websiteUrl': [this.organization.websiteUrl || '', []], // []]
       'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', [Validators.required]],
       'address1': [this.organization.address1 || '', []],
@@ -176,13 +176,17 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    //  Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    document.getElementById('name-label').classList.add('active');
+    document.getElementById('address1-label').classList.add('active');
+    document.getElementById('city-label').classList.add('active');
+    document.getElementById('website-label').classList.add('active');
+    document.getElementById('ein-label').classList.add('active');
+    document.getElementById('address2-label').classList.add('active');
+    document.getElementById('state-label').classList.add('active');
+    document.getElementById('zip-label').classList.add('active');
+    document.getElementById('desc-label').classList.add('active');
   }
 
   /* Obsolete - Organization is always created when organization user registers.

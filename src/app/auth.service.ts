@@ -17,7 +17,7 @@ declare const auth0: any;
 export class AuthService {
 
   userProfile: any;
-  userName = '';
+  // userName = ''; Don't handle username with auth0. It is set by user from applicaiton only.
   userRole: string;
   email: string;
   firstName: string;
@@ -91,10 +91,10 @@ export class AuthService {
         if (!error) {
           // Signed up via email/pwd
           if (!profile.identities[0].isSocial) {
-            this.userName = profile.user_metadata.user_name;
+            // this.userName = profile.user_metadata.user_name;
             this.userRole = profile.app_metadata.roles[0];
           } else { // Signed up via social providers
-            this.userName = profile.email;
+            // this.userName = profile.email;
             // ATM: assumption is there will always be only 1 role per user
             this.userRole = profile.app_metadata.roles[0];
             this.firstName = profile.given_name;
@@ -112,7 +112,7 @@ export class AuthService {
                 res => {
                   const lemail = this.email;
                   const luserRole = this.userRole;
-                  const luserName = this.userName;
+                  // const luserName = this.userName;
                   const firstName =  this.firstName !== undefined ? this.firstName : '';
                   const lastName =  this.lastName !== undefined ? this.lastName : '';
                   // console.log(res);
@@ -125,7 +125,7 @@ export class AuthService {
                     console.log('User does not exist');
                     const newUser: User = ({id: 0, email: lemail,
                       role: luserRole.toUpperCase().substr(0, 1),
-                      userName: luserName,
+                      // userName: luserName,
                       firstName: firstName,
                       lastName: lastName,
                       publishFlag: 'N',

@@ -1,5 +1,5 @@
 <div class="page-title">
-  <h1>User Settings</h1>
+  <h1>My Settings</h1>
 </div>
 <div class="container">
   <div class="row main-row">
@@ -36,27 +36,27 @@
             <div class="col s12 m6">
               <div class="input-field">
                 <input class="theme-input" id="userName" formControlName="userName" type="text" required>
-                <label for="userName">Username *</label>
+                <label for="userName" id="username-label">Username *</label>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
                 <input class="theme-input" id="email" formControlName="email" type="email" disabled="true" required>
-                <label for="email">Email address *</label>
-              </div> 
+                <label for="email" id="email-label">Email address *</label>
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
                 <input class="theme-input" id="firstName" formControlName="firstName" type="text" required>
-                <label for="firstName">First Name *</label>              
+                <label for="firstName" id="firstname-label">First Name *</label>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
-                <input class="theme-input" id="lastName" formControlName="lastName" type="text" required>
-                <label for="lastName">Last Name *
+                <input class="theme-input" id="lastName" formControlName="lastName" type="text">
+                <label for="lastName" id="lastname-label">Last Name
                 </label>
               </div>
             </div>
@@ -64,13 +64,13 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="state">State</label>
+                <label for="state" id="state-label">State</label>
                 <input class="theme-input" id="state" formControlName="state" type="text">
               </div>
             </div>
             <div class="col s12 m6">
               <label for="country">Country *</label>
-              <div class="theme-select user-edit-dropdown">
+              <div class="theme-select dropdown">
                 <select id="country" formControlName="country" materialize="material_select">
                   <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
@@ -80,7 +80,7 @@
           <div class="row" *ngIf="displayPhone">
             <div class="col s12 m6">
               <div class="input-field">
-                <label for="phone">Phone</label>
+                <label for="phone" id="phone-label">Phone</label>
                 <input id="phone" formControlName="phone" type="text">
               </div>
             </div>
@@ -92,7 +92,7 @@
             <div class="row">
               <div class="input-field col s6">
                 <input class="theme-input" id="title" type="text" formControlName="title" required>
-                <label for="title">Title *</label>
+                <label for="title" id="title-label">Title *</label>
               </div>
               <div class="input-field col s6">
                 <div class="theme-select ">
@@ -109,7 +109,7 @@
                         (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"
                         (blur)="onBlurIntro()">
                 </textarea>
-                <label for="introduction">Summary *
+                <label for="introduction"  id="summary-label">Summary *
                   <span *ngIf="introFieldFocused"> ({{ introValueLength + '/' + introMaxLength }})</span>
                 </label>
               </div>
@@ -125,7 +125,7 @@
                 </div>
               </div>
               <div class="row" style="padding: 0 30px">
-                <div class="col s6 theme-select user-edit-dropdown">
+                <div class="col s6 theme-select dropdown">
                   <label for="skillSelect">Choose from popular skills below</label>
                   <select id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
                     <option value="" disabled selected>Choose skills</option>
@@ -151,27 +151,27 @@
             </div>
             <div class="col l6 m12 s12" *ngIf="isVolunteer">
               <div class="input-field col s12">
-                <label for="linkedinUrl">LinkedIn URL</label>
+                <label for="linkedinUrl" id="linkedin-label">LinkedIn URL</label>
                 <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
               </div>
               <div class="input-field col s12">
-                <label for="githubUrl">GitHub URL</label>
+                <label for="githubUrl" id="github-label">GitHub URL</label>
                 <input class="theme-input" id="githubUrl" type="text" formControlName="githubUrl">
               </div>
             </div>
             <div class="col l6 m12 s12" *ngIf="isVolunteer">
               <div class="input-field col s12">
-                <label for="personalUrl">My Website</label>
+                <label for="personalUrl" id="personal-label">My Website</label>
                 <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
               </div>
               <div class="input-field col s12">
-                <label for="githubUrl">Slack Username</label>
+                <label for="githubUrl" id="slack-label">Slack Username</label>
                 <input class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
-              </div> 
+              </div>
               <!--
               <div class="file-field input-field col s12" id="resume">
                 <label class="active" for="resume"></label>
-                <div class="row"> 
+                <div class="row">
                   <div class="file-path-wrapper  col m9">
                     <label for="resumeInput">Resume</label>
                     <input class="file-path validate theme-input" id="resumeInput" type="text">
@@ -196,9 +196,9 @@
                 <div class="col l6 m12 s12">
                   <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="checkNotify">
                   <label for="notifyFlag">Notify me on new projects</label>
-                </div> 
-              </div> 
-            </div> 
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="section">
