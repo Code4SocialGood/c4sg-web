@@ -312,17 +312,42 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
-    document.getElementById('username-label').classList.add('active');
-    document.getElementById('email-label').classList.add('active');
-    document.getElementById('firstname-label').classList.add('active');
-    document.getElementById('lastname-label').classList.add('active');
-    document.getElementById('state-label').classList.add('active');
-    document.getElementById('phone-label').classList.add('active');
-    document.getElementById('title-label').classList.add('active');
-    document.getElementById('summary-label').classList.add('active');
-    document.getElementById('linkedin-label').classList.add('active');
-    document.getElementById('github-label').classList.add('active');
-    document.getElementById('personal-label').classList.add('active');
-    document.getElementById('slack-label').classList.add('active');
+    // User edit page is customized based on user role, need to check element existance first
+    if (document.getElementById('username-label') != null) {
+      document.getElementById('username-label').classList.add('active');
+    }
+    if (document.getElementById('email-label') != null) {
+      document.getElementById('email-label').classList.add('active');
+    }
+    if (document.getElementById('firstname-label') != null) {
+      document.getElementById('firstname-label').classList.add('active');
+    }
+    if (document.getElementById('lastname-label') != null) {
+      document.getElementById('lastname-label').classList.add('active');
+    }
+    if (document.getElementById('state-label') != null) {
+      document.getElementById('state-label').classList.add('active');
+    }
+    if (document.getElementById('title-label') != null) {
+      document.getElementById('title-label').classList.add('active');
+    }
+    if (document.getElementById('summary-label') != null) {
+      document.getElementById('summary-label').classList.add('active');
+    }
+    if (document.getElementById('linkedin-label') != null) {
+      document.getElementById('linkedin-label').classList.add('active');
+    }
+    if (document.getElementById('github-label') != null) {
+      document.getElementById('github-label').classList.add('active');
+    }
+    if (document.getElementById('personal-label') != null) {
+      document.getElementById('personal-label').classList.add('active');
+    }
+    if (document.getElementById('slack-label') != null) {
+      document.getElementById('slack-label').classList.add('active');
+    }
+    if (document.getElementById('phone-label') != null) {
+      document.getElementById('phone-label').classList.add('active');
+    }
   }
 }
