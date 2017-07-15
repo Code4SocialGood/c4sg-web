@@ -29,14 +29,29 @@
               <div class="section">
                 <h4>Roles</h4>
                 <div class="section-body-projects">
-                  <div class="project-list">
+
+                    <div class="skills-list">
+                    <ul *ngIf="jobTitles" formArrayName="jobTitles">
+                      <li *ngFor="let jobTitle of jobTitlesShowed, let i = index">
+                           <input class="filled-in" type="checkbox" 
+                           [id]="jobTitle.jobtitle" 
+                            [value]="jobTitle.id" 
+                           [formControlName]="i"
+                          
+                          >
+                          <label [for]="jobTitle.jobtitle">{{jobTitle.jobtitle}}</label>
+                      </li>
+                    </ul>
+                  </div>
+
+                 <!-- <div class="project-list">
                     <ul>
                       <li *ngFor="let role of roles, let i = index">
                         <input  type="radio" [id] = "role.name"   formControlName="jobTitle" [value] = "role.id">
                         <label [for]="role.name"> {{role.name}}</label>
                       </li>
                     </ul>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>

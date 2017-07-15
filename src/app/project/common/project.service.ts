@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
+import { JobTitle } from '../../job-title';
 import { Project } from './project';
 import { environment } from '../../../environments/environment';
 
@@ -18,7 +19,8 @@ export class ProjectService {
 
   searchProjects(
     keyword?: string,
-    jobTitle?: number,
+    //jobTitle?: number,
+    jobTitles?: number[],
     skills?: string[],
     status?: string,
     remote?: string,
@@ -30,10 +32,16 @@ export class ProjectService {
       params.append('keyWord', keyword);
     }
 
-    if (jobTitle) {
-      params.append('jobTitle', String(jobTitle));
+    //if (jobTitle) {
+      //params.append('jobTitle', String(jobTitle));
+    //}
+    
+    if (jobTitles) {
+      for (let i = 0; i < jobTitles.length; i++) {
+        params.append('jobTitles', String(jobTitles[i]));
+      }
     }
-
+    
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
@@ -83,13 +91,20 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
-  getAllJobTitles(): Observable<any> {
+ /* getAllJobTitles(): Observable<any> {
     const titleUrl = projectUrl + '/' + 'jobTitles';
     return this.http.get(titleUrl)
       .map(res => res.json())
       .catch(this.handleError);
-  }
+  }*/
 
+    public getAllJobTitles(): Observable<JobTitle[]> {
+    const url = projectUrl + '/jobTitles';
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as JobTitle[]; })
+               .catch(this.handleError);
+  }
 
   add(project: Project): Observable<{ project: Project }> {
     return this.http.post(
