@@ -57,7 +57,7 @@
                 <label for="city">City</label>
               </div>
               <div class="input-field">
-                <select id="country" class="validate" formControlName="country" materialize="material_select">
+                <select id="country" formControlName="country" materialize="material_select">
                   <option *ngFor="let country of countries" [value]="country.code"
                           [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}
                   </option>

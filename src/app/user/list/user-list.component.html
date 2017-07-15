@@ -63,7 +63,7 @@
     <div class="col m8 s12" id="right-col">
       <div class="content" *ngIf="users">
         <div class="row">
-          <h4 class="content-title">{{totalItems}} volunteers found</h4>
+          <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No volunteers', '=1': '1 volunteer', 'other': '# volunteers'} }} found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="users">
               <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">

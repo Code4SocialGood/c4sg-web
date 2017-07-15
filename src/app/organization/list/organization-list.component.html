@@ -57,7 +57,7 @@
     <div class="col m8 s12" *ngIf="organizations && from === 'organizations'" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
-          <h4 class="content-title">{{totalItems}} organizations found</h4>
+          <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No organizations', '=1': '1 organization', 'other': '# organizations'} }} found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="organizations">
               <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
