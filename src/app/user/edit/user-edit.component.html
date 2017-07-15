@@ -70,7 +70,7 @@
             </div>
             <div class="col s12 m6">
               <label for="country">Country *</label>
-              <div class="theme-select user-edit-dropdown">
+              <div class="theme-select dropdown">
                 <select id="country" formControlName="country" materialize="material_select">
                   <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
@@ -125,7 +125,7 @@
                 </div>
               </div>
               <div class="row" style="padding: 0 30px">
-                <div class="col s6 theme-select user-edit-dropdown">
+                <div class="col s6 theme-select dropdown">
                   <label for="skillSelect">Choose from popular skills below</label>
                   <select id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
                     <option value="" disabled selected>Choose skills</option>
