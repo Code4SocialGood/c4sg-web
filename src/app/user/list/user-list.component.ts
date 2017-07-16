@@ -154,7 +154,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     ];
   }
-  
+
   private createCheckBoxObj(arr) {
     return arr.map(
       val => {
