@@ -64,7 +64,8 @@ export class UserService {
   // Returns a JSON object with the data array of Users and totalItems count
   searchUsers(
     keyword?: string,
-    jobTitle?: number,
+    // jobTitle?: number,
+    jobTitles?: number[],
     skills?: string[],
     status?: string,
     role?: string,
@@ -78,8 +79,13 @@ export class UserService {
     if (keyword) {
       params.append('keyWord', keyword);
     }
-    if (jobTitle) {
-      params.append('jobTitle', String(jobTitle));
+    // if (jobTitle) {
+    //  params.append('jobTitle', String(jobTitle));
+   // }
+   if (jobTitles) {
+      for (let i = 0; i < jobTitles.length; i++) {
+        params.append('jobTitles', String(jobTitles[i]));
+      }
     }
 
     if (skills) {
