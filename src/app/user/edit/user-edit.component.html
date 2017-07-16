@@ -77,13 +77,21 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="displayPhone">
+           <div class="row">
+          <div class="col s12 m6">
+              <div class="input-field">
+                <label for="githubUrl" id="slack-label">Slack Username</label>
+                <input class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
+              </div>
+            </div>
+          <div *ngIf="displayPhone">
             <div class="col s12 m6">
               <div class="input-field">
                 <label for="phone" id="phone-label">Phone</label>
                 <input id="phone" formControlName="phone" type="text">
               </div>
             </div>
+          </div>
           </div>
           <div>
             <div class="row">
@@ -164,10 +172,10 @@
                 <label for="personalUrl" id="personal-label">My Website</label>
                 <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
               </div>
-              <div class="input-field col s12">
+              <!--<div class="input-field col s12">
                 <label for="githubUrl" id="slack-label">Slack Username</label>
                 <input class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
-              </div>
+              </div>-->
               <!--
               <div class="file-field input-field col s12" id="resume">
                 <label class="active" for="resume"></label>
