@@ -6,6 +6,7 @@
 @import 'app.pagination';
 @import 'app.sidebar';
 @import 'app.validate';
+@import 'app.materialize';
 
 a {
   color: $main-color;
@@ -77,9 +78,7 @@ hr {
   left: 48%;
   top: 48vh;
 }
-.single-info{
 
-}
 #left-col {
   margin-bottom: 40px;
 
@@ -225,69 +224,6 @@ hr {
   display: inherit;
   padding: 0;
 }
-/* input label underline focus color */
-.input-field input[type=text]:focus {
-  border-bottom-color: $secondary-bg-color;
-  box-shadow: 0 1px 0 0 $secondary-bg-color;
-}
-
-/* input label underline focus color */
-textarea.materialize-textarea:focus {
-  border-bottom-color: solid $secondary-bg-color;
-  box-shadow: 0 1px 0 0 $secondary-bg-color;
-}
-
-
-/* input label color */
-/* Kepp label as original color when not focused
-.input-field label {
-   color: $secondary-bg-color;
- }*/
-
-/* input label focus color */
-.input-field input[type=text]:focus + label {
-  color: $secondary-bg-color;
-}
-
-/* input label focus color */
-textarea.materialize-textarea:focus + label {
-  color: $secondary-bg-color;
-}
-
-/* checkbock, checked */
-[type="checkbox"]:checked + label:before {
-  border-right-color: $secondary-bg-color;
-  border-bottom-color: $secondary-bg-color;
-}
-
-/* radio button color, selected, outter */
-[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-  border-color: $secondary-bg-color;
-}
-/* radio button color, selected, inner */
-[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
-  background-color: $secondary-bg-color;
-}
-
-/* select, selected option */
-.select-wrapper {
-  color: $secondary-bg-color;
-}
-/* selector selections color */
-.select-dropdown li span{
-  color: $secondary-bg-color;
-}
-
-#toast-container {
-  .toast {
-    background-color: $secondary-color;
-    min-height:34px;
-  }
-}
-
-.backdrop{
-    background-color: $secondary-color;
-}
 
 .chip {
   height: 18px;
@@ -300,11 +236,19 @@ textarea.materialize-textarea:focus + label {
   }
 }
 
-.materialize-textarea{
-  min-height: 1rem;
-  height: 1rem;
-}
-
 .dropdown{
  margin-top: -6px;
+}
+
+.page-title {
+  padding-left: 10%;
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+  }
 }

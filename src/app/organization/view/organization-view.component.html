@@ -76,7 +76,7 @@
                   <div class="col m4">
                     <div class="info-avatar" *ngIf="user"><img class='circle' [src]="user.avatarUrl"></div>
                   </div>
-                  <div class="col m8" >
+                  <div class="col m8" *ngIf="user">
                      Name:
                      <p class='user-name'>
                       <span *ngIf="user.firstName && user.publishFlag"  [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
