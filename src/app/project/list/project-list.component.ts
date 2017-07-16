@@ -248,6 +248,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
     }
   }
+
   showJobTitles(): void {
     let addedJobTitles;
     if (this.jobTitlesShowed.length < this.jobTitles.length) {
@@ -264,29 +265,10 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
     }
   }
+
   onSelect(project: Project): void {
     this.selectedProject = project;
     this.router.navigate(['/project/view', project.id]);
-  }
-
-  // TODO Don't provide the identity colume value
-  add(name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
-    }
-
-    const project = new Project(8, name, 1, 'description', 0, 'logo.png', 'city', 'USA', '55311', 'Teens Give');
-
-    this.projectService
-      .add(project)
-      .subscribe(
-      response => {
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
-      );
   }
 
   defineUserProjectStatus(projectID) {
@@ -302,18 +284,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         return 'declined';
       }
     }
-  }
-
-  delete(project: Project): void {
-    this.projectService
-      .delete(project.id)
-      .subscribe(
-      response => { // An error occurred SyntaxError: Unexpected end of JSON input
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
-      );
   }
 
   ngOnDestroy() {

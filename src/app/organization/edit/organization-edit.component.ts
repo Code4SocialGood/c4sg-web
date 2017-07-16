@@ -128,6 +128,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.zip = formData.zip;
     this.organization.description = formData.description;
 
+    if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
+      this.organization.status = 'P';
+    }
+
     this.organizationService
       .updateOrganization(this.organization)
       .subscribe(res => {
