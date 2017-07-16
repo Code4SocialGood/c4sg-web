@@ -63,7 +63,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private skillService: SkillService,
               private extfilehandler: ExtFileHandlerService,
               private validationService: ValidationService,
-               private userService: UserService,
+              private userService: UserService,
               ) {
   }
 
@@ -71,8 +71,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
     this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
+    this.getjobTitles();
     this.initForm();
-
     // Populates skills list
     this.skillService.getSkills()
       .subscribe(
@@ -82,7 +82,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           });
         }, error => console.log(error)
       );
+    
 
+       
     this.route.params.subscribe(params => {
       this.projectId = +params['projectId'];
 
@@ -102,6 +104,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.projectId = e.id.toString();
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
+                this.getjobTitles();
+                this.project.jobTitleId=0;
                 this.fillForm();
               });
             },
@@ -110,6 +114,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
         // Skills are empty for this new project
         this.projectSkillsArray = [];
+        
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -130,25 +135,27 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           );
       }
 
-      this.userService.getAllJobTitles()
-        .subscribe(
-        res => {
-          this.jobTitlesArray = res;
-        }, error => console.log(error)
-        );
+      
     });
   }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
   }
-
+ private getjobTitles(): void{
+   this.userService.getAllJobTitles()
+        .subscribe(
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
+        );
+ }
   private initForm(): void {
 
     this.projectForm = this.fb.group({
       'name': ['', []],
       'organizationId': ['', []],
-      'jobTitleId': ['', []],
+      'jobTitleId': ['0', []],
       'description': ['', []],
       'remoteFlag': ['Y', []],
       'city': ['', []],
@@ -158,17 +165,19 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
+    
 
     this.projectForm = this.fb.group({
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
-       'jobTitleId': [this.project.jobTitleId || '', []],
+      'jobTitleId': [this.project.jobTitleId || '', []],
       'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
       'state': [this.project.state || '', []],
       'country': [this.project.country || '', []]
     });
+    
   }
 
   onSubmit(updatedData: any, event): void {
