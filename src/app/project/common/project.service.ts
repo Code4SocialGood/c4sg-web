@@ -19,7 +19,7 @@ export class ProjectService {
 
   searchProjects(
     keyword?: string,
-    //jobTitle?: number,
+    // jobTitle?: number,
     jobTitles?: number[],
     skills?: string[],
     status?: string,
@@ -32,16 +32,16 @@ export class ProjectService {
       params.append('keyWord', keyword);
     }
 
-    //if (jobTitle) {
-      //params.append('jobTitle', String(jobTitle));
-    //}
-    
+    // if (jobTitle) {
+      // params.append('jobTitle', String(jobTitle));
+    // }
+
     if (jobTitles) {
       for (let i = 0; i < jobTitles.length; i++) {
         params.append('jobTitles', String(jobTitles[i]));
       }
     }
-    
+
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
