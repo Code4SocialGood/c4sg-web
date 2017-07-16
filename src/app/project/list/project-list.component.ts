@@ -32,7 +32,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    //jobTitle: new FormControl(false),
+    // jobTitle: new FormControl(false),
     jobTitles: this.jobTitleFormArray,
     skills: this.skillsArray
   });
@@ -91,7 +91,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         if (this.from === 'reload') {
           this.p = 1;
           this.filterForm.controls.keyword.setValue('');
-          //this.filterForm.controls.jobTitle.setValue(false);
+          // this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
         }
@@ -119,7 +119,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     window.scrollTo(0, 0);
     if (this.from === 'projects') { // Projects Menu Item
       const skills = this.filterForm.value.skills;
-      //const jobTitle = this.filterForm.value.jobTitle;
+      // const jobTitle = this.filterForm.value.jobTitle;
       const jobTitles = this.filterForm.value.jobTitles;
       const skillsParam = [];
       const jobTitlesParam = [];
@@ -139,7 +139,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       }
       this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
       this.projectsSubscription = this.projectService.searchProjects(
-        //this.filterForm.value.keyword, jobTitle, skillsParam, 'A', null, page, 10)
+        // this.filterForm.value.keyword, jobTitle, skillsParam, 'A', null, page, 10)
         this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', null, page, 10)
         .subscribe(
         res => {
