@@ -1,39 +1,39 @@
-
-<div class="container">
+<div class="about-us-container">
   <div class="row main-row">
     <div id="left-col"></div>
     <div class="col m12" id="right-col">
       <div class="content" *ngIf="developers">
         <div class="row">
           <h1 class="content-title">Meet the Volunteers of Code 4 Social Good</h1>
-          <div class="col s12">
-            <!--<div class="map-viewer-wrapper" *ngIf="developers">
-              <my-map-viewer [developers]="developers"></my-map-viewer>
+          <div class="col s1"></div>
+          <div class=" col s10">
+            <!--<div class="map-viewer-wrapper " *ngIf="developers ">
+              <my-map-viewer [developers]="developers "></my-map-viewer>
             </div>-->
               <div>
                   <agm-map
-                          [latitude]="lat"
-                          [longitude]="lng"
-                          [zoom]="zoom">
+                          [latitude]="lat "
+                          [longitude]="lng "
+                          [zoom]="zoom ">
 
                       <agm-marker
-                          *ngFor="let d of developers"
-                          [latitude]="d.latitude"
-                          [longitude]="d.longitude"
-                          (mouseOver)="handleMarkerMouseOver($event)"
+                          *ngFor="let d of developers "
+                          [latitude]="d.latitude "
+                          [longitude]="d.longitude "
+                          (mouseOver)="handleMarkerMouseOver($event) "
                           >
 
                         <agm-info-window>
-                              <div class="info-window">
-                                <a class="info-container" [routerLink]="['/user/view',d.id]">
-                                  <div class="info-avatar">
-                                    <img [src]="d.avatarUrl" onError="this.src='../../assets/default_avatar.png'">
+                              <div class="info-window ">
+                                <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                                  <div class="info-avatar ">
+                                    <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
                                   </div>
-                                  <div class="user-name">{{d.userName}}</div>
-                                  <div class="user-location">
-                                          <span *ngIf="d.state">{{d.state}}</span>
-                                          <span *ngIf="d.state && d.country">,</span>
-                                          <span *ngIf="d.country">{{getCountryName(d.country)}}</span>
+                                  <div class="user-name ">{{d.userName}}</div>
+                                  <div class="user-location ">
+                                          <span *ngIf="d.state ">{{d.state}}</span>
+                                          <span *ngIf="d.state && d.country ">,</span>
+                                          <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
                                   </div>
                                 </a>
                               </div>
@@ -44,6 +44,7 @@
 
               </div>
           </div>
+          <div class="col s1"></div>
         </div>
       </div>
     </div>

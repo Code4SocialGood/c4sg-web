@@ -12,6 +12,9 @@ agm-map {
 }
 .content-title{
   text-align: center;
+  font-size: 1.5rem;
+  padding-bottom: 5px;
+  padding-top: 0px;
 }
 #right-col{
   border: 0;
@@ -48,4 +51,10 @@ agm-map {
       }
     }
   }
+}
+
+.about-us-container{
+  width: 100%;
+  height: 100%;
+  background: white;
 }
