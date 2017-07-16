@@ -17,7 +17,7 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-  //roles: any[];
+  // roles: any[];
 
   skills: any[];
   skillsShowed = [];
@@ -154,8 +154,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     ];
   }
-
- 
+  
   private createCheckBoxObj(arr) {
     return arr.map(
       val => {
