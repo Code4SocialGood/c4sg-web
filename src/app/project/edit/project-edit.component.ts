@@ -82,9 +82,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           });
         }, error => console.log(error)
       );
-    
 
-       
     this.route.params.subscribe(params => {
       this.projectId = +params['projectId'];
 
@@ -105,7 +103,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
                 this.getjobTitles();
-                this.project.jobTitleId=0;
+                this.project.jobTitleId = 0;
                 this.fillForm();
               });
             },
@@ -114,7 +112,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
         // Skills are empty for this new project
         this.projectSkillsArray = [];
-        
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -134,15 +131,14 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
       }
-
-      
     });
   }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
   }
- private getjobTitles(): void{
+
+ private getjobTitles(): void {
    this.userService.getAllJobTitles()
         .subscribe(
         res => {
@@ -150,6 +146,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
         );
  }
+
   private initForm(): void {
 
     this.projectForm = this.fb.group({
@@ -165,8 +162,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    
-
     this.projectForm = this.fb.group({
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
@@ -177,7 +172,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
       'state': [this.project.state || '', []],
       'country': [this.project.country || '', []]
     });
-    
   }
 
   onSubmit(updatedData: any, event): void {
