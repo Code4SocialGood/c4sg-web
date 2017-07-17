@@ -33,12 +33,21 @@
               <div class="section">
                 <h4>Roles</h4>
                 <div class="section-body-projects">
-
                   <div class="skills-list">
                     <ul *ngIf="jobTitles" formArrayName="jobTitles">
                       <li *ngFor="let jobTitle of jobTitlesShowed, let i = index">
                         <input class="filled-in" type="checkbox" [id]="jobTitle.jobtitle" [value]="jobTitle.id" [formControlName]="i">
                         <label [for]="jobTitle.jobtitle">{{jobTitle.jobtitle}}</label>
+<!--
+                    <div class="project-list">
+                    <ul *ngIf="jobTitles" formArrayName="jobTitles">
+                      <li *ngFor="let jobTitle of jobTitlesShowed, let i = index">
+                           <input class="filled-in" type="checkbox" 
+                           [id]="jobTitle.jobtitle" 
+                            [value]="jobTitle.id" 
+                           [formControlName]="i"
+                          >
+                          <label [for]="jobTitle.jobtitle">{{jobTitle.jobtitle}}</label>-->
                       </li>
                     </ul>
                   </div>
