@@ -1,6 +1,8 @@
 Date: 2017-07-14
 
-Build: 0
+Build: 1
 
-Defect Fix:
+Build Items:
+- Add build_notes.txt
+- Test Heroku Pipeline: Promote button + Manual Deploy from Dev to Staging
 
