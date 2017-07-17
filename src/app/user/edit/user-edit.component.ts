@@ -39,7 +39,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public inputValue = '';
   public avatar: any = '';
 
-  public displayPhone = false;
   public isVolunteer = false;
   public isOrganization = false;
   public checkPublish = false;
