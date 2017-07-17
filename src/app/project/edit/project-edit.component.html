@@ -41,11 +41,11 @@
               <label for="name" id="name-label">Project Name *</label>
             </div>
             <div class="input-field col s6">
-              <div class="theme-select ">
+              <div class="theme-select">
                 <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
-                     <option value="0">Choose Role</option>
-                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
-                 <!-- <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle + ' (' + jobTitle.id + ')'}}</option>-->
+                     <option value="0"  disabled selected>Choose Role</option>
+                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                     [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
                 <label for="jobTitleId">Role </label>
               </div>
