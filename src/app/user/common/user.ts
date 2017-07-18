@@ -2,8 +2,10 @@ export class User {
 
 constructor (
     public id: number,
+
     public email: string,
     public role: string,
+    public jobTitleId?: number,
     public userName?: string,
     public firstName?: string,
     public lastName?: string,
@@ -21,6 +23,7 @@ constructor (
     public avatarUrl?: string,
     public publishFlag?: string,
     public notifyFlag?: string,
+
     public status?: string,
     public createdTime?: string,
     public updatedTime?: string,

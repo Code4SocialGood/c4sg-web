@@ -24,11 +24,11 @@
               <div class="section">
                 <h4>Roles</h4>
                 <div class="section-body-projects">
-                  <div class="projects-list-wrapper">
-                    <ul formArrayName="roles">
-                      <li *ngFor="let role of roles, let i = index">
-                        <input class="filled-in" type="radio" [id]="role.name" formControlName="{{i}}">
-                        <label [for]="role.name">{{role.name}}</label>
+                 <div class="project-list">
+                    <ul *ngIf="jobTitles" formArrayName="jobTitles">
+                      <li *ngFor="let jobTitle of jobTitlesShowed, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="jobTitle.jobtitle" [value]="jobTitle.id" [formControlName]="i">
+                        <label [for]="jobTitle.jobtitle">{{jobTitle.jobtitle}}</label>
                       </li>
                     </ul>
                   </div>
@@ -59,7 +59,7 @@
     <div class="col m8 s12" id="right-col">
       <div class="content" *ngIf="users">
         <div class="row">
-          <h4 class="content-title">{{totalItems}} volunteers found</h4>
+          <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No volunteers', '=1': '1 volunteer', 'other': '# volunteers'} }} found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="users">
               <li class="card-wrapper" *ngFor="let user of users | paginate: {itemsPerPage: 10, id: 'usersPages', currentPage: p, totalItems: totalItems}">
@@ -78,7 +78,7 @@
                         <div class='name'>
                           <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
                         </div>
-                        <div class="row info-row">
+                        <div class="row">
                           <div class="card-metainfo col m6">
                             <p>{{user.title}}</p>
                           </div>

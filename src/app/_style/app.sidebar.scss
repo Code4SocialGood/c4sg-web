@@ -206,3 +206,55 @@
     }
   }
 }
+
+.project-list {
+  ul {
+   display: inline-block;
+    li {
+      display:inline-block;
+      float: left;
+      min-width: 50%;
+      width:100%;
+      margin-left: -5px;
+      padding-left: 5px;
+      label {
+        font-size: 0.85em;
+        color: #4b4a4b;
+        &:after {
+          width: 15px;
+          height: 15px;
+          border: 2px solid #4b4a4b;
+          background: #fff;
+        }
+      }
+      input:checked + label:after {
+        background-color: #009c7b;
+      }
+    }
+  }
+}
+
+.project-search-checkbox{
+  height: 50px;
+  overflow-y: auto;
+  position: relative;
+  display:inline-block;
+  float: left;
+  min-width: 50%;
+  margin-left: -5px;
+  padding-left: 5px;
+      label {
+        font-size: 0.85em;
+        line-height: 15px;
+        color: #4b4a4b;
+        &:after {
+          width: 15px;
+          height: 15px;
+          border: 2px solid #4b4a4b;
+          background: #fff;
+        }
+      }
+      input:checked + label:after {
+        background-color: #009c7b;
+      }
+}
