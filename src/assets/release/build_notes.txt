@@ -1,6 +1,6 @@
-Date: 2017-07-14
+Date: 2017-07-18
 
-Build: 2
+Build: 1
 
 Build Items:
-- Test modify build notes directly from github client.
+
