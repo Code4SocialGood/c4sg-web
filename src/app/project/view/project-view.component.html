@@ -127,12 +127,12 @@
                         Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
                       </div>
                     </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
-                      <div>
-                        <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
+                    <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
+                      <div class="button-col-padding">
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
                       </div>
-                      <div>
-                        <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
+                      <div class="button-col-padding">
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
                       </div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
