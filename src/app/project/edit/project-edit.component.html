@@ -40,14 +40,16 @@
               <input id="name" type="text" formControlName="name" class="validate" required>
               <label for="name" id="name-label">Project Name *</label>
             </div>
-            <div class="input-field col s6">
-              <div class="theme-select ">
-                <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
-                     <option value="0">Choose Role</option>
-                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
-                 <!-- <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle + ' (' + jobTitle.id + ')'}}</option>-->
+            <div class="row">
+              <div class="col s6">
+                <label for="jobTitleId">Role</label>
+                <div class="theme-select dropdown">
+                  <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+                    <option value=""  disabled selected>Choose Role</option>
+                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                    [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
-                <label for="jobTitleId">Role </label>
+                </div>
               </div>
             </div>
             <div class="input-field col s12">
