@@ -103,7 +103,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', [Validators.required]],
+      'country': [this.organization.country || '', []], // Validators.required results in red underline, so skip it
       'zip': [this.organization.zip || '', []],
       'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
