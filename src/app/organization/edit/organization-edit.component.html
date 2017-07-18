@@ -56,11 +56,11 @@
                 <input type="text" id="city" class="" formControlName="city">
                 <label for="city" id="city-label">City</label>
               </div>
-              <div class="theme-select dropdown">
-                <label for="country">Country *</label>
-                <select id="country" formControlName="country" materialize="material_select">
+              <div class="input-field">                
+                <select id="country" class="" formControlName="country" materialize="material_select">
                   <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
+                <label for="country">Country *</label>
               </div>
             </div>
             <div class="col m6 s12">
