@@ -84,6 +84,10 @@ hr {
 
   .single-info{
 
+    .col.l3{
+      max-width: 135px;
+    }
+
     .image-title{
       font-size: 17px;
       color: #84c44c;
@@ -240,6 +244,11 @@ hr {
  margin-top: -6px;
 }
 
+// Make social media links colored when hovering
+.mdi:hover:not(.not-active) {
+  color: $secondary-bg-color;
+}
+
 .page-title {
   padding-left: 10%;
   border-bottom: $border-width $page-title-bg-color solid;
@@ -252,3 +261,4 @@ hr {
     margin: 5px;
   }
 }
+
