@@ -7,11 +7,11 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="organization">
         <div class="row single-info">
-          <div class="col s6 m3 l2">
+          <div class="col s6 m3 l3">
             <div class="info-avatar z-depth-2" *ngIf="organization.logoUrl"><img [src]="organization.logoUrl"></div>
             <div class="info-avatar z-depth-2" *ngIf="!organization.logoUrl"><img [src]="constantsService.defaultLogo"></div>
           </div>
-          <div class="col s12 m9 l10">
+          <div class="col s12 m9 l9">
             <div class="row">
               <div class="col s12">
                 <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>

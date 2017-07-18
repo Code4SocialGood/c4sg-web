@@ -5,7 +5,7 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
-          <div class="col s6 m3 l2">
+          <div class="col s6 m3 l3">
             <div class="info-avatar card-avatar z-depth-2" *ngIf="user.avatarUrl">
               <img class='card-avatar-content' [src]="user.avatarUrl"></div>
             <div class="info-avatar card-avatar z-depth-2" *ngIf="!user.avatarUrl">
@@ -21,7 +21,7 @@
                 </ul>
               </div>
             </div>
-          <div class="col s12 m9 l10">
+          <div class="col s12 m9 l9">
               <div class="names mg-top-10px">{{user.firstName}} {{user.lastName}}</div>
               <div class="user-title"><h5>{{user.title}}</h5></div>
               <div class="location">Location: <span *ngIf="user.state">{{user.state}}, </span>{{user.country}}</div>
