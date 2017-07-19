@@ -91,14 +91,7 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
- /* getAllJobTitles(): Observable<any> {
-    const titleUrl = projectUrl + '/' + 'jobTitles';
-    return this.http.get(titleUrl)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }*/
-
-    public getAllJobTitles(): Observable<JobTitle[]> {
+  public getAllJobTitles(): Observable<JobTitle[]> {
     const url = projectUrl + '/jobTitles';
     return this.http
                .get(url)
@@ -121,11 +114,6 @@ export class ProjectService {
   }
 
   update(project: Project) {
-    // const url = projectUrl + '/' + project.id;
-    // return this.http
-    //  .put(url, project, {headers: this.headers})
-    //  .map((res: Response) => res.json())
-    //  .catch(this.handleError);
 
     return this.http.put(
       `${projectUrl}/${project.id}`,
@@ -182,21 +170,4 @@ export class ProjectService {
     return this.http
       .put(`${projectUrl}/${id}/image`, '', requestOptions);
   }
-
-  /*
-  add(project: Project): Observable<{project: Project}> {
-    const url = projectUrl;
-    return this.http
-      .post(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
-  }
-
-  getProjects(): Observable<Project[]> {
-    return this.http
-      .get(projectUrl)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-  */
 }

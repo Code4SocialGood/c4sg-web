@@ -68,6 +68,7 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
   }
 
   ngDoCheck() {
+    console.log('************header.ngDoCheck');
     if (this.authSvc.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.authSvc.getCurrentUserId();
 

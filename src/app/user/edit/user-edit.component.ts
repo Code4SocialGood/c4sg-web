@@ -163,7 +163,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'firstName': [this.user.firstName || '', [Validators.required]],
       'lastName': [this.user.lastName || '', []],
       'state': [this.user.state || '', []],
-      'country': [this.user.country || '', [Validators.required]],
+      'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
       'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
@@ -205,6 +205,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'Y';
     } else {
       this.user.notifyFlag = 'N';
+    }
+
+    if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+      this.user.status = 'A';
     }
 
     this.userService.update(this.user)
