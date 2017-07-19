@@ -26,6 +26,7 @@ export class ProjectViewComponent implements OnInit {
   organization: Organization;
   project: Project;
   projects: Project[];
+  user: User;
   public jobTitlesArray: JobTitle[] = [];
   numberOfProjects: number;
   params: Params;
@@ -33,8 +34,7 @@ export class ProjectViewComponent implements OnInit {
   globalActions = new EventEmitter<string|MaterializeAction>();
   deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   // userProjectStatus: string;
-  projectStatusApplied = false;
-  projectStatusBookmarked = false;
+
   auth: AuthService;
   categoryName: string;
 
@@ -46,6 +46,11 @@ export class ProjectViewComponent implements OnInit {
   displayEdit = false;
   displayDelete = false;
   displayApplicants = false;
+
+  userProfileIncomplete = false;
+  projectStatusApplied = false;
+  projectStatusBookmarked = false;
+
   applicants: Applicant[];
 
   projectId;
@@ -162,7 +167,7 @@ export class ProjectViewComponent implements OnInit {
         this.displayApply = true;
         this.displayBookmark = true;
 
-        // Checks whether login user applied or bookmarked this project, to determine whether to disable Apply/Bookmark button
+        // if user applied or bookmarked this project, disable the apply/bookmark button
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
           this.projectStatusApplied = true;
@@ -170,6 +175,17 @@ export class ProjectViewComponent implements OnInit {
         if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
           this.projectStatusBookmarked = true;
         }
+
+        // If user profile hasn't complete, user can't apply
+        this.userService.getUser(Number(this.currentUserId)).subscribe(
+          res => {
+            this.user = res;
+            if (this.user.status === 'N') {
+              this.userProfileIncomplete = true;
+            }
+          },
+          error => console.log(error)
+        );
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
@@ -196,7 +212,6 @@ export class ProjectViewComponent implements OnInit {
       }
     }
   }
-
 
   saveUserProject(userId, status, applicant) {
 
@@ -296,6 +311,10 @@ export class ProjectViewComponent implements OnInit {
             this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
         }
       );
+  }
+
+  redirectToMySettings(): void {
+    this.router.navigate(['user/edit', this.currentUserId]);
   }
 
   openModal(project) {
