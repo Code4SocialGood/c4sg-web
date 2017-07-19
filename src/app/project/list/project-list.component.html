@@ -67,7 +67,7 @@
     </div>
 
     <!-- Right Panel -->
-    <!-- 1. Projects Menu Item -->
+    <!-- 1. Projects Menu Item from header-->
     <div class="col m8 s12" *ngIf="projects && from === 'projects'" id="right-col">
       <div class="content">
         <div class="row">
@@ -85,8 +85,6 @@
         <div class="row">
           <div class="col s12">
             <div class="pagination">
-              <!--
-            <pagination-controls (pageChange)="p = $event" id="projectsList" autoHide="false"></pagination-controls>-->
               <pagination-controls (pageChange)="getProjects(p = $event)" id="projectsPages" autoHide="false"></pagination-controls>
             </div>
           </div>
@@ -96,65 +94,73 @@
 
     <!-- 2. Nonprofit User: My Projects Menu Item-->
     <div class="col m8 s12 " *ngIf="isNonprofit && from === 'myProjects'" id="right-col">
-      <div class="content">
+      <ul class="collapsible popout" data-collapsible="accordion" materialize="collapsible">
         <!-- Active Projects -->
-        <div class="row">
-          <div class="col s12">
+        <li>
+          <div  class="collapsible-header active">
             <h4 class="content-title">Active Projects</h4>
-            <div class="items-list-wrapper">
-              <ul class="card-list" *ngIf="activeProjects">
-                <li class="card-wrapper" *ngFor="let project of activeProjects">
-                  <my-project-card [project]="project" [from]="from"></my-project-card>
-                </li>
-              </ul>
-            </div>
-            <div class="row" *ngIf="activeProjects && activeProjects.length == 0">
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
               <div class="col s12">
-                <div class="info">No projects found</div>
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="activeProjects">
+                    <li class="card-wrapper" *ngFor="let project of activeProjects">
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row" *ngIf="activeProjects && activeProjects.length == 0">
+                  <div class="col s12">
+                    <div class="info">No projects found</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </li>
         <!-- Closed Projects-->
-        <div class="row">
-          <div class="col s12">
+        <li>
+          <div  class="collapsible-header">
             <h4 class="content-title">Closed Projects</h4>
-            <div class="items-list-wrapper">
-              <ul class="card-list" *ngIf="closedProjects">
-                <li class="card-wrapper" *ngFor="let project of closedProjects">
-                  <my-project-card [project]="project" [from]="from"></my-project-card>
-                </li>
-              </ul>
-            </div>
-            <div class="row" *ngIf="closedProjects && closedProjects.length == 0">
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
               <div class="col s12">
-                <div class="info">No projects found</div>
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="closedProjects">
+                    <li class="card-wrapper" *ngFor="let project of closedProjects">
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row" *ngIf="closedProjects && closedProjects.length == 0">
+                  <div class="col s12">
+                    <div class="info">No projects found</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>  
     </div>
 
     <!-- 3. Volunteer User: My Projects Menu Item-->
     <div class="col m8 s12" *ngIf="isVolunteer && from === 'myProjects'" id="right-col2">
       <ul class="collapsible popout" data-collapsible="accordion" materialize="collapsible">
+        <!-- Applied Projects -->      
         <li>
-          <div  class="collapsible-header">
+          <div  class="collapsible-header active">
             <h4 class="content-title">Applied Projects</h4>
           </div>
-          <!-- Applied Projects -->
           <div class="collapsible-body ">
             <div class="row">
               <div class="col s12">
                 <div class="items-list-wrapper">
                   <ul class="card-list" *ngIf="appliedProjects">
                     <li class="card-wrapper" *ngFor="let project of appliedProjects">
-                      <!--<div class="card">
-                   <div class="card-content">-->
                       <my-project-card [project]="project" [from]="from"></my-project-card>
-                      <!--</div>
-                  </div>-->
                     </li>
                   </ul>
                 </div>
@@ -167,101 +173,86 @@
             </div>
           </div>
         </li>
-        <!-- Bookmarked Projects-->
-      
-          <li>
-            <div class="collapsible-header">
-              <h4 class="content-title">Bookmarked Projects</h4>
-            </div>
-            <div class="collapsible-body ">
-              <div class="content">
-                <div class="row">
-                  <div class="col s12">
-                   
-                    <div class="items-list-wrapper">
-                      <ul class="card-list" *ngIf="bookmarkedProjects">
-                        <li class="card-wrapper" *ngFor="let project of bookmarkedProjects">
-                          <!-- <div class="card">
-                    <div class="card-content">-->
-                          <my-project-card [project]="project" [from]="from"></my-project-card>
-                          <!--  </div>
-                  </div>-->
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="row" *ngIf="bookmarkedProjects && bookmarkedProjects.length == 0">
-                      <div class="col s12">
-                        <div class="info">No projects found</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="collapsible-header">
-              <h4 class="content-title">Accepted Projects</h4>
-            </div>
-            <div class="collapsible-body ">
-              <!-- Accepted Projects-->
-              <div class="content">
-                <div class="row">
-                  <div class="col s12">
+        <!-- Bookmarked Projects-->      
+        <li>
+          <div class="collapsible-header">
+            <h4 class="content-title">Bookmarked Projects</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="content">
+              <div class="row">
+                <div class="col s12">
                  
-                    <div class="items-list-wrapper">
-                      <ul class="card-list" *ngIf="acceptedProjects">
-                        <li class="card-wrapper" *ngFor="let project of acceptedProjects">
-                          <!--<div class="card">
-                    <div class="card-content">-->
-                          <my-project-card [project]="project" [from]="from"></my-project-card>
-                          <!-- </div>
-                  </div>-->
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="row" *ngIf="acceptedProjects && acceptedProjects.length == 0">
-                      <div class="col s12">
-                        <div class="info">No projects found</div>
-                      </div>
+                  <div class="items-list-wrapper">
+                    <ul class="card-list" *ngIf="bookmarkedProjects">
+                      <li class="card-wrapper" *ngFor="let project of bookmarkedProjects">
+                        <my-project-card [project]="project" [from]="from"></my-project-card>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="row" *ngIf="bookmarkedProjects && bookmarkedProjects.length == 0">
+                    <div class="col s12">
+                      <div class="info">No projects found</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </li>
-          <li>
-            <div class="collapsible-header">
-              <h4 class="content-title">Declined Projects</h4>
-            </div>
-            <div class="collapsible-body ">
-              <!-- Declined Projects-->
-              <div class="content">
-                <div class="row">
-                  <div class="col s12">
-                   
-                    <div class="items-list-wrapper">
-                      <ul class="card-list" *ngIf="declinedProjects">
-                        <li class="card-wrapper" *ngFor="let project of declinedProjects">
-                          <!-- <div class="card">
-                    <div class="card-content">-->
-                          <my-project-card [project]="project" [from]="from"></my-project-card>
-                          <!-- </div>
-                  </div>-->
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="row" *ngIf="declinedProjects && declinedProjects.length == 0">
-                      <div class="col s12">
-                        <div class="info">No projects found</div>
-                      </div>
+          </div>
+        </li>
+        <!-- Accepted Projects-->        
+        <li>
+          <div class="collapsible-header">
+            <h4 class="content-title">Accepted Projects</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="content">
+              <div class="row">
+                <div class="col s12">
+                  <div class="items-list-wrapper">
+                    <ul class="card-list" *ngIf="acceptedProjects">
+                      <li class="card-wrapper" *ngFor="let project of acceptedProjects">
+                        <my-project-card [project]="project" [from]="from"></my-project-card>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="row" *ngIf="acceptedProjects && acceptedProjects.length == 0">
+                    <div class="col s12">
+                      <div class="info">No projects found</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </li>
+        <!-- Declined Projects-->        
+        <li>
+          <div class="collapsible-header">
+            <h4 class="content-title">Declined Projects</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="content">
+              <div class="row">
+                <div class="col s12">
+                  <div class="items-list-wrapper">
+                    <ul class="card-list" *ngIf="declinedProjects">
+                      <li class="card-wrapper" *ngFor="let project of declinedProjects">
+                        <my-project-card [project]="project" [from]="from"></my-project-card>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="row" *ngIf="declinedProjects && declinedProjects.length == 0">
+                    <div class="col s12">
+                      <div class="info">No projects found</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
