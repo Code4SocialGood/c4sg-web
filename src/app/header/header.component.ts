@@ -15,7 +15,7 @@ import { Subscription} from 'rxjs/Rx';
   styleUrls: [ 'header.component.scss' ]
 })
 
-export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
+export class HeaderComponent implements  OnInit, OnDestroy {
 
   currentUserId: string;
   organizationId: string;
@@ -67,7 +67,7 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
     return 'off-home';
   }
 
-  ngDoCheck() {
+ /* ngDoCheck() {
     console.log('************header.ngDoCheck');
     if (this.authSvc.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.authSvc.getCurrentUserId();
@@ -103,7 +103,7 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
           error => console.log(error));
       }
     }
-  }
+  }*/
 
   ngOnDestroy() {
     if (this.projectsSubscription) {
