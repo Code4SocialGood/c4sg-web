@@ -207,7 +207,7 @@ export class AuthService {
     console.log('************SetLocalStorageItems for the user');
     this.currentUserId = this.getCurrentUserId();
     if (this.authenticated() && this.currentUserId != null) {
-      //this.currentUserId = this.getCurrentUserId();
+      // this.currentUserId = this.getCurrentUserId();
 
       if (this.isOrganization()) { // if user is Organization User
         if (this.currentUserId !== '0' && this.currentUserId !== null) {
@@ -245,7 +245,7 @@ export class AuthService {
 
   }
   private setOrganizationId(organizationId: string): void {
-    //this.organizationId = organizationId;
+    // this.organizationId = organizationId;
     localStorage.setItem('userOrganizationId', organizationId);
   }
 
