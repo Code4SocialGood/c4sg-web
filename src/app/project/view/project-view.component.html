@@ -75,11 +75,17 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
+              <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
                 *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
                 Apply
               </button>
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')"
+              <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile in My Settings to Apply" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+                Apply
+              </button>      
+              <!-- Apply button is enabled for login user -->      
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
                 [disabled]="projectStatusApplied">
                 Apply
               </button>
@@ -130,8 +136,6 @@
                     <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
                       <div class="button-col-padding">
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
-                      </div>
-                      <div class="button-col-padding">
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
                       </div>
                     </div>
