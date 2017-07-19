@@ -7,11 +7,11 @@
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
-          <div class="col s6 m3 l2">
+          <div class="col s6 m3 l3">
             <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
             <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
           </div>
-          <div class="col s12 m9 l10">
+          <div class="col s12 m9 l9">
             <div class="row">
               <div class="col s12">
                 <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
@@ -75,11 +75,17 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
+              <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
                 *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
                 Apply
               </button>
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')"
+              <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile in My Settings to Apply" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+                Apply
+              </button>      
+              <!-- Apply button is enabled for login user -->      
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
                 [disabled]="projectStatusApplied">
                 Apply
               </button>
@@ -127,12 +133,10 @@
                         Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
                       </div>
                     </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
-                      <div>
-                        <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
-                      </div>
-                      <div>
-                        <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
+                    <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
+                      <div class="button-col-padding">
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
                       </div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">

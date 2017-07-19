@@ -38,23 +38,25 @@
             <div class="content-title">Introduction</div>
             <div class="input-field col s6">
               <input id="name" type="text" formControlName="name" class="validate" required>
-              <label for="name">Project Name *</label>
+              <label for="name" id="name-label">Project Name *</label>
             </div>
-            <div class="input-field col s6">
-              <div class="theme-select ">
-                <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
-                     <option value="0">Choose Role</option>
-                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
-                 <!-- <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle + ' (' + jobTitle.id + ')'}}</option>-->
+            <div class="row">
+              <div class="col s6">
+                <label for="jobTitleId">Role</label>
+                <div class="theme-select dropdown">
+                  <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+                    <option value=""  disabled selected>Choose Role</option>
+                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                    [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
-                <label for="jobTitleId">Role </label>
+                </div>
               </div>
             </div>
             <div class="input-field col s12">
               <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required
                 (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()" (blur)="onBlurDescription()">
               </textarea>
-              <label for="description">Project Description *
+              <label for="description" id="desc-label">Project Description *
                 <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
               </label>
             </div>
@@ -80,22 +82,22 @@
                 <div class="row">
                   <div class="input-field col s6">
                     <input id="city" type="text" class="validate" formControlName="city">
-                    <label for="city">City</label>
+                    <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
                     <input id="state" type="text" class="validate" formControlName="state">
-                    <label for="state">State</label>
+                    <label for="state" id="state-label">State</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s12">
-                    <select id="country" class="validate" formControlName="country" materialize="material_select">
-                      <option value="" disabled selected>Choose country</option>
-                      <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
-                        country.code + ')'}}
-                      </option>
-                    </select>
+                  <div class="col s12 m12">
                     <label for="country">Country</label>
+                    <div class="theme-select dropdown">
+                      <select id="country" formControlName="country" materialize="material_select">
+                        <option value="" disabled selected>Choose country</option>
+                        <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === project?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -133,7 +135,7 @@
               <div class="divider"></div>
               <label for="saveBtn" class="red-text">
                   <div *ngIf="projectForm.get('name').pristine && !projectForm.get('name').valid">
-                    Please enter Project Name 
+                    Please enter Project Name
                   </div>
                   <div *ngIf="projectForm.get('description').pristine && !projectForm.get('description').valid">
                     Please enter Project Description

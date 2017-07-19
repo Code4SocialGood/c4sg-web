@@ -39,7 +39,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public inputValue = '';
   public avatar: any = '';
 
-  public displayPhone = false;
   public isVolunteer = false;
   public isOrganization = false;
   public checkPublish = false;
@@ -162,9 +161,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', [Validators.required]],
+      'lastName': [this.user.lastName || '', []],
       'state': [this.user.state || '', []],
-      'country': [this.user.country || '', [Validators.required]],
+      'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
       'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
@@ -206,6 +205,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'Y';
     } else {
       this.user.notifyFlag = 'N';
+    }
+
+    if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+      this.user.status = 'A';
     }
 
     this.userService.update(this.user)
@@ -310,12 +313,44 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    // Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    // User edit page is customized based on user role, need to check element existance first
+    if (document.getElementById('username-label') != null) {
+      document.getElementById('username-label').classList.add('active');
+    }
+    if (document.getElementById('email-label') != null) {
+      document.getElementById('email-label').classList.add('active');
+    }
+    if (document.getElementById('firstname-label') != null) {
+      document.getElementById('firstname-label').classList.add('active');
+    }
+    if (document.getElementById('lastname-label') != null) {
+      document.getElementById('lastname-label').classList.add('active');
+    }
+    if (document.getElementById('state-label') != null) {
+      document.getElementById('state-label').classList.add('active');
+    }
+    if (document.getElementById('title-label') != null) {
+      document.getElementById('title-label').classList.add('active');
+    }
+    if (document.getElementById('summary-label') != null) {
+      document.getElementById('summary-label').classList.add('active');
+    }
+    if (document.getElementById('linkedin-label') != null) {
+      document.getElementById('linkedin-label').classList.add('active');
+    }
+    if (document.getElementById('github-label') != null) {
+      document.getElementById('github-label').classList.add('active');
+    }
+    if (document.getElementById('personal-label') != null) {
+      document.getElementById('personal-label').classList.add('active');
+    }
+    if (document.getElementById('slack-label') != null) {
+      document.getElementById('slack-label').classList.add('active');
+    }
+    if (document.getElementById('phone-label') != null) {
+      document.getElementById('phone-label').classList.add('active');
+    }
   }
 }

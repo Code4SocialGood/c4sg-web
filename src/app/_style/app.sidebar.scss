@@ -208,16 +208,13 @@
 }
 
 .project-list {
-  height: 155px;
-  overflow-y: auto;
-  position: relative;
   ul {
-    list-style: none;
-    display: inline-block;
+   display: inline-block;
     li {
       display:inline-block;
       float: left;
       min-width: 50%;
+      width:100%;
       margin-left: -5px;
       padding-left: 5px;
       label {
