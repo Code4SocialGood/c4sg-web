@@ -248,6 +248,9 @@ export class AuthService {
     // this.organizationId = organizationId;
     localStorage.setItem('userOrganizationId', organizationId);
   }
+  public getUserOrganizationId() {
+    return localStorage.getItem('userOrganizationId');
+  }
 
   private getDelegationToken() {
     const opt = {
