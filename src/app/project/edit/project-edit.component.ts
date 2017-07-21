@@ -45,6 +45,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isSkillExists = false;
   public isSkillLimit = false;
 
+  public isOrgNew = false;
+  public isOrgPending = false;
+  public isOrgActive = false;
+
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
   public descValueLength: number;
@@ -112,6 +116,23 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
         // Skills are empty for this new project
         this.projectSkillsArray = [];
+
+        // Check organization status
+        this.organizationService.getOrganization(this.organizationId)
+          .subscribe(
+            res => {
+              this.organization = res;
+              if (this.organization.status === 'N') {
+                this.isOrgNew = true;
+              } else if (this.organization.status === 'P') {
+                this.isOrgPending = true;
+              } else if (this.organization.status === 'A') {
+                this.isOrgActive = true;
+              }
+
+              this.fillForm();
+            }, error => console.log(error)
+          );
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)

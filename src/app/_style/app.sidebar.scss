@@ -102,7 +102,7 @@
   padding-left: 25px;
   padding-right: 25px;
   padding-top: 0px;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   border-bottom: solid $line-sep-width $border-color;
   h5 {
     cursor: pointer;
@@ -130,12 +130,18 @@
 }
 
 .section .section-body-organization {
-  padding: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 0px;
+  padding-bottom: 40px;
+  border-bottom: solid $line-sep-width $border-color;
+  
+ /* padding: 10px;
   border-bottom: solid $line-sep-width $border-color;
   @include small-paragraph;
   .organization-name {
     @include content-subtitle-font;
-  }
+  }*/
 }
 
 .section .section-body-project {
