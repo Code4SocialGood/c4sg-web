@@ -55,7 +55,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
-  public globalActions = new EventEmitter<string|MaterializeAction>();
+  public globalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -85,11 +85,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.skillService.getSkills()
       .subscribe(
-        res => {
-          res.map((obj) => {
-            this.skillsArray.push(obj.skillName);
-          });
-        }, error => console.log(error)
+      res => {
+        res.map((obj) => {
+          this.skillsArray.push(obj.skillName);
+        });
+      }, error => console.log(error)
       );
 
     this.route.params.subscribe(params => {
@@ -103,29 +103,34 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       // Populate user
       this.userService.getUser(this.userId)
         .subscribe(
-          res => {
-            this.user = res;
-            this.avatar = this.user.avatarUrl;
-            this.fillForm();
+        res => {
+          this.user = res;
+          this.avatar = this.user.avatarUrl;
 
-            if (this.user.publishFlag === 'Y') {
-              this.checkPublish = true;
-            }
-
-            if (this.user.notifyFlag === 'Y' ) {
-              this.checkNotify = true;
-            }
-          }, error => console.log(error)
-        );
-
-      // Populate skills list
-      this.skillService.getSkillsForUser(this.userId)
-        .subscribe(
-          res => {
-            this.userSkillsArray = res;
-          }, error => console.log(error)
+          if (this.user.publishFlag === 'Y') {
+            this.checkPublish = true;
+          }
+          else {
+            this.checkPublish = false;
+          }
+          if (this.user.notifyFlag === 'Y') {
+            this.checkNotify = true;
+          }
+          else {
+            this.checkNotify = false;
+          }
+          this.fillForm();
+        }, error => console.log(error)
         );
     });
+    // Populate skills list
+    this.skillService.getSkillsForUser(this.userId)
+      .subscribe(
+      res => {
+        this.userSkillsArray = res;
+      }, error => console.log(error)
+      );
+
   }
 
   private getFormConstants(): void {
@@ -155,7 +160,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'jobTitleId': [this.user.jobTitleId || '', []],
@@ -171,8 +175,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
       'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
+      'publishFlag': [this.checkPublish || '', []],
+      'notifyFlag': [this.checkNotify || '', []]
     });
   }
 
@@ -180,7 +184,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     event.preventDefault();
     event.stopPropagation();
-
     this.user.userName = this.userForm.value.userName;
     this.user.firstName = this.userForm.value.firstName;
     this.user.lastName = this.userForm.value.lastName;
@@ -195,13 +198,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.user.chatUsername = this.userForm.value.chatUsername;
     this.user.jobTitleId = this.userForm.value.jobTitleId;
 
-    if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
+    if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y') {
       this.user.publishFlag = 'Y';
     } else {
       this.user.publishFlag = 'N';
     }
 
-    if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
+    if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y') {
       this.user.notifyFlag = 'Y';
     } else {
       this.user.notifyFlag = 'N';
@@ -216,15 +219,15 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.globalActions.emit('toast');
         this.router.navigate(['/user/view', this.user.id]);
       },
-        err => { console.error(err, 'An error occurred'); }
+      err => { console.error(err, 'An error occurred'); }
       );
 
     // Update skills for user
     this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
       .subscribe(
-        res => {
-        },
-        err => { console.error(err, 'An error occurred'); }
+      res => {
+      },
+      err => { console.error(err, 'An error occurred'); }
       );
   }
 
@@ -237,7 +240,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   onAddListedSkill(optionValue) {
     this.skillCounter = this.userSkillsArray.length;
     console.log(optionValue.target.value);
-    this.checkSkillList (optionValue.target.value);
+    this.checkSkillList(optionValue.target.value);
     if (!this.isSkillExists && !this.isSkillLimit) {
       this.userSkillsArray.push(optionValue.target.value);
     }
@@ -247,7 +250,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.skillCounter = this.userSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.checkSkillList (inputSkill.value);
+      this.checkSkillList(inputSkill.value);
       if (!this.isSkillExists && !this.isSkillLimit) {
         this.userSkillsArray.push(inputSkill.value);
         this.inputValue = '';
@@ -259,15 +262,15 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.isSkillExists = false;
     this.isSkillLimit = false;
     this.skillCounter = this.skillCounter + 1;
-    if ( this.skillCounter > 10 ) {
+    if (this.skillCounter > 10) {
       this.isSkillLimit = true;
-      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+      this.globalActions.emit({ action: 'toast', params: ['Skill list exceeds limit 10', 4000] });
     }
     if (!this.isSkillLimit) {
-      for ( this.skill of this.userSkillsArray ) {
+      for (this.skill of this.userSkillsArray) {
         if (selectedSkill === this.skill) {
           this.isSkillExists = true;
-          this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+          this.globalActions.emit({ action: 'toast', params: ['Selected skill already in the list', 4000] });
         }
       }
     }
@@ -299,18 +302,19 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
     // Calls the function to save the avatar image url to the user's row
-    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
-      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
+    upload$.switchMap((res) => this.userService.saveAvatarImg(this.user.id, res),
+      (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
       .subscribe(res => {
         if (res.innerValue.text() === '') {
-            this.avatar = res.outerValue;
-            this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');
+          this.avatar = res.outerValue;
+          this.user.avatarUrl = this.avatar;
+          console.log('Avatar successfully uploaded!');
         } else {
           console.error('Saving user avatar: Not expecting a response body');
-        }}, (e) => {
-          console.error('Avatar not saved. Not expecting a response body');
-        });
+        }
+      }, (e) => {
+        console.error('Avatar not saved. Not expecting a response body');
+      });
   }
 
   ngAfterViewChecked(): void {
