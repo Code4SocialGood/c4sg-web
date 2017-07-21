@@ -89,8 +89,9 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
         }
-        if (this.authService.authenticated() && this.authService.isAdmin() && this.organization.status === 'P') {
-          this.displayApprove = true;
+        if (this.authService.authenticated() && this.authService.isAdmin()
+          && (this.organization.status === 'P' || this.organization.status === 'C')) {
+          this.displayApprove = true; // display buttons for Pendind or Declined organizations
         }
       },
       (err) => {
@@ -146,7 +147,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   approve(): void {
     this.organizationService
-      .approve(this.organization.id, 'A')
+      .approve(this.organization.id, 'A') // A for Active
       .subscribe(
         response => {
           this.router.navigate(['/organization/view/' + this.organization.id]);
@@ -159,7 +160,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   decline(): void {
   this.organizationService
-    .approve(this.organization.id, 'D')
+    .approve(this.organization.id, 'C') // C for Decline
     .subscribe(
       response => {
         this.router.navigate(['/organization/view/' + this.organization.id]);
