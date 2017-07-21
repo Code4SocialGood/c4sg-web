@@ -27,6 +27,14 @@
             </div>
           </div>
         </div>
+        <div class="row single-info" *ngIf="isOrgNew">
+          <hr>
+          <h4 class="col s12 m12 l12 highlight-title">Please complete My Organization information. Your organization will be reviewed before you can post projects.</h4>
+        </div>
+        <div class="row single-info" *ngIf="isOrgPending">
+          <hr>
+          <h4 class="col s12 m12 l12 highlight-title"> Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</h4>
+        </div> 
       </div>
     </div>
 
@@ -143,7 +151,7 @@
               </label> -->
               <div class="footer-btns center section">
                 <button class="btn waves-effect waves-light" id=saveBtn type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions" [disabled]="!projectForm.valid">
+                  [materializeActions]="globalActions" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
                 </button>
               </div>
