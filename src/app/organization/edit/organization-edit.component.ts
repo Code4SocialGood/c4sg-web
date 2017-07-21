@@ -36,6 +36,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public descValueLength: number;
   public descFieldFocused = false;
 
+  public isNew = false;
+  public isPending = false;
+
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
 
@@ -65,6 +68,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.organization = res;
             this.logoUrl = this.organization.logoUrl;
+            if (this.organization.status === 'N') {
+              this.isNew = true;
+            } else if (this.organization.status === 'P') {
+              this.isPending = true;
+            }
+
             this.fillForm();
           }, error => console.log(error)
         );
