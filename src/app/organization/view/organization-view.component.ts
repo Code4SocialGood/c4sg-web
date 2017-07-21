@@ -89,7 +89,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
         }
-        if (this.authService.authenticated() && this.authService.isAdmin() 
+        if (this.authService.authenticated() && this.authService.isAdmin()
           && (this.organization.status === 'P' || this.organization.status === 'C')) {
           this.displayApprove = true; // display buttons for Pendind or Declined organizations
         }
