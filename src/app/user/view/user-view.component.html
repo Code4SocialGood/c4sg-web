@@ -60,16 +60,60 @@
 
     <!-- Right Panel: User Volunteer History -->
     <div class="col m4" id="right-col">
-      <div class="sidebar">
+      <div class="sidebar">        
         <div class="section">
           <h4>Volunteer History</h4>
-          <div class="section-body-organization">
-            <div class="card">
-              <div class="card-content">
-                <div class="row single-info">
-                  <p>Coming soon ...</p>
-                </div>
-              </div>
+          <div class="section-body-project" *ngIf="!projects">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">                  
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>            
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length == 0">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">                  
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>            
+          </div>    
+          <div class="section-body-project" *ngIf="projects?.length > 0">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="row single-info">
+                        <div class="col m4">
+                          <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
+                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="constantsService.defaultLogo"></div>
+                        </div>
+                        <div class="col m8 proj-name">
+                          <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                        </div>
+                        <div class="row">
+                          <div class="skills-tag-wrapper">
+                            <ul *ngIf="pr.skills">
+                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="description" *ngIf="pr && pr.description">{{ pr && pr.description | slice:0:100 }} ...</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
