@@ -2,19 +2,24 @@
   <h1>Project</h1>
 </div>
 <div class="container">
-  <div class="row main-row">
+  <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
     <div class="col s8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
-          <div class="col s6 m3 l2">
+          <div class="col s6 m3 l3">
             <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
             <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
           </div>
-          <div class="col s12 m9 l10">
+          <div class="col s12 m9 l9">
             <div class="row">
               <div class="col s12">
                 <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
+              </div>
+            </div>
+            <div *ngFor="let jobTitle of jobTitlesArray">
+              <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
+                Role: <span>{{jobTitle.jobTitle}}</span>
               </div>
             </div>
             <div class="row">
@@ -70,36 +75,44 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
-              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
+              <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
                 *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
                 Apply
               </button>
-              <button type="button" class="btn" *ngIf="displayApply && authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')" [disabled]="projectStatusApplied">
+              <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile in My Settings to Apply" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+                Apply
+              </button>      
+              <!-- Apply button is enabled for login user -->      
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
+                [disabled]="projectStatusApplied">
                 Apply
               </button>
-              <button type="button" class="btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
                 *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
                 Bookmark
               </button>
-              <button type="button" class="btn" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')" [disabled]="projectStatusBookmarked">
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')"
+                [disabled]="projectStatusBookmarked">
                 Bookmark
               </button>
-              <!--<button type="button" class="btn" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
+              <!--<button type="button" class="btn waves-effect waves-light" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
               <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
-              <button type="button" class="btn" *ngIf="displayEdit" (click)="edit()">Edit
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayEdit" (click)="edit()">Edit
               </button>
-              <button type="button" class="btn" materialize [materializeActions]="modalActions" *ngIf="displayDelete" (click)="openModal(project)">Close
+              <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayDelete" (click)="openModal(project)">Close
               </button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
               Delete</button>-->
-              <my-shared-btn [displayShare]="displayShare"></my-shared-btn>
+              <my-shared-btn [displayShare]="displayShare" [project]="project"></my-shared-btn>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Nonprofit User - Applicants -->
-      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true">
+      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true && project.status === 'A'">
         <div class="row">
           <div class="col s12">
             <h4 class="content-title">Applicants</h4>
@@ -109,8 +122,8 @@
                   <div class="user">
                     <div class="user-info col s4">
                       <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
-                      <div>{{applicant.title}}</div>                 
-                    </div>                      
+                      <div>{{applicant.title}}</div>
+                    </div>
                     <div class="user-info col s4">
                       <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
                       <div *ngIf="applicant.applicationStatus === 'C'">
@@ -118,11 +131,13 @@
                       </div>
                       <div *ngIf="applicant.applicationStatus === 'D'">
                         Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
-                      </div>                    
+                      </div>
                     </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'A'">
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'C')">Accept</button></div>     
-                      <div><button type="button" class="btn" (click)="saveUserProject(applicant.userId, 'D')">Decline</button></div>          
+                    <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
+                      <div class="button-col-padding">
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
+                      </div>
                     </div>
                     <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
                       <div>ACCEPTED</div>
@@ -189,7 +204,7 @@
                         </div>
                         <div class="col m8">
                           <div class="available-opp-proj-name">
-                            <h5  [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
+                            <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
                           </div>
                           <div>
                             <div class="skills-tag-wrapper">

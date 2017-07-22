@@ -74,9 +74,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       if (this.authService.isAdmin()) {
         this.displayEdit = true;
         this.displayDelete = true;
-        if (this.organization.status === 'P') { // Pending Approval
-          this.displayApprove = true;
-        }
       }
     }
   }
@@ -91,6 +88,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         // Validation rules should force websiteUrl to start with http but add check just in case
         if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
           this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
+        if (this.authService.authenticated() && this.authService.isAdmin()
+          && (this.organization.status === 'P' || this.organization.status === 'C')) {
+          this.displayApprove = true; // display buttons for Pendind or Declined organizations
         }
       },
       (err) => {
@@ -119,8 +120,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   getUser(orgId: number): void {
     // TODO pending backend findUserForOrg
-    this.userService.getUser(2).subscribe(
-      response => this.user = response,
+    this.userService.getUsersByOrganization(orgId).subscribe(
+      response => this.user = response[0],
       errorProjects => console.log(errorProjects)
     );
   }
@@ -146,7 +147,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   approve(): void {
     this.organizationService
-      .approve(this.organization.id, 'A')
+      .approve(this.organization.id, 'A') // A for Active
       .subscribe(
         response => {
           this.router.navigate(['/organization/view/' + this.organization.id]);
@@ -159,7 +160,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
 
   decline(): void {
   this.organizationService
-    .approve(this.organization.id, 'D')
+    .approve(this.organization.id, 'C') // C for Decline
     .subscribe(
       response => {
         this.router.navigate(['/organization/view/' + this.organization.id]);

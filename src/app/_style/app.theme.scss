@@ -5,6 +5,8 @@
 @import 'app.card';
 @import 'app.pagination';
 @import 'app.sidebar';
+@import 'app.validate';
+@import 'app.materialize';
 
 a {
   color: $main-color;
@@ -76,13 +78,15 @@ hr {
   left: 48%;
   top: 48vh;
 }
-.single-info{
 
-}
 #left-col {
   margin-bottom: 40px;
 
   .single-info{
+
+    .col.l3{
+      max-width: 135px;
+    }
 
     .image-title{
       font-size: 17px;
@@ -177,7 +181,7 @@ hr {
       background: linear-gradient(to bottom right, rgb(216, 238, 203), rgb(216, 238, 203));
       text-align: center;
       font-size: 0.7em;
-      margin: 6px 5px;
+      margin: 5px 2px;
       //cursor: pointer;
       //&:hover {
       //  background: #8dcdc1;
@@ -194,6 +198,11 @@ hr {
   }
 }
 
+// Make social media links colored when hovering
+.mdi:hover{ //:not(.not-active) {
+  color: $secondary-bg-color;
+}
+
 .links-list-wrapper {
   ul {
     margin: 0;
@@ -201,7 +210,7 @@ hr {
     li {
       display: inline-block;
       line-height: 50px;
-      a {
+      a:not(.mdi) {
         color: $main-color;
       }
     }
@@ -211,6 +220,7 @@ hr {
 .btn {
   background-color: $secondary-bg-color;
   @include button-font;
+
 }
 
 .image-upload-button {
@@ -218,58 +228,42 @@ hr {
   display: inherit;
   padding: 0;
 }
-/* input label underline focus color */
-.input-field input[type=text]:focus {
-  border-bottom-color: $secondary-bg-color;
-  box-shadow: 0 1px 0 0 $secondary-bg-color;
+
+.chip {
+  height: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  .close{
+    line-height: 14px;
+    padding-top:2px;
+    float:right;
+  }
 }
 
-/* input label underline focus color */
-textarea.materialize-textarea:focus {
-  border-bottom-color: solid $secondary-bg-color;
-  box-shadow: 0 1px 0 0 $secondary-bg-color;
+.dropdown{
+ margin-top: -6px;
 }
 
-/* input label color */
- .input-field label {
-   color: $secondary-bg-color;
- }
-
-/* input label focus color */
-.input-field input[type=text] + label {
- color: $secondary-bg-color;
-}
-
-/* input label focus color */
-textarea.materialize-textarea:focus + label {
+// Make social media links colored when hovering
+.mdi:hover:not(.not-active) {
   color: $secondary-bg-color;
 }
 
-/* checkbock, checked */
-[type="checkbox"]:checked + label:before {
-  border-right-color: $secondary-bg-color;
-  border-bottom-color: $secondary-bg-color;
+.page-title {
+  padding-left: 10%;
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+  }
 }
 
-/* radio button color, selected, outter */
-[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-  border-color: $secondary-bg-color;
-}
-/* radio button color, selected, inner */
-[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
-  background-color: $secondary-bg-color;
-}
-
-/* select, selected option */
-.select-wrapper {
-  color: $secondary-bg-color;
-}
-/* selector selections color */
-.select-dropdown li span{
-  color: $secondary-bg-color;
-}
-
-/* fix pagination cursor */
-.pagination li, .pagination li.current {
-  cursor: pointer;
+.highlight-title{
+  font-size: 17px;
+  color: $secondary-color;
+  text-align: center;
 }
