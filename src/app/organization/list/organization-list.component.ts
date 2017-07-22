@@ -46,6 +46,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   });
   p = 1; // Holds page number
   organizations: Object[];
+  pendingOrganizations: Object[];
+  declinedOrganizations: Object[];
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
@@ -69,13 +71,15 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         this.categoriesArray.controls.forEach(categoryControl => {
           return categoryControl.setValue(false);
         });
-        this.from = params['from'];
+
+        this.from = params['from']; // from can be: organizations, reload, pending
         if (this.from === 'reload') {
             this.p = 1;
             this.filterForm.controls.keyword.setValue('');
             this.filterForm.controls.hasProjects.setValue(false);
             this.filterForm.controls.categories =  this.categoriesArray;
         }
+
         this.getOrganizations(this.p);
       });
 
@@ -126,17 +130,17 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, null, null)
+      null, null, null, 'P', null, null, null) // Pending organizations
       .subscribe( res => {
-        this.organizations = res;
-        res.forEach((o: Organization) => {
-          this.projectService.getProjectByOrg(o.id, 'A')
-            .subscribe( response => {
-                this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                o.projects = this.projects.length;
-                     },
-              error => console.log(error));
-        });
+        this.pendingOrganizations = res.data;
+      },
+        error => console.log(error)
+      );
+
+      this.organizationsSubscription = this.organizationService.searchOrganizations(
+      null, null, null, 'C', null, null, null) // Declined organizations
+      .subscribe( res => {
+        this.declinedOrganizations = res.data;
       },
         error => console.log(error)
       );

@@ -1,47 +1,43 @@
-
+<div class="about-us-page-title">
+  <h1>Meet the Volunteers of Code 4 Social Good</h1>
+</div>
 <div class="container">
   <div class="row main-row">
-    <div id="left-col"></div>
-    <div class="col m12" id="right-col">
-      <div class="content" *ngIf="developers">
+    <div class="col m12 s12">
+      <div class="about-us-content" *ngIf="developers">
         <div class="row">
-          <h1 class="content-title">Meet the Volunteers of Code for Social Good</h1>
-          <div class="col s12">
-            <!--<div class="map-viewer-wrapper" *ngIf="developers">
-              <my-map-viewer [developers]="developers"></my-map-viewer>
-            </div>-->
-              <div>
-                  <agm-map
-                          [latitude]="lat"
-                          [longitude]="lng"
-                          [zoom]="zoom">
+          <div>
+            <agm-map
+                    [latitude]="lat "
+                    [longitude]="lng "
+                    [zoom]="zoom ">
 
-                      <agm-marker
-                          *ngFor="let d of developers"
-                          [latitude]="d.latitude"
-                          [longitude]="d.longitude"
-                          (mouseOver)="handleMarkerMouseOver($event)"
-                          (mouseOut)="handleMarkerMouseOut($event)"
-                          >
+              <agm-marker
+                  *ngFor="let d of developers "
+                  [latitude]="d.latitude "
+                  [longitude]="d.longitude "
+                  (mouseOver)="handleMarkerMouseOver($event) "
+                  >
 
-                        <agm-info-window>
-                              <div>
-                                <a [routerLink]="['/user/view',d.id]">
-                                    <img [src]="d.avatarUrl" onError="this.src='../../assets/default_avatar.png'">
-                                    <div>{{d.userName}}</div>
-                                    <div>Location:
-                                            <span *ngIf="d.state">{{d.state}}</span>
-                                            <span *ngIf="d.state && d.country">,</span>
-                                            <span *ngIf="d.country">{{d.country}}</span>
-                                    </div>
-                                </a>
-                              </div>
-                        </agm-info-window>
-
-                      </agm-marker>
-                  </agm-map>
-
-              </div>
+                <agm-info-window>
+                  <div class="info-window ">
+                    <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                      <div class="info-avatar ">
+                        <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                      </div>
+                      <div class="user-name ">
+                        {{d.userName}}
+                      </div>
+                      <div class="user-location ">
+                        <span *ngIf="d.state ">{{d.state}}</span>
+                        <span *ngIf="d.state && d.country ">,</span>
+                        <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
+                      </div>
+                    </a>
+                  </div>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
           </div>
         </div>
       </div>

@@ -1,0 +1,70 @@
+@import "../_style/app.theme";
+
+.developers_list li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.developers_list li:last-child {
+  margin-right: 0;
+}
+
+agm-map {
+  width: 100%;
+  height: 500px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.sebm-google-map-container{
+
+  .info-window{
+    width: 100px;
+    text-align: center;
+
+    .info-container{
+      width: 100%;
+      height: 100%;
+
+      .info-avatar{
+        width: 80px;
+        position: relative;
+        padding-bottom: 80px;
+        overflow: hidden;
+        margin:10px auto 0.75em auto;
+        border-radius: 50%;
+        border: solid 2px #ccc;
+
+        img{
+          width: auto;
+          max-width: none;
+          height: 100%;
+          position: absolute;
+          left: -50%;
+          right: -50%;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+.about-us-content {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.about-us-page-title {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+  }
+}

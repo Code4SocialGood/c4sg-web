@@ -21,50 +21,19 @@ declare const Materialize: any;
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
 
-  roles = [{
-    name: 'Developer',
-    value: 'D'
-  }, {
-    name: 'UI/UX Designer',
-    value: 'U'
-  }, {
-    name: 'QA Engineer',
-    value: 'Q'
-  }, {
-    name: 'Software Architect',
-    value: 'A'
-  }, {
-    name: 'Build & Release Engineer',
-    value: 'E'
-  }, {
-    name: 'Business Analyst',
-    value: 'B'
-  }, {
-    name: 'Project Manager',
-    value: 'P'
-  }, {
-    name: 'Sales & Marketing',
-    value: 'S'
-  }];
-
-
-  rolesArray = new FormArray([
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false),
-    new FormControl(false)
-  ]);
+  roles: any[];
 
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
+  jobTitlesShowed = [];
+  jobTitleFormArray = new FormArray([]);
+  jobTitles: any[];
+
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    roles: this.rolesArray,
+    // jobTitle: new FormControl(false),
+    jobTitles: this.jobTitleFormArray,
     skills: this.skillsArray
   });
 
@@ -112,18 +81,19 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     this.route.params.subscribe(
       params => {
-        this.rolesArray.controls.forEach(roleControl => {
-          return roleControl.setValue(false);
-        });
         this.skillsArray.controls.forEach(skillControl => {
           return skillControl.setValue(false);
+        });
+        this.jobTitleFormArray.controls.forEach(jobTitleControl => {
+          return jobTitleControl.setValue(false);
         });
         this.from = params['from'];
         if (this.from === 'reload') {
           this.p = 1;
           this.filterForm.controls.keyword.setValue('');
-          this.filterForm.controls.roles = this.rolesArray;
+          // this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
+          this.filterForm.controls.jobTitles = this.jobTitleFormArray;
         }
         this.getProjects(this.p);
       });
@@ -135,6 +105,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     });
 
     this.getSkills();
+    this.getJobTitles();
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
@@ -147,10 +118,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     // this.filterForm.reset();
     window.scrollTo(0, 0);
     if (this.from === 'projects') { // Projects Menu Item
-
       const skills = this.filterForm.value.skills;
+      // const jobTitle = this.filterForm.value.jobTitle;
+      const jobTitles = this.filterForm.value.jobTitles;
       const skillsParam = [];
-
+      const jobTitlesParam = [];
       if (skills) {
         for (let i = 0; i < skills.length; i++) {
           if (skills[i]) {
@@ -158,9 +130,17 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           }
         }
       }
+      if (jobTitles) {
+        for (let i = 0; i < jobTitles.length; i++) {
+          if (jobTitles[i]) {
+            jobTitlesParam.push(this.jobTitles[i].id.toString());
+          }
+        }
+      }
       this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
       this.projectsSubscription = this.projectService.searchProjects(
-        this.filterForm.value.keyword, skillsParam, 'A', null, page, 10)
+        // this.filterForm.value.keyword, jobTitle, skillsParam, 'A', null, page, 10)
+        this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', null, page, 10)
         .subscribe(
         res => {
           this.projects = res.data;
@@ -230,6 +210,28 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     );
   }
 
+  /* getJobTitles(): void {
+     this.projectService.getAllJobTitles().subscribe(res => {
+         this.roles = res.map(role => {
+           return {name: role.jobTitle, checked: false, id: role.id};
+         });
+       },
+       error => console.error(error)
+     );
+   }*/
+
+  getJobTitles(): void {
+    this.projectService.getAllJobTitles().subscribe(res => {
+      this.jobTitles = res.map(jobtitle => {
+        return { id: jobtitle.id, checked: false, jobtitle: jobtitle.jobTitle };
+      });
+      this.showJobTitles();
+
+    },
+      error => console.error(error)
+    );
+  }
+
   showSkills(): void {
     let addedSkills;
     if (this.skillsShowed.length < this.skills.length) {
@@ -247,37 +249,34 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     }
   }
 
+  showJobTitles(): void {
+    let addedJobTitles;
+    if (this.jobTitlesShowed.length < this.jobTitles.length) {
+      if (!this.jobTitlesShowed.length) {
+        addedJobTitles = this.jobTitles.slice(0, 10);
+      } else {
+        addedJobTitles = this.jobTitles
+          .filter(i => !this.jobTitlesShowed.includes(i));
+        addedJobTitles = addedJobTitles.filter((i, index) => index < 10);
+      }
+      for (const addedJobTitle of addedJobTitles) {
+        this.jobTitlesShowed.push(addedJobTitle);
+        this.jobTitleFormArray.push(new FormControl(false));
+      }
+    }
+  }
+
   onSelect(project: Project): void {
     this.selectedProject = project;
     this.router.navigate(['/project/view', project.id]);
   }
 
-  // TODO Don't provide the identity colume value
-  add(name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
-    }
-
-    const project = new Project(8, name, 1, 'description', 'logo.png', 'city', 'USA', '55311', 'Teens Give');
-
-    this.projectService
-      .add(project)
-      .subscribe(
-      response => {
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
-      );
-  }
-
   defineUserProjectStatus(projectID) {
     if (this.auth.isVolunteer()) {
       const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-      if (projectsIDs.appliedProjectsIDs != null && projectsIDs.appliedProjectsIDs.includes(projectID)) {
+      if (projectsIDs.appliedProjectsIDs !== null && projectsIDs.appliedProjectsIDs.includes(projectID)) {
         return 'applied';
-      } else if (projectsIDs.bookmarkedProjectsIDs != null && projectsIDs.bookmarkedProjectsIDs.includes(projectID)) {
+      } else if (projectsIDs.bookmarkedProjectsIDs !== null && projectsIDs.bookmarkedProjectsIDs.includes(projectID)) {
         return 'bookmarked';
       } else if (projectsIDs.acceptedProjectsIDs !== null && projectsIDs.acceptedProjectsIDs.includes(projectID)) {
         return 'accepted';
@@ -285,18 +284,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         return 'declined';
       }
     }
-  }
-
-  delete(project: Project): void {
-    this.projectService
-      .delete(project.id)
-      .subscribe(
-      response => { // An error occurred SyntaxError: Unexpected end of JSON input
-        this.getProjects(this.p);
-        this.router.navigate(['/organization/list']);
-      },
-      error => console.log(error)
-      );
   }
 
   ngOnDestroy() {

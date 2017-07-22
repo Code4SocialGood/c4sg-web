@@ -1,8 +1,8 @@
 <div class="page-title">
-  <div *ngIf="projectId != 0">
+  <div *ngIf="!isCreate">
     <h1>Edit Project</h1>
   </div>
-  <div *ngIf="projectId == 0">
+  <div *ngIf="isCreate">
     <h1>Create Project</h1>
   </div>
 </div>
@@ -15,37 +15,58 @@
           <h4 class="col s12 m12 l12 image-title">Project Image</h4>
           <div class="col s12  m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
-              <img class="responsive-img" id="responsive-img" [src]="imageUrl" onError="this.src='../../assets/default_image.png'">
+              <img class="responsive-img" *ngIf="imageUrl" id="responsive-img" [src]="imageUrl">
+              <img class="responsive-img" *ngIf="!imageUrl" id="responsive-img" [src]="constantsService.defaultImage">
             </div>
             <div>
               <div class="input-field file-field row">
-                <button class="btn avatar-upload-button" [disabled]="projectId===0">Upload
+                <button class="btn waves-effect waves-light avatar-upload-button">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
                 </button>
               </div>
             </div>
           </div>
         </div>
+        <div class="row single-info" *ngIf="isOrgNew">
+          <hr>
+          <h4 class="col s12 m12 l12 highlight-title">Please complete My Organization information. Your organization will be reviewed before you can post projects.</h4>
+        </div>
+        <div class="row single-info" *ngIf="isOrgPending">
+          <hr>
+          <h4 class="col s12 m12 l12 highlight-title"> Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</h4>
+        </div> 
       </div>
     </div>
 
     <!-- Right Panel -->
     <div class="col s9 panel-background-color" id="right-col">
       <div class="content">
-        <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12">
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value, $event)" class="col s12" novalidate>
           <div class="row">
             <div class="content-title">Introduction</div>
-            <div class="input-field col s12" *ngIf="displayOrgField">
-              <input id="organizationId" type="number" class="validate" formControlName="organizationId">
-              <label for="organizationId">Organization Id <sup>&#10033;</sup></label>
+            <div class="input-field col s6">
+              <input id="name" type="text" formControlName="name" class="validate" required>
+              <label for="name" id="name-label">Project Name *</label>
+            </div>
+            <div class="row">
+              <div class="col s6">
+                <label for="jobTitleId">Role</label>
+                <div class="theme-select dropdown">
+                  <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+                    <option value=""  disabled selected>Choose Role</option>
+                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                    [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="input-field col s12">
-              <input id="name" type="text" class="validate" formControlName="name">
-              <label for="name">Project Name <sup>&#10033;</sup></label>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="description" class="materialize-textarea" formControlName="description" placeholder=""></textarea>
-              <label for="description">Project Description</label>
+              <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required
+                (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()" (blur)="onBlurDescription()">
+              </textarea>
+              <label for="description" id="desc-label">Project Description *
+                <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
+              </label>
             </div>
           </div>
           <div class="row">
@@ -69,22 +90,22 @@
                 <div class="row">
                   <div class="input-field col s6">
                     <input id="city" type="text" class="validate" formControlName="city">
-                    <label for="city">City</label>
+                    <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
                     <input id="state" type="text" class="validate" formControlName="state">
-                    <label for="state">State</label>
+                    <label for="state" id="state-label">State</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s12">
-                    <select id="country" class="" formControlName="country" materialize="material_select">
-                      <option value="" disabled>Choose country</option>
-                      <option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' +
-                        country.code + ')'}}
-                      </option>
-                    </select>
+                  <div class="col s12 m12">
                     <label for="country">Country</label>
+                    <div class="theme-select dropdown">
+                      <select id="country" formControlName="country" materialize="material_select">
+                        <option value="" disabled selected>Choose country</option>
+                        <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === project?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -97,17 +118,17 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s5">
-              <label for="skillSelect">Choose from below</label>
+            <div class="col s6">
+              <label for="skillSelect">Choose from popular skills below</label>
               <select id="skillSelect" class="" materialize="material_select" (change)="onAddListedSkill($event)">
-                  <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
-                </select>
-              
+                <option value="" disabled selected>Choose skills</option>
+                <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }}</option>
+              </select>
             </div>
-            <div class="col s7">
-              <div class="input-field col s7 skills-margin">
-                <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own</label>
-                <input id="newSkill" type="text" class="validate" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+            <div class="col s6">
+              <div class="input-field col s10 skills-margin">
+                <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
+                <input id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
@@ -115,11 +136,22 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col m12">
-              <div class="footer-btns center">
-                <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions">
+              <!-- Invalid input fields are underlined with red, the hints below are unnecessary
+              <div class="divider"></div>
+              <label for="saveBtn" class="red-text">
+                  <div *ngIf="projectForm.get('name').pristine && !projectForm.get('name').valid">
+                    Please enter Project Name
+                  </div>
+                  <div *ngIf="projectForm.get('description').pristine && !projectForm.get('description').valid">
+                    Please enter Project Description
+                  </div>
+              </label> -->
+              <div class="footer-btns center section">
+                <button class="btn waves-effect waves-light" id=saveBtn type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
+                  [materializeActions]="globalActions" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
                 </button>
               </div>

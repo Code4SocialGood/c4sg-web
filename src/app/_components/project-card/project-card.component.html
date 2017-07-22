@@ -29,21 +29,21 @@
               </div>
           </div>
       </div>
-        <div class="row info-row">
-          <div class="col s12">
-          <div class="card-metainfo col m6">
-            <p [routerLink]="['/organization/view/', project.organizationId]">{{
-              project.organizationName }}</p>
-          </div>
-          <div class="card-metainfo col m6">
-            <span class="state" *ngIf="project.state">{{project.state}}, </span>
-            <span class="state" *ngIf="project.country">{{project.country}}</span>
-            <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>
-            &nbsp;| &nbsp;
-            <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
-          </div>
-          </div>
+      <div class="row info-row">
+        <div class="col s12">
+        <div class="card-metainfo col m6 organization-name">
+          <p [routerLink]="['/organization/view/', project.organizationId]">{{
+            project.organizationName }}</p>
         </div>
+        <div class="card-metainfo col m6">
+          <span class="state" *ngIf="project.state">{{project.state}}, </span>
+          <span class="state" *ngIf="project.country">{{project.country}}</span>
+          <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>
+          &nbsp;| &nbsp;
+          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+        </div>
+        </div>
+      </div>
       </div>
       <div class="skills-tag-wrapper">
         <ul *ngIf="project.skills">

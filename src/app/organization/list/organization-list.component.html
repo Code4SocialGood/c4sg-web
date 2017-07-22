@@ -1,4 +1,6 @@
-<div class="page-title"><h1>Organizations</h1></div>
+<div class="page-title">
+  <h1>Organizations</h1>
+</div>
 <div class="container">
   <div class="row main-row">
     <div class="col m4" id="left-col">
@@ -15,25 +17,30 @@
                   </button>
                 </div>
               </div>
-           </div>
+            </div>
           </div>
           <div class="row">
             <div class="col s12">
               <div class="section">
                 <h4>Projects</h4>
-                <div class="section-body-projects">
-                  <input type="checkbox" id="openProject" formControlName="hasProjects"/>
-                  <label for="openProject">Has Open Projects</label>
+                <div class="section-body-organization">
+                  <div class="project-list">
+                    <div class="project-search-checkbox">
+                      <input class="filled-in" type="checkbox" id="openProject" formControlName="hasProjects" />
+                      <label for="openProject">Has Open Projects</label>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col s12">
               <div class="section">
-                <h4>Category</h4>
-                <div class="section-body-category">
-                  <div class="categories-list-wrapper">
+                <h4>Categories</h4>
+                <div class="section-body-skills">
+                  <div class="skills-list">
                     <ul formArrayName="categories">
                       <li *ngFor="let category of categories, let i = index">
                         <input class="filled-in" type="checkbox" [id]="category.name" formControlName="{{i}}">
@@ -52,7 +59,7 @@
     <div class="col m8 s12" *ngIf="organizations && from === 'organizations'" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
-          <h4 class="content-title">{{totalItems}} organizations found</h4>
+          <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No organizations', '=1': '1 organization', 'other': '# organizations'} }} found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="organizations">
               <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
@@ -71,7 +78,7 @@
                         <div class='name'>
                           <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
                         </div>
-                        <div class="row info-row">
+                        <div class="row">
                           <div class="card-metainfo col m6">
                             <p>{{org.projects}} projects</p>
                           </div>
@@ -90,7 +97,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="pagination"><!--
+          <div class="pagination">
+            <!--
             <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>-->
             <pagination-controls (pageChange)="getOrganizations(p = $event)" id="organizationsPages" autoHide="false"></pagination-controls>
           </div>
@@ -98,48 +106,114 @@
       </div>
     </div>
 
-    <div class="col m8 s12" *ngIf="organizations && from === 'approve'" id="right-col">
-      <div class="content" *ngIf="organizations">
-        <div class="row">
-          <h4 class="content-title">{{totalItems}} organizations found</h4>
-          <div class="items-list-wrapper">
-            <ul class="card-list" *ngIf="organizations">
-              <li class="card-wrapper" *ngFor="let org of organizations">
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-avatar-wrapper">
-                      <div class="card-avatar z-depth-2" *ngIf="org.logoUrl">
-                        <img class="card-avatar-content" [src]="org.logoUrl">
-                      </div>
-                      <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
-                        <img class="card-avatar-content" [src]="constantsService.defaultLogo">
-                      </div>
-                    </div>
-                    <div class="card-info">
-                      <div class="card-header">
-                        <div class='name'>
-                          <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
-                        </div>
-                        <div class="row info-row">
-                          <div class="card-metainfo col m6">
-                            <p>{{org.projects}} projects</p>
+    <!-- Review Organizations by Admin User-->
+    <div class="col m8 s12" *ngIf="from === 'approve'" id="right-col">
+      <ul class="collapsible popout" data-collapsible="accordion" materialize="collapsible">
+        <!-- Pending Organizations -->
+        <li>
+          <div  class="collapsible-header active">
+            <h4 class="content-title">Pending Organizations</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
+              <div class="col s12">
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="pendingOrganizations">
+                    <li class="card-wrapper" *ngFor="let org of pendingOrganizations">
+                      <div class="card">
+                        <div class="card-content">
+                          <div class="card-avatar-wrapper">
+                            <div class="card-avatar z-depth-2" *ngIf="org.logoUrl">
+                              <img class="card-avatar-content" [src]="org.logoUrl">
+                            </div>
+                            <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
+                              <img class="card-avatar-content" [src]="constantsService.defaultLogo">
+                            </div>
                           </div>
-                          <div class="card-metainfo col m6">
-                            <span class="state" *ngIf="org.state">{{org.state}}, </span>
-                            <span class="state">{{org.country}}</span>
+                          <div class="card-info">
+                            <div class="card-header">
+                              <div class='name'>
+                                <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                              </div>
+                              <div class="row">
+                                <div class="card-metainfo col m6">
+                                  <p>{{org.projects}} projects</p>
+                                </div>
+                                <div class="card-metainfo col m6">
+                                  <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                                  <span class="state">{{org.country}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
                           </div>
                         </div>
                       </div>
-                      <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
-                    </div>
+                    </li>
+                  </ul>                
+                </div>
+                <div class="row" *ngIf="pendingOrganizations && pendingOrganizations.length == 0">
+                  <div class="col s12">
+                    <div class="info">No organizations found</div>
                   </div>
                 </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </li>
+        <!-- Declined Organizations -->
+        <li>
+          <div  class="collapsible-header active">
+            <h4 class="content-title">Declined Organizations</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
+              <div class="col s12">
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="declinedOrganizations">
+                    <li class="card-wrapper" *ngFor="let org of declinedOrganizations">
+                      <div class="card">
+                        <div class="card-content">
+                          <div class="card-avatar-wrapper">
+                            <div class="card-avatar z-depth-2" *ngIf="org.logoUrl">
+                              <img class="card-avatar-content" [src]="org.logoUrl">
+                            </div>
+                            <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
+                              <img class="card-avatar-content" [src]="constantsService.defaultLogo">
+                            </div>
+                          </div>
+                          <div class="card-info">
+                            <div class="card-header">
+                              <div class='name'>
+                                <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                              </div>
+                              <div class="row">
+                                <div class="card-metainfo col m6">
+                                  <p>{{org.projects}} projects</p>
+                                </div>
+                                <div class="card-metainfo col m6">
+                                  <span class="state" *ngIf="org.state">{{org.state}}, </span>
+                                  <span class="state">{{org.country}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="description" *ngIf="org && org.description">{{ org && org.description | slice:0:200 }} ...</p>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>                
+                </div>
+                <div class="row" *ngIf="declinedOrganizations && declinedOrganizations.length == 0">
+                  <div class="col s12">
+                    <div class="info">No organizations found</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>  
     </div>
-
   </div>
 </div>

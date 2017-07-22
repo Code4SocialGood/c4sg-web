@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
+import { JobTitle } from '../../job-title';
 import { Project } from './project';
 import { environment } from '../../../environments/environment';
 
@@ -18,6 +19,8 @@ export class ProjectService {
 
   searchProjects(
     keyword?: string,
+    // jobTitle?: number,
+    jobTitles?: number[],
     skills?: string[],
     status?: string,
     remote?: string,
@@ -27,6 +30,16 @@ export class ProjectService {
 
     if (keyword) {
       params.append('keyWord', keyword);
+    }
+
+    // if (jobTitle) {
+      // params.append('jobTitle', String(jobTitle));
+    // }
+
+    if (jobTitles) {
+      for (let i = 0; i < jobTitles.length; i++) {
+        params.append('jobTitles', String(jobTitles[i]));
+      }
     }
 
     if (skills) {
@@ -78,6 +91,14 @@ export class ProjectService {
     return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
   }
 
+  public getAllJobTitles(): Observable<JobTitle[]> {
+    const url = projectUrl + '/jobTitles';
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as JobTitle[]; })
+               .catch(this.handleError);
+  }
+
   add(project: Project): Observable<{ project: Project }> {
     return this.http.post(
       `${projectUrl}`,
@@ -93,11 +114,6 @@ export class ProjectService {
   }
 
   update(project: Project) {
-    // const url = projectUrl + '/' + project.id;
-    // return this.http
-    //  .put(url, project, {headers: this.headers})
-    //  .map((res: Response) => res.json())
-    //  .catch(this.handleError);
 
     return this.http.put(
       `${projectUrl}/${project.id}`,
@@ -154,36 +170,4 @@ export class ProjectService {
     return this.http
       .put(`${projectUrl}/${id}/image`, '', requestOptions);
   }
-
-  /*
-  retrieveImage(id: number) {
-    const url = projectUrl + '/' + id + '/image';
-    return this.http
-      .get(url);
-  }
-
-  add(project: Project): Observable<{project: Project}> {
-    const url = projectUrl;
-    return this.http
-      .post(url, project, {headers: this.headers})
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
-  }
-
-  getActiveProjects(): Observable<Project[]> {
-
-    const url = projectUrl + '/search';
-
-    return this.http.get(url)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  getProjects(): Observable<Project[]> {
-    return this.http
-      .get(projectUrl)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-  */
 }
