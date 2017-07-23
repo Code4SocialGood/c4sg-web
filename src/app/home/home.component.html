@@ -3,7 +3,7 @@
   <div class="slider" materialize="slider">
     <ul class="slides">
       <li>        
-        <div class="action">
+        <div class="action_volunteer">
           <div id="aniSlogan">
             It doesn't matter if you
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
@@ -30,12 +30,28 @@
       </li>
 
       <li>
-        <div class="action_org">
-          <div class="orgs">
-            <h1>For Organizations</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod excepturi dolorum sapiente minus quo cupiditate similique dolor dignissimos consequatur, ullam autem deserunt magnam!</p>
+        <div class="action_organization">
+          <div id="aniSlogan">
+            Stay connected to
+            <br> make a difference for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
           </div>
-        </div>
+          <div>
+            <td>
+              Login to Post Projects
+            </td>
+            <td>
+              <button  [@buttonState]="state"
+                       (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
+                       routerLink="/project/list/projects"
+                       (mouseover)="toggleState()"
+                       (mouseout)="toggleState()"
+                       class="btn waves-effect waves-light #84c44c search_button">
+                  <i  class="large material-icons transparent" >search</i>
+              </button>
+            </td>
+          </div>     
+        </div>             
       </li>
     </ul>
   </div>
