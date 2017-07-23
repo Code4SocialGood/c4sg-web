@@ -230,10 +230,12 @@ export class ProjectViewComponent implements OnInit {
                     } else if (status === 'C') {
                     this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
                     applicant.applicationStatus = 'C';
+                    this.projectStatusApplied = true;
 
                   } else if (status === 'D') {
                     this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
                       applicant.applicationStatus = 'D';
+                      this.projectStatusApplied = true;
                   }
                     this.router.navigate(['/project/view', this.project.id]);
                 },
