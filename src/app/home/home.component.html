@@ -1,28 +1,46 @@
 <div class="home-wrapper">
-  <div class="action">
-    <div id="aniSlogan">
-      It doesn't matter if you
-      <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-      <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
-    </div>
-    <div class="input-field">
-      <td class="input-field">
-        <input #projectName id="name" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value='';" type="text"
-          class="input-pre">
-        <label for="name">Project Keyword</label>
-      </td>
-      <td>
-        <button  [@buttonState]="state"
-                 (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
-                 routerLink="/project/list/projects"
-                 (mouseover)="toggleState()"
-                 (mouseout)="toggleState()"
-                 class="btn waves-effect waves-light #84c44c search_button">
-            <i  class="large material-icons transparent" >search</i>
-        </button>
-      </td>
-      <div>
-      </div>
-    </div>
+   <div class="slider fullscreen" materialize="slider">
+    <ul class="slides">
+      <li class="slide">
+        
+        <div class="action">
+          <div id="aniSlogan">
+            It doesn't matter if you
+            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+          </div>
+          <div class="input-field">
+            <td class="input-field">
+              <input #projectName id="name" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value='';" type="text"
+                class="input-pre">
+              <label for="name">Project Keyword</label>
+            </td>
+            <td>
+              <button  [@buttonState]="state"
+                       (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
+                       routerLink="/project/list/projects"
+                       (mouseover)="toggleState()"
+                       (mouseout)="toggleState()"
+                       class="btn waves-effect waves-light #84c44c search_button">
+                  <i  class="large material-icons transparent" >search</i>
+              </button>
+            </td>
+          </div>
+        </div>
+
+      </li>
+
+      <li class="slide">
+        
+        <div class="action_org">
+          <div class="orgs">
+            <h1>For Organizations</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod excepturi dolorum sapiente minus quo cupiditate similique dolor dignissimos consequatur, ullam autem deserunt magnam!</p>
+          </div>
+        </div>
+
+      </li>
+
+    </ul>
   </div>
 </div>
