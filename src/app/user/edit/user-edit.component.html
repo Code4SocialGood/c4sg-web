@@ -202,23 +202,13 @@
             <div class="row">
               <div class="col m12">
                 <div class="footer-btns center">
-                  <button class="btn waves-effect waves-light" type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions" [disabled]="!userForm.valid">
-                  Save
-                  </button>
+                  <button class="btn waves-effect waves-light" type="submit" [disabled]="!userForm.valid">Save</button>
+                  <button class="btn waves-effect waves-light" type="submit" (click)="onDeleteAccount()">Delete</button>
                 </div>
               </div>
             </div>
           </div>
         </form>
-		  
-		<div class="section">
-			<div class="footer-btns center">
-				<button class="btn waves-effect waves-light" type="submit" id="delete" materialize (click)="onDeleteAccount()">
-				  Delete Account
-				</button>
-			</div>
-		</div>
       </div>
     </div>
   </div>

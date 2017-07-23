@@ -213,7 +213,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     this.userService.update(this.user)
       .subscribe(() => {
-        this.globalActions.emit('toast');
+        Materialize.toast('Your account is saved', 4000);
         this.router.navigate(['/user/view', this.user.id]);
       },
         err => { console.error(err, 'An error occurred'); }
@@ -305,7 +305,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
             this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');
         } else {
           console.error('Saving user avatar: Not expecting a response body');
         }}, (e) => {
@@ -314,9 +313,17 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onDeleteAccount() {
-  	// console.log("test id " + this.userId);
-    this.userService.delete(this.userId);
+
+    this.userService.delete(this.userId)
+      .subscribe(() => {
+        Materialize.toast('Your account is deleted', 4000);
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
+        err => { console.error(err, 'An error occurred'); }
+      );
   }
+
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     // User edit page is customized based on user role, need to check element existance first
