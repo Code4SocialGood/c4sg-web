@@ -180,12 +180,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     if (this.routeSubscription) { this.routeSubscription.unsubscribe(); }
   }
 
-  /*
   openModal() {
     this.modalActions.emit({action: 'modal', params: ['open']});
   }
 
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
-  }*/
+  }
 }
