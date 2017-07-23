@@ -152,7 +152,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
-        this.isOrgActive = true; // Org must be active so that a project could be created  
+        this.isOrgActive = true; // Org must be active so that a project could be created
       }
     });
   }
