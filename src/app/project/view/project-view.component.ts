@@ -220,79 +220,31 @@ export class ProjectViewComponent implements OnInit {
             .linkUserProject(this.project.id, userId, status)
             .subscribe(
                 response => {
-                    // display toast
-                    if (status === 'A') {
-                      this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
-                      this.projectStatusApplied = true;
-                    } else if (status === 'B') {
-                      this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
-                      this.projectStatusBookmarked = true;
-                    } else if (status === 'C') {
+                  // display toast
+                  if (status === 'A') {
+                    this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
+                    this.projectStatusApplied = true;
+                  } else if (status === 'B') {
+                    this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
+                    this.projectStatusBookmarked = true;
+                  } else if (status === 'C') {
                     this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
                     applicant.applicationStatus = 'C';
-
                   } else if (status === 'D') {
                     this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-                      applicant.applicationStatus = 'D';
+                    applicant.applicationStatus = 'D';
                   }
                     this.router.navigate(['/project/view', this.project.id]);
                 },
                 error => {
-                    // display error toast
                     this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
                 }
             );
     } else {
-        localStorage.setItem('redirectAfterLogin', this.router.url);
-       this.authService.login();
+      localStorage.setItem('redirectAfterLogin', this.router.url);
+      this.authService.login();
     }
-}
-
-  // apply(): void {
-  //   this.userProjectStatus = 'A';
-  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-  //     debugger;
-  //       this.projectService
-  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-  //           .subscribe(
-  //               response => {
-  //                   // display toast
-  //                   this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
-  //                   this.projectStatusApplied = true;
-  //               },
-  //               error => {
-  //                   // display toast when bookmar is already added
-  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-  //               }
-  //           );
-  //   } else {
-  //       localStorage.setItem('redirectAfterLogin', this.router.url);
-  //       this.authService.login();
-  //   }
-  // }
-
-  // bookmark(): void {
-  //   // check if user is logged in
-  //   this.userProjectStatus = 'B';
-  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-  //       this.projectService
-  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-  //           .subscribe(
-  //               response => {
-  //                   // display toast
-  //                 this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-  //                 this.projectStatusBookmarked = true;
-  //               },
-  //               error => {
-  //                   // display toast when bookmar is already added
-  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-  //               }
-  //           );
-  //   } else {
-  //       localStorage.setItem('redirectAfterLogin', this.router.url);
-  //       this.authService.login();
-  //   }
-  // }
+  }
 
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
