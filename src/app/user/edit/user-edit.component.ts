@@ -109,14 +109,12 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
           if (this.user.publishFlag === 'Y') {
             this.checkPublish = true;
-          }
-          else {
+          } else {
             this.checkPublish = false;
           }
           if (this.user.notifyFlag === 'Y') {
             this.checkNotify = true;
-          }
-          else {
+          } else {
             this.checkNotify = false;
           }
           this.fillForm();
