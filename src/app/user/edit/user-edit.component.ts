@@ -313,6 +313,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  onDeleteAccount() {
+  	// console.log("test id " + this.userId);
+    this.userService.delete(this.userId);
+  }
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     // User edit page is customized based on user role, need to check element existance first
