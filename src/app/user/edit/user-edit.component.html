@@ -187,6 +187,19 @@
             <div class="section">
               <div class="row">
                 <div class="col l6 m12 s12">
+                  <input *ngIf="checkPublish" id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="true" value="true">
+                  <input *ngIf="!checkPublish" id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="false" value="false">
+                  <label for="publishFlag">Publish me on the web site</label>
+                </div>
+
+                <div class="col l6 m12 s12">
+                  <input *ngIf="checkNotify" id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="true" value="true">
+                  <input *ngIf="!checkNotify" id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="false" value="false">
+                  <label for="notifyFlag">Notify me on new projects</label>
+                </div>
+              </div>
+             <!-- <div class="row">
+                <div class="col l6 m12 s12">
                   <input id="publishFlag" type="checkbox" formControlName="publishFlag" [checked]="checkPublish">
                   <label for="publishFlag">Publish me on the web site</label>
                 </div>
@@ -194,7 +207,7 @@
                   <input id="notifyFlag" type="checkbox" formControlName="notifyFlag" [checked]="checkNotify">
                   <label for="notifyFlag">Notify me on new projects</label>
                 </div>
-              </div>
+              </div>-->
             </div>
           </div>
 
