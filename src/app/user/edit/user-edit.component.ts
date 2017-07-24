@@ -106,15 +106,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
-            this.fillForm();
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
+            } else {
+             this.checkPublish = false;
             }
 
             if (this.user.notifyFlag === 'Y' ) {
               this.checkNotify = true;
+            } else {
+            this.checkNotify = false;
             }
+
+            this.fillForm();
           }, error => console.log(error)
         );
 
@@ -171,8 +176,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
       'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
+      'publishFlag': [this.checkPublish || '', []],
+      'notifyFlag': [this.checkNotify || '', []]
     });
   }
 
