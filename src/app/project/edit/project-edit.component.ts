@@ -151,6 +151,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.projectSkillsArray = resSkillsProjects;
             }, error => console.log(error)
           );
+
+        this.isOrgActive = true; // Org must be active so that a project could be created
       }
     });
   }
@@ -221,7 +223,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           .updateProjectSkills(this.projectSkillsArray, this.project.id)
           .subscribe(result => {
             this.router.navigate(['/project/view/' + this.project.id]);
-            Materialize.toast('Your changes have been saved', 4000);
+            Materialize.toast('The project is saved', 4000);
           }, error => console.log(error));
       });
   }

@@ -51,13 +51,9 @@
           <div class="col m12">
             <div class="col s12 action-btns">
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
-              <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
-              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="approve()"  materialize [materializeParams]="['The organization is approved',4000]" [materializeActions]="globalActions">
-                Approve
-              </button>
-              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="decline()"  materialize [materializeParams]="['The organization is declined',4000]" [materializeActions]="globalActions">
-                Decline
-              </button>
+              <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
+              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="approve()">Approve</button>
+              <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="decline()">Decline</button>
             </div>
           </div>
         </div>

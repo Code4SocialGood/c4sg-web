@@ -150,10 +150,9 @@
                   </div>
               </label> -->
               <div class="footer-btns center section">
-                <button class="btn waves-effect waves-light" id=saveBtn type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions" [disabled]="!projectForm.valid || !isOrgActive">
+                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
-                </button>
+                </button>                
               </div>
             </div>
           </div>
