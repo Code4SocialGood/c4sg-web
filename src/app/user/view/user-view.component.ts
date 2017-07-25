@@ -93,7 +93,7 @@ export class UserViewComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        console.error(error, 'An error occurred'); 
+        console.error(error, 'An error occurred');
         Materialize.toast('Error deleting the user', 4000);
       }
       );
