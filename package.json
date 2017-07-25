@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "engines": {
-    "node": "7.10.0",
-    "npm": "4.6.1"
+    "node": "8.1.x",
+    "npm": "5.3.x"
   },
   "scripts": {
     "ng": "ng",

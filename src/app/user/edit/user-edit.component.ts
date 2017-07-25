@@ -56,6 +56,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -106,15 +107,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
-            this.fillForm();
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
+            } else {
+             this.checkPublish = false;
             }
 
             if (this.user.notifyFlag === 'Y' ) {
               this.checkNotify = true;
+            } else {
+            this.checkNotify = false;
             }
+
+            this.fillForm();
           }, error => console.log(error)
         );
 
@@ -171,8 +177,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
       'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
+      'publishFlag': [this.checkPublish || '', []],
+      'notifyFlag': [this.checkNotify || '', []]
     });
   }
 
@@ -312,16 +318,27 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  onDeleteAccount() {
+  onDelete() {
 
     this.userService.delete(this.userId)
       .subscribe(() => {
-        Materialize.toast('Your account is deleted', 4000);
+        Materialize.toast('The user is deleted', 4000);
         this.auth.logout();
         this.router.navigate(['/']);
       },
-        err => { console.error(err, 'An error occurred'); }
+        err => {
+          console.error(err, 'An error occurred');
+          Materialize.toast('Error deleting the user', 4000);
+        }
       );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   ngAfterViewChecked(): void {

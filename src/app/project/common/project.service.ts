@@ -127,7 +127,8 @@ export class ProjectService {
     const acceptedProjectsIDs = localStorage.getItem('acceptedProjectsIDs');
     const declinedProjectsIDs = localStorage.getItem('declinedProjectsIDs');
     return {
-      'bookmarkedProjectsIDs': bookmarkedProjectsIDs, 'appliedProjectsIDs': appliedProjectsIDs,
+      'bookmarkedProjectsIDs': bookmarkedProjectsIDs,
+      'appliedProjectsIDs': appliedProjectsIDs,
       'acceptedProjectsIDs': acceptedProjectsIDs,
       'declinedProjectsIDs': declinedProjectsIDs
     };

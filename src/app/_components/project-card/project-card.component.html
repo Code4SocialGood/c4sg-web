@@ -27,6 +27,22 @@
                   <span>Bookmarked</span>
                 </div>
               </div>
+              <div class="col s12" *ngIf="userProjectStatus === 'accepted' && from!=='myProjects'">
+                <div class="project-marked">
+                  <svg class="icon icon-bookmarked">
+                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                  </svg>
+                  <span>Accepted</span>
+                </div>
+              </div>
+              <div class="col s12" *ngIf="userProjectStatus === 'declined' && from!=='myProjects'">
+                <div class="project-marked">
+                  <svg class="icon icon-bookmarked">
+                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                  </svg>
+                  <span>Declined</span>
+                </div>
+              </div>                            
           </div>
       </div>
       <div class="row info-row">

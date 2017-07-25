@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="right">
-                <div class="row" *ngIf="projectStatusApplied">
+                <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
                   <div class="col s12">
                     <div class="project-marked">
                       <svg class="icon">
@@ -57,6 +57,26 @@
                     </div>
                   </div>
                 </div>
+                <div class="row" *ngIf="projectStatusAccepted">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>
+                      <span>Accepted</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="projectStatusDeclined">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>
+                      <span>Declined</span>
+                    </div>
+                  </div>
+                </div>                                
               </div>
             </div>
             <div class="row">
@@ -101,7 +121,7 @@
               <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayEdit" (click)="edit()">Edit
               </button>
-              <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayDelete" (click)="openModal(project)">Close
+              <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal(project)">Close
               </button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
               Delete</button>-->
@@ -228,13 +248,13 @@
   </div>
 </div>
 
-<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">
-    <h4>Confirm Project Deletion</h4>
-    <p>Are you sure you want to delete the project?</p>
+    <h4>Confirm Project Close</h4>
+    <p>Are you sure you want to close the project?</p>
   </div>
   <div class="modal-footer">
     <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Yes</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="onClose()">Yes</a>
   </div>
 </div>

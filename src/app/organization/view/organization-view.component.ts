@@ -28,7 +28,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   categoryName: string;
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
   displayShare = true;
