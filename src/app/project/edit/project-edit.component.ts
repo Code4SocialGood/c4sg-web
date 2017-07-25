@@ -48,6 +48,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isOrgNew = false;
   public isOrgPending = false;
   public isOrgActive = false;
+  public displayClose = false;
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
@@ -55,7 +56,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public descFieldFocused = false;
 
   public projectForm: FormGroup;
+
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -141,6 +144,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.project = resProject;
               this.imageUrl = this.project.imageUrl;
               this.fillForm();
+              if (this.project.status === 'A') {
+                this.displayClose = true;
+              }
             }, error => console.log(error)
           );
 
@@ -319,6 +325,29 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     if (!this.projectForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
+  }
+
+  onClose(): void {
+    this.projectService
+      .delete(this.project.id)
+      .subscribe(
+        response => {
+          Materialize.toast('The project is closed', 4000);
+          this.router.navigate(['/project/view', this.project.id]);
+        },
+        error => {
+          console.log(error);
+          Materialize.toast('Error closing the project', 4000);
+        }
+      );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
 }

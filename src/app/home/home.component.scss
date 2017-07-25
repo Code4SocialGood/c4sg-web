@@ -50,6 +50,10 @@
     -o-background-size: cover;
     background-size: cover;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 99vh;
     text-align: center;
 }

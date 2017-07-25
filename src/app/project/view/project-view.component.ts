@@ -14,6 +14,8 @@ import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
+declare const Materialize: any;
+
 @Component({
   selector: 'my-view-project',
   providers: [AuthService],
@@ -31,25 +33,26 @@ export class ProjectViewComponent implements OnInit {
   numberOfProjects: number;
   params: Params;
   currentUserId: string;
-  globalActions = new EventEmitter<string|MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   // userProjectStatus: string;
 
   auth: AuthService;
   categoryName: string;
 
+  globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
   displayShare = true;
   displayApply = false;
   displayBookmark = false;
   displayEdit = false;
-  displayDelete = false;
+  displayClose = false;
   displayApplicants = false;
 
   userProfileIncomplete = false;
   projectStatusApplied = false;
   projectStatusBookmarked = false;
+  projectStatusAccepted = false;
+  projectStatusDeclined = false;
 
   applicants: Applicant[];
 
@@ -166,14 +169,20 @@ export class ProjectViewComponent implements OnInit {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
-
         // if user applied or bookmarked this project, disable the apply/bookmark button
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
+
+        if (projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusApplied = true;
         }
-        if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+        if (projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusBookmarked = true;
+        }
+        if (projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusAccepted = true;
+        }
+        if (projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusDeclined = true;
         }
 
         // If user profile hasn't complete, user can't apply
@@ -193,22 +202,24 @@ export class ProjectViewComponent implements OnInit {
             organization = res[0];
             if ((organization !== undefined) && (organization.id === Number(this.project.organizationId))) {
               this.displayEdit = true;
-              this.displayDelete = true;
+              this.displayClose = true;
               this.displayApplicants = true;
             }
             if (this.project.status === 'C') {
-              this.displayDelete = false;
+              this.displayClose = false;
+              this.displayShare = false;
             }
           },
           error => console.log(error)
         );
       } else if (this.authService.isAdmin()) {
         this.displayEdit = true;
-        this.displayDelete = true;
+        this.displayClose = true;
         this.displayApplicants = true;
         if (this.project.status === 'C') {
-              this.displayDelete = false;
-            }
+          this.displayClose = false;
+          this.displayShare = false;
+        }
       }
     }
   }
@@ -250,17 +261,20 @@ export class ProjectViewComponent implements OnInit {
     this.router.navigate(['project/edit', this.project.id]);
   }
 
-  delete(): void {
+  onClose(): void {
     this.projectService
       .delete(this.project.id)
       .subscribe(
         response => {
-          this.router.navigate(['project/list/projects']);
-          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
+          Materialize.toast('The project is closed', 4000);
+          this.project.status = 'C';
+          this.displayClose = false;
+          this.displayShare = false;
+          this.router.navigate(['/project/view', this.project.id]);
         },
         error => {
+            Materialize.toast('Error closing the project', 4000);
             console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
         }
       );
   }

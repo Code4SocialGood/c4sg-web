@@ -240,6 +240,18 @@ export class AuthService {
             localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
           },
           error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
+          res => {
+            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
+          res => {
+            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
+          },
+          error => console.log(error));
       }
     }
 
