@@ -56,7 +56,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  public modalActions = new EventEmitter<string|MaterializeAction>();  
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -326,8 +326,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.auth.logout();
         this.router.navigate(['/']);
       },
-        err => { 
-          console.error(err, 'An error occurred'); 
+        err => {
+          console.error(err, 'An error occurred');
           Materialize.toast('Error deleting the user', 4000);
         }
       );
