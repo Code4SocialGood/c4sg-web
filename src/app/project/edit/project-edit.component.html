@@ -13,6 +13,10 @@
       <div class="content sidebar-wrapper">
         <div class="row single-info">
           <h4 class="col s12 m12 l12 image-title">Project Image</h4>
+          <div class = "col offset-s8 offset-m8 offset-l8">
+            <a *ngIf="imageUrl" class="btn-small btn-floating grey" (click)="deleteImage()"><i
+              class="icon-small material-icons center-align">close</i></a>
+          </div>
           <div class="col s12  m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
               <img class="responsive-img" *ngIf="imageUrl" id="responsive-img" [src]="imageUrl">
@@ -34,7 +38,7 @@
         <div class="row single-info" *ngIf="isOrgPending">
           <hr>
           <h4 class="col s12 m12 l12 highlight-title"> Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</h4>
-        </div> 
+        </div>
       </div>
     </div>
 
@@ -54,7 +58,7 @@
                 <div class="theme-select dropdown">
                   <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
                     <option value=""  disabled selected>Choose Role</option>
-                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id"
                     [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
                 </div>
@@ -152,7 +156,7 @@
               <div class="footer-btns center section">
                 <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
-                </button>             
+                </button>
                 <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal()">Close
                 </button>
               </div>

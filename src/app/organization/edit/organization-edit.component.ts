@@ -169,6 +169,18 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  deleteImage() {
+    this.logoUrl = '';
+    this.organizationService.saveLogoImg(this.organizationId, this.logoUrl)
+      .subscribe(res => {
+          this.organization.logoUrl = this.logoUrl;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
   // Count chars in description field
   onCountCharDesc() {
     this.descValueLength = this.organizationForm.value.description.length;

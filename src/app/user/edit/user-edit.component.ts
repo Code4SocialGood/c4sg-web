@@ -318,6 +318,18 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  deleteImage(): void {
+    this.avatar = '';
+    this.userService.saveAvatarImg(this.userId, this.avatar)
+      .subscribe(res => {
+          this.user.avatarUrl = this.avatar;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
   onDelete() {
 
     this.userService.delete(this.userId)
