@@ -41,7 +41,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  public modalActions = new EventEmitter<string|MaterializeAction>();  
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
