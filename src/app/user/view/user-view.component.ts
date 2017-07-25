@@ -11,6 +11,8 @@ import { ProjectService} from '../../project/common/project.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
+declare var Materialize: any;
+
 @Component({
   // moduleId: module.id,
   selector: 'my-view-user',
@@ -27,7 +29,6 @@ export class UserViewComponent implements OnInit {
   displayEdit = false;
   displayDelete = false;
   globalActions = new EventEmitter<string | MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string | MaterializeAction>();
   modalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
@@ -87,16 +88,17 @@ export class UserViewComponent implements OnInit {
       .delete(this.user.id)
       .subscribe(
       response => {
-        this.router.navigate(['user/list']);
-        this.deleteGlobalActions.emit({ action: 'toast', params: ['User deleted successfully', 4000] });
-        // TODO log user out
+        Materialize.toast('The user is deleted', 4000);
+        this.authService.logout();
+        this.router.navigate(['/']);
       },
       error => {
-        console.log(error);
-        this.deleteGlobalActions.emit({ action: 'toast', params: ['Error while deleting a user', 4000] });
+        console.error(error, 'An error occurred'); 
+        Materialize.toast('Error deleting the user', 4000);
       }
       );
   }
+
   getProjects(id: number) {
     this.projectService.getProjectByUser(id, 'C').subscribe(
       res => {

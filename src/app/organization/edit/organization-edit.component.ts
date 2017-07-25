@@ -41,6 +41,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();  
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -202,28 +203,28 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('desc-label').classList.add('active');
   }
 
-  /* Obsolete - Organization is always created when organization user registers.
-  private createOrganization(): void {
+  onDelete(): void {
     this.organizationService
-      .createOrganization(this.organizationForm.value)
-      .flatMap(res => {
-        this.organization = res.organization;
-
-        // additionalCalls that need to be made AFTER the org is saved
-        // This includes the call to link the user and the organization
-        const additionalCalls = [
-          this.organizationService
-            .linkUserOrganization(this.currentUserId, this.organization.id)
-        ];
-
-        return Observable.forkJoin(additionalCalls);
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/organization/view/' + this.organization.id]);
-      });
+      .delete(this.organization.id)
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/list/organizations']);
+          Materialize.toast('The organization is deleted', 4000);
+        },
+        error => {
+          console.log(error);
+          Materialize.toast('Error deleting the organiation', 4000);
+        }
+      );
   }
-  */
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
 
   /* Obsolete - No Validation on website url
   urlValidator(control: FormControl): { [s: string]: boolean } {

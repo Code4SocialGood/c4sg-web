@@ -152,12 +152,25 @@
               <div class="footer-btns center section">
                 <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
-                </button>                
+                </button>             
+                <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal()">Close
+                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm Project Close</h4>
+    <p>Are you sure you want to close the project?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="onClose()">Yes</a>
   </div>
 </div>
