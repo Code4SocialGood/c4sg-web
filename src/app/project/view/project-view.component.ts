@@ -51,6 +51,8 @@ export class ProjectViewComponent implements OnInit {
   userProfileIncomplete = false;
   projectStatusApplied = false;
   projectStatusBookmarked = false;
+  projectStatusAccepted = false;
+  projectStatusDeclined = false;
 
   applicants: Applicant[];
 
@@ -167,14 +169,20 @@ export class ProjectViewComponent implements OnInit {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
-
         // if user applied or bookmarked this project, disable the apply/bookmark button
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
+
+        if (projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusApplied = true;
         }
-        if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+        if (projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusBookmarked = true;
+        }
+        if (projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusAccepted = true;
+        }
+        if (projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusDeclined = true;
         }
 
         // If user profile hasn't complete, user can't apply

@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="right">
-                <div class="row" *ngIf="projectStatusApplied">
+                <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
                   <div class="col s12">
                     <div class="project-marked">
                       <svg class="icon">
@@ -57,6 +57,26 @@
                     </div>
                   </div>
                 </div>
+                <div class="row" *ngIf="projectStatusAccepted">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>
+                      <span>Accepted</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="projectStatusDeclined">
+                  <div class="col s12">
+                    <div class="project-marked">
+                      <svg class="icon">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>
+                      <span>Declined</span>
+                    </div>
+                  </div>
+                </div>                                
               </div>
             </div>
             <div class="row">
