@@ -106,7 +106,7 @@
               <input [maxlength]="100" class="theme-input" id="title" type="text" formControlName="title" required>
               <label for="title" id="title-label">Title *</label>
             </div>
-            <div class="input-field col s6">
+            <div *ngIf="isVolunteer" class="input-field col s6">
               <div class="theme-select">
                 <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
                    <option value="0">Choose Role</option>
