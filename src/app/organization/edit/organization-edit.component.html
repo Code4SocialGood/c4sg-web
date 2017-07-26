@@ -8,6 +8,10 @@
       <div class="content sidebar-wrapper">
         <div class="row single-info">
           <h4 class="col s12 m12 l12 image-title">Organization Logo</h4>
+          <div class = "col offset-s8 offset-m8 offset-l8">
+            <a *ngIf="logoUrl" class="btn-small btn-floating grey" (click)="deleteImage()"><i
+              class="icon-small material-icons center-align">close</i></a>
+          </div>
           <div class="col s12 m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
               <img class="responsive-img" *ngIf="logoUrl" id="responsive-img" [src]="logoUrl">
@@ -64,7 +68,7 @@
                 <input type="text" id="city" class="" formControlName="city">
                 <label for="city" id="city-label">City</label>
               </div>
-              <div class="input-field">                
+              <div class="input-field">
                 <select id="country" class="" formControlName="country" materialize="material_select">
                   <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
@@ -124,7 +128,7 @@
               <div class="divider"></div>
               <label for="saveBtn" class="red-text">
                   <div *ngIf="organizationForm.get('name').pristine && !organizationForm.get('name').valid">
-                    Please enter Organization Name 
+                    Please enter Organization Name
                   </div>
                   <div *ngIf="organizationForm.get('category').pristine && !organizationForm.get('category').valid">
                     Please enter Category

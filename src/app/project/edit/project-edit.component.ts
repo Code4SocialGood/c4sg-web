@@ -298,6 +298,19 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  deleteImage() {
+    this.imageUrl = '';
+    this.projectService.saveProjectImg(this.projectId, this.imageUrl)
+      .subscribe(res => {
+          this.project.imageUrl = this.imageUrl;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
+
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     document.getElementById('name-label').classList.add('active');
