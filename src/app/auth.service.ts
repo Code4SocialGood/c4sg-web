@@ -204,7 +204,7 @@ export class AuthService {
   }
 
   public setlocalStorageItems() {
-    console.log('************SetLocalStorageItems for the user');
+    // console.log('************SetLocalStorageItems for the user');
     this.currentUserId = this.getCurrentUserId();
     if (this.authenticated() && this.currentUserId != null) {
       // this.currentUserId = this.getCurrentUserId();
