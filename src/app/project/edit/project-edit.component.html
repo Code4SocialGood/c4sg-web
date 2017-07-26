@@ -49,7 +49,7 @@
           <div class="row">
             <div class="content-title">Introduction</div>
             <div class="input-field col s6">
-              <input id="name" type="text" formControlName="name" class="validate" required>
+              <input [maxlength]="100" id="name" type="text" formControlName="name" class="validate" required>
               <label for="name" id="name-label">Project Name *</label>
             </div>
             <div class="row">
@@ -93,11 +93,11 @@
               <div [ngClass]="{disabled: projectForm.controls.remoteFlag.value === 'Y'}">
                 <div class="row">
                   <div class="input-field col s6">
-                    <input id="city" type="text" class="validate" formControlName="city">
+                    <input [maxlength]="100" id="city" type="text" class="validate" formControlName="city">
                     <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input id="state" type="text" class="validate" formControlName="state">
+                    <input [maxlength]="100" id="state" type="text" class="validate" formControlName="state">
                     <label for="state" id="state-label">State</label>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
             <div class="col s6">
               <div class="input-field col s10 skills-margin">
                 <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
-                <input id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+                <input [maxlength]="100" id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
