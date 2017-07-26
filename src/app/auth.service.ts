@@ -1,14 +1,21 @@
-import { Router,
-         ActivatedRouteSnapshot,
-         RouterStateSnapshot } from '@angular/router';
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from '@angular/router';
 import { Injectable, enableProdMode } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig } from './auth.config';
 import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
+import { OrganizationService } from './organization/common/organization.service';
+import { Organization } from './organization/common/organization';
 import 'rxjs/add/operator/map';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
+import { Subscription } from 'rxjs/Rx';
+import { Project } from './project/common/project';
+import { ProjectService } from './project/common/project.service';
 
 declare const Auth0Lock: any;
 declare const auth0: any;
@@ -17,13 +24,15 @@ declare const auth0: any;
 export class AuthService {
 
   userProfile: any;
-  userName = '';
+  // userName = ''; Don't handle username with auth0. It is set by user from applicaiton only.
   userRole: string;
   email: string;
   firstName: string;
   lastName: string;
   redirectAfterLogin: string;
   idToken: string;
+  currentUserId: string;
+  projectsSubscription: Subscription;
 
   // These options are being added to customize signup
   options = {
@@ -32,17 +41,17 @@ export class AuthService {
     // set to not remember last login
     rememberLastLogin: false,
     // Override the Auth0 logo
-    theme:  {
+    theme: {
       logo: '../assets/logo.png'
-            },
+    },
     // Override the title
     languageDictionary: {
       title: 'C4SG'
     },
-    auth : {
-        redirectUrl: window.location.origin,
-        responseType: 'token',
-        params: {scope: 'openid email user_metadata app_metadata'},
+    auth: {
+      redirectUrl: window.location.origin,
+      responseType: 'token',
+      params: { scope: 'openid email user_metadata app_metadata' },
     },
     // Add a user name input text
     additionalSignUpFields: [
@@ -61,9 +70,9 @@ export class AuthService {
         name: 'user_role',
         placeholder: 'Sign up as a',
         options: [
-          {value: 'VOLUNTEER', label: 'Volunteer User'},
-          {value: 'ORGANIZATION', label: 'Organization User'},
-          {value: 'ADMIN', label: 'Admin User'}
+          { value: 'VOLUNTEER', label: 'Volunteer User' },
+          { value: 'ORGANIZATION', label: 'Organization User' },
+          { value: 'ADMIN', label: 'Admin User' }
         ],
         prefill: 'VOLUNTEER'
       }
@@ -73,9 +82,12 @@ export class AuthService {
   // Configure Auth0 with options
   lock = new Auth0Lock(environment.auth_clientID, environment.auth_domain, this.options);
 
-  webauth = new auth0.WebAuth({ domain : environment.auth_domain, clientID: environment.auth_clientID });
+  webauth = new auth0.WebAuth({ domain: environment.auth_domain, clientID: environment.auth_clientID });
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService,
+    private organizationService: OrganizationService,
+    private projectService: ProjectService,
+    private router: Router) {
 
     // set uset profile of already saved profile
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -86,15 +98,15 @@ export class AuthService {
       localStorage.setItem('accessToken', authResult.accessToken);
 
       // Get the user profile
-      this.lock.getUserInfo(authResult.accessToken,  (error, profile) => {
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
           // Signed up via email/pwd
           if (!profile.identities[0].isSocial) {
-            this.userName = profile.user_metadata.user_name;
+            // this.userName = profile.user_metadata.user_name;
             this.userRole = profile.app_metadata.roles[0];
           } else { // Signed up via social providers
-            this.userName = profile.email;
+            // this.userName = profile.email;
             // ATM: assumption is there will always be only 1 role per user
             this.userRole = profile.app_metadata.roles[0];
             this.firstName = profile.given_name;
@@ -109,44 +121,36 @@ export class AuthService {
           this.email = profile.email;
 
           userService.getUserByEmail(this.email).subscribe(
-                res => {
-                  const lemail = this.email;
-                  const luserRole = this.userRole;
-                  const luserName = this.userName;
-                  const firstName =  this.firstName !== undefined ? this.firstName : '';
-                  const lastName =  this.lastName !== undefined ? this.lastName : '';
-                  // console.log(res);
-                  // Check if response is undefined
-                  if (res) {
-                      user = res;
-                  }
-                  // If user not found, then create the user
-                  if (user === undefined) {
-                    console.log('User does not exist');
-                    const newUser: User = ({id: 0, email: lemail,
-                      role: luserRole.toUpperCase().substr(0, 1),
-                      userName: luserName,
-                      firstName: firstName,
-                      lastName: lastName,
-                      publishFlag: 'N',
-                      notifyFlag: 'N',
-                      status: 'ACTIVE'});
+            res => {
+              const lemail = this.email;
+              const luserRole = this.userRole;
+              // const luserName = this.userName;
+              const firstName = this.firstName !== undefined ? this.firstName : '';
+              const lastName = this.lastName !== undefined ? this.lastName : '';
+              // console.log(res);
+              // Check if response is undefined
+              if (res) {
+                user = res;
+              }
+              // If user not found, then create the user
+              if (user === undefined) {
+                console.log('User does not exist');
+                const newUser: User = ({
+                  id: 0,
+                  email: lemail,
+                  role: luserRole.toUpperCase().substr(0, 1),
+                  // userName: luserName,
+                  firstName: firstName,
+                  lastName: lastName
+                  // publishFlag: 'N',
+                  // notifyFlag: 'N',
+                  // status: 'ACTIVE'
+                });
 
-                    // Create a user
-                    userService.add(newUser).subscribe(
-                      res1 => {
-                        user = res1;
-                        localStorage.setItem('currentUserId', user.id);
-                        if (user.firstName !== '' && user.lastName !== '') {
-                          localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                        } else {
-                          localStorage.setItem('currentDisplayName', user.email);
-                        }
-                        localStorage.setItem('currentUserAvatar', user.avatarUrl);
-                      },
-                      error1 => console.log(error1));
-                  }else {
-                    // Store user id and display name
+                // Create a user
+                userService.add(newUser).subscribe(
+                  res1 => {
+                    user = res1;
                     localStorage.setItem('currentUserId', user.id);
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
@@ -154,36 +158,110 @@ export class AuthService {
                       localStorage.setItem('currentDisplayName', user.email);
                     }
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
-                  }
+                  },
+                  error1 => console.log(error1));
+              } else {
+                // Store user id and display name
+                localStorage.setItem('currentUserId', user.id);
+                if (user.firstName !== '' && user.lastName !== '') {
+                  localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                } else {
+                  localStorage.setItem('currentDisplayName', user.email);
+                }
+                localStorage.setItem('currentUserAvatar', user.avatarUrl);
+                this.setlocalStorageItems();
+              }
 
-                  if (environment.production && !environment.auth_tenant_shared) {
-                    this.getDelegationToken();
-                  }
+              if (environment.production && !environment.auth_tenant_shared) {
+                this.getDelegationToken();
+              }
 
-                  // Issue 356 - redirect user back to the page that requested login - project view page
-                  this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-                  if (this.redirectAfterLogin) {
-                      setTimeout(() => {this.router.navigate([this.redirectAfterLogin]); }, 100);
-                  } else {
-                      setTimeout(() => this.router.navigate(['/']));
-                  }
-                },
-                error1 => console.log(error1)
-            );
-            }
-        });
+              // Issue 356 - redirect user back to the page that requested login - project view page
+              this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+              if (this.redirectAfterLogin) {
+                setTimeout(() => { this.router.navigate([this.redirectAfterLogin]); }, 100);
+              } else {
+                setTimeout(() => this.router.navigate(['/']));
+              }
+            },
+            error1 => console.log(error1)
+          );
+        }
+      });
     });
 
     // Function call to show errors
     const llock = this.lock;
-    this.lock.on('authorization_error', function(error) {
-    console.log('AuthZ error', error);
-    llock.show({
+    this.lock.on('authorization_error', function (error) {
+      console.log('AuthZ error', error);
+      llock.show({
         flashMessage: {
-            type: 'error',
-            text: error.error_description
-        }});
+          type: 'error',
+          text: error.error_description
+        }
+      });
     });
+  }
+
+  public setlocalStorageItems() {
+    console.log('************SetLocalStorageItems for the user');
+    this.currentUserId = this.getCurrentUserId();
+    if (this.authenticated() && this.currentUserId != null) {
+      // this.currentUserId = this.getCurrentUserId();
+
+      if (this.isOrganization()) { // if user is Organization User
+        if (this.currentUserId !== '0' && this.currentUserId !== null) {
+          // Get the associated organzation id
+          this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
+            res => {
+              let organization: Organization;
+              // will contain at most 1 entry in the array when a match is found, otherwise, data is undefined
+              organization = res[0];
+              if (organization !== undefined) {
+                this.setOrganizationId(organization.id.toString());
+              }
+            },
+            error => console.log(error)
+          );
+        }
+      }
+
+      if (this.isVolunteer()) { // if user is Volunteer User
+        // Save the appliedProjectIDs and bookmarkedProjectIDs in local storage
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'B').subscribe(
+          res => {
+            const bookmarkedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('bookmarkedProjectsIDs', bookmarkedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'A').subscribe(
+          res => {
+            const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
+          res => {
+            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
+          res => {
+            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
+          },
+          error => console.log(error));
+      }
+    }
+
+  }
+  private setOrganizationId(organizationId: string): void {
+    // this.organizationId = organizationId;
+    localStorage.setItem('userOrganizationId', organizationId);
+  }
+  public getUserOrganizationId() {
+    return localStorage.getItem('userOrganizationId');
   }
 
   private getDelegationToken() {
@@ -194,12 +272,12 @@ export class AuthService {
       scope: 'openid',
       api_type: 'aws'
     };
-    this.webauth.client.delegation(opt, function(err, delegationResult) {
+    this.webauth.client.delegation(opt, function (err, delegationResult) {
       if (!err) {
         localStorage.removeItem('delgId');
         localStorage.removeItem('delgSecId');
         localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
-      }else {
+      } else {
         console.warn('Unable to get delegation token');
       }
     });
@@ -230,10 +308,10 @@ export class AuthService {
 
     // Seems the logout url works for all idp and username/pwd
     // if (connection === 'google-oauth2' || connection === 'Username-Password-Authentication') {
-      logoutURL = `https://${environment.auth_domain}/v2/logout?returnTo=${encodeURI(loc)}`;
+    logoutURL = `https://${environment.auth_domain}/v2/logout?returnTo=${encodeURI(loc)}`;
     // }
     // else {
-      // logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
+    // logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
     // }
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
@@ -247,7 +325,7 @@ export class AuthService {
 
   // Returns user profile
   getProfile(): any {
-      return localStorage.getItem('profile');
+    return localStorage.getItem('profile');
   }
 
   // Returns current user's application user id
@@ -295,9 +373,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile.app_metadata.roles) {
-            return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
-        }else {
-            return false;
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+        } else {
+          return false;
         }
       }
     }
@@ -313,9 +391,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile.app_metadata.roles) {
-            return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
         } else {
-            return false;
+          return false;
         }
       }
     }
@@ -331,9 +409,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile.app_metadata.roles) {
-            return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
         } else {
-            return false;
+          return false;
         }
       }
     }

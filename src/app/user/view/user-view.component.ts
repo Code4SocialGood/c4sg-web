@@ -2,12 +2,16 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
+import { Project } from '../../project/common/project';
 import { JobTitle } from '../../job-title';
 import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
+import { ProjectService} from '../../project/common/project.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
+
+declare var Materialize: any;
 
 @Component({
   // moduleId: module.id,
@@ -19,18 +23,19 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 export class UserViewComponent implements OnInit {
 
   user: User;
+  projects: Project[];
   avatar: any = '';
   public jobTitlesArray: JobTitle[] = [];
   displayEdit = false;
   displayDelete = false;
   globalActions = new EventEmitter<string | MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string | MaterializeAction>();
   modalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
     private skillService: SkillService,
+    private projectService: ProjectService,
     public constantsService: FormConstantsService,
     private router: Router,
     private route: ActivatedRoute) {
@@ -52,6 +57,7 @@ export class UserViewComponent implements OnInit {
     this.userService.getUser(id).subscribe(
       res => {
         this.user = res;
+        this.getProjects(id);
         this.skillService.getSkillsForUser(id).subscribe(
           result => {
             this.user.skills = result;
@@ -82,15 +88,33 @@ export class UserViewComponent implements OnInit {
       .delete(this.user.id)
       .subscribe(
       response => {
-        this.router.navigate(['user/list']);
-        this.deleteGlobalActions.emit({ action: 'toast', params: ['User deleted successfully', 4000] });
-        // TODO log user out
+        Materialize.toast('The user is deleted', 4000);
+        this.authService.logout();
+        this.router.navigate(['/']);
       },
       error => {
-        console.log(error);
-        this.deleteGlobalActions.emit({ action: 'toast', params: ['Error while deleting a user', 4000] });
+        console.error(error, 'An error occurred');
+        Materialize.toast('Error deleting the user', 4000);
       }
       );
+  }
+
+  getProjects(id: number) {
+    this.projectService.getProjectByUser(id, 'C').subscribe(
+      res => {
+        this.projects = res.json();
+        this.projects.forEach((project) => {
+          if (project.description && project.description.length > 100) {
+            project.description = project.description.slice(0, 100) + '...';
+          }
+           this.skillService.getSkillsByProject(project.id).subscribe(
+                result => {
+                     project.skills = result;
+                      });
+        });
+      },
+      error => console.log(error)
+    );
   }
 
   openModal() {

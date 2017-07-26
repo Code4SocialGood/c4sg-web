@@ -6,7 +6,7 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {NavScrollDirective} from './navscroll.directive';
 
 import {MaterializeModule} from 'angular2-materialize';
-import {Ng2PaginationModule} from 'ng2-pagination';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -58,7 +58,7 @@ import { ProjectCardComponent } from './_components/project-card/project-card.co
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,
-    Ng2PaginationModule,
+    NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAq8AkZC-7OkXqM7bLjJ5OQQNDn1hW92o0'
     })

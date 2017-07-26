@@ -45,13 +45,20 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isSkillExists = false;
   public isSkillLimit = false;
 
+  public isOrgNew = false;
+  public isOrgPending = false;
+  public isOrgActive = false;
+  public displayClose = false;
+
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
   public descValueLength: number;
   public descFieldFocused = false;
 
   public projectForm: FormGroup;
+
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -63,7 +70,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private skillService: SkillService,
               private extfilehandler: ExtFileHandlerService,
               private validationService: ValidationService,
-               private userService: UserService,
+              private userService: UserService,
               ) {
   }
 
@@ -71,8 +78,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
     this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
+    this.getjobTitles();
     this.initForm();
-
     // Populates skills list
     this.skillService.getSkills()
       .subscribe(
@@ -102,6 +109,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.projectId = e.id.toString();
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
+                this.getjobTitles();
+                this.project.jobTitleId = 0;
                 this.fillForm();
               });
             },
@@ -110,6 +119,23 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
         // Skills are empty for this new project
         this.projectSkillsArray = [];
+
+        // Check organization status
+        this.organizationService.getOrganization(this.organizationId)
+          .subscribe(
+            res => {
+              this.organization = res;
+              if (this.organization.status === 'N') {
+                this.isOrgNew = true;
+              } else if (this.organization.status === 'P') {
+                this.isOrgPending = true;
+              } else if (this.organization.status === 'A') {
+                this.isOrgActive = true;
+              }
+
+              this.fillForm();
+            }, error => console.log(error)
+          );
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -118,6 +144,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.project = resProject;
               this.imageUrl = this.project.imageUrl;
               this.fillForm();
+              if (this.project.status === 'A') {
+                this.displayClose = true;
+              }
             }, error => console.log(error)
           );
 
@@ -128,14 +157,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.projectSkillsArray = resSkillsProjects;
             }, error => console.log(error)
           );
-      }
 
-      this.userService.getAllJobTitles()
-        .subscribe(
-        res => {
-          this.jobTitlesArray = res;
-        }, error => console.log(error)
-        );
+        this.isOrgActive = true; // Org must be active so that a project could be created
+      }
     });
   }
 
@@ -143,12 +167,21 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.countries = this.constantsService.getCountries();
   }
 
+ private getjobTitles(): void {
+   this.userService.getAllJobTitles()
+        .subscribe(
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
+        );
+ }
+
   private initForm(): void {
 
     this.projectForm = this.fb.group({
       'name': ['', []],
       'organizationId': ['', []],
-      'jobTitleId': ['', []],
+      'jobTitleId': ['0', []],
       'description': ['', []],
       'remoteFlag': ['Y', []],
       'city': ['', []],
@@ -158,11 +191,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-
     this.projectForm = this.fb.group({
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
-       'jobTitleId': [this.project.jobTitleId || '', []],
+      'jobTitleId': [this.project.jobTitleId || '', []],
       'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', []],
@@ -197,7 +229,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           .updateProjectSkills(this.projectSkillsArray, this.project.id)
           .subscribe(result => {
             this.router.navigate(['/project/view/' + this.project.id]);
-            Materialize.toast('Your changes have been saved', 4000);
+            Materialize.toast('The project is saved', 4000);
           }, error => console.log(error));
       });
   }
@@ -266,13 +298,25 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
+  deleteImage() {
+    this.imageUrl = '';
+    this.projectService.saveProjectImg(this.projectId, this.imageUrl)
+      .subscribe(res => {
+          this.project.imageUrl = this.imageUrl;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
+
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    //  Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    document.getElementById('name-label').classList.add('active');
+    document.getElementById('desc-label').classList.add('active');
+    document.getElementById('city-label').classList.add('active');
+    document.getElementById('state-label').classList.add('active');
   }
 
   // Count chars in introduction field
@@ -294,6 +338,29 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     if (!this.projectForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
+  }
+
+  onClose(): void {
+    this.projectService
+      .delete(this.project.id)
+      .subscribe(
+        response => {
+          Materialize.toast('The project is closed', 4000);
+          this.router.navigate(['/project/view', this.project.id]);
+        },
+        error => {
+          console.log(error);
+          Materialize.toast('Error closing the project', 4000);
+        }
+      );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
 }

@@ -14,6 +14,8 @@ import { SkillService} from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
+declare const Materialize: any;
+
 @Component({
   selector: 'my-view-project',
   providers: [AuthService],
@@ -26,26 +28,32 @@ export class ProjectViewComponent implements OnInit {
   organization: Organization;
   project: Project;
   projects: Project[];
+  user: User;
   public jobTitlesArray: JobTitle[] = [];
   numberOfProjects: number;
   params: Params;
   currentUserId: string;
-  globalActions = new EventEmitter<string|MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   // userProjectStatus: string;
-  projectStatusApplied = false;
-  projectStatusBookmarked = false;
+
   auth: AuthService;
   categoryName: string;
 
+  globalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
   displayShare = true;
   displayApply = false;
   displayBookmark = false;
   displayEdit = false;
-  displayDelete = false;
+  displayClose = false;
   displayApplicants = false;
+
+  userProfileIncomplete = false;
+  projectStatusApplied = false;
+  projectStatusBookmarked = false;
+  projectStatusAccepted = false;
+  projectStatusDeclined = false;
+
   applicants: Applicant[];
 
   projectId;
@@ -161,15 +169,32 @@ export class ProjectViewComponent implements OnInit {
       if (this.authService.isVolunteer()) {
         this.displayApply = true;
         this.displayBookmark = true;
-
-        // Checks whether login user applied or bookmarked this project, to determine whether to disable Apply/Bookmark button
+        // if user applied or bookmarked this project, disable the apply/bookmark button
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        if (projectsIDs.appliedProjectsIDs.includes(this.projectId)) {
+
+        if (projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusApplied = true;
         }
-        if (projectsIDs.bookmarkedProjectsIDs.includes(this.projectId)) {
+        if (projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
           this.projectStatusBookmarked = true;
         }
+        if (projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusAccepted = true;
+        }
+        if (projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
+          this.projectStatusDeclined = true;
+        }
+
+        // If user profile hasn't complete, user can't apply
+        this.userService.getUser(Number(this.currentUserId)).subscribe(
+          res => {
+            this.user = res;
+            if (this.user.status === 'N') {
+              this.userProfileIncomplete = true;
+            }
+          },
+          error => console.log(error)
+        );
       } else if (this.authService.isOrganization()) {
         this.organizationService.getUserOrganization(Number(this.authService.getCurrentUserId())).subscribe(
           res => {
@@ -177,26 +202,27 @@ export class ProjectViewComponent implements OnInit {
             organization = res[0];
             if ((organization !== undefined) && (organization.id === Number(this.project.organizationId))) {
               this.displayEdit = true;
-              this.displayDelete = true;
+              this.displayClose = true;
               this.displayApplicants = true;
             }
             if (this.project.status === 'C') {
-              this.displayDelete = false;
+              this.displayClose = false;
+              this.displayShare = false;
             }
           },
           error => console.log(error)
         );
       } else if (this.authService.isAdmin()) {
         this.displayEdit = true;
-        this.displayDelete = true;
+        this.displayClose = true;
         this.displayApplicants = true;
         if (this.project.status === 'C') {
-              this.displayDelete = false;
-            }
+          this.displayClose = false;
+          this.displayShare = false;
+        }
       }
     }
   }
-
 
   saveUserProject(userId, status, applicant) {
 
@@ -205,97 +231,56 @@ export class ProjectViewComponent implements OnInit {
             .linkUserProject(this.project.id, userId, status)
             .subscribe(
                 response => {
-                    // display toast
-                    if (status === 'A') {
-                      this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
-                      this.projectStatusApplied = true;
-                    } else if (status === 'B') {
-                      this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
-                      this.projectStatusBookmarked = true;
-                    } else if (status === 'C') {
+                  // display toast
+                  if (status === 'A') {
+                    this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
+                    this.projectStatusApplied = true;
+                  } else if (status === 'B') {
+                    this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
+                    this.projectStatusBookmarked = true;
+                  } else if (status === 'C') {
                     this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
                     applicant.applicationStatus = 'C';
-
                   } else if (status === 'D') {
                     this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-                      applicant.applicationStatus = 'D';
+                    applicant.applicationStatus = 'D';
                   }
                     this.router.navigate(['/project/view', this.project.id]);
                 },
                 error => {
-                    // display error toast
                     this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
                 }
             );
     } else {
-        localStorage.setItem('redirectAfterLogin', this.router.url);
-       this.authService.login();
+      localStorage.setItem('redirectAfterLogin', this.router.url);
+      this.authService.login();
     }
-}
-
-  // apply(): void {
-  //   this.userProjectStatus = 'A';
-  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-  //     debugger;
-  //       this.projectService
-  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-  //           .subscribe(
-  //               response => {
-  //                   // display toast
-  //                   this.globalActions.emit({action: 'toast', params: ['Applied for the project', 4000]});
-  //                   this.projectStatusApplied = true;
-  //               },
-  //               error => {
-  //                   // display toast when bookmar is already added
-  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-  //               }
-  //           );
-  //   } else {
-  //       localStorage.setItem('redirectAfterLogin', this.router.url);
-  //       this.authService.login();
-  //   }
-  // }
-
-  // bookmark(): void {
-  //   // check if user is logged in
-  //   this.userProjectStatus = 'B';
-  //   if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-  //       this.projectService
-  //           .linkUserProject(this.project.id, this.currentUserId, this.userProjectStatus)
-  //           .subscribe(
-  //               response => {
-  //                   // display toast
-  //                 this.globalActions.emit({action: 'toast', params: ['Bookmark added for the project', 4000]});
-  //                 this.projectStatusBookmarked = true;
-  //               },
-  //               error => {
-  //                   // display toast when bookmar is already added
-  //                   this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-  //               }
-  //           );
-  //   } else {
-  //       localStorage.setItem('redirectAfterLogin', this.router.url);
-  //       this.authService.login();
-  //   }
-  // }
+  }
 
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);
   }
 
-  delete(): void {
+  onClose(): void {
     this.projectService
       .delete(this.project.id)
       .subscribe(
         response => {
-          this.router.navigate(['project/list/projects']);
-          this.deleteGlobalActions.emit({action: 'toast', params: ['Project deleted successfully', 4000]});
+          Materialize.toast('The project is closed', 4000);
+          this.project.status = 'C';
+          this.displayClose = false;
+          this.displayShare = false;
+          this.router.navigate(['/project/view', this.project.id]);
         },
         error => {
+            Materialize.toast('Error closing the project', 4000);
             console.log(error);
-            this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting a project', 4000]});
         }
       );
+  }
+
+  redirectToMySettings(): void {
+    this.router.navigate(['user/edit', this.currentUserId]);
   }
 
   openModal(project) {

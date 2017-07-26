@@ -19,13 +19,22 @@
  .skills-enter-own{
    font-size: 0.8rem;
   color: #9e9e9e;
-  
+
  }
 
  .second-column{
    margin: 0;
  }
 
- .user-edit-dropdown{
-   margin-top: -6px;
- }
+#delete {
+	background: #E22E24;
+}
+
+.btn-small {
+  height: 35px;
+  width: 35px;
+}
+
+.icon-small {
+  font-size: 15px;
+}

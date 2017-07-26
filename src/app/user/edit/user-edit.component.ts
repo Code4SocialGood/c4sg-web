@@ -39,7 +39,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public inputValue = '';
   public avatar: any = '';
 
-  public displayPhone = false;
   public isVolunteer = false;
   public isOrganization = false;
   public checkPublish = false;
@@ -57,6 +56,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -107,15 +107,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
-            this.fillForm();
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
+            } else {
+             this.checkPublish = false;
             }
 
             if (this.user.notifyFlag === 'Y' ) {
               this.checkNotify = true;
+            } else {
+            this.checkNotify = false;
             }
+
+            this.fillForm();
           }, error => console.log(error)
         );
 
@@ -162,9 +167,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', [Validators.required]],
+      'lastName': [this.user.lastName || '', []],
       'state': [this.user.state || '', []],
-      'country': [this.user.country || '', [Validators.required]],
+      'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
       'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
@@ -172,8 +177,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
       'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
+      'publishFlag': [this.checkPublish || '', []],
+      'notifyFlag': [this.checkNotify || '', []]
     });
   }
 
@@ -208,9 +213,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'N';
     }
 
+    if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+      this.user.status = 'A';
+    }
+
     this.userService.update(this.user)
       .subscribe(() => {
-        this.globalActions.emit('toast');
+        Materialize.toast('Your account is saved', 4000);
         this.router.navigate(['/user/view', this.user.id]);
       },
         err => { console.error(err, 'An error occurred'); }
@@ -302,7 +311,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
             this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');
         } else {
           console.error('Saving user avatar: Not expecting a response body');
         }}, (e) => {
@@ -310,12 +318,79 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
+  deleteImage(): void {
+    this.avatar = '';
+    this.userService.saveAvatarImg(this.userId, this.avatar)
+      .subscribe(res => {
+          this.user.avatarUrl = this.avatar;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
+  onDelete() {
+
+    this.userService.delete(this.userId)
+      .subscribe(() => {
+        Materialize.toast('The user is deleted', 4000);
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
+        err => {
+          console.error(err, 'An error occurred');
+          Materialize.toast('Error deleting the user', 4000);
+        }
+      );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
+
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    // Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    // User edit page is customized based on user role, need to check element existance first
+    if (document.getElementById('username-label') != null) {
+      document.getElementById('username-label').classList.add('active');
+    }
+    if (document.getElementById('email-label') != null) {
+      document.getElementById('email-label').classList.add('active');
+    }
+    if (document.getElementById('firstname-label') != null) {
+      document.getElementById('firstname-label').classList.add('active');
+    }
+    if (document.getElementById('lastname-label') != null) {
+      document.getElementById('lastname-label').classList.add('active');
+    }
+    if (document.getElementById('state-label') != null) {
+      document.getElementById('state-label').classList.add('active');
+    }
+    if (document.getElementById('title-label') != null) {
+      document.getElementById('title-label').classList.add('active');
+    }
+    if (document.getElementById('summary-label') != null) {
+      document.getElementById('summary-label').classList.add('active');
+    }
+    if (document.getElementById('linkedin-label') != null) {
+      document.getElementById('linkedin-label').classList.add('active');
+    }
+    if (document.getElementById('github-label') != null) {
+      document.getElementById('github-label').classList.add('active');
+    }
+    if (document.getElementById('personal-label') != null) {
+      document.getElementById('personal-label').classList.add('active');
+    }
+    if (document.getElementById('slack-label') != null) {
+      document.getElementById('slack-label').classList.add('active');
+    }
+    if (document.getElementById('phone-label') != null) {
+      document.getElementById('phone-label').classList.add('active');
+    }
   }
 }

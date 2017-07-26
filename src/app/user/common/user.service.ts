@@ -64,6 +64,8 @@ export class UserService {
   // Returns a JSON object with the data array of Users and totalItems count
   searchUsers(
     keyword?: string,
+    // jobTitle?: number,
+    jobTitles?: number[],
     skills?: string[],
     status?: string,
     role?: string,
@@ -77,6 +79,14 @@ export class UserService {
     if (keyword) {
       params.append('keyWord', keyword);
     }
+    // if (jobTitle) {
+    //  params.append('jobTitle', String(jobTitle));
+   // }
+   if (jobTitles) {
+      for (let i = 0; i < jobTitles.length; i++) {
+        params.append('jobTitles', String(jobTitles[i]));
+      }
+    }
 
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
@@ -86,10 +96,6 @@ export class UserService {
 
     if (status) {
       params.append('status', status);
-    }
-
-    if (role) {
-      params.append('role', role);
     }
 
     if (publishFlag) {
@@ -103,7 +109,6 @@ export class UserService {
     if (size) {
       params.append('size', String(size));
     }
-
     return this.http
                .get(`${userUrl}/search`, {search: params})
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))

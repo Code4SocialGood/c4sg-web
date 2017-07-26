@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user/common/user.service';
 import { Subscription } from 'rxjs/Rx';
 import { User } from '../user/common/user';
+import { FormConstantsService } from '../_services/form-constants.service';
 require('./agmMarkerProto.js');
 
 
@@ -22,7 +23,8 @@ export class AboutComponent implements OnInit {
   activeInfoWindow = null;
 
   constructor(
-    private uService: UserService
+    private uService: UserService,
+    private constantsService: FormConstantsService
   ) { }
 
   ngOnInit(): void {
@@ -51,5 +53,14 @@ export class AboutComponent implements OnInit {
       },
       error => console.error(error)
     );
+  }
+  public getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+        return country.name;
+    } else {
+        return '';
+    }
   }
 }

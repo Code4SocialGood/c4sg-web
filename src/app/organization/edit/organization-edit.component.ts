@@ -36,8 +36,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   public descValueLength: number;
   public descFieldFocused = false;
 
+  public isNew = false;
+  public isPending = false;
+
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -65,6 +69,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.organization = res;
             this.logoUrl = this.organization.logoUrl;
+            if (this.organization.status === 'N') {
+              this.isNew = true;
+            } else if (this.organization.status === 'P') {
+              this.isPending = true;
+            }
+
             this.fillForm();
           }, error => console.log(error)
         );
@@ -96,14 +106,14 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
   private fillForm(): void {
     this.organizationForm = this.fb.group({
       'name': [this.organization.name || '', [Validators.required]],
-      'websiteUrl': [this.organization.websiteUrl || '', []], // [this.urlValidator]]
+      'websiteUrl': [this.organization.websiteUrl || '', []], // []]
       'ein': [this.organization.ein || '', []],
       'category': [this.organization.category || '', [Validators.required]],
       'address1': [this.organization.address1 || '', []],
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', [Validators.required]],
+      'country': [this.organization.country || '', []], // Validators.required results in red underline, so skip it
       'zip': [this.organization.zip || '', []],
       'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
@@ -127,6 +137,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.country = formData.country;
     this.organization.zip = formData.zip;
     this.organization.description = formData.description;
+
+    if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
+      this.organization.status = 'P';
+    }
 
     this.organizationService
       .updateOrganization(this.organization)
@@ -155,6 +169,18 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  deleteImage() {
+    this.logoUrl = '';
+    this.organizationService.saveLogoImg(this.organizationId, this.logoUrl)
+      .subscribe(res => {
+          this.organization.logoUrl = this.logoUrl;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
   // Count chars in description field
   onCountCharDesc() {
     this.descValueLength = this.organizationForm.value.description.length;
@@ -176,37 +202,41 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Does not seem to be needed - also prevents labels from moving when clicked
   ngAfterViewChecked(): void {
-    // Work around for bug in Materialize library, form labels overlap prefilled inputs
-    // See https://github.com/InfomediaLtd/angular2-materialize/issues/106
-    // if (Materialize && Materialize.updateTextFields) {
-    //  Materialize.updateTextFields();
-    // }
+    // Activate the labels so that the text does not overlap
+    document.getElementById('name-label').classList.add('active');
+    document.getElementById('address1-label').classList.add('active');
+    document.getElementById('city-label').classList.add('active');
+    document.getElementById('website-label').classList.add('active');
+    document.getElementById('ein-label').classList.add('active');
+    document.getElementById('address2-label').classList.add('active');
+    document.getElementById('state-label').classList.add('active');
+    document.getElementById('zip-label').classList.add('active');
+    document.getElementById('desc-label').classList.add('active');
   }
 
-  /* Obsolete - Organization is always created when organization user registers.
-  private createOrganization(): void {
+  onDelete(): void {
     this.organizationService
-      .createOrganization(this.organizationForm.value)
-      .flatMap(res => {
-        this.organization = res.organization;
-
-        // additionalCalls that need to be made AFTER the org is saved
-        // This includes the call to link the user and the organization
-        const additionalCalls = [
-          this.organizationService
-            .linkUserOrganization(this.currentUserId, this.organization.id)
-        ];
-
-        return Observable.forkJoin(additionalCalls);
-      })
-      .subscribe(res => {
-        // After all calls are successfully made, go to the detail page
-        this.router.navigate(['/organization/view/' + this.organization.id]);
-      });
+      .delete(this.organization.id)
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/list/organizations']);
+          Materialize.toast('The organization is deleted', 4000);
+        },
+        error => {
+          console.log(error);
+          Materialize.toast('Error deleting the organiation', 4000);
+        }
+      );
   }
-  */
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
 
   /* Obsolete - No Validation on website url
   urlValidator(control: FormControl): { [s: string]: boolean } {

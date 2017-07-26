@@ -15,7 +15,7 @@ import { Subscription} from 'rxjs/Rx';
   styleUrls: [ 'header.component.scss' ]
 })
 
-export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
+export class HeaderComponent implements  OnInit, OnDestroy {
 
   currentUserId: string;
   organizationId: string;
@@ -65,43 +65,6 @@ export class HeaderComponent implements DoCheck, OnInit, OnDestroy {
       return 'at-home';
     }
     return 'off-home';
-  }
-
-  ngDoCheck() {
-    if (this.authSvc.authenticated() && this.currentUserId == null) {
-      this.currentUserId = this.authSvc.getCurrentUserId();
-
-      if (this.authSvc.isOrganization()) { // if user is Organization User
-        if (this.currentUserId !== '0' && this.currentUserId !== null ) {
-          // Get the associated organzation id
-          this.organizationService.getUserOrganization(+this.currentUserId).subscribe(
-            res => {
-              let organization: Organization;
-              // will contain at most 1 entry in the array when a match is found, otherwise, data is undefined
-              organization = res[0];
-              if (organization !== undefined) {
-                this.setOrganizationId(organization.id.toString());
-              }
-            },
-            error => console.log(error)
-          );
-        }
-      }
-
-      if (this.authSvc.isVolunteer()) { // if user is Volunteer User
-        // Save the appliedProjectIDs and bookmarkedProjectIDs in local storage
-        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'B').subscribe(
-          res => {
-           const bookmarkedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
-            localStorage.setItem('bookmarkedProjectsIDs', bookmarkedProjectsIDs.toString()); },
-          error => console.log(error));
-        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'A').subscribe(
-          res => {
-            const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
-            localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString()); },
-          error => console.log(error));
-      }
-    }
   }
 
   ngOnDestroy() {

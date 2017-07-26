@@ -46,6 +46,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   });
   p = 1; // Holds page number
   organizations: Object[];
+  pendingOrganizations: Object[];
+  declinedOrganizations: Object[];
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
@@ -128,10 +130,17 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, null, null)
+      null, null, null, 'P', null, null, null) // Pending organizations
       .subscribe( res => {
-        this.organizations = res.data;
-        this.totalItems = res.totalItems;
+        this.pendingOrganizations = res.data;
+      },
+        error => console.log(error)
+      );
+
+      this.organizationsSubscription = this.organizationService.searchOrganizations(
+      null, null, null, 'C', null, null, null) // Declined organizations
+      .subscribe( res => {
+        this.declinedOrganizations = res.data;
       },
         error => console.log(error)
       );

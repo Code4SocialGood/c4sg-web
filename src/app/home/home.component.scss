@@ -22,7 +22,7 @@
   z-index: -2;
 }
 
-.action {
+.action_volunteer {
 
     background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image.jpeg") no-repeat center center;
     background-attachment:fixed;
@@ -32,13 +32,42 @@
     -o-background-size: cover;
     background-size: cover;
 
-    max-width: 100%;
+    // max-width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 99vh;
     text-align: center;
+}
+
+.action_organization {
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+    background-attachment:fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    text-align: center;
+}
+
+.orgs {
+  padding-top: 8em;
+  font-size: 1.5em;
+}
+
+.orgs h1 {
+  font-family: "aniFont";
+  font-size: 3em;
+  font-weight: 100;
+  color: #383838;
 }
 
 .home-title {
@@ -90,6 +119,7 @@
  /* label color */
  .input-field label {
    color: $main-color;
+   top: 2rem;
  }
 
 /* label focus color */
