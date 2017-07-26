@@ -35,10 +35,11 @@
     // max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: 99vh;
     text-align: center;
+    position: relative;
 }
 
 .action_organization {
@@ -105,6 +106,11 @@
   font-weight: 100;
   color: #383838;
   padding-top: 0.5em;
+}
+
+#aniSlogan.vol_slogan {
+  position: absolute;
+  top: 2.5rem;
 }
 
 #aniWord {
