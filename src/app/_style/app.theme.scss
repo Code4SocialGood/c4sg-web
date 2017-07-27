@@ -199,8 +199,12 @@ hr {
 }
 
 // Make social media links colored when hovering
-.mdi:hover{ //:not(.not-active) {
+.mdi:hover { //:not(.not-active) {
   color: $secondary-bg-color;
+}
+
+.btn-floating i {
+  background-color: $secondary-bg-color;
 }
 
 .links-list-wrapper {
