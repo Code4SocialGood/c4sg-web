@@ -101,7 +101,7 @@
                 Apply
               </button>
               <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
-              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile in My Settings to Apply" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
                 Apply
               </button>      
               <!-- Apply button is enabled for login user -->      

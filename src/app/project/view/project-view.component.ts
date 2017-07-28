@@ -172,17 +172,23 @@ export class ProjectViewComponent implements OnInit {
         // if user applied or bookmarked this project, disable the apply/bookmark button
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
 
-        if (projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
-          this.projectStatusApplied = true;
-        }
-        if (projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
-          this.projectStatusBookmarked = true;
-        }
-        if (projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
-          this.projectStatusAccepted = true;
-        }
-        if (projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
-          this.projectStatusDeclined = true;
+        if (projectsIDs != null) {
+          if (projectsIDs.appliedProjectsIDs != null
+            && projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
+            this.projectStatusApplied = true;
+          }
+          if (projectsIDs.bookmarkedProjectsIDs != null
+            && projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
+            this.projectStatusBookmarked = true;
+          }
+          if (projectsIDs.acceptedProjectsIDs != null
+            && projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
+            this.projectStatusAccepted = true;
+          }
+          if (projectsIDs.declinedProjectsIDs != null
+            && projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
+            this.projectStatusDeclined = true;
+          }
         }
 
         // If user profile hasn't complete, user can't apply
