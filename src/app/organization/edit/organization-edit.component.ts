@@ -140,6 +140,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
     if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
       this.organization.status = 'P';
+      this.isNew = false;
+      this.isPending = true;
     }
 
     this.organizationService
