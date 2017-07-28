@@ -25,8 +25,9 @@
   }
   .btn-floating {
     text-align: center;
+    background-color: $secondary-bg-color;
     &:hover {
-      background-color: $secondary-bg-color;
+      background-color: #fff;
     }
   }
 }
