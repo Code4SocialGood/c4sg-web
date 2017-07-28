@@ -298,7 +298,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           console.error('Image not saved. Not expecting a response body');
         });
     } else {
-      console.error('Selected image size exceeds 1MB');
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
     }
   }
 
