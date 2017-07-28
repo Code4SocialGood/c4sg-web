@@ -221,6 +221,15 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('desc-label').classList.add('active');
   }
 
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
+  }
+
+  /*
   onDelete(): void {
     this.organizationService
       .delete(this.organization.id)
@@ -234,15 +243,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           Materialize.toast('Error deleting the organiation', 4000);
         }
       );
-  }
-
-  openModal() {
-    this.modalActions.emit({action: 'modal', params: ['open']});
-  }
-
-  closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
-  }
+  } */
 
   /* Obsolete - No Validation on website url
   urlValidator(control: FormControl): { [s: string]: boolean } {
