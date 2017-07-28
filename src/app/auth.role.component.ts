@@ -73,7 +73,7 @@ export class AuthRoleSelectionComponent implements OnInit, AfterViewInit {
           value: 'VOLUNTEER'
         },
         {
-          description: 'NonProfit User',
+          description: 'Organization User',
           value: 'ORGANIZATION'
         },
         {
