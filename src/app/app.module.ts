@@ -48,6 +48,7 @@ import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
+import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { ProjectCardComponent } from './_components/project-card/project-card.co
     SkillSelectComponent,
     SharedBtnComponent,
     ScrollSkillsDirective,
-    ProjectCardComponent
+    ProjectCardComponent,
+    FeedbackBtnComponent
   ],
   providers: [ProjectService,
     OrganizationService,
