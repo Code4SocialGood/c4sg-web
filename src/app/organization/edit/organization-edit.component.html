@@ -144,24 +144,11 @@
                 <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!organizationForm.valid">
                  Save
                 </button>
-                <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" (click)="openModal()">Delete
-                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
-  <div class="modal-content">
-    <h4>Confirm Organization Deletion</h4>
-    <p>Are you sure you want to delete the organization?</p>
-  </div>
-  <div class="modal-footer">
-    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="onDelete()">Yes</a>
   </div>
 </div>
