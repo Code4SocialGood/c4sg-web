@@ -10,8 +10,8 @@ import {ValidationService} from '../../_services/validation.service';
 import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
-import { MaterializeAction } from 'angular2-materialize';
-import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
+import {MaterializeAction} from 'angular2-materialize';
+import {ExtFileHandlerService} from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -41,7 +41,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -219,14 +218,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('state-label').classList.add('active');
     document.getElementById('zip-label').classList.add('active');
     document.getElementById('desc-label').classList.add('active');
-  }
-
-  openModal() {
-    this.modalActions.emit({action: 'modal', params: ['open']});
-  }
-
-  closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   /*
