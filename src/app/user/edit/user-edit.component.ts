@@ -111,7 +111,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
             if (this.user.status === 'N') {
               this.isNew = true;
-            } 
+            }
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
