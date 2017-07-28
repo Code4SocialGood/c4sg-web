@@ -28,11 +28,11 @@
         </div>
         <div class="row single-info" *ngIf="isNew">
           <hr>
-          <h4 class="col s12 m12 l12 highlight-title">Please complete My Organization information. Your organization will be reviewed before you can post projects.</h4>
+          <div class="col s12 m12 l12 highlight-title">Please complete your organization information. Your organization will be reviewed before you can post projects.</div>
         </div>
         <div class="row single-info" *ngIf="isPending">
           <hr>
-          <h4 class="col s12 m12 l12 highlight-title">Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</h4>
+          <div class="col s12 m12 l12 highlight-title">Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</div>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col m6 s12">
               <div class="input-field">
-                <input type="text" id="name" formControlName="name" required>
+                <input [maxlength]="100" type="text" id="name" formControlName="name" required>
                 <label for="name" id="name-label">Organization Name *</label>
                 <!--
                 <label for="name" [ngClass]="{'red-text': organizationForm.get('name').invalid && organizationForm.get('name').touched}">Organization Name *
@@ -61,11 +61,11 @@
                 <label for="category">Category *</label>
               </div>
               <div class="input-field">
-                <input type="text" id="address1" class="" formControlName="address1">
+                <input [maxlength]="100" type="text" id="address1" class="" formControlName="address1">
                 <label for="address1" id="address1-label">Address 1</label>
               </div>
               <div class="input-field">
-                <input type="text" id="city" class="" formControlName="city">
+                <input [maxlength]="100" type="text" id="city" class="" formControlName="city">
                 <label for="city" id="city-label">City</label>
               </div>
               <div class="input-field">
@@ -77,7 +77,7 @@
             </div>
             <div class="col m6 s12">
               <div class="input-field">
-                <input type="text" id="website" class="" formControlName="websiteUrl">
+                <input [maxlength]="100" type="text" id="website" class="" formControlName="websiteUrl">
                 <label for="website" id="website-label">Website</label>
                 <!-- No validation on URL
                 <label for="website"
@@ -87,19 +87,19 @@
                 </label>-->
               </div>
               <div class="input-field">
-                <input type="text" id="ein" class="" formControlName="ein">
+                <input [maxlength]="20" type="text" id="ein" class="" formControlName="ein">
                 <label for="ein" id="ein-label">EIN</label>
               </div>
               <div class="input-field" style="margin-top:0">
-                <input type="text" id="address2" class="" formControlName="address2">
+                <input [maxlength]="100" type="text" id="address2" class="" formControlName="address2">
                 <label for="address2" id="address2-label">Address 2</label>
               </div>
               <div class="input-field">
-                <input type="text" id="state" class="" formControlName="state">
+                <input [maxlength]="100" type="text" id="state" class="" formControlName="state">
                 <label for="state" id="state-label">State</label>
               </div>
               <div class="input-field">
-                <input type="text" id="ein" class="" formControlName="zip">
+                <input [maxlength]="16" type="text" id="ein" class="" formControlName="zip">
                 <label for="zip" id="zip-label">Zip Code</label>
               </div>
             </div>

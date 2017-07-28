@@ -302,6 +302,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the avatar image upload sequence of steps
   onUploadAvatar(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
     // Calls the function to save the avatar image url to the user's row
@@ -316,6 +317,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
+    } else {
+      console.error('Selected image size exceeds 1MB');
+    }
   }
 
   deleteImage(): void {

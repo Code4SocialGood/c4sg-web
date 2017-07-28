@@ -140,6 +140,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
     if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
       this.organization.status = 'P';
+      this.isNew = false;
+      this.isPending = true;
     }
 
     this.organizationService
@@ -151,6 +153,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the organization logo upload sequence of steps
   onUploadLogo(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
 
@@ -167,6 +170,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Logo not saved. Not expecting a response body');
         });
+    } else {
+      console.error('Selected image size exceeds 1MB');
+    }
   }
 
   deleteImage() {

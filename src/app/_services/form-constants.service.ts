@@ -6,6 +6,7 @@ export class FormConstantsService {
   defaultLogo = '../../assets/default_image.png';
   defaultAvatar = '../../assets/default_avatar.png';
   defaultImage = '../../assets/default_image.png';
+  maxFileSize = 1048576;
 
   private states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
     'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
