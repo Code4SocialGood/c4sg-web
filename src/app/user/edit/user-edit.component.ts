@@ -45,6 +45,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkNotify = false;
   public isSkillExists = false;
   public isSkillLimit = false;
+  public isNew = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -107,6 +108,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
+
+            if (this.user.status === 'N') {
+              this.isNew = true;
+            }
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
@@ -215,6 +220,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
+      this.isNew = false;
     }
 
     this.userService.update(this.user)
@@ -318,7 +324,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           console.error('Avatar not saved. Not expecting a response body');
         });
     } else {
-      console.error('Selected image size exceeds 1MB');
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
     }
   }
 
