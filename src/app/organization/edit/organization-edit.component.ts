@@ -138,7 +138,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.description = formData.description;
 
     // For new organization, set status from 'N' (New) to 'P' (Ppending)
-    if (this.organization.status === 'N') { 
+    if (this.organization.status === 'N') {
       this.organization.status = 'P';
       this.isNew = false;
       this.isPending = true;
@@ -151,7 +151,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       });
 
     // For active organization, forward to organization view page
-    if (this.organization.status === 'A') { 
+    if (this.organization.status === 'A') {
       this.router.navigate(['/organization/view/' + this.organization.id]);
     }
   }
