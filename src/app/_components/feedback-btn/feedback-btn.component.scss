@@ -1,0 +1,9 @@
+@import '../../_style/variables.scss';
+
+.btn.btn-feedback {
+  position: fixed;
+  top: 50%;
+  left:0;
+  transform: translate(-36%,-50%) rotate(-90deg);
+  background-color: $secondary-color;
+}

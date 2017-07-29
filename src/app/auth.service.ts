@@ -152,6 +152,7 @@ export class AuthService {
                   res1 => {
                     user = res1;
                     localStorage.setItem('currentUserId', user.id);
+                    this.setlocalStorageItems();
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
@@ -204,11 +205,9 @@ export class AuthService {
   }
 
   public setlocalStorageItems() {
-    console.log('************SetLocalStorageItems for the user');
-    this.currentUserId = this.getCurrentUserId();
+     this.currentUserId = this.getCurrentUserId();
     if (this.authenticated() && this.currentUserId != null) {
       // this.currentUserId = this.getCurrentUserId();
-
       if (this.isOrganization()) { // if user is Organization User
         if (this.currentUserId !== '0' && this.currentUserId !== null) {
           // Get the associated organzation id

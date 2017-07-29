@@ -281,6 +281,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the project image upload sequence of steps
   onUploadImage(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.project.id, 'image');
 
@@ -296,6 +297,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Image not saved. Not expecting a response body');
         });
+    } else {
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
+    }
   }
 
   deleteImage() {

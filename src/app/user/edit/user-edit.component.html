@@ -26,6 +26,10 @@
             </div>
           </div>
         </div>
+        <div class="row single-info" *ngIf="isNew">
+          <hr>
+          <div class="col s12 m12 l12 highlight-title">Please complete your profile before apply for projects.</div>
+        </div>
       </div>
     </div>
 
@@ -39,7 +43,7 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <input class="theme-input" id="userName" formControlName="userName" type="text" required>
+                <input [maxlength]="100" class="theme-input" id="userName" formControlName="userName" type="text" required>
                 <label for="userName" id="username-label">Username *</label>
               </div>
             </div>
@@ -53,13 +57,13 @@
           <div class="row">
             <div class="col s12 m6">
               <div class="input-field">
-                <input class="theme-input" id="firstName" formControlName="firstName" type="text" required>
+                <input [maxlength]="100" class="theme-input" id="firstName" formControlName="firstName" type="text" required>
                 <label for="firstName" id="firstname-label">First Name *</label>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="input-field">
-                <input class="theme-input" id="lastName" formControlName="lastName" type="text">
+                <input [maxlength]="100" class="theme-input" id="lastName" formControlName="lastName" type="text">
                 <label for="lastName" id="lastname-label">Last Name
                 </label>
               </div>
@@ -69,7 +73,7 @@
             <div class="col s12 m6">
               <div class="input-field">
                 <label for="state" id="state-label">State</label>
-                <input class="theme-input" id="state" formControlName="state" type="text">
+                <input [maxlength]="100" class="theme-input" id="state" formControlName="state" type="text">
               </div>
             </div>
             <div class="col s12 m6">
@@ -85,14 +89,14 @@
             <div class="col s12 m6">
                 <div class="input-field">
                   <label for="githubUrl" id="slack-label">Slack Username</label>
-                  <input class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
+                  <input [maxlength]="25" class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
                 </div>
               </div>
             <div *ngIf="isOrganization">
               <div class="col s12 m6">
                 <div class="input-field">
                   <label for="phone" id="phone-label">Phone</label>
-                  <input id="phone" formControlName="phone" type="text">
+                  <input [maxlength]="16" id="phone" formControlName="phone" type="text">
                 </div>
               </div>
             </div>
@@ -103,10 +107,10 @@
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input class="theme-input" id="title" type="text" formControlName="title" required>
+              <input [maxlength]="100" class="theme-input" id="title" type="text" formControlName="title" required>
               <label for="title" id="title-label">Title *</label>
             </div>
-            <div class="input-field col s6">
+            <div *ngIf="isVolunteer" class="input-field col s6">
               <div class="theme-select">
                 <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
                    <option value="0">Choose Role</option>
@@ -115,12 +119,21 @@
                 <label for="jobTitleId">Role </label>
               </div>
             </div>
-            <div class="input-field col s12">
-               <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea"  required formControlName="introduction"
+            <div class="input-field col s12" *ngIf="isVolunteer"> <!-- Introductin is mandatory for volunteer user -->
+               <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" required formControlName="introduction"
                       (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"
                       (blur)="onBlurIntro()">
               </textarea>
-              <label for="introduction"  id="summary-label">Summary *
+              <label for="introduction"  id="summary-label">Introduction *
+                <span *ngIf="introFieldFocused"> ({{ introValueLength + '/' + introMaxLength }})</span>
+              </label>
+            </div>            
+            <div class="input-field col s12" *ngIf="isOrganization"> <!-- Introductin is optional for organization user -->
+               <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" formControlName="introduction"
+                      (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"
+                      (blur)="onBlurIntro()">
+              </textarea>
+              <label for="introduction"  id="summary-label">Introduction
                 <span *ngIf="introFieldFocused"> ({{ introValueLength + '/' + introMaxLength }})</span>
               </label>
             </div>
@@ -147,7 +160,7 @@
               <div class="col s12 m6">
                 <div class="input-field col s10 skills-margin">
                   <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
-                  <input id="newSkill" type="text" placeholder="" class="validate" #inputSkill [(ngModel)]="inputValue"
+                  <input [maxlength]="100" id="newSkill" type="text" placeholder="" class="validate" #inputSkill [(ngModel)]="inputValue"
                          [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col s2 skills-margin">
@@ -164,7 +177,7 @@
               <div class="col s12 m6">
                 <div class="input-field">
                   <label for="linkedinUrl" id="linkedin-label">LinkedIn URL</label>
-                  <input class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
+                  <input [maxlength]="100" class="theme-input" id="linkedinUrl" type="text" formControlName="linkedinUrl">
                 </div>
               </div>
               <div class="col s12 m6">
@@ -178,7 +191,7 @@
               <div class="col s12 m6">
                 <div class="input-field">
                   <label for="personalUrl" id="personal-label">My Website</label>
-                  <input class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
+                  <input [maxlength]="100" class="theme-input" id="personalUrl" type="text" formControlName="personalUrl">
                 </div>
               </div>
               <div class="col s12 m6">

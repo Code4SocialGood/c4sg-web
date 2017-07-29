@@ -45,6 +45,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkNotify = false;
   public isSkillExists = false;
   public isSkillLimit = false;
+  public isNew = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -107,6 +108,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
+
+            if (this.user.status === 'N') {
+              this.isNew = true;
+            }
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
@@ -215,6 +220,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
+      this.isNew = false;
     }
 
     this.userService.update(this.user)
@@ -302,6 +308,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the avatar image upload sequence of steps
   onUploadAvatar(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
     // Calls the function to save the avatar image url to the user's row
@@ -316,6 +323,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
+    } else {
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
+    }
   }
 
   deleteImage(): void {

@@ -10,8 +10,8 @@ import {ValidationService} from '../../_services/validation.service';
 import {AuthService} from '../../auth.service';
 
 import {Organization} from '../common/organization';
-import { MaterializeAction } from 'angular2-materialize';
-import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
+import {MaterializeAction} from 'angular2-materialize';
+import {ExtFileHandlerService} from '../../_services/extfilehandler.service';
 
 declare const Materialize: any;
 
@@ -41,7 +41,6 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
   public organizationForm: FormGroup;
   public globalActions = new EventEmitter<string|MaterializeAction>();
-  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private organizationService: OrganizationService,
@@ -138,8 +137,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.zip = formData.zip;
     this.organization.description = formData.description;
 
-    if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
+    // For new organization, set status from 'N' (New) to 'P' (Ppending)
+    if (this.organization.status === 'N') {
       this.organization.status = 'P';
+      this.isNew = false;
+      this.isPending = true;
     }
 
     this.organizationService
@@ -147,10 +149,16 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
       });
+
+    // For active organization, forward to organization view page
+    if (this.organization.status === 'A') {
+      this.router.navigate(['/organization/view/' + this.organization.id]);
+    }
   }
 
   // Orchestrates the organization logo upload sequence of steps
   onUploadLogo(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.organization.id, 'image');
 
@@ -167,6 +175,9 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Logo not saved. Not expecting a response body');
         });
+    } else {
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
+    }
   }
 
   deleteImage() {
@@ -215,6 +226,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('desc-label').classList.add('active');
   }
 
+  /*
   onDelete(): void {
     this.organizationService
       .delete(this.organization.id)
@@ -228,15 +240,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
           Materialize.toast('Error deleting the organiation', 4000);
         }
       );
-  }
-
-  openModal() {
-    this.modalActions.emit({action: 'modal', params: ['open']});
-  }
-
-  closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
-  }
+  } */
 
   /* Obsolete - No Validation on website url
   urlValidator(control: FormControl): { [s: string]: boolean } {
