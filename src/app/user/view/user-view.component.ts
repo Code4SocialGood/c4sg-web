@@ -33,14 +33,14 @@ export class UserViewComponent implements OnInit {
 
   displayEdit = false;
   displayDelete = false;
-  
+
   globalActions = new EventEmitter<string | MaterializeAction>();
   modalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
     private userService: UserService,
-    private projectService: ProjectService,    
-    private organizationService: OrganizationService,    
+    private projectService: ProjectService,
+    private organizationService: OrganizationService,
     public authService: AuthService,
     private skillService: SkillService,
     public constantsService: FormConstantsService,
@@ -66,7 +66,7 @@ export class UserViewComponent implements OnInit {
         this.user = res;
 
         if (this.user.role === 'V') { // Gets accepted projects for volunteer history
-          this.getAcceptedProjects(id); 
+          this.getAcceptedProjects(id);
 
           this.skillService.getSkillsForUser(id).subscribe(
             result => {
@@ -76,7 +76,7 @@ export class UserViewComponent implements OnInit {
           );
         } else if (this.user.role === 'O') { // Gets organization and projects
           this.getOrganizationAndProjects(id);
-        }         
+        }
       },
       error => console.log(error)
     );
@@ -113,7 +113,7 @@ export class UserViewComponent implements OnInit {
                   });
                 },
                   errorProjects => console.log(errorProjects)
-              );  
+              );
           }
       );
   }
