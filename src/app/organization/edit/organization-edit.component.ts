@@ -137,7 +137,8 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.zip = formData.zip;
     this.organization.description = formData.description;
 
-    if (this.organization.status === 'N') { // For new organization, set status from 'N' (New) to 'P' (Ppending)
+    // For new organization, set status from 'N' (New) to 'P' (Ppending)
+    if (this.organization.status === 'N') { 
       this.organization.status = 'P';
       this.isNew = false;
       this.isPending = true;
@@ -148,6 +149,11 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
       });
+
+    // For active organization, forward to organization view page
+    if (this.organization.status === 'A') { 
+      this.router.navigate(['/organization/view/' + this.organization.id]);
+    }
   }
 
   // Orchestrates the organization logo upload sequence of steps
