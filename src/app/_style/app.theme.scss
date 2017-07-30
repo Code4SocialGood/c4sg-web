@@ -268,3 +268,17 @@ hr {
   text-align: center;
   font-weight: bold;
 }
+
+
+select.browser-default {
+  display: block;
+  color: $secondary-bg-color;
+  border-bottom-color:$border-color;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+   position: relative;
+
+
+}
+
