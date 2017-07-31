@@ -19,20 +19,20 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
-                Role: <span>{{jobTitle.jobTitle}}</span>
+                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 6 + 10)}}</span>
               </div>
             </div>
             <div class="row">
               <div class="col s12 l7">
                 <div class="row">
-                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: Remote</div>
+                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: {{pad("Remote", "&nbsp;", 10)}}</div>
                   <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
                     Location: <span *ngIf="project.state">{{project.state}}, </span>{{project.country}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12">
-                    <span>Posted: {{project.updatedTime | date: 'MMM d, yyyy'}}</span>
+                    <span>Posted: {{pad((project.updatedTime | date: 'MMM d, yyyy'), "&nbsp;", 4 + 10)}}</span>
                   </div>
                 </div>
               </div>
