@@ -268,3 +268,15 @@ hr {
   text-align: center;
   font-weight: bold;
 }
+
+.alpha-test {
+  width: 6em;
+  position: fixed;
+  bottom: 10px;
+  left: 2em;
+  img {
+    margin: 0;
+    box-shadow: 2px 2px 7px 1px #333;
+    border-radius: 100%;
+  }
+}

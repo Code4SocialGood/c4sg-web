@@ -100,6 +100,13 @@ export class ProjectViewComponent implements OnInit {
     });
   }
 
+  pad(str: string, padValue: string, max: number): string {
+    max += str.length;
+    return max - str.length > 0 ? padValue.repeat(max - str.length) + str : str;
+  }
+
+
+
   // Skills for this project
   getSkills(projectId): void {
     this.skillService.getSkillsByProject(projectId)
