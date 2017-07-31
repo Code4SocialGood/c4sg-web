@@ -19,7 +19,7 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
-                Role: <span>pad(jobTitle.jobTitle, "&nbsp;", 6 + 10)}}</span>
+                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 6 + 10)}}</span>
               </div>
             </div>
             <div class="row">
