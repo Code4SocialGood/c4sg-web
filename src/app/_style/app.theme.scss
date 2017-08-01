@@ -280,3 +280,11 @@ hr {
     border-radius: 100%;
   }
 }
+
+// change background color for modals to orange
+
+.modal {
+  .modal-content h4 {
+    background-color: $secondary-color;
+  }
+}
