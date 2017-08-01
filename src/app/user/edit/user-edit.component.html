@@ -76,14 +76,19 @@
                 <input [maxlength]="100" class="theme-input" id="state" formControlName="state" type="text">
               </div>
             </div>
-            <div class="col s12 m6">
-              <label for="country">Country *</label>
+         <div class="col s12 m6">
+               <label for="country">Country *</label>
               <div class="theme-select dropdown">
-                <select id="country" formControlName="country" materialize="material_select">
-                  <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                <select class="browser-default" id="country" formControlName="country" materialize="material_select" required >
+                  <option disabled selected>Choose country</option>
+                  <option  *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
+
               </div>
+
             </div>
+
+
           </div>
           <div class="row">
             <div class="col s12 m6">
