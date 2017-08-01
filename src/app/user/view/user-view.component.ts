@@ -3,11 +3,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
 import { Project } from '../../project/common/project';
+import { Organization } from '../../organization/common/organization';
 import { JobTitle } from '../../job-title';
 import { UserService } from '../common/user.service';
 import { AuthService } from '../../auth.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { ProjectService} from '../../project/common/project.service';
+import { OrganizationService } from '../../organization/common/organization.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
@@ -24,18 +26,23 @@ export class UserViewComponent implements OnInit {
 
   user: User;
   projects: Project[];
+  organization: Organization;
   avatar: any = '';
   public jobTitlesArray: JobTitle[] = [];
+  categoryName: string;
+
   displayEdit = false;
   displayDelete = false;
+
   globalActions = new EventEmitter<string | MaterializeAction>();
   modalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
     private userService: UserService,
+    private projectService: ProjectService,
+    private organizationService: OrganizationService,
     public authService: AuthService,
     private skillService: SkillService,
-    private projectService: ProjectService,
     public constantsService: FormConstantsService,
     private router: Router,
     private route: ActivatedRoute) {
@@ -57,16 +64,70 @@ export class UserViewComponent implements OnInit {
     this.userService.getUser(id).subscribe(
       res => {
         this.user = res;
-        this.getProjects(id);
-        this.skillService.getSkillsForUser(id).subscribe(
-          result => {
-            this.user.skills = result;
-          },
-          error => console.log(error)
-        );
+
+        if (this.user.role === 'V') { // Gets accepted projects for volunteer history
+          this.getAcceptedProjects(id);
+
+          this.skillService.getSkillsForUser(id).subscribe(
+            result => {
+              this.user.skills = result;
+            },
+            error => console.log(error)
+          );
+        } else if (this.user.role === 'O') { // Gets organization and projects
+          this.getOrganizationAndProjects(id);
+        }
       },
       error => console.log(error)
     );
+  }
+
+  // Organization and Projects for this user
+  getOrganizationAndProjects(userId): void {
+
+    this.organizationService.getUserOrganization(userId)
+      .subscribe(
+          resi => {
+            this.organization = resi[0];
+
+            // Validation rules should force websiteUrl to start with http but add check just in case
+            if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
+              this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+            }
+
+            if (this.organization.description != null && this.organization.description.length > 100) {
+                this.organization.description = this.organization.description.slice(0, 100) + '...';
+            }
+
+            this.setCategoryName();
+
+            this.projectService.getProjectByOrg(this.organization.id, 'A')
+              .subscribe(
+                resProjects => {
+                  this.projects = resProjects.json();
+                  this.projects.forEach((e: Project) => {
+                    this.skillService.getSkillsByProject(e.id).subscribe(
+                      response => {
+                        e.skills = response;
+                      });
+                  });
+                },
+                  errorProjects => console.log(errorProjects)
+              );
+          }
+      );
+  }
+
+  setCategoryName(): void {
+    if (this.organization.category === 'N') {
+      this.categoryName = 'Nonprofit';
+    } else if (this.organization.category === 'O') {
+      this.categoryName = 'Open Source';
+    } else if (this.organization.category === 'S') {
+      this.categoryName = 'Social Enterprise';
+    } else if (this.organization.category === 'U') {
+      this.categoryName = 'Startup';
+    }
   }
 
   displayButtons(id: number): void {
@@ -99,7 +160,7 @@ export class UserViewComponent implements OnInit {
       );
   }
 
-  getProjects(id: number) {
+  getAcceptedProjects(id: number) {
     this.projectService.getProjectByUser(id, 'C').subscribe(
       res => {
         this.projects = res.json();

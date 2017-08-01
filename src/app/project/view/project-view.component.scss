@@ -3,13 +3,8 @@
 .organization-name {
   @include content-subtitle-font;
   a:hover {
-    text-decoration: underline #84c44c;  
+    text-decoration: underline #84c44c;
     }
-}
-.available-opp-proj-name{
-  h5:hover{
-     text-decoration: underline #84c44c;  
-  }
 }
 .project-marked {
   display: inline-block;
