@@ -269,6 +269,16 @@ hr {
   font-weight: bold;
 }
 
+select.browser-default {
+  display: block;
+  color: $secondary-bg-color;
+  border-bottom-color:$border-color;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+   position: relative;
+}
+
 .alpha-test {
   width: 6em;
   position: fixed;
@@ -278,5 +288,13 @@ hr {
     margin: 0;
     box-shadow: 2px 2px 7px 1px #333;
     border-radius: 100%;
+  }
+}
+
+// change background color for modals to orange
+
+.modal {
+  .modal-content h4 {
+    background-color: $secondary-color;
   }
 }
