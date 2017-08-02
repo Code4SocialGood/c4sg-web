@@ -32,7 +32,7 @@ export class ProjectListVolunteerComponent implements OnInit, OnDestroy {
   ) { }
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-    this.from = "myProjects";
+    this.from = 'myProjects';
     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
       res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
       error => console.log(error));
