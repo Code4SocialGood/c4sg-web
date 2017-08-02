@@ -85,6 +85,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         this.filterForm.controls.keyword.setValue(params.keyword);
       }
     });
+
     this.getSkills();
     this.getJobTitles();
     // Watch for changes to the form and update the list

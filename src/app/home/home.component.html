@@ -1,48 +1,47 @@
 <div class="home-wrapper">   
-        <div class="action_volunteer">
-          <div id="aniSlogan" class="vol_slogan">
-            It doesn't matter if you
-            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
-          </div>
-          <div class="input-field">
-            <td class="input-field">
-              <input #projectName id="name" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value='';" type="text"
-                class="input-pre">
-              <label for="name">Project Keyword</label>
-            </td>
-            <td>
-              <button  [@buttonState]="state"
-                       (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
-                       routerLink="/project/list/projects"
-                       (mouseover)="toggleState()"
-                       (mouseout)="toggleState()"
-                       class="btn waves-effect waves-light #84c44c search_button">
-                  <i  class="large material-icons transparent" >search</i>
-              </button>
-            </td>
-          </div>
-        </div>
-        <div class="action_organization">
-          <div id="aniSlogan">
-            Stay connected to
-            <br> make a difference for a better world.
-            <br> Get started now!
-          </div>
-          <div>
-            <td>
-              Login to Post Projects
-            </td>
-            <td>
-              <button  [@buttonState]="state"
-                       (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
-                       routerLink="/project/list/projects"
-                       (mouseover)="toggleState()"
-                       (mouseout)="toggleState()"
-                       class="btn waves-effect waves-light #84c44c search_button">
-                  <i  class="large material-icons transparent" >search</i>
-              </button>
-            </td>
-          </div>     
-        </div>       
+  <div class="action_volunteer">
+    <div id="aniSlogan">
+      It doesn't matter if you
+      <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+      <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+    </div>
+    <div class="input-field">
+      <td class="input-field">
+        <input #projectName id="name" (keyup.enter)="getProjectsByKeyword(projectName.value); projectName.value='';" type="text"
+          class="input-pre">
+        <label for="name">Project Keyword</label>
+      </td>
+      <td>
+        <button  [@buttonState]="state"
+                 (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
+                 routerLink="/project/list/projects"
+                 (mouseover)="toggleState()"
+                 (mouseout)="toggleState()"
+                 class="btn waves-effect waves-light #84c44c search_button">
+            <i  class="large material-icons transparent" >search</i>
+        </button>
+      </td>
+    </div>
+  </div>
+  <div class="action_organization">
+    <div id="aniSlogan">
+      Stay connected to
+      <br> make a difference for a better world.
+      <br> Get started now!
+    </div>
+    <div>
+     <!--  <td>
+        Login to Post Projects
+      </td> -->
+      <td> <!-- register -->
+        <button  [@buttonState]="state"
+                 (click)="authSvc.login()"
+                 (mouseover)="toggleState()"
+                 (mouseout)="toggleState()"
+                 class="btn waves-effect waves-light #84c44c">
+            Register
+        </button>
+      </td>
+    </div>
+  </div>
 </div>

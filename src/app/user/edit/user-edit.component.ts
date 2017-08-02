@@ -172,7 +172,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', []],
+      'lastName': [this.user.lastName || '', [Validators.required]],
       'state': [this.user.state || '', []],
       'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
