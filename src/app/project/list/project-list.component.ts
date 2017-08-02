@@ -103,10 +103,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         this.filterForm.controls.keyword.setValue(params.keyword);
       }
     });
-
+console.log('isnonprofit=' + this.isNonprofit);
     this.getSkills();
     this.getJobTitles();
-
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
       this.getProjects(this.p);
@@ -158,45 +157,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { // Volunteer user: My Projects
       this.isVolunteer = true;
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
-        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
-        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'C').subscribe(
-        res => this.acceptedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'D').subscribe(
-        res => this.declinedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-
     } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) { // Nonprofit user: My Projects
       this.isNonprofit = true;
-      this.organizationService.getUserOrganization(this.userId).subscribe(
-        response => {
-          this.orgId = response.reduce((acc) => acc).id;
-          // Returns project of any status: 'A' and' 'C'
-          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
-            res => {
-              this.projects = res.json();
-              this.totalItems = this.projects.length;
-              this.projects.forEach((e: Project) => {
-                this.skillService.getSkillsByProject(e.id).subscribe(
-                  result => {
-                    e.skills = result;
-                  });
-              });
-              this.activeProjects = this.projects.filter((project) => project.status === 'A');
-              this.closedProjects = this.projects.filter((project) => project.status === 'C');
-            },
-            error => console.log(error)
-          );
-        },
-        error => console.log(error)
-      );
     }
-    ;
   }
 
   getSkills(): void {

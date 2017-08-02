@@ -17,6 +17,10 @@ import {HeaderComponent} from './header/header.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
 import {ProjectEditComponent} from './project/edit/project-edit.component';
+import {ProjectListVolunteerComponent} from './project/list/my-projects-volunteer';
+import {ProjectListNonprofitComponent} from './project/list/my-projects-nonprofit';
+
+
 
 import {OrganizationListComponent} from './organization/list/organization-list.component';
 import {OrganizationViewComponent} from './organization/view/organization-view.component';
@@ -76,6 +80,8 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     ProjectListComponent,
     ProjectViewComponent,
     ProjectEditComponent,
+    ProjectListVolunteerComponent,
+    ProjectListNonprofitComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
