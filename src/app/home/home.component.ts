@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
   constructor(private projectService: ProjectService,
               private router: Router,
               private dataService: DataService,
-              private authSvc: AuthService) {
+              public authSvc: AuthService) {
   }
 
   // onload animation timer

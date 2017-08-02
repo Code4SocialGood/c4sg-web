@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private router: Router,
     private skillService: SkillService,
     public constantsService: FormConstantsService,
-    private auth: AuthService,
+    public auth: AuthService,
     private route: ActivatedRoute) {
   }
 
