@@ -2,14 +2,12 @@ import { AfterViewChecked, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { FormConstantsService } from '../../_services/form-constants.service';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { User } from '../../user/common/user';
-import { DataService } from '../../_services/data.service';
 
 declare const Materialize: any;
 
@@ -20,9 +18,6 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
-
-  roles: any[];
-
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
@@ -39,29 +34,17 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   p = 1; // Holds page number
   projects: Project[];
-  bookmarkedProjects: Project[];
-  acceptedProjects: Project[];
-  declinedProjects: Project[];
-  appliedProjects: Project[];
-  activeProjects: Project[];
-  closedProjects: Project[];
-  temp: any[];
-  users: User[];
   selectedProject: Project;
   totalItems = 0;
   projectsCache: any[];
   projectsSubscription: Subscription;
   userId: number;
-  orgId: number;
-  projId: number;
   from: string;
   isVolunteer = false;
   isNonprofit = false;
 
   constructor(private projectService: ProjectService,
     private organizationService: OrganizationService,
-    private dataService: DataService,
-    public constantsService: FormConstantsService,
     private router: Router,
     public auth: AuthService,
     private route: ActivatedRoute,
@@ -78,7 +61,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-
     this.route.params.subscribe(
       params => {
         this.skillsArray.controls.forEach(skillControl => {
@@ -103,7 +85,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         this.filterForm.controls.keyword.setValue(params.keyword);
       }
     });
-console.log("isnonprofit="+this.isNonprofit);
     this.getSkills();
     this.getJobTitles();
     // Watch for changes to the form and update the list
@@ -173,23 +154,12 @@ console.log("isnonprofit="+this.isNonprofit);
     );
   }
 
-  /* getJobTitles(): void {
-     this.projectService.getAllJobTitles().subscribe(res => {
-         this.roles = res.map(role => {
-           return {name: role.jobTitle, checked: false, id: role.id};
-         });
-       },
-       error => console.error(error)
-     );
-   }*/
-
   getJobTitles(): void {
     this.projectService.getAllJobTitles().subscribe(res => {
       this.jobTitles = res.map(jobtitle => {
         return { id: jobtitle.id, checked: false, jobtitle: jobtitle.jobTitle };
       });
       this.showJobTitles();
-
     },
       error => console.error(error)
     );
@@ -260,5 +230,4 @@ console.log("isnonprofit="+this.isNonprofit);
       this.projectsSubscription.unsubscribe();
     }
   }
-
 }
