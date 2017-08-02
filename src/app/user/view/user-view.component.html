@@ -130,17 +130,17 @@
               </div>
             </div>
           </div>
-          <h4 *ngIf="projects">Available Opportunities ({{projects.length}})</h4>
+          <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
           <div class="section-body-project" *ngIf="!projects">
-              <ul>
-                  <li class="card-wrapper">
-                      <div class="card">
-                          <div class="card-content">
-                            <div class="row single-info">
-                            </div>
-                          </div>
+            <ul>
+                <li class="card-wrapper">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="row single-info">
                       </div>
-                  </li>
+                    </div>
+                  </div>
+                </li>
               </ul>
           </div>
           <div class="section-body-project" *ngIf="projects?.length == 0">

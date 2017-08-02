@@ -68,21 +68,22 @@
           <div class="section-body-organization">
             <div class="card">
               <div class="card-content">
-                <div class="row single-info">
+                <div class="row single-info" *ngIf="user">
                   <div class="col m4">
-                    <div class="info-avatar" *ngIf="user"><img class='circle' [src]="user.avatarUrl"></div>
+                    <div class="info-avatar" *ngIf="user.avatarUrl"><img class='circle' [src]="user.avatarUrl"></div>
+                    <div class="info-avatar" *ngIf="!user.avatarUrl"><img class='circle' [src]="constantsService.defaultAvatar"></div>
                   </div>
                   <div class="col m8" *ngIf="user">
-                     Name:
                      <p class='user-name'>
+                       <i class="material-icons icon-tiny">person</i>
                       <span *ngIf="user.firstName && user.publishFlag"  [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
                      </p>
                      <p class='user-name'>
                       <span *ngIf="user.firstName && !user.publishFlag">{{user.firstName}},{{user.lastName}}</span>
                     </p>
-                    <p>Title: {{user.title}}</p>
-                    <p>Phone: {{user.phone}}</p>
-                    <p>Email: {{user.email}}</p>
+                    <p><i class="material-icons icon-tiny">title</i>{{user.title}}</p>
+                    <p><i class="material-icons icon-tiny">phone</i>{{user.phone}}</p>
+                    <p><i class="material-icons icon-tiny">email</i>{{user.email}}</p>
                   </div>
                 </div>
               </div>
