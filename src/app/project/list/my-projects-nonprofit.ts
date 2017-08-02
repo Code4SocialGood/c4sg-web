@@ -36,7 +36,7 @@ export class ProjectListNonprofitComponent implements OnInit, OnDestroy {
   ) { }
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-    this.from = "myProjects";
+    this.from = 'myProjects';
     this.organizationService.getUserOrganization(this.userId).subscribe(
       response => {
         this.orgId = response.reduce((acc) => acc).id;
@@ -53,7 +53,7 @@ export class ProjectListNonprofitComponent implements OnInit, OnDestroy {
             });
             this.activeProjects = this.projects.filter((project) => project.status === 'A');
             this.closedProjects = this.projects.filter((project) => project.status === 'C');
-            console.log("Active Projs=" + this.activeProjects);
+            console.log('Active Projs=' + this.activeProjects);
 
           },
           error => console.log(error)
