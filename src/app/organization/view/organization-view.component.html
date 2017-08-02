@@ -81,9 +81,9 @@
                      <p class='user-name'>
                       <span *ngIf="user.firstName && !user.publishFlag">{{user.firstName}},{{user.lastName}}</span>
                     </p>
-                    <p><i class="material-icons icon-tiny">title</i>{{user.title}}</p>
-                    <p><i class="material-icons icon-tiny">phone</i>{{user.phone}}</p>
-                    <p><i class="material-icons icon-tiny">email</i>{{user.email}}</p>
+                    <p><i class="material-icons icon-tiny">title</i><span class="left-align"> {{user.title}} </span></p>
+                    <p><i class="material-icons icon-tiny">phone</i><span class="left-align"> {{user.phone}}</span></p>
+                    <p><i class="material-icons icon-tiny">email</i><span class="left-align"> {{user.email}}</span></p>
                   </div>
                 </div>
               </div>
