@@ -147,7 +147,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.user = res;
               if (this.user.status === 'N') {
                 this.isUserNew = true;
-              } 
+              }
             }, error => console.log(error)
           );
       } else { // Edit Project
