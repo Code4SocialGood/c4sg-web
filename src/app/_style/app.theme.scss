@@ -280,15 +280,15 @@ select.browser-default {
 }
 
 .beta-test {
-  width: 6em;
+  width: 5em;
   position: fixed;
-  bottom: 10px;
-  left: 2em;
-  img {
-    margin: 0;
-    box-shadow: 2px 2px 7px 1px #333;
-    border-radius: 100%;
-  }
+  bottom: 0;
+  left: .5em;
+  // img {
+  //   margin: 0;
+  //   box-shadow: 2px 2px 7px 1px #333;
+  //   border-radius: 100%;
+  // }
 }
 
 // change background color for modals to orange
