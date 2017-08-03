@@ -107,13 +107,15 @@
 }
 
 #aniSlogan.vol_slogan {
- // position: absolute;
-  top: 6rem;
+  position: absolute;
+  top: 10rem;
+  left: 28rem;
 }
 
 #aniSlogan.vol_slogan + .input-field {
-  //margin-top: 5rem;
-  height:20rem;
+  margin-top: 5rem;
+  margin-left:-5rem;
+  //height:20rem;
 }
 
 #aniWord {
