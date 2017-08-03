@@ -63,9 +63,8 @@
             </div>
             <div class="col s12 m6">
               <div class="input-field">
-                <input [maxlength]="100" class="theme-input" id="lastName" formControlName="lastName" type="text">
-                <label for="lastName" id="lastname-label">Last Name
-                </label>
+                <input [maxlength]="100" class="theme-input" id="lastName" formControlName="lastName" type="text" required>
+                <label for="lastName" id="lastname-label">Last Name *</label>
               </div>
             </div>
           </div>
@@ -79,8 +78,9 @@
             <div class="col s12 m6">
               <label for="country">Country *</label>
               <div class="theme-select dropdown">
-                <select id="country" formControlName="country" materialize="material_select">
-                  <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                <select class="browser-default" id="country" formControlName="country" materialize="material_select" required >
+                  <option disabled selected>Choose country</option>
+                  <option  *ngFor="let country of countries" [value]="country.code" [selected]="country.code === user?.country">{{country.name + ' (' + country.code + ')'}}</option>
                 </select>
               </div>
             </div>

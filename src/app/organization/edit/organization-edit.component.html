@@ -25,7 +25,8 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>    
+        <!-- We only need message on Create Project page
         <div class="row single-info" *ngIf="isNew">
           <hr>
           <div class="col s12 m12 l12 highlight-title">Please complete your organization information. Your organization will be reviewed before you can post projects.</div>
@@ -34,6 +35,7 @@
           <hr>
           <div class="col s12 m12 l12 highlight-title">Your organization is under review. We will notify you as soon as possible. You will be able to create project after your organization is approved.</div>
         </div>
+        --> 
       </div>
     </div>
 
@@ -68,11 +70,14 @@
                 <input [maxlength]="100" type="text" id="city" class="" formControlName="city">
                 <label for="city" id="city-label">City</label>
               </div>
-              <div class="input-field">
-                <select id="country" class="" formControlName="country" materialize="material_select">
-                  <option *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
-                </select>
+              <div>
                 <label for="country">Country *</label>
+                <div class="theme-select dropdown">
+                  <select class="browser-default" id="country" formControlName="country" materialize="material_select" required >
+                    <option disabled selected>Choose country</option>
+                    <option  *ngFor="let country of countries" [value]="country.code" [selected]="country.code === organization?.country">{{country.name + ' (' + country.code + ')'}}</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="col m6 s12">

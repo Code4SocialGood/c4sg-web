@@ -17,6 +17,10 @@ import {HeaderComponent} from './header/header.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
 import {ProjectEditComponent} from './project/edit/project-edit.component';
+import {ProjectListVolunteerComponent} from './project/list/my-projects-volunteer';
+import {ProjectListNonprofitComponent} from './project/list/my-projects-nonprofit';
+
+
 
 import {OrganizationListComponent} from './organization/list/organization-list.component';
 import {OrganizationViewComponent} from './organization/view/organization-view.component';
@@ -48,6 +52,7 @@ import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
+import { ProjectListSmallComponent } from './_components/project-card-small/project-card-small.component';
 import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
 
 @NgModule({
@@ -75,6 +80,8 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     ProjectListComponent,
     ProjectViewComponent,
     ProjectEditComponent,
+    ProjectListVolunteerComponent,
+    ProjectListNonprofitComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
@@ -90,6 +97,7 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     SharedBtnComponent,
     ScrollSkillsDirective,
     ProjectCardComponent,
+    ProjectListSmallComponent,
     FeedbackBtnComponent
   ],
   providers: [ProjectService,
