@@ -6,6 +6,7 @@ import { ProjectService } from '../project/common/project.service';
 import {DataService} from '../_services/data.service';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',

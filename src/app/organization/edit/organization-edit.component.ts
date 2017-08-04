@@ -112,7 +112,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       'address2': [this.organization.address2 || '', []],
       'city': [this.organization.city || '', []],
       'state': [this.organization.state || '', []],
-      'country': [this.organization.country || '', []], // Validators.required results in red underline, so skip it
+      'country': [this.organization.country || '', [Validators.required]],
       'zip': [this.organization.zip || '', []],
       'description': [this.organization.description || '', [Validators.maxLength(this.descMaxLength)]]
     });
@@ -137,11 +137,20 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     this.organization.zip = formData.zip;
     this.organization.description = formData.description;
 
+    /* We skip organization approval process during initial release, may add it later if we see a need
     // For new organization, set status from 'N' (New) to 'P' (Ppending)
     if (this.organization.status === 'N') {
       this.organization.status = 'P';
       this.isNew = false;
       this.isPending = true;
+    }
+    */
+
+    // For new organization, set status from 'N' (New) to 'A' (Active)
+    if (this.organization.status === 'N') {
+      this.organization.status = 'A';
+      this.isNew = false;
+      this.isPending = false;
     }
 
     this.organizationService

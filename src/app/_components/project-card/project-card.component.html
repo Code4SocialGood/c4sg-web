@@ -42,7 +42,7 @@
               </svg>
               <span>Declined</span>
             </div>
-          </div>                            
+          </div>
         </div>
       </div>
       <div class="row info-row">
@@ -56,7 +56,7 @@
           <span class="state" *ngIf="project.country">{{project.country}}</span>
           <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>
           &nbsp;| &nbsp;
-          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | slice: 0:10}}</span>
         </div>
         </div>
       </div>

@@ -46,8 +46,16 @@ export class UserListComponent implements OnInit, OnDestroy {
     private router: Router,
     private skillService: SkillService,
     public constantsService: FormConstantsService,
-    private auth: AuthService,
+    public auth: AuthService,
     private route: ActivatedRoute) {
+  }
+
+  slice(str: string): string {
+    const maxLength = 200;
+    const trimmedString = str.substr(0, maxLength);
+
+    // re-trim if we are in the middle of a word
+    return trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
   }
 
   ngOnInit(): void {

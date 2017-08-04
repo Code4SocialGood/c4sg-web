@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
+import { User } from '../../user/common/user';
 import { JobTitle } from '../../job-title';
 import { Organization } from '../../organization/common/organization';
 import { UserService } from '../../user/common/user.service';
@@ -31,6 +32,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public project: Project;
   public organization: Organization;
+  public user: User;
   public organizations: Organization[];
 
   public inputValue = '';
@@ -48,6 +50,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isOrgNew = false;
   public isOrgPending = false;
   public isOrgActive = false;
+  public isUserNew = false;
   public displayClose = false;
 
   public descMaxLength: number = this.validationService.descMaxLength;
@@ -134,6 +137,17 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               }
 
               this.fillForm();
+            }, error => console.log(error)
+          );
+
+        // Check user status
+        this.userService.getUser(this.currentUserId)
+          .subscribe(
+            res => {
+              this.user = res;
+              if (this.user.status === 'N') {
+                this.isUserNew = true;
+              }
             }, error => console.log(error)
           );
       } else { // Edit Project

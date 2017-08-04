@@ -2,14 +2,12 @@ import { AfterViewChecked, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { FormConstantsService } from '../../_services/form-constants.service';
 import { Project } from '../common/project';
 import { ProjectService } from '../common/project.service';
 import { AuthService } from '../../auth.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { User } from '../../user/common/user';
-import { DataService } from '../../_services/data.service';
 
 declare const Materialize: any;
 
@@ -20,9 +18,6 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
-
-  roles: any[];
-
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
@@ -39,29 +34,17 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   p = 1; // Holds page number
   projects: Project[];
-  bookmarkedProjects: Project[];
-  acceptedProjects: Project[];
-  declinedProjects: Project[];
-  appliedProjects: Project[];
-  activeProjects: Project[];
-  closedProjects: Project[];
-  temp: any[];
-  users: User[];
   selectedProject: Project;
   totalItems = 0;
   projectsCache: any[];
   projectsSubscription: Subscription;
   userId: number;
-  orgId: number;
-  projId: number;
   from: string;
   isVolunteer = false;
   isNonprofit = false;
 
   constructor(private projectService: ProjectService,
     private organizationService: OrganizationService,
-    private dataService: DataService,
-    public constantsService: FormConstantsService,
     private router: Router,
     public auth: AuthService,
     private route: ActivatedRoute,
@@ -78,7 +61,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-
     this.route.params.subscribe(
       params => {
         this.skillsArray.controls.forEach(skillControl => {
@@ -106,7 +88,6 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     this.getSkills();
     this.getJobTitles();
-
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
       this.getProjects(this.p);
@@ -158,45 +139,9 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
     } else if ((this.from === 'myProjects') && (this.auth.isVolunteer())) { // Volunteer user: My Projects
       this.isVolunteer = true;
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
-        res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
-        res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'C').subscribe(
-        res => this.acceptedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-      this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'D').subscribe(
-        res => this.declinedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
-        error => console.log(error));
-
     } else if ((this.from === 'myProjects') && (this.auth.isOrganization())) { // Nonprofit user: My Projects
       this.isNonprofit = true;
-      this.organizationService.getUserOrganization(this.userId).subscribe(
-        response => {
-          this.orgId = response.reduce((acc) => acc).id;
-          // Returns project of any status: 'A' and' 'C'
-          this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
-            res => {
-              this.projects = res.json();
-              this.totalItems = this.projects.length;
-              this.projects.forEach((e: Project) => {
-                this.skillService.getSkillsByProject(e.id).subscribe(
-                  result => {
-                    e.skills = result;
-                  });
-              });
-              this.activeProjects = this.projects.filter((project) => project.status === 'A');
-              this.closedProjects = this.projects.filter((project) => project.status === 'C');
-            },
-            error => console.log(error)
-          );
-        },
-        error => console.log(error)
-      );
     }
-    ;
   }
 
   getSkills(): void {
@@ -210,23 +155,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     );
   }
 
-  /* getJobTitles(): void {
-     this.projectService.getAllJobTitles().subscribe(res => {
-         this.roles = res.map(role => {
-           return {name: role.jobTitle, checked: false, id: role.id};
-         });
-       },
-       error => console.error(error)
-     );
-   }*/
-
   getJobTitles(): void {
     this.projectService.getAllJobTitles().subscribe(res => {
       this.jobTitles = res.map(jobtitle => {
         return { id: jobtitle.id, checked: false, jobtitle: jobtitle.jobTitle };
       });
       this.showJobTitles();
-
     },
       error => console.error(error)
     );
@@ -297,5 +231,4 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.projectsSubscription.unsubscribe();
     }
   }
-
 }
