@@ -38,169 +38,33 @@ export class AuthGuard implements CanActivate {
             if(`${next.url[0]}/${next.url[1]}` === 'project/view'){
             
                 let projectId: number = +next.url[2];
-                return this.projectService.getProject(projectId)
-                  .flatMap(projectResponse => {
-                        this.project = projectResponse;
-                        return this.userService.getUsersByOrganization(this.project.organizationId);
-                      })
-                  .map(userResponse => {
-                        this.user = userResponse[0];                        
-                            
-                        if(this.project !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && this.auth.isOrganization()
-                                && +this.auth.getCurrentUserId() === this.user.id){
-                            
-                                return true;
-                                                    
-                        }
-                        else if (this.project !== undefined && this.project.status === 'A'){
-                            return true;
-                        }
-                        else {
-                            this.router.navigate(['/project/list/projects']);
-                            return false;
-                        }                          
-                  },
-                  projectError => console.log(projectError));            
+                return this.isProjectViewAccessAllowed(projectId);                           
             }
             else if(`${next.url[0]}/${next.url[1]}` === 'organization/view'){
                 
                 let orgId: number = +next.url[2];
-                return this.organizationService.getOrganization(orgId)
-                  .map(orgResponse => {
-                        this.organization = orgResponse;
-                        return this.userService.getUsersByOrganization(orgId);
-                    })
-                    .map(userResponse => {
-                        this.user = userResponse[0];                        
-                            
-                        if(this.organization !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && this.auth.isOrganization()
-                                && +this.auth.getCurrentUserId() === this.user.id
-                                && this.organization.status !== 'D'){
-                            
-                                return true;
-                                                    
-                        }
-                        else if (this.organization !== undefined && this.organization.status === 'A'){
-                            return true;
-                        }
-                        else {
-                            this.router.navigate(['/organization/list/organizations']);
-                            return false;
-                        }                          
-                  },
-                  orgError => console.log(orgError));                
+                return this.isOrganizationViewAccessAllowed(orgId);                              
             }
             else if(`${next.url[0]}/${next.url[1]}` === 'user/view'){
                 
                 let userId: number = +next.url[2];
-                return this.userService.getUser(userId)
-                  .map(userResponse => {
-                        this.user = userResponse;
-                        if(this.user !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && +this.auth.getCurrentUserId() === this.user.id
-                                && this.user.status !== 'D'){
-                            
-                                return true;
-                                                    
-                        }
-                        else if (this.user !== undefined 
-                                && this.user.status === 'A'
-                                && this.user.publishFlag === 'Y'){
-                            return true;
-                        }
-                        else {
-                            this.router.navigate(['/user/list/users']);
-                            return false;
-                        }                          
-                  },
-                  userError => console.log(userError));                
+                return this.isUserViewAccessAllowed(userId);
+                                
             }else if(`${next.url[0]}/${next.url[1]}` === 'project/edit'){
             
                 let projectId: number = +next.url[2];
-                return this.projectService.getProject(projectId)
-                  .flatMap(projectResponse => {
-                        this.project = projectResponse;
-                        return this.userService.getUsersByOrganization(this.project.organizationId);
-                      })
-                  .map(userResponse => {
-                        this.user = userResponse[0];                        
-                            
-                        if(this.project !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && this.auth.isOrganization()
-                                && +this.auth.getCurrentUserId() === this.user.id){
-                            
-                                return true;
-                                                    
-                        }
-                        else {
-                            this.router.navigate(['/project/list/projects']);
-                            return false;
-                        }                          
-                  },
-                  projectError => console.log(projectError));  
+                return this.isProjectEditAccessAllowed(projectId);                  
                   
             }else if(`${next.url[0]}/${next.url[1]}` === 'organization/edit'){
                 
                 let orgId: number = +next.url[2];
-                return this.organizationService.getOrganization(orgId)
-                  .map(orgResponse => {
-                        this.organization = orgResponse;
-                        return this.userService.getUsersByOrganization(orgId);
-                    })
-                    .map(userResponse => {
-                        this.user = userResponse[0];                        
-                            
-                        if(this.organization !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && this.auth.isOrganization()
-                                && +this.auth.getCurrentUserId() === this.user.id
-                                && this.organization.status !== 'D'){
-                            
-                                return true;
-                                                    
-                        }else {
-                            this.router.navigate(['/organization/list/organizations']);
-                            return false;
-                        }                          
-                  },
-                  orgError => console.log(orgError));                
+                return this.isOrganizationEditAccessAllowed(orgId);
+                                
             }else if(`${next.url[0]}/${next.url[1]}` === 'user/edit'){
                 
                 let userId: number = +next.url[2];
-                return this.userService.getUser(userId)
-                  .map(userResponse => {
-                        this.user = userResponse;
-                        if(this.user !== undefined && this.auth.isAdmin()){
-                            return true;
-                        }
-                        else if(this.user !== undefined 
-                                && +this.auth.getCurrentUserId() === this.user.id
-                                && this.user.status !== 'D'){
-                            
-                                return true;
-                                                    
-                        }else {
-                            this.router.navigate(['/user/list/users']);
-                            return false;
-                        }                          
-                  },
-                  userError => console.log(userError));                
+                return this.isUserEditAccessAllowed(userId);
+                                
             }
             
             return true;
@@ -229,50 +93,18 @@ export class AuthGuard implements CanActivate {
         if(`${next.url[0]}/${next.url[1]}` === 'project/view'){
             
             let projectId: number = +next.url[2];
-            return this.projectService.getProject(projectId)
-              .map(projectResponse => {
-                    this.project = projectResponse;
-                    if (this.project !== undefined && this.project.status === 'A'){
-                        return true;
-                    }
-                    else {
-                        this.router.navigate(['/project/list/projects']);
-                        return false;
-                    }                          
-              },
-              projectError => console.log(projectError));            
+            return this.isProjectViewAccessAllowedAsGuest(projectId);
+                        
         }else if(`${next.url[0]}/${next.url[1]}` === 'organization/view'){
                 
                 let orgId: number = +next.url[2];
-                return this.organizationService.getOrganization(orgId)
-                  .map(orgResponse => {
-                        this.organization = orgResponse;
-                        if (this.organization !== undefined && this.organization.status === 'A'){
-                            return true;
-                        }
-                        else {
-                            this.router.navigate(['/organization/list/organizations']);
-                            return false;
-                        }                          
-                  },
-                  orgError => console.log(orgError));                
+                return this.isOrganizationViewAccessAllowedAsGuest(orgId);
+                                
         }else if(`${next.url[0]}/${next.url[1]}` === 'user/view'){
                 
                 let userId: number = +next.url[2];
-                return this.userService.getUser(userId)
-                  .map(userResponse => {
-                        this.user = userResponse;
-                        if (this.user !== undefined 
-                                && this.user.status === 'A'
-                                && this.user.publishFlag === 'Y'){
-                            return true;
-                        }
-                        else {
-                            this.router.navigate(['/user/list/users']);
-                            return false;
-                        }                          
-                  },
-                  userError => console.log(userError));                
+                return this.isUserViewAccessAllowedAsGuest(userId);
+                                
             }
             
     
@@ -282,5 +114,233 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['']);
       return false;
     }
+  }
+  
+  private isProjectViewAccessAllowed(projectId: number): Observable<boolean> {
+  
+    return this.projectService.getProject(projectId)
+      .flatMap(projectResponse => {
+            this.project = projectResponse;
+            return this.userService.getUsersByOrganization(this.project.organizationId);
+          })
+      .map(userResponse => {
+            this.user = userResponse[0];                        
+
+            if(this.project !== undefined && this.auth.isAdmin()){
+                return true;
+            }
+            else if(this.user !== undefined 
+                    && this.auth.isOrganization()
+                    && +this.auth.getCurrentUserId() === this.user.id){
+
+                    return true;
+
+            }
+            else if (this.project !== undefined && this.project.status === 'A'){
+                return true;
+            }
+            else {
+                this.router.navigate(['/project/list/projects']);
+                return false;
+            }                          
+      },
+      projectError => console.log(projectError)); 
+  
+  }
+  
+  private isOrganizationViewAccessAllowed(orgId: number): Observable<boolean>{
+    
+    return this.organizationService.getOrganization(orgId)
+          .map(orgResponse => {
+                this.organization = orgResponse;
+                return this.userService.getUsersByOrganization(orgId);
+            })
+            .map(userResponse => {
+                this.user = userResponse[0];                        
+
+                if(this.organization !== undefined && this.auth.isAdmin()){
+                    return true;
+                }
+                else if(this.user !== undefined 
+                        && this.auth.isOrganization()
+                        && +this.auth.getCurrentUserId() === this.user.id
+                        && this.organization.status !== 'D'){
+
+                        return true;
+
+                }
+                else if (this.organization !== undefined && this.organization.status === 'A'){
+                    return true;
+                }
+                else {
+                    this.router.navigate(['/organization/list/organizations']);
+                    return false;
+                }                          
+          },
+          orgError => console.log(orgError));  
+    
+  }
+  
+  private isUserViewAccessAllowed(userId: number): Observable<boolean>{
+  
+    return this.userService.getUser(userId)
+          .map(userResponse => {
+                this.user = userResponse;
+                if(this.user !== undefined && this.auth.isAdmin()){
+                    return true;
+                }
+                else if(this.user !== undefined 
+                        && +this.auth.getCurrentUserId() === this.user.id
+                        && this.user.status !== 'D'){
+
+                        return true;
+
+                }
+                else if (this.user !== undefined 
+                        && this.user.status === 'A'
+                        && this.user.publishFlag === 'Y'){
+                    return true;
+                }
+                else {
+                    this.router.navigate(['/user/list/users']);
+                    return false;
+                }                          
+          },
+          userError => console.log(userError));
+  
+  }
+  
+  private isProjectEditAccessAllowed(projectId: number): Observable<boolean>{
+  
+    return this.projectService.getProject(projectId)
+          .flatMap(projectResponse => {
+                this.project = projectResponse;
+                return this.userService.getUsersByOrganization(this.project.organizationId);
+              })
+          .map(userResponse => {
+                this.user = userResponse[0];                        
+
+                if(this.project !== undefined && this.auth.isAdmin()){
+                    return true;
+                }
+                else if(this.user !== undefined 
+                        && this.auth.isOrganization()
+                        && +this.auth.getCurrentUserId() === this.user.id){
+
+                        return true;
+
+                }
+                else {
+                    this.router.navigate(['/project/list/projects']);
+                    return false;
+                }                          
+          },
+          projectError => console.log(projectError));
+  
+  }
+  
+  private isOrganizationEditAccessAllowed(orgId: number): Observable<boolean> {
+  
+    return this.organizationService.getOrganization(orgId)
+          .map(orgResponse => {
+                this.organization = orgResponse;
+                return this.userService.getUsersByOrganization(orgId);
+            })
+            .map(userResponse => {
+                this.user = userResponse[0];                        
+
+                if(this.organization !== undefined && this.auth.isAdmin()){
+                    return true;
+                }
+                else if(this.user !== undefined 
+                        && this.auth.isOrganization()
+                        && +this.auth.getCurrentUserId() === this.user.id
+                        && this.organization.status !== 'D'){
+
+                        return true;
+
+                }else {
+                    this.router.navigate(['/organization/list/organizations']);
+                    return false;
+                }                          
+          },
+          orgError => console.log(orgError));
+  
+  }
+  
+  private isUserEditAccessAllowed(userId: number): Observable<boolean> {
+  
+    return this.userService.getUser(userId)
+          .map(userResponse => {
+                this.user = userResponse;
+                if(this.user !== undefined && this.auth.isAdmin()){
+                    return true;
+                }
+                else if(this.user !== undefined 
+                        && +this.auth.getCurrentUserId() === this.user.id
+                        && this.user.status !== 'D'){
+
+                        return true;
+
+                }else {
+                    this.router.navigate(['/user/list/users']);
+                    return false;
+                }                          
+          },
+          userError => console.log(userError));
+  
+  }
+  
+  private isProjectViewAccessAllowedAsGuest(projectId: number): Observable<boolean> {
+  
+    return this.projectService.getProject(projectId)
+      .map(projectResponse => {
+            this.project = projectResponse;
+            if (this.project !== undefined && this.project.status === 'A'){
+                return true;
+            }
+            else {
+                this.router.navigate(['/project/list/projects']);
+                return false;
+            }                          
+      },
+      projectError => console.log(projectError));
+  
+  }
+  
+  private isOrganizationViewAccessAllowedAsGuest(orgId: number): Observable<boolean> {
+  
+    return this.organizationService.getOrganization(orgId)
+          .map(orgResponse => {
+                this.organization = orgResponse;
+                if (this.organization !== undefined && this.organization.status === 'A'){
+                    return true;
+                }
+                else {
+                    this.router.navigate(['/organization/list/organizations']);
+                    return false;
+                }                          
+          },
+          orgError => console.log(orgError));
+  
+  }
+  
+  private isUserViewAccessAllowedAsGuest(userId: number): Observable<boolean> {
+  
+    return this.userService.getUser(userId)
+      .map(userResponse => {
+            this.user = userResponse;
+            if (this.user !== undefined 
+                    && this.user.status === 'A'
+                    && this.user.publishFlag === 'Y'){
+                return true;
+            }
+            else {
+                this.router.navigate(['/user/list/users']);
+                return false;
+            }                          
+      },
+      userError => console.log(userError));
+  
   }
 }
