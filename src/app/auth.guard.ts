@@ -96,8 +96,35 @@ export class AuthGuard implements CanActivate {
                             return false;
                         }                          
                   },
-                  orgError => console.log(orgError));
+                  orgError => console.log(orgError));                
+            }
+            else if(`${next.url[0]}/${next.url[1]}` === 'user/view'){
                 
+                let userId: number = +next.url[2];
+                return this.userService.getUser(userId)
+                  .map(userResponse => {
+                        this.user = userResponse;
+                        if(this.user !== undefined && this.auth.isAdmin()){
+                            return true;
+                        }
+                        else if(this.user !== undefined 
+                                && +this.auth.getCurrentUserId() === this.user.id
+                                && this.user.status !== 'D'){
+                            
+                                return true;
+                                                    
+                        }
+                        else if (this.user !== undefined 
+                                && this.user.status === 'A'
+                                && this.user.publishFlag === 'Y'){
+                            return true;
+                        }
+                        else {
+                            this.router.navigate(['/user/list/users']);
+                            return false;
+                        }                          
+                  },
+                  userError => console.log(userError));                
             }
             
             return true;

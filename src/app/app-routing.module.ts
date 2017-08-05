@@ -40,7 +40,7 @@ const routes: Routes = [
         data: {roles: ['ADMIN', 'ADMIN']}},
 
   {path: 'user/list', component: UserListComponent},
-  {path: 'user/view/:userId', component: UserViewComponent},
+  {path: 'user/view/:userId', component: UserViewComponent, canActivate: [AuthGuard]},
   {path: 'user/edit/:userId', component: UserEditComponent, canActivate: [AuthGuard]},
   {path: 'user/delete/:userId', component: UserViewComponent, canActivate: [AuthGuard]},
 
