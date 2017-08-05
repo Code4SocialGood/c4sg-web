@@ -26,14 +26,14 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
-  {path: 'project/view/:projectId', component: ProjectViewComponent},
+  {path: 'project/view/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard]},
   {path: 'project/edit/:projectId', component: ProjectEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'project/delete/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
 
   {path: 'organization/list/:from', component: OrganizationListComponent},
-  {path: 'organization/view/:organizationId', component: OrganizationViewComponent},
+  {path: 'organization/view/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard]},
   {path: 'organization/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'organization/delete/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard],
