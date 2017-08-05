@@ -125,6 +125,82 @@ export class AuthGuard implements CanActivate {
                         }                          
                   },
                   userError => console.log(userError));                
+            }else if(`${next.url[0]}/${next.url[1]}` === 'project/edit'){
+            
+                let projectId: number = +next.url[2];
+                return this.projectService.getProject(projectId)
+                  .flatMap(projectResponse => {
+                        this.project = projectResponse;
+                        return this.userService.getUsersByOrganization(this.project.organizationId);
+                      })
+                  .map(userResponse => {
+                        this.user = userResponse[0];                        
+                            
+                        if(this.project !== undefined && this.auth.isAdmin()){
+                            return true;
+                        }
+                        else if(this.user !== undefined 
+                                && this.auth.isOrganization()
+                                && +this.auth.getCurrentUserId() === this.user.id){
+                            
+                                return true;
+                                                    
+                        }
+                        else {
+                            this.router.navigate(['/project/list/projects']);
+                            return false;
+                        }                          
+                  },
+                  projectError => console.log(projectError));  
+                  
+            }else if(`${next.url[0]}/${next.url[1]}` === 'organization/edit'){
+                
+                let orgId: number = +next.url[2];
+                return this.organizationService.getOrganization(orgId)
+                  .map(orgResponse => {
+                        this.organization = orgResponse;
+                        return this.userService.getUsersByOrganization(orgId);
+                    })
+                    .map(userResponse => {
+                        this.user = userResponse[0];                        
+                            
+                        if(this.organization !== undefined && this.auth.isAdmin()){
+                            return true;
+                        }
+                        else if(this.user !== undefined 
+                                && this.auth.isOrganization()
+                                && +this.auth.getCurrentUserId() === this.user.id
+                                && this.organization.status !== 'D'){
+                            
+                                return true;
+                                                    
+                        }else {
+                            this.router.navigate(['/organization/list/organizations']);
+                            return false;
+                        }                          
+                  },
+                  orgError => console.log(orgError));                
+            }else if(`${next.url[0]}/${next.url[1]}` === 'user/edit'){
+                
+                let userId: number = +next.url[2];
+                return this.userService.getUser(userId)
+                  .map(userResponse => {
+                        this.user = userResponse;
+                        if(this.user !== undefined && this.auth.isAdmin()){
+                            return true;
+                        }
+                        else if(this.user !== undefined 
+                                && +this.auth.getCurrentUserId() === this.user.id
+                                && this.user.status !== 'D'){
+                            
+                                return true;
+                                                    
+                        }else {
+                            this.router.navigate(['/user/list/users']);
+                            return false;
+                        }                          
+                  },
+                  userError => console.log(userError));                
             }
             
             return true;
@@ -180,7 +256,25 @@ export class AuthGuard implements CanActivate {
                         }                          
                   },
                   orgError => console.log(orgError));                
-            }    
+        }else if(`${next.url[0]}/${next.url[1]}` === 'user/view'){
+                
+                let userId: number = +next.url[2];
+                return this.userService.getUser(userId)
+                  .map(userResponse => {
+                        this.user = userResponse;
+                        if (this.user !== undefined 
+                                && this.user.status === 'A'
+                                && this.user.publishFlag === 'Y'){
+                            return true;
+                        }
+                        else {
+                            this.router.navigate(['/user/list/users']);
+                            return false;
+                        }                          
+                  },
+                  userError => console.log(userError));                
+            }
+            
     
       // Save URL to redirect to after login and fetching profile to get roles
       localStorage.setItem('redirect_url', state.url);
