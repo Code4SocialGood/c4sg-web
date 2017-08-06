@@ -26,9 +26,8 @@
                   <div class="col s12">Category: {{categoryName}}</div>
                   <div class="col s12">Location:
                     <span class="state" *ngIf="organization.state">{{pad(organization.state, "&nbsp;", 1)}}, </span>
-                    <span class="state">{{organization.country}}</span>
-                    <span class="state" *ngIf="!organization.state">{{pad(organization.country, "&nbsp;", 1)}}, </span>
-
+                    <span class="state" *ngIf="organization.country">{{organization.country}}</span>
+                    <span class="state" *ngIf="!organization.state && organization.country">{{pad(organization.country, "&nbsp;", 1)}}, </span>
                   </div>
                 </div>
               </div>
