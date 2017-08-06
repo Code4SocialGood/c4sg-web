@@ -3,7 +3,7 @@ import { User } from '../../user/common/user';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
-  selector: 'user-avatar',
+  selector: 'my-user-avatar',
   templateUrl: './user-avatar.component.html',
   styleUrls: ['./user-avatar.component.scss']
 })
