@@ -32,7 +32,7 @@
                 </div>
                 <div class="row">
                   <div class="col s12">
-                    <span>Posted: {{pad((project.updatedTime | date: 'MMM d, yyyy'), "&nbsp;", 4 + 10)}}</span>
+                    <span>Posted: {{pad((project.updatedTime | slice: 0:10), "&nbsp;", 4 + 10)}}</span>
                   </div>
                 </div>
               </div>
@@ -145,12 +145,12 @@
                       <div>{{applicant.title}}</div>
                     </div>
                     <div class="user-info col s4">
-                      <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
+                      <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
                       <div *ngIf="applicant.applicationStatus === 'C'">
-                        Accepted on: {{applicant.acceptedTime | date: 'MMM d, yyyy'}}
+                        Accepted on: {{applicant.acceptedTime | slice: 0:10}}
                       </div>
                       <div *ngIf="applicant.applicationStatus === 'D'">
-                        Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
+                        Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>
                     <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
