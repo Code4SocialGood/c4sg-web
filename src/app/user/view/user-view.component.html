@@ -10,7 +10,7 @@
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
           <div class="col s6 m3 l3">
-            <user-avatar [user]="user"></user-avatar>
+            <my-user-avatar [user]="user"></my-user-avatar>
             <div class="username">{{user.userName}}</div>
             <div class="links-list-wrapper" *ngIf="authService.authenticated()">
               <ul>
