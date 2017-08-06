@@ -17,7 +17,7 @@
                 <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
               </div>
               <div class="col s12" *ngIf="organization.websiteUrl">
-                <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
+                <a [href]="organization.websiteUrl" target="_blank">Website: {{pad(organization.websiteUrl, "&nbsp;", 2)}}</a>
               </div>
             </div>
             <div class="row">
@@ -25,8 +25,10 @@
                 <div class="row">
                   <div class="col s12">Category: {{categoryName}}</div>
                   <div class="col s12">Location:
-                    <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                    <span class="state" *ngIf="organization.state">{{pad(organization.state, "&nbsp;", 1)}}, </span>
                     <span class="state">{{organization.country}}</span>
+                    <span class="state" *ngIf="!organization.state">{{pad(organization.country, "&nbsp;", 1)}}, </span>
+
                   </div>
                 </div>
               </div>
@@ -45,6 +47,7 @@
             </div>
           </div>
           <div class="col m12">
+            <br>
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ organization.description }}</div>
           </div>
