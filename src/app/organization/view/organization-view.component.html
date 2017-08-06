@@ -73,8 +73,7 @@
               <div class="card-content">
                 <div class="row single-info" *ngIf="user">
                   <div class="col m4">
-                    <div class="info-avatar" *ngIf="user.avatarUrl"><img class='circle' [src]="user.avatarUrl"></div>
-                    <div class="info-avatar" *ngIf="!user.avatarUrl"><img class='circle' [src]="constantsService.defaultAvatar"></div>
+                    <user-avatar-small [user]="user"></user-avatar-small>
                   </div>
                   <div class="col m8" *ngIf="user">
                      <p class='user-name'>

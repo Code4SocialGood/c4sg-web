@@ -10,10 +10,7 @@
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
           <div class="col s6 m3 l3">
-            <div class="info-avatar card-avatar z-depth-2" *ngIf="user.avatarUrl">
-              <img class='card-avatar-content' [src]="user.avatarUrl"></div>
-            <div class="info-avatar card-avatar z-depth-2" *ngIf="!user.avatarUrl">
-              <img class='card-avatar-content' [src]="constantsService.defaultAvatar"></div>
+            <user-avatar [user]="user"></user-avatar>
             <div class="username">{{user.userName}}</div>
             <div class="links-list-wrapper" *ngIf="authService.authenticated()">
               <ul>
@@ -39,7 +36,7 @@
                 Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
               </div>
             </div>
-            <div class="location">Location: 
+            <div class="location">Location:
             <span *ngIf="user.state">{{pad(user.state, "&nbsp;", 3)}}, {{user.country}}</span>
             <span *ngIf="!user.state">
             {{pad(user.country, "&nbsp;", 3)}}</span>
