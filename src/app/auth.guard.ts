@@ -38,32 +38,32 @@ export class AuthGuard implements CanActivate {
             if(`${next.url[0]}/${next.url[1]}` === 'project/view'){
             
                 let projectId: number = +next.url[2];
-                return this.isProjectViewAccessAllowed(projectId);                           
+                return this.isProjectDetailAccessAllowed(projectId, 'view');                           
             }
             else if(`${next.url[0]}/${next.url[1]}` === 'organization/view'){
                 
                 let orgId: number = +next.url[2];
-                return this.isOrganizationViewAccessAllowed(orgId);                              
+                return this.isOrganizationDetailAccessAllowed(orgId, 'view');                              
             }
             else if(`${next.url[0]}/${next.url[1]}` === 'user/view'){
                 
                 let userId: number = +next.url[2];
-                return this.isUserViewAccessAllowed(userId);
+                return this.isUserDetailAccessAllowed(userId, 'view');
                                 
             }else if(`${next.url[0]}/${next.url[1]}` === 'project/edit'){
             
                 let projectId: number = +next.url[2];
-                return this.isProjectEditAccessAllowed(projectId);                  
+                return this.isProjectDetailAccessAllowed(projectId, 'edit');                  
                   
             }else if(`${next.url[0]}/${next.url[1]}` === 'organization/edit'){
                 
                 let orgId: number = +next.url[2];
-                return this.isOrganizationEditAccessAllowed(orgId);
+                return this.isOrganizationDetailAccessAllowed(orgId, 'edit');
                                 
             }else if(`${next.url[0]}/${next.url[1]}` === 'user/edit'){
                 
                 let userId: number = +next.url[2];
-                return this.isUserEditAccessAllowed(userId);
+                return this.isUserDetailAccessAllowed(userId, 'edit');
                                 
             }
             
@@ -116,7 +116,7 @@ export class AuthGuard implements CanActivate {
     }
   }
   
-  private isProjectViewAccessAllowed(projectId: number): Observable<boolean> {
+  private isProjectDetailAccessAllowed(projectId: number, action: string): Observable<boolean> {
   
     return this.projectService.getProject(projectId)
       .flatMap(projectResponse => {
@@ -136,7 +136,7 @@ export class AuthGuard implements CanActivate {
                     return true;
 
             }
-            else if (this.project !== undefined && this.project.status === 'A'){
+            else if (action === 'view' && this.project !== undefined && this.project.status === 'A'){
                 return true;
             }
             else {
@@ -148,7 +148,7 @@ export class AuthGuard implements CanActivate {
   
   }
   
-  private isOrganizationViewAccessAllowed(orgId: number): Observable<boolean>{
+  private isOrganizationDetailAccessAllowed(orgId: number, action: string): Observable<boolean>{
     
     return this.organizationService.getOrganization(orgId)
           .map(orgResponse => {
@@ -169,7 +169,7 @@ export class AuthGuard implements CanActivate {
                         return true;
 
                 }
-                else if (this.organization !== undefined && this.organization.status === 'A'){
+                else if (action === 'view' && this.organization !== undefined && this.organization.status === 'A'){
                     return true;
                 }
                 else {
@@ -181,7 +181,7 @@ export class AuthGuard implements CanActivate {
     
   }
   
-  private isUserViewAccessAllowed(userId: number): Observable<boolean>{
+  private isUserDetailAccessAllowed(userId: number, action: string): Observable<boolean>{
   
     return this.userService.getUser(userId)
           .map(userResponse => {
@@ -196,100 +196,19 @@ export class AuthGuard implements CanActivate {
                         return true;
 
                 }
-                else if (this.user !== undefined 
+                else if (action === 'view' && this.user !== undefined 
                         && this.user.status === 'A'
                         && this.user.publishFlag === 'Y'){
                     return true;
                 }
                 else {
-                    this.router.navigate(['/user/list/users']);
+                    this.router.navigate(['/user/list']);
                     return false;
                 }                          
           },
           userError => console.log(userError));
   
-  }
-  
-  private isProjectEditAccessAllowed(projectId: number): Observable<boolean>{
-  
-    return this.projectService.getProject(projectId)
-          .flatMap(projectResponse => {
-                this.project = projectResponse;
-                return this.userService.getUsersByOrganization(this.project.organizationId);
-              })
-          .map(userResponse => {
-                this.user = userResponse[0];                        
-
-                if(this.project !== undefined && this.auth.isAdmin()){
-                    return true;
-                }
-                else if(this.user !== undefined 
-                        && this.auth.isOrganization()
-                        && +this.auth.getCurrentUserId() === this.user.id){
-
-                        return true;
-
-                }
-                else {
-                    this.router.navigate(['/project/list/projects']);
-                    return false;
-                }                          
-          },
-          projectError => console.log(projectError));
-  
-  }
-  
-  private isOrganizationEditAccessAllowed(orgId: number): Observable<boolean> {
-  
-    return this.organizationService.getOrganization(orgId)
-          .map(orgResponse => {
-                this.organization = orgResponse;
-                return this.userService.getUsersByOrganization(orgId);
-            })
-            .map(userResponse => {
-                this.user = userResponse[0];                        
-
-                if(this.organization !== undefined && this.auth.isAdmin()){
-                    return true;
-                }
-                else if(this.user !== undefined 
-                        && this.auth.isOrganization()
-                        && +this.auth.getCurrentUserId() === this.user.id
-                        && this.organization.status !== 'D'){
-
-                        return true;
-
-                }else {
-                    this.router.navigate(['/organization/list/organizations']);
-                    return false;
-                }                          
-          },
-          orgError => console.log(orgError));
-  
-  }
-  
-  private isUserEditAccessAllowed(userId: number): Observable<boolean> {
-  
-    return this.userService.getUser(userId)
-          .map(userResponse => {
-                this.user = userResponse;
-                if(this.user !== undefined && this.auth.isAdmin()){
-                    return true;
-                }
-                else if(this.user !== undefined 
-                        && +this.auth.getCurrentUserId() === this.user.id
-                        && this.user.status !== 'D'){
-
-                        return true;
-
-                }else {
-                    this.router.navigate(['/user/list/users']);
-                    return false;
-                }                          
-          },
-          userError => console.log(userError));
-  
-  }
+  }   
   
   private isProjectViewAccessAllowedAsGuest(projectId: number): Observable<boolean> {
   
