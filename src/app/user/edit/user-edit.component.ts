@@ -45,7 +45,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkNotify = false;
   public isSkillExists = false;
   public isSkillLimit = false;
-  public isNew = false;
+  // public isNew = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -109,9 +109,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             this.user = res;
             this.avatar = this.user.avatarUrl;
 
+            /*
             if (this.user.status === 'N') {
               this.isNew = true;
-            }
+            } */
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
@@ -218,10 +219,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'N';
     }
 
+    /*
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
       this.isNew = false;
-    }
+    } */
 
     this.userService.update(this.user)
       .subscribe(() => {

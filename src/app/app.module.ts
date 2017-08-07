@@ -54,6 +54,8 @@ import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
 import { ProjectListSmallComponent } from './_components/project-card-small/project-card-small.component';
 import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
+import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
+import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
 
 @NgModule({
   imports: [
@@ -98,7 +100,9 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     ScrollSkillsDirective,
     ProjectCardComponent,
     ProjectListSmallComponent,
-    FeedbackBtnComponent
+    FeedbackBtnComponent,
+    UserAvatarComponent,
+    UserAvatarSmallComponent
   ],
   providers: [ProjectService,
     OrganizationService,
