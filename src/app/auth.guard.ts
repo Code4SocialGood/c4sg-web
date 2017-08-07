@@ -11,8 +11,12 @@ import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
 import { Organization } from './organization/common/organization';
 import { OrganizationService } from './organization/common/organization.service';
+import { MaterializeAction } from 'angular2-materialize';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
+
+
+declare const Materialize: any;
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -140,7 +144,8 @@ export class AuthGuard implements CanActivate {
                 return true;
             }
             else {
-                this.router.navigate(['/project/list/projects']);
+                this.router.navigate(['']);                
+                Materialize.toast('You do not have access to the page requested', 4000);                
                 return false;
             }                          
       },
@@ -173,7 +178,8 @@ export class AuthGuard implements CanActivate {
                     return true;
                 }
                 else {
-                    this.router.navigate(['/organization/list/organizations']);
+                    this.router.navigate(['']);                
+                    Materialize.toast('You do not have access to the page requested', 4000);
                     return false;
                 }                          
           },
@@ -202,7 +208,8 @@ export class AuthGuard implements CanActivate {
                     return true;
                 }
                 else {
-                    this.router.navigate(['/user/list']);
+                    this.router.navigate(['']);                
+                    Materialize.toast('You do not have access to the page requested', 4000);
                     return false;
                 }                          
           },
@@ -219,7 +226,8 @@ export class AuthGuard implements CanActivate {
                 return true;
             }
             else {
-                this.router.navigate(['/project/list/projects']);
+                this.router.navigate(['']);                
+                Materialize.toast('You do not have access to the page requested', 4000);
                 return false;
             }                          
       },
@@ -236,7 +244,8 @@ export class AuthGuard implements CanActivate {
                     return true;
                 }
                 else {
-                    this.router.navigate(['/organization/list/organizations']);
+                    this.router.navigate(['']);                
+                    Materialize.toast('You do not have access to the page requested', 4000);
                     return false;
                 }                          
           },
@@ -255,7 +264,8 @@ export class AuthGuard implements CanActivate {
                 return true;
             }
             else {
-                this.router.navigate(['/user/list/users']);
+                this.router.navigate(['']);                
+                Materialize.toast('You do not have access to the page requested', 4000);
                 return false;
             }                          
       },
