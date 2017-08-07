@@ -139,7 +139,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
-        /*  
+        /*
         // Check user status
         this.userService.getUser(this.currentUserId)
           .subscribe(
