@@ -66,12 +66,7 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
-                      <div *ngIf="user.avatarUrl" class="card-avatar z-depth-2">
-                        <img class="card-avatar-content" [src]="user.avatarUrl">
-                      </div>
-                      <div *ngIf="!user.avatarUrl" class="card-avatar z-depth-2">
-                        <img class="card-avatar-content" [src]="constantsService.defaultAvatar">
-                      </div>
+                      <my-user-avatar [user]="user"></my-user-avatar>
                     </div>
                     <div class="card-info">
                       <div class="card-header">
