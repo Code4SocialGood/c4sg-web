@@ -60,6 +60,11 @@ export class UserViewComponent implements OnInit {
       );
   }
 
+  pad(str: string, padValue: string, max: number): string {
+    max += str.length;
+    return (max - str.length > 0 ? padValue.repeat(max - str.length) + str : str);
+  }
+
   getUser(id: number) {
     this.userService.getUser(id).subscribe(
       res => {

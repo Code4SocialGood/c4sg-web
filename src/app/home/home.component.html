@@ -1,6 +1,6 @@
-<div class="home-wrapper">   
+<div class="home-wrapper">
   <div class="action_volunteer">
-    <div id="aniSlogan">
+    <div id="aniSlogan" class="vol_slogan">
       It doesn't matter if you
       <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
       <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
@@ -30,16 +30,13 @@
       <br> Get started now!
     </div>
     <div>
-     <!--  <td>
-        Login to Post Projects
-      </td> -->
-      <td> <!-- register -->
+      <td>
         <button  [@buttonState]="state"
                  (click)="authSvc.login()"
                  (mouseover)="toggleState()"
                  (mouseout)="toggleState()"
                  class="btn waves-effect waves-light #84c44c">
-            Register
+          Register
         </button>
       </td>
     </div>

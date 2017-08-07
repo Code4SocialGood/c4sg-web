@@ -102,7 +102,7 @@ export class ProjectViewComponent implements OnInit {
 
   pad(str: string, padValue: string, max: number): string {
     max += str.length;
-    return max - str.length > 0 ? padValue.repeat(max - str.length) + str : str;
+    return (max - str.length > 0 ? padValue.repeat(max - str.length) + str : str);
   }
 
 
