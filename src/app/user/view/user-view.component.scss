@@ -15,14 +15,15 @@
 }
 
 .names {
-  font-size: 1em;
-  //font-weight: bold;
+  font-size: 2em;
+  color: $secondary-bg-color;
+  font-weight: bold;
 }
 
 .location {
   line-height: 1.5em;
   //padding-left: 1em;
-  font-size: 0.75em;
+  font-size: 1em;
 }
 
 .user-title {
@@ -34,8 +35,9 @@
 }
 
 .username {
-  line-height: 1em;
+  line-height: 1.5em;
   text-align: center;
+  font-size: 1em;
 }
 
 #right-col, .sidebar{
