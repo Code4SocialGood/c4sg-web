@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="row single-info" *ngIf="isNew && isVolunteer">
+        <div class="row single-info" *ngIf="isVolunteer && !user.userName">
           <hr>
           <div class="col s12 m12 l12 highlight-title">Please complete your profile before apply for projects.</div>
         </div>

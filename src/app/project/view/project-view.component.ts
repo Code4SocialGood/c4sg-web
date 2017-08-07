@@ -210,7 +210,7 @@ export class ProjectViewComponent implements OnInit {
         this.userService.getUser(Number(this.currentUserId)).subscribe(
           res => {
             this.user = res;
-            if (this.user.status === 'N') {
+            if (!this.user.userName) {
               this.userProfileIncomplete = true;
             }
           },
