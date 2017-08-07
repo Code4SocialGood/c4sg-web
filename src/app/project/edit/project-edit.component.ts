@@ -32,7 +32,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public project: Project;
   public organization: Organization;
-  public user: User;
+  // public user: User;
   public organizations: Organization[];
 
   public inputValue = '';
@@ -50,7 +50,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isOrgNew = false;
   public isOrgPending = false;
   public isOrgActive = false;
-  public isUserNew = false;
   public displayClose = false;
 
   public descMaxLength: number = this.validationService.descMaxLength;
@@ -140,6 +139,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
+        /*  
         // Check user status
         this.userService.getUser(this.currentUserId)
           .subscribe(
@@ -149,7 +149,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.isUserNew = true;
               }
             }, error => console.log(error)
-          );
+          ); */
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)

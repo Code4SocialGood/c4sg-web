@@ -28,11 +28,11 @@
           </div>
           <div class="col s12 m9 l9">
             <div class="names mg-top-10px">{{user.firstName}} {{user.lastName}}</div>
-            <div class="user-title">
+            <div class="user-title" *ngIf="user.title">
               Title: {{pad(user.title, "&nbsp;", 10)}}
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
-              <div class="location" *ngIf="jobTitle.id === user?.jobTitleId">
+              <div class="location" *ngIf="jobTitle.id === user?.jobTitleId && jobTitle.jobTitle">
                 Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
               </div>
             </div>
