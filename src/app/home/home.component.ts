@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Rx';
 import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
 import {DataService} from '../_services/data.service';
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'my-home',
@@ -49,7 +51,6 @@ import {DataService} from '../_services/data.service';
       transition('active => inactive', animate('200ms ease-out'))
     ])
   ]
-
 })
 
 export class HomeComponent implements OnInit {
@@ -64,15 +65,18 @@ export class HomeComponent implements OnInit {
   clear = true;
   typeAniIndex = -1;
   typeAniPeriod = 100;
-  aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
-  aniWord = '';
   cursorState = 'inactive';
   wordColorIndex = 0;
 
+  aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
+  aniWord = '';
+  aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
+  aniWordOrg = '';
 
   constructor(private projectService: ProjectService,
               private router: Router,
-              private dataService: DataService) {
+              private dataService: DataService,
+              public authSvc: AuthService) {
   }
 
   // onload animation timer

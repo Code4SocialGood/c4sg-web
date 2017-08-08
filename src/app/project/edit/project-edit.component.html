@@ -13,6 +13,10 @@
       <div class="content sidebar-wrapper">
         <div class="row single-info">
           <h4 class="col s12 m12 l12 image-title">Project Image</h4>
+          <div class = "col offset-s8 offset-m8 offset-l8">
+            <a *ngIf="imageUrl" class="btn-small btn-floating grey" (click)="deleteImage()"><i
+              class="icon-small material-icons center-align">close</i></a>
+          </div>
           <div class="col s12  m12 l7 avatar-container">
             <div class="info-avatar z-depth-2">
               <img class="responsive-img" *ngIf="imageUrl" id="responsive-img" [src]="imageUrl">
@@ -29,12 +33,13 @@
         </div>
         <div class="row single-info" *ngIf="isOrgNew">
           <hr>
-          <h4 class="col s12 m12 l12 highlight-title">Please complete My Organization information. Your organization will be reviewed before you can post projects.</h4>
+          <div class="col s12 m12 l12 highlight-title">Please complete your user profile and organization profile before posting projects.</div>
         </div>
+        <!-- We skip org review process during first release
         <div class="row single-info" *ngIf="isOrgPending">
           <hr>
-          <h4 class="col s12 m12 l12 highlight-title"> Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</h4>
-        </div> 
+          <div class="col s12 m12 l12 highlight-title"> Your organization is under review. You will be able to create project after your organization is approved. We will notify you as soon as possible.</div>
+        </div> -->
       </div>
     </div>
 
@@ -45,7 +50,7 @@
           <div class="row">
             <div class="content-title">Introduction</div>
             <div class="input-field col s6">
-              <input id="name" type="text" formControlName="name" class="validate" required>
+              <input [maxlength]="100" id="name" type="text" formControlName="name" class="validate" required>
               <label for="name" id="name-label">Project Name *</label>
             </div>
             <div class="row">
@@ -54,7 +59,7 @@
                 <div class="theme-select dropdown">
                   <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
                     <option value=""  disabled selected>Choose Role</option>
-                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" 
+                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id"
                     [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
                 </div>
@@ -89,11 +94,11 @@
               <div [ngClass]="{disabled: projectForm.controls.remoteFlag.value === 'Y'}">
                 <div class="row">
                   <div class="input-field col s6">
-                    <input id="city" type="text" class="validate" formControlName="city">
+                    <input [maxlength]="100" id="city" type="text" class="validate" formControlName="city">
                     <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input id="state" type="text" class="validate" formControlName="state">
+                    <input [maxlength]="100" id="state" type="text" class="validate" formControlName="state">
                     <label for="state" id="state-label">State</label>
                   </div>
                 </div>
@@ -128,7 +133,7 @@
             <div class="col s6">
               <div class="input-field col s10 skills-margin">
                 <label [ngClass]="{active: inputValue}" for="newSkill">Enter your own skills</label>
-                <input id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
+                <input [maxlength]="100" id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
@@ -139,7 +144,7 @@
 
           <div class="row">
             <div class="col m12">
-              <!-- Invalid input fields are underlined with red, the hints below are unnecessary
+              <!-- Invalid input fields are underlined with red, the hints below are unnecessary anymore
               <div class="divider"></div>
               <label for="saveBtn" class="red-text">
                   <div *ngIf="projectForm.get('name').pristine && !projectForm.get('name').valid">
@@ -150,9 +155,10 @@
                   </div>
               </label> -->
               <div class="footer-btns center section">
-                <button class="btn waves-effect waves-light" id=saveBtn type="submit" materialize [materializeParams]="['Your changes have been saved',4000]"
-                  [materializeActions]="globalActions" [disabled]="!projectForm.valid || !isOrgActive">
+                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive">
                    Save
+                </button>
+                <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal()">Close
                 </button>
               </div>
             </div>
@@ -160,5 +166,16 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm Project Close</h4>
+    <p>Are you sure you want to close the project?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="onClose()">Yes</a>
   </div>
 </div>

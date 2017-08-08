@@ -72,9 +72,9 @@ export class AuthService {
         options: [
           { value: 'VOLUNTEER', label: 'Volunteer User' },
           { value: 'ORGANIZATION', label: 'Organization User' },
-          { value: 'ADMIN', label: 'Admin User' }
+          // { value: 'ADMIN', label: 'Admin User' } // take admin user out of UI
         ],
-        prefill: 'VOLUNTEER'
+        // prefill: 'VOLUNTEER' // enforce user to choose, don't provide default
       }
     ]
   };
@@ -152,6 +152,7 @@ export class AuthService {
                   res1 => {
                     user = res1;
                     localStorage.setItem('currentUserId', user.id);
+                    this.setlocalStorageItems();
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {
@@ -204,11 +205,9 @@ export class AuthService {
   }
 
   public setlocalStorageItems() {
-    console.log('************SetLocalStorageItems for the user');
-    this.currentUserId = this.getCurrentUserId();
+     this.currentUserId = this.getCurrentUserId();
     if (this.authenticated() && this.currentUserId != null) {
       // this.currentUserId = this.getCurrentUserId();
-
       if (this.isOrganization()) { // if user is Organization User
         if (this.currentUserId !== '0' && this.currentUserId !== null) {
           // Get the associated organzation id
@@ -238,6 +237,18 @@ export class AuthService {
           res => {
             const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
             localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
+          res => {
+            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
+          res => {
+            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
           },
           error => console.log(error));
       }

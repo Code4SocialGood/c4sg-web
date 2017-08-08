@@ -10,24 +10,47 @@
       <div class="card-header">
         <div class='name'>
         <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
-          <div class="right">
-              <div class="col s12" *ngIf="userProjectStatus === 'applied' && from!=='myProjects'">
-                <div class="project-marked">
-                  <svg class="icon">
-                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
-                  </svg>
-                  <span>Applied</span>
-                </div>
-              </div>
-              <div class="col s12" *ngIf="userProjectStatus === 'bookmarked' && from!=='myProjects'">
-                <div class="project-marked">
-                  <svg class="icon icon-bookmarked">
-                    <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
-                  </svg>
-                  <span>Bookmarked</span>
-                </div>
-              </div>
+        <div class="right"  *ngIf="from!=='myProjects'">
+          <div class="col s12" *ngIf="userProjectStatus === 'applied'">
+            <div class="project-marked">
+              <i class="material-icons icon applied-symbol">done</i>
+            <!-- <svg class="icon applied-symbol">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                 <foreignObject>
+                  <div><i> class="material-icons">done</i></div>
+                 </foreignObject>
+              </svg>-->
+              <span>Applied</span>
+            </div>
           </div>
+          <div class="col s12" *ngIf="userProjectStatus === 'bookmarked'">
+            <div class="project-marked">
+              <i class="material-icons icon applied-symbol">bookmark</i>
+              <!--<svg class="icon bookmarked-symbol">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+              </svg>-->
+              <span>Bookmarked</span>
+            </div>
+          </div>
+          <div class="col s12" *ngIf="userProjectStatus === 'accepted'">
+            <div class="project-marked">
+              <i class="material-icons icon applied-symbol">done_all</i>
+              <!--<svg class="icon accepted-symbol">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#accepted-symbol"></use>
+              </svg>-->
+              <span>Accepted</span>
+            </div>
+          </div>
+          <div class="col s12" *ngIf="userProjectStatus === 'declined'">
+            <div class="project-marked">
+               <i class="material-icons icon applied-symbol">clear</i>
+              <!--<svg class="icon declined-symbol">
+                <use xlink:href="../../assets/applied-bookmarked-sprite.svg#declined-symbol"></use>
+              </svg>-->
+              <span>Declined</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row info-row">
         <div class="col s12">
@@ -40,7 +63,7 @@
           <span class="state" *ngIf="project.country">{{project.country}}</span>
           <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>
           &nbsp;| &nbsp;
-          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | date: 'MMM d, yyyy'}}</span>
+          <span class="joined-at" *ngIf="project.createdTime">Posted: {{project.createdTime | slice: 0:10}}</span>
         </div>
         </div>
       </div>

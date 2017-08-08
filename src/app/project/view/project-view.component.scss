@@ -3,13 +3,8 @@
 .organization-name {
   @include content-subtitle-font;
   a:hover {
-    text-decoration: underline #84c44c;  
+    text-decoration: underline #84c44c;
     }
-}
-.available-opp-proj-name{
-  h5:hover{
-     text-decoration: underline #84c44c;  
-  }
 }
 .project-marked {
   display: inline-block;
@@ -18,14 +13,18 @@
   .icon {
     display: inline-block;
     vertical-align: middle;
-    width: 1.2em;
-    height: 1.2em;
+    //width: 1.2em;
+    //height: 1.2em;
     stroke-width: 0;
     //stroke: #84c44c;
     //fill: #84c44c;
-    stroke: $secondary-color;
-    fill: $secondary-color;
+    //stroke: $secondary-color;
+    //fill: $secondary-color;
+    //margin-right: 0.5em;
+    stroke: #ff4f00;
+    fill: #ff4f00;
     margin-right: 0.5em;
+    color: #ff4f00;
   }
 
   span {
@@ -106,4 +105,9 @@
 
 .buttons-margin{
   margin-top:-10px;
+}
+
+.name:hover {
+  text-decoration-line: underline;
+  text-decoration-color: #84c44c;
 }

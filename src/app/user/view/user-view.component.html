@@ -1,5 +1,7 @@
-<div class="page-title">
-  <h1>Volunteer</h1>
+<div class="page-title"  *ngIf="user">
+  <h1 *ngIf="user.role === 'V'">Volunteer</h1>
+  <h1 *ngIf="user.role === 'O'">Organization User</h1>
+  <h1 *ngIf="user.role === 'A'">Admin User</h1>
 </div>
 <div class="container">
   <div class="row main-row">
@@ -8,10 +10,7 @@
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
           <div class="col s6 m3 l3">
-            <div class="info-avatar card-avatar z-depth-2" *ngIf="user.avatarUrl">
-              <img class='card-avatar-content' [src]="user.avatarUrl"></div>
-            <div class="info-avatar card-avatar z-depth-2" *ngIf="!user.avatarUrl">
-              <img class='card-avatar-content' [src]="constantsService.defaultAvatar"></div>
+            <my-user-avatar [user]="user"></my-user-avatar>
             <div class="username">{{user.userName}}</div>
             <div class="links-list-wrapper" *ngIf="authService.authenticated()">
               <ul>
@@ -28,23 +27,28 @@
             </div>
           </div>
           <div class="col s12 m9 l9">
-            <div class="names mg-top-10px">{{user.firstName}} {{user.lastName}}</div>
-            <div class="user-title">
-              <h5>{{user.title}}</h5>
+            <div class="mg-top-10px content-title ">{{user.firstName}} {{user.lastName}}</div>
+            <div class="user-title" *ngIf="user.title">
+              Title: {{pad(user.title, "&nbsp;", 10)}}
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
-              <div class="location" *ngIf="jobTitle.id === user?.jobTitleId">
-                Role: <span>{{jobTitle.jobTitle}}</span>
+              <div class="location" *ngIf="jobTitle.id === user?.jobTitleId && jobTitle.jobTitle">
+                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
               </div>
             </div>
-            <div class="location">Location: <span *ngIf="user.state">{{user.state}}, </span>{{user.country}}</div>
+            <div class="location">Location:
+            <span *ngIf="user.state">{{pad(user.state, "&nbsp;", 3)}}, {{user.country}}</span>
+            <span *ngIf="!user.state">
+            {{pad(user.country, "&nbsp;", 3)}}</span>
+            </div>
             <div class="skills-tag-wrapper">
               <ul *ngIf="user.skills">
                 <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
               </ul>
             </div>
           </div>
-          <div class="col m12">
+          <div class="col m12" *ngIf="user.introduction">
+            <br>
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ user.introduction }}</div>
           </div>
@@ -58,18 +62,108 @@
       </div>
     </div>
 
-    <!-- Right Panel: User Volunteer History -->
+    <!-- Right Panel -->
     <div class="col m4" id="right-col">
-      <div class="sidebar">
-        <div class="section">
+      <div class="sidebar"  *ngIf="user">
+        <!-- Volunteer User: display volunteer history -->
+        <div class="section" *ngIf="user.role === 'V'">
           <h4>Volunteer History</h4>
+          <div class="section-body-project" *ngIf="!projects">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length == 0">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length > 0">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
+                  <my-project-card-small [project]="pr"></my-project-card-small>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Organization User: display organization and projects -->
+        <div class="section" *ngIf="user.role === 'O'">
+          <h4>Organization</h4>
           <div class="section-body-organization">
             <div class="card">
-              <div class="card-content">
+              <div class="card-content" *ngIf="organization">
                 <div class="row single-info">
-                  <p>Coming soon ...</p>
+                  <div class="col m4">
+                    <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
+                    <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="constantsService.defaultImage"></div>
+                  </div>
+                  <div class="col m8 organization-name">
+                    <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
+                    <p *ngIf="!organization.id">{{organization.name}}</p>
+                  </div>
+                  <div class="col m8">
+                    <p>Category: {{categoryName}}</p>
+                    <p>
+                      Location:
+                      <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                      <span class="state">{{organization.country}}</span>
+                    </p>
+                  </div>
                 </div>
+                <p *ngIf="organization && organization.description">{{ organization && organization.description | slice:0:100 }} ...
+                </p>
               </div>
+            </div>
+          </div>
+          <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+          <div class="section-body-project" *ngIf="!projects">
+            <ul>
+                <li class="card-wrapper">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="row single-info">
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length == 0">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length > 0">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
+                  <my-project-card-small [project]="pr"></my-project-card-small>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -78,13 +172,13 @@
   </div>
 </div>
 
-<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">
     <h4>Confirm User Deletion</h4>
     <p>Are you sure you want to delete the user?</p>
   </div>
   <div class="modal-footer">
     <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()" materialize [materializeActions]="deleteGlobalActions">Yes</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="delete()">Yes</a>
   </div>
 </div>

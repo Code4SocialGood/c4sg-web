@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
+import { User } from '../../user/common/user';
 import { JobTitle } from '../../job-title';
 import { Organization } from '../../organization/common/organization';
 import { UserService } from '../../user/common/user.service';
@@ -31,6 +32,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public project: Project;
   public organization: Organization;
+  // public user: User;
   public organizations: Organization[];
 
   public inputValue = '';
@@ -48,6 +50,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isOrgNew = false;
   public isOrgPending = false;
   public isOrgActive = false;
+  public displayClose = false;
 
   public descMaxLength: number = this.validationService.descMaxLength;
   public descMaxLengthEntered = false;
@@ -55,7 +58,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public descFieldFocused = false;
 
   public projectForm: FormGroup;
+
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(public fb: FormBuilder,
               private projectService: ProjectService,
@@ -133,6 +138,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.fillForm();
             }, error => console.log(error)
           );
+
+        /*
+        // Check user status
+        this.userService.getUser(this.currentUserId)
+          .subscribe(
+            res => {
+              this.user = res;
+              if (this.user.status === 'N') {
+                this.isUserNew = true;
+              }
+            }, error => console.log(error)
+          ); */
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -141,6 +158,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.project = resProject;
               this.imageUrl = this.project.imageUrl;
               this.fillForm();
+              if (this.project.status === 'A') {
+                this.displayClose = true;
+              }
             }, error => console.log(error)
           );
 
@@ -151,6 +171,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.projectSkillsArray = resSkillsProjects;
             }, error => console.log(error)
           );
+
+        this.isOrgActive = true; // Org must be active so that a project could be created
       }
     });
   }
@@ -221,7 +243,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           .updateProjectSkills(this.projectSkillsArray, this.project.id)
           .subscribe(result => {
             this.router.navigate(['/project/view/' + this.project.id]);
-            Materialize.toast('Your changes have been saved', 4000);
+            Materialize.toast('The project is saved', 4000);
           }, error => console.log(error));
       });
   }
@@ -273,6 +295,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the project image upload sequence of steps
   onUploadImage(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.project.id, 'image');
 
@@ -288,7 +311,23 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         }}, (e) => {
           console.error('Image not saved. Not expecting a response body');
         });
+    } else {
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
+    }
   }
+
+  deleteImage() {
+    this.imageUrl = '';
+    this.projectService.saveProjectImg(this.projectId, this.imageUrl)
+      .subscribe(res => {
+          this.project.imageUrl = this.imageUrl;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
 
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
@@ -317,6 +356,29 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     if (!this.projectForm.controls.description.invalid) {
       this.descFieldFocused = false;
     }
+  }
+
+  onClose(): void {
+    this.projectService
+      .delete(this.project.id)
+      .subscribe(
+        response => {
+          Materialize.toast('The project is closed', 4000);
+          this.router.navigate(['/project/view', this.project.id]);
+        },
+        error => {
+          console.log(error);
+          Materialize.toast('Error closing the project', 4000);
+        }
+      );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
 }

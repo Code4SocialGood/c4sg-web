@@ -22,7 +22,7 @@
   z-index: -2;
 }
 
-.action {
+.action_volunteer {
 
     background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image.jpeg") no-repeat center center;
     background-attachment:fixed;
@@ -32,13 +32,39 @@
     -o-background-size: cover;
     background-size: cover;
 
-    max-width: 100%;
+    // max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    text-align: center;
+    //position: relative;
+}
+
+.action_organization {
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+    background-attachment:fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 99vh;
     text-align: center;
+}
+
+.action_organization button {
+  font-size: 1.7rem;
+  height: auto;
+  padding: .7rem 1.3rem;
+  margin-top: .5em;
 }
 
 .home-title {
@@ -76,6 +102,20 @@
   font-weight: 100;
   color: #383838;
   padding-top: 0.5em;
+  text-align: center;
+
+}
+
+#aniSlogan.vol_slogan {
+  position: absolute;
+  top: 11rem;
+  left: 28rem;
+}
+
+#aniSlogan.vol_slogan + .input-field {
+  margin-top: 7rem;
+  margin-left:-5rem;
+  //height:20rem;
 }
 
 #aniWord {
