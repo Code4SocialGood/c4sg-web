@@ -17,6 +17,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { OrganizationService } from './organization.service';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 describe('OrganizationService', () => {
 
@@ -32,6 +33,13 @@ describe('OrganizationService', () => {
           },
           deps: [MockBackend, BaseRequestOptions]
         },
+        {
+                provide: AuthHttp,
+                useFactory: (http) => {
+                    return new AuthHttp(new AuthConfig(), http);
+                },
+                deps: [Http]
+            },
         MockBackend,
         BaseRequestOptions
       ]
