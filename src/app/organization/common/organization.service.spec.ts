@@ -25,8 +25,6 @@ describe('OrganizationService', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule, JsonpModule],
       providers: [
-        AuthHttp,
-        AuthConfig,
         OrganizationService,
         {
           provide: Http,
@@ -35,6 +33,13 @@ describe('OrganizationService', () => {
           },
           deps: [MockBackend, BaseRequestOptions]
         },
+        {
+                provide: AuthHttp,
+                useFactory: (http) => {
+                    return new AuthHttp(new AuthConfig(), http);
+                },
+                deps: [Http]
+            },
         MockBackend,
         BaseRequestOptions
       ]
