@@ -117,14 +117,12 @@ export class AuthService {
           localStorage.setItem('delgId', profile.app_metadata.amzid);
           localStorage.setItem('delgSecId', profile.app_metadata.amzsecid);
           this.userProfile = profile;
-
           this.email = profile.email;
-
           userService.getUserByEmail(this.email).subscribe(
             res => {
               const lemail = this.email;
               const luserRole = this.userRole;
-              // const luserName = this.userName;
+               //const luserName = this.userName;
               const firstName = this.firstName !== undefined ? this.firstName : '';
               const lastName = this.lastName !== undefined ? this.lastName : '';
               // console.log(res);
@@ -132,21 +130,26 @@ export class AuthService {
               if (res) {
                 user = res;
               }
+             localStorage.setItem('currentUserEmail', this.email);
               // If user not found, then create the user
               if (user === undefined) {
-                console.log('User does not exist');
                 const newUser: User = ({
                   id: 0,
                   email: lemail,
                   role: luserRole.toUpperCase().substr(0, 1),
                   // userName: luserName,
                   firstName: firstName,
-                  lastName: lastName
+                  lastName: lastName,
                   // publishFlag: 'N',
                   // notifyFlag: 'N',
                   // status: 'ACTIVE'
+                  title:'',
+                  introduction:''
                 });
-
+                 localStorage.setItem('currentUserEmail', lemail);
+                 localStorage.setItem('currentUserRole', luserRole);
+                 localStorage.setItem('currentUserFName', firstName);
+                 localStorage.setItem('currentUserLName', lastName);
                 // Create a user
                 userService.add(newUser).subscribe(
                   res1 => {
@@ -161,6 +164,8 @@ export class AuthService {
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   },
                   error1 => console.log(error1));
+                  this.router.navigate(['/user/edit/0']);
+                  localStorage.setItem('redirectAfterLogin', this.router.url);
               } else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
@@ -172,12 +177,9 @@ export class AuthService {
                 localStorage.setItem('currentUserAvatar', user.avatarUrl);
                 this.setlocalStorageItems();
               }
-
               if (environment.production && !environment.auth_tenant_shared) {
                 this.getDelegationToken();
               }
-
-              // Issue 356 - redirect user back to the page that requested login - project view page
               this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
               if (this.redirectAfterLogin) {
                 setTimeout(() => { this.router.navigate([this.redirectAfterLogin]); }, 100);
