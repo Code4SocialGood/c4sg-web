@@ -12,14 +12,13 @@ import { Organization } from './organization/common/organization';
   styleUrls: [ 'app.component.scss' ]
 })
 
-export class AppComponent  {
+export class AppComponent {
 
     currentUserId: string;
     organizationId: string;
-    authSvc: AuthService;
 
     constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
-      this.authSvc = this.auth;
+      this.auth.handleAuthentication();
     }
 
   // control nav style by changing the class name

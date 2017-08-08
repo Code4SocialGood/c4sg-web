@@ -3,13 +3,14 @@ import {Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
+import { AuthHttp } from 'angular2-jwt';
 
 const skillUrl = `${environment.backend_url}/api/skills`;
 
 @Injectable()
 export class SkillService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
   getSkills(): Observable<any> {
@@ -38,7 +39,7 @@ export class SkillService {
     params.set('id', id);
     params.set('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
-    return this.http
+    return this.authHttp
       .put(url, null, {search: params})
       .map((res: Response) => {
         if (res.status !== 200 || res.type !== 2) {
@@ -54,7 +55,7 @@ export class SkillService {
     params.set('id', id);
     params.set('skillsList', userSkillsArray.join(','));
     const url = skillUrl + '/user/skills';
-    return this.http
+    return this.authHttp
       .put(url, null, {search: params})
       .map((res: Response) => {
         if (res.status !== 200 || res.type !== 2) {
