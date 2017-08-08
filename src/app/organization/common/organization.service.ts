@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
 import { Organization } from './organization';
+import { AuthHttp } from 'angular2-jwt';
 
 const organizationUrl = `${environment.backend_url}/api/organizations`;
 
@@ -12,7 +13,7 @@ export class OrganizationService {
   private organizationLinkedSource = new Subject<string>();
   public organizationLinkedSource$ = this.organizationLinkedSource.asObservable();
 
-  constructor(private http: Http, private jsonp: Jsonp) { }
+  constructor(private http: Http, private jsonp: Jsonp, private authHttp: AuthHttp) { }
 
   getOrganizations(): Observable<Organization[]> {
     return this.http
@@ -35,7 +36,7 @@ export class OrganizationService {
   approve(organizationId: number, status: string) {
     const requestOptions = new RequestOptions();
     requestOptions.search = new URLSearchParams(`status=${status}`);
-    return this.http
+    return this.authHttp
       .put(`${organizationUrl}/${organizationId}/approve`, '', requestOptions);
   }
 
@@ -89,14 +90,14 @@ export class OrganizationService {
   }
 
   createOrganization(organization: Organization): Observable<{organization: Organization}> {
-      return this.http.post(
+      return this.authHttp.post(
       `${organizationUrl}`,
       organization
       ).map(res => res.json());
   }
 
   linkUserOrganization(userId: String, organizationId: number) {
-    const observable = this.http.post(
+    const observable = this.authHttp.post(
       `${organizationUrl}/${organizationId}/users/${userId}`,
       {}
     );
@@ -109,14 +110,14 @@ export class OrganizationService {
   }
 
   updateOrganization(organization: Organization): Observable<Response> {
-      return this.http.put(
+      return this.authHttp.put(
       `${organizationUrl}/${organization.id}`,
       organization
       );
   }
 
   delete(id: number): Observable<Response> {
-    return this.http.delete(`${organizationUrl}/${id}`);
+    return this.authHttp.delete(`${organizationUrl}/${id}`);
   }
 
   /*
@@ -125,7 +126,7 @@ export class OrganizationService {
   saveLogoImg(id: number, imgUrl: string) {
     const requestOptions = new RequestOptions();
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
-    return this.http
+    return this.authHttp
       .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
   }
 

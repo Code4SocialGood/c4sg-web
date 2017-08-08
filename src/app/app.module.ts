@@ -57,6 +57,15 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
 import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
 import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
 
+import { Http, RequestOptions } from '@angular/http';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -116,7 +125,12 @@ import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-a
     DataService,
     ValidationService,
     SkillService,
-    ExtFileHandlerService],
+    ExtFileHandlerService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }],
 
   bootstrap: [AppComponent]
 })
