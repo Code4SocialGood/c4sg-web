@@ -45,6 +45,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkNotify = false;
   public isSkillExists = false;
   public isSkillLimit = false;
+  // public isNew = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -56,6 +57,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
   public globalActions = new EventEmitter<string|MaterializeAction>();
+  public modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -106,15 +108,25 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           res => {
             this.user = res;
             this.avatar = this.user.avatarUrl;
-            this.fillForm();
+
+            /*
+            if (this.user.status === 'N') {
+              this.isNew = true;
+            } */
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
+            } else {
+             this.checkPublish = false;
             }
 
             if (this.user.notifyFlag === 'Y' ) {
               this.checkNotify = true;
+            } else {
+            this.checkNotify = false;
             }
+
+            this.fillForm();
           }, error => console.log(error)
         );
 
@@ -161,7 +173,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'jobTitleId': [this.user.jobTitleId || '', []],
       'userName': [this.user.userName || '', [Validators.required]],
       'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', []],
+      'lastName': [this.user.lastName || '', [Validators.required]],
       'state': [this.user.state || '', []],
       'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
@@ -171,8 +183,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
       'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.user.publishFlag || '', []],
-      'notifyFlag': [this.user.notifyFlag || '', []]
+      'publishFlag': [this.checkPublish || '', []],
+      'notifyFlag': [this.checkNotify || '', []]
     });
   }
 
@@ -207,13 +219,15 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'N';
     }
 
+    /*
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
-    }
+      this.isNew = false;
+    } */
 
     this.userService.update(this.user)
       .subscribe(() => {
-        this.globalActions.emit('toast');
+        Materialize.toast('Your account is saved', 4000);
         this.router.navigate(['/user/view', this.user.id]);
       },
         err => { console.error(err, 'An error occurred'); }
@@ -296,6 +310,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   // Orchestrates the avatar image upload sequence of steps
   onUploadAvatar(fileInput: any): void {
+    if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
     // Function call to upload the file to AWS S3
     const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
     // Calls the function to save the avatar image url to the user's row
@@ -305,12 +320,49 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
             this.user.avatarUrl = this.avatar;
-            console.log('Avatar successfully uploaded!');
         } else {
           console.error('Saving user avatar: Not expecting a response body');
         }}, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
+    } else {
+      Materialize.toast('Maximum image size allowed is 1MB', 4000);
+    }
+  }
+
+  deleteImage(): void {
+    this.avatar = '';
+    this.userService.saveAvatarImg(this.userId, this.avatar)
+      .subscribe(res => {
+          this.user.avatarUrl = this.avatar;
+        },
+        (error) => {
+          console.log('Image not deleted successfully');
+        }
+      );
+  }
+
+  onDelete() {
+
+    this.userService.delete(this.userId)
+      .subscribe(() => {
+        Materialize.toast('The user is deleted', 4000);
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
+        err => {
+          console.error(err, 'An error occurred');
+          Materialize.toast('Error deleting the user', 4000);
+        }
+      );
+  }
+
+  openModal() {
+    this.modalActions.emit({action: 'modal', params: ['open']});
+  }
+
+  closeModal() {
+    this.modalActions.emit({action: 'modal', params: ['close']});
   }
 
   ngAfterViewChecked(): void {

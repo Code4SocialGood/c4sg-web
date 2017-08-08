@@ -12,7 +12,7 @@ import { Organization } from './organization/common/organization';
   styleUrls: [ 'app.component.scss' ]
 })
 
-export class AppComponent implements DoCheck {
+export class AppComponent {
 
     currentUserId: string;
     organizationId: string;
@@ -30,7 +30,7 @@ export class AppComponent implements DoCheck {
     }
   }
 
-  ngDoCheck() {
+  /*ngDoCheck() {
     if (this.auth.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.auth.getCurrentUserId();
       if (this.currentUserId !== '0' && this.currentUserId !== null ) {
@@ -50,5 +50,5 @@ export class AppComponent implements DoCheck {
         );
       }
     }
-  }
+  }*/
 }

@@ -1,0 +1,33 @@
+@import "../../_style/app.theme";
+
+$avatar-primary-color: $secondary-bg-color;
+$avatar-secondary-color: rgb(0, 212, 166);
+$avatar-font-color: #fff;
+
+@mixin default-user-avatar($size) {
+    width: $size;
+    height: $size;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background: -webkit-linear-gradient(left top, $avatar-primary-color, $avatar-secondary-color);
+    background: -o-linear-gradient(bottom right, $avatar-primary-color, $avatar-secondary-color);
+    background: -moz-linear-gradient(bottom right, $avatar-primary-color, $avatar-secondary-color);
+    background: linear-gradient(to bottom right, $avatar-primary-color, $avatar-secondary-color);
+    box-shadow: 2px 2px 7px 1px #333;
+    margin: 10% 0 10% 5%;
+
+    .initials {
+      position: relative;
+      top: $size*0.25;
+      font-size: $size*0.5;
+      line-height: $size*0.5;
+      color: $avatar-font-color;
+      font-weight: bold;
+    }
+}
+
+.avatar-circle      { @include default-user-avatar(100px); }
+.avatar-circle-sm   { @include default-user-avatar(50px); }
+.avatar-circle-lg   { @include default-user-avatar(250px); }

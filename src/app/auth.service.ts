@@ -45,7 +45,7 @@ export class AuthService {
     clientID: environment.auth_clientID,
     responseType: 'token id_token',
     scope: 'openid profile email user_metadata app_metadata scope',
-    audience: 'https://c4sg-api'
+    audience: environment.auth_api
   });
 
   constructor(private userService: UserService,
@@ -201,6 +201,7 @@ export class AuthService {
                   res1 => {
                     user = res1;
                     localStorage.setItem('currentUserId', user.id);
+                    this.setlocalStorageItems();
                     if (user.firstName !== '' && user.lastName !== '') {
                       localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                     } else {

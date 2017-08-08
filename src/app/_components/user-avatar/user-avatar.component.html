@@ -1,0 +1,6 @@
+<div class="info-avatar card-avatar z-depth-2" *ngIf="user.avatarUrl">
+  <img class='card-avatar-content' [src]="user.avatarUrl">
+</div>
+<div class="avatar-circle" *ngIf="!user.avatarUrl">
+  <span class="initials">{{user.firstName | slice:0:1}}{{user.lastName | slice:0:1}}</span>
+</div>

@@ -28,6 +28,8 @@
 
 .content-subtitle {
   @include content-subtitle-font;
+  //override the font-weight
+  font-weight: normal;
 }
 
 .single-info {

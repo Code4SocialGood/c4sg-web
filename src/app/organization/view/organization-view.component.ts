@@ -12,6 +12,8 @@ import { Organization } from '../../organization/common/organization';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
+declare const Materialize: any;
+
 @Component({
   selector: 'my-organization',
   templateUrl: 'organization-view.component.html',
@@ -26,7 +28,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   categoryName: string;
   private routeSubscription: Subscription;
   globalActions = new EventEmitter<string|MaterializeAction>();
-  deleteGlobalActions = new EventEmitter<string|MaterializeAction>();
   modalActions = new EventEmitter<string|MaterializeAction>();
 
   displayShare = true;
@@ -52,6 +53,11 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
         this.getUser(+params['organizationId']);
       }
     );
+  }
+
+  pad(str: string, padValue: string, max: number): string {
+    max += str.length;
+    return (max - str.length > 0 ? padValue.repeat(max - str.length) + str : str);
   }
 
   setCategoryName(): void {
@@ -136,11 +142,13 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.router.navigate(['/organization/list/organizations']);
-          this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
+          Materialize.toast('The organization is deleted', 4000);
+          // this.deleteGlobalActions.emit({action: 'toast', params: ['Organization deleted successfully', 4000]});
         },
         error => {
           console.log(error);
-          this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
+          Materialize.toast('Error while deleting an organiation', 4000);
+          // this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
         }
       );
   }
@@ -150,7 +158,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       .approve(this.organization.id, 'A') // A for Active
       .subscribe(
         response => {
+          this.organization.status = 'A'; // Removes the flag on web page after refreshing the page
+          this.displayApprove = false; // Removes the button on web page after refreshing the page
           this.router.navigate(['/organization/view/' + this.organization.id]);
+          Materialize.toast('The organization is approved', 4000);
         },
         error => {
           console.log(error);
@@ -159,16 +170,16 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   }
 
   decline(): void {
-  this.organizationService
-    .approve(this.organization.id, 'C') // C for Decline
-    .subscribe(
-      response => {
-        this.router.navigate(['/organization/view/' + this.organization.id]);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.organizationService
+      .approve(this.organization.id, 'C') // C for Decline
+      .subscribe(
+        response => {
+          this.router.navigate(['/organization/view/' + this.organization.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   ngOnDestroy(): void {

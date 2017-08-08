@@ -17,6 +17,10 @@ import {HeaderComponent} from './header/header.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
 import {ProjectEditComponent} from './project/edit/project-edit.component';
+import {ProjectListVolunteerComponent} from './project/list/my-projects-volunteer';
+import {ProjectListNonprofitComponent} from './project/list/my-projects-nonprofit';
+
+
 
 import {OrganizationListComponent} from './organization/list/organization-list.component';
 import {OrganizationViewComponent} from './organization/view/organization-view.component';
@@ -48,6 +52,10 @@ import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
+import { ProjectListSmallComponent } from './_components/project-card-small/project-card-small.component';
+import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
+import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
+import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
 
 import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
@@ -83,6 +91,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProjectListComponent,
     ProjectViewComponent,
     ProjectEditComponent,
+    ProjectListVolunteerComponent,
+    ProjectListNonprofitComponent,
 
     OrganizationListComponent,
     OrganizationViewComponent,
@@ -97,7 +107,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SkillSelectComponent,
     SharedBtnComponent,
     ScrollSkillsDirective,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ProjectListSmallComponent,
+    FeedbackBtnComponent,
+    UserAvatarComponent,
+    UserAvatarSmallComponent
   ],
   providers: [ProjectService,
     OrganizationService,
