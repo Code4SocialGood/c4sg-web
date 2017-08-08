@@ -24,7 +24,7 @@ export class HeaderComponent implements  OnInit, OnDestroy {
   projectsSubscription: Subscription;
 
   constructor(private router: Router,
-              private authSvc: AuthService,
+              public authSvc: AuthService,
               private organizationService: OrganizationService,
               private projectService: ProjectService) {
   }
