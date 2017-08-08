@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
-import {DataService} from '../_services/data.service';
+import { DataService} from '../_services/data.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'my-home',
@@ -72,7 +73,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private router: Router,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private auth: AuthService) {
   }
 
   // onload animation timer

@@ -16,10 +16,9 @@ export class AppComponent implements DoCheck {
 
     currentUserId: string;
     organizationId: string;
-    authSvc: AuthService;
 
     constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
-      this.authSvc = this.auth;
+      this.auth.handleAuthentication();
     }
 
   // control nav style by changing the class name

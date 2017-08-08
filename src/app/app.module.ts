@@ -49,6 +49,15 @@ import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
 
+import { Http, RequestOptions } from '@angular/http';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -102,7 +111,12 @@ import { ProjectCardComponent } from './_components/project-card/project-card.co
     DataService,
     ValidationService,
     SkillService,
-    ExtFileHandlerService],
+    ExtFileHandlerService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }],
 
   bootstrap: [AppComponent]
 })
