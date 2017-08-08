@@ -72,9 +72,9 @@ export class AuthService {
         options: [
           { value: 'VOLUNTEER', label: 'Volunteer User' },
           { value: 'ORGANIZATION', label: 'Organization User' },
-          { value: 'ADMIN', label: 'Admin User' }
+          // { value: 'ADMIN', label: 'Admin User' } // take admin user out of UI
         ],
-        prefill: 'VOLUNTEER'
+        // prefill: 'VOLUNTEER' // enforce user to choose, don't provide default
       }
     ]
   };

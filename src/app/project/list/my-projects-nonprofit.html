@@ -1,0 +1,50 @@
+ <ul class="collapsible popout" data-collapsible="accordion" materialize="collapsible">
+        <!-- Active Projects -->
+        <li>
+          <div  class="collapsible-header active">
+            <h4 class="content-title">Active Projects</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
+              <div class="col s12">
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="activeProjects">
+                    <li class="card-wrapper" *ngFor="let project of activeProjects">
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row" *ngIf="activeProjects && activeProjects.length == 0">
+                  <div class="col s12">
+                    <div class="info">No projects found</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- Closed Projects-->
+        <li>
+          <div  class="collapsible-header">
+            <h4 class="content-title">Closed Projects</h4>
+          </div>
+          <div class="collapsible-body ">
+            <div class="row">
+              <div class="col s12">
+                <div class="items-list-wrapper">
+                  <ul class="card-list" *ngIf="closedProjects">
+                    <li class="card-wrapper" *ngFor="let project of closedProjects">
+                      <my-project-card [project]="project" [from]="from"></my-project-card>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row" *ngIf="closedProjects && closedProjects.length == 0">
+                  <div class="col s12">
+                    <div class="info">No projects found</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
