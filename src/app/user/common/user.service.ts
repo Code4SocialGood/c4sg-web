@@ -17,7 +17,7 @@ const skillsUrl = `${environment.backend_url}/api/skills`;
 export class UserService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  
+
   constructor(private http: Http, private jsonp: Jsonp, private authHttp: AuthHttp) { }
 
   public getAllUsers(): Observable<User[]> {
@@ -40,7 +40,7 @@ export class UserService {
 
   getUserByEmail(name: string): Observable<User> {
     const url = userUrl + '/email/' + [name] + '/';
-    let options = new RequestOptions({ headers: this.headers });
+    const options = new RequestOptions({ headers: this.headers });
     return this.http.get(url)
                .map(res =>  {
                   // Check below is for the scenario when nothing was sent back

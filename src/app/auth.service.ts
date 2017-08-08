@@ -134,7 +134,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.webauth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken
-        //&& authResult.idToken     // no id token returned
+        // && authResult.idToken     // no id token returned
       ) {
         window.location.hash = '';
         this.setSession(authResult);
@@ -249,7 +249,7 @@ export class AuthService {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
-    //localStorage.setItem('id_token', authResult.idToken);
+    // localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('state', authResult.state);
   }
@@ -265,13 +265,13 @@ export class AuthService {
     // Remove token from localStorage
     let logoutURL = '';
     let profile: any;
-    let connection: string;
-    let accessToken: string;
+    // let connection: string;
+    // let accessToken: string;
 
     let loc: any;
     loc = window.location.origin; // current url
     profile = JSON.parse(localStorage.getItem('profile'));
-    //connection = profile.identities[0].connection;
+    // connection = profile.identities[0].connection;
 
     // Seems the logout url works for all idp and username/pwd
     // if (connection === 'google-oauth2' || connection === 'Username-Password-Authentication') {
@@ -280,10 +280,10 @@ export class AuthService {
     // else {
     // logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
     // }
-    
+
     localStorage.removeItem('profile');
     localStorage.removeItem('access_token');
-    //localStorage.removeItem('id_token');
+    // localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.clear();
 
@@ -329,9 +329,9 @@ export class AuthService {
 
   // Common check if a user profile exists and has application metadata
   public hasRoles() {
-    return this.userProfile 
-      //&& this.userProfile.app_metadata
-      //&& this.userProfile.app_metadata.roles;
+    return this.userProfile
+      // && this.userProfile.app_metadata
+      // && this.userProfile.app_metadata.roles;
       && this.userProfile[this.apiRole];
   }
 
@@ -344,7 +344,7 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          //return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
+          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[0];
         } else {
           return false;
@@ -363,7 +363,7 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          //return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
+          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[1];
         } else {
           return false;
@@ -382,7 +382,7 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          //return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
+          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[2];
         } else {
           return false;
