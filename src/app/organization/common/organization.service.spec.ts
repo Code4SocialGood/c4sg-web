@@ -17,7 +17,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { OrganizationService } from './organization.service';
-import { AuthHttp } from 'angular2-jwt';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 describe('OrganizationService', () => {
 
@@ -26,6 +26,7 @@ describe('OrganizationService', () => {
       imports: [HttpModule, JsonpModule],
       providers: [
         AuthHttp,
+        AuthConfig,
         OrganizationService,
         {
           provide: Http,
