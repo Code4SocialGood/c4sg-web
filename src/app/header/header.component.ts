@@ -10,7 +10,6 @@ import { Subscription} from 'rxjs/Rx';
 @Component({
 // moduleId: module.id,  // For webpack, remove this
   selector: 'my-c4sg-header',
-  providers: [AuthService],
   templateUrl: './header.component.html',
   styleUrls: [ 'header.component.scss' ]
 })
