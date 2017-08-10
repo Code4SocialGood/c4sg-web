@@ -17,8 +17,9 @@ export class AppComponent {
     currentUserId: string;
     organizationId: string;
 
-    constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
+    constructor(private router: Router, public auth: AuthService, private organizationService: OrganizationService) {
       this.auth.handleAuthentication();
+      this.auth.scheduleRenewal();
     }
 
   // control nav style by changing the class name
@@ -30,6 +31,9 @@ export class AppComponent {
     }
   }
 
+  ngOnDestroy() {
+    this.auth.unscheduleRenewal();
+  }
   /*ngDoCheck() {
     if (this.auth.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.auth.getCurrentUserId();
