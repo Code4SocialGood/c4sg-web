@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { OrganizationService } from './organization/common/organization.service';
@@ -12,7 +12,7 @@ import { Organization } from './organization/common/organization';
   styleUrls: [ 'app.component.scss' ]
 })
 
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
     currentUserId: string;
     organizationId: string;
