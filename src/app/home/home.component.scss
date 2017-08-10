@@ -35,11 +35,12 @@
     // max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    //justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 99vh;
     text-align: center;
-    position: relative;
+    //position: relative;
 }
 
 .action_organization {
@@ -59,16 +60,11 @@
     text-align: center;
 }
 
-.orgs {
-  padding-top: 8em;
-  font-size: 1.5em;
-}
-
-.orgs h1 {
-  font-family: "aniFont";
-  font-size: 3em;
-  font-weight: 100;
-  color: #383838;
+.action_organization button {
+  font-size: 1.7rem;
+  height: auto;
+  padding: .7rem 1.3rem;
+  margin-top: .5em;
 }
 
 .home-title {
@@ -106,15 +102,20 @@
   font-weight: 100;
   color: #383838;
   padding-top: 0.5em;
+  text-align: center;
+
 }
 
 #aniSlogan.vol_slogan {
   position: absolute;
-  top: 6rem;
+  top: 11rem;
+  left: 28rem;
 }
 
 #aniSlogan.vol_slogan + .input-field {
-  margin-top: 5rem;
+  margin-top: 7rem;
+  margin-left:-5rem;
+  //height:20rem;
 }
 
 #aniWord {

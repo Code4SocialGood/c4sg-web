@@ -100,6 +100,13 @@ export class ProjectViewComponent implements OnInit {
     });
   }
 
+  pad(str: string, padValue: string, max: number): string {
+    max += str.length;
+    return (max - str.length > 0 ? padValue.repeat(max - str.length) + str : str);
+  }
+
+
+
   // Skills for this project
   getSkills(projectId): void {
     this.skillService.getSkillsByProject(projectId)
@@ -176,18 +183,26 @@ export class ProjectViewComponent implements OnInit {
           if (projectsIDs.appliedProjectsIDs != null
             && projectsIDs.appliedProjectsIDs.split(',').includes(this.projectId)) {
             this.projectStatusApplied = true;
+          } else {
+            this.projectStatusApplied = false;
           }
           if (projectsIDs.bookmarkedProjectsIDs != null
             && projectsIDs.bookmarkedProjectsIDs.split(',').includes(this.projectId)) {
             this.projectStatusBookmarked = true;
+          } else {
+            this.projectStatusBookmarked = false;
           }
           if (projectsIDs.acceptedProjectsIDs != null
             && projectsIDs.acceptedProjectsIDs.split(',').includes(this.projectId)) {
             this.projectStatusAccepted = true;
+          } else {
+            this.projectStatusAccepted = false;
           }
           if (projectsIDs.declinedProjectsIDs != null
             && projectsIDs.declinedProjectsIDs.split(',').includes(this.projectId)) {
             this.projectStatusDeclined = true;
+          } else {
+            this.projectStatusDeclined = false;
           }
         }
 
@@ -195,7 +210,7 @@ export class ProjectViewComponent implements OnInit {
         this.userService.getUser(Number(this.currentUserId)).subscribe(
           res => {
             this.user = res;
-            if (this.user.status === 'N') {
+            if (!this.user.userName) {
               this.userProfileIncomplete = true;
             }
           },

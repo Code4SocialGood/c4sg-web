@@ -268,3 +268,33 @@ hr {
   text-align: center;
   font-weight: bold;
 }
+
+select.browser-default {
+  display: block;
+  color: $secondary-bg-color;
+  border-bottom-color:$border-color;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+   position: relative;
+}
+
+.beta-test {
+  width: 5em;
+  position: fixed;
+  bottom: 0;
+  left: .5em;
+  // img {
+  //   margin: 0;
+  //   box-shadow: 2px 2px 7px 1px #333;
+  //   border-radius: 100%;
+  // }
+}
+
+// change background color for modals to orange
+
+.modal {
+  .modal-content h4 {
+    background-color: $secondary-color;
+  }
+}

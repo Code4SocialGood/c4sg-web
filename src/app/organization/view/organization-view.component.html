@@ -17,7 +17,7 @@
                 <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
               </div>
               <div class="col s12" *ngIf="organization.websiteUrl">
-                <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
+                <a [href]="organization.websiteUrl" target="_blank">Website: {{pad(organization.websiteUrl, "&nbsp;", 2)}}</a>
               </div>
             </div>
             <div class="row">
@@ -25,8 +25,9 @@
                 <div class="row">
                   <div class="col s12">Category: {{categoryName}}</div>
                   <div class="col s12">Location:
-                    <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
-                    <span class="state">{{organization.country}}</span>
+                    <span class="state" *ngIf="organization.state">{{pad(organization.state, "&nbsp;", 1)}}, </span>
+                    <span class="state" *ngIf="organization.country">{{organization.country}}</span>
+                    <span class="state" *ngIf="!organization.state && organization.country">{{pad(organization.country, "&nbsp;", 1)}}, </span>
                   </div>
                 </div>
               </div>
@@ -34,9 +35,10 @@
                 <div class="row" *ngIf="organization.status === 'P'">
                   <div class="col s12">
                     <div class="project-marked">
-                      <svg class="icon">
+                      <i class="material-icons icon applied-symbol">done</i>
+                      <!--<svg class="icon">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Pending Approval</span>
                     </div>
                   </div>
@@ -45,6 +47,7 @@
             </div>
           </div>
           <div class="col m12">
+            <br>
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ organization.description }}</div>
           </div>
@@ -68,52 +71,56 @@
           <div class="section-body-organization">
             <div class="card">
               <div class="card-content">
-                <div class="row single-info">
+                <div class="row single-info" *ngIf="user">
                   <div class="col m4">
-                    <div class="info-avatar" *ngIf="user"><img class='circle' [src]="user.avatarUrl"></div>
+                    <my-user-avatar-small [user]="user"></my-user-avatar-small>
                   </div>
                   <div class="col m8" *ngIf="user">
-                     Name:
                      <p class='user-name'>
+                       <i class="material-icons icon-tiny">person</i>
                       <span *ngIf="user.firstName && user.publishFlag"  [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
                      </p>
                      <p class='user-name'>
                       <span *ngIf="user.firstName && !user.publishFlag">{{user.firstName}},{{user.lastName}}</span>
                     </p>
-                    <p>Title: {{user.title}}</p>
-                    <p>Phone: {{user.phone}}</p>
-                    <p>Email: {{user.email}}</p>
+                    <p><i class="material-icons icon-tiny">title</i><span class="left-align"> {{user.title}} </span></p>
+                    <p><i class="material-icons icon-tiny">phone</i><span class="left-align"> {{user.phone}}</span></p>
+                    <p><i class="material-icons icon-tiny">email</i><span class="left-align"> {{user.email}}</span></p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
-          <div class="section-body-project" *ngIf="projects">
+          <div class="section-body-project" *ngIf="!projects">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length == 0">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length > 0">
             <div class="items-list-wrapper">
               <ul>
                 <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
-                  <div class="card">
-                    <div class="card-content">
-                      <div class="row single-info">
-                        <div class="col m4">
-                          <div class="info-avatar" *ngIf="pr.imageUrl"><img [src]="pr.imageUrl"></div>
-                          <div class="info-avatar" *ngIf="!pr.imageUrl"><img [src]="constantsService.defaultLogo"></div>
-                        </div>
-                        <div class="col m8 proj-name">
-                          <h5 [routerLink]="['/project/view/', pr.id]">{{pr.name}}</h5>
-                        </div>
-                        <div class="row">
-                          <div class="skills-tag-wrapper">
-                            <ul *ngIf="pr.skills">
-                              <li class="chip" *ngFor="let skill of pr.skills">{{ skill }}</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <p class="description" *ngIf="pr && pr.description">{{ pr && pr.description | slice:0:100 }} ...</p>
-                    </div>
-                  </div>
+                  <my-project-card-small [project]="pr"></my-project-card-small>
                 </li>
               </ul>
             </div>
