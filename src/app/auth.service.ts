@@ -131,7 +131,7 @@ export class AuthService {
     // this.lock.show();
     this.webauth.authorize({
       envars: environment.auth_callback_env
-    })
+    });
   }
 
   public handleAuthentication(): void {
@@ -405,17 +405,18 @@ export class AuthService {
     }, (err, result) => {
       if (!err) {
         this.setSession(result);
-      }
-      else {
+      } else {
         console.error('error renewing token');
       }
     });
   }
 
   scheduleRenewal() {
-    if (!this.authenticated()) return;
+    if (!this.authenticated()) {
+      return;
+    }
 
-    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+    let expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
 
     const source = Observable.of(expiresAt).flatMap(
       expiresAt => {
@@ -431,7 +432,9 @@ export class AuthService {
   }
 
   unscheduleRenewal() {
-    if (!this.refreshSubscription) return;
+    if (!this.refreshSubscription) {
+      return;
+    }
     this.refreshSubscription.unsubscribe();
   }
 }
