@@ -416,9 +416,9 @@ export class AuthService {
       return;
     }
 
-    let expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+    const expiresAt$ = JSON.parse(window.localStorage.getItem('expires_at'));
 
-    const source = Observable.of(expiresAt).flatMap(
+    const source = Observable.of(expiresAt$).flatMap(
       expiresAt => {
       const now = Date.now();
       const refreshAt = expiresAt - (1000 * 30);
