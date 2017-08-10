@@ -10,7 +10,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './home/home.1.component';
 import {AboutComponent} from './about/about.component';
 import {HeaderComponent} from './header/header.component';
 import {AppreciationsComponent} from './appreciations/appreciations.component';
