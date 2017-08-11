@@ -69,11 +69,11 @@ export class AuthRoleSelectionComponent implements OnInit, AfterViewInit {
       // Initialize the role options
       this.entries = [
         {
-          description: 'Volunteer User',
+          description: 'Volunteer User (Volunteer with Projects)',
           value: 'VOLUNTEER'
         },
         {
-          description: 'Organization User',
+          description: 'Project Owner (Post Projects)',
           value: 'ORGANIZATION'
         },
         // { // Remove admin user from UI
