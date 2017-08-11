@@ -1,85 +1,74 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
+@import "../_style/app.theme";
 
-nav ul a,
-nav .brand-logo {
-  color: #444;
-}
-
-p {
-  line-height: 2rem;
-}
-
-.button-collapse {
-  color: #26a69a;
-}
-
-.parallax-container {
-  position: relative;
+.cover {
+  height: 100vh;
   overflow: hidden;
-  height: 500px;
 }
 
-.parallax-container .parallax {
+.cover:before{
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
-.parallax-container .parallax img {
-  display: none;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+.cover img{
+  position:relative;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
 }
 
-.parallax-container {
-  min-height: 380px;
-  line-height: 0;
-  height: auto;
-  color: rgba(255,255,255,.9);
-}
-  .parallax-container .section {
-    width: 100%;
-  }
+.action_volunteer {
 
-@media only screen and (max-width : 992px) {
-  .parallax-container .section {
-    position: absolute;
-    top: 40%;
-  }
-  #index-banner .section {
-    top: 10%;
-  }
-}
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/pexels-photo-407237.jpeg") no-repeat center center;
+    background-attachment:fixed;
 
-@media only screen and (max-width : 600px) {
-  #index-banner .section {
-    top: 0;
-  }
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    // max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    text-align: center;
+    //position: relative;
 }
 
+
+.input-pre {
+  border-bottom: 2px solid $secondary-bg-color;
+}
+ /* label color */
+ .input-field label {
+   color: $main-color;
+   top: 2rem;
+ }
+/* label focus color */
+.input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+ color: $main-color !important;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+ border-bottom: 1px solid $main-color !important;
+ box-shadow: 0 1px 0 0 $main-color !important;
+}
+.search_button {
+  padding: 0 1rem;
+}
+
+//copied from materialize template
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
-  font-size: inherit;
-}
-
-footer.page-footer {
-  margin: 0;
+	font-size: inherit;
 }
