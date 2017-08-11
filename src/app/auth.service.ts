@@ -13,7 +13,7 @@ import { Organization } from './organization/common/organization';
 import 'rxjs/add/operator/map';
 import { environment } from '../environments/environment';
 import { AppRoles } from './roles';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 import { Project } from './project/common/project';
 import { ProjectService } from './project/common/project.service';
 import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
@@ -38,14 +38,15 @@ export class AuthService {
   apiRole = 'http://api-roles';
   app_metaData = 'http://app_metadata';
   isSocial = 'http://issocial';
-;
+  refreshSubscription: Subscription;
 
-   webauth = new auth0.WebAuth({
+  webauth = new auth0.WebAuth({
     domain: environment.auth_domain,
     clientID: environment.auth_clientID,
     responseType: 'token id_token',
     scope: 'openid profile email user_metadata app_metadata scope',
-    audience: environment.auth_api
+    audience: environment.auth_api,
+    env: environment.auth_callback_env
   });
 
   constructor(private userService: UserService,
@@ -128,7 +129,9 @@ export class AuthService {
   public login() {
     // Call the show method to display the widget.
     // this.lock.show();
-    this.webauth.authorize();
+    this.webauth.authorize({
+      envars: environment.auth_callback_env
+    });
   }
 
   public handleAuthentication(): void {
@@ -281,6 +284,8 @@ export class AuthService {
     // logoutURL = `https://${environment.auth_domain}/v2/logout?federated&returnTo=`+ `${encodeURI(loc)}`;
     // }
 
+    this.unscheduleRenewal();
+
     localStorage.removeItem('profile');
     localStorage.removeItem('access_token');
     // localStorage.removeItem('id_token');
@@ -390,5 +395,46 @@ export class AuthService {
       }
     }
     return false;
+  }
+
+  renewToken() {
+    this.webauth.renewAuth({
+      audience: environment.auth_api,
+      redirectUri: `${environment.backend_url}/${environment.auth_silenturl}`,
+      usePostMessage: true
+    }, (err, result) => {
+      if (!err) {
+        this.setSession(result);
+      } else {
+        console.error('error renewing token');
+      }
+    });
+  }
+
+  scheduleRenewal() {
+    if (!this.authenticated()) {
+      return;
+    }
+
+    const expiresAt$ = JSON.parse(window.localStorage.getItem('expires_at'));
+
+    const source = Observable.of(expiresAt$).flatMap(
+      expiresAt => {
+      const now = Date.now();
+      const refreshAt = expiresAt - (1000 * 30);
+      const doWhen = refreshAt - now;
+      return Observable.timer(Math.max(1, doWhen), doWhen);
+    });
+
+    this.refreshSubscription = source.subscribe(t => {
+        this.renewToken();
+    });
+  }
+
+  unscheduleRenewal() {
+    if (!this.refreshSubscription) {
+      return;
+    }
+    this.refreshSubscription.unsubscribe();
   }
 }
