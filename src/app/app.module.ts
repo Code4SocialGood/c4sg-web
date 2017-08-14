@@ -56,7 +56,7 @@ import { ProjectListSmallComponent } from './_components/project-card-small/proj
 import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
 import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
 import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
-
+import {MyPaginationControlsComponent} from './_components/my-pagination-controls/my-pagination-controls.component';
 import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 
@@ -111,7 +111,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProjectListSmallComponent,
     FeedbackBtnComponent,
     UserAvatarComponent,
-    UserAvatarSmallComponent
+    UserAvatarSmallComponent,
+    MyPaginationControlsComponent
   ],
   providers: [ProjectService,
     OrganizationService,
