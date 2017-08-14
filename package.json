@@ -10,6 +10,7 @@
     "ng": "ng",
     "serve": "ng serve",
     "start": "node server.js",
+    "start:local": "ng serve --environment=local",
     "start:dev:remote": "ng serve --environment=dev_remote",
     "start:dev:local": "ng serve --environment=dev_local",
     "start:staging:remote": "ng serve --aot --environment=staging_remote",
