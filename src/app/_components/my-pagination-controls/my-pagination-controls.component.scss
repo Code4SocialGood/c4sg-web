@@ -2,102 +2,108 @@
 
 .ngx-pagination {
   margin-left: 0;
-  margin-bottom: 1rem; }
-  .ngx-pagination::before, .ngx-pagination::after {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 12px;
+
+  &::after{
+    clear: both;
+  }
+
+  &::before,
+  &::after {
     content: ' ';
-    display: table; }
-  .ngx-pagination::after {
-    clear: both; }
-  .ngx-pagination li {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    margin-right: 0.0625rem;
-    border-radius: 0; }
-  .ngx-pagination li {
-    display: inline-block; }
-  .ngx-pagination a,
-  .ngx-pagination button {
-    color: #0a0a0a; 
-    display: block;
-    padding: 0.1875rem 0.625rem;
-    border-radius: 0; }
-    .ngx-pagination a:hover,
-    .ngx-pagination button:hover {
-      background: #e6e6e6; }
-  .ngx-pagination .current {
-    padding: 0.1875rem 0.625rem;
-    background: #2199e8;
-    color: #fefefe;
-    cursor: default; }
-  .ngx-pagination .disabled {
-    padding: 0.1875rem 0.625rem;
-    color: #cacaca;
-    cursor: default; } 
-    .ngx-pagination .disabled:hover {
-      background: transparent; }
-  .ngx-pagination .ellipsis::after {
-    content: '…';
-    padding: 0.1875rem 0.625rem;
-    color: #0a0a0a; }
-  .ngx-pagination a, .ngx-pagination button {
-    cursor: pointer; }
-.ngx-pagination .pagination-previous a::before,
-.ngx-pagination .pagination-previous.disabled::before { 
-  content: '«';
-  display: inline-block;
-  margin-right: 0.5rem; }
-.ngx-pagination .pagination-next a::after,
-.ngx-pagination .pagination-next.disabled::after {
-  content: '»';
-  display: inline-block;
-  margin-left: 0.5rem; }
-.ngx-pagination .show-for-sr {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0); }
+    display: table;
+  }
 
-.ngx-pagination  {
-    font-size: 12px;
-    text-align: center;
-    line-height: 30px;
-    li {
-      margin: 0;
-      height: 30px;
-      a {
-        font-size: 12px;
-        min-width:30px;
-        position: relative;
-        line-height: 30px;
-        height: 30px;
-        border: solid $line-sep-width $navbar-border-color-inactive;
-        margin-left: - $line-sep-width;
-        z-index: 100;
-        color: $header-bg-color;
-        font-weight: bold;
+  li {
+    height: 30px;
+    min-width: 30px;
+    line-height: 28px;
+    position: relative;
+    margin-left:-1px; 
+    border-width: 1px;
+    border-style: solid;
+    border-color: $main-color;
+    border-radius: 0;
+    cursor: pointer;
 
-        &:hover {
-          background-color: $navbar-bg-color;
-          z-index: 102;
-          cursor: pointer;
-        }
+    &:first-of-type{
+      margin-right: -3px;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+
+      &.disabled::before, a::before {
+        content: '«';
+        display: inline-block;
+        margin-right: 0.5rem;
       }
-      &.current {
-        min-width:30px;
-        position: relative;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 30px;
-        height: 30px;
-        margin-left: - $line-sep-width;
-        margin-right: $line-sep-width;
-        background-color: $header-bg-color;
-        z-index: 101;
-        color: white;
-        cursor: pointer;
-        border: none;
+    }
+
+    &:last-of-type{
+      margin-left: -4px;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+
+      &.disabled::after, a::after {
+        content: '»';
+        display: inline-block;
+        margin-left: 0.5rem;
+      }
+    }
+
+    &:not(.current){
+      z-index: 1;
+    }
+
+    &.current {
+      position: relative;
+      font-weight: bold;
+      background-color: $header-bg-color;
+      color: white;
+      border-color: $header-bg-color;
+    }
+
+    &.disabled {
+      padding: 0 0.625rem;
+      color: #cacaca;
+      cursor: default;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    a, div {
+      font-size: 12px;
+      min-width: 100%;
+      position: relative;
+      height: 100%;
+      font-weight: bold;
+    }
+
+    a {
+      color: $header-bg-color;
+
+      &:hover {
+         background-color: #F9F9F9;
       }
     }
   }
+
+  .show-for-sr {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .btn {
+    background-color: #fff;
+    letter-spacing: normal;
+    text-transform: none;
+    vertical-align: baseline;
+    box-shadow: none;
+  }
+}
