@@ -405,7 +405,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (document.getElementById('phone-label') != null) {
       document.getElementById('phone-label').classList.add('active');
     }
-    if(Materialize && Materialize.updateTextFields) {
+    if (Materialize && Materialize.updateTextFields) {
       Materialize.updateTextFields();
     }
   }
