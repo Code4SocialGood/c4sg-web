@@ -336,7 +336,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('city-label').classList.add('active');
     document.getElementById('state-label').classList.add('active');
 
-    if(Materialize && Materialize.updateTextFields) {
+    if (Materialize && Materialize.updateTextFields) {
       Materialize.updateTextFields();
     }
   }
