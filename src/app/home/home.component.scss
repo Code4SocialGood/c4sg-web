@@ -147,3 +147,18 @@
 .search_button {
   padding: 0 1rem;
 }
+
+
+.github_cta {
+  background-color: $secondary-bg-color;
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-family: "aniFont";
+  .btn {
+    background: #fff;
+    color: $secondary-bg-color;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+}
