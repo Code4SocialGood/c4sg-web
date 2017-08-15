@@ -335,6 +335,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('desc-label').classList.add('active');
     document.getElementById('city-label').classList.add('active');
     document.getElementById('state-label').classList.add('active');
+
+    if(Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
   }
 
   // Count chars in introduction field

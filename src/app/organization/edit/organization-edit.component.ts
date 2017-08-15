@@ -233,6 +233,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('state-label').classList.add('active');
     document.getElementById('zip-label').classList.add('active');
     document.getElementById('desc-label').classList.add('active');
+
+    if(Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
   }
 
   /*

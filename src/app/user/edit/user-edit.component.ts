@@ -368,6 +368,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     // User edit page is customized based on user role, need to check element existance first
+
     if (document.getElementById('username-label') != null) {
       document.getElementById('username-label').classList.add('active');
     }
@@ -403,6 +404,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     }
     if (document.getElementById('phone-label') != null) {
       document.getElementById('phone-label').classList.add('active');
+    }
+    if(Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
     }
   }
 }
