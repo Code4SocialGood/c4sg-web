@@ -1,6 +1,6 @@
 @import "../_style/app.theme";
 
-.cover {
+/*.cover {
   height: 100vh;
   overflow: hidden;
 }
@@ -42,7 +42,48 @@
     text-align: center;
     //position: relative;
 }
+*/
 
+//classes for cover image
+.cover {
+  height: 100vh;  
+  overflow: hidden;  
+}
+
+.cover:before{
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.cover img{
+    
+  position:relative;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
+    
+  //max-width: 100%;
+}
+
+.action{
+    background: url("/assets/pexels-photo-407237.jpeg");
+        
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
+    
+    height: 99vh;
+    margin-top: 2vh;
+   
+}
+
+//classes for project search
 
 .input-pre {
   border-bottom: 2px solid $secondary-bg-color;
