@@ -80,7 +80,23 @@
     
     height: 99vh;
     margin-top: 2vh;
-   
+    display: flex;
+    flex-direction: column;
+    position: relative;        
+}
+
+.img-text{
+    color: #fff;    
+    max-width: 40%;
+    margin: auto;
+}
+
+.img-text-background{
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;    
+    text-align: center;
+    position: absolute;
+    bottom: 0px;    
 }
 
 //classes for project search
