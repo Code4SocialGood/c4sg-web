@@ -38,7 +38,7 @@
               </div>
               <div class="right">
                 <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                        <i class="material-icons icon applied-symbol">done</i>
                       <!--<svg class="icon applied-symbol">
@@ -46,10 +46,18 @@
                       </svg>-->
                       <span>Applied</span>
                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusBookmarked && !projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                       <i class="material-icons icon applied-symbol">bookmark</i>
                       <!--<svg class="icon bookmarked-symbol">
@@ -57,10 +65,18 @@
                       </svg>-->
                       <span>Bookmarked</span>
                     </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusAccepted">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                       <i class="material-icons icon applied-symbol">done_all</i>
                       <!--<svg class="icon accepted-symbol">
@@ -68,16 +84,32 @@
                       </svg>-->
                       <span>Accepted</span>
                     </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                        <i class="material-icons icon applied-symbol">clear</i>
                       <!--<svg class="icon declined-symbol">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#declined-symbol"></use>
                       </svg>-->
                       <span>Declined</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
                   </div>
                 </div>
