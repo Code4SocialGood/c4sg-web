@@ -148,6 +148,7 @@
   padding: 0 1rem;
 }
 
+/* github cta style */
 
 .github_cta {
   background-color: $secondary-bg-color;
@@ -160,5 +161,55 @@
     color: $secondary-bg-color;
     margin-bottom: 2rem;
     font-size: 1.2rem;
+  }
+}
+
+/* google map */
+
+.developers_list li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.developers_list li:last-child {
+  margin-right: 0;
+}
+
+agm-map {
+  width: 100%;
+  height: 500px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.sebm-google-map-container{
+
+  .info-window{
+    width: 100px;
+    text-align: center;
+
+    .info-container{
+      width: 100%;
+      height: 100%;
+
+      .info-avatar{
+        width: 80px;
+        position: relative;
+        padding-bottom: 80px;
+        overflow: hidden;
+        margin:10px auto 0.75em auto;
+        border-radius: 50%;
+        border: solid 2px #ccc;
+
+        img{
+          width: auto;
+          max-width: none;
+          height: 100%;
+          position: absolute;
+          left: -50%;
+          right: -50%;
+          margin: auto;
+        }
+      }
+    }
   }
 }
