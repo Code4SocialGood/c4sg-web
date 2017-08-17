@@ -53,12 +53,30 @@
     font-size: 40px;
     font-weight: bold;    
 }
+
+//ribbon
 .green-ribbon {
     background-color: $secondary-bg-color;
     text-align: center;
     font-family: $main-font;
     font-size: 22px;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+.white-ribbon {
+    background-color: transparent;
+    text-align: center;
+    font-family: $main-font;
+    font-size: 22px;
     font-weight: bold; 
+    padding: 10px 0px;
+}
+
+.green-ribbon-one{
+    color: black;
+}
+.green-ribbon-two{
+    color: white;
 }
 
 //second section
@@ -82,6 +100,13 @@
     color: #F2673B;
 }
 
+//buttons
+.button-bordered {
+    background-color: transparent;
+    color: black;
+    border: 2px solid;
+    padding: 5px 60px;
+}
 
 //last section
 .featured-project-heading{
@@ -89,6 +114,18 @@
     font-size: 18px;
     font-weight: bold; 
     color: #84C44C;
+}
+
+.featured-project-text{
+    font-size: 16px; 
+}
+
+.button-colored{
+    background-color: #F2673B;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 5px 30px;
 }
 
 
