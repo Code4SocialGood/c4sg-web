@@ -109,12 +109,14 @@
 #aniSlogan.vol_slogan {
   position: absolute;
   top: 11rem;
-  left: 28rem;
+  left: 25rem;
+  width: 570px;
 }
 
 #aniSlogan.vol_slogan + .input-field {
   margin-top: 7rem;
   margin-left:-5rem;
+  left:25px;
   //height:20rem;
 }
 
