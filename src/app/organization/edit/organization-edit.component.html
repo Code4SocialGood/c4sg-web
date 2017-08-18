@@ -18,14 +18,20 @@
               <img class="responsive-img" *ngIf="!logoUrl" id="responsive-img" [src]="constantsService.defaultLogo">
             </div>
             <div>
-              <div class="input-field file-field row">
-                <button class="btn waves-effect waves-light avatar-upload-button" [disabled]="organizationId===0">Upload
+             <!--  <div class="input-field file-field row">
+               <button class="btn waves-effect waves-light avatar-upload-button" [disabled]="organizationId===0">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadLogo($event)">
                 </button>
+              </div>-->
+             <div class="input-field file-field row">
+              <div *ngIf="organizationId!==0" class="button btn waves-effect waves-light avatar-upload-button">
+                  <span>Upload image</span>
+                     <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadLogo($event)">
+                </div>
               </div>
             </div>
           </div>
-        </div>    
+        </div>
         <!-- We only need message on Create Project page
         <div class="row single-info" *ngIf="isNew">
           <hr>
@@ -35,7 +41,7 @@
           <hr>
           <div class="col s12 m12 l12 highlight-title">Your organization is under review. We will notify you as soon as possible. You will be able to create project after your organization is approved.</div>
         </div>
-        --> 
+        -->
       </div>
     </div>
 
