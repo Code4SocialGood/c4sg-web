@@ -143,6 +143,7 @@
     max-width: 100%;
 }
 
+//Previous home page
 //classes for cover image
 .cover {
   height: 100vh;  
@@ -205,6 +206,34 @@
 }
 .search_button {
   padding: 0 1rem;
+}
+
+//cursor and aniSlogan
+@font-face {
+  font-family: "aniFont";
+  src: url("/assets/fonts/Gotham-Black-Regular.ttf");
+  //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
+  // src: url("/assets/fonts/Thruster-Regular.ttf");
+}
+
+#aniSlogan {
+  //font-family: "aniFont";
+  font-size: 3em;
+  font-weight: 100;
+  color: #fff;
+  padding-top: 0.5em;
+  text-align: center;
+
+}
+
+/*#aniSlogan.vol_slogan {
+  position: absolute;
+  top: 11rem;
+  left: 28rem;
+}*/
+#aniWord {
+  font-family: inherit;
+  color: #383838;
 }
 
 

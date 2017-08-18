@@ -10,10 +10,15 @@
 
 <div class="action">
     <div class="img-text-background">
-        <div class="img-text">
+        <!--<div class="img-text">
             <div>LOREM IPSUM DOLOR SIT AMET CONSEQUAT</div>
             <div>GET STARTED NOW!</div> 
-        </div>                      
+        </div>-->
+        <div id="aniSlogan" class="vol_slogan">
+            It doesn't matter if you
+            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+        </div>
     </div>    
 </div>
 
