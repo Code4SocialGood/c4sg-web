@@ -127,7 +127,7 @@
               <label for="introduction"  id="summary-label">Introduction *
                 <span *ngIf="introFieldFocused"> ({{ introValueLength + '/' + introMaxLength }})</span>
               </label>
-            </div>            
+            </div>
             <div class="input-field col s12" *ngIf="isOrganization"> <!-- Introductin is optional for organization user -->
                <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" formControlName="introduction"
                       (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"

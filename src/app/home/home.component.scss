@@ -109,12 +109,14 @@
 #aniSlogan.vol_slogan {
   position: absolute;
   top: 11rem;
-  left: 28rem;
+  left: 25rem;
+  width: 570px;
 }
 
 #aniSlogan.vol_slogan + .input-field {
   margin-top: 7rem;
   margin-left:-5rem;
+  left:25px;
   //height:20rem;
 }
 
@@ -146,4 +148,100 @@
 
 .search_button {
   padding: 0 1rem;
+}
+
+/* github cta style */
+
+.github_cta {
+  background-color: $secondary-bg-color;
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-family: "aniFont";
+  .btn {
+    background: #fff;
+    color: $secondary-bg-color;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* google map */
+
+.developers_list li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.developers_list li:last-child {
+  margin-right: 0;
+}
+
+agm-map {
+  width: 100%;
+  height: 500px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.sebm-google-map-container{
+
+  .info-window{
+    width: 100px;
+    text-align: center;
+
+    .info-container{
+      width: 100%;
+      height: 100%;
+
+      .info-avatar{
+        width: 80px;
+        position: relative;
+        padding-bottom: 80px;
+        overflow: hidden;
+        margin:10px auto 0.75em auto;
+        border-radius: 50%;
+        border: solid 2px #ccc;
+
+        img{
+          width: auto;
+          max-width: none;
+          height: 100%;
+          position: absolute;
+          left: -50%;
+          right: -50%;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+.main-row .title {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+  }
+}
+
+.map {
+  position: relative;
+  padding: 40px;
+  text-align: center;
+  p {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-family: Raleway;
+    font-weight: 500;
+    margin-bottom: -.5rem;
+  }
+  .problem {
+    margin-bottom: 3rem;
+  }
 }
