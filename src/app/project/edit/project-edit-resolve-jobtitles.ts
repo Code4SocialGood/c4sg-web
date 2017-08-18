@@ -15,7 +15,7 @@ export class ProjectEditJobTitleResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot): Promise<JobTitle[]>  {
           return  this.userService.getAllJobTitlesBeforePageInit()
         .then(
-        res => {if(res){return res;}
+        res => { if (res) { return res; }
         }
         );
     }
