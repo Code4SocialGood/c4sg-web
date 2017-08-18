@@ -52,7 +52,8 @@
             <agm-map
                     [latitude]="lat "
                     [longitude]="lng "
-                    [zoom]="zoom ">
+                    [zoom]="zoom "
+                    [scrollwheel]="false">
 
               <agm-marker
                   *ngFor="let d of developers "
