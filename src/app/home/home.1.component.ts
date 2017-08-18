@@ -5,6 +5,11 @@ import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
 import { DataService } from '../_services/data.service';
 import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs/Rx';
+import { User } from '../user/common/user';
+import { UserService } from '../user/common/user.service';
+import { FormConstantsService } from '../_services/form-constants.service';
+require('./agmMarkerProto.js');
 
 @Component({
   selector: 'my-home',
@@ -70,11 +75,22 @@ export class HomeComponent implements OnInit {
   aniWord = '';
   aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
   aniWordOrg = '';
+  
+  //Google maps
+  usersSubscription: Subscription;
+  developers: User[];  
+  zoom = 2;
+  // initial center position for the map
+  lat = 0;
+  lng = 0;
+  activeInfoWindow = null;
 
   constructor(private projectService: ProjectService,
               private router: Router,
               private dataService: DataService,
-              public authSvc: AuthService) {
+              public authSvc: AuthService,
+              private uService: UserService,
+              private constantsService: FormConstantsService) {
   }
 
   // onload animation timer
@@ -88,6 +104,9 @@ export class HomeComponent implements OnInit {
     wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
     typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
     cursorTimer.subscribe(u => this.cursorFlash(u));
+    
+    //Google maps
+    this.getDevelopers();
     
   }
   
@@ -133,6 +152,41 @@ export class HomeComponent implements OnInit {
 
   cursorFlash(time) {
     this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
+  }
+  
+  //Google maps
+  private getDevelopers(): void {
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
+      res => {
+        this.developers = res;
+      },
+      error => console.error(error)
+    );
+  }
+
+  public getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+        return country.name;
+    } else {
+        return '';
+    }
+  }
+
+  handleMarkerMouseOver(event): void {
+    if (this.activeInfoWindow) {
+      this.activeInfoWindow.forEach(function(infoWindow){
+        return infoWindow.close();
+      });
+    }
+
+    const window = event.target.infoWindow;
+    this.activeInfoWindow = window;
+    window.forEach(function(infoWindow){
+      return infoWindow.open();
+    });
   }
   
  

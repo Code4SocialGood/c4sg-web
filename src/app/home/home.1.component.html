@@ -14,7 +14,7 @@
             <div>LOREM IPSUM DOLOR SIT AMET CONSEQUAT</div>
             <div>GET STARTED NOW!</div> 
         </div>-->
-        <div id="aniSlogan" class="vol_slogan">
+        <div id="aniSlogan">
             It doesn't matter if you
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
@@ -101,7 +101,41 @@
     </div>
     <div class="container">        
         <div class="row">
-            <img width="100%" src="https://maps.googleapis.com/maps/api/staticmap?center=20,20&zoom=1&scale=false&size=640x250&maptype=roadmap&key=AIzaSyD9n6KasSkB0QvESMyH0tL8UhEtxjvEVrs&format=png&visual_refresh=true" alt="Code for Social Good Volunteer Locations">
+            <div class="col s12 m12">
+                <div class="map"  *ngIf="developers">
+                    <agm-map
+                            [latitude]="lat "
+                            [longitude]="lng "
+                            [zoom]="zoom ">
+
+                      <agm-marker
+                          *ngFor="let d of developers "
+                          [latitude]="d.latitude "
+                          [longitude]="d.longitude "
+                          (mouseOver)="handleMarkerMouseOver($event) "
+                          >
+
+                        <agm-info-window>
+                          <div class="info-window ">
+                            <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                              <div class="info-avatar ">
+                                <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                              </div>
+                              <div class="user-name ">
+                                {{d.userName}}
+                              </div>
+                              <div class="user-location ">
+                                <span *ngIf="d.state ">{{d.state}}</span>
+                                <span *ngIf="d.state && d.country ">,</span>
+                                <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
+                              </div>
+                            </a>
+                          </div>
+                        </agm-info-window>
+                      </agm-marker>
+                    </agm-map>
+                  </div>
+            </div>
         </div>
     </div>
 </div>
