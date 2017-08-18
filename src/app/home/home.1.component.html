@@ -26,8 +26,7 @@
                 <label for="name">Keyword</label>
               </td>
               <td>
-                <button (click)="getProjectsByKeyword(projectName.value); projectName.value='';"
-                        routerLink="/project/list/projects"
+                <button (click)="getProjectsByKeyword(projectName.value); projectName.value='';"                        
                         [@buttonState]="state"
                         (mouseover)="toggleState()"
                         (mouseout)="toggleState()"
