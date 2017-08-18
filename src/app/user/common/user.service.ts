@@ -173,6 +173,15 @@ export class UserService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
+  public getAllJobTitlesBeforePageInit(): Promise<JobTitle[]> {
+    const url = userUrl + '/jobTitles';
+    return this.http
+               .get(url).toPromise()
+            .then(res => { return res.json() as JobTitle[]; })
+            .catch(this.handleError);
+              // .map( res => { return res.json() as JobTitle[]; })
+              // .catch(this.handleError);
+  }
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = userUrl + '/jobTitles';
     return this.http

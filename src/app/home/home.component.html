@@ -41,4 +41,58 @@
       </td>
     </div>
   </div>
+  <div class="row main-row">
+    <div class="col m12 s12 title">
+      <h1>Meet the Volunteers of Code for Social Good</h1>
+    </div>
+    <div class="col m12 s12">
+      <div class="map" *ngIf="developers">
+        <div class="row">
+          <div>
+            <agm-map
+                    [latitude]="lat "
+                    [longitude]="lng "
+                    [zoom]="zoom "
+                    [scrollwheel]="false">
+
+              <agm-marker
+                  *ngFor="let d of developers "
+                  [latitude]="d.latitude "
+                  [longitude]="d.longitude "
+                  (mouseOver)="handleMarkerMouseOver($event) "
+                  >
+
+                <agm-info-window>
+                  <div class="info-window ">
+                    <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                      <div class="info-avatar ">
+                        <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                      </div>
+                      <div class="user-name ">
+                        {{d.userName}}
+                      </div>
+                      <div class="user-location ">
+                        <span *ngIf="d.state ">{{d.state}}</span>
+                        <span *ngIf="d.state && d.country ">,</span>
+                        <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
+                      </div>
+                    </a>
+                  </div>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row github_cta">
+    <div class="col s8 offset-s2">
+      <p>platform by volunteers, for volunteers <br>
+      Contribute to our open source project</p>
+      <a class="btn btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
+        Github Project
+        <i class="mdi mdi-github-circle mdi-36px left" name="github"></i></a>
+    </div>
+  </div>
 </div>

@@ -23,11 +23,17 @@
               <img class="responsive-img" *ngIf="!imageUrl" id="responsive-img" [src]="constantsService.defaultImage">
             </div>
             <div>
-              <div class="input-field file-field row">
+              <!--<div class="input-field file-field row">
                 <button class="btn waves-effect waves-light avatar-upload-button">Upload
                   <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
-                </button>
+                </button>-->
+              <div class="input-field file-field row">
+                <div class="button btn waves-effect waves-light avatar-upload-button">
+                  <span>Upload image</span>
+                  <input #input type="file" name="file" accept="image/gif, image/jpeg, image/png" (change)="onUploadImage($event)">
+                 </div>
               </div>
+
             </div>
           </div>
         </div>
