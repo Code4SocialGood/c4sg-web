@@ -116,7 +116,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.projectId = e.id.toString();
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
-                //this.getjobTitles();
+                // this.getjobTitles();
                 this.project.jobTitleId = 0;
                 this.fillForm();
               });
