@@ -184,6 +184,7 @@ export class AuthService {
               if (res) {
                 user = res;
               }
+              localStorage.setItem('currentUserEmail', this.email);
               // If user not found, then create the user
               if (user === undefined) {
                 console.log('User does not exist');
@@ -193,12 +194,18 @@ export class AuthService {
                   role: luserRole.toUpperCase().substr(0, 1),
                   // userName: luserName,
                   firstName: firstName,
-                  lastName: lastName
+                  lastName: lastName,
                   // publishFlag: 'N',
                   // notifyFlag: 'N',
                   // status: 'ACTIVE'
+                  title:'',
+                  introduction:''
                 });
 
+                 localStorage.setItem('currentUserEmail', lemail);
+                 localStorage.setItem('currentUserRole', luserRole);
+                 localStorage.setItem('currentUserFName', firstName);
+                 localStorage.setItem('currentUserLName', lastName);
                 // Create a user
                 this.userService.add(newUser).subscribe(
                   res1 => {
@@ -213,6 +220,8 @@ export class AuthService {
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   },
                   error1 => console.log(error1));
+                  this.router.navigate(['/user/edit/0']);
+                  localStorage.setItem('redirectAfterLogin', this.router.url);
               } else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
