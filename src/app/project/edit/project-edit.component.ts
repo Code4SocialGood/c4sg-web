@@ -74,13 +74,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private validationService: ValidationService,
               private userService: UserService,
               ) {
+
   }
 
   ngOnInit(): void {
 
     this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
-    this.getjobTitles();
+   // this.getjobTitles();
+    this.route.data
+      .subscribe((data: { JobTitles: JobTitle[] }) => {
+        this.jobTitlesArray = data.JobTitles;
+      });
     this.initForm();
     // Populates skills list
     this.skillService.getSkills()
@@ -111,7 +116,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.projectId = e.id.toString();
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
-                this.getjobTitles();
+                // this.getjobTitles();
                 this.project.jobTitleId = 0;
                 this.fillForm();
               });
@@ -139,17 +144,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
-        /*
-        // Check user status
-        this.userService.getUser(this.currentUserId)
-          .subscribe(
-            res => {
-              this.user = res;
-              if (this.user.status === 'N') {
-                this.isUserNew = true;
-              }
-            }, error => console.log(error)
-          ); */
+
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -175,20 +170,21 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         this.isOrgActive = true; // Org must be active so that a project could be created
       }
     });
+
   }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
   }
 
- private getjobTitles(): void {
+ /*private getjobTitles(): void {
    this.userService.getAllJobTitles()
         .subscribe(
         res => {
           this.jobTitlesArray = res;
         }, error => console.log(error)
         );
- }
+ }*/
 
   private initForm(): void {
 

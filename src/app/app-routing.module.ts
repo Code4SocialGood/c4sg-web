@@ -8,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { ProjectListComponent } from './project/list/project-list.component';
 import { ProjectViewComponent } from './project/view/project-view.component';
 import { ProjectEditComponent } from './project/edit/project-edit.component';
+import { ProjectEditJobTitleResolve } from './project/edit/project-edit-resolve-jobtitles';
 
 import { OrganizationListComponent } from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
@@ -28,6 +29,9 @@ const routes: Routes = [
   {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},
   {path: 'project/edit/:projectId', component: ProjectEditComponent, canActivate: [AuthGuard],
+  resolve: {
+      JobTitles: ProjectEditJobTitleResolve
+    },
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'project/delete/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
@@ -50,7 +54,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    ProjectEditJobTitleResolve
+  ]
 })
 
 export class AppRoutingModule {
