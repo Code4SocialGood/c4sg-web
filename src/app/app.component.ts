@@ -19,7 +19,7 @@ export class AppComponent implements OnDestroy {
 
     constructor(private router: Router, public auth: AuthService, private organizationService: OrganizationService) {
       this.auth.handleAuthentication();
-      this.auth.scheduleRenewal();
+      //this.auth.scheduleRenewal();
     }
 
   // control nav style by changing the class name
