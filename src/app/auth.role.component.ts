@@ -32,7 +32,7 @@ declare var $: any;
                   <input type="radio" 
                     name="role"
                     [value]="entry.value" 
-                    style="position: relative; left: 7rem; margin-top: -.5rem; opacity: 100;" 
+                    style="position: relative; left: 17rem; margin-top: -.5rem; opacity: 100;" 
                     (change)="onSelectionChange(entry)"
                   />
                   
