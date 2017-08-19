@@ -44,7 +44,7 @@ export class AuthService {
     domain: environment.auth_domain,
     clientID: environment.auth_clientID,
     responseType: 'token',
-    scope: 'openid profile email user_metadata app_metadata scope offline_scope',
+    scope: 'openid profile email scope',
     audience: environment.auth_api,
     env: environment.auth_callback_env
   });
@@ -159,7 +159,7 @@ export class AuthService {
             profile.identities[0].isSocial : profile[this.isSocial];
           const profAppMetadata = profile[this.app_metaData] === undefined ?
             profile.app_metadata : profile[this.app_metaData];
-          const profAppMetadataRole = profile[this.apiRole] == undefined ?
+          const profAppMetadataRole = profile[this.apiRole] === undefined ?
             profile.app_metadata.roles : profile[this.apiRole];
 
           if (!profIsSocialIDP) {
@@ -238,7 +238,7 @@ export class AuthService {
               if (environment.production && !environment.auth_tenant_shared) {
                 this.getDelegationToken();
               }
-              
+
               // schedule renewal here
               this.scheduleRenewal();
 
@@ -273,7 +273,7 @@ export class AuthService {
 
   public authenticated(): boolean {
     // Check whether the current time is past the
-    // access token's expiry time    
+    // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return Math.round(new Date().getTime() / 1000)  < expiresAt;
   }
@@ -415,7 +415,6 @@ export class AuthService {
   renewToken() {
     this.webauth.renewAuth({
       audience: environment.auth_api,
-      //audience: `https://${environment.auth_domain}/userinfo`,
       redirectUri: `${environment.backend_url}/${environment.auth_silenturl}`,
       scope: 'openid profile email scope',
       usePostMessage: true,
@@ -456,12 +455,18 @@ export class AuthService {
   }
 
   getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
+    if (!results) {
+      return null;
+    }
+    if (!results[2]) {
+      return '';
+    }
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 }
