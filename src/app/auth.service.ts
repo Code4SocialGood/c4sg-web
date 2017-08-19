@@ -364,8 +364,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[0];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
         } else {
           return false;
         }
@@ -383,8 +384,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[1];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
         } else {
           return false;
         }
@@ -402,8 +404,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[2];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
         } else {
           return false;
         }
