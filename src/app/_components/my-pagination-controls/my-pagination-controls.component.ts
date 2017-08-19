@@ -11,6 +11,10 @@ import { PaginationInstance } from 'ngx-pagination';
 })
 export class MyPaginationControlsComponent {
 
+    // Workaround for codelyzer #189 issue
+    public p: any;
+    // https://github.com/mgechev/codelyzer/issues/189
+
     @Input() id: string;
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
