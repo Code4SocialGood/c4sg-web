@@ -59,10 +59,11 @@
     <div class="col m8 s12" *ngIf="organizations && from === 'organizations'" id="right-col">
       <div class="content" *ngIf="organizations">
         <div class="row">
-          <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No organizations', '=1': '1 organization', 'other': '# organizations'} }} found</h4>
+          <h4 class="content-title">{{paginationConfig.totalItems | i18nPlural: {'=0': 'No organizations', '=1': '1 organization', 'other': '# organizations'}
+            }} found</h4>
           <div class="items-list-wrapper">
             <ul class="card-list" *ngIf="organizations">
-              <li class="card-wrapper" *ngFor="let org of organizations | paginate: {itemsPerPage: 10, id: 'organizationsPages', currentPage: p, totalItems: totalItems}">
+              <li class="card-wrapper" *ngFor="let org of organizations | paginate: paginationConfig">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-avatar-wrapper">
@@ -98,9 +99,7 @@
         </div>
         <div class="row">
           <div class="pagination">
-            <!--
-            <pagination-controls (pageChange)="p = $event" id="orgsList" autoHide="false"></pagination-controls>-->
-            <pagination-controls (pageChange)="getOrganizations(p = $event)" id="organizationsPages" autoHide="false"></pagination-controls>
+            <my-pagination-controls (pageChange)="getOrganizations($event)" id="organizationsPages"></my-pagination-controls>
           </div>
         </div>
       </div>
@@ -111,7 +110,7 @@
       <ul class="collapsible popout" data-collapsible="accordion" materialize="collapsible">
         <!-- Pending Organizations -->
         <li>
-          <div  class="collapsible-header active">
+          <div class="collapsible-header active">
             <h4 class="content-title">Pending Organizations</h4>
           </div>
           <div class="collapsible-body ">
@@ -150,7 +149,7 @@
                         </div>
                       </div>
                     </li>
-                  </ul>                
+                  </ul>
                 </div>
                 <div class="row" *ngIf="pendingOrganizations && pendingOrganizations.length == 0">
                   <div class="col s12">
@@ -163,7 +162,7 @@
         </li>
         <!-- Declined Organizations -->
         <li>
-          <div  class="collapsible-header active">
+          <div class="collapsible-header active">
             <h4 class="content-title">Declined Organizations</h4>
           </div>
           <div class="collapsible-body ">
@@ -202,7 +201,7 @@
                         </div>
                       </div>
                     </li>
-                  </ul>                
+                  </ul>
                 </div>
                 <div class="row" *ngIf="declinedOrganizations && declinedOrganizations.length == 0">
                   <div class="col s12">
@@ -213,7 +212,7 @@
             </div>
           </div>
         </li>
-      </ul>  
+      </ul>
     </div>
   </div>
 </div>

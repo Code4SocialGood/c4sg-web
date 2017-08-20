@@ -9,6 +9,9 @@ import { OrganizationService } from '../../organization/common/organization.serv
 import { SkillService } from '../../skill/common/skill.service';
 import { User } from '../../user/common/user';
 
+import { MyPaginationControlsComponent } from '../../_components/my-pagination-controls/my-pagination-controls.component';
+import { PaginationInstance } from 'ngx-pagination';
+
 declare const Materialize: any;
 
 @Component({
@@ -18,6 +21,9 @@ declare const Materialize: any;
 })
 
 export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy {
+
+  paginationConfig: PaginationInstance;
+
   skills: any[];
   skillsShowed = [];
   skillsArray = new FormArray([]);
@@ -27,15 +33,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
-    // jobTitle: new FormControl(false),
     jobTitles: this.jobTitleFormArray,
     skills: this.skillsArray
   });
 
-  p = 1; // Holds page number
   projects: Project[];
   selectedProject: Project;
-  totalItems = 0;
   projectsCache: any[];
   projectsSubscription: Subscription;
   userId: number;
@@ -49,6 +52,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     public auth: AuthService,
     private route: ActivatedRoute,
     private skillService: SkillService) {
+    this.paginationConfig = {
+      id: 'projectsPages',
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 0
+    };
   }
 
   ngAfterViewChecked(): void {
@@ -71,13 +80,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         });
         this.from = params['from'];
         if (this.from === 'reload') {
-          this.p = 1;
+          this.paginationConfig.currentPage = 1;
           this.filterForm.controls.keyword.setValue('');
           // this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
         }
-        this.getProjects(this.p);
+        this.getProjects(this.paginationConfig.currentPage);
       });
 
     this.route.queryParams.subscribe(params => {
@@ -90,11 +99,12 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
     this.getJobTitles();
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      this.getProjects(this.p);
+      this.getProjects(this.paginationConfig.currentPage);
     });
   }
 
-  getProjects(page: number): void {
+  getProjects(newPage: number): void {
+    this.paginationConfig.currentPage = newPage;
     // Issue#300 - resetting form before reloading page to display all items
     // this.filterForm.reset();
     window.scrollTo(0, 0);
@@ -121,11 +131,11 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
       this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
       this.projectsSubscription = this.projectService.searchProjects(
         // this.filterForm.value.keyword, jobTitle, skillsParam, 'A', null, page, 10)
-        this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', null, page, 10)
+        this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', null, newPage, 10)
         .subscribe(
         res => {
           this.projects = res.data;
-          this.totalItems = res.totalItems;
+          this.paginationConfig.totalItems = res.totalItems;
           this.projectsCache = this.projects.slice(0);
           res.data.forEach((e: Project) => {
             this.skillService.getSkillsByProject(e.id).subscribe(

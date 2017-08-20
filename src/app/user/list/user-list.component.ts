@@ -9,6 +9,9 @@ import { UserService } from '../common/user.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { AuthService } from '../../auth.service';
 
+import { MyPaginationControlsComponent } from '../../_components/my-pagination-controls/my-pagination-controls.component';
+import { PaginationInstance } from 'ngx-pagination';
+
 @Component({
   selector: 'my-userlist',
   templateUrl: 'user-list.component.html',
@@ -17,7 +20,8 @@ import { AuthService } from '../../auth.service';
 })
 
 export class UserListComponent implements OnInit, OnDestroy {
-  // roles: any[];
+
+  paginationConfig: PaginationInstance;
 
   skills: any[];
   skillsShowed = [];
@@ -32,8 +36,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     skills: this.skillsArray
   });
 
-  totalItems = 0;
-  p = 1;
   keyword: string;
   keywords: any;
   selectedUser: User;
@@ -48,6 +50,12 @@ export class UserListComponent implements OnInit, OnDestroy {
     public constantsService: FormConstantsService,
     public auth: AuthService,
     private route: ActivatedRoute) {
+    this.paginationConfig = {
+      id: 'usersPages',
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 0
+    };
   }
 
   slice(str: string): string {
@@ -70,23 +78,24 @@ export class UserListComponent implements OnInit, OnDestroy {
           return jobTitleControl.setValue(false);
         });
         if (params['from'] === 'reload') {
-          this.p = 1;
+          this.paginationConfig.currentPage = 1;
           this.filterForm.controls.keyword.setValue('');
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
         }
       });
-    this.getUsers(this.p);
+    this.getUsers(this.paginationConfig.currentPage);
     this.getSkills();
     this.getKeywords();
     this.getJobTitles();
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      this.getUsers(this.p);
+      this.getUsers(this.paginationConfig.currentPage);
     });
   }
 
-  public getUsers(page: number): void {
+  public getUsers(newPage: number): void {
+    this.paginationConfig.currentPage = newPage;
     const skills = this.filterForm.value.skills;
     const jobTitles = this.filterForm.value.jobTitles;
     const skillsParam = [];
@@ -108,12 +117,12 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
     this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
     this.usersSubscription = this.userService.searchUsers(
-      this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', 'V', 'Y', page, 10)
+      this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', 'V', 'Y', newPage, 10)
       .subscribe(
       res => {
         // the service returns a JSON object consist of the array of pageable data
         this.users = res.data;
-        this.totalItems = res.totalItems;
+        this.paginationConfig.totalItems = res.totalItems;
         this.usersCache = this.users.slice(0);
         res.data.forEach((e: User) => {
           this.skillService.getSkillsForUser(e.id).subscribe(
