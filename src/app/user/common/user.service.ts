@@ -104,6 +104,10 @@ export class UserService {
       params.append('publishFlag', publishFlag);
     }
 
+    if (role) {
+      params.append('role', role);
+    }
+
     if (page) {
       params.append('page', String(page - 1));
     }

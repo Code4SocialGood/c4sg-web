@@ -67,3 +67,31 @@ textarea.materialize-textarea:focus + label {
   min-height: 1rem;
   height: 1rem;
 }
+
+
+.dropdown-content {
+    li {
+    clear: both;
+    cursor: pointer;
+    min-height: 10px;
+    //line-height: 1rem;
+    width: 100%;
+    text-align: left;
+    text-transform: none;
+
+    & > a, & > span {
+      font-size: 15px;
+      display: block;
+      line-height: 10px;
+      //padding: ((25 - 22) / 2) 16px;
+    }
+
+    & > span > label {
+      top: 1px;
+      left: 0;
+      height: 10px;
+    }
+
+
+  }
+}
