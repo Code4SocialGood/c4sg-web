@@ -297,3 +297,9 @@ select.browser-default {
     background-color: $secondary-color;
   }
 }
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
