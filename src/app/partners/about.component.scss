@@ -1,0 +1,34 @@
+@import "../_style/app.theme";
+
+.about-us-content {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  p {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-family: Raleway;
+    font-weight: 500;
+    margin-bottom: -.5rem;
+  }
+  .problem {
+    margin-bottom: 3rem;
+  }
+}
+
+.about-us-page-title {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+  }
+}
