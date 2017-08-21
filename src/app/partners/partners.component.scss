@@ -1,0 +1,20 @@
+@import "../_style/app.theme";
+
+.content {
+  text-align: center;
+  padding-top: 3rem;
+  h4 {
+    margin-bottom: -.5rem;
+  }
+  .contact {
+    margin-top: 2rem;
+    background-color: darken($footer-bg-color, 5%);
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    a {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}

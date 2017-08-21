@@ -13,9 +13,9 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {HeaderComponent} from './header/header.component';
-import AppreciationsComponent from './appreciations/appreciations.component';
-import ConsultantsComponent from './consultants/consultants.component';
-import PartnersComponent from './partners/partners.component';
+import {AppreciationsComponent} from './appreciations/appreciations.component';
+import {ConsultantsComponent} from './consultants/consultants.component';
+import {PartnersComponent} from './partners/partners.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
