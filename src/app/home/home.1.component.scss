@@ -128,15 +128,22 @@
     padding: 5px 30px;
 }
 
-
-
-.img-text-background{
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;    
-    text-align: center;
-    position: absolute;
-    bottom: 0px;    
+.green-arrow-img{
+    max-width: 70%;
+    display: block;
+    margin: auto;
 }
+
+@media screen and (max-width: 915px) {
+  .green-arrow-img{
+        max-width: 30%;
+      }
+}
+  @media screen and (max-width: 650px) {
+    .green-arrow-img{
+        max-width: 30%;
+      }
+  }
 
 .featured-project-img{
     max-height: 100%;
@@ -168,6 +175,14 @@
   z-index: -2;
     
   //max-width: 100%;
+}
+
+.img-text-background{
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;    
+    text-align: center;
+    position: absolute;
+    bottom: 0px;    
 }
 
 .action{
