@@ -94,6 +94,8 @@
 
 ul.right.hide-on-med-and-down{
   height: 50%;
+  border-bottom: 2px solid #84C44C;
+  padding-bottom: 10px;
   &*{
     box-sizing: border-box;
   }
@@ -163,6 +165,8 @@ ul.right.hide-on-med-and-down{
      }
   }
 }
+
+
 
 
 //.right a{
