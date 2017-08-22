@@ -114,10 +114,18 @@
     font-size: 18px;
     font-weight: bold; 
     color: #84C44C;
+    text-transform: uppercase;
 }
 
 .featured-project-text{
     font-size: 16px; 
+}
+
+.featured-project-img{
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
 }
 
 .button-colored{
@@ -145,9 +153,30 @@
       }
   }
 
-.featured-project-img{
-    max-height: 100%;
-    max-width: 100%;
+//github
+
+.github_cta {
+  background-color: $secondary-bg-color;
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  //font-family: "aniFont";
+  .btn {
+    background: #fff;
+    color: $secondary-bg-color;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+}
+
+.btn_github {  
+    background: #fff;
+    color: $secondary-bg-color;
+    margin-bottom: 2rem;
+    font-size: 1rem; 
+    //display: block;
+    //margin: auto;
+  
 }
 
 //Previous home page
@@ -330,6 +359,7 @@ agm-map {
     margin-bottom: 3rem;
   }
 }
+
 
 
 //copied from materialize template

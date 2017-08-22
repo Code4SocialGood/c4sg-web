@@ -63,6 +63,9 @@ export class HomeComponent implements OnInit {
   state = 'inactive';
   projects: Project[] = [];
   
+  //Featured projects
+  topThreeProjects: Project[] = [];
+  
   // cursor and aniSlogan
   tempWord = '';
   clear = true;
@@ -108,6 +111,9 @@ export class HomeComponent implements OnInit {
     //Google maps
     this.getDevelopers();
     
+    //Featured projects
+    this.getTopThreeProjects();
+    
   }
   
   // search button
@@ -123,7 +129,18 @@ export class HomeComponent implements OnInit {
         keyword: keyword
       }
     });
-  } 
+  }
+  
+  private getTopThreeProjects():void {
+    this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
+        .subscribe(
+        res => {
+          this.projects = res.data;
+          this.topThreeProjects = this.projects.slice(0,3);          
+        },
+        error => console.log(error)
+        );
+  }
   
   
   //cursor and aniSlogan
