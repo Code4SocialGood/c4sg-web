@@ -207,7 +207,6 @@ export class AuthService {
                 });
 
                 const curTime = new Date();
-                console.log('current time: ' + Math.round(curTime.getTime()) / 1000);
 
                 // Create a user
                 this.userService.add(newUser).subscribe(
@@ -222,7 +221,10 @@ export class AuthService {
                     }
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   },
-                  error1 => console.log(error1));
+                  error1 => {
+                    console.log(error1);
+                    this.logout();
+                  });
               } else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
