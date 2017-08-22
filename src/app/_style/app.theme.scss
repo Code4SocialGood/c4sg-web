@@ -3,7 +3,6 @@
 @import 'app.nav';
 @import 'app.content';
 @import 'app.card';
-@import 'app.pagination';
 @import 'app.sidebar';
 @import 'app.validate';
 @import 'app.materialize';
@@ -297,4 +296,10 @@ select.browser-default {
   .modal-content h4 {
     background-color: $secondary-color;
   }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }
