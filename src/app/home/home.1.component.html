@@ -146,11 +146,13 @@
     <!--<div class="container">-->      
       <div class="row" *ngIf="topThreeProjects">        
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
-            <div *ngIf="project.imageUrl">
-              <img class="featured-project-img"  [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
-            </div>
-            <div *ngIf="!project.imageUrl">
-              <img class="featured-project-img"  [src]="constantsService.defaultImage">
+            <div>
+                <div class="featured-project-img-div center-align" *ngIf="project.imageUrl">
+                  <img class="featured-project-img"  [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
+                </div>
+                <div *ngIf="!project.imageUrl">
+                  <img class="featured-project-img"  [src]="constantsService.defaultImage">
+                </div>
             </div>
             <br>
           <div>               
@@ -215,11 +217,11 @@
 <div class="section no-padding">    
     <div class="green-ribbon green-ribbon-two">
         <div class="row">
-            <div class="col s12 m6 offset-m2">
+            <div class="col s12">
                 A platform by volunteers, for volunteers<br> 
                 Contribute to our open source project
             </div>
-            <div class="col s12 m3 pull-m1">          
+            <div class="col s12">          
               <a class="btn_github btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
                 Github Project<i class="mdi mdi-github-circle mdi-36px left" name="github"></i>
               </a>

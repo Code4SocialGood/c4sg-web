@@ -62,6 +62,7 @@
     font-size: 22px;
     font-weight: bold;
     padding: 10px 0px;
+    text-transform: uppercase;
 }
 .white-ribbon {
     background-color: transparent;
@@ -70,6 +71,7 @@
     font-size: 22px;
     font-weight: bold; 
     padding: 10px 0px;
+    text-transform: uppercase;
 }
 
 .green-ribbon-one{
@@ -108,34 +110,6 @@
     padding: 5px 60px;
 }
 
-//last section
-.featured-project-heading{
-    font-family: $main-font;
-    font-size: 18px;
-    font-weight: bold; 
-    color: #84C44C;
-    text-transform: uppercase;
-}
-
-.featured-project-text{
-    font-size: 16px; 
-}
-
-.featured-project-img{
-    max-height: 100%;
-    max-width: 100%;
-    display: block;
-    margin: auto;
-}
-
-.button-colored{
-    background-color: #F2673B;
-    color: white;
-    border: none;
-    font-size: 16px;
-    padding: 5px 30px;
-}
-
 .green-arrow-img{
     max-width: 70%;
     display: block;
@@ -152,6 +126,42 @@
         max-width: 30%;
       }
   }
+
+
+//featured projects section
+.featured-project-heading{
+    font-family: $main-font;
+    font-size: 18px;
+    font-weight: bold; 
+    color: #84C44C;
+    text-transform: uppercase;
+}
+
+.featured-project-text{
+    font-size: 16px; 
+}
+
+.featured-project-img{
+    max-height: 95%;
+    max-width: 95%;
+    //display: block;
+    //margin: auto;
+}
+
+
+.featured-project-img-div{
+    height: 300px;
+    //width: 300px;
+}
+
+.button-colored{
+    background-color: #F2673B;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 5px 30px;
+}
+
 
 //github
 
@@ -175,7 +185,8 @@
     margin-bottom: 2rem;
     font-size: 1rem; 
     //display: block;
-    //margin: auto;
+    margin: 10px;;
+    //padding: 10px;
   
 }
 
