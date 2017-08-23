@@ -10,6 +10,9 @@
     margin: 0px 20px;
   }
   ul {
+    height: 50%;
+    border-bottom: 2px solid #84C44C;
+    padding-bottom: 10px;
     li {
       background-color: transparent;      
       a {
@@ -58,6 +61,7 @@
     margin: 0px 20px;
   }
   ul {
+      height: 100%;
       li {
       background-color: transparent;      
       a {
@@ -93,9 +97,7 @@
 }
 
 ul.right.hide-on-med-and-down{
-  height: 50%;
-  border-bottom: 2px solid #84C44C;
-  padding-bottom: 10px;
+  
   &*{
     box-sizing: border-box;
   }
