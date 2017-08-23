@@ -100,11 +100,11 @@
               <div [ngClass]="{disabled: projectForm.controls.remoteFlag.value === 'Y'}">
                 <div class="row">
                   <div class="input-field col s6">
-                    <input [maxlength]="100" id="city" type="text" class="validate" formControlName="city">
+                    <input [maxlength]="100" id="city" type="text" class="validate" formControlName="city" [required]="projectForm.controls.remoteFlag.value === 'Y'">
                     <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input [maxlength]="100" id="state" type="text" class="validate" formControlName="state">
+                    <input [maxlength]="100" id="state" type="text" class="validate" formControlName="state" [required]="projectForm.controls.remoteFlag.value === 'Y'">
                     <label for="state" id="state-label">State</label>
                   </div>
                 </div>
