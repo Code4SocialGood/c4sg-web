@@ -13,6 +13,9 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {HeaderComponent} from './header/header.component';
+import {AppreciationsComponent} from './appreciations/appreciations.component';
+import {ConsultantsComponent} from './consultants/consultants.component';
+import {PartnersComponent} from './partners/partners.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -56,7 +59,7 @@ import { ProjectListSmallComponent } from './_components/project-card-small/proj
 import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
 import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
 import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
-
+import {MyPaginationControlsComponent} from './_components/my-pagination-controls/my-pagination-controls.component';
 import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 
@@ -85,6 +88,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     NavScrollDirective,
     HomeComponent,
     AboutComponent,
+    AppreciationsComponent,
+    ConsultantsComponent,
+    PartnersComponent,
 
     HeaderComponent,
 
@@ -111,7 +117,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProjectListSmallComponent,
     FeedbackBtnComponent,
     UserAvatarComponent,
-    UserAvatarSmallComponent
+    UserAvatarSmallComponent,
+    MyPaginationControlsComponent
   ],
   providers: [ProjectService,
     OrganizationService,
