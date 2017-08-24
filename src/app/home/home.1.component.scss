@@ -71,8 +71,8 @@
     
   //max-width: 100%;
 }
-.action{
-    background: url("/assets/pexels-photo-407237.jpeg");
+/*.action{
+    background: url("/assets/pexels-photo-407237.jpeg");    
         
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -84,7 +84,30 @@
     display: flex;
     flex-direction: column;
     position: relative;        
+}*/
+
+.action {
+
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image.jpeg") no-repeat center center;
+    background-attachment:fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    // max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    text-align: center;
+    //position: relative;
 }
+
+
 //cursor and aniSlogan
 /*@font-face {
   font-family: "aniFont";
