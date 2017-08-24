@@ -107,7 +107,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
         );
 
-        if (this.currentUserId===null) {
+        if (this.currentUserId === null) {
            this.fillForm();
         } else {
            this.route.params.subscribe(params => {
