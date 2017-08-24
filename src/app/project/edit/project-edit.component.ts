@@ -206,7 +206,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
       'jobTitleId': [this.project.jobTitleId || '', []],
-      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
+      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(10000)])]],
       'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
       'city': [this.project.city || '', isLocalProject ? [Validators.required] : []],
       'state': [this.project.state || '', isLocalProject ? [Validators.required] : []],
