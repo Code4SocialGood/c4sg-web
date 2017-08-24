@@ -359,7 +359,7 @@
 .btn_github {  
     background: #fff;
     color: $secondary-bg-color;
-    margin-bottom: 2rem;
+    //margin-bottom: 2rem;
     font-size: 1rem; 
     //display: block;
     margin: 10px;
@@ -367,7 +367,18 @@
   
 }
 
-
+@media screen and (max-width: 915px) {
+    .btn_github {  
+        font-size: 1rem; 
+        margin: 10px;
+    }
+  }
+@media screen and (max-width: 650px) {
+    .btn_github {  
+        font-size: 1rem; 
+        margin: 5px;
+    }
+  }
 
 
 /* google map */
