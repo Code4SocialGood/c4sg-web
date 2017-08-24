@@ -39,7 +39,7 @@ declare var $: any;
           </tbody>
         </table>   
         <hr>
-        <h6>For those who registered via email/password, you will need to log back in after role selection.</h6>       
+        <h6>If you registered via email/password, you will need to log back in after role selection.</h6>       
 	    </div> 
       <div class="modal-footer">
         <button id="btn1" [disabled]="true" (click) = "setRole()" class="btn modal-action modal-close 
@@ -69,11 +69,11 @@ export class AuthRoleSelectionComponent implements OnInit, AfterViewInit {
       // Initialize the role options
       this.entries = [
         {
-          description: 'Volunteer User (Volunteer with Projects)',
+          description: 'Volunteer User (Contribute to Projects)',
           value: 'VOLUNTEER'
         },
         {
-          description: 'Project Owner (Post Projects)',
+          description: 'Organization User (Post Projects)',
           value: 'ORGANIZATION'
         },
         // { // Remove admin user from UI

@@ -261,6 +261,19 @@ hr {
   }
 }
 
+.page-title-center {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+  }
+}
+
 .highlight-title{
   font-size: 12px;
   color: $secondary-color;
