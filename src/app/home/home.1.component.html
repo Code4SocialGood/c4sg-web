@@ -1,19 +1,5 @@
-  
-<!--<div class="action_volunteer">
-    <div>
-        LOREM IPSUM      
-    </div>    
-</div>-->
-<!--<div class="cover">
-    <img src="../../assets/pexels-photo-407237.jpeg">
-</div>-->
-
 <div class="action">
-    <div class="img-text-background">
-        <!--<div class="img-text">
-            <div>LOREM IPSUM DOLOR SIT AMET CONSEQUAT</div>
-            <div>GET STARTED NOW!</div> 
-        </div>-->
+    <div class="aniSlogan-background">
         <div id="aniSlogan">
             It doesn't matter if you
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
@@ -43,7 +29,6 @@
         </div>
     <!--</div>-->
 </div>
-<br>
 <div class="section no-padding">
     <div class="green-ribbon">    
             GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS    
@@ -95,7 +80,7 @@
     <!--</div>-->    
 </div>
 <div class="section no-padding">
-    <div class="green-ribbon green-ribbon-two">    
+    <div class="green-ribbon white-text">    
             STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD
     </div>
     <!--<div class="container">-->       
@@ -148,7 +133,7 @@
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div>
                 <div class="featured-project-img-div center-align" *ngIf="project.imageUrl">
-                  <img class="featured-project-img"  [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
+                  <img class="featured-project-img" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
                 </div>
                 <div *ngIf="!project.imageUrl">
                   <img class="featured-project-img"  [src]="constantsService.defaultImage">
@@ -159,7 +144,7 @@
             <div class="featured-project-heading">{{project.name}}</div>
 
             <div class="featured-project-text">
-                <p class="description" *ngIf="project && project.description">{{ project && project.description | slice:0:200 }} ...</p>
+                {{ project && project.description | slice:0:200 }} ...
             </div>
           </div>
           <br>
@@ -168,54 +153,9 @@
           </div><br><br>
         </div>        
       </div>
-    <!--<div *ngIf="topThreeProjects">    
-      <div class="row">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">            
-            <div *ngIf="project.imageUrl">
-              <img class="featured-project-img"  [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
-            </div>
-            <div *ngIf="!project.imageUrl">
-              <img class="featured-project-img"  [src]="constantsService.defaultImage">
-            </div>          
-        </div>        
-      </div> <br>   
-      <div class="row">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">            
-                        
-            <div class="featured-project-heading">{{project.name}}</div>            
-                    
-        </div>        
-      </div>
-      <div class="row">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">
-            <div class="featured-project-text" *ngIf="project && project.description">
-                {{ project && project.description | slice:0:200 }} ...
-            </div>         
-        </div>        
-      </div><br>
-      <div class="row">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">           
-          <div>
-              <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
-          </div>
-        </div>        
-      </div>
-    </div>-->
-    <!--</div>-->  
 </div>
-<!--<div class="section no-padding">
-    <div class="row github_cta">
-        <div class="col s8 offset-s2">
-          <p>A platform by volunteers, for volunteers <br>
-          Contribute to our open source project</p>
-          <a class="btn btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
-            Github Project
-            <i class="mdi mdi-github-circle mdi-36px left" name="github"></i></a>
-        </div>
-    </div>
-</div>-->
 <div class="section no-padding">    
-    <div class="green-ribbon green-ribbon-two">
+    <div class="green-ribbon white-text">
         <div class="row">
             <div class="col s12">
                 A platform by volunteers, for volunteers<br> 
