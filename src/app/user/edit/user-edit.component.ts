@@ -178,7 +178,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
-      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(10000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
