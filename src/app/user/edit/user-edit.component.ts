@@ -27,6 +27,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
 
   public userId;
+  public userEmail;
+  public userRole;
+  public userFirstName;
+  public userLastName;
   public user: User;
   public jobTitlesArray: JobTitle[] = [];
   public loadedFile: any;
@@ -94,14 +98,21 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
       );
 
-    this.route.params.subscribe(params => {
-      this.userId = +params['userId'];
+//    this.route.params.subscribe(params => {
+//      this.userId = +params['userId'];
       this.userService.getAllJobTitles()
         .subscribe(
         res => {
           this.jobTitlesArray = res;
         }, error => console.log(error)
         );
+
+        if(this.currentUserId===null){
+           this.fillForm();
+           }
+        else{
+           this.route.params.subscribe(params => {
+           this.userId = +params['userId'];
       // Populate user
       this.userService.getUser(this.userId)
         .subscribe(
@@ -139,6 +150,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         );
     });
   }
+  }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
@@ -153,7 +165,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'firstName': ['', []],
       'lastName': ['', []],
       'state': ['', []],
-      'country': ['', []],
+      'country': [this.countries, []],
       'phone': ['', []],
       'title': ['', []],
       'introduction': ['', []],
@@ -167,7 +179,27 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-
+    if(this.user==null || this.user==undefined){
+          this.userForm = this.fb.group({
+             'email':[localStorage.getItem('currentUserEmail') || '', [Validators.required]],
+             'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
+             'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
+             'userName': ['', [Validators.required]],
+             'title': ['', [Validators.required]],
+             'introduction': [ '', [Validators.compose([Validators.maxLength(1000)])]],
+             'jobTitleId': ['', []],
+             'state': ['', []],
+             'country': [this.countries, []],
+             'phone': ['', []],
+             'linkedinUrl': ['', []],
+             'personalUrl': ['', []],
+             'githubUrl': ['', []],
+             'chatUsername': ['', []],
+             'publishFlag': ['', []],
+             'notifyFlag': ['', []]
+              });
+      }
+    else{
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'jobTitleId': [this.user.jobTitleId || '', []],
@@ -186,6 +218,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'publishFlag': [this.checkPublish || '', []],
       'notifyFlag': [this.checkNotify || '', []]
     });
+  }
   }
 
   onSubmit(updatedData: any, event): void {
