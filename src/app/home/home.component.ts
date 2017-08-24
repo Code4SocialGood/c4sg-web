@@ -59,13 +59,13 @@ require('./agmMarkerProto.js');
 
 export class HomeComponent implements OnInit {
 
-  //search button 
+  // search button
   state = 'inactive';
   projects: Project[] = [];
-  
-  //Featured projects
+
+  // Featured projects
   topThreeProjects: Project[] = [];
-  
+
   // cursor and aniSlogan
   tempWord = '';
   clear = true;
@@ -78,10 +78,10 @@ export class HomeComponent implements OnInit {
   aniWord = '';
   aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
   aniWordOrg = '';
-  
-  //Google maps
+
+  // Google maps
   usersSubscription: Subscription;
-  developers: User[];  
+  developers: User[];
   zoom = 2;
   // initial center position for the map
   lat = 0;
@@ -93,13 +93,13 @@ export class HomeComponent implements OnInit {
               private dataService: DataService,
               public authSvc: AuthService,
               private uService: UserService,
-              private constantsService: FormConstantsService) {
+              public constantsService: FormConstantsService) {
   }
 
   // onload animation timer
   ngOnInit(): void {
-    
-    //cursor and aniSlogan
+
+    // cursor and aniSlogan
     const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
     const typeTimer = Observable.timer(0, this.typeAniPeriod);
     const cursorTimer = Observable.timer(0, 400);
@@ -107,43 +107,41 @@ export class HomeComponent implements OnInit {
     wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
     typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
     cursorTimer.subscribe(u => this.cursorFlash(u));
-    
-    //Google maps
+
+    // Google maps
     this.getDevelopers();
-    
-    //Featured projects
+
+    // Featured projects
     this.getTopThreeProjects();
-    
+
   }
-  
+
   // search button
    toggleState() {
     this.state = (this.state === 'inactive' ? 'active' : 'inactive');
   }
-  
+
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
-    //if (!keyword) { return; }
+    // if (!keyword) { return; }
     this.router.navigate(['/project/list/projects'], {
       queryParams: {
         keyword: keyword
       }
     });
   }
-  
-  private getTopThreeProjects():void {
+
+  private getTopThreeProjects(): void {
     this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
         .subscribe(
         res => {
           this.projects = res.data;
-          this.topThreeProjects = this.projects.slice(0,3);          
+          this.topThreeProjects = this.projects.slice(0, 3);
         },
         error => console.log(error)
         );
   }
-  
-  
-  //cursor and aniSlogan
+  // cursor and aniSlogan
   // animation word
   switchWord(time) {
     const index = time % this.aniWordGroup.length;
@@ -170,8 +168,8 @@ export class HomeComponent implements OnInit {
   cursorFlash(time) {
     this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
   }
-  
-  //Google maps
+
+  // Google maps
   private getDevelopers(): void {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
@@ -205,7 +203,5 @@ export class HomeComponent implements OnInit {
       return infoWindow.open();
     });
   }
-  
- 
-  
+
  }
