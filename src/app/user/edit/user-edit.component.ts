@@ -107,10 +107,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
         );
 
-        if(this.currentUserId===null){
+        if (this.currentUserId===null) {
            this.fillForm();
-           }
-        else{
+        } else {
            this.route.params.subscribe(params => {
            this.userId = +params['userId'];
       // Populate user
@@ -179,9 +178,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    if(this.user==null || this.user==undefined){
+    if (this.user === null || this.user === undefined) {
           this.userForm = this.fb.group({
-             'email':[localStorage.getItem('currentUserEmail') || '', [Validators.required]],
+             'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
              'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
              'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
              'userName': ['', [Validators.required]],
@@ -198,8 +197,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
              'publishFlag': ['', []],
              'notifyFlag': ['', []]
               });
-      }
-    else{
+    } else {
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'jobTitleId': [this.user.jobTitleId || '', []],
