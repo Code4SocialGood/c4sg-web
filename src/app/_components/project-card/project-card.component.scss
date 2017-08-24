@@ -33,3 +33,9 @@
   text-decoration-color: $secondary-bg-color;
   }
 }
+
+.nowrapalign {
+  float: right;
+  white-space: nowrap;
+  overflow: hidden;
+}
