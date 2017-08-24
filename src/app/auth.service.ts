@@ -205,8 +205,8 @@ export class AuthService {
                   // publishFlag: 'N',
                   // notifyFlag: 'N',
                   // status: 'ACTIVE'
-                  title:'',
-                  introduction:''
+                  title: '',
+                  introduction: ''
                 });
 
                 const curTime = new Date();
@@ -243,8 +243,7 @@ export class AuthService {
                 }
                 localStorage.setItem('currentUserAvatar', user.avatarUrl);
                 this.setlocalStorageItems();
-                if(user.userName === null)
-                  {
+                if (user.userName === null) {
                     this.router.navigate(['/user/edit/' + user.id]);
                     localStorage.setItem('redirectAfterLogin', '/user/edit/' + user.id);
                   }
