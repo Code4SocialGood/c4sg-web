@@ -250,11 +250,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       this.user.notifyFlag = 'N';
     }
 
-    /*
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
-      this.isNew = false;
-    } */
+      // this.isNew = false;
+    }
 
     this.userService.update(this.user)
       .subscribe(() => {
