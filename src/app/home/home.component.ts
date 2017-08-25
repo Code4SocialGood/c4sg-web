@@ -5,19 +5,17 @@ import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
 import { DataService } from '../_services/data.service';
 import { AuthService } from '../auth.service';
-
 import { Subscription } from 'rxjs/Rx';
 import { User } from '../user/common/user';
 import { UserService } from '../user/common/user.service';
 import { FormConstantsService } from '../_services/form-constants.service';
-
 require('./agmMarkerProto.js');
 
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
   styleUrls: [ 'home.component.scss' ],
-  animations: [
+   animations: [
     trigger('buttonState', [
       state('inactive', style({
         transform: 'scale(1)'
@@ -61,10 +59,12 @@ require('./agmMarkerProto.js');
 
 export class HomeComponent implements OnInit {
 
-  projects: Project[] = [];
-
   // search button
   state = 'inactive';
+  projects: Project[] = [];
+
+  // Featured projects
+  topThreeProjects: Project[] = [];
 
   // cursor and aniSlogan
   tempWord = '';
@@ -79,11 +79,9 @@ export class HomeComponent implements OnInit {
   aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
   aniWordOrg = '';
 
-
-
+  // Google maps
   usersSubscription: Subscription;
   developers: User[];
-  // google maps zoom level
   zoom = 2;
   // initial center position for the map
   lat = 0;
@@ -95,11 +93,13 @@ export class HomeComponent implements OnInit {
               private dataService: DataService,
               public authSvc: AuthService,
               private uService: UserService,
-              private constantsService: FormConstantsService) {
+              public constantsService: FormConstantsService) {
   }
 
   // onload animation timer
   ngOnInit(): void {
+
+    // cursor and aniSlogan
     const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
     const typeTimer = Observable.timer(0, this.typeAniPeriod);
     const cursorTimer = Observable.timer(0, 400);
@@ -107,9 +107,68 @@ export class HomeComponent implements OnInit {
     wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
     typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
     cursorTimer.subscribe(u => this.cursorFlash(u));
+
+    // Google maps
     this.getDevelopers();
+
+    // Featured projects
+    this.getTopThreeProjects();
   }
 
+  // search button
+   toggleState() {
+    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
+  }
+
+  getProjectsByKeyword(keyword: string) {
+    keyword = keyword.trim();
+    // if (!keyword) { return; }
+    this.router.navigate(['/project/list/projects'], {
+      queryParams: {
+        keyword: keyword
+      }
+    });
+  }
+
+  private getTopThreeProjects(): void {
+    this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
+        .subscribe(
+        res => {
+          this.projects = res.data;
+          this.topThreeProjects = this.projects.slice(0, 3);
+        },
+        error => console.log(error)
+        );
+  }
+  // cursor and aniSlogan
+  // animation word
+  switchWord(time) {
+    const index = time % this.aniWordGroup.length;
+    this.aniWord = '';
+    this.typeAniIndex = -1;
+    if (this.wordColorIndex < this.aniWordGroup.length) {
+      this.wordColorIndex++;
+    } else {
+      this.wordColorIndex = 1;
+    }
+    return this.aniWordGroup[index];
+  }
+
+  typeWord(time, word: string) {
+    const wordArray = word.split('');
+    this.typeAniIndex++;
+    if (this.aniWord === word) {
+      return this.aniWord.concat('');
+    } else {
+      return this.aniWord.concat(wordArray[this.typeAniIndex]);
+    }
+  }
+
+  cursorFlash(time) {
+    this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
+  }
+
+  // Google maps
   private getDevelopers(): void {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
@@ -144,47 +203,4 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getProjectsByKeyword(keyword: string) {
-    keyword = keyword.trim();
-    if (!keyword) { return; }
-    this.router.navigate(['/project/list/projects'], {
-      queryParams: {
-        keyword: keyword
-      }
-    });
-  }
-
-  // animation controllers
-  // search button
-  toggleState() {
-    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
-  }
-
-
-  // animation word
-  switchWord(time) {
-    const index = time % this.aniWordGroup.length;
-    this.aniWord = '';
-    this.typeAniIndex = -1;
-    if (this.wordColorIndex < this.aniWordGroup.length) {
-      this.wordColorIndex++;
-    } else {
-      this.wordColorIndex = 1;
-    }
-    return this.aniWordGroup[index];
-  }
-
-  typeWord(time, word: string) {
-    const wordArray = word.split('');
-    this.typeAniIndex++;
-    if (this.aniWord === word) {
-      return this.aniWord.concat('');
-    } else {
-      return this.aniWord.concat(wordArray[this.typeAniIndex]);
-    }
-  }
-
-  cursorFlash(time) {
-    this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
-  }
-}
+ }
