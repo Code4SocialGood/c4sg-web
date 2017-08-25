@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit {
       error => console.error(error)
     );
   }
-  
+
   public getCountryName(countryCode): string {
     const countries = this.constantsService.getCountries();
     const country = countries.find(c => c.code === countryCode);
