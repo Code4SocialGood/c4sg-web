@@ -113,7 +113,6 @@ export class HomeComponent implements OnInit {
 
     // Featured projects
     this.getTopThreeProjects();
-
   }
 
   // search button
@@ -174,12 +173,12 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
       res => {
-        this.developers = res;
+        this.developers = res.filter(vol => vol.role === 'V');
       },
       error => console.error(error)
     );
   }
-
+  
   public getCountryName(countryCode): string {
     const countries = this.constantsService.getCountries();
     const country = countries.find(c => c.code === countryCode);
