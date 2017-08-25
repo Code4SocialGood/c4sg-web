@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
       res => {
-        this.developers = res;
+        this.developers = res.filter(vol => vol.role === 'V');
       },
       error => console.error(error)
     );
