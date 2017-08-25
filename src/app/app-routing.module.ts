@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'partners', component: PartnersComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
-  {path: 'project/view/:projectId', component: ProjectViewComponent},
+  {path: 'project/view/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard]},
   {path: 'project/edit/:projectId', component: ProjectEditComponent, canActivate: [AuthGuard],
   resolve: {
       JobTitles: ProjectEditJobTitleResolve
@@ -43,14 +43,14 @@ const routes: Routes = [
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
 
   {path: 'organization/list/:from', component: OrganizationListComponent},
-  {path: 'organization/view/:organizationId', component: OrganizationViewComponent},
+  {path: 'organization/view/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard]},
   {path: 'organization/edit/:organizationId', component: OrganizationEditComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'organization/delete/:organizationId', component: OrganizationViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ADMIN', 'ADMIN']}},
 
   {path: 'user/list', component: UserListComponent},
-  {path: 'user/view/:userId', component: UserViewComponent},
+  {path: 'user/view/:userId', component: UserViewComponent, canActivate: [AuthGuard]},
   {path: 'user/edit/:userId', component: UserEditComponent, canActivate: [AuthGuard]},
   {path: 'user/delete/:userId', component: UserViewComponent, canActivate: [AuthGuard]},
 
