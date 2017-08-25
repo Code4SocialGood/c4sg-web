@@ -47,6 +47,7 @@
     left: -100%;
     right: -100%;
     margin: auto;
+
   }
 }
 
@@ -110,4 +111,9 @@
 .name:hover {
   text-decoration-line: underline;
   text-decoration-color: #84c44c;
+}
+
+.divalign {
+margin-left: -15px;
+font-size: 12px;
 }
