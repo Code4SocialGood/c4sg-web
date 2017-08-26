@@ -163,13 +163,15 @@
                     </div>
                     <div class="card-image" *ngIf="!project.imageUrl">
                       <img [src]="constantsService.defaultImage">
-                    </div>
-                                
-                <div class="card-content">
-                    <div class="card-title featured-project-heading">{{project.name}}</div>
-                    <div class="featured-project-text">
+                    </div><br>                                
+                <div class="card-content" *ngIf="project">
+                    <div class="featured-project-heading">{{project.name}}</div>
+                    <div class="featured-project-text" *ngIf="project.description.length > 200">
                         {{ project && project.description | slice:0:200 }} ...
-                    </div><br>
+                    </div>
+                    <div class="featured-project-text" *ngIf="project.description.length <= 200">
+                        {{ project && project.description }}
+                    </div><br>                    
                     <div>
                         <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
                     </div>
@@ -177,8 +179,7 @@
             </div>          
          <br><br>
         </div>        
-      </div>
-      
+      </div>     
 </div>
 <div class="section no-padding">    
     <div class="green-ribbon white-text">
