@@ -85,7 +85,8 @@
             <div class="col s12 l6">
               <div class="row">
                 <div class="col s12">
-                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote" value="Y" formControlName="remoteFlag" />
+                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-remote"
+                  value="Y" required formControlName="remoteFlag" />
                   <label for="btn-remote">Remote</label>
                 </div>
               </div>
@@ -93,19 +94,24 @@
             <div class="col s12 l6">
               <div class="row">
                 <div class="col s12">
-                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-local" value="N" formControlName="remoteFlag" />
+                  <input class="with-gap" name="remoteFlag" type="radio" id="btn-local"
+                  value="N" required formControlName="remoteFlag" />
                   <label for="btn-local">Local</label>
                 </div>
               </div>
-              <div [ngClass]="{disabled: projectForm.controls.remoteFlag.value === 'Y'}">
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input [maxlength]="100" id="city" type="text" class="validate" formControlName="city" [required]="projectForm.controls.remoteFlag.value === 'Y'">
+              <div >
+                <div class="row" >
+                  <div class="input-field col s6"  >
+                    <input [maxlength]="100" id="city" type="text" class="validate"
+                    [readonly]="projectForm.controls.remoteFlag.value === 'Y'"
+                    formControlName="city" [required]="projectForm.controls.remoteFlag.value === 'N'">
                     <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input [maxlength]="100" id="state" type="text" class="validate" formControlName="state" [required]="projectForm.controls.remoteFlag.value === 'Y'">
-                    <label for="state" id="state-label">State</label>
+                    <input [maxlength]="100" id="state" type="text" class="validate"
+                    [readonly]="projectForm.controls.remoteFlag.value === 'Y'"
+                    formControlName="state" [required]="projectForm.controls.remoteFlag.value === 'N'">
+                    <label for="state" id="state-label" >State</label>
                   </div>
                 </div>
                 <div class="row">
