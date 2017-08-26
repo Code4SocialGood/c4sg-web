@@ -225,6 +225,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.name = formData.name;
     this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
+
     if (formData.remoteFlag === 'Y') {
       this.project.city = '';
       this.project.state = '';
