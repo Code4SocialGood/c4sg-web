@@ -128,9 +128,9 @@
 <div class="section no-padding">
     <div class="white-ribbon">    
         FEATURED PROJECTS
-    </div>
+    </div><br>
     <!--<div class="container">-->      
-      <div class="row" *ngIf="topThreeProjects">        
+      <!--<div class="row" *ngIf="topThreeProjects">        
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div>
                 <div class="featured-project-img-div center-align" *ngIf="project.imageUrl">
@@ -153,7 +153,32 @@
               <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
           </div><br><br>
         </div>        
+      </div>-->
+    
+    <div class="row" *ngIf="topThreeProjects">        
+        <div class="col s12 m4" *ngFor="let project of topThreeProjects">
+            <div class="card">                
+                    <div class="card-image" *ngIf="project.imageUrl">
+                      <img [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
+                    </div>
+                    <div class="card-image" *ngIf="!project.imageUrl">
+                      <img [src]="constantsService.defaultImage">
+                    </div>
+                                
+                <div class="card-content">
+                    <div class="card-title featured-project-heading">{{project.name}}</div>
+                    <div class="featured-project-text">
+                        {{ project && project.description | slice:0:200 }} ...
+                    </div><br>
+                    <div>
+                        <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
+                    </div>
+                </div>                 
+            </div>          
+         <br><br>
+        </div>        
       </div>
+      
 </div>
 <div class="section no-padding">    
     <div class="green-ribbon white-text">
