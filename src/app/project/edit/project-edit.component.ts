@@ -118,7 +118,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.imageUrl = this.project.imageUrl;
                 // this.getjobTitles();
                 this.project.jobTitleId = 0;
-                this.project.remoteFlag='Y';
+                this.project.remoteFlag = 'Y';
                 this.fillForm();
               });
             },
@@ -225,16 +225,13 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.name = formData.name;
     this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
-    if(formData.remoteFlag==='Y')
-      {
-        this.project.city = '';
-        this.project.state = '';
-      }
-      else{
-    this.project.city = formData.city;
-    this.project.state = formData.state;
-      }
-
+    if(formData.remoteFlag === 'Y') {
+      this.project.city = '';
+      this.project.state = '';
+    } else{
+      this.project.city = formData.city;
+      this.project.state = formData.state;
+    }
 
     this.project.country = formData.country;
     this.project.jobTitleId = formData.jobTitleId;
