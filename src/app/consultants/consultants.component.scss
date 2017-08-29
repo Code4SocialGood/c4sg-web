@@ -5,6 +5,7 @@
 .content {
   text-align: center;
   padding-top: 3rem;
+  background-color: #F9F9F9;
   .col > div {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
@@ -23,4 +24,8 @@
       text-decoration: underline;
     }
   }
+}
+
+h5 {
+  font-size: 1.5rem;
 }
