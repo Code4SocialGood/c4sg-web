@@ -202,7 +202,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    const isLocalProject = this.projectForm.controls.remoteFlag.value === 'N';
     this.projectForm = this.fb.group({
       'name': [this.project.name || '', [Validators.required]],
       'organizationId': [this.project.organizationId || '', [Validators.required]],
@@ -226,13 +225,8 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
 
-    if (formData.remoteFlag === 'Y') {
-      this.project.city = '';
-      this.project.state = '';
-    } else {
-      this.project.city = formData.city;
-      this.project.state = formData.state;
-    }
+    this.project.city = formData.city;
+    this.project.state = formData.state;
 
     this.project.country = formData.country;
     this.project.jobTitleId = formData.jobTitleId;
