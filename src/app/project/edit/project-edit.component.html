@@ -102,15 +102,13 @@
               <div >
                 <div class="row" >
                   <div class="input-field col s6"  >
-                    <input [maxlength]="100" id="city" type="text" class="validate"
-                    [readonly]="projectForm.controls.remoteFlag.value === 'Y'"
-                    formControlName="city" [required]="projectForm.controls.remoteFlag.value === 'N'">
+                    <input [maxlength]="100" id="city" type="text"
+                    formControlName="city" >
                     <label for="city" id="city-label">City</label>
                   </div>
                   <div class="input-field col s6">
-                    <input [maxlength]="100" id="state" type="text" class="validate"
-                    [readonly]="projectForm.controls.remoteFlag.value === 'Y'"
-                    formControlName="state" [required]="projectForm.controls.remoteFlag.value === 'N'">
+                    <input [maxlength]="100" id="state" type="text"
+                    formControlName="state" >
                     <label for="state" id="state-label" >State</label>
                   </div>
                 </div>
