@@ -78,7 +78,10 @@
                             <p>{{user.title}}</p>
                           </div>
                           <div class="card-metainfo col m6">
-                            <span class="card-location float: right" *ngIf="user.country">{{user.country}}</span>
+                            <!--<span class="card-location float: right" *ngIf="user.country">{{user.country}}</span>-->
+                            <span class="card-location float: right" *ngIf="user.state">{{user.state}}, {{user.country}}</span>
+                            <span class="card-location float: right" *ngIf="!user.state">
+                            {{user.country}}</span>
                           </div>
                         </div>
                       </div>
