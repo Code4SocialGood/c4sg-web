@@ -19,61 +19,97 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
-                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 8 + 10)}}</span>
+                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
               </div>
             </div>
             <div class="row">
               <div class="col s12 l7">
                 <div class="row">
-                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: {{pad("Remote", "&nbsp;", 10)}}</div>
+                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: {{pad("Remote", "&nbsp;", 2)}}</div>
                   <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
-                    Location: <span *ngIf="project.state">{{pad(project.state, "&nbsp;", 10)}}, </span>{{project.country}}
+                    Location: <span *ngIf="project.state">{{pad(project.state, "&nbsp;", 2)}}, </span>{{project.country}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12">
-                    <span>Posted: {{pad((project.updatedTime | date: 'MMM d, yyyy'), "&nbsp;", 4 + 10)}}</span>
+                    <span>Posted: {{pad((project.updatedTime | slice: 0:10), "&nbsp;", 6)}}</span>
                   </div>
                 </div>
               </div>
               <div class="right">
                 <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
-                      <svg class="icon applied-symbol">
+                       <i class="material-icons icon applied-symbol">done</i>
+                      <!--<svg class="icon applied-symbol">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Applied</span>
+                    </div>
+                    <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusBookmarked && !projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
-                      <svg class="icon bookmarked-symbol">
+                      <i class="material-icons icon applied-symbol">bookmark</i>
+                      <!--<svg class="icon bookmarked-symbol">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Bookmarked</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusAccepted">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
-                      <svg class="icon accepted-symbol">
+                      <i class="material-icons icon applied-symbol">done_all</i>
+                      <!--<svg class="icon accepted-symbol">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#accepted-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Accepted</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
-                      <svg class="icon declined-symbol">
+                       <i class="material-icons icon applied-symbol">clear</i>
+                      <!--<svg class="icon declined-symbol">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#declined-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Declined</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
                   </div>
                 </div>
@@ -90,6 +126,7 @@
             </div>
           </div>
           <div class="col m12">
+            <br>
             <div class="info-title">Description</div>
             <div class="info-description">{{ project.description }}</div>
           </div>
@@ -145,12 +182,12 @@
                       <div>{{applicant.title}}</div>
                     </div>
                     <div class="user-info col s4">
-                      <div>Applied on: {{applicant.appliedTime | date: 'MMM d, yyyy'}}</div>
+                      <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
                       <div *ngIf="applicant.applicationStatus === 'C'">
-                        Accepted on: {{applicant.acceptedTime | date: 'MMM d, yyyy'}}
+                        Accepted on: {{applicant.acceptedTime | slice: 0:10}}
                       </div>
                       <div *ngIf="applicant.applicationStatus === 'D'">
-                        Declined on: {{applicant.declinedTime | date: 'MMM d, yyyy'}}
+                        Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>
                     <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
@@ -184,7 +221,7 @@
       <div class="sidebar">
         <div class="section">
           <h4>Organization</h4>
-          <div class="section-body-organization">
+          <div class="section-body-organization divalign">
             <div class="card">
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">

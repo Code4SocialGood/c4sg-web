@@ -9,8 +9,6 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 })
 export class ProjectListSmallComponent implements OnInit {
   @Input () project: Project;
-  @Input () userProjectStatus: string;
-  @Input () from: string;
 
   constructor(public constantsService: FormConstantsService) { }
 

@@ -13,14 +13,18 @@
   .icon {
     display: inline-block;
     vertical-align: middle;
-    width: 1.2em;
-    height: 1.2em;
+    //width: 1.2em;
+    //height: 1.2em;
     stroke-width: 0;
     //stroke: #84c44c;
     //fill: #84c44c;
-    stroke: $secondary-color;
-    fill: $secondary-color;
+    //stroke: $secondary-color;
+    //fill: $secondary-color;
+    //margin-right: 0.5em;
+    stroke: #ff4f00;
+    fill: #ff4f00;
     margin-right: 0.5em;
+    color: #ff4f00;
   }
 
   span {
@@ -106,4 +110,9 @@
 .name:hover {
   text-decoration-line: underline;
   text-decoration-color: #84c44c;
+}
+
+.divalign {
+margin-left: -15px;
+font-size: 12px;
 }

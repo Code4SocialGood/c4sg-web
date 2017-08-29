@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { JobTitle } from '../../job-title';
 import { Project } from './project';
 import { environment } from '../../../environments/environment';
+import { AuthHttp } from 'angular2-jwt';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
@@ -14,7 +15,7 @@ export class ProjectService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
   searchProjects(
@@ -100,7 +101,7 @@ export class ProjectService {
   }
 
   add(project: Project): Observable<{ project: Project }> {
-    return this.http.post(
+    return this.authHttp.post(
       `${projectUrl}`,
       project
     ).map(res => res.json());
@@ -108,14 +109,14 @@ export class ProjectService {
 
   delete(id: number) {
     const url = projectUrl + '/' + id;
-    return this.http
+    return this.authHttp
       .delete(url, { headers: this.headers })
       .catch(this.handleError);
   }
 
   update(project: Project) {
 
-    return this.http.put(
+    return this.authHttp.put(
       `${projectUrl}/${project.id}`,
       project
     );
@@ -136,7 +137,7 @@ export class ProjectService {
 
   linkUserProject(projectId: number, userId: string, status: string) {
     const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
-    return this.http
+    return this.authHttp
       .post(url, { headers: this.headers })
       .do(() => {
         const projectsIDs = this.getUserProjectStatusFromLocalStorage();
@@ -168,7 +169,7 @@ export class ProjectService {
   saveProjectImg(id: number, imgUrl: string) {
     const requestOptions = new RequestOptions();
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
-    return this.http
+    return this.authHttp
       .put(`${projectUrl}/${id}/image`, '', requestOptions);
   }
 }

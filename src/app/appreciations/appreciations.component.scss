@@ -1,0 +1,75 @@
+@import "../_style/app.theme";
+
+.content {
+  text-align: center;
+  padding-top: 3rem;
+  background-color: #F9F9F9;
+  .thanks {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    h3 {
+      color: $secondary-bg-color;
+      font-weight: bold;
+      margin-top: 5px;
+      font-family: Raleway;
+    }
+  }
+  .users {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    .user {
+      border: .5px #ccc solid;
+      padding: 1rem 1rem 1.5rem;
+      .avatar {
+        width: 40%;
+        height: 40%;
+        border-radius: 50%;
+        border: 1px #ccc solid;
+      }
+      .fullname {
+        font-size: 1.5rem;
+        color: $secondary-bg-color;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .title {
+        font-size: 1.2rem;
+        font-weight: 100;
+        font-family: 'Myriad Pro';
+      }
+      .label {
+        float: left;
+        font-weight: bold;
+      }
+      .label-content {
+        float: right;
+      }
+      .location {
+        font-size: 1rem;
+        text-align: right;
+        border-top: .5px #ccc solid;
+        border-bottom: .5px #ccc solid;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        margin-top: 1rem;
+      }
+      .badges {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        border-bottom: .5px #ccc solid;
+        i.material-icons {
+          font-size: 20px;
+        }
+      }
+      .skills-tag-wrapper {
+        padding: 5px;
+        margin-top: 1rem;
+        .chip {
+          background: lighten($secondary-bg-color, 20%);
+          border-radius: 2px;
+          padding: 2px 5px;
+        }
+      }
+    }
+  }
+}

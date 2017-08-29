@@ -27,6 +27,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
 
   public userId;
+  public userEmail;
+  public userRole;
+  public userFirstName;
+  public userLastName;
   public user: User;
   public jobTitlesArray: JobTitle[] = [];
   public loadedFile: any;
@@ -45,7 +49,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public checkNotify = false;
   public isSkillExists = false;
   public isSkillLimit = false;
-  public isNew = false;
+  // public isNew = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -94,14 +98,20 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
       );
 
-    this.route.params.subscribe(params => {
-      this.userId = +params['userId'];
+//    this.route.params.subscribe(params => {
+//      this.userId = +params['userId'];
       this.userService.getAllJobTitles()
         .subscribe(
         res => {
           this.jobTitlesArray = res;
         }, error => console.log(error)
         );
+
+        if (this.currentUserId === null) {
+           this.fillForm();
+        } else {
+           this.route.params.subscribe(params => {
+           this.userId = +params['userId'];
       // Populate user
       this.userService.getUser(this.userId)
         .subscribe(
@@ -109,9 +119,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             this.user = res;
             this.avatar = this.user.avatarUrl;
 
+            /*
             if (this.user.status === 'N') {
               this.isNew = true;
-            }
+            } */
 
             if (this.user.publishFlag === 'Y') {
               this.checkPublish = true;
@@ -138,6 +149,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         );
     });
   }
+  }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
@@ -152,7 +164,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'firstName': ['', []],
       'lastName': ['', []],
       'state': ['', []],
-      'country': ['', []],
+      'country': [this.countries, []],
       'phone': ['', []],
       'title': ['', []],
       'introduction': ['', []],
@@ -166,7 +178,26 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-
+    if (this.user === null || this.user === undefined) {
+          this.userForm = this.fb.group({
+             'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
+             'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
+             'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
+             'userName': ['', [Validators.required]],
+             'title': ['', [Validators.required]],
+             'introduction': [ '', [Validators.compose([Validators.maxLength(1000)])]],
+             'jobTitleId': ['', []],
+             'state': ['', []],
+             'country': [this.countries, []],
+             'phone': ['', []],
+             'linkedinUrl': ['', []],
+             'personalUrl': ['', []],
+             'githubUrl': ['', []],
+             'chatUsername': ['', []],
+             'publishFlag': ['', []],
+             'notifyFlag': ['', []]
+              });
+    } else {
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'jobTitleId': [this.user.jobTitleId || '', []],
@@ -177,7 +208,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
-      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(10000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
@@ -185,6 +216,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'publishFlag': [this.checkPublish || '', []],
       'notifyFlag': [this.checkNotify || '', []]
     });
+  }
   }
 
   onSubmit(updatedData: any, event): void {
@@ -220,7 +252,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
     if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
       this.user.status = 'A';
-      this.isNew = false;
+      // this.isNew = false;
     }
 
     this.userService.update(this.user)
@@ -366,6 +398,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     // User edit page is customized based on user role, need to check element existance first
+
     if (document.getElementById('username-label') != null) {
       document.getElementById('username-label').classList.add('active');
     }
@@ -401,6 +434,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     }
     if (document.getElementById('phone-label') != null) {
       document.getElementById('phone-label').classList.add('active');
+    }
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
     }
   }
 }

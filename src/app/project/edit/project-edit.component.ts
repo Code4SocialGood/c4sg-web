@@ -32,7 +32,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public organizationId;
   public project: Project;
   public organization: Organization;
-  public user: User;
+  // public user: User;
   public organizations: Organization[];
 
   public inputValue = '';
@@ -50,7 +50,6 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   public isOrgNew = false;
   public isOrgPending = false;
   public isOrgActive = false;
-  public isUserNew = false;
   public displayClose = false;
 
   public descMaxLength: number = this.validationService.descMaxLength;
@@ -75,13 +74,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               private validationService: ValidationService,
               private userService: UserService,
               ) {
+
   }
 
   ngOnInit(): void {
 
     this.currentUserId = this.auth.getCurrentUserId();
     this.getFormConstants();
-    this.getjobTitles();
+   // this.getjobTitles();
+    this.route.data
+      .subscribe((data: { JobTitles: JobTitle[] }) => {
+        this.jobTitlesArray = data.JobTitles;
+      });
     this.initForm();
     // Populates skills list
     this.skillService.getSkills()
@@ -112,8 +116,9 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.projectId = e.id.toString();
                 this.project = e;
                 this.imageUrl = this.project.imageUrl;
-                this.getjobTitles();
+                // this.getjobTitles();
                 this.project.jobTitleId = 0;
+                this.project.remoteFlag = 'Y';
                 this.fillForm();
               });
             },
@@ -140,16 +145,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             }, error => console.log(error)
           );
 
-        // Check user status
-        this.userService.getUser(this.currentUserId)
-          .subscribe(
-            res => {
-              this.user = res;
-              if (this.user.status === 'N') {
-                this.isUserNew = true;
-              }
-            }, error => console.log(error)
-          );
+
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
@@ -175,20 +171,21 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
         this.isOrgActive = true; // Org must be active so that a project could be created
       }
     });
+
   }
 
   private getFormConstants(): void {
     this.countries = this.constantsService.getCountries();
   }
 
- private getjobTitles(): void {
+ /*private getjobTitles(): void {
    this.userService.getAllJobTitles()
         .subscribe(
         res => {
           this.jobTitlesArray = res;
         }, error => console.log(error)
         );
- }
+ }*/
 
   private initForm(): void {
 
@@ -205,16 +202,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    this.projectForm = this.fb.group({
-      'name': [this.project.name || '', [Validators.required]],
-      'organizationId': [this.project.organizationId || '', [Validators.required]],
-      'jobTitleId': [this.project.jobTitleId || '', []],
-      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
-      'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
-      'city': [this.project.city || '', []],
-      'state': [this.project.state || '', []],
-      'country': [this.project.country || '', []]
-    });
+    if (this.project !== null && this.project !== undefined) {
+      this.projectForm = this.fb.group({
+        'name': [this.project.name || '', [Validators.required]],
+        'organizationId': [this.project.organizationId || '', [Validators.required]],
+        'jobTitleId': [this.project.jobTitleId || '', []],
+        'description': [this.project.description || '', [Validators.compose([Validators.maxLength(10000)])]],
+        'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
+        'city': [this.project.city || '', []],
+        'state': [this.project.state || '', []],
+        'country': [this.project.country || '', []]
+      });
+    }
   }
 
   onSubmit(updatedData: any, event): void {
@@ -227,8 +226,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.name = formData.name;
     this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
+
     this.project.city = formData.city;
     this.project.state = formData.state;
+
     this.project.country = formData.country;
     this.project.jobTitleId = formData.jobTitleId;
 
@@ -335,6 +336,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('desc-label').classList.add('active');
     document.getElementById('city-label').classList.add('active');
     document.getElementById('state-label').classList.add('active');
+
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
   }
 
   // Count chars in introduction field

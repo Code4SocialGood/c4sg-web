@@ -157,12 +157,12 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
       .updateOrganization(this.organization)
       .subscribe(res => {
         Materialize.toast('Your organization is saved', 4000);
+         // For active organization, forward to organization view page
+        if (this.organization.status === 'A') {
+          this.router.navigate(['/organization/view/' + this.organization.id]);
+        }
       });
 
-    // For active organization, forward to organization view page
-    if (this.organization.status === 'A') {
-      this.router.navigate(['/organization/view/' + this.organization.id]);
-    }
   }
 
   // Orchestrates the organization logo upload sequence of steps
@@ -233,6 +233,10 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     document.getElementById('state-label').classList.add('active');
     document.getElementById('zip-label').classList.add('active');
     document.getElementById('desc-label').classList.add('active');
+
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
+    }
   }
 
   /*

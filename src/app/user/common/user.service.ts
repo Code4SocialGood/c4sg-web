@@ -8,6 +8,7 @@ import { JobTitle } from '../../job-title';
 import { Applicant } from './applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
+import { AuthHttp } from 'angular2-jwt';
 
 const userUrl = `${environment.backend_url}/api/users`;
 const skillsUrl = `${environment.backend_url}/api/skills`;
@@ -17,7 +18,7 @@ export class UserService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http, private jsonp: Jsonp) { }
+  constructor(private http: Http, private jsonp: Jsonp, private authHttp: AuthHttp) { }
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
@@ -39,6 +40,7 @@ export class UserService {
 
   getUserByEmail(name: string): Observable<User> {
     const url = userUrl + '/email/' + [name] + '/';
+    const options = new RequestOptions({ headers: this.headers });
     return this.http.get(url)
                .map(res =>  {
                   // Check below is for the scenario when nothing was sent back
@@ -102,6 +104,10 @@ export class UserService {
       params.append('publishFlag', publishFlag);
     }
 
+    if (role) {
+      params.append('role', role);
+    }
+
     if (page) {
       params.append('page', String(page - 1));
     }
@@ -109,15 +115,16 @@ export class UserService {
     if (size) {
       params.append('size', String(size));
     }
+
     return this.http
-               .get(`${userUrl}/search`, {search: params})
+               .get(`${userUrl}/search`, {search: params, headers: this.headers})
                .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
                .catch(this.handleError);
   }
 
   add(user: User): Observable<User> {
     const url = userUrl;
-    return this.http
+    return this.authHttp
                .post(url, user, {headers: this.headers})
                .map(res => res.json())
                .catch(this.handleError);
@@ -125,14 +132,14 @@ export class UserService {
 
   delete(id: number)  {
     const url = userUrl + '/' + id;
-    return this.http
+    return this.authHttp
                .delete(url, {headers: this.headers})
                .catch(this.handleError);
   }
 
   update(user: User) {
     const url = userUrl;
-    return this.http
+    return this.authHttp
                .put(url, user, {headers: this.headers})
                .map((res: Response) => res.json())
                .catch(this.handleError);
@@ -144,7 +151,7 @@ export class UserService {
   }
 
   saveAvatar(id: number, formData: FormData) {
-    return this.http
+    return this.authHttp
                .post(`${userUrl}/${id}/avatar`, formData);
   }
 
@@ -154,7 +161,7 @@ export class UserService {
   saveAvatarImg(id: number, imgUrl: string) {
     const requestOptions = new RequestOptions();
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
-    return this.http
+    return this.authHttp
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
@@ -169,6 +176,15 @@ export class UserService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+  public getAllJobTitlesBeforePageInit(): Promise<JobTitle[]> {
+    const url = userUrl + '/jobTitles';
+    return this.http
+               .get(url).toPromise()
+            .then(res => { return res.json() as JobTitle[]; })
+            .catch(this.handleError);
+              // .map( res => { return res.json() as JobTitle[]; })
+              // .catch(this.handleError);
   }
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = userUrl + '/jobTitles';

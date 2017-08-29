@@ -13,6 +13,9 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {HeaderComponent} from './header/header.component';
+import {AppreciationsComponent} from './appreciations/appreciations.component';
+import {ConsultantsComponent} from './consultants/consultants.component';
+import {PartnersComponent} from './partners/partners.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -54,6 +57,17 @@ import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
 import { ProjectListSmallComponent } from './_components/project-card-small/project-card-small.component';
 import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.component';
+import { UserAvatarComponent } from './_components/user-avatar/user-avatar.component';
+import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
+import {MyPaginationControlsComponent} from './_components/my-pagination-controls/my-pagination-controls.component';
+import { Http, RequestOptions } from '@angular/http';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
 
 @NgModule({
   imports: [
@@ -74,6 +88,9 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     NavScrollDirective,
     HomeComponent,
     AboutComponent,
+    AppreciationsComponent,
+    ConsultantsComponent,
+    PartnersComponent,
 
     HeaderComponent,
 
@@ -98,7 +115,10 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     ScrollSkillsDirective,
     ProjectCardComponent,
     ProjectListSmallComponent,
-    FeedbackBtnComponent
+    FeedbackBtnComponent,
+    UserAvatarComponent,
+    UserAvatarSmallComponent,
+    MyPaginationControlsComponent
   ],
   providers: [ProjectService,
     OrganizationService,
@@ -112,7 +132,12 @@ import { FeedbackBtnComponent } from './_components/feedback-btn/feedback-btn.co
     DataService,
     ValidationService,
     SkillService,
-    ExtFileHandlerService],
+    ExtFileHandlerService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }],
 
   bootstrap: [AppComponent]
 })

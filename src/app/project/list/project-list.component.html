@@ -50,7 +50,7 @@
               <div class="section">
                 <h4>Skills</h4>
                 <div class="section-body-skills">
-                  <div class="skills-list" myScrollSkills (onScrollEvent)="showSkills()">
+                  <div class="skills-list" myScrollSkills >
                     <ul *ngIf="skills" formArrayName="skills">
                       <li *ngFor="let skill of skillsShowed, let i = index">
                         <input class="filled-in" type="checkbox" [id]="skill.name" [formControlName]="i">
@@ -72,10 +72,10 @@
       <div class="content">
         <div class="row">
           <div class="col s12">
-            <h4 class="content-title">{{totalItems | i18nPlural: {'=0': 'No projects', '=1': '1 project', 'other': '# projects'} }} found</h4>
+            <h4 class="content-title">{{paginationConfig.totalItems | i18nPlural: {'=0': 'No projects', '=1': '1 project', 'other': '# projects'} }} found</h4>
             <div class="items-list-wrapper">
               <ul class="card-list" *ngIf="projects">
-                <li class="card-wrapper" *ngFor="let project of projects | paginate: {itemsPerPage: 10, id: 'projectsPages', currentPage: p, totalItems: totalItems}">
+                <li class="card-wrapper" *ngFor="let project of projects | paginate: paginationConfig">
                   <my-project-card [project]="project" [from]="from" [userProjectStatus]="defineUserProjectStatus(project.id)"></my-project-card>
                 </li>
               </ul>
@@ -85,7 +85,7 @@
         <div class="row">
           <div class="col s12">
             <div class="pagination">
-              <pagination-controls (pageChange)="getProjects(p = $event)" id="projectsPages" autoHide="false"></pagination-controls>
+              <my-pagination-controls (pageChange)="getProjects($event)" id="projectsPages"></my-pagination-controls>
             </div>
           </div>
         </div>
@@ -94,12 +94,12 @@
 
     <!-- 2. Nonprofit User: My Projects Menu Item-->
     <div class="col m8 s12 " *ngIf="isNonprofit && from === 'myProjects'" id="right-col">
-     <my-projects-nonprofit></my-projects-nonprofit>
+      <my-projects-nonprofit></my-projects-nonprofit>
     </div>
 
     <!-- 3. Volunteer User: My Projects Menu Item-->
     <div class="col m8 s12" *ngIf="isVolunteer && from === 'myProjects'" id="right-col2">
-     <my-projects-volunteer></my-projects-volunteer>
+      <my-projects-volunteer></my-projects-volunteer>
     </div>
   </div>
 </div>

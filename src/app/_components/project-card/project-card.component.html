@@ -13,33 +13,40 @@
         <div class="right"  *ngIf="from!=='myProjects'">
           <div class="col s12" *ngIf="userProjectStatus === 'applied'">
             <div class="project-marked">
-              <svg class="icon applied-symbol">
+              <i class="material-icons icon applied-symbol">done</i>
+            <!-- <svg class="icon applied-symbol">
                 <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
-              </svg>
+                 <foreignObject>
+                  <div><i> class="material-icons">done</i></div>
+                 </foreignObject>
+              </svg>-->
               <span>Applied</span>
             </div>
           </div>
           <div class="col s12" *ngIf="userProjectStatus === 'bookmarked'">
             <div class="project-marked">
-              <svg class="icon bookmarked-symbol">
+              <i class="material-icons icon applied-symbol">bookmark</i>
+              <!--<svg class="icon bookmarked-symbol">
                 <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
-              </svg>
+              </svg>-->
               <span>Bookmarked</span>
             </div>
           </div>
           <div class="col s12" *ngIf="userProjectStatus === 'accepted'">
             <div class="project-marked">
-              <svg class="icon accepted-symbol">
+              <i class="material-icons icon applied-symbol">done_all</i>
+              <!--<svg class="icon accepted-symbol">
                 <use xlink:href="../../assets/applied-bookmarked-sprite.svg#accepted-symbol"></use>
-              </svg>
+              </svg>-->
               <span>Accepted</span>
             </div>
           </div>
           <div class="col s12" *ngIf="userProjectStatus === 'declined'">
             <div class="project-marked">
-              <svg class="icon declined-symbol">
+               <i class="material-icons icon applied-symbol">clear</i>
+              <!--<svg class="icon declined-symbol">
                 <use xlink:href="../../assets/applied-bookmarked-sprite.svg#declined-symbol"></use>
-              </svg>
+              </svg>-->
               <span>Declined</span>
             </div>
           </div>
@@ -52,6 +59,7 @@
             project.organizationName }}</p>
         </div>
         <div class="card-metainfo col m6">
+          <div class="nowrapalign">
           <span class="state" *ngIf="project.state">{{project.state}}, </span>
           <span class="state" *ngIf="project.country">{{project.country}}</span>
           <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>

@@ -17,7 +17,7 @@
                 <h1 class="content-title" *ngIf="organization">{{organization.name}}</h1>
               </div>
               <div class="col s12" *ngIf="organization.websiteUrl">
-                <a [href]="organization.websiteUrl" target="_blank">Website: {{organization.websiteUrl}}</a>
+                <a [href]="organization.websiteUrl" target="_blank">Website: {{pad(organization.websiteUrl, "&nbsp;", 2)}}</a>
               </div>
             </div>
             <div class="row">
@@ -25,8 +25,10 @@
                 <div class="row">
                   <div class="col s12">Category: {{categoryName}}</div>
                   <div class="col s12">Location:
-                    <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
-                    <span class="state">{{organization.country}}</span>
+                    <span class="state" *ngIf="organization.state">{{pad(organization.state, "&nbsp;", 1)}}, </span>
+                    <span class="state" *ngIf="organization.country">{{organization.country}}</span>
+                    <!--<span class="state" *ngIf="!organization.state && organization.country">
+                      {{pad(organization.country, "&nbsp;", 1)}}, </span>-->
                   </div>
                 </div>
               </div>
@@ -34,9 +36,10 @@
                 <div class="row" *ngIf="organization.status === 'P'">
                   <div class="col s12">
                     <div class="project-marked">
-                      <svg class="icon">
+                      <i class="material-icons icon applied-symbol">done</i>
+                      <!--<svg class="icon">
                         <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
-                      </svg>
+                      </svg>-->
                       <span>Pending Approval</span>
                     </div>
                   </div>
@@ -45,6 +48,7 @@
             </div>
           </div>
           <div class="col m12">
+            <br>
             <div class="info-title">Introduction</div>
             <div class="info-description">{{ organization.description }}</div>
           </div>
@@ -70,8 +74,7 @@
               <div class="card-content">
                 <div class="row single-info" *ngIf="user">
                   <div class="col m4">
-                    <div class="info-avatar" *ngIf="user.avatarUrl"><img class='circle' [src]="user.avatarUrl"></div>
-                    <div class="info-avatar" *ngIf="!user.avatarUrl"><img class='circle' [src]="constantsService.defaultAvatar"></div>
+                    <my-user-avatar-small [user]="user"></my-user-avatar-small>
                   </div>
                   <div class="col m8" *ngIf="user">
                      <p class='user-name'>

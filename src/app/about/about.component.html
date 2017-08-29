@@ -1,45 +1,21 @@
-<div class="about-us-page-title">
-  <h1>Meet the Volunteers of Code 4 Social Good</h1>
+<div class="page-title-center">
+  <h1>Our Vision</h1>
 </div>
 <div class="container">
-  <div class="row main-row">
-    <div class="col m12 s12">
-      <div class="about-us-content" *ngIf="developers">
-        <div class="row">
-          <div>
-            <agm-map
-                    [latitude]="lat "
-                    [longitude]="lng "
-                    [zoom]="zoom ">
-
-              <agm-marker
-                  *ngFor="let d of developers "
-                  [latitude]="d.latitude "
-                  [longitude]="d.longitude "
-                  (mouseOver)="handleMarkerMouseOver($event) "
-                  >
-
-                <agm-info-window>
-                  <div class="info-window ">
-                    <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
-                      <div class="info-avatar ">
-                        <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
-                      </div>
-                      <div class="user-name ">
-                        {{d.userName}}
-                      </div>
-                      <div class="user-location ">
-                        <span *ngIf="d.state ">{{d.state}}</span>
-                        <span *ngIf="d.state && d.country ">,</span>
-                        <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
-                      </div>
-                    </a>
-                  </div>
-                </agm-info-window>
-              </agm-marker>
-            </agm-map>
-          </div>
-        </div>
+  <div class="row about-us-content">
+    <div class="col s8 offset-s2">
+      <div class="problem">
+        <h3>Problem</h3>
+        <p>So many nonprofits need technical help<br>
+          So many volunteers seek technical projects<br>
+          But ... why do both struggle to achieve their goals?</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>A new technical volunteering model that . . .<br>
+          Encourages volunteers of all ages, experience levels, and geographic locations to contribute to nonprofit projects<br>
+          Fosters a strong, supportive community within the diverse volunteer pool<br>
+          Connects volunteers to nonprofits based on their skillsets and interests</p>
       </div>
     </div>
   </div>
