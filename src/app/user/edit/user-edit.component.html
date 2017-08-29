@@ -88,8 +88,9 @@
           <div class="row">
             <div class="col s12 m6">
                 <div class="input-field">
-                  <label for="githubUrl" id="slack-label">Slack Username</label>
-                  <input [maxlength]="25" class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
+                  <label materialize="tooltip" [materializeParams]="[{html: true}]" data-position="bottom" data-delay="50"  for="githubUrl" id="slack-label"
+                  data-tooltip="This is your username in Slack team of Code for Social Good.<br />People could direct message you by accessing the link 'https://code4socialgood.slack.com/messages/@<your_slack_username>'.<br />To join the team, click Chat under Community in the header.<br />The Slack team encourages volunteers and nonprofits communicate with each other to build a strong volunteering community.">C4SG Slack Username</label>
+                  <input [maxlength]="25" class="theme-input tootipped" id="chatUsername" type="text" formControlName="chatUsername">
                 </div>
               </div>
             <div *ngIf="isOrganization">
