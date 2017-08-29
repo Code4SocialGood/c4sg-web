@@ -202,16 +202,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    this.projectForm = this.fb.group({
-      'name': [this.project.name || '', [Validators.required]],
-      'organizationId': [this.project.organizationId || '', [Validators.required]],
-      'jobTitleId': [this.project.jobTitleId || '', []],
-      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(10000)])]],
-      'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
-      'city': [this.project.city || '', []],
-      'state': [this.project.state || '', []],
-      'country': [this.project.country || '', []]
-    });
+    if (this.project !== null && this.project !== undefined) {
+      this.projectForm = this.fb.group({
+        'name': [this.project.name || '', [Validators.required]],
+        'organizationId': [this.project.organizationId || '', [Validators.required]],
+        'jobTitleId': [this.project.jobTitleId || '', []],
+        'description': [this.project.description || '', [Validators.compose([Validators.maxLength(10000)])]],
+        'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
+        'city': [this.project.city || '', []],
+        'state': [this.project.state || '', []],
+        'country': [this.project.country || '', []]
+      });
+    }
   }
 
   onSubmit(updatedData: any, event): void {
