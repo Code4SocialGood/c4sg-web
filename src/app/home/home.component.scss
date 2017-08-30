@@ -1,6 +1,6 @@
 @import "../_style/app.theme";
 
-.cover {
+/*.cover {
   height: 100vh;
   overflow: hidden;
 }
@@ -24,7 +24,7 @@
 
 .action_volunteer {
 
-    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image.jpeg") no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/pexels-photo-407237.jpeg") no-repeat center center;
     background-attachment:fixed;
 
     -webkit-background-size: cover;
@@ -42,8 +42,52 @@
     text-align: center;
     //position: relative;
 }
+*/
 
-.action_organization {
+//Cover image and text
+
+//Previous home page
+//classes for cover image
+.cover {
+  height: 100vh;  
+  overflow: hidden;  
+}
+
+.cover:before{
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.cover img{    
+  position:relative;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: -2;
+    
+  //max-width: 100%;
+}
+/*.action{
+    background: url("/assets/pexels-photo-407237.jpeg");    
+        
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
+    
+    height: 99vh;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;        
+}*/
+
+.action {
+
     background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
     background-attachment:fixed;
 
@@ -52,119 +96,303 @@
     -o-background-size: cover;
     background-size: cover;
 
+    // max-width: 100%;
     display: flex;
     flex-direction: column;
+    //justify-content: space-around;
     justify-content: center;
     align-items: center;
-    height: 99vh;
+    height: 85.5vh;
     text-align: center;
+    //position: relative;
 }
 
-.action_organization button {
-  font-size: 1.7rem;
-  height: auto;
-  padding: .7rem 1.3rem;
-  margin-top: .5em;
-}
 
-.home-title {
-  padding-top: 2em;
-  font-family: aniFont;
-  font-weight: 200;
-  font-size: 7em;
-  max-width: 15em;
-  color: #E75D54;
-  text-shadow: 0px 0px 5px #000;
-}
-
-/* Scaling size of Title down as Page size decreases */
-@media screen and (max-width: 915px) {
-  #home-page-title {
-    font-size: 2.5em;
-  }
-}
-  @media screen and (max-width: 650px) {
-    #home-page-title {
-      font-size: 2em;
-    }
-  }
-
-@font-face {
+//cursor and aniSlogan
+/*@font-face {
   font-family: "aniFont";
   src: url("/assets/fonts/Gotham-Black-Regular.ttf");
   //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
   // src: url("/assets/fonts/Thruster-Regular.ttf");
+}*/
+
+
+.aniSlogan-background{
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;    
+    text-align: center;
+    position: absolute;
+    bottom: 0px;    
 }
 
 #aniSlogan {
-  font-family: "aniFont";
+  //font-family: "aniFont";
   font-size: 3em;
-  font-weight: 100;
-  color: #383838;
+  //font-weight: 100;
+  font-weight: bold;
+  color: #fff;
   padding-top: 0.5em;
   text-align: center;
-
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#aniSlogan.vol_slogan {
-  position: absolute;
-  top: 11rem;
-  left: 25rem;
-  width: 570px;
+@media screen and (max-width: 915px) {
+  #aniSlogan {
+      font-size: 2em;
+    }
 }
-
-#aniSlogan.vol_slogan + .input-field {
-  margin-top: 7rem;
-  margin-left:-5rem;
-  left:25px;
-  //height:20rem;
-}
+  @media screen and (max-width: 650px) {
+   #aniSlogan {
+      font-size: 2em;
+    }
+  }
 
 #aniWord {
   font-family: inherit;
   color: #383838;
 }
 
+/*#aniSlogan.vol_slogan {
+  position: absolute;
+  top: 11rem;
+  left: 28rem;
+}*/
+
+
+
+//classes for project search
 .input-pre {
   border-bottom: 2px solid $secondary-bg-color;
 }
-
  /* label color */
  .input-field label {
    color: $main-color;
    top: 2rem;
  }
-
 /* label focus color */
 .input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
  color: $main-color !important;
 }
-
 /* label underline focus color */
 .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
  border-bottom: 1px solid $main-color !important;
  box-shadow: 0 1px 0 0 $main-color !important;
 }
-
 .search_button {
   padding: 0 1rem;
 }
 
-/* github cta style */
+//Ribbons
+.green-ribbon {
+    background-color: $secondary-bg-color;
+    text-align: center;
+    font-family: $main-font;
+    font-size: 22px;
+    font-weight: bolder;
+    padding: 10px 0px;
+    text-transform: uppercase;
+    
+}
 
+.green-ribbon.white-text {
+        color: white;
+        letter-spacing: 1px;
+    }
+
+.white-ribbon {
+    background-color: transparent;
+    text-align: center;
+    font-family: $main-font;
+    font-size: 22px;
+    font-weight: bold; 
+    padding: 10px 0px;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
+
+//second section
+.second-section{
+    text-align: center;
+    font-family: $main-font;
+    //max-width: 45%;
+}
+.second-section-heading {
+    //font-size: 28px;
+    font-size: 2em;
+    font-weight: bold;    
+}
+.second-section-text{    
+    font-size: 1.3em;
+    //font-size: 18px;
+    //font-weight: bold;
+}
+.volunteer-heading{
+    color: #0BAFAA;
+}
+.organization-heading{
+    color: #F2673B;
+}
+
+.button-bordered {
+    background-color: transparent;
+    color: black;
+    border: 2px solid;
+    padding: 5px 60px;
+}
+@media screen and (max-width: 915px) {
+  .second-section-heading {    
+        font-size: 1.5em;
+        font-weight: bold;    
+    }
+    .second-section-text{    
+        font-size: 1em;
+        //font-size: 18px;
+        //font-weight: bold;
+    }
+}
+  @media screen and (max-width: 650px) {
+    .second-section-heading {    
+        font-size: 1.5em;
+        font-weight: bold;    
+    }
+    .second-section-text{    
+        font-size: 1em;
+        //font-size: 18px;
+        //font-weight: bold;
+    }
+  }
+
+//Green Arrow image
+.green-arrow-img{
+    max-width: 70%;
+    display: block;
+    margin: auto;
+}
+
+@media screen and (max-width: 915px) {
+  .green-arrow-img{
+        max-width: 30%;
+      }
+}
+  @media screen and (max-width: 650px) {
+    .green-arrow-img{
+        max-width: 30%;
+      }
+  }
+
+
+//featured projects section
+.card{
+    max-height: 100%;
+    background-color: transparent; 
+}
+.card-image{
+    height: 300px;
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+        
+}
+.featured-project-heading{
+    font-family: $main-font;
+    font-size: 1.3em;
+    font-weight: bold; 
+    color: #84C44C;
+    text-transform: uppercase;
+}
+
+.featured-project-text{
+    font-size: 1.1em; 
+}
+
+.featured-project-img{
+    max-height: 95%;
+    max-width: 95%;
+    //display: block;
+    //margin: auto;
+}
+.featured-project-img-div{
+    height: 300px;
+    //width: 300px;    
+}
+
+.button-colored{
+    background-color: #F2673B;
+    color: white;
+    border: none;
+    font-size: 1em;
+    padding: 5px 30px;
+}
+
+@media screen and (max-width: 915px){
+    
+    .featured-project-heading{
+        font-size: 1.1em;        
+    }
+    .featured-project-text{
+        font-size: 1em; 
+    }
+    .button-colored{
+        font-size: 0.9em;        
+    }    
+}
+
+@media screen and (max-width: 650px) {
+    .featured-project-heading{
+        font-size: 1.1em;       
+    }
+    .featured-project-text{
+        font-size: 1em; 
+    }
+    .button-colored{
+        font-size: 0.9em;        
+    }
+  }
+
+
+//github
+/*
 .github_cta {
   background-color: $secondary-bg-color;
   text-align: center;
   color: #fff;
   font-size: 2rem;
-  font-family: "aniFont";
+  //font-family: "aniFont";
   .btn {
     background: #fff;
     color: $secondary-bg-color;
     margin-bottom: 2rem;
     font-size: 1.2rem;
   }
+}*/
+
+.btn_github {  
+    background: #fff;
+    color: $secondary-bg-color;
+    //margin-bottom: 2rem;
+    font-size: 1rem; 
+    //display: block;
+    margin: 10px;
+    //padding: 10px;
+  
 }
+
+@media screen and (max-width: 915px) {
+    .btn_github {  
+        font-size: 1rem; 
+        margin: 10px;
+    }
+  }
+@media screen and (max-width: 650px) {
+    .btn_github {  
+        font-size: 1rem; 
+        margin: 5px;
+    }
+  }
+
 
 /* google map */
 
@@ -230,8 +458,7 @@ agm-map {
 }
 
 .map {
-  position: relative;
-  padding: 40px;
+  position: relative;  
   text-align: center;
   p {
     font-size: 1.2rem;
@@ -244,4 +471,14 @@ agm-map {
   .problem {
     margin-bottom: 3rem;
   }
+}
+
+
+
+//copied from materialize template
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
 }

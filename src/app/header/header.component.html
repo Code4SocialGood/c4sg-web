@@ -1,17 +1,19 @@
 
 <nav [ngClass]="isAtHome()">
-  <div class="nav-wrapper"><a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
+  <div class="nav-wrapper">
+    <a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
+   
     <ul class="right hide-on-med-and-down">
       <li class="nav-link-container" routerLinkActive="active">
-          <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>
+          <a class="nav-link" (click)="loadProjects()"><span>Opportunities</span></a>
           <img class="active-header-icon" src="../../assets/header-active-icon.png" />
           <a class="hidden-link" routerLink='/project'></a>
-      </li>
+      </li>      
       <li class="nav-link-container" routerLinkActive="active">
         <a class="nav-link" (click)="loadVolunteers()"><span>Volunteers</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <a class="hidden-link" routerLink='/user'></a>
-      </li>
+      </li>     
       <li class="nav-link-container" routerLinkActive="active">
         <a class="nav-link" (click)="loadOrganizations()"><span>Organizations</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
@@ -24,9 +26,9 @@
         <img class="active-header-icon left-neg-24pc" src="../../assets/header-active-icon.png" />
         <ul class="dropdown-content" id="dropdowncommunity">
           <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
-          <li><a id="about" routerLink="/consultants" routerLinkActive="active">Consultants</a></li>
+          <li><a id="about" routerLink="/consultants" routerLinkActive="active">Consultation</a></li>
           <li><a id="about" routerLink="/partners" routerLinkActive="active">Partners</a></li>
-          <li><a id="about" routerLink="/appreciations" routerLinkActive="active">Appreciations</a></li>
+          <li><a id="about" routerLink="/appreciations" routerLinkActive="active">Heroes</a></li>
           <li><a target="_blank" href="http://forum.code4socialgood.org/">Forum</a></li>
           <li><a target="_blank" href="http://join-our-slack.code4socialgood.org/">Chat</a></li>
         </ul>
@@ -45,5 +47,6 @@
       </li>
       <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span>Log In / Sign Up</span></a></li>
     </ul>
+          
   </div>
 </nav>
