@@ -118,6 +118,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
                 this.imageUrl = this.project.imageUrl;
                 // this.getjobTitles();
                 this.project.jobTitleId = 0;
+                this.project.remoteFlag = 'Y';
                 this.fillForm();
               });
             },
@@ -201,17 +202,18 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-    const isLocalProject = this.projectForm.controls.remoteFlag.value === 'N';
-    this.projectForm = this.fb.group({
-      'name': [this.project.name || '', [Validators.required]],
-      'organizationId': [this.project.organizationId || '', [Validators.required]],
-      'jobTitleId': [this.project.jobTitleId || '', []],
-      'description': [this.project.description || '', [Validators.compose([Validators.maxLength(1000)])]],
-      'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
-      'city': [this.project.city || '', isLocalProject ? [Validators.required] : []],
-      'state': [this.project.state || '', isLocalProject ? [Validators.required] : []],
-      'country': [this.project.country || '', []]
-    });
+    if (this.project !== null && this.project !== undefined) {
+      this.projectForm = this.fb.group({
+        'name': [this.project.name || '', [Validators.required]],
+        'organizationId': [this.project.organizationId || '', [Validators.required]],
+        'jobTitleId': [this.project.jobTitleId || '', []],
+        'description': [this.project.description || '', [Validators.compose([Validators.maxLength(10000)])]],
+        'remoteFlag': [this.project.remoteFlag || '', [Validators.required]],
+        'city': [this.project.city || '', []],
+        'state': [this.project.state || '', []],
+        'country': [this.project.country || '', []]
+      });
+    }
   }
 
   onSubmit(updatedData: any, event): void {
@@ -224,8 +226,10 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     this.project.name = formData.name;
     this.project.description = formData.description;
     this.project.remoteFlag = formData.remoteFlag;
+
     this.project.city = formData.city;
     this.project.state = formData.state;
+
     this.project.country = formData.country;
     this.project.jobTitleId = formData.jobTitleId;
 

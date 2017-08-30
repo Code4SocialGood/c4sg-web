@@ -240,7 +240,7 @@ hr {
 }
 
 .dropdown{
- margin-top: -6px;
+ margin-top: -3px;
 }
 
 // Make social media links colored when hovering
@@ -258,6 +258,19 @@ hr {
     @include page-title-font;
     padding: 0px;
     margin: 5px;
+  }
+}
+
+.page-title-center {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
   }
 }
 

@@ -12,9 +12,9 @@
           <div class="col s6 m3 l3">
             <my-user-avatar [user]="user"></my-user-avatar>
             <div class="username">{{user.userName}}</div>
-            <div class="username" *ngIf="user.chatUsername">
+            <!--<div class="username" *ngIf="user.chatUsername">
               <a class="mdi mdi-slack mdi-24px" name="slack" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/" target="_blank"></a>
-            </div>
+            </div>-->
 
             <div class="links-list-wrapper" *ngIf="authService.authenticated()">
               <ul>
@@ -23,8 +23,10 @@
                     target="_blank"></a></li>
                 <li><a class="mdi mdi-github-box" [class.not-active]="!user.githubUrl" name="githubUrl" [href]="user.githubUrl"
                     target="_blank"></a></li>
-                <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" [href]="user.chatUsername"
-                    target="_blank"> </a></li>
+                <!--<li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" [href]="user.chatUsername"
+                    target="_blank"> </a></li>-->
+                <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/"
+                  target="_blank"></a></li>
                 <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="personalUrl" [href]="user.personalUrl"
                     target="_blank"> </a></li>
               </ul>
