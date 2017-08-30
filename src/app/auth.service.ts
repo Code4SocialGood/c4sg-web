@@ -279,7 +279,8 @@ export class AuthService {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn) + (new Date().getTime() / 1000));
     localStorage.setItem('access_token', authResult.accessToken);
-    // localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    this.idToken = authResult.idToken;
     const stime = `${(new Date().getTime() / 1000) + this.defDurationInSec}`;
     localStorage.setItem('expires_at', expiresAt == null ? stime : expiresAt);
     localStorage.setItem('state', authResult.state);
@@ -316,7 +317,7 @@ export class AuthService {
 
     localStorage.removeItem('profile');
     localStorage.removeItem('access_token');
-    // localStorage.removeItem('id_token');
+    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.clear();
 
