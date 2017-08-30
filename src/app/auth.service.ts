@@ -135,7 +135,7 @@ export class AuthService {
   }
 
   public handleAuthentication(): void {
-    this.webauth.parseHash((err, authResult) => {
+    this.webauth.parseHash(window.location.hash, (err, authResult) => {
       if (authResult && authResult.accessToken
         // && authResult.idToken     // no id token returned
       ) {
@@ -281,10 +281,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     if (authResult.idToken !== null) {
       this.idToken = authResult.idToken;
-    // localStorage.setItem('id_token', authResult.idToken);
-    } else {
-      this.idToken = authResult.accessToken;
-    // localStorage.setItem('id_token', authResult.accessToken);
+     // localStorage.setItem('id_token', authResult.idToken);
     }
     const stime = `${(new Date().getTime() / 1000) + this.defDurationInSec}`;
     localStorage.setItem('expires_at', expiresAt == null ? stime : expiresAt);
