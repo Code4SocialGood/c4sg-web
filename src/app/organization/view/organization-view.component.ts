@@ -65,10 +65,6 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
       this.categoryName = 'Nonprofit';
     } else if (this.organization.category === 'O') {
       this.categoryName = 'Open Source';
-    } else if (this.organization.category === 'S') {
-      this.categoryName = 'Social Enterprise';
-    } else if (this.organization.category === 'U') {
-      this.categoryName = 'Startup';
     }
   }
 
