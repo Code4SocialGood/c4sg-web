@@ -268,8 +268,6 @@ export class FormConstantsService {
   private categories = [
     {name: 'Nonprofit', value: 'N'},
     {name: 'Open Source', value: 'O'},
-    {name: 'Social Enterprise', value: 'S'},
-    {name: 'Startup', value: 'U'}
    ];
 
   constructor() { }
