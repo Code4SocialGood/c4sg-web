@@ -266,7 +266,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             err => { console.error(err, 'An error occurred'); }
           );
 
-          if (this.userSkillsArray.length>0) {
+          if (this.userSkillsArray.length > 0) {
           // Update skills for user
             this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
             .subscribe(
