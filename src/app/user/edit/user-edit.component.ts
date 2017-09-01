@@ -125,7 +125,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  private populateUser(): void{
+  private populateUser(): void {
     this.userService.getUser(this.userId)
     .subscribe(
       res => {
@@ -230,7 +230,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       res => {
         this.user = res;
 
-        this.user.email=this.userForm.value.email;
+        this.user.email = this.userForm.value.email;
         this.user.userName = this.userForm.value.userName;
         this.user.firstName = this.userForm.value.firstName;
         this.user.lastName = this.userForm.value.lastName;
@@ -266,12 +266,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             err => { console.error(err, 'An error occurred'); }
           );
 
-          if(this.userSkillsArray.length>0)
-          {
+          if (this.userSkillsArray.length>0) {
           // Update skills for user
             this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
             .subscribe(
-            res => {
+            res1 => {
               },
               err => { console.error(err, 'An error occurred'); }
             );
