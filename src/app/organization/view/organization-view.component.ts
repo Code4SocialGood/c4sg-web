@@ -38,7 +38,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   constructor(private organizationService: OrganizationService,
     private projectService: ProjectService,
     private userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
     private skillService: SkillService,
     public constantsService: FormConstantsService,
     private route: ActivatedRoute,
