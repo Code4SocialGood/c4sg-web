@@ -61,10 +61,10 @@
             </div>
             <div class="row">
               <div class="col s6 theme-select dropdown">
-                <label for="jobTitleId">Role</label>
+                <label for="jobTitleId">Category</label>
                <!-- <div class="theme-select dropdown">-->
                   <select id="jobTitleId" class="browser-default" formControlName="jobTitleId" materialize="material_select">
-                    <option value=""  disabled selected>Choose Role</option>
+                    <option value=""  disabled selected>Choose Category</option>
                     <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id"
                     [selected]="jobTitle.id === project?.jobTitleId">{{jobTitle.jobTitle}}</option>
                   </select>
