@@ -100,55 +100,58 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
 //    this.route.params.subscribe(params => {
 //      this.userId = +params['userId'];
-      this.userService.getAllJobTitles()
-        .subscribe(
-        res => {
-          this.jobTitlesArray = res;
-        }, error => console.log(error)
-        );
+    this.userService.getAllJobTitles()
+      .subscribe(
+      res => {
+        this.jobTitlesArray = res;
+      }, error => console.log(error)
+      );
 
-        if (this.currentUserId === null) {
-           this.fillForm();
-        } else {
-           this.route.params.subscribe(params => {
-           this.userId = +params['userId'];
-      // Populate user
-      this.userService.getUser(this.userId)
-        .subscribe(
-          res => {
-            this.user = res;
-            this.avatar = this.user.avatarUrl;
-
-            /*
-            if (this.user.status === 'N') {
-              this.isNew = true;
-            } */
-
-            if (this.user.publishFlag === 'Y') {
-              this.checkPublish = true;
-            } else {
-             this.checkPublish = false;
-            }
-
-            if (this.user.notifyFlag === 'Y' ) {
-              this.checkNotify = true;
-            } else {
-            this.checkNotify = false;
-            }
-
-            this.fillForm();
-          }, error => console.log(error)
-        );
-
-      // Populate skills list
-      this.skillService.getSkillsForUser(this.userId)
+    if (this.currentUserId === null) {
+        this.fillForm();
+    } else {
+        this.route.params.subscribe(params => {
+        this.userId = +params['userId'];
+       // Populate user
+        this.populateUser();
+        // Populate skills list
+        this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
             this.userSkillsArray = res;
           }, error => console.log(error)
         );
-    });
+      });
+    }
   }
+
+  private populateUser(): void {
+    this.userService.getUser(this.userId)
+    .subscribe(
+      res => {
+        this.user = res;
+        this.avatar = this.user.avatarUrl;
+
+        /*
+        if (this.user.status === 'N') {
+          this.isNew = true;
+        } */
+
+        if (this.user.publishFlag === 'Y') {
+          this.checkPublish = true;
+        } else {
+         this.checkPublish = false;
+        }
+
+        if (this.user.notifyFlag === 'Y' ) {
+          this.checkNotify = true;
+        } else {
+        this.checkNotify = false;
+        }
+
+        this.fillForm();
+      }, error => console.log(error)
+    );
   }
 
   private getFormConstants(): void {
@@ -156,7 +159,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private initForm(): void {
-
     this.userForm = this.fb.group({
       'email': ['', []],
       'jobTitleId': ['', []],
@@ -220,56 +222,60 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(updatedData: any, event): void {
-
     event.preventDefault();
     event.stopPropagation();
+    this.currentUserId = this.auth.getCurrentUserId();
+    this.userService.getUser(Number(this.currentUserId))
+    .subscribe(
+      res => {
+        this.user = res;
 
-    this.user.userName = this.userForm.value.userName;
-    this.user.firstName = this.userForm.value.firstName;
-    this.user.lastName = this.userForm.value.lastName;
-    this.user.state = this.userForm.value.state;
-    this.user.country = this.userForm.value.country;
-    this.user.phone = this.userForm.value.phone;
-    this.user.title = this.userForm.value.title;
-    this.user.introduction = this.userForm.value.introduction;
-    this.user.linkedinUrl = this.userForm.value.linkedinUrl;
-    this.user.personalUrl = this.userForm.value.personalUrl;
-    this.user.githubUrl = this.userForm.value.githubUrl;
-    this.user.chatUsername = this.userForm.value.chatUsername;
-    this.user.jobTitleId = this.userForm.value.jobTitleId;
+        this.user.email = this.userForm.value.email;
+        this.user.userName = this.userForm.value.userName;
+        this.user.firstName = this.userForm.value.firstName;
+        this.user.lastName = this.userForm.value.lastName;
+        this.user.title = this.userForm.value.title;
+        this.user.introduction = this.userForm.value.introduction;
+        this.user.state = this.userForm.value.state;
+        this.user.country = this.userForm.value.country;
+        this.user.phone = this.userForm.value.phone;
+        this.user.linkedinUrl = this.userForm.value.linkedinUrl;
+        this.user.personalUrl = this.userForm.value.personalUrl;
+        this.user.githubUrl = this.userForm.value.githubUrl;
+        this.user.chatUsername = this.userForm.value.chatUsername;
+        this.user.jobTitleId = this.userForm.value.jobTitleId;
+        if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
+          this.user.publishFlag = 'Y';
+        } else {
+          this.user.publishFlag = 'N';
+        }
+        if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
+          this.user.notifyFlag = 'Y';
+        } else {
+          this.user.notifyFlag = 'N';
+        }
+        if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+          this.user.status = 'A';
+          // this.isNew = false;
+        }
+        this.userService.update(this.user)
+          .subscribe(() => {
+            Materialize.toast('Your account is saved', 4000);
+            this.router.navigate(['/user/view', this.user.id]);
+          },
+            err => { console.error(err, 'An error occurred'); }
+          );
 
-    if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
-      this.user.publishFlag = 'Y';
-    } else {
-      this.user.publishFlag = 'N';
-    }
-
-    if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
-      this.user.notifyFlag = 'Y';
-    } else {
-      this.user.notifyFlag = 'N';
-    }
-
-    if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
-      this.user.status = 'A';
-      // this.isNew = false;
-    }
-
-    this.userService.update(this.user)
-      .subscribe(() => {
-        Materialize.toast('Your account is saved', 4000);
-        this.router.navigate(['/user/view', this.user.id]);
-      },
-        err => { console.error(err, 'An error occurred'); }
-      );
-
-    // Update skills for user
-    this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
-      .subscribe(
-        res => {
-        },
-        err => { console.error(err, 'An error occurred'); }
-      );
+          if (this.userSkillsArray.length > 0) {
+          // Update skills for user
+            this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
+            .subscribe(
+            res1 => {
+              },
+              err => { console.error(err, 'An error occurred'); }
+            );
+          }
+      });
   }
 
   onDeleteSkill(skillToDelete) {
