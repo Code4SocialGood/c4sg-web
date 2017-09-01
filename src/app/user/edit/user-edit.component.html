@@ -112,10 +112,10 @@
               <label for="title" id="title-label">Title *</label>
             </div>
             <div *ngIf="isVolunteer" class="theme-select dropdown col s6">
-              <label for="jobTitleId">Role </label>
+              <label for="jobTitleId">Category </label>
               <!-- <div class="theme-select dropdown">-->
                 <select class="browser-default" id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
-                   <option value="" disabled selected>Choose Role</option>
+                   <option value="" disabled selected>Choose Category</option>
                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle}}</option>
                 </select>
               <!--</div>-->
