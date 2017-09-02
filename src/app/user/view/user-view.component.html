@@ -1,6 +1,6 @@
 <div class="page-title"  *ngIf="user">
   <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
-  <h1 *ngIf="user.role === 'O'">Project Owner</h1>
+  <h1 *ngIf="user.role === 'O'">Organization User</h1>
   <h1 *ngIf="user.role === 'A'">Admin User</h1>
 </div>
 <div class="container">
@@ -39,7 +39,7 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === user?.jobTitleId && jobTitle.jobTitle">
-                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
+                Category: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 2)}}</span>
               </div>
             </div>
             <div class="location">Location:

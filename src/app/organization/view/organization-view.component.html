@@ -68,8 +68,9 @@
     <div class="col m4" id="right-col">
       <div class="sidebar">
         <div class="section" *ngIf="projects">
-          <h4>Contact</h4>
-          <div class="section-body-organization">
+
+          <div class="section-body-organization" *ngIf="authService.authenticated()">
+            <h4>Contact</h4>
             <div class="card">
               <div class="card-content">
                 <div class="row single-info" *ngIf="user">
