@@ -1,19 +1,17 @@
-
-<nav [ngClass]="isAtHome()">
+<nav [ngClass]="isAtHome()" >
   <div class="nav-wrapper">
     <a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
-   
     <ul class="right hide-on-med-and-down">
       <li class="nav-link-container" routerLinkActive="active">
-          <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>
-          <img class="active-header-icon" src="../../assets/header-active-icon.png" />
-          <a class="hidden-link" routerLink='/project'></a>
-      </li>      
+        <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>
+        <img class="active-header-icon" src="../../assets/header-active-icon.png" />
+        <a class="hidden-link" routerLink='/project'></a>
+      </li>
       <li class="nav-link-container" routerLinkActive="active">
         <a class="nav-link" (click)="loadVolunteers()"><span>Volunteers</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <a class="hidden-link" routerLink='/user'></a>
-      </li>     
+      </li>
       <li class="nav-link-container" routerLinkActive="active">
         <a class="nav-link" (click)="loadOrganizations()"><span>Organizations</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
@@ -21,8 +19,8 @@
       </li>
       <li class="nav-link-container" routerLinkActive="active">
         <a class="nav-link dropdown-button" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdowncommunity">
-          <span class="left">Community</span><i class="material-icons right">arrow_drop_down</i>
-        </a>
+            <span class="left">Community</span><i class="material-icons right">arrow_drop_down</i>
+          </a>
         <img class="active-header-icon left-neg-24pc" src="../../assets/header-active-icon.png" />
         <ul class="dropdown-content" id="dropdowncommunity">
           <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
@@ -34,8 +32,8 @@
         </ul>
       </li>
       <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
-          <img [src]="authSvc.getCurrentUserAvatar()" onError="this.src='../../assets/default_avatar.png'" alt="" class="circle responsive-img profile-img">
-          <i class="material-icons right">arrow_drop_down</i></a>
+            <img [src]="authSvc.getCurrentUserAvatar()" onError="this.src='../../assets/default_avatar.png'" alt="" class="circle responsive-img profile-img">
+            <i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
           <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{authSvc.getUserOrganizationId()}}" routerLinkactive="active">My Organization</a></li>
@@ -47,6 +45,62 @@
       </li>
       <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span>Log In / Sign Up</span></a></li>
     </ul>
-          
+
+    <!-- Mobile-->
+    <ul id="slide-out" class="side-nav">
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>
+        <a class="hidden-link" routerLink='/project'></a>
+      </li>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" (click)="loadVolunteers()"><span>Volunteers</span></a>
+        <a class="hidden-link" routerLink='/user'></a>
+      </li>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" (click)="loadOrganizations()"><span>Organizations</span></a>
+        <a class="hidden-link" routerLink='/organization'></a>
+      </li>
+      <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header">Community<i class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a id="about" routerLink="/about" routerLinkActive="active">About Us</a></li>
+                    <li><a id="about" routerLink="/consultants" routerLinkActive="active">Consultants</a></li>
+                    <li><a id="about" routerLink="/partners" routerLinkActive="active">Partners</a></li>
+                    <li><a id="about" routerLink="/appreciations" routerLinkActive="active">Heroes</a></li>
+                    <li><a target="_blank" href="http://forum.code4socialgood.org/">Forum</a></li>
+                    <li><a target="_blank" href="http://join-our-slack.code4socialgood.org/">Chat</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+      </li>
+      <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+              <li *ngIf="authSvc.authenticated()" >
+                  <a class="collapsible-header">
+                     My profile
+                    <i class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>
+                    <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{authSvc.getUserOrganizationId()}}" routerLinkactive="active">My Organization</a></li>
+                    <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
+                    <li *ngIf="authSvc.isOrganization()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
+                    <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/list/approve" routerLinkActive="active">Approve Organizations</a></li>
+                    <li><a class="log-reg" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+      </li>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="log-reg nav-link" (click)="authSvc.login()" *ngIf="!authSvc.authenticated()">
+          <span>Log In / Sign Up</span></a>
+      </li>
+    </ul>
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
 </nav>
