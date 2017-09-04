@@ -1,4 +1,15 @@
 @import "../_style/variables";
+@import "../_style/app.theme";
+.navbar-fixed{
+  z-index:999;
+}
+#sidenav-overlay {
+  z-index: 996;
+  }
+
+.side-nav{
+  top:14%;
+ }
 .at-home {
   // position: fixed;
   background-color: rgba(255, 255, 255, 0);
@@ -134,6 +145,7 @@ ul.right.hide-on-med-and-down{
       top: 25px;
     }
 
+
     .nav-link{
       line-height: normal;
       height: 100%;
@@ -167,89 +179,3 @@ ul.right.hide-on-med-and-down{
 }
 
 
-
-
-//.right a{
-    //color: #989898;
-    //font-family: Century Gothic, sans-serif;;
-    //font-size: 1em;
-    //font-weight: 20;
-    //padding-top: 0.7em;
-//}
-
-//.right a:hover{
-  //background: rgba(100, 100 ,255 , 0.4);
-  //color: #fff;
-//}
-
-//.lr-wrapper a:hover{
-  //border: 1px solid #fff;
-//}
-
-//.lr-wrapper {
-  //padding-top: 0.7em;
-//}
-
-//.lr-wrapper .log-reg {
-  //font-size: 0.7em;
-  //border: 1px solid #585858;
-  //border-radius: 3px;
-  //width: 7em;
-  //margin: 0.5em;
-  //padding:  0.3em;
-  //line-height: 1em;
-  //text-align: center;
-//}
-
-//@font-face {
-   //font-family: "footerfont";
-   //src: url("/assets/Thruster-Regular.ttf");
-//}
-
-//.lr-wrapper{
-  //margin: 1em auto;
-//}
-
-//hr {
-  //margin-top: 6em;
-  //margin-bottom: 0.5em;
-  //border: 0;
-  //height: 1px;
-  //width: 70vw;
-  //background: #eee;
-  //background-image: linear-gradient(to right, #282828, #e0e0e0, #282828);
-//}
-
-//.page-footer{
-  //margin-top: 0;
-  //background-color: #282828;
-//}
-
-//.page-footer .row{
-  //margin-bottom: 0;
-  //padding: 0;
-//}
-
-//.page-footer ul{
-  //display: inline-block;
-  //float: right;
-  //margin-top: 0;
-//}
-//.page-footer li{
-  //display: inline-block;
-  //padding-left: 0.3em;
-//}
-
-//.page-footer a{
-  //padding-right: 1em;
-  //color: #9a9a9a;
-//}
-
-//.foot-left a{
-  //margin: 0 auto;
-//}
-
-//.page-footer span{
-  //font-family: "footerfont";
-  //font-size: 1.3em;
-//}

@@ -1,208 +1,179 @@
+
+<div class="row">
 <div class="action">
-    <div class="aniSlogan-background">
-        <div id="aniSlogan">
-            It doesn't matter if you
-            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
-        </div>
-    </div>    
-</div>
-
-<!--<div class="section no-padding">
-    
-        <div class="row">        
-            <div class="col s6 offset-s3 m3 offset-m5">
-              <td class="input-field">
-                <input #projectName id="name" type="text" class="input-pre">
-                <label for="name">Keyword</label>
-              </td>
-              <td>
-                <button (click)="getProjectsByKeyword(projectName.value); projectName.value='';"                        
-                        [@buttonState]="state"
-                        (mouseover)="toggleState()"
-                        (mouseout)="toggleState()"
-                        class="btn waves-effect waves-light #84c44c search_button">
-                    <i class="large material-icons transparent" >search</i>
-                </button>
-              </td>
-            </div>                         
-        </div>
-    
-</div>-->
-<div class="section no-padding">
-    <div class="green-ribbon">    
-            GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS    
+  <div class="aniSlogan-background">
+      <div id="aniSlogan">
+        <div class="container">
+        <p class="flow-text">It doesn't matter if you
+          <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex" class="flow-text">{{aniWord}}</span>
+          <span [@cursorFlash]="cursorState" class="flow-text">&nbsp;_</span><br> Get started now!</p>
+      </div>
     </div>
-    <br><br>
-    <div class="container">        
-        <div class="row">
-            <div class="col s12 m5">
-              <div class="second-section">
-                  <div class="second-section-heading volunteer-heading">VOLUNTEERS</div>                
-                  <div class="second-section-text">
-                    Browse and apply for projects<br>
-                    Receive notification on new projects<br>
-                    Get contacted by potential nonprofits<br>
-                    Access to consultants on technical challenges
-                  </div>
-              </div>
-                <br>
-                <div class="center second-section-text">
-                    <button class="button-bordered" type="submit" (click)="authSvc.login()">SIGN UP</button>
-                </div>
-                <br>
-                <div>
-                    <img src="../../assets/Volunteers_icons.svg">
-                </div>
-            </div>
+  </div>
+</div>
+    </div>
 
-            <div class="col s12 m5 offset-m2">
-              <div class="second-section">            
-                <div class="second-section-heading organization-heading">ORGANIZATIONS</div>
+<div class="section no-padding">
+
+        <div class="row">
+  <div class="green-ribbon">
+    <p class="flow-text white-text">GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS</p>
+  </div>
+        </div>
+
+  <br><br>
+  <div class="container">
+      <div class="row">
+          <div class="col s12 m5">
+            <div class="second-section">
+                <div class="second-section-heading volunteer-heading">VOLUNTEERS</div>
                 <div class="second-section-text">
-                  Post projects<br>
-                  Review and accept applicants<br>
-                  Reach out to potential volunteers<br>
-                  Access to consultants on technical directions
+                  <p class="flow-text">Browse and apply for projects<br>
+                  Receive notification on new projects<br>
+                  Get contacted by potential nonprofits<br>
+                  Access to consultants on technical challenges
+                  </p>
                 </div>
+            </div>
+              <br>
+              <div class="center second-section-text">
+                  <button class="button-bordered" type="submit" (click)="authSvc.login()">SIGN UP</button>
               </div>
-                <br>
-                <div class="center second-section-text">
-                    <button class="button-bordered" type="submit" (click)="authSvc.login()">REGISTER</button>
-                </div>
-                <br>
-                <div>
-                    <img src="../../assets/Organizations_icons.svg">
-                </div>
+              <br>
+              <div>
+                  <img class="responsive-img" src="../../assets/Volunteers_icons.svg">
+              </div>
+          </div>
+
+          <div class="col s12 m5 offset-m2">
+            <div class="second-section">
+              <div class="second-section-heading organization-heading"><p class="flow-text">ORGANIZATIONS</p></div>
+              <div class="second-section-text">
+                <p class="flow-text"> Post projects<br>
+                Review and accept applicants<br>
+                Reach out to potential volunteers<br>
+                Access to consultants on technical directions
+                </p>
+              </div>
             </div>
-          </div>        
-    </div>    
-</div>
-<div class="section no-padding">    
-    <!--<div class="container">-->        
-        <div class="row">
-                <div class="col s12 m2 offset-m5">
-                    <img src="../../assets/GreenArrow.svg" class="green-arrow-img">
-                </div>
-            </div>
-    <!--</div>-->    
+              <br>
+              <div class="center second-section-text">
+                  <button class="button-bordered" type="submit" (click)="authSvc.login()">REGISTER</button>
+              </div>
+              <br>
+              <div>
+                  <img class="responsive-img" src="../../assets/Organizations_icons.svg">
+              </div>
+          </div>
+        </div>
+  </div>
 </div>
 <div class="section no-padding">
-    <div class="green-ribbon white-text">    
-            STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD
-    </div>
-    <!--<div class="container">-->       
+  <div class="container">
+      <div class="row">
+              <div class="col s12 m2 offset-m5">
+                  <img class="responsive-img" src="../../assets/GreenArrow.svg" class="green-arrow-img">
+              </div>
+          </div>
+  </div>
+</div>
+
+<div class="section no-padding">
+
         <div class="row">
-            <div class="col s12 m12">
-                <div class="map" *ngIf="developers">
-                    <agm-map
-                            [latitude]="lat "
-                            [longitude]="lng "
-                            [zoom]="zoom "
-                            [scrollwheel]="false">
+  <div class="green-ribbon white-text">
+    <p class="flow-text"> STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD </p>
+  </div>
+  <!--<div class="container">-->
+      <div class="row">
+          <div class="col s12 m12">
+              <div class="map" *ngIf="developers">
+                  <agm-map
+                          [latitude]="lat "
+                          [longitude]="lng "
+                          [zoom]="zoom "
+                          [scrollwheel]="false">
 
-                      <agm-marker
-                          *ngFor="let d of developers "
-                          [latitude]="d.latitude "
-                          [longitude]="d.longitude "
-                          (mouseOver)="handleMarkerMouseOver($event) "
-                          >
+                    <agm-marker
+                        *ngFor="let d of developers "
+                        [latitude]="d.latitude "
+                        [longitude]="d.longitude "
+                        (mouseOver)="handleMarkerMouseOver($event) "
+                        >
 
-                        <agm-info-window>
-                          <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
-                              <div class="info-avatar ">
-                                <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
-                              </div>
-                              <div class="user-name ">
-                                {{d.userName}}
-                              </div>
-                              <div class="user-location ">
-                                <span *ngIf="d.state ">{{d.state}}</span>
-                                <span *ngIf="d.state && d.country ">,</span>
-                                <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
-                              </div>
-                            </a>
-                          </div>
-                        </agm-info-window>
-                      </agm-marker>
-                    </agm-map>
-                  </div>
+                      <agm-info-window>
+                        <div class="info-window ">
+                          <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                            <div class="info-avatar ">
+                              <img [src]="d.avatarUrl " class="responsive-img" onError="this.src='../../assets/default_avatar.png' ">
+                            </div>
+                            <div class="user-name ">
+                              <p class="flow-text">{{d.userName}}</p>
+                            </div>
+                            <div class="user-location ">
+                              <span *ngIf="d.state " class="flow-text">{{d.state}}</span>
+                              <span *ngIf="d.state && d.country " class="flow-text">,</span>
+                              <span *ngIf="d.country " class="flow-text">{{getCountryName(d.country)}}</span>
+                            </div>
+                          </a>
+                        </div>
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                </div>
+          </div>
+      </div>
+  <!--</div>-->
+</div>
+
+</div>
+<div class="section no-padding container">
+    <div class="row">
+  <div class="white-ribbon">
+    <p class="flow-text"> FEATURED PROJECTS </p>
+  </div><br>
+  <div class="row" *ngIf="topThreeProjects">
+    <div class="col s12 m4" *ngFor="let project of topThreeProjects">
+        <div class="card">
+                <div class="card-image" *ngIf="project.imageUrl">
+                  <img class="responsive-img" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
+                </div>
+                <div class="card-image" *ngIf="!project.imageUrl">
+                  <img class="responsive-img" [src]="constantsService.defaultImage">
+                </div><br>
+            <div class="card-content" *ngIf="project">
+                <div class="featured-project-heading"><p class="flow-text">{{project.name}}</p></div>
+                <div class="featured-project-text" *ngIf="project.description.length > 200">
+                  <p class="flow-text">   {{ project && project.description | slice:0:200 }} ... </p>
+                </div>
+                <div class="featured-project-text" *ngIf="project.description.length <= 200">
+                  <p class="flow-text"> {{ project && project.description }} </p>
+                </div><br>
+                <div>
+                    <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
+                </div>
             </div>
         </div>
-    <!--</div>-->
+     <br><br>
+    </div>
+  </div>
 </div>
-<br>
-<div class="section no-padding container">
-    <div class="white-ribbon">    
-        FEATURED PROJECTS
-    </div><br>
-    <!--<div class="container">-->      
-      <!--<div class="row" *ngIf="topThreeProjects">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">
-            <div>
-                <div class="featured-project-img-div center-align" *ngIf="project.imageUrl">
-                  <img class="featured-project-img" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
-                </div>
-                <div *ngIf="!project.imageUrl">
-                  <img class="featured-project-img"  [src]="constantsService.defaultImage">
-                </div>
-            </div>
-            <br>
-          <div>               
-            <div class="featured-project-heading">{{project.name}}</div>
-
-            <div class="featured-project-text">
-                {{ project && project.description | slice:0:200 }} ...
-            </div>
-          </div>
-          <br>
-          <div>
-              <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
-          </div><br><br>
-        </div>        
-      </div>-->
-    
-    <div class="row" *ngIf="topThreeProjects">        
-        <div class="col s12 m4" *ngFor="let project of topThreeProjects">
-            <div class="card">                
-                    <div class="card-image" *ngIf="project.imageUrl">
-                      <img [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">               
-                    </div>
-                    <div class="card-image" *ngIf="!project.imageUrl">
-                      <img [src]="constantsService.defaultImage">
-                    </div><br>                                
-                <div class="card-content" *ngIf="project">
-                    <div class="featured-project-heading">{{project.name}}</div>
-                    <div class="featured-project-text" *ngIf="project.description.length > 200">
-                        {{ project && project.description | slice:0:200 }} ...
-                    </div>
-                    <div class="featured-project-text" *ngIf="project.description.length <= 200">
-                        {{ project && project.description }}
-                    </div><br>                    
-                    <div>
-                        <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
-                    </div>
-                </div>                 
-            </div>          
-         <br><br>
-        </div>        
-      </div>     
 </div>
-<div class="section no-padding">    
+<div class="row">
+<div class="section no-padding">
     <div class="green-ribbon white-text">
         <div class="row">
             <div class="col s12">
-                A platform by volunteers, for volunteers<br> 
+                <p class="flow-text">     A platform by volunteers, for volunteers<br>
                 Contribute to our open source project
+                </p>
             </div>
-            <div class="col s12">          
+            <div class="col s12">
               <a class="btn_github btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
                 Github Project<i class="mdi mdi-github-circle mdi-36px left" name="github"></i>
               </a>
             </div>
-        </div>                    
-    </div>   
+        </div>
+    </div>
+  </div>
 </div>
-
-
