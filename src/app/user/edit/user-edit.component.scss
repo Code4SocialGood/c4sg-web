@@ -1,33 +1,33 @@
 @import "../../_style/app.theme";
 
-#left-col{
-  .single-info{
-    .info-avatar{
+#left-col {
+  .single-info {
+    .info-avatar {
       border-radius: 50%;
 
-      img{
+      img {
         max-width: none;
       }
     }
   }
 }
 
-.skills-margin{
- margin-top: 5.5%;
+.skills-margin {
+  margin-top: 5.5%;
 }
 
-.skills-enter-own{
- font-size: 0.8rem;
-color: #9e9e9e;
+.skills-enter-own {
+  font-size: 0.8rem;
+  color: #9e9e9e;
 
 }
 
-.second-column{
- margin: 0;
+.second-column {
+  margin: 0;
 }
 
 #delete {
-	background: #E22E24;
+  background: #E22E24;
 }
 
 .btn-small {
