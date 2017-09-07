@@ -37,9 +37,17 @@
             </div>
           </div>
         </div>
-        <div class="row single-info" *ngIf="isOrgNew">
+        <div class="row single-info" *ngIf="isOrgNew && isUserInfoIncomplete">
           <hr>
           <div class="col s12 m12 l12 highlight-title">Please complete your user profile and organization profile before posting projects.</div>
+        </div>
+        <div class="row single-info" *ngIf="isOrgNew ">
+          <hr>
+          <div class="col s12 m12 l12 highlight-title">Please complete your organization profile before posting projects.</div>
+        </div>
+        <div class="row single-info" *ngIf="isUserInfoIncomplete">
+          <hr>
+          <div class="col s12 m12 l12 highlight-title">Please complete your user profile before posting projects.</div>
         </div>
         <!-- We skip org review process during first release
         <div class="row single-info" *ngIf="isOrgPending">
@@ -165,7 +173,7 @@
                   </div>
               </label> -->
               <div class="footer-btns center section">
-                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive">
+                <button class="btn waves-effect waves-light" id=saveBtn type="submit" [disabled]="!projectForm.valid || !isOrgActive || isOrgNew || isUserInfoIncomplete">
                    Save
                 </button>
                 <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal()">Close
