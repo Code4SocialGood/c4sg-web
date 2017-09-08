@@ -13,6 +13,7 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 import {AppreciationsComponent} from './appreciations/appreciations.component';
 import {ConsultantsComponent} from './consultants/consultants.component';
 import {PartnersComponent} from './partners/partners.component';
@@ -93,6 +94,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     PartnersComponent,
 
     HeaderComponent,
+    FooterComponent,
 
     ProjectListComponent,
     ProjectViewComponent,
