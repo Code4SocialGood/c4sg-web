@@ -146,28 +146,23 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
               this.fillForm();
             }, error => console.log(error)
           );
-          this.userService.getUser(this.currentUserId)
+        this.userService.getUser(this.currentUserId)
           .subscribe(
-            res => {
-              this.user = res;
-              if(this.user === null || this.user === undefined)
-                {
-                  this.isUserInfoIncomplete=true;
-                }
-                else{
-                  if(this.user.userName===null ||this.user.userName===''
-                    ||this.user.firstName===null || this.user.firstName===''
-                    ||this.user.lastName===null ||this.user.lastName===''
-                    ||this.user.country===null ||this.user.country===''
-                    ||this.user.title===null ||this.user.title==='')
-                    {
-                      this.isUserInfoIncomplete=true;
-                    }
-                }
-            });
-
-
-
+          res => {
+            this.user = res;
+            if (this.user === null || this.user === undefined) {
+              this.isUserInfoIncomplete = true;
+            }
+            else {
+              if (this.user.userName === null || this.user.userName === ''
+                || this.user.firstName === null || this.user.firstName === ''
+                || this.user.lastName === null || this.user.lastName === ''
+                || this.user.country === null || this.user.country === ''
+                || this.user.title === null || this.user.title === '') {
+                this.isUserInfoIncomplete = true;
+              }
+            }
+          });
       } else { // Edit Project
         // Populates the project
         this.projectService.getProject(this.projectId)
