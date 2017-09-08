@@ -181,6 +181,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   private fillForm(): void {
     if (this.user === null || this.user === undefined) {
+      this.checkPublish = true;
+      this.checkNotify = true;
           this.userForm = this.fb.group({
              'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
              'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],

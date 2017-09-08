@@ -5,7 +5,7 @@
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
-      <div class="content sidebar-wrapper" *ngIf="user">
+      <div class="content sidebar-wrapper" >
         <div class="row single-info">
           <h4 id="avatar-title" class="col s12 m12 l12 image-title">My Avatar</h4>
           <div class = "col offset-s8 offset-m8 offset-l8">
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="row single-info" *ngIf="isVolunteer && !user.userName">
+        <div class="row single-info" *ngIf="isVolunteer && !user">
           <hr>
           <div class="col s12 m12 l12 highlight-title">Please complete your profile before apply for projects.</div>
         </div>
