@@ -32,7 +32,7 @@
           <li><a class="log-reg" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
         </ul>
       </li>
-      <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span>Log In / Sign Up</span></a></li>
+      <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span><button class="button-colored" type="button">Log In / Sign Up</button></span></a></li>
     </ul>
 
   </div>
