@@ -122,20 +122,19 @@
     width: 100%;    
     text-align: center;
     position: absolute;
-
-    bottom: 0px;
+    bottom: 0px;    
 }
 
 #aniSlogan {
-
+  //font-family: "aniFont";
   font-size: 3em;
-  font-weight: 700;
+  //font-weight: 100;
+  font-weight: bold;
   color: #fff;
-  padding-top: .5em;
+  padding-top: 0.5em;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: bolder;
 }
 
 @media screen and (max-width: 915px) {
@@ -217,7 +216,6 @@
     text-align: center;
     font-family: $main-font;
     //max-width: 45%;
-     height:300px;
 }
 .second-section-heading {
     //font-size: 28px;
@@ -267,11 +265,9 @@
 
 //Green Arrow image
 .green-arrow-img{
-
-  max-width: 70%;
-  display: block;
-  margin: auto;
-
+    max-width: 70%;
+    display: block;
+    margin: auto;
 }
 
 @media screen and (max-width: 915px) {
