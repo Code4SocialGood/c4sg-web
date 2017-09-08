@@ -152,8 +152,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
             this.user = res;
             if (this.user === null || this.user === undefined) {
               this.isUserInfoIncomplete = true;
-            }
-            else {
+            } else {
               if (this.user.userName === null || this.user.userName === ''
                 || this.user.firstName === null || this.user.firstName === ''
                 || this.user.lastName === null || this.user.lastName === ''
