@@ -198,8 +198,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
              'personalUrl': ['', []],
              'githubUrl': ['', []],
              'chatUsername': ['', []],
-             'publishFlag': ['', []],
-             'notifyFlag': ['', []]
+             'publishFlag': [this.checkPublish, []],
+             'notifyFlag': [this.checkNotify, []]
               });
     } else {
     this.userForm = this.fb.group({
@@ -260,6 +260,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           this.user.status = 'A';
           // this.isNew = false;
         }
+        this.user.avatarUrl = this.avatar;
         this.userService.update(this.user)
           .subscribe(() => {
             Materialize.toast('Your account is saved', 4000);
@@ -349,18 +350,26 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   // Orchestrates the avatar image upload sequence of steps
   onUploadAvatar(fileInput: any): void {
     if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
-    // Function call to upload the file to AWS S3
-    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
-    // Calls the function to save the avatar image url to the user's row
-    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
-      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
-      .subscribe(res => {
-        if (res.innerValue.text() === '') {
+      if (this.user === null || this.user === undefined) {
+        this.currentUserId = this.auth.getCurrentUserId();
+      } else {
+        this.currentUserId = String(this.user.id);
+      }
+
+      // this.auth.getCurrentUserId();
+      // Function call to upload the file to AWS S3
+      const upload$ = this.extfilehandler.uploadFile(fileInput, Number(this.currentUserId), 'image');
+      // Calls the function to save the avatar image url to the user's row
+      upload$.switchMap((res) => this.userService.saveAvatarImg(Number(this.currentUserId), res),
+        (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
+        .subscribe(res => {
+          if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
-            this.user.avatarUrl = this.avatar;
-        } else {
-          console.error('Saving user avatar: Not expecting a response body');
-        }}, (e) => {
+            // this.user.avatarUrl = this.avatar;
+          } else {
+            console.error('Saving user avatar: Not expecting a response body');
+          }
+        }, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
     } else {
