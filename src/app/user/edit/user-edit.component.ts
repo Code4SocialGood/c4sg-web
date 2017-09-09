@@ -352,7 +352,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
       if (this.user === null || this.user === undefined) {
         this.currentUserId = this.auth.getCurrentUserId();
-      } else{
+      } else {
         this.currentUserId = String(this.user.id);
       }
 
