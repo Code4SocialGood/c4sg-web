@@ -352,12 +352,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
       if (this.user === null || this.user === undefined) {
         this.currentUserId = this.auth.getCurrentUserId();
-      }
-      else {
+      } else{
         this.currentUserId = String(this.user.id);
       }
 
-      //this.auth.getCurrentUserId();
+      // this.auth.getCurrentUserId();
       // Function call to upload the file to AWS S3
       const upload$ = this.extfilehandler.uploadFile(fileInput, Number(this.currentUserId), 'image');
       // Calls the function to save the avatar image url to the user's row
@@ -366,7 +365,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         .subscribe(res => {
           if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
-            //this.user.avatarUrl = this.avatar;
+            // this.user.avatarUrl = this.avatar;
           } else {
             console.error('Saving user avatar: Not expecting a response body');
           }
