@@ -116,7 +116,7 @@ export class AuthService {
     };
     this.webauth.client.delegation(opt, function (err, delegationResult) {
       if (!err) {
-        console.log(JSON.stringify(delegationResult.Credentials));
+        // console.log(JSON.stringify(delegationResult.Credentials));
         localStorage.removeItem('delgId');
         localStorage.removeItem('delgSecId');
         localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
