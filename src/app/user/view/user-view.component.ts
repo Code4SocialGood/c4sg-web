@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common'
 import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
 import { Project } from '../../project/common/project';
@@ -45,7 +46,8 @@ export class UserViewComponent implements OnInit {
     private skillService: SkillService,
     public constantsService: FormConstantsService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private location: Location) {
   }
 
   ngOnInit(): void {
@@ -163,6 +165,10 @@ export class UserViewComponent implements OnInit {
         Materialize.toast('Error deleting the user', 4000);
       }
       );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   getAcceptedProjects(id: number) {
