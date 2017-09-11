@@ -50,6 +50,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public isSkillExists = false;
   public isSkillLimit = false;
   // public isNew = false;
+  public isUserInfoIncomplete = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -131,6 +132,17 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       res => {
         this.user = res;
         this.avatar = this.user.avatarUrl;
+        if (this.user === null || this.user === undefined) {
+          this.isUserInfoIncomplete = true;
+        } else {
+          if (this.user.userName === null || this.user.userName === ''
+            || this.user.firstName === null || this.user.firstName === ''
+            || this.user.lastName === null || this.user.lastName === ''
+            || this.user.country === null || this.user.country === ''
+            || this.user.title === null || this.user.title === '') {
+            this.isUserInfoIncomplete = true;
+          }
+        }
 
         /*
         if (this.user.status === 'N') {
