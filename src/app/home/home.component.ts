@@ -1,14 +1,21 @@
-import { Component, OnInit, Input, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, Input, trigger, state, style, transition, animate, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
+import { DataService } from '../_services/data.service';
+import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs/Rx';
+import { User } from '../user/common/user';
+import { UserService } from '../user/common/user.service';
+import { FormConstantsService } from '../_services/form-constants.service';
+require('./agmMarkerProto.js');
 
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.css' ],
-  animations: [
+  styleUrls: [ 'home.component.scss' ],
+   animations: [
     trigger('buttonState', [
       state('inactive', style({
         transform: 'scale(1)'
@@ -48,87 +55,165 @@ import { ProjectService } from '../project/common/project.service';
       transition('active => inactive', animate('200ms ease-out'))
     ])
   ]
-
 })
 
 export class HomeComponent implements OnInit {
 
-    projects: Project[] = [];
+  // search button
+  state = 'inactive';
+  projects: Project[] = [];
 
-    // search button
-    state = 'inactive';
+  // Featured projects
+  topThreeProjects: Project[] = [];
+
+  // cursor and aniSlogan
+  tempWord = '';
+  clear = true;
+  typeAniIndex = -1;
+  typeAniPeriod = 100;
+  cursorState = 'inactive';
+  wordColorIndex = 0;
+
+  aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
+  aniWord = '';
+  aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
+  aniWordOrg = '';
+
+  // Google maps
+  usersSubscription: Subscription;
+  developers: User[];
+  organizations: User[];
+  zoom = 2;
+  // initial center position for the map
+  lat = 0;
+  lng = 0;
+  activeInfoWindow = null;
+
+  constructor(private projectService: ProjectService,
+              private router: Router,
+              private dataService: DataService,
+              public authSvc: AuthService,
+              private uService: UserService,
+              public constantsService: FormConstantsService) {
+  }
+
+  // onload animation timer
+  ngOnInit(): void {
 
     // cursor and aniSlogan
-    tempWord = '';
-    clear = true;
-    typeAniIndex = -1;
-    typeAniPeriod = 100;
-    aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
-    aniWord = '';
-    cursorState = 'inactive';
-    wordColorIndex = 0;
+    const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
+    const typeTimer = Observable.timer(0, this.typeAniPeriod);
+    const cursorTimer = Observable.timer(0, 400);
 
+    wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
+    typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
+    cursorTimer.subscribe(u => this.cursorFlash(u));
 
-    constructor(private projectService: ProjectService, private router: Router) {
-    }
+    // Google maps
+    this.getDevelopers();
+    // Google maps
+    this.getOrganizations();
 
-    // onload animation timer
-    ngOnInit(): void {
-      const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
-      const typeTimer = Observable.timer(0, this.typeAniPeriod);
-      const cursorTimer = Observable.timer(0, 400);
+    // Featured projects
+    this.getTopThreeProjects();
+  }
 
-      wordTimer.subscribe(t => this.tempWord = this.switchWord(t));
-      typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
-      cursorTimer.subscribe(u => this.cursorFlash(u));
+  // search button
+   toggleState() {
+    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
+  }
 
-    }
-
-    getProjectsByKeyword(keyword: string) {
-      keyword = keyword.trim();
-      if (!keyword) { return; }
-
-      this.projectService.getProjectsByKeyword(keyword).subscribe(
-          res => {
-              this.projects = res;
-              this.router.navigate(['/volunteers']);
-          },
-          error => console.log(error)
-      );
-    }
-
-    // animation controllers
-    // search button
-    toggleState() {
-      this.state = (this.state === 'inactive' ? 'active' : 'inactive');
-    }
-
-
-    // animation word
-    switchWord(time) {
-      const index = time % this.aniWordGroup.length;
-      this.aniWord = '';
-      this.typeAniIndex = -1;
-      if (this.wordColorIndex < this.aniWordGroup.length) {
-        this.wordColorIndex++;
-      } else {
-        this.wordColorIndex = 1;
+  getProjectsByKeyword(keyword: string) {
+    keyword = keyword.trim();
+    // if (!keyword) { return; }
+    this.router.navigate(['/project/list/projects'], {
+      queryParams: {
+        keyword: keyword
       }
-      return this.aniWordGroup[index];
+    });
+  }
+
+  private getTopThreeProjects(): void {
+    this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
+        .subscribe(
+        res => {
+          this.projects = res.data;
+          this.topThreeProjects = this.projects.slice(0, 3);
+        },
+        error => console.log(error)
+        );
+  }
+  // cursor and aniSlogan
+  // animation word
+  switchWord(time) {
+    const index = time % this.aniWordGroup.length;
+    this.aniWord = '';
+    this.typeAniIndex = -1;
+    if (this.wordColorIndex < this.aniWordGroup.length) {
+      this.wordColorIndex++;
+    } else {
+      this.wordColorIndex = 1;
+    }
+    return this.aniWordGroup[index];
+  }
+
+  typeWord(time, word: string) {
+    const wordArray = word.split('');
+    this.typeAniIndex++;
+    if (this.aniWord === word) {
+      return this.aniWord.concat('');
+    } else {
+      return this.aniWord.concat(wordArray[this.typeAniIndex]);
+    }
+  }
+
+  cursorFlash(time) {
+    this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
+  }
+
+  // Google maps
+  private getDevelopers(): void {
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
+      res => {
+        this.developers = res.filter(vol => vol.role === 'V');
+      },
+      error => console.error(error)
+    );
+  }
+  // Google maps
+  private getOrganizations(): void {
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
+      res => {
+        this.organizations = res.filter(vol => vol.role === 'O');
+      },
+      error => console.error(error)
+    );
+  }
+
+  public getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+        return country.name;
+    } else {
+        return '';
+    }
+  }
+
+  handleMarkerMouseOver(event): void {
+    if (this.activeInfoWindow) {
+      this.activeInfoWindow.forEach(function(infoWindow){
+        return infoWindow.close();
+      });
     }
 
-    typeWord(time, word: string) {
-      const wordArray = word.split('');
-      this.typeAniIndex++;
-      if (this.aniWord === word) {
-        return this.aniWord.concat('');
-      } else {
-        return this.aniWord.concat(wordArray[this.typeAniIndex]);
-      }
-    }
+    const window = event.target.infoWindow;
+    this.activeInfoWindow = window;
+    window.forEach(function(infoWindow){
+      return infoWindow.open();
+    });
+  }
 
-    cursorFlash(time) {
-      this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
-    }
-
-}
+ }

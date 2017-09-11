@@ -1,0 +1,41 @@
+@import "../../_style/app.theme";
+
+.error-msg {
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.file-field .error-msg {
+  clear: both;
+}
+
+.file-field .btn {
+  margin-bottom: 20px;
+}
+
+.file-path {
+  max-width: 200px;
+}
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+.material-icons.req-field {
+  vertical-align: super !important;
+  font-size: 0.5rem !important;
+}
+
+.btn-small {
+  height: 35px;
+  width: 35px;
+  text-align: center;
+}
+
+.icon-small {
+  padding-left: 10px;
+  padding-bottom: 15px;
+  font-size: 15px;
+}

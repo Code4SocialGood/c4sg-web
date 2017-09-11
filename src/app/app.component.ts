@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { OrganizationService } from './organization/common/organization.service';
@@ -12,14 +12,13 @@ import { Organization } from './organization/common/organization';
   styleUrls: [ 'app.component.scss' ]
 })
 
-export class AppComponent implements DoCheck {
+export class AppComponent implements OnDestroy {
 
     currentUserId: string;
     organizationId: string;
-    authSvc: AuthService;
 
-    constructor(private router: Router, private auth: AuthService, private organizationService: OrganizationService) {
-      this.authSvc = this.auth;
+    constructor(private router: Router, public auth: AuthService, private organizationService: OrganizationService) {
+      this.auth.handleAuthentication();
     }
 
   // control nav style by changing the class name
@@ -31,7 +30,10 @@ export class AppComponent implements DoCheck {
     }
   }
 
-  ngDoCheck() {
+  ngOnDestroy() {
+    this.auth.unscheduleRenewal();
+  }
+  /*ngDoCheck() {
     if (this.auth.authenticated() && this.currentUserId == null) {
       this.currentUserId = this.auth.getCurrentUserId();
       if (this.currentUserId !== '0' && this.currentUserId !== null ) {
@@ -51,5 +53,5 @@ export class AppComponent implements DoCheck {
         );
       }
     }
-  }
+  }*/
 }

@@ -1,1 +1,21 @@
-@import "../../variables";
+@import "../../_style/app.theme";
+
+.info {
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	font-weight: bold;
+}
+
+.skills-list {
+  ul {
+    li {
+      display: block;
+      width: 45%;
+      margin-right: 3.6%;
+    }
+    li:nth-of-type(2n) {
+      margin-right: 0;
+    }
+  }
+}

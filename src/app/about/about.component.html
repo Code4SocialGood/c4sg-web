@@ -1,19 +1,22 @@
+<div class="page-title-center">
+  <h1>Our Vision</h1>
+</div>
 <div class="container">
-  <div class="row">
-    <h1 class="center-align text-black">We the Coders</h1>
-  </div>
-  <div class="row">
-    <div id="map">
-      <img class="responsive-img" src="https://maps.googleapis.com/maps/api/staticmap?center=20,-20&zoom=1&scale=2&size=1920x225&maptype=roadmap&key=AIzaSyATPQm0vWt-TwYMgPgb8LQtwpr2xtgni1g&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CNorth+America&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CSouth+America&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAfrica&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CEurope&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAsia&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7CAustralia" alt="Code for Social Good Volunteer Locations">
+  <div class="row about-us-content">
+    <div class="col s8 offset-s2">
+      <div class="problem">
+        <h3>Problem</h3>
+        <p>So many nonprofits need technical help<br>
+          So many volunteers seek technical projects<br>
+          But ... why do both struggle to achieve their goals?</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>A new technical volunteering model that . . .<br>
+          Encourages volunteers of all ages, experience levels, and geographic locations to contribute to nonprofit projects<br>
+          Fosters a strong, supportive community within the diverse volunteer pool<br>
+          Connects volunteers to nonprofits based on their skillsets and interests</p>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <ul class="developers_list">
-      <li class="card" *ngFor="let developer of developers">
-        <a [routerLink]="['../user/view',developer.id]">
-          <img class="responsive-img" src="../../assets/avatar.png">
-        </a>
-      </li>
-    </ul>
   </div>
 </div>

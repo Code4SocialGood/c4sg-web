@@ -1,126 +1,46 @@
-.selected {
-    background-color: #CFD8DC !important;
-    color: darkseagreen;
-}
-/*
- *.users {
- *    margin: 0 0 2em 0;
- *    list-style-type: none;
- *    padding: 0;
- *    width: 70em;
- *}
- *.users .label .h3 {
- *    text-align: right;
- *    height: 30em !important;
- *
- *}
- *.users li {
- *    cursor: pointer;
- *    position: relative;
- *    left: 0;
- *    background-color: #EEE;
- *    margin: .5em;
- *    padding: .3em 0;
- *    height: 15em;
- *    border-radius: 4px;
- *}
- *.users li:hover {
- *    color: #607D8B;
- *    background-color: #DDD;
- *    left: .1em;
- *}
- *.users li.selected:hover {
- *    background-color: #BBD8DC !important;
- *    color: white;
- *}
- *.users .text {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- *
- *.users .colData {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- *.users .colLabel {
- *    position: relative;
- *    text-align: right;
- *    top: -3px;
- *}
- */
+@import "../../_style/app.theme";
 
-button {
-    font-family: Arial;
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #cfd8dc;
-}
-button.delete, button.edit {
-    //float:right;
-    margin-top: 2px;
-    margin-right: .8em;
-    background-color: gray !important;
-    color:white;
+.card-avatar, .card-avatar-content {
+  border-radius: 50% !important;
 }
 
-.buttons-block {
-  text-align: center;
+.mg-top-10px{
+  margin-top: 10px;
 }
 
-.username {
-  font-size: 1.25em;
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  color: #9F9F9F !important;
 }
+
 .names {
-  font-size: 1em;
+  font-size: 2em;
+  color: $secondary-bg-color;
+  font-weight: bold;
 }
 
 .location {
-  line-height: 1em;
-  .state{
-    font-size: 0.75em;
-  }
-}
-.joined {
-  font-style: italic;
-  font-size: 0.75em;
+  line-height: 1.5em;
+  //padding-left: 1em;
+  font-size: 1em;
 }
 
-.profile-wrapper {
-  padding: 25px;
-  border: solid 1px #dadada;
-  background-color: #fafafa;
-  
-}
-.avatar-wrapper {
-  .avatar {
+.user-title {
+  display:table-cell;
+  vertical-align: middle;
+  h5 {
+    font-weight: bold;
   }
 }
 
-.box {
-  border: solid 1px #eaeaea;
-  padding: 10px;
-  background-color: white;
-
-  .title {
-    font-size: 1.5em;
-  }
-}
-
-.skills-list {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  list-style: none;
-  border: solid 1px #eaeaea;
-  background-color: white;
+.username {
+  line-height: 1.5em;
   text-align: center;
-  li {
-    width: 25%;
-  }
+  font-size: 1em;
+}
+
+#right-col, .sidebar{
+  border-bottom: none;
+  padding-bottom: 0px;
 }

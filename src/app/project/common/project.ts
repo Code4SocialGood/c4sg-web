@@ -1,20 +1,25 @@
 export class Project {
+  constructor(
+    public id: number,
 
-  constructor(public id: number,
-              public name: string,
-              public organizationId: number,
-              public shortDescription: string,
-              public description: string,
-              public image?: string,
-              public line1?: string,
-              public line2?: string,
-              public city?: string,
-              public country?: string,
-              public zip?: string,
-              public organization?: any,
-              public address1?: string,
-              public address2?: string,
-              public state?: string,
-              public createdTime?: any) {
-  }
+    public name: string,
+    public description: string,
+    public organizationId: number,
+    public jobTitleId?: number,
+    public remoteFlag?: string,
+    public address1?: string,
+    public address2?: string,
+    public city?: string,
+    public state?: string,
+    public country?: string,
+    public zip?: string,
+    public imageUrl?: any,
+
+    public status?: string,
+    public createdTime?: string,
+    public updatedTime?: string,
+
+    public skills?: string[],
+    public organizationName?: string
+  ) { }
 }

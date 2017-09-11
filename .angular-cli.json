@@ -8,8 +8,8 @@
 	    "root": "src",
 	    "outDir": "dist",
 	    "assets": [
-		"assets",
-		"favicon.ico"
+        "assets",
+        "favicon.png"
 	    ],
 	    "index": "index.html",
 	    "main": "main.ts",
@@ -19,18 +19,25 @@
 	    "testTsconfig": "tsconfig.spec.json",
 	    "prefix": "app",
 	    "styles": [
+
+		"../node_modules/leaflet/dist/leaflet.css",
     "app/app.main.scss"
 	    ],
 	    "scripts": [
 		"../node_modules/jquery/dist/jquery.min.js",
 		"../node_modules/materialize-css/dist/js/materialize.min.js",
-		"../node_modules/underscore/underscore-min.js"
+		"../node_modules/underscore/underscore-min.js",
+		"../node_modules/leaflet/dist/leaflet.js"
 	    ],
 	    "environmentSource": "environments/environment.ts",
-	    "environments": {
-		"dev": "environments/environment.ts",
+  	  "environments": {
+  	  	"local": "environments/environment.local.ts",
+        "dev": "environments/environment.dev-local.ts",
+		"dev_local": "environments/environment.dev-local.ts",
 		"dev_remote": "environments/environment.dev-remote.ts",
-		"prod": "environments/environment.prod.ts",
+		"staging_local": "environments/environment.staging-local.ts",
+		"staging_remote": "environments/environment.staging-remote.ts",
+		"prod_local": "environments/environment.prod-local.ts",
 		"prod_remote": "environments/environment.prod-remote.ts"
 	    }
 	}

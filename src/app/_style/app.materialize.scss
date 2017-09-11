@@ -1,0 +1,97 @@
+// input label underline focus color
+.input-field input[type=text]:focus {
+  border-bottom-color: $secondary-bg-color;
+  box-shadow: 0 1px 0 0 $secondary-bg-color;
+}
+
+// input label underline focus color
+textarea.materialize-textarea:focus {
+  border-bottom-color: solid $secondary-bg-color;
+  box-shadow: 0 1px 0 0 $secondary-bg-color;
+}
+
+// input label color
+/* Kepp label as original color when not focused
+.input-field label {
+   color: $secondary-bg-color;
+ }*/
+
+// input label focus color
+.input-field input[type=text]:focus + label {
+  color: $secondary-bg-color;
+}
+
+// input label focus color
+textarea.materialize-textarea:focus + label {
+  color: $secondary-bg-color;
+}
+
+// checkbock, checked
+[type="checkbox"]:checked + label:before {
+  border-right-color: $secondary-bg-color;
+  border-bottom-color: $secondary-bg-color;
+}
+
+// radio button color, selected, outter
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border-color: $secondary-bg-color;
+}
+
+// radio button color, selected, inner
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+  background-color: $secondary-bg-color;
+}
+
+// select, selected option
+.select-wrapper {
+  color: $secondary-bg-color;
+}
+
+// selector selections color
+.select-dropdown li span{
+  color: $secondary-bg-color;
+}
+
+#toast-container {
+  .toast {
+    background-color: $secondary-color;
+    min-height:34px;
+  }
+}
+
+.backdrop{
+  background-color: $secondary-color;
+}
+
+.materialize-textarea{
+  min-height: 1rem;
+  height: 1rem;
+}
+
+
+.dropdown-content {
+    li {
+    clear: both;
+    cursor: pointer;
+    min-height: 10px;
+    //line-height: 1rem;
+    width: 100%;
+    text-align: left;
+    text-transform: none;
+
+    & > a, & > span {
+      font-size: 15px;
+      display: block;
+      line-height: 10px;
+      //padding: ((25 - 22) / 2) 16px;
+    }
+
+    & > span > label {
+      top: 1px;
+      left: 0;
+      height: 10px;
+    }
+
+
+  }
+}

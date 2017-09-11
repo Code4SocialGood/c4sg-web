@@ -1,106 +1,300 @@
+<div class="page-title">
+  <h1>Project</h1>
+</div>
 <div class="container">
-    <div class="row">
-        <div class="col s12 m9">
+  <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
+    <!-- Left Panel: Project -->
+    <div class="col s8" id="left-col">
+      <div class="content  sidebar-wrapper" *ngIf="project">
+        <div class="row single-info">
+          <div class="col s6 m3 l3">
+            <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
+            <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
+          </div>
+          <div class="col s12 m9 l9">
             <div class="row">
-                <div class="col s6 m6">  
-                    <div>
-                        <b>{{project?.name}}</b><br>
-                        <a href="#">{{project?.organization.name}}</a>
+              <div class="col s12">
+                <h1 class="content-title" *ngIf="project">{{project.name}}</h1>
+              </div>
+            </div>
+            <div *ngFor="let jobTitle of jobTitlesArray">
+              <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
+                Category: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 2)}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 l7">
+                <div class="row">
+                  <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: {{pad("Remote", "&nbsp;", 2)}}</div>
+                  <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
+                    Location: <span *ngIf="project.state">{{pad(project.state, "&nbsp;", 2)}}, </span>{{project.country}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <span>Posted: {{pad((project.updatedTime | slice: 0:10), "&nbsp;", 6)}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
+                  <div class="col s8">
+                    <div class="project-marked">
+                       <i class="material-icons icon applied-symbol">done</i>
+                      <!--<svg class="icon applied-symbol">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#applied-symbol"></use>
+                      </svg>-->
+                      <span>Applied</span>
                     </div>
-                    <br>
-                    <div class="col s3" id="photo">
-                        <img [src]="projectImage" alt="Project Photo">
-                    </div>                 
-                </div>
-                <div class="col s6 m6">                       
-                    <div>
-                        <b>Remote</b>
-                        <address>
-                          {{project?.address1}}<br>
-                          {{project?.address2}}<br>
-                          {{project?.city}}, {{project?.zip}} <br>
-                          {{project?.state}}<br>
-                           {{project?.country}}
-                        </address> 
-                    </div> 
-                    <br>
-                    <div>Posted {{project?.createdTime | date: 'dd/MM/yyyy'}}</div>
-                    <br>
-                    <div>
-                        <b>Skills</b><br>
-                        <div class="chip">CSS</div>
-                        <div class="chip">HTML</div>
-                        <div class="chip">JavaScript</div>
-                        <div class="chip">MySql</div>
-                        <div class="chip">Angular2</div>
-                        <div class="chip">Java</div>
-                        <div class="chip">TypeScript</div>
+                    <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
                     </div>
-                    
+                  </div>
                 </div>
+                <div class="row" *ngIf="projectStatusBookmarked && !projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
+                  <div class="col s8">
+                    <div class="project-marked">
+                      <i class="material-icons icon applied-symbol">bookmark</i>
+                      <!--<svg class="icon bookmarked-symbol">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#bookmarked-symbol"></use>
+                      </svg>-->
+                      <span>Bookmarked</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="projectStatusAccepted">
+                  <div class="col s8">
+                    <div class="project-marked">
+                      <i class="material-icons icon applied-symbol">done_all</i>
+                      <!--<svg class="icon accepted-symbol">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#accepted-symbol"></use>
+                      </svg>-->
+                      <span>Accepted</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="projectStatusDeclined">
+                  <div class="col s8">
+                    <div class="project-marked">
+                       <i class="material-icons icon applied-symbol">clear</i>
+                      <!--<svg class="icon declined-symbol">
+                        <use xlink:href="../../assets/applied-bookmarked-sprite.svg#declined-symbol"></use>
+                      </svg>-->
+                      <span>Declined</span>
+                    </div>
+                     <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row">
-                <div class="col s12">
-                    <p>{{project?.description}}</p>
+              <div class="col s12">
+                <div class="skills-tag-wrapper">
+                  <ul *ngIf="project.skills">
+                    <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
+                  </ul>
                 </div>
+              </div>
             </div>
-            <div class="row">
-                <div class="col s2 offset-s2"><button>Apply</button></div>
-                <div class="col s2 offset-s2"> 
-                    <button (click)="bookmark()" materialize [materializeParams]="[]" [materializeActions]="globalActions">
-                        Bookmark
-                    </button>
-                </div>
-                <div class="col s2 offset-s2">   
-                    <div class="share-button-block">                        
-                        <div class="fixed-action-btn horizontal click-to-toggle">
-                            <a class="btn share-btn">
-                                <i class="mdi mdi-share-variant mdi-24px left"></i>share
-                            </a>
-                            <ul>
-                                <li><a href="https://www.facebook.com/code4socialgood" class="btn-floating"><i class="mdi mdi-facebook mdi-24px"></i></a></li>
-                                <li><a href="https://twitter.com/code4socialgood" class="btn-floating"><i class="mdi mdi-twitter mdi-24px"></i></a></li>
-                                <li><a href="mailto:info@code4socialgood.org" class="btn-floating"><i class="mdi mdi-email mdi-24px"></i></a></li>
-                                <li><a href=" https://www.linkedin.com/company-beta/16227162/" class="btn-floating"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>                                                            
-                </div> 
-                <div class="col s2 offset-s4"><button (click)="edit()">Edit</button></div>
-                <div class="col s4 offset-s2"><button (click)="delete()">Delete</button></div>
+          </div>
+          <div class="col m12">
+            <br>
+            <div class="info-title">Description</div>
+            <div class="info-description">{{ project.description }}</div>
+          </div>
+          <div class="row">
+            <div class="col s12 action-btns">
+              <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
+                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
+                Apply
+              </button>
+              <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+                Apply
+              </button>
+              <!-- Apply button is enabled for login user -->
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
+                [disabled]="projectStatusApplied">
+                Apply
+              </button>
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
+                *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
+                Bookmark
+              </button>
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')"
+                [disabled]="projectStatusBookmarked">
+                Bookmark
+              </button>
+              <!--<button type="button" class="btn waves-effect waves-light" materialize [materializeParams]="[]" [materializeActions]="globalActions"-->
+              <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayEdit" (click)="edit()">Edit
+              </button>
+              <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal(project)">Close
+              </button>
+              <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
+              Delete</button>-->
+              <my-shared-btn [displayShare]="displayShare" [project]="project"></my-shared-btn>
             </div>
+          </div>
         </div>
-        <div class="col s12 m3">
-            <div class="row">
-                <!-- row1-->
-                <div class="col s12">
-                    <a routerLink="/nonprofit/view/{{project?.organization.id}}">{{project?.organization.name}}</a>
-                </div>
-                <br><br>
-                 <!-- row2-->
-                <div class="col s6">
-                    <img [src]="" alt="Organization Logo">
-                </div>
-                <div class="col s6">
-                    {{project?.organization.city}}, {{project?.organization.state}}, {{project?.organization.country}}
-                </div>
-                
-                 <!-- row3-->
-                 <div class="col s12">
-                     <p>{{project?.organization.description}}</p>
-                </div>
-                
-                <!-- row4-->
-                 <div class="col s12" *ngIf="projects">
-                     <a href="#">{{projects?.length}}</a> Opportunities
-                     <ul>
-                         <li *ngFor="let project of projects">
-                             <a [routerLink]="['/project/view',project.id]">{{project.name}}</a>
-                         </li>                         
-                     </ul>
-                </div>
-                
+      </div>
+
+      <!-- Nonprofit User - Applicants -->
+      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
+        <div class="row">
+          <div class="col s12">
+            <h4 class="content-title">Applicants</h4>
+            <div class="items-list-wrapper">
+              <ul class="user-list" *ngIf="applicants">
+                <li class="user-wrapper" *ngFor="let applicant of applicants">
+                  <div class="user">
+                    <div class="user-info col s4">
+                      <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
+                      <div>{{applicant.title}}</div>
+                    </div>
+                    <div class="user-info col s4">
+                      <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
+                      <div *ngIf="applicant.applicationStatus === 'C'">
+                        Accepted on: {{applicant.acceptedTime | slice: 0:10}}
+                      </div>
+                      <div *ngIf="applicant.applicationStatus === 'D'">
+                        Declined on: {{applicant.declinedTime | slice: 0:10}}
+                      </div>
+                    </div>
+                    <div class="user-info col s4 buttons-margin"
+                    *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
+                      <div class="button-col-padding">
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
+                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
+                      </div>
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
+                      <div>ACCEPTED</div>
+                    </div>
+                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'D'">
+                      <div>DECLINED</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
+            <div class="row" *ngIf="applicants && applicants.length == 0">
+              <div class="col s12">
+                <div class="info">No applicants found</div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>    
+      </div>
+    </div>
+
+    <!-- Right Panel: Organization and projects -->
+    <div class="col m4" id="right-col">
+      <div class="sidebar">
+        <div class="section">
+          <h4>Organization</h4>
+          <div class="section-body-organization divalign">
+            <div class="card">
+              <div class="card-content" *ngIf="organization">
+                <div class="row single-info">
+                  <div class="col m4">
+                    <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
+                    <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="constantsService.defaultImage"></div>
+                  </div>
+                  <div class="col m8 organization-name">
+                    <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
+                    <p *ngIf="!organization.id">{{organization.name}}</p>
+                  </div>
+                  <div class="col m8">
+                    <p>Category: {{categoryName}}</p>
+                    <p>
+                      Location:
+                      <span class="state" *ngIf="organization.state">{{organization.state}}, </span>
+                      <span class="state">{{organization.country}}</span>
+                    </p>
+                  </div>
+                </div>
+                <p *ngIf="organization && organization.description">{{ organization && organization.description | slice:0:100 }} ...
+                </p>
+              </div>
+            </div>
+          </div>
+          <h4 *ngIf="projects">Projects ({{projects.length}})</h4>
+          <div class="section-body-project" *ngIf="!projects">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length == 0">
+              <ul>
+                  <li class="card-wrapper">
+                      <div class="card">
+                          <div class="card-content">
+                            <div class="row single-info">
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div class="section-body-project" *ngIf="projects?.length > 0">
+            <div class="items-list-wrapper">
+              <ul>
+                <li class="card-wrapper" *ngFor="let pr of projects.slice(0,5)">
+                  <my-project-card-small [project]="pr"></my-project-card-small>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Confirm Project Close</h4>
+    <p>Are you sure you want to close the project?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">No</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="onClose()">Yes</a>
+  </div>
 </div>

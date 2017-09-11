@@ -5,18 +5,36 @@
   <title>Code for Social Good</title>
   <base href="/">
 
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="./favicon.png">
 
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  </head>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/597514b35dfc8255d623e857/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+  })();
+  Tawk_API.onLoad = function(){
+    Tawk_API.minimize();
+  };
+</script>
+<!--End of Tawk.to Script-->
 <body>
   <script src="https://cdn.auth0.com/js/lock/10.8/lock.min.js"></script>
-    
+  <script src="https://cdn.auth0.com/js/auth0/8.8/auth0.min.js"></script>
+
   <my-app>
     <div class="preloader-wrapper big active" >
-      <div class="spinner-layer spinner-red-only">
+      <div class="spinner-layer spinner-green-only">
         <div class="circle-clipper left">
           <div class="circle"></div>
         </div><div class="gap-patch">
@@ -27,5 +45,6 @@
       </div>
     </div>
   </my-app>
+
 </body>
 </html>

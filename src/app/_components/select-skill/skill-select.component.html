@@ -1,0 +1,11 @@
+<div class="skills-tag-wrapper">
+  <ul>
+    <li class="chip" *ngFor="let projectSkill of projectSkillsArray">{{ projectSkill }}
+      <i class="close material-icons" (click)="onDelete($event, projectSkill)">close</i>
+    </li>
+      <li class="chip" *ngFor="let userSkill of userSkillsArray">{{ userSkill }}
+      <i class="close material-icons" (click)="onDelete($event, userSkill)">close</i>
+    </li>
+  </ul>
+</div>
+

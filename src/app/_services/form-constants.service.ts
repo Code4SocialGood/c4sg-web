@@ -2,10 +2,17 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FormConstantsService {
+
+  defaultLogo = '../../assets/default_image.png';
+  defaultAvatar = '../../assets/default_avatar.png';
+  defaultImage = '../../assets/default_image.png';
+  maxFileSize = 1048576;
+
   private states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
     'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
     'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV',
     'WI', 'WY', 'DC', 'PR', 'VI', 'AS', 'GU', 'MP'];
+
   private countries = [
     { code: 'USA', name: 'United States of America' },
     { code: 'ABW', name: 'Aruba' },
@@ -257,11 +264,15 @@ export class FormConstantsService {
     { code: 'ZMB', name: 'Zambia' },
     { code: 'ZWE', name: 'Zimbabwe' }
   ];
-  private categories = ['Non-Profit'];
+
+  private categories = [
+    {name: 'Nonprofit', value: 'N'},
+    {name: 'Open Source', value: 'O'},
+   ];
 
   constructor() { }
 
-  getCategories(): string[] {
+  getCategories(): {[key: string]: any} {
     this.categories.sort();
     return this.categories;
   }
