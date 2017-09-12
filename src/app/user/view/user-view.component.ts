@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import { User } from '../common/user';
 import { Project } from '../../project/common/project';
