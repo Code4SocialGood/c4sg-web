@@ -282,6 +282,10 @@ export class ProjectViewComponent implements OnInit {
     this.router.navigate(['project/edit', this.project.id]);
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   onClose(): void {
     this.projectService
       .delete(this.project.id)
