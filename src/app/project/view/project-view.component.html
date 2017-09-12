@@ -1,6 +1,12 @@
-<div class="page-title">
-  <h1>Project</h1>
-</div>
+
+ <button (click)="goBack()">Back to Search Results</button>
+ <div class="page-title" *ngIf="project && project.status === 'A'">
+    <h1>Project</h1>
+  </div>
+  <div class="page-title" *ngIf="project && project.status === 'C'">
+    <h1>Project- CLOSED</h1>
+  </div>
+
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
@@ -46,14 +52,14 @@
                       </svg>-->
                       <span>Applied</span>
                     </div>
-                    <div class="project-marked" *ngIf="project.status === 'A'">
+                    <!--<div class="project-marked" *ngIf="project.status === 'A'">
                        <i class="material-icons icon">notifications_active</i>
                        <span>Active</span>
                      </div>
                     <div class="project-marked" *ngIf="project.status === 'C'">
                        <i class="material-icons icon">close</i>
                        <span>Closed</span>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusBookmarked && !projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
@@ -65,14 +71,14 @@
                       </svg>-->
                       <span>Bookmarked</span>
                     </div>
-                     <div class="project-marked" *ngIf="project.status === 'A'">
+                    <!-- <div class="project-marked" *ngIf="project.status === 'A'">
                        <i class="material-icons icon">notifications_active</i>
                        <span>Active</span>
                      </div>
                     <div class="project-marked" *ngIf="project.status === 'C'">
                        <i class="material-icons icon">close</i>
                        <span>Closed</span>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusAccepted">
@@ -84,14 +90,14 @@
                       </svg>-->
                       <span>Accepted</span>
                     </div>
-                     <div class="project-marked" *ngIf="project.status === 'A'">
+                     <!--<div class="project-marked" *ngIf="project.status === 'A'">
                        <i class="material-icons icon">notifications_active</i>
                        <span>Active</span>
                      </div>
                     <div class="project-marked" *ngIf="project.status === 'C'">
                        <i class="material-icons icon">close</i>
                        <span>Closed</span>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusDeclined">
@@ -103,14 +109,14 @@
                       </svg>-->
                       <span>Declined</span>
                     </div>
-                     <div class="project-marked" *ngIf="project.status === 'A'">
+                   <!--  <div class="project-marked" *ngIf="project.status === 'A'">
                        <i class="material-icons icon">notifications_active</i>
                        <span>Active</span>
                      </div>
                     <div class="project-marked" *ngIf="project.status === 'C'">
                        <i class="material-icons icon">close</i>
                        <span>Closed</span>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
               </div>
