@@ -35,7 +35,6 @@ import {UserViewComponent} from './user/view/user-view.component';
 import {UserEditComponent} from './user/edit/user-edit.component';
 
 import {AuthRoleSelectionComponent} from './auth.role.component';
-import {MapViewerComponent} from './map-viewer/map-viewer.component';
 
 import {SharedBtnComponent} from './_components/shared-btn/shared-btn.component';
 import {SkillSelectComponent} from './_components/select-skill/skill-select.component';
@@ -111,7 +110,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserEditComponent,
 
     AuthRoleSelectionComponent,
-    MapViewerComponent,
     SkillSelectComponent,
     SharedBtnComponent,
     ScrollSkillsDirective,
