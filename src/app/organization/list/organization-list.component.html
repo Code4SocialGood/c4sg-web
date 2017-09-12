@@ -77,7 +77,8 @@
                     <div class="card-info">
                       <div class="card-header">
                         <div class='name'>
-                          <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>
+                         <!-- <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>-->
+                         <a class='name' href="organization/view/{{org.id}}">{{org.name}}</a>
                         </div>
                         <div class="row">
                           <div class="card-metainfo col m6">

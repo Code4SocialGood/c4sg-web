@@ -9,7 +9,8 @@
     <div class="card-info">
       <div class="card-header">
         <div class='name'>
-        <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+       <!-- <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>-->
+       <a href="project/view/{{project.id}}">{{project.name}}</a>
         <div class="right"  *ngIf="from!=='myProjects'">
           <div class="col s12" *ngIf="userProjectStatus === 'applied'">
             <div class="project-marked">
