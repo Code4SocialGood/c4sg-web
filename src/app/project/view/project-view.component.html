@@ -1,4 +1,6 @@
-  <div class="page-title" *ngIf="project && project.status === 'A'">
+
+ <button (click)="goBack()">Back to Search Results</button>
+ <div class="page-title" *ngIf="project && project.status === 'A'">
     <h1>Project</h1>
   </div>
   <div class="page-title" *ngIf="project && project.status === 'C'">
@@ -194,7 +196,8 @@
                         Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>
-                    <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
+                    <div class="user-info col s4 buttons-margin"
+                    *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
                       <div class="button-col-padding">
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
