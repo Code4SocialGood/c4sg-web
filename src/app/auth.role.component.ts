@@ -15,7 +15,6 @@ declare var $: any;
 @Component({
 // moduleId: module.id,  // For webpack, remove this
   selector: 'my-app',
-  providers: [AuthService],
   template: ` 
   <div class="container">
     <div id="modal1" class="modal" style="display:none">
@@ -32,14 +31,15 @@ declare var $: any;
                   <input type="radio" 
                     name="role"
                     [value]="entry.value" 
-                    style="position: relative; left: 7rem; margin-top: -.5rem; opacity: 100;" 
+                    style="position: relative; left: 17rem; margin-top: -.5rem; opacity: 100;" 
                     (change)="onSelectionChange(entry)"
-                  />
-                  
+                  />                  
               </td>
             </tr>       
           </tbody>
-        </table>          
+        </table>   
+        <hr>
+        <h6>If you registered via email/password, you will need to log back in after role selection.</h6>       
 	    </div> 
       <div class="modal-footer">
         <button id="btn1" [disabled]="true" (click) = "setRole()" class="btn modal-action modal-close 
@@ -60,7 +60,7 @@ export class AuthRoleSelectionComponent implements OnInit, AfterViewInit {
       description: null
     };
 
-    constructor(private location: Location, private router: Router, private auth0: AuthService, private route: ActivatedRoute) { }
+    constructor(private location: Location, private router: Router, public auth0: AuthService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
       // Retrieve the state passed by Auth0 to avoid csrf issue upon callback
@@ -69,11 +69,11 @@ export class AuthRoleSelectionComponent implements OnInit, AfterViewInit {
       // Initialize the role options
       this.entries = [
         {
-          description: 'Volunteer User (Volunteer with Projects)',
+          description: 'Volunteer User (Contribute to Projects)',
           value: 'VOLUNTEER'
         },
         {
-          description: 'Project Owner (Post Projects)',
+          description: 'Organization User (Post Projects)',
           value: 'ORGANIZATION'
         },
         // { // Remove admin user from UI

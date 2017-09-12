@@ -1,6 +1,12 @@
-<div class="page-title">
-  <h1>Project</h1>
-</div>
+
+ <button (click)="goBack()">Back to Search Results</button>
+ <div class="page-title" *ngIf="project && project.status === 'A'">
+    <h1>Project</h1>
+  </div>
+  <div class="page-title" *ngIf="project && project.status === 'C'">
+    <h1>Project- CLOSED</h1>
+  </div>
+
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
@@ -19,7 +25,7 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === project?.jobTitleId">
-                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
+                Category: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 2)}}</span>
               </div>
             </div>
             <div class="row">
@@ -38,7 +44,7 @@
               </div>
               <div class="right">
                 <div class="row" *ngIf="projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                        <i class="material-icons icon applied-symbol">done</i>
                       <!--<svg class="icon applied-symbol">
@@ -46,10 +52,18 @@
                       </svg>-->
                       <span>Applied</span>
                     </div>
+                    <!--<div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusBookmarked && !projectStatusApplied && !projectStatusAccepted && !projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                       <i class="material-icons icon applied-symbol">bookmark</i>
                       <!--<svg class="icon bookmarked-symbol">
@@ -57,10 +71,18 @@
                       </svg>-->
                       <span>Bookmarked</span>
                     </div>
+                    <!-- <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusAccepted">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                       <i class="material-icons icon applied-symbol">done_all</i>
                       <!--<svg class="icon accepted-symbol">
@@ -68,10 +90,18 @@
                       </svg>-->
                       <span>Accepted</span>
                     </div>
+                     <!--<div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>-->
                   </div>
                 </div>
                 <div class="row" *ngIf="projectStatusDeclined">
-                  <div class="col s12">
+                  <div class="col s8">
                     <div class="project-marked">
                        <i class="material-icons icon applied-symbol">clear</i>
                       <!--<svg class="icon declined-symbol">
@@ -79,6 +109,14 @@
                       </svg>-->
                       <span>Declined</span>
                     </div>
+                   <!--  <div class="project-marked" *ngIf="project.status === 'A'">
+                       <i class="material-icons icon">notifications_active</i>
+                       <span>Active</span>
+                     </div>
+                    <div class="project-marked" *ngIf="project.status === 'C'">
+                       <i class="material-icons icon">close</i>
+                       <span>Closed</span>
+                    </div>-->
                   </div>
                 </div>
               </div>
@@ -137,7 +175,7 @@
       </div>
 
       <!-- Nonprofit User - Applicants -->
-      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true && project.status === 'A'">
+      <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
         <div class="row">
           <div class="col s12">
             <h4 class="content-title">Applicants</h4>
@@ -158,7 +196,8 @@
                         Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>
-                    <div class="user-info col s4 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
+                    <div class="user-info col s4 buttons-margin"
+                    *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
                       <div class="button-col-padding">
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
                         <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
@@ -189,7 +228,7 @@
       <div class="sidebar">
         <div class="section">
           <h4>Organization</h4>
-          <div class="section-body-organization">
+          <div class="section-body-organization divalign">
             <div class="card">
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">

@@ -1,3 +1,4 @@
+<button (click)="goBack()">Back to Search Results</button>
 <div class="page-title">
   <h1>Organization</h1>
 </div>
@@ -27,7 +28,8 @@
                   <div class="col s12">Location:
                     <span class="state" *ngIf="organization.state">{{pad(organization.state, "&nbsp;", 1)}}, </span>
                     <span class="state" *ngIf="organization.country">{{organization.country}}</span>
-                    <span class="state" *ngIf="!organization.state && organization.country">{{pad(organization.country, "&nbsp;", 1)}}, </span>
+                    <!--<span class="state" *ngIf="!organization.state && organization.country">
+                      {{pad(organization.country, "&nbsp;", 1)}}, </span>-->
                   </div>
                 </div>
               </div>
@@ -67,8 +69,9 @@
     <div class="col m4" id="right-col">
       <div class="sidebar">
         <div class="section" *ngIf="projects">
-          <h4>Contact</h4>
-          <div class="section-body-organization">
+
+          <div class="section-body-organization" *ngIf="authService.authenticated()">
+            <h4>Contact</h4>
             <div class="card">
               <div class="card-content">
                 <div class="row single-info" *ngIf="user">

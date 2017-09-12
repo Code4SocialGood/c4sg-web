@@ -9,7 +9,8 @@
     <div class="card-info">
       <div class="card-header">
         <div class='name'>
-        <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>
+       <!-- <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>-->
+       <a href="project/view/{{project.id}}">{{project.name}}</a>
         <div class="right"  *ngIf="from!=='myProjects'">
           <div class="col s12" *ngIf="userProjectStatus === 'applied'">
             <div class="project-marked">
@@ -59,6 +60,7 @@
             project.organizationName }}</p>
         </div>
         <div class="card-metainfo col m6">
+          <div class="nowrapalign">
           <span class="state" *ngIf="project.state">{{project.state}}, </span>
           <span class="state" *ngIf="project.country">{{project.country}}</span>
           <span class="joined-at" *ngIf="!project.state && !project.country">Remote</span>

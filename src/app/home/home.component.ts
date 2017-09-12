@@ -5,12 +5,17 @@ import { Project } from '../project/common/project';
 import { ProjectService } from '../project/common/project.service';
 import { DataService } from '../_services/data.service';
 import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs/Rx';
+import { User } from '../user/common/user';
+import { UserService } from '../user/common/user.service';
+import { FormConstantsService } from '../_services/form-constants.service';
+require('./agmMarkerProto.js');
 
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
   styleUrls: [ 'home.component.scss' ],
-  animations: [
+   animations: [
     trigger('buttonState', [
       state('inactive', style({
         transform: 'scale(1)'
@@ -54,10 +59,12 @@ import { AuthService } from '../auth.service';
 
 export class HomeComponent implements OnInit {
 
-  projects: Project[] = [];
-
   // search button
   state = 'inactive';
+  projects: Project[] = [];
+
+  // Featured projects
+  topThreeProjects: Project[] = [];
 
   // cursor and aniSlogan
   tempWord = '';
@@ -72,14 +79,28 @@ export class HomeComponent implements OnInit {
   aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
   aniWordOrg = '';
 
+  // Google maps
+  usersSubscription: Subscription;
+  developers: User[];
+  organizations: User[];
+  zoom = 2;
+  // initial center position for the map
+  lat = 0;
+  lng = 0;
+  activeInfoWindow = null;
+
   constructor(private projectService: ProjectService,
               private router: Router,
               private dataService: DataService,
-              public authSvc: AuthService) {
+              public authSvc: AuthService,
+              private uService: UserService,
+              public constantsService: FormConstantsService) {
   }
 
   // onload animation timer
   ngOnInit(): void {
+
+    // cursor and aniSlogan
     const wordTimer = Observable.timer(0, 35 * this.typeAniPeriod);
     const typeTimer = Observable.timer(0, this.typeAniPeriod);
     const cursorTimer = Observable.timer(0, 400);
@@ -88,11 +109,23 @@ export class HomeComponent implements OnInit {
     typeTimer.subscribe(v => this.aniWord = this.typeWord(v, this.tempWord));
     cursorTimer.subscribe(u => this.cursorFlash(u));
 
+    // Google maps
+    this.getDevelopers();
+    // Google maps
+    this.getOrganizations();
+
+    // Featured projects
+    this.getTopThreeProjects();
+  }
+
+  // search button
+   toggleState() {
+    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
   }
 
   getProjectsByKeyword(keyword: string) {
     keyword = keyword.trim();
-    if (!keyword) { return; }
+    // if (!keyword) { return; }
     this.router.navigate(['/project/list/projects'], {
       queryParams: {
         keyword: keyword
@@ -100,13 +133,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // animation controllers
-  // search button
-  toggleState() {
-    this.state = (this.state === 'inactive' ? 'active' : 'inactive');
+  private getTopThreeProjects(): void {
+    this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
+        .subscribe(
+        res => {
+          this.projects = res.data;
+          this.topThreeProjects = this.projects.slice(0, 3);
+        },
+        error => console.log(error)
+        );
   }
-
-
+  // cursor and aniSlogan
   // animation word
   switchWord(time) {
     const index = time % this.aniWordGroup.length;
@@ -133,4 +170,50 @@ export class HomeComponent implements OnInit {
   cursorFlash(time) {
     this.cursorState = (this.cursorState === 'inactive' ? 'active' : 'inactive');
   }
-}
+
+  // Google maps
+  private getDevelopers(): void {
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
+      res => {
+        this.developers = res.filter(vol => vol.role === 'V');
+      },
+      error => console.error(error)
+    );
+  }
+  // Google maps
+  private getOrganizations(): void {
+    this.usersSubscription = this.uService.getAllUsers()
+    .subscribe(
+      res => {
+        this.organizations = res.filter(vol => vol.role === 'O');
+      },
+      error => console.error(error)
+    );
+  }
+
+  public getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+        return country.name;
+    } else {
+        return '';
+    }
+  }
+
+  handleMarkerMouseOver(event): void {
+    if (this.activeInfoWindow) {
+      this.activeInfoWindow.forEach(function(infoWindow){
+        return infoWindow.close();
+      });
+    }
+
+    const window = event.target.infoWindow;
+    this.activeInfoWindow = window;
+    window.forEach(function(infoWindow){
+      return infoWindow.open();
+    });
+  }
+
+ }

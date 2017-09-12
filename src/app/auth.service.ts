@@ -21,7 +21,6 @@ import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from 
 declare const Auth0Lock: any;
 declare const auth0: any;
 
-
 @Injectable()
 export class AuthService {
 
@@ -39,12 +38,13 @@ export class AuthService {
   app_metaData = 'http://app_metadata';
   isSocial = 'http://issocial';
   refreshSubscription: Subscription;
+  defDurationInSec = 86400;
 
   webauth = new auth0.WebAuth({
     domain: environment.auth_domain,
     clientID: environment.auth_clientID,
-    responseType: 'token id_token',
-    scope: 'openid profile email user_metadata app_metadata scope',
+    responseType: 'token',
+    scope: 'openid profile email scope',
     audience: environment.auth_api,
     env: environment.auth_callback_env
   });
@@ -116,7 +116,7 @@ export class AuthService {
     };
     this.webauth.client.delegation(opt, function (err, delegationResult) {
       if (!err) {
-        console.log(JSON.stringify(delegationResult.Credentials));
+        // console.log(JSON.stringify(delegationResult.Credentials));
         localStorage.removeItem('delgId');
         localStorage.removeItem('delgSecId');
         localStorage.setItem('delgcred', JSON.stringify(delegationResult.Credentials));
@@ -135,13 +135,12 @@ export class AuthService {
   }
 
   public handleAuthentication(): void {
-    this.webauth.parseHash((err, authResult) => {
+    this.webauth.parseHash(window.location.hash, (err, authResult) => {
       if (authResult && authResult.accessToken
         // && authResult.idToken     // no id token returned
       ) {
         window.location.hash = '';
         this.setSession(authResult);
-
         // set uset profile of already saved profile
         this.userProfile = JSON.parse(localStorage.getItem('profile'));
 
@@ -150,10 +149,18 @@ export class AuthService {
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
+          if (authResult.accessToken.length < 20) {
+            // console.log('idtoken: ' + authResult.idToken);
+            // workaround : do not delete below line as its needed for email signup
+            localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
+          }
           // Signed up via email/pwd
-          const profIsSocialIDP = profile[this.isSocial];
-          const profAppMetadata = profile[this.app_metaData];
-          const profAppMetadataRole = profile[this.apiRole];
+          const profIsSocialIDP = profile[this.isSocial] === undefined ?
+            profile.identities[0].isSocial : profile[this.isSocial];
+          const profAppMetadata = profile[this.app_metaData] === undefined ?
+            profile.app_metadata : profile[this.app_metaData];
+          const profAppMetadataRole = profile[this.apiRole] === undefined ?
+            profile.app_metadata.roles : profile[this.apiRole];
 
           if (!profIsSocialIDP) {
             // this.userName = profile.user_metadata.user_name;
@@ -184,6 +191,7 @@ export class AuthService {
               if (res) {
                 user = res;
               }
+              localStorage.setItem('currentUserEmail', this.email);
               // If user not found, then create the user
               if (user === undefined) {
                 console.log('User does not exist');
@@ -193,12 +201,19 @@ export class AuthService {
                   role: luserRole.toUpperCase().substr(0, 1),
                   // userName: luserName,
                   firstName: firstName,
-                  lastName: lastName
+                  lastName: lastName,
                   // publishFlag: 'N',
                   // notifyFlag: 'N',
                   // status: 'ACTIVE'
+                  title: '',
+                  introduction: ''
                 });
 
+                const curTime = new Date();
+                localStorage.setItem('currentUserEmail', lemail);
+                localStorage.setItem('currentUserRole', luserRole);
+                localStorage.setItem('currentUserFName', firstName);
+                localStorage.setItem('currentUserLName', lastName);
                 // Create a user
                 this.userService.add(newUser).subscribe(
                   res1 => {
@@ -212,7 +227,12 @@ export class AuthService {
                     }
                     localStorage.setItem('currentUserAvatar', user.avatarUrl);
                   },
-                  error1 => console.log(error1));
+                  error1 => {
+                    console.log(error1);
+                    this.logout();
+                  });
+                  this.router.navigate(['/user/edit/0']);
+                  localStorage.setItem('redirectAfterLogin', this.router.url);
               } else {
                 // Store user id and display name
                 localStorage.setItem('currentUserId', user.id);
@@ -223,11 +243,18 @@ export class AuthService {
                 }
                 localStorage.setItem('currentUserAvatar', user.avatarUrl);
                 this.setlocalStorageItems();
+                if (user.userName === null) {
+                    this.router.navigate(['/user/edit/' + user.id]);
+                    localStorage.setItem('redirectAfterLogin', '/user/edit/' + user.id);
+                  }
               }
 
               if (environment.production && !environment.auth_tenant_shared) {
                 this.getDelegationToken();
               }
+
+              // schedule renewal here
+              this.scheduleRenewal();
 
               // Issue 356 - redirect user back to the page that requested login - project view page
               this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
@@ -250,10 +277,14 @@ export class AuthService {
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn) + (new Date().getTime() / 1000));
     localStorage.setItem('access_token', authResult.accessToken);
-    // localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+    if (authResult.idToken !== null) {
+      this.idToken = authResult.idToken;
+     // localStorage.setItem('id_token', authResult.idToken);
+    }
+    const stime = `${(new Date().getTime() / 1000) + this.defDurationInSec}`;
+    localStorage.setItem('expires_at', expiresAt == null ? stime : expiresAt);
     localStorage.setItem('state', authResult.state);
   }
 
@@ -261,7 +292,7 @@ export class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    return Math.round(new Date().getTime() / 1000)  < expiresAt;
   }
 
   public logout() {
@@ -294,7 +325,8 @@ export class AuthService {
 
     this.userProfile = undefined;
 
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
+    window.location.href = logoutURL; // DO NOT REMOVE
   }
 
   // Returns user profile
@@ -349,8 +381,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[0];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[0]) > -1;
         } else {
           return false;
         }
@@ -368,8 +401,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[1];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[1]) > -1;
         } else {
           return false;
         }
@@ -387,8 +421,9 @@ export class AuthService {
         return true;
       } else {
         if (this.userProfile[this.apiRole]) {
-          // return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
           return this.userProfile[this.apiRole][0] === AppRoles[2];
+        } else if (this.userProfile.app_metadata.roles !== undefined) {
+          return this.userProfile.app_metadata.roles.indexOf(AppRoles[2]) > -1;
         } else {
           return false;
         }
@@ -401,7 +436,8 @@ export class AuthService {
     this.webauth.renewAuth({
       audience: environment.auth_api,
       redirectUri: `${environment.backend_url}/${environment.auth_silenturl}`,
-      usePostMessage: true
+      scope: 'openid profile email scope',
+      usePostMessage: true,
     }, (err, result) => {
       if (!err) {
         this.setSession(result);
@@ -413,16 +449,16 @@ export class AuthService {
 
   scheduleRenewal() {
     if (!this.authenticated()) {
+      console.error('returning coz not auth');
       return;
     }
 
-    const expiresAt$ = JSON.parse(window.localStorage.getItem('expires_at'));
-
+    const expiresAt$ = JSON.parse(window.localStorage.getItem('expires_at')) * 1000;
     const source = Observable.of(expiresAt$).flatMap(
       expiresAt => {
       const now = Date.now();
-      const refreshAt = expiresAt - (1000 * 30);
-      const doWhen = refreshAt - now;
+      const refreshAt = expiresAt - 30000;
+      const doWhen = (refreshAt - now) > 300000 ? (this.defDurationInSec * 1000) : (refreshAt - now);
       return Observable.timer(Math.max(1, doWhen), doWhen);
     });
 
@@ -436,5 +472,21 @@ export class AuthService {
       return;
     }
     this.refreshSubscription.unsubscribe();
+  }
+
+  getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) {
+      return null;
+    }
+    if (!results[2]) {
+      return '';
+    }
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
 }

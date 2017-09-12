@@ -10,13 +10,18 @@
     margin: 0px 20px;
   }
   ul {
+    border-bottom: 2px solid #84C44C;
     li {
       background-color: transparent;
       a {
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1px;
         font-weight: bold;
         border-color: none;
         background-color: transparent;
         border: none;
+        white-space: nowrap;
         &:hover {
           border-color: $navbar-border-color;
         }
@@ -58,6 +63,9 @@
       li {
       background-color: transparent;
       a {
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1px;
         font-weight: bold;
         border-color: none;
         background-color: transparent;
@@ -153,9 +161,19 @@ ul.right.hide-on-med-and-down{
     }
 
     .dropdown-content-width{
-        min-width: 150px;
+        min-width: 180px;
      }
   }
+}
+
+
+.button-colored{
+    background-color: #F2673B;
+    color: white;
+    border: none;
+    font-size: 1em;
+    margin-bottom: 5px;
+    padding: 5px 5px;
 }
 
 

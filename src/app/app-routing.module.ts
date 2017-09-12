@@ -4,10 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ConsultantsComponent } from './consultants/consultants.component';
+import { AppreciationsComponent } from './appreciations/appreciations.component';
+import { PartnersComponent } from './partners/partners.component';
 
 import { ProjectListComponent } from './project/list/project-list.component';
 import { ProjectViewComponent } from './project/view/project-view.component';
 import { ProjectEditComponent } from './project/edit/project-edit.component';
+import { ProjectEditJobTitleResolve } from './project/edit/project-edit-resolve-jobtitles';
 
 import { OrganizationListComponent } from './organization/list/organization-list.component';
 import { OrganizationViewComponent } from './organization/view/organization-view.component';
@@ -24,10 +28,16 @@ const routes: Routes = [
 
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'consultants', component: ConsultantsComponent},
+  {path: 'appreciations', component: AppreciationsComponent},
+  {path: 'partners', component: PartnersComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},
   {path: 'project/edit/:projectId', component: ProjectEditComponent, canActivate: [AuthGuard],
+  resolve: {
+      JobTitles: ProjectEditJobTitleResolve
+    },
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
   {path: 'project/delete/:projectId', component: ProjectViewComponent, canActivate: [AuthGuard],
         data: {roles: ['ORGANIZATION', 'ADMIN']}},
@@ -50,7 +60,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    ProjectEditJobTitleResolve
+  ]
 })
 
 export class AppRoutingModule {

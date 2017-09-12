@@ -27,6 +27,10 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public countries: any[];
 
   public userId;
+  public userEmail;
+  public userRole;
+  public userFirstName;
+  public userLastName;
   public user: User;
   public jobTitlesArray: JobTitle[] = [];
   public loadedFile: any;
@@ -46,6 +50,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   public isSkillExists = false;
   public isSkillLimit = false;
   // public isNew = false;
+  public isUserInfoIncomplete = false;
 
   public introMaxLength: number = this.validationService.introMaxLength;
   public introMaxLengthEntered = false;
@@ -94,50 +99,71 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
       );
 
-    this.route.params.subscribe(params => {
-      this.userId = +params['userId'];
-      this.userService.getAllJobTitles()
-        .subscribe(
-        res => {
-          this.jobTitlesArray = res;
-        }, error => console.log(error)
-        );
-      // Populate user
-      this.userService.getUser(this.userId)
-        .subscribe(
-          res => {
-            this.user = res;
-            this.avatar = this.user.avatarUrl;
+//    this.route.params.subscribe(params => {
+//      this.userId = +params['userId'];
+    this.userService.getAllJobTitles()
+      .subscribe(
+      res => {
+        this.jobTitlesArray = res;
+      }, error => console.log(error)
+      );
 
-            /*
-            if (this.user.status === 'N') {
-              this.isNew = true;
-            } */
-
-            if (this.user.publishFlag === 'Y') {
-              this.checkPublish = true;
-            } else {
-             this.checkPublish = false;
-            }
-
-            if (this.user.notifyFlag === 'Y' ) {
-              this.checkNotify = true;
-            } else {
-            this.checkNotify = false;
-            }
-
-            this.fillForm();
-          }, error => console.log(error)
-        );
-
-      // Populate skills list
-      this.skillService.getSkillsForUser(this.userId)
+    if (this.currentUserId === null) {
+        this.fillForm();
+    } else {
+        this.route.params.subscribe(params => {
+        this.userId = +params['userId'];
+       // Populate user
+        this.populateUser();
+        // Populate skills list
+        this.skillService.getSkillsForUser(this.userId)
         .subscribe(
           res => {
             this.userSkillsArray = res;
           }, error => console.log(error)
         );
-    });
+      });
+    }
+  }
+
+  private populateUser(): void {
+    this.userService.getUser(this.userId)
+    .subscribe(
+      res => {
+        this.user = res;
+        this.avatar = this.user.avatarUrl;
+        if (this.user === null || this.user === undefined) {
+          this.isUserInfoIncomplete = true;
+        } else {
+          if (this.user.userName === null || this.user.userName === ''
+            || this.user.firstName === null || this.user.firstName === ''
+            || this.user.lastName === null || this.user.lastName === ''
+            || this.user.country === null || this.user.country === ''
+            || this.user.title === null || this.user.title === '') {
+            this.isUserInfoIncomplete = true;
+          }
+        }
+
+        /*
+        if (this.user.status === 'N') {
+          this.isNew = true;
+        } */
+
+        if (this.user.publishFlag === 'Y') {
+          this.checkPublish = true;
+        } else {
+         this.checkPublish = false;
+        }
+
+        if (this.user.notifyFlag === 'Y' ) {
+          this.checkNotify = true;
+        } else {
+        this.checkNotify = false;
+        }
+
+        this.fillForm();
+      }, error => console.log(error)
+    );
   }
 
   private getFormConstants(): void {
@@ -145,7 +171,6 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private initForm(): void {
-
     this.userForm = this.fb.group({
       'email': ['', []],
       'jobTitleId': ['', []],
@@ -153,7 +178,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'firstName': ['', []],
       'lastName': ['', []],
       'state': ['', []],
-      'country': ['', []],
+      'country': [this.countries, []],
       'phone': ['', []],
       'title': ['', []],
       'introduction': ['', []],
@@ -167,7 +192,28 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   private fillForm(): void {
-
+    if (this.user === null || this.user === undefined) {
+      this.checkPublish = true;
+      this.checkNotify = true;
+          this.userForm = this.fb.group({
+             'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
+             'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
+             'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
+             'userName': ['', [Validators.required]],
+             'title': ['', [Validators.required]],
+             'introduction': [ '', [Validators.compose([Validators.maxLength(1000)])]],
+             'jobTitleId': ['', []],
+             'state': ['', []],
+             'country': [this.countries, []],
+             'phone': ['', []],
+             'linkedinUrl': ['', []],
+             'personalUrl': ['', []],
+             'githubUrl': ['', []],
+             'chatUsername': ['', []],
+             'publishFlag': [this.checkPublish, []],
+             'notifyFlag': [this.checkNotify, []]
+              });
+    } else {
     this.userForm = this.fb.group({
       'email': [this.user.email || '', [Validators.required]],
       'jobTitleId': [this.user.jobTitleId || '', []],
@@ -178,7 +224,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
       'phone': [this.user.phone || '', []],
       'title': [this.user.title || '', [Validators.required]],
-      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(1000)])]],
+      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(10000)])]],
       'linkedinUrl': [this.user.linkedinUrl || '', []],
       'personalUrl': [this.user.personalUrl || '', []],
       'githubUrl': [this.user.githubUrl || '', []],
@@ -187,59 +233,64 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       'notifyFlag': [this.checkNotify || '', []]
     });
   }
+  }
 
   onSubmit(updatedData: any, event): void {
-
     event.preventDefault();
     event.stopPropagation();
+    this.currentUserId = this.auth.getCurrentUserId();
+    this.userService.getUser(Number(this.currentUserId))
+    .subscribe(
+      res => {
+        this.user = res;
 
-    this.user.userName = this.userForm.value.userName;
-    this.user.firstName = this.userForm.value.firstName;
-    this.user.lastName = this.userForm.value.lastName;
-    this.user.state = this.userForm.value.state;
-    this.user.country = this.userForm.value.country;
-    this.user.phone = this.userForm.value.phone;
-    this.user.title = this.userForm.value.title;
-    this.user.introduction = this.userForm.value.introduction;
-    this.user.linkedinUrl = this.userForm.value.linkedinUrl;
-    this.user.personalUrl = this.userForm.value.personalUrl;
-    this.user.githubUrl = this.userForm.value.githubUrl;
-    this.user.chatUsername = this.userForm.value.chatUsername;
-    this.user.jobTitleId = this.userForm.value.jobTitleId;
+        this.user.email = this.userForm.value.email;
+        this.user.userName = this.userForm.value.userName;
+        this.user.firstName = this.userForm.value.firstName;
+        this.user.lastName = this.userForm.value.lastName;
+        this.user.title = this.userForm.value.title;
+        this.user.introduction = this.userForm.value.introduction;
+        this.user.state = this.userForm.value.state;
+        this.user.country = this.userForm.value.country;
+        this.user.phone = this.userForm.value.phone;
+        this.user.linkedinUrl = this.userForm.value.linkedinUrl;
+        this.user.personalUrl = this.userForm.value.personalUrl;
+        this.user.githubUrl = this.userForm.value.githubUrl;
+        this.user.chatUsername = this.userForm.value.chatUsername;
+        this.user.jobTitleId = this.userForm.value.jobTitleId;
+        if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
+          this.user.publishFlag = 'Y';
+        } else {
+          this.user.publishFlag = 'N';
+        }
+        if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
+          this.user.notifyFlag = 'Y';
+        } else {
+          this.user.notifyFlag = 'N';
+        }
+        if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+          this.user.status = 'A';
+          // this.isNew = false;
+        }
+        this.user.avatarUrl = this.avatar;
+        this.userService.update(this.user)
+          .subscribe(() => {
+            Materialize.toast('Your account is saved', 4000);
+            this.router.navigate(['/user/view', this.user.id]);
+          },
+            err => { console.error(err, 'An error occurred'); }
+          );
 
-    if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
-      this.user.publishFlag = 'Y';
-    } else {
-      this.user.publishFlag = 'N';
-    }
-
-    if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
-      this.user.notifyFlag = 'Y';
-    } else {
-      this.user.notifyFlag = 'N';
-    }
-
-    /*
-    if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
-      this.user.status = 'A';
-      this.isNew = false;
-    } */
-
-    this.userService.update(this.user)
-      .subscribe(() => {
-        Materialize.toast('Your account is saved', 4000);
-        this.router.navigate(['/user/view', this.user.id]);
-      },
-        err => { console.error(err, 'An error occurred'); }
-      );
-
-    // Update skills for user
-    this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
-      .subscribe(
-        res => {
-        },
-        err => { console.error(err, 'An error occurred'); }
-      );
+          if (this.userSkillsArray.length > 0) {
+          // Update skills for user
+            this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
+            .subscribe(
+            res1 => {
+              },
+              err => { console.error(err, 'An error occurred'); }
+            );
+          }
+      });
   }
 
   onDeleteSkill(skillToDelete) {
@@ -311,18 +362,26 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   // Orchestrates the avatar image upload sequence of steps
   onUploadAvatar(fileInput: any): void {
     if (fileInput.target.files[0].size < this.constantsService.maxFileSize) {
-    // Function call to upload the file to AWS S3
-    const upload$ = this.extfilehandler.uploadFile(fileInput, this.user.id, 'image');
-    // Calls the function to save the avatar image url to the user's row
-    upload$.switchMap( (res) => this.userService.saveAvatarImg(this.user.id, res),
-      (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
-      .subscribe(res => {
-        if (res.innerValue.text() === '') {
+      if (this.user === null || this.user === undefined) {
+        this.currentUserId = this.auth.getCurrentUserId();
+      } else {
+        this.currentUserId = String(this.user.id);
+      }
+
+      // this.auth.getCurrentUserId();
+      // Function call to upload the file to AWS S3
+      const upload$ = this.extfilehandler.uploadFile(fileInput, Number(this.currentUserId), 'image');
+      // Calls the function to save the avatar image url to the user's row
+      upload$.switchMap((res) => this.userService.saveAvatarImg(Number(this.currentUserId), res),
+        (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
+        .subscribe(res => {
+          if (res.innerValue.text() === '') {
             this.avatar = res.outerValue;
-            this.user.avatarUrl = this.avatar;
-        } else {
-          console.error('Saving user avatar: Not expecting a response body');
-        }}, (e) => {
+            // this.user.avatarUrl = this.avatar;
+          } else {
+            console.error('Saving user avatar: Not expecting a response body');
+          }
+        }, (e) => {
           console.error('Avatar not saved. Not expecting a response body');
         });
     } else {
@@ -368,6 +427,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // Activate the labels so that the text does not overlap
     // User edit page is customized based on user role, need to check element existance first
+
     if (document.getElementById('username-label') != null) {
       document.getElementById('username-label').classList.add('active');
     }
@@ -403,6 +463,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     }
     if (document.getElementById('phone-label') != null) {
       document.getElementById('phone-label').classList.add('active');
+    }
+    if (Materialize && Materialize.updateTextFields) {
+      Materialize.updateTextFields();
     }
   }
 }

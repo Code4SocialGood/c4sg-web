@@ -5,8 +5,11 @@ import { Organization } from '../common/organization';
 import { OrganizationService } from '../common/organization.service';
 import { Project } from '../../project/common/project';
 import { ProjectService } from '../../project/common/project.service';
-import { Subscription} from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Rx';
 import { FormConstantsService } from '../../_services/form-constants.service';
+
+import { MyPaginationControlsComponent } from '../../_components/my-pagination-controls/my-pagination-controls.component';
+import { PaginationInstance } from 'ngx-pagination';
 
 declare const $: Function;
 
@@ -17,20 +20,16 @@ declare const $: Function;
 })
 
 export class OrganizationListComponent implements OnInit, AfterViewInit {
+
+  paginationConfig: PaginationInstance;
+
   categories = [{
     name: 'Nonprofit',
     value: 'N'
   }, {
     name: 'Open Source',
     value: 'O'
-  }, {
-    name: 'Social Enterprise',
-    value: 'S'
-  }, {
-    name: 'Startup',
-    value: 'U'
   }];
-
 
   categoriesArray = new FormArray([
     new FormControl(false),
@@ -44,7 +43,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     hasProjects: new FormControl(false),
     categories: this.categoriesArray
   });
-  p = 1; // Holds page number
   organizations: Object[];
   pendingOrganizations: Object[];
   declinedOrganizations: Object[];
@@ -53,7 +51,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   from: string;
 
   organizationsSubscription: Subscription;
-  totalItems = 0;
   organizationsCache: any[];
 
   constructor(
@@ -62,6 +59,12 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
     public constantsService: FormConstantsService,
     private route: ActivatedRoute,
     private router: Router) {
+    this.paginationConfig = {
+      id: 'organizationsPages',
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 0
+    };
   }
 
   ngOnInit(): void {
@@ -74,18 +77,18 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
         this.from = params['from']; // from can be: organizations, reload, pending
         if (this.from === 'reload') {
-            this.p = 1;
-            this.filterForm.controls.keyword.setValue('');
-            this.filterForm.controls.hasProjects.setValue(false);
-            this.filterForm.controls.categories =  this.categoriesArray;
+          this.paginationConfig.currentPage = 1;
+          this.filterForm.controls.keyword.setValue('');
+          this.filterForm.controls.hasProjects.setValue(false);
+          this.filterForm.controls.categories = this.categoriesArray;
         }
 
-        this.getOrganizations(this.p);
+        this.getOrganizations(this.paginationConfig.currentPage);
       });
 
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
-      this.getOrganizations(this.p);
+      this.getOrganizations(this.paginationConfig.currentPage);
     });
   }
 
@@ -98,7 +101,8 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getOrganizations(page: number): void {
+  getOrganizations(newPage: number): void {
+    this.paginationConfig.currentPage = newPage;
     const categories = this.filterForm.value.categories;
     const categoriesParam = [];
     window.scrollTo(0, 0);
@@ -112,38 +116,38 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
 
     if (this.from === 'organizations') { // from "Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-        this.filterForm.value.keyword, null, this.filterForm.value.hasProjects, 'A', categoriesParam, page, 10)
-        .subscribe( res => {
+        this.filterForm.value.keyword, null, this.filterForm.value.hasProjects, 'A', categoriesParam, newPage, 10)
+        .subscribe(res => {
           this.organizations = res.data;
-          this.totalItems = res.totalItems;
+          this.paginationConfig.totalItems = res.totalItems;
           this.organizationsCache = this.organizations.slice(0);
           res.data.forEach((o: Organization) => {
             this.projectService.getProjectByOrg(o.id, 'A')
-              .subscribe( response => {
-                  this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
-                  o.projects = this.projects.length;
-                       },
-                error => console.log(error));
+              .subscribe(response => {
+                this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
+                o.projects = this.projects.length;
+              },
+              error => console.log(error));
           });
         },
         error => console.log(error)
-      );
+        );
     } else if (this.from === 'approve') { // from "Approve Organizations" link
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'P', null, null, null) // Pending organizations
-      .subscribe( res => {
-        this.pendingOrganizations = res.data;
-      },
+        null, null, null, 'P', null, null, null) // Pending organizations
+        .subscribe(res => {
+          this.pendingOrganizations = res.data;
+        },
         error => console.log(error)
-      );
+        );
 
       this.organizationsSubscription = this.organizationService.searchOrganizations(
-      null, null, null, 'C', null, null, null) // Declined organizations
-      .subscribe( res => {
-        this.declinedOrganizations = res.data;
-      },
+        null, null, null, 'C', null, null, null) // Declined organizations
+        .subscribe(res => {
+          this.declinedOrganizations = res.data;
+        },
         error => console.log(error)
-      );
+        );
     };
   }
 
@@ -160,9 +164,9 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   // delete callback
   delete(organization: Organization): void {
     this.organizationService.delete(organization.id)
-        .subscribe(
-          error => console.log(error)
-        );
+      .subscribe(
+      error => console.log(error)
+      );
     // after deletion, the steps below updates the view and excludes the deleted organization
     this.organizations = this.organizations.filter(u => u !== organization);
     // this.pagedItems = this.pagedItems.filter(u => u !== organization);

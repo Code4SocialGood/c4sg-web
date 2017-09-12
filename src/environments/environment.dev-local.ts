@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    backend_url: 'http://localhost:8080',
+    backend_url: 'https://c4sg-dev.herokuapp.com',
     auth_clientID: 'oO8PRySIJnGHDGsZQ36zOhhccNE6iNjf',
     auth_domain: 'c4sg-dev.auth0.com',
     auth_tenant_shared: false,

@@ -5,7 +5,7 @@
   <div class="row main-row">
     <!-- Left Panel -->
     <div class="col s3" id="left-col">
-      <div class="content sidebar-wrapper" *ngIf="user">
+      <div class="content sidebar-wrapper" >
         <div class="row single-info">
           <h4 id="avatar-title" class="col s12 m12 l12 image-title">My Avatar</h4>
           <div class = "col offset-s8 offset-m8 offset-l8">
@@ -26,10 +26,14 @@
             </div>
           </div>
         </div>
-        <div class="row single-info" *ngIf="isVolunteer && !user.userName">
+        <div class="row single-info" *ngIf="isVolunteer && isUserInfoIncomplete">
           <hr>
-          <div class="col s12 m12 l12 highlight-title">Please complete your profile before apply for projects.</div>
+          <div class="col s12 m12 l12 highlight-title">Please complete your user profile before applying for projects.</div>
         </div>
+        <div class="row single-info" *ngIf="isOrganization && isUserInfoIncomplete">
+          <hr>
+          <div class="col s12 m12 l12 highlight-title">Please complete your user profile before posting projects.</div>
+        </div>   
       </div>
     </div>
 
@@ -88,8 +92,9 @@
           <div class="row">
             <div class="col s12 m6">
                 <div class="input-field">
-                  <label for="githubUrl" id="slack-label">Slack Username</label>
-                  <input [maxlength]="25" class="theme-input" id="chatUsername" type="text" formControlName="chatUsername">
+                  <label materialize="tooltip" [materializeParams]="[{html: true}]" data-position="bottom" data-delay="50"  for="githubUrl" id="slack-label"
+                  data-tooltip="This is your username in Slack team of Code for Social Good.<br />To join the team, click Chat from the footer on the web site.<br />">C4SG Slack Username <i class="tiny material-icons">info</i></label>
+                  <input [maxlength]="25" class="theme-input tootipped" id="chatUsername" type="text" formControlName="chatUsername" >
                 </div>
               </div>
             <div *ngIf="isOrganization">
@@ -107,17 +112,17 @@
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input [maxlength]="100" class="theme-input" id="title" type="text" formControlName="title" required>
-              <label for="title" id="title-label">Title *</label>
+              <input [maxlength]="100" class="theme-input" id="title" type="text" formControlName="title" placeholder="Web Developer, Project Manager, etc" required>
+              <label for="title" id="title-label">Professional Title *</label>
             </div>
-            <div *ngIf="isVolunteer" class="input-field col s6">
-              <div class="theme-select">
-                <select id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
-                   <option value="0">Choose Role</option>
+            <div *ngIf="isVolunteer" class="theme-select dropdown col s6">
+              <label for="jobTitleId">Category </label>
+              <!-- <div class="theme-select dropdown">-->
+                <select class="browser-default" id="jobTitleId" formControlName="jobTitleId" materialize="material_select">
+                   <option value="" disabled selected>Choose Category</option>
                    <option *ngFor="let jobTitle of jobTitlesArray" [value]="jobTitle.id" [selected]="jobTitle.id === user?.jobTitleId">{{jobTitle.jobTitle}}</option>
                 </select>
-                <label for="jobTitleId">Role </label>
-              </div>
+              <!--</div>-->
             </div>
             <div class="input-field col s12" *ngIf="isVolunteer"> <!-- Introductin is mandatory for volunteer user -->
                <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" required formControlName="introduction"
@@ -127,7 +132,7 @@
               <label for="introduction"  id="summary-label">Introduction *
                 <span *ngIf="introFieldFocused"> ({{ introValueLength + '/' + introMaxLength }})</span>
               </label>
-            </div>            
+            </div>
             <div class="input-field col s12" *ngIf="isOrganization"> <!-- Introductin is optional for organization user -->
                <textarea id="introduction" [maxLength]="introMaxLength" class="materialize-textarea" formControlName="introduction"
                       (click)="onCountCharIntro()" (input)="onCountCharIntro()" (focus)="onFocusIntro()"
@@ -152,7 +157,7 @@
             <div class="row">
               <div class="col s12 m6 theme-select dropdown">
                 <label for="skillSelect">Choose from popular skills below</label>
-                <select id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
+                <select class="browser-default" id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
                   <option value="" disabled selected>Choose skills</option>
                   <option *ngFor="let skill of skillsArray" [value]="skill">{{ skill }} </option>
                 </select>

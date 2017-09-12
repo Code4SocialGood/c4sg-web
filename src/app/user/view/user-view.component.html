@@ -1,6 +1,7 @@
+<button (click)="goBack()">Back to Search Results</button>
 <div class="page-title"  *ngIf="user">
   <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
-  <h1 *ngIf="user.role === 'O'">Project Owner</h1>
+  <h1 *ngIf="user.role === 'O'">Organization User</h1>
   <h1 *ngIf="user.role === 'A'">Admin User</h1>
 </div>
 <div class="container">
@@ -12,15 +13,21 @@
           <div class="col s6 m3 l3">
             <my-user-avatar [user]="user"></my-user-avatar>
             <div class="username">{{user.userName}}</div>
-            <div class="links-list-wrapper" *ngIf="authService.authenticated()">
+            <!--<div class="username" *ngIf="user.chatUsername">
+              <a class="mdi mdi-slack mdi-24px" name="slack" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/" target="_blank"></a>
+            </div>-->
+
+            <div class="links-list-wrapper" *ngIf="authService.authenticated() && (authService.isAdmin()|| authService.isOrganization())">
               <ul>
                 <li><a class="mdi mdi-email" [class.not-active]="!user.email" href="mailto:{{user.email}}"></a></li>
                 <li><a class="mdi mdi-linkedin-box" [class.not-active]="!user.linkedinUrl" name="linkedinUrl" [href]="user.linkedinUrl"
                     target="_blank"></a></li>
                 <li><a class="mdi mdi-github-box" [class.not-active]="!user.githubUrl" name="githubUrl" [href]="user.githubUrl"
                     target="_blank"></a></li>
-                <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" [href]="user.chatUsername"
-                    target="_blank"> </a></li>
+                <!--<li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" [href]="user.chatUsername"
+                    target="_blank"> </a></li>-->
+                <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/"
+                  target="_blank"></a></li>
                 <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="personalUrl" [href]="user.personalUrl"
                     target="_blank"> </a></li>
               </ul>
@@ -33,7 +40,7 @@
             </div>
             <div *ngFor="let jobTitle of jobTitlesArray">
               <div class="location" *ngIf="jobTitle.id === user?.jobTitleId && jobTitle.jobTitle">
-                Role: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 9)}}</span>
+                Category: <span>{{pad(jobTitle.jobTitle, "&nbsp;", 2)}}</span>
               </div>
             </div>
             <div class="location">Location:

@@ -31,3 +31,7 @@ $avatar-font-color: #fff;
 .avatar-circle      { @include default-user-avatar(100px); }
 .avatar-circle-sm   { @include default-user-avatar(50px); }
 .avatar-circle-lg   { @include default-user-avatar(250px); }
+
+.card-avatar, .card-avatar-content {
+  border-radius: 50%;
+}

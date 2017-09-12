@@ -3,7 +3,6 @@
 @import 'app.nav';
 @import 'app.content';
 @import 'app.card';
-@import 'app.pagination';
 @import 'app.sidebar';
 @import 'app.validate';
 @import 'app.materialize';
@@ -241,7 +240,7 @@ hr {
 }
 
 .dropdown{
- margin-top: -6px;
+ margin-top: -3px;
 }
 
 // Make social media links colored when hovering
@@ -259,6 +258,19 @@ hr {
     @include page-title-font;
     padding: 0px;
     margin: 5px;
+  }
+}
+
+.page-title-center {
+  border-bottom: $border-width $page-title-bg-color solid;
+  background: $page-title-bg-color;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  h1 {
+    @include page-title-font;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
   }
 }
 
@@ -297,4 +309,14 @@ select.browser-default {
   .modal-content h4 {
     background-color: $secondary-color;
   }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.backdrop {
+  background-color: #a9a9a9;
 }
