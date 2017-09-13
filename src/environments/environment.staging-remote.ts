@@ -1,8 +1,8 @@
 export const environment = {
     production: true,
     backend_url: 'https://c4sg-staging.herokuapp.com/',
-    auth_clientID: 'oO8PRySIJnGHDGsZQ36zOhhccNE6iNjf',
-    auth_domain: 'c4sg-dev.auth0.com',
+    auth_clientID: 'xwMK322G3bOF4OV20tqDlaMx2TMYjc32',
+    auth_domain: 'c4sg-staging.auth0.com',
     auth_tenant_shared: true,
     auth_api: 'https://c4sg-api',
     auth_callback_env: 'staging',
