@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     backend_url: 'http://localhost:8080',
     auth_clientID: 'xwMK322G3bOF4OV20tqDlaMx2TMYjc32',
-    auth_domain: 'c4sg-staging.auth0.com,
+    auth_domain: 'c4sg-staging.auth0.com',
     auth_tenant_shared: true,
     auth_api: 'https://c4sg-api',
     auth_callback_env: 'staging',
