@@ -80,6 +80,13 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
+  getAllProjects(): Observable<Project[]> {
+        const url = projectUrl;
+        return this.http.get(url)
+          .map(res => res.json())
+          .catch(this.handleError);
+      }
+
   getProjectByOrg(id: number, projectStatus: string): Observable<Response> {
     if (projectStatus) {
       return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);

@@ -83,6 +83,10 @@ export class HomeComponent implements OnInit {
   usersSubscription: Subscription;
   developers: User[];
   organizations: User[];
+  allProjects:Project[];
+  numberOfOrganization:number;
+  numberOfVolunteers:number;
+  numberOfProjects:number;
   zoom = 2;
   // initial center position for the map
   lat = 0;
@@ -113,6 +117,8 @@ export class HomeComponent implements OnInit {
     this.getDevelopers();
     // Google maps
     this.getOrganizations();
+
+    this.getProjects();
 
     // Featured projects
     this.getTopThreeProjects();
@@ -177,6 +183,7 @@ export class HomeComponent implements OnInit {
     .subscribe(
       res => {
         this.developers = res.filter(vol => vol.role === 'V');
+        this.numberOfVolunteers=this.developers.length;
       },
       error => console.error(error)
     );
@@ -187,6 +194,17 @@ export class HomeComponent implements OnInit {
     .subscribe(
       res => {
         this.organizations = res.filter(vol => vol.role === 'O');
+        this.numberOfOrganization=this.organizations.length;
+      },
+      error => console.error(error)
+    );
+  }
+  private getProjects(): void {
+    this.usersSubscription = this.projectService.getAllProjects()
+    .subscribe(
+      res => {
+        this.allProjects = res;
+        this.numberOfProjects=this.allProjects.length;
       },
       error => console.error(error)
     );
