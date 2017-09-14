@@ -57,7 +57,10 @@
           <div class="col m12" *ngIf="user.introduction">
             <br>
             <div class="info-title">Introduction</div>
-            <div class="info-description">{{ user.introduction }}</div>
+            <div>
+                <pre class="info-description">{{ user.introduction }}
+                  </pre>
+                </div>
           </div>
           <div class="col m12">
             <div class="col s12 action-btns">
