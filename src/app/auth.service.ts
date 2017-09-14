@@ -143,7 +143,6 @@ export class AuthService {
         this.setSession(authResult);
         // set uset profile of already saved profile
         this.userProfile = JSON.parse(localStorage.getItem('profile'));
-
       // Add callback for lock `authenticated` event
       // Get the user profile
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
@@ -345,6 +344,15 @@ export class AuthService {
   }
   getCurrentUserAvatar() {
     return localStorage.getItem('currentUserAvatar');
+  }
+  currentUserHasAvatar() {
+    return (localStorage.getItem('currentUserAvatar') != 'null');
+  }
+  getCurrentUserFName() {
+    return localStorage.getItem('currentUserFName');
+  }
+  getCurrentUserLName() {
+    return localStorage.getItem('currentUserLName');
   }
 
   // Code below is used to override role
