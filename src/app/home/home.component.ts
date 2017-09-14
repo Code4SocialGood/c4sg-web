@@ -83,10 +83,10 @@ export class HomeComponent implements OnInit {
   usersSubscription: Subscription;
   developers: User[];
   organizations: User[];
-  allProjects:Project[];
-  numberOfOrganization:number;
-  numberOfVolunteers:number;
-  numberOfProjects:number;
+  allProjects: Project[];
+  numberOfOrganization: number;
+  numberOfVolunteers: number;
+  numberOfProjects: number;
   zoom = 2;
   // initial center position for the map
   lat = 0;
@@ -183,7 +183,7 @@ export class HomeComponent implements OnInit {
     .subscribe(
       res => {
         this.developers = res.filter(vol => vol.role === 'V');
-        this.numberOfVolunteers=this.developers.length;
+        this.numberOfVolunteers = this.developers.length;
       },
       error => console.error(error)
     );
@@ -194,7 +194,7 @@ export class HomeComponent implements OnInit {
     .subscribe(
       res => {
         this.organizations = res.filter(vol => vol.role === 'O');
-        this.numberOfOrganization=this.organizations.length;
+        this.numberOfOrganization = this.organizations.length;
       },
       error => console.error(error)
     );
@@ -204,7 +204,7 @@ export class HomeComponent implements OnInit {
     .subscribe(
       res => {
         this.allProjects = res;
-        this.numberOfProjects=this.allProjects.length;
+        this.numberOfProjects = this.allProjects.length;
       },
       error => console.error(error)
     );
