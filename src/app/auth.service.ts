@@ -346,7 +346,7 @@ export class AuthService {
     return localStorage.getItem('currentUserAvatar');
   }
   currentUserHasAvatar() {
-    return (localStorage.getItem('currentUserAvatar') != 'null');
+    return (localStorage.getItem('currentUserAvatar') !== '');
   }
   getCurrentUserFName() {
     return localStorage.getItem('currentUserFName');
