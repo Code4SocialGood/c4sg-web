@@ -5,6 +5,9 @@
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
         </div>
+        <div class="green-ribbon">
+          GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
+        </div>
     </div>
 </div>
 
@@ -30,9 +33,6 @@
 
 </div>-->
 <div class="section no-padding">
-    <div class="green-ribbon">
-            GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
-    </div>
     <br><br>
     <div class="container">
         <div class="row">
@@ -93,7 +93,7 @@
     </div>
     <!--<div class="container">-->
         <div class="row">
-            <div class="col s12 m12">
+            <div class="col s10 m10">
                 <div class="map" *ngIf="developers || organizations">
                     <agm-map
                             [latitude]="lat "
@@ -152,12 +152,19 @@
                     </agm-map>
                   </div>
             </div>
+            <div class="col s2 m2">
+              <div class="divStats">
+              <div>Volunteers:{{numberOfVolunteers}}</div>
+              <div>Organizations:{{numberOfOrganization}}</div>
+              <div>Projects:{{numberOfProjects}}</div>
+            </div>
+            </div>
         </div>
     <!--</div>-->
 </div>
 <br>
 <div class="section no-padding container">
-    <div class="white-ribbon">    
+    <div class="white-ribbon">
       ONE PROJECT AT A TIME, WE ARE CHANGING THE WORLD
     </div><br>
     <!--<div class="container">-->
