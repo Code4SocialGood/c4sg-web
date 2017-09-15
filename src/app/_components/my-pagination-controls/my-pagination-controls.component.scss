@@ -21,11 +21,7 @@
     min-width: 30px;
     line-height: 28px;
     position: relative;
-    margin-left:-1px; 
-    border-width: 1px;
-    border-style: solid;
-    border-color: $main-color;
-    border-radius: 0;
+    margin-left:-1px;
     cursor: pointer;
 
     &:first-of-type{
@@ -83,10 +79,8 @@
     }
 
     a {
-      color: $header-bg-color;
-
       &:hover {
-         background-color: #F9F9F9;
+         color: #84c44c;
       }
     }
   }
