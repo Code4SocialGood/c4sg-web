@@ -4,7 +4,7 @@ $avatar-primary-color: $secondary-bg-color;
 $avatar-secondary-color: rgb(0, 212, 166);
 $avatar-font-color: #fff;
 
-@mixin default-user-avatar($size) {
+@mixin default-user-avatar($size, $shadow: 'default') {
     width: $size;
     height: $size;
     text-align: center;
@@ -15,7 +15,9 @@ $avatar-font-color: #fff;
     background: -o-linear-gradient(bottom right, $avatar-primary-color, $avatar-secondary-color);
     background: -moz-linear-gradient(bottom right, $avatar-primary-color, $avatar-secondary-color);
     background: linear-gradient(to bottom right, $avatar-primary-color, $avatar-secondary-color);
-    box-shadow: 2px 2px 7px 1px #333;
+    @if $shadow == 'default' {
+      box-shadow: 2px 2px 7px 1px #333;
+    }
     margin: 10% 0 10% 5%;
 
     .initials {
@@ -31,7 +33,17 @@ $avatar-font-color: #fff;
 .avatar-circle      { @include default-user-avatar(100px); }
 .avatar-circle-sm   { @include default-user-avatar(50px); }
 .avatar-circle-lg   { @include default-user-avatar(250px); }
+.avatar-circle-header   { @include default-user-avatar(35px, 'noshadow'); }
 
 .card-avatar, .card-avatar-content {
   border-radius: 50%;
+}
+
+.profile-img{
+  left: -50px;
+  right: 0;
+  margin: auto;
+  max-width: 35px;
+  position: absolute;
+  top: 25px;
 }
