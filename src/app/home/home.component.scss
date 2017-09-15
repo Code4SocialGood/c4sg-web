@@ -49,8 +49,8 @@
 //Previous home page
 //classes for cover image
 .cover {
-  height: 100vh;  
-  overflow: hidden;  
+  height: 100vh;
+  overflow: hidden;
 }
 
 .cover:before{
@@ -62,28 +62,28 @@
   z-index: -1;
 }
 
-.cover img{    
+.cover img{
   position:relative;
   object-fit: contain;
   left: 0;
   top: 0;
   z-index: -2;
-    
+
   //max-width: 100%;
 }
 /*.action{
-    background: url("/assets/pexels-photo-407237.jpeg");    
-        
+    background: url("/assets/pexels-photo-407237.jpeg");
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;    
-    
+    background-size: cover;
+
     height: 99vh;
     margin-top: 2vh;
     display: flex;
     flex-direction: column;
-    position: relative;        
+    position: relative;
 }*/
 
 .action {
@@ -119,10 +119,10 @@
 
 .aniSlogan-background{
     background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;    
+    width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0px;    
+    bottom: 0px;
 }
 
 #aniSlogan {
@@ -192,7 +192,7 @@
     font-weight: bolder;
     padding: 10px 0px;
     text-transform: uppercase;
-    
+
 }
 
 .green-ribbon.white-text {
@@ -205,9 +205,9 @@
     text-align: center;
     font-family: $main-font;
     font-size: 22px;
-    font-weight: bold; 
+    font-weight: bold;
     padding: 10px 0px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
@@ -220,9 +220,9 @@
 .second-section-heading {
     //font-size: 28px;
     font-size: 2em;
-    font-weight: bold;    
+    font-weight: bold;
 }
-.second-section-text{    
+.second-section-text{
     font-size: 1.3em;
     //font-size: 18px;
     //font-weight: bold;
@@ -231,7 +231,7 @@
     color: #0BAFAA;
 }
 .organization-heading{
-    color: #F2673B;
+    color: $secondary-color;
 }
 
 .button-bordered {
@@ -241,22 +241,22 @@
     padding: 5px 60px;
 }
 @media screen and (max-width: 915px) {
-  .second-section-heading {    
+  .second-section-heading {
         font-size: 1.5em;
-        font-weight: bold;    
+        font-weight: bold;
     }
-    .second-section-text{    
+    .second-section-text{
         font-size: 1em;
         //font-size: 18px;
         //font-weight: bold;
     }
 }
   @media screen and (max-width: 650px) {
-    .second-section-heading {    
+    .second-section-heading {
         font-size: 1.5em;
-        font-weight: bold;    
+        font-weight: bold;
     }
-    .second-section-text{    
+    .second-section-text{
         font-size: 1em;
         //font-size: 18px;
         //font-weight: bold;
@@ -285,7 +285,7 @@
 //featured projects section
 .card{
     max-height: 100%;
-    background-color: transparent; 
+    background-color: transparent;
 }
 .card-image{
     height: 300px;
@@ -294,18 +294,18 @@
         max-height: 100%;
         object-fit: contain;
     }
-        
+
 }
 .featured-project-heading{
     font-family: $main-font;
     font-size: 1.3em;
-    font-weight: bold; 
+    font-weight: bold;
     color: #84C44C;
     text-transform: uppercase;
 }
 
 .featured-project-text{
-    font-size: 1.1em; 
+    font-size: 1.1em;
 }
 
 .featured-project-img{
@@ -316,11 +316,11 @@
 }
 .featured-project-img-div{
     height: 300px;
-    //width: 300px;    
+    //width: 300px;
 }
 
 .button-colored{
-    background-color: #F2673B;
+    background-color: $secondary-color;
     color: white;
     border: none;
     font-size: 1em;
@@ -328,27 +328,27 @@
 }
 
 @media screen and (max-width: 915px){
-    
+
     .featured-project-heading{
-        font-size: 1.1em;        
+        font-size: 1.1em;
     }
     .featured-project-text{
-        font-size: 1em; 
+        font-size: 1em;
     }
     .button-colored{
-        font-size: 0.9em;        
-    }    
+        font-size: 0.9em;
+    }
 }
 
 @media screen and (max-width: 650px) {
     .featured-project-heading{
-        font-size: 1.1em;       
+        font-size: 1.1em;
     }
     .featured-project-text{
-        font-size: 1em; 
+        font-size: 1em;
     }
     .button-colored{
-        font-size: 0.9em;        
+        font-size: 0.9em;
     }
   }
 
@@ -369,26 +369,26 @@
   }
 }*/
 
-.btn_github {  
+.btn_github {
     background: #fff;
     color: $secondary-bg-color;
     //margin-bottom: 2rem;
-    font-size: 1rem; 
+    font-size: 1rem;
     //display: block;
     margin: 10px;
     //padding: 10px;
-  
+
 }
 
 @media screen and (max-width: 915px) {
-    .btn_github {  
-        font-size: 1rem; 
+    .btn_github {
+        font-size: 1rem;
         margin: 10px;
     }
   }
 @media screen and (max-width: 650px) {
-    .btn_github {  
-        font-size: 1rem; 
+    .btn_github {
+        font-size: 1rem;
         margin: 5px;
     }
   }
@@ -458,7 +458,7 @@ agm-map {
 }
 
 .map {
-  position: relative;  
+  position: relative;
   text-align: center;
   p {
     font-size: 1.2rem;
