@@ -21,7 +21,7 @@
       </li>
 
       <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
-          <user-avatar-header [authSvc]="authSvc"></user-avatar-header>
+          <my-user-avatar-header [authSvc]="authSvc"></my-user-avatar-header>
           <i class="material-icons right">arrow_drop_down</i></a>
         <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
           <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>

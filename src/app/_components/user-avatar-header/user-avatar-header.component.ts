@@ -4,7 +4,7 @@ import { AuthService } from '../../../app/auth.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
 @Component({
-  selector: 'user-avatar-header',
+  selector: 'my-user-avatar-header',
   templateUrl: './user-avatar-header.component.html',
   styleUrls: ['../user-avatar/user-avatar.component.scss']
 })
