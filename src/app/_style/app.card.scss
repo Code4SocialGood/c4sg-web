@@ -133,3 +133,9 @@
     border-bottom: $border-width $border-color solid;
   }
 }
+
+#right-col {
+  .collapsible-body p {
+    padding: 0;
+  }
+}
