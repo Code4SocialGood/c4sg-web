@@ -231,7 +231,7 @@
     color: #0BAFAA;
 }
 .organization-heading{
-    color: #F2673B;
+    color: $secondary-color;
 }
 
 .button-bordered {
@@ -320,7 +320,7 @@
 }
 
 .button-colored{
-    background-color: #F2673B;
+    background-color: $secondary-color;
     color: white;
     border: none;
     font-size: 1em;
@@ -484,7 +484,7 @@ agm-map {
 }
 
 .divStats{
-  background-color: #F2673B;
+  background-color: $secondary-color;
   color: white;
   border: none;
   font-size: 1.8em;
