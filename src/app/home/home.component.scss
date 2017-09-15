@@ -482,3 +482,15 @@ agm-map {
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.divStats{
+  background-color: $secondary-color;
+  color: white;
+  border: none;
+  font-size: 1.8em;
+  font-weight: bold;
+  height: 500px;
+  margin-left: -22px;
+  text-align: center;
+  line-height: 500%;
+}
