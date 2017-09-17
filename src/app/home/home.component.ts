@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
       res => {
-        this.organizations = res.filter(vol => vol.role === 'O');
+        this.organizations = res.filter(vol => vol.role === 'O' && vol.status === 'A');
         this.numberOfOrganization = this.organizations.length;
       },
       error => console.error(error)
@@ -203,7 +203,7 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.projectService.getAllProjects()
     .subscribe(
       res => {
-        this.allProjects = res;
+        this.allProjects = res.filter(vol => vol.status === 'A');;
         this.numberOfProjects = this.allProjects.length;
       },
       error => console.error(error)
