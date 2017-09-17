@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Rx';
 import { OrganizationService } from '../common/organization.service';
 import { ProjectService} from '../../project/common/project.service';
@@ -42,7 +43,8 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     private skillService: SkillService,
     public constantsService: FormConstantsService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private location: Location) {
   }
 
   ngOnInit(): void {
@@ -147,6 +149,10 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
           // this.deleteGlobalActions.emit({action: 'toast', params: ['Error while deleting an organiation', 4000]});
         }
       );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   approve(): void {

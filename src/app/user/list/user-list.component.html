@@ -71,7 +71,10 @@
                     <div class="card-info">
                       <div class="card-header">
                         <div class='name'>
-                          <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>
+                       <!--   <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>-->
+                       <a class='name' href="user/view/{{user.id}}">
+                        {{user.firstName + ' ' + user.lastName}}</a>
+
                         </div>
                         <div class="row">
                           <div class="card-metainfo col m6">

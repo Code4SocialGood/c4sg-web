@@ -1,3 +1,4 @@
+<button (click)="goBack()">Back to Search Results</button>
 <div class="page-title">
   <h1>Organization</h1>
 </div>
@@ -50,7 +51,10 @@
           <div class="col m12">
             <br>
             <div class="info-title">Introduction</div>
-            <div class="info-description">{{ organization.description }}</div>
+            <div>
+                <pre class="info-description">{{ organization.description }}
+                  </pre>
+                </div>
           </div>
           <div class="col m12">
             <div class="col s12 action-btns">
