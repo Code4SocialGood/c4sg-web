@@ -203,7 +203,7 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.projectService.getAllProjects()
     .subscribe(
       res => {
-        this.allProjects = res.filter(vol => vol.status === 'A');;
+        this.allProjects = res.filter(vol => vol.status === 'A');
         this.numberOfProjects = this.allProjects.length;
       },
       error => console.error(error)
