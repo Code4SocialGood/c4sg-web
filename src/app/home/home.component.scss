@@ -88,23 +88,22 @@
 
 .action {
 
-    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6), rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
     background-attachment:fixed;
 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
-    // max-width: 100%;
     display: flex;
     flex-direction: column;
     //justify-content: space-around;
     justify-content: center;
     align-items: center;
-    height: 87.1vh;
+    //height: 87.1vh;
+    height:-webkit-fill-available;
     text-align: center;
-    position: relative;
+    //position: relative;
 }
 
 
