@@ -133,14 +133,14 @@
 
                         <agm-info-window>
                           <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/user/view',o.id] ">
+                            <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
                               <div class="info-avatar ">
-                                <img [src]="o.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                                <img [src]="o.logoUrl " onError="this.src='../../assets/default_image.png' ">
                               </div>
-                              <div class="user-name ">
-                                {{o.userName}}
+                              <div class="content-title ">
+                                {{o.name}}
                               </div>
-                              <div class="user-location ">
+                              <div class="state ">
                                 <span *ngIf="o.state ">{{o.state}}</span>
                                 <span *ngIf="o.state && o.country ">,</span>
                                 <span *ngIf="o.country ">{{getCountryName(o.country)}}</span>
