@@ -270,7 +270,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           this.user.notifyFlag = 'N';
         }
 
-        if(this.isOrganization === true){
+        if (this.isOrganization === true) {
           this.user.publishFlag = 'N';
           this.user.notifyFlag = 'N';
         }
