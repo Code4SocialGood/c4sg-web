@@ -258,6 +258,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         this.user.githubUrl = this.userForm.value.githubUrl;
         this.user.chatUsername = this.userForm.value.chatUsername;
         this.user.jobTitleId = this.userForm.value.jobTitleId;
+
         if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
           this.user.publishFlag = 'Y';
         } else {
@@ -266,6 +267,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
           this.user.notifyFlag = 'Y';
         } else {
+          this.user.notifyFlag = 'N';
+        }
+
+        if(this.isOrganization === true){
+          this.user.publishFlag = 'N';
           this.user.notifyFlag = 'N';
         }
         if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
