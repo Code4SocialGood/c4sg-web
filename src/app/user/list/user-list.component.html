@@ -93,7 +93,7 @@
                           <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
                         </ul>
                       </div>
-                      <p class="description" *ngIf="user && user.introduction">{{ slice(user && user.introduction) }}...</p>
+                      <p class="description text-overflow" *ngIf="user && user.introduction">{{ user && user.introduction }}</p>
                     </div>
                   </div>
                 </div>
