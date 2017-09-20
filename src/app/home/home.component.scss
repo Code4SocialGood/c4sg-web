@@ -1,5 +1,4 @@
 @import "../_style/app.theme";
-@import "../_style/variables";
 
 /*.cover {
   height: 100vh;
@@ -239,7 +238,7 @@
     //font-weight: bold;
 }
 .volunteer-heading{
-    color: $tertiary-bg-color;
+    color: #0BAFAA;
 }
 .organization-heading{
     color: $secondary-color;
@@ -495,7 +494,7 @@ agm-map {
 }
 
 .divStats{
-  background-color: $tertiary-bg-color;
+  background-color: $secondary-color;
   color: white;
   border: none;
   font-size: 1.8em;
