@@ -151,7 +151,7 @@
               </button>
               <!-- Apply button is enabled for login user -->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
-                [disabled]="projectStatusApplied">
+                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
