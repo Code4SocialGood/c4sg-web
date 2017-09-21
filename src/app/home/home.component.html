@@ -212,23 +212,21 @@
     <div class="row" *ngIf="topThreeProjects">
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div class="card">
-                    <div class="card-image" *ngIf="project.imageUrl">
-                      <img [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
+                    <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
+                      <img class="activator" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
                     </div>
-                    <div class="card-image" *ngIf="!project.imageUrl">
-                      <img [src]="constantsService.defaultImage">
+                    <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl">
+                      <img class="activator" [src]="constantsService.defaultImage">
                     </div><br>
                 <div class="card-content" *ngIf="project">
-                    <div class="featured-project-heading">{{project.name}}</div>
-                    <div class="featured-project-text" *ngIf="project.description.length > 200">
-                        {{ project && project.description | slice:0:200 }} ...
-                    </div>
-                    <div class="featured-project-text" *ngIf="project.description.length <= 200">
-                        {{ project && project.description }}
-                    </div><br>
-                    <div>
-                        <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
-                    </div>
+                    <span class="card-title activator grey-text text-darken-4">{{project.name}}<i class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{project.name}}<i class="material-icons right">close</i></span>
+                    <p>{{project.description}}</p>
+                </div>
+                <div class="card-action">
+                    <button type="submit" class="btn waves-effect waves-light button-colored" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
                 </div>
             </div>
          <br><br>
@@ -250,5 +248,3 @@
         </div>
     </div>
 </div>
-
-
