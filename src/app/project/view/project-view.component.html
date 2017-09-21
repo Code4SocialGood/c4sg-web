@@ -191,10 +191,10 @@
                     </div>
                     <div class="user-info col s4">
                       <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
-                      <div *ngIf="applicant.applicationStatus === 'C'">
+                      <div *ngIf="applicant.acceptedTime">
                         Accepted on: {{applicant.acceptedTime | slice: 0:10}}
                       </div>
-                      <div *ngIf="applicant.applicationStatus === 'D'">
+                      <div *ngIf="applicant.declinedTime">
                         Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>
