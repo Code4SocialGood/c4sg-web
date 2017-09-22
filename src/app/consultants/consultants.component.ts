@@ -58,7 +58,7 @@ export class ConsultantsComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     const formData = this.consultantForm.value;
-    //For subject areas- Get all chips with class subjectSelected
+    // For subject areas- Get all chips with class subjectSelected
 
   }
 
