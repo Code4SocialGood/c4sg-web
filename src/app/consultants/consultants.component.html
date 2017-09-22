@@ -1,28 +1,64 @@
 <div class="page-title-center">
   <h1>Consultants</h1>
 </div>
-<div class="container content">
+
+<div class="container ">
+  <form [formGroup]="consultantForm" (ngSubmit)="onSubmit(consultantForm.value, $event)">
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="flow-text">
+          <p>Have a question and want to talk to a subject area expert? Leave your request below and you will be contacted by a consultant
+          withing 3 days</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+          <p>Subject Areas</p>
+      </div>
+
+      <br />
+      <div class="skills-tag-wrapper">
+        <ul class="ulSubjectArea">
+          <li class="chip" *ngFor="let subjectArea of subjectAreas"
+          (click)="select($event, subjectArea)">
+           {{ subjectArea }}
+
+          </li>
+        </ul>
+      </div>
+      <br />
+
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="input-field col s12">
+          <textarea id="description" [maxLength]="descMaxLength" class="materialize-textarea" formControlName="description" required
+            (click)="onCountCharDescription()" (input)="onCountCharDescription()" (focus)="onFocusDescription()" (blur)="onBlurDescription()">
+          </textarea>
+          <label for="description" id="desc-label">Question
+        <span *ngIf="descFieldFocused"> ({{ descValueLength + '/' + descMaxLength }})</span>
+      </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10"
+          data-tooltip="Coming soon">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <br>
+  <br>
+  <br>
   <div class="row">
-    <div class="col s8 offset-s2">
-      <div>
-        <h4>Professionals</h4>
-        I am a subject matter expert and I would like to provide consultation on projects
-      </div>
-
-      <div>
-        <h4>Volunteers</h4>
-        I have a technical challenge and I would like to talk to an expert
-      </div>
-
-      <div>
-        <h4>Nonprofits</h4>
-        I need technical advice on my projects</div>
-      </div>
-
-  </div>
-  <h5>You Have Come To The Right Place!<br></h5>
-
-  <div class="contact">
-    Professionals, please <a href="mailto:info@code4socialgood.org">contact us</a> if you would like to volunteer as a technical consultant!
+    <div class="col s12 m12 flow-text">
+        <p>Professionals, please <a href="mailto:info@code4socialgood.org">contact us</a> if you would like to volunteer as a
+      technical consultant!</p>
+    </div>
   </div>
 </div>
