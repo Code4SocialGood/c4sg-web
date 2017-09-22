@@ -1,7 +1,11 @@
 
- <button (click)="goBack()">Back to Search Results</button>
  <div class="page-title" *ngIf="project && project.status === 'A'">
-    <h1>Project</h1>
+	<table>
+   <tr>
+     <td><h1>Project</h1></td><td><button (click)="goBack()">Back to Search Results</button></td>
+   </tr>
+   </table>
+	
   </div>
   <div class="page-title" *ngIf="project && project.status === 'C'">
     <h1>Project- CLOSED</h1>

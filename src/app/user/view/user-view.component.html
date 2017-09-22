@@ -1,8 +1,16 @@
-<button (click)="goBack()">Back to Search Results</button>
+
 <div class="page-title"  *ngIf="user">
-  <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
+  <!--<h1 *ngIf="user.role === 'V'">Volunteer User</h1>
   <h1 *ngIf="user.role === 'O'">Organization User</h1>
-  <h1 *ngIf="user.role === 'A'">Admin User</h1>
+  <h1 *ngIf="user.role === 'A'">Admin User</h1> -->
+  <table>
+   <tr>
+     <td><h1 *ngIf="user.role === 'V'">Volunteer User</h1></td><td><button (click)="goBack()">Back to Search Results</button></td>
+   </tr>
+   </table>
+   <h1 *ngIf="user.role === 'O'">Organization User</h1>
+   <h1 *ngIf="user.role === 'A'">Admin User</h1>
+   
 </div>
 <div class="container">
   <div class="row main-row">
