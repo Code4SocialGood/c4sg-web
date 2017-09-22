@@ -1,3 +1,4 @@
+<div class="maindiv">
 <div class="action">
     <div class="aniSlogan-background">
         <div id="aniSlogan">
@@ -5,10 +6,9 @@
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
         </div>
-        <div class="green-ribbon">
-          GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
-        </div>
+
     </div>
+</div>
 </div>
 
 <!--<div class="section no-padding">
@@ -33,6 +33,11 @@
 
 </div>-->
 <div class="section no-padding">
+    <div class="row">
+    <div class="green-ribbon">
+        GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
+      </div>
+      </div>
     <br><br>
     <div class="container">
         <div class="row">
@@ -127,20 +132,19 @@
                           </div>
                         </agm-info-window>
                       </agm-marker>
-
                       <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) "
                         iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
 
                         <agm-info-window>
                           <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/user/view',o.id] ">
+                            <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
                               <div class="info-avatar ">
-                                <img [src]="o.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                                <img [src]="o.logoUrl " onError="this.src='../../assets/default_image.png' ">
                               </div>
-                              <div class="user-name ">
-                                {{o.userName}}
+                              <div class="content-title ">
+                                {{o.name}}
                               </div>
-                              <div class="user-location ">
+                              <div class="state ">
                                 <span *ngIf="o.state ">{{o.state}}</span>
                                 <span *ngIf="o.state && o.country ">,</span>
                                 <span *ngIf="o.country ">{{getCountryName(o.country)}}</span>
@@ -154,9 +158,9 @@
             </div>
             <div class="col s2 m2">
               <div class="divStats">
-              <div>Volunteers:{{numberOfVolunteers}}</div>
-              <div>Organizations:{{numberOfOrganization}}</div>
-              <div>Projects:{{numberOfProjects}}</div>
+              <div>Volunteers: {{numberOfVolunteers}}</div>
+              <div>Projects: {{numberOfProjects}}</div>
+              <div>Organizations: {{numberOfOrganization}}</div>
             </div>
             </div>
         </div>

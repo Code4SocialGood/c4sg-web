@@ -184,19 +184,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   showSkills(): void {
-    let addedSkills;
-    if (this.skillsShowed.length < this.skills.length) {
-      if (!this.skillsShowed.length) {
-        addedSkills = this.skills.slice(0, 10);
-      } else {
-        addedSkills = this.skills
-          .filter(i => !this.skillsShowed.includes(i));
-        addedSkills = addedSkills.filter((i, index) => index < 10);
-      }
-      for (const addedSkill of addedSkills) {
-        this.skillsShowed.push(addedSkill);
-        this.skillsArray.push(new FormControl(false));
-      }
+    const addedSkills = this.skills;
+    for (const addedSkill of addedSkills) {
+      this.skillsShowed.push(addedSkill);
+      this.skillsArray.push(new FormControl(false));
     }
   }
 

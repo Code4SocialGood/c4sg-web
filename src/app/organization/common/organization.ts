@@ -16,6 +16,8 @@ export class Organization {
     public ein: string,
     public projects: number,
 
+    public latitude?: number,
+    public longitude?: number,
     public status?: string,
     public createdTime?: string,
     public updatedTime?: string
