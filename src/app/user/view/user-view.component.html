@@ -1,20 +1,18 @@
 
 <div class="page-title"  *ngIf="user">
   <table>
-  <tr>
-  <td><h1 *ngIf="user.role === 'V'">Volunteer User</h1></td><td><button *ngIf="user.role === 'V'"(click)="goBack()">Back to Search Results</button></td>
-  </tr>
-  </table>
- <table>
-  <tr>
-  <td><h1 *ngIf="user.role === 'O'">Organization User</h1></td><td><button *ngIf="user.role === 'O'" (click)="goBack()">Back to Search Results</button></td>
-  </tr>
-  </table>
-  <table>
-  <tr>
-  <td><h1 *ngIf="user.role === 'A'">Admin User</h1></td><td><button *ngIf="user.role === 'A'" (click)="goBack()">Back to Search Results</button></td>
-  </tr>
-  </table>
+ <tr>
+     <td>
+    <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
+    <h1 *ngIf="user.role === 'O'">Organization  User</h1>
+    <h1 *ngIf="user.role === 'A'">Admin User</h1>
+     </td>
+     <td>
+         <button (click)="goBack()">Back to Search Results</button>
+     </td>
+ </tr>
+</table>
+  
 </div>
 <div class="container">
   <div class="row main-row">
