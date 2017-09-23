@@ -1,10 +1,11 @@
 
- <button (click)="goBack()">Back to Search Results</button>
- <div class="page-title" *ngIf="project && project.status === 'A'">
+ <div class="page-title clearfix" *ngIf="project && project.status === 'A'">
     <h1>Project</h1>
+    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
-  <div class="page-title" *ngIf="project && project.status === 'C'">
+  <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
     <h1>Project- CLOSED</h1>
+    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
 
 <div class="container">
