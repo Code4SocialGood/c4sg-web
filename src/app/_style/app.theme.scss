@@ -322,12 +322,14 @@ select.browser-default {
 }
 
 .page-title {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
   h1 {
     float: left;
   }
   .btn {
     float: right;
-    margin-right: 1rem;
+    margin-right: 8.5rem;
     background: #fff;
     color: $secondary-bg-color;
   }
