@@ -320,3 +320,15 @@ select.browser-default {
 .backdrop {
   background-color: $secondary-color;
 }
+
+.page-title {
+  h1 {
+    float: left;
+  }
+  .btn {
+    float: right;
+    margin-right: 1rem;
+    background: #fff;
+    color: $secondary-bg-color;
+  }
+}
