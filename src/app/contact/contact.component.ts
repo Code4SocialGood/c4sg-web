@@ -34,7 +34,7 @@ export class ContactComponent implements OnInit {
       'name': ['', []],
       'email': ['', []],
       'comment': ['', []]
-    })
+    });
   }
   // Name methods
   onCountCharName() {
@@ -50,7 +50,7 @@ export class ContactComponent implements OnInit {
     this.onCountCharName();
   }
   onBlurName() {
-    if(!this.contactForm.controls.name.invalid) {
+    if (!this.contactForm.controls.name.invalid) {
       this.nameFieldFocused = false;
     }
   }
@@ -68,7 +68,7 @@ export class ContactComponent implements OnInit {
     this.onCountCharEmail();
   }
   onBlurEmail() {
-    if(!this.contactForm.controls.email.invalid) {
+    if (!this.contactForm.controls.email.invalid) {
       this.emailFieldFocused = false;
     }
   }
@@ -86,7 +86,7 @@ export class ContactComponent implements OnInit {
     this.onCountCharComment();
   }
   onBlurComment() {
-    if(!this.contactForm.controls.comment.invalid) {
+    if (!this.contactForm.controls.comment.invalid) {
       this.commentFieldFocused = false;
     }
   }
