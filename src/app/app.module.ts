@@ -122,7 +122,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarComponent,
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
-    MyPaginationControlsComponent
+    MyPaginationControlsComponent,
   ],
   providers: [ProjectService,
     OrganizationService,
