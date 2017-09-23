@@ -15,6 +15,6 @@ export class ValidationService {
 
   public descMaxLength = 10000;
   public introMaxLength = 10000;
-
+  public nameMaxLength = 120;
 
 }
