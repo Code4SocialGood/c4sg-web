@@ -8,6 +8,7 @@ import { ConsultantsComponent } from './consultants/consultants.component';
 import { ContactComponent } from './contact/contact.component';
 import { AppreciationsComponent } from './appreciations/appreciations.component';
 import { PartnersComponent } from './partners/partners.component';
+import { StoriesComponent } from './stories/stories.component';
 
 import { ProjectListComponent } from './project/list/project-list.component';
 import { ProjectViewComponent } from './project/view/project-view.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: 'appreciations', component: AppreciationsComponent},
   {path: 'partners', component: PartnersComponent},
+  {path: 'stories', component: StoriesComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},

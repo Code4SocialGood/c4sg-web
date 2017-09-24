@@ -18,6 +18,7 @@ import {AppreciationsComponent} from './appreciations/appreciations.component';
 import {ConsultantsComponent} from './consultants/consultants.component';
 import {ContactComponent} from './contact/contact.component';
 import {PartnersComponent} from './partners/partners.component';
+import {StoriesComponent} from './stories/stories.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -94,6 +95,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ConsultantsComponent,
     ContactComponent,
     PartnersComponent,
+    StoriesComponent,
 
     HeaderComponent,
     FooterComponent,
