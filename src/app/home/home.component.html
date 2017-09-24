@@ -170,9 +170,21 @@
             </div>
             <div class="col s2 m2">
               <div class="divStats">
-              <div>Volunteers: {{numberOfVolunteers}}</div>
+                <table class="tableStats">
+                  <tr>
+                    <td><div>Volunteers: {{numberOfVolunteers}}
+                      <span class="spanPublicVolunteer">({{numberOfPublicProfiles}} with public profile)</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><div>Projects: {{numberOfProjects}}</div></td>
+                  </tr>
+                  <tr><td>
+                      <div>Organizations: {{numberOfOrganization}}</div>
+                  </td></tr>
+                </table>
+              <!--<div>Volunteers: {{numberOfVolunteers}}({{numberOfPublicProfiles}} with public profile)</div>
               <div>Projects: {{numberOfProjects}}</div>
-              <div>Organizations: {{numberOfOrganization}}</div>
+              <div>Organizations: {{numberOfOrganization}}</div>-->
             </div>
             </div>
         </div>
