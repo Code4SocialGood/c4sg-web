@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'our-stories',
+  selector: 'my-stories',
   templateUrl: './stories.component.html',
   styleUrls: ['./stories.component.scss']
 })
