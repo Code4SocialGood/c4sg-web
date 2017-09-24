@@ -188,7 +188,7 @@ export class HomeComponent implements OnInit {
       res => {
         this.developers = res.filter(vol => vol.role === 'V');
         this.numberOfVolunteers = this.developers.length;
-        this.numberOfPublicProfiles=res.filter(vol => vol.status === 'A' && vol.role === 'V' && vol.publishFlag === 'Y').length;
+        this.numberOfPublicProfiles = res.filter(vol => vol.status === 'A' && vol.role === 'V' && vol.publishFlag === 'Y').length;
       },
       error => console.error(error)
     );
