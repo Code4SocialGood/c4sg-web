@@ -121,7 +121,7 @@ hr {
       margin-bottom: 0.75em;
 
       img{
-        width: auto;
+        width: 100%;
         max-width: none;
         height: 100%;
         position: absolute;
@@ -319,4 +319,18 @@ select.browser-default {
 
 .backdrop {
   background-color: $secondary-color;
+}
+
+.page-title {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  h1 {
+    float: left;
+  }
+  .btn {
+    float: right;
+    margin-right: 8.5rem;
+    background: #fff;
+    color: $secondary-bg-color;
+  }
 }

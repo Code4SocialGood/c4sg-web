@@ -86,7 +86,7 @@
     position: relative;
 }*/
 
-.action {
+/*.action {
 
     background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
     background-attachment:fixed;
@@ -104,8 +104,16 @@
     height:-webkit-fill-available;
     text-align: center;
     //position: relative;
-}
+}*/
+.action {
+  background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
 
+  //background-image: url("/assets/image_1.jpeg");
+  background-repeat: no-repeat;
+  height: 90vh;
+  background-size: cover;
+
+}
 
 //cursor and aniSlogan
 /*@font-face {
@@ -121,7 +129,9 @@
     width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0px;
+    bottom: 0%;
+    top: 68%;
+    height: 32%;
 }
 
 #aniSlogan {
@@ -130,7 +140,7 @@
   //font-weight: 100;
   font-weight: bold;
   color: #fff;
-  padding-top: 0.5em;
+  // padding-top: 1em;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -139,6 +149,7 @@
 @media screen and (max-width: 915px) {
   #aniSlogan {
       font-size: 2em;
+      padding-top:2%;
     }
 }
   @media screen and (max-width: 650px) {
@@ -284,10 +295,26 @@
 //featured projects section
 .card{
     max-height: 100%;
-    background-color: transparent;
+    background-color: white;
+    border: 1px $secondary-color solid;
+    .card-content{
+        text-align: center;
+        position: relative;
+        .material-icons{
+          position: absolute;
+          right: 0;
+        }
+    }
+    .card-reveal{
+      .material-icons{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+    }
 }
 .card-image{
-    height: 300px;
+    height: 150px;
     img{
         max-width: 100%;
         max-height: 100%;
@@ -324,6 +351,7 @@
     border: none;
     font-size: 1em;
     padding: 5px 30px;
+    width: 100%;
 }
 
 @media screen and (max-width: 915px){
@@ -491,9 +519,22 @@ agm-map {
   height: 500px;
   margin-left: -22px;
   text-align: center;
-  line-height: 500%;
+  //line-height: 500%;
+
+}
+
+.spanPublicVolunteer{
+  font-size: 0.8em;
+}
+
+.tableStats{
+  height: 100%;
+  .tr{
+    height: 25%;
+  }
 }
 
 .maindiv{
-  height: 577px;
+  height: 100%;
+  position: relative;
 }

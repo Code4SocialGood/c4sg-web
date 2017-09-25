@@ -16,7 +16,9 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {AppreciationsComponent} from './appreciations/appreciations.component';
 import {ConsultantsComponent} from './consultants/consultants.component';
+import {ContactComponent} from './contact/contact.component';
 import {PartnersComponent} from './partners/partners.component';
+import {StoriesComponent} from './stories/stories.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -91,7 +93,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AboutComponent,
     AppreciationsComponent,
     ConsultantsComponent,
+    ContactComponent,
     PartnersComponent,
+    StoriesComponent,
 
     HeaderComponent,
     FooterComponent,
@@ -120,7 +124,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarComponent,
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
-    MyPaginationControlsComponent
+    MyPaginationControlsComponent,
   ],
   providers: [ProjectService,
     OrganizationService,
