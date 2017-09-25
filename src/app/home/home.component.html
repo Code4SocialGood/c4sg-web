@@ -135,11 +135,14 @@
                               <div class="user-name ">
                                 {{d.userName}}
                               </div>
-                              <div class="user-location ">
+                              <div class="user-name ">
+                                  {{d.title}}
+                                </div>
+                             <!-- <div class="user-location ">
                                 <span *ngIf="d.state ">{{d.state}}</span>
                                 <span *ngIf="d.state && d.country ">,</span>
                                 <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
-                              </div>
+                              </div>-->
                             </a>
                           </div>
                         </agm-info-window>
