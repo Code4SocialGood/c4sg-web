@@ -519,7 +519,19 @@ agm-map {
   height: 500px;
   margin-left: -22px;
   text-align: center;
-  line-height: 500%;
+  //line-height: 500%;
+
+}
+
+.spanPublicVolunteer{
+  font-size: 0.8em;
+}
+
+.tableStats{
+  height: 100%;
+  .tr{
+    height: 25%;
+  }
 }
 
 .maindiv{

@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit {
   allProjects: Project[];
   numberOfOrganization: number;
   numberOfVolunteers: number;
+  numberOfPublicProfiles: number;
   numberOfProjects: number;
   zoom = 2;
   // initial center position for the map
@@ -187,6 +188,7 @@ export class HomeComponent implements OnInit {
       res => {
         this.developers = res.filter(vol => vol.role === 'V');
         this.numberOfVolunteers = this.developers.length;
+        this.numberOfPublicProfiles = res.filter(vol => vol.status === 'A' && vol.role === 'V' && vol.publishFlag === 'Y').length;
       },
       error => console.error(error)
     );
