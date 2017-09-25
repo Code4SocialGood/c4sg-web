@@ -45,6 +45,7 @@ export class ProjectViewComponent implements OnInit {
   displayApply = false;
   displayBookmark = false;
   displayEdit = false;
+  displayReopen = false;
   displayClose = false;
   displayApplicants = false;
 
@@ -225,10 +226,14 @@ export class ProjectViewComponent implements OnInit {
               this.displayEdit = true;
               this.displayClose = true;
               this.displayApplicants = true;
+              this.displayReopen = false;
             }
             if (this.project.status === 'C') {
               this.displayClose = false;
               this.displayShare = false;
+              this.displayEdit = false;
+              this.displayReopen = true;
+
             }
           },
           error => console.log(error)
@@ -237,9 +242,12 @@ export class ProjectViewComponent implements OnInit {
         this.displayEdit = true;
         this.displayClose = true;
         this.displayApplicants = true;
+        this.displayReopen = false;
         if (this.project.status === 'C') {
           this.displayClose = false;
           this.displayShare = false;
+          this.displayEdit = false;
+          this.displayReopen = true;
         }
       }
     }
@@ -282,6 +290,20 @@ export class ProjectViewComponent implements OnInit {
     this.router.navigate(['project/edit', this.project.id]);
   }
 
+  reOpen(): void {
+    this.project.status = 'A';
+    this.projectService
+      .update(this.project)
+      .subscribe(res => {
+        this.router.navigate(['/project/view/' + this.project.id]);
+        Materialize.toast('The project is reopened', 4000);
+        this.displayEdit = true;
+        this.displayClose = true;
+        this.displayApplicants = true;
+        this.displayReopen = false;
+      }, error => console.log(error));
+  }
+
   goBack(): void {
     this.location.back();
   }
@@ -291,11 +313,14 @@ export class ProjectViewComponent implements OnInit {
       .delete(this.project.id)
       .subscribe(
         response => {
+          this.router.navigate(['/project/view', this.project.id]);
           Materialize.toast('The project is closed', 4000);
           this.project.status = 'C';
           this.displayClose = false;
           this.displayShare = false;
-          this.router.navigate(['/project/view', this.project.id]);
+          this.displayEdit = false;
+          this.displayReopen = true;
+          // this.router.navigate(['/project/view', this.project.id]);
         },
         error => {
             Materialize.toast('Error closing the project', 4000);

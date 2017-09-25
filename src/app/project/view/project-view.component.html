@@ -166,6 +166,8 @@
               <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayEdit" (click)="edit()">Edit
               </button>
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayReopen" (click)="reOpen()">Reopen
+                </button>
               <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal(project)">Close
               </button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
