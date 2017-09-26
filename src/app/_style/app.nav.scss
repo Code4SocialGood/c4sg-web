@@ -9,6 +9,12 @@ nav {
   border-bottom: solid $line-sep-width $line-sep-color;
   box-shadow: none;
   line-height: $navbar-height;
+  font-family: $main-font;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $main-color;
+  font-weight: bold;
 
   .brand-logo {
     display: table-cell;
