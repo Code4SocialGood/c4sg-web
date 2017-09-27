@@ -48,6 +48,7 @@ export class ProjectViewComponent implements OnInit {
   displayReopen = false;
   displayClose = false;
   displayApplicants = false;
+  displayApplicationForm = false;
 
   userProfileIncomplete = false;
   projectStatusApplied = false;
@@ -166,6 +167,8 @@ export class ProjectViewComponent implements OnInit {
             }
           );
   }
+  
+ 
 
   displayButtons(): void {
 
@@ -252,6 +255,15 @@ export class ProjectViewComponent implements OnInit {
     }
   }
 
+  toggleApplicationForm(): void {
+    if(this.displayApplicationForm === false) {
+        this.displayApplicationForm = true;
+    } else {
+        this.displayApplicationForm = false;
+    }
+    
+  }
+
   saveUserProject(userId, status, applicant) {
 
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
@@ -263,6 +275,7 @@ export class ProjectViewComponent implements OnInit {
                   if (status === 'A') {
                     this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
                     this.projectStatusApplied = true;
+                    this.toggleApplicationForm();
                   } else if (status === 'B') {
                     this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
                     this.projectStatusBookmarked = true;
@@ -274,6 +287,7 @@ export class ProjectViewComponent implements OnInit {
                     applicant.applicationStatus = 'D';
                   }
                     this.router.navigate(['/project/view', this.project.id]);
+                    
                 },
                 error => {
                     this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});

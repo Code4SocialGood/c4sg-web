@@ -155,7 +155,7 @@
                 Apply
               </button>
               <!-- Apply button is enabled for login user -->
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="toggleApplicationForm()"
                 [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
                 Apply
               </button>
@@ -181,7 +181,7 @@
             </div>
           </div>      
             <br>
-          <div class="col s12">              
+          <div class="col s12" *ngIf="displayApplicationForm">              
               <div class="info-title">Application</div>
               <form>
                   <div class="row">
@@ -193,13 +193,13 @@
                   <div class="row">
                       <div class="col s12">
                           <input type="checkbox" id="resumeFlag" name="resumeFlag" disabled="disabled"/>
-                          <label for="resumeFlag">Resume</label>
+                          <label for="resumeFlag" class="tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Coming soon">Resume</label>
                       </div>
                   </div>
                   <br>
                   <div class="row">
                       <div class="col s12 offset-s5">
-                          <button type="button" class="btn waves-effect waves-light">Submit</button>
+                          <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(currentUserId, 'A')">Submit</button>
                       </div>
                   </div>
               </form>
