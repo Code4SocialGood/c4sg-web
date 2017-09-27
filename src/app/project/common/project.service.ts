@@ -143,7 +143,7 @@ export class ProjectService {
   }
 
   linkUserProject(projectId: number, userId: string, status: string) {
-    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
+    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status + '&comment=some comment&resumeFlag=N';
     return this.authHttp
       .post(url, { headers: this.headers })
       .do(() => {
