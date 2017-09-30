@@ -94,6 +94,18 @@ export class AuthService {
             localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
           },
           error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
+          res => {
+            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
+          res => {
+            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
+          },
+          error => console.log(error));
       }
     }
 
@@ -148,7 +160,7 @@ export class AuthService {
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
-          if (authResult.accessToken.length < 20) {
+          if (authResult.accessToken.length < 100) {
             // console.log('idtoken: ' + authResult.idToken);
             // workaround : do not delete below line as its needed for email signup
             localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);

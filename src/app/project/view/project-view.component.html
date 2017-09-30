@@ -1,10 +1,11 @@
 
- <button (click)="goBack()">Back to Search Results</button>
- <div class="page-title" *ngIf="project && project.status === 'A'">
+ <div class="page-title clearfix" *ngIf="project && project.status === 'A'">
     <h1>Project</h1>
+    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
-  <div class="page-title" *ngIf="project && project.status === 'C'">
+  <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
     <h1>Project- CLOSED</h1>
+    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
 
 <div class="container">
@@ -151,7 +152,7 @@
               </button>
               <!-- Apply button is enabled for login user -->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
-                [disabled]="projectStatusApplied">
+                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
@@ -166,6 +167,8 @@
               <!--*ngIf="displayBookmark" (click)="bookmark()"  [disabled]="projectStatusBookmarked">Bookmark</button>-->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayEdit" (click)="edit()">Edit
               </button>
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayReopen" (click)="reOpen()">Reopen
+                </button>
               <button type="button" class="btn waves-effect waves-light" materialize [materializeActions]="modalActions" *ngIf="displayClose" (click)="openModal(project)">Close
               </button>
               <!--<button class="btn waves-effect waves-light" (click)="openModal(project)" type="button">
@@ -191,10 +194,10 @@
                     </div>
                     <div class="user-info col s4">
                       <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
-                      <div *ngIf="applicant.applicationStatus === 'C'">
+                      <div *ngIf="applicant.acceptedTime">
                         Accepted on: {{applicant.acceptedTime | slice: 0:10}}
                       </div>
-                      <div *ngIf="applicant.applicationStatus === 'D'">
+                      <div *ngIf="applicant.declinedTime">
                         Declined on: {{applicant.declinedTime | slice: 0:10}}
                       </div>
                     </div>

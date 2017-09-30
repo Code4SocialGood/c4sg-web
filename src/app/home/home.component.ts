@@ -8,6 +8,8 @@ import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs/Rx';
 import { User } from '../user/common/user';
 import { UserService } from '../user/common/user.service';
+import { OrganizationService } from '../organization/common/organization.service';
+import { Organization } from '../organization/common/organization';
 import { FormConstantsService } from '../_services/form-constants.service';
 require('./agmMarkerProto.js');
 
@@ -82,10 +84,11 @@ export class HomeComponent implements OnInit {
   // Google maps
   usersSubscription: Subscription;
   developers: User[];
-  organizations: User[];
+  organizations: Organization[];
   allProjects: Project[];
   numberOfOrganization: number;
   numberOfVolunteers: number;
+  numberOfPublicProfiles: number;
   numberOfProjects: number;
   zoom = 2;
   // initial center position for the map
@@ -98,6 +101,7 @@ export class HomeComponent implements OnInit {
               private dataService: DataService,
               public authSvc: AuthService,
               private uService: UserService,
+              private oService: OrganizationService,
               public constantsService: FormConstantsService) {
   }
 
@@ -184,16 +188,17 @@ export class HomeComponent implements OnInit {
       res => {
         this.developers = res.filter(vol => vol.role === 'V');
         this.numberOfVolunteers = this.developers.length;
+        this.numberOfPublicProfiles = res.filter(vol => vol.status === 'A' && vol.role === 'V' && vol.publishFlag === 'Y').length;
       },
       error => console.error(error)
     );
   }
   // Google maps
   private getOrganizations(): void {
-    this.usersSubscription = this.uService.getAllUsers()
+    this.usersSubscription = this.oService.getOrganizations()
     .subscribe(
       res => {
-        this.organizations = res.filter(vol => vol.role === 'O');
+        this.organizations = res.filter(org => org.status === 'A');
         this.numberOfOrganization = this.organizations.length;
       },
       error => console.error(error)
@@ -203,7 +208,7 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.projectService.getAllProjects()
     .subscribe(
       res => {
-        this.allProjects = res;
+        this.allProjects = res.filter(vol => vol.status === 'A');
         this.numberOfProjects = this.allProjects.length;
       },
       error => console.error(error)

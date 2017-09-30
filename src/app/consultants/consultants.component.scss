@@ -1,7 +1,5 @@
 @import "../_style/app.theme";
 
-@import "../_style/app.theme";
-
 .content {
   text-align: center;
   padding-top: 3rem;
@@ -28,4 +26,15 @@
 
 h5 {
   font-size: 1.5rem;
+}
+
+.subjectSelected{
+  color: $secondary-color !important;
+}
+.subjectDeselected{
+  color: #5ba55b !important;
+}
+
+.ulSubjectArea{
+margin-left: 15px;
 }
