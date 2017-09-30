@@ -295,10 +295,26 @@
 //featured projects section
 .card{
     max-height: 100%;
-    background-color: transparent;
+    background-color: white;
+    border: 1px $secondary-color solid;
+    .card-content{
+        text-align: center;
+        position: relative;
+        .material-icons{
+          position: absolute;
+          right: 0;
+        }
+    }
+    .card-reveal{
+      .material-icons{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+    }
 }
 .card-image{
-    height: 300px;
+    height: 150px;
     img{
         max-width: 100%;
         max-height: 100%;
@@ -335,6 +351,7 @@
     border: none;
     font-size: 1em;
     padding: 5px 30px;
+    width: 100%;
 }
 
 @media screen and (max-width: 915px){
@@ -502,7 +519,19 @@ agm-map {
   height: 500px;
   margin-left: -22px;
   text-align: center;
-  line-height: 500%;
+  //line-height: 500%;
+
+}
+
+.spanPublicVolunteer{
+  font-size: 0.6em;
+}
+
+.tableStats{
+  height: 100%;
+  .tr{
+    height: 25%;
+  }
 }
 
 .maindiv{

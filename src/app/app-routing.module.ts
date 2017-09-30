@@ -5,8 +5,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ConsultantsComponent } from './consultants/consultants.component';
+import { ContactComponent } from './contact/contact.component';
 import { AppreciationsComponent } from './appreciations/appreciations.component';
 import { PartnersComponent } from './partners/partners.component';
+import { StoriesComponent } from './stories/stories.component';
 
 import { ProjectListComponent } from './project/list/project-list.component';
 import { ProjectViewComponent } from './project/view/project-view.component';
@@ -29,8 +31,10 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'consultants', component: ConsultantsComponent},
+  {path: 'contact', component: ContactComponent},
   {path: 'appreciations', component: AppreciationsComponent},
   {path: 'partners', component: PartnersComponent},
+  {path: 'stories', component: StoriesComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},
