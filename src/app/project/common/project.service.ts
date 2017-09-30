@@ -142,10 +142,12 @@ export class ProjectService {
     };
   }
 
-  linkUserProject(projectId: number, userId: string, status: string) {
-    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status + '&comment=some comment&resumeFlag=N';
+  linkUserProject(projectId: number, userId: string, status: string, comment: string, resumeFlag: boolean) {
+    //const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status + '&comment=some //comment&resumeFlag=N';
+    
+    const url = `${projectUrl}/${projectId}/users/${userId}`;
     return this.authHttp
-      .post(url, { headers: this.headers })
+      .post(url, {status:status, comment:comment, resumeFlag:resumeFlag}, { headers: this.headers })
       .do(() => {
         const projectsIDs = this.getUserProjectStatusFromLocalStorage();
         // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied or bookmarked another project

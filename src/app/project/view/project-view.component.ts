@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../common/project';
+import { Application } from '../common/application';
 import { Organization } from '../../organization/common/organization';
 import { User } from '../../user/common/user';
 import { JobTitle } from '../../job-title';
@@ -30,6 +31,7 @@ export class ProjectViewComponent implements OnInit {
   projects: Project[];
   user: User;
   public jobTitlesArray: JobTitle[] = [];
+  application: Application;
   numberOfProjects: number;
   params: Params;
   currentUserId: string;
@@ -74,6 +76,10 @@ export class ProjectViewComponent implements OnInit {
 
     this.auth = this.authService;
     this.currentUserId = this.authService.getCurrentUserId();
+
+    this.application = new Application('',false,'');
+
+
     this.route.params.subscribe(params => {
     const id = params['projectId'];
     this.projectId = id;
@@ -267,8 +273,9 @@ export class ProjectViewComponent implements OnInit {
   saveUserProject(userId, status, applicant) {
 
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        return this.projectService
-            .linkUserProject(this.project.id, userId, status)
+        console.log("resume flag - " + this.application.resumeFlag);
+       return this.projectService
+            .linkUserProject(this.project.id, userId, status, this.application.comment, this.application.resumeFlag)
             .subscribe(
                 response => {
                   // display toast
