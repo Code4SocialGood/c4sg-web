@@ -160,7 +160,7 @@ export class AuthService {
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
-          if (authResult.accessToken.length < 20) {
+          if (authResult.accessToken.length < 100) {
             // console.log('idtoken: ' + authResult.idToken);
             // workaround : do not delete below line as its needed for email signup
             localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
