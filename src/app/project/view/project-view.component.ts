@@ -77,14 +77,16 @@ export class ProjectViewComponent implements OnInit {
     this.auth = this.authService;
     this.currentUserId = this.authService.getCurrentUserId();
 
-    this.application = new Application('',false,'');
-
 
     this.route.params.subscribe(params => {
     const id = params['projectId'];
     this.projectId = id;
     this.prevPage = localStorage.getItem('prevPage');
     localStorage.setItem('prevPage', '');
+
+      this.application = new Application(this.projectId,+this.currentUserId,'',false,'','','');
+
+
       this.projectService.getProject(id)
         .subscribe(
           res => {
