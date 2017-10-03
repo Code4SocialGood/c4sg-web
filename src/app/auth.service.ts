@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { Injectable, enableProdMode } from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { myConfig } from './auth.config';
 import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
@@ -160,11 +160,18 @@ export class AuthService {
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
-          if (authResult.accessToken.length < 100) {
-            // console.log('idtoken: ' + authResult.idToken);
-            // workaround : do not delete below line as its needed for email signup
-            localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
+          const jwtHelper = new JwtHelper();
+
+          // email signups do not readily return a usable JWT, so we need to grab
+          // the temporary token. social sign ups, however, do return the jwt, so we
+          // don't do anything special in this case.
+
+          try {
+              jwtHelper.decodeToken(authResult.accessToken);
+          } catch (e) {
+              localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
           }
+
           // Signed up via email/pwd
           const profIsSocialIDP = profile[this.isSocial] === undefined ?
             profile.identities[0].isSocial : profile[this.isSocial];
