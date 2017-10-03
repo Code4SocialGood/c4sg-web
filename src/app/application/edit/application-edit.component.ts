@@ -12,6 +12,8 @@ export class ApplicationEditComponent implements OnInit {
 
     @Input() application: Application;
     @Output() onApplicationCreated = new EventEmitter<boolean>();
+    @Output() onApplicationAccepted = new EventEmitter<boolean>();
+    @Output() onApplicationDeclined = new EventEmitter<boolean>();
    
     constructor(private applicationService: ApplicationService){
 
@@ -23,9 +25,8 @@ export class ApplicationEditComponent implements OnInit {
     
     createApplication(application: Application): void {
         
-        application.status = "A";
-        let currentDate: Date = new Date();
-        application.appliedTime = currentDate;
+        application.status = "A";        
+        application.appliedTime = new Date();
         this.applicationService.createApplication(application)
             .subscribe(res => {
                 this.onApplicationCreated.emit(true);
@@ -35,6 +36,32 @@ export class ApplicationEditComponent implements OnInit {
                 console.log('Error creating application');                
             });
         
+    }
+    
+    acceptApplication(application: Application): void {
+        application.status = "C";
+        application.acceptedTime = new Date();
+        this.applicationService.updateApplication(application)
+            .subscribe(res => {
+                this.onApplicationAccepted.emit(true);
+                console.log('Application accepted');
+            }, error => {
+                this.onApplicationAccepted.emit(false);
+                console.log('Error accepting application');
+            });        
+    }
+    
+    declineApplication(application: Application): void {
+        application.status = "D";
+        application.declinedTime = new Date();
+        this.applicationService.updateApplication(application)
+            .subscribe(res => {
+                this.onApplicationDeclined.emit(true);
+                console.log('Application declined');
+            }, error => {
+                this.onApplicationDeclined.emit(false);
+                console.log('Error declining application');
+            });        
     }
 
 }

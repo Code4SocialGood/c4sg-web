@@ -6,7 +6,7 @@ export class Application {
     public resumeFlag: boolean,   
     public comment?: string,
     public appliedTime?: Date,
-    public acceptedTime?: string,
-    public declinedTime?: string
+    public acceptedTime?: Date,
+    public declinedTime?: Date
   ) { }
 }
