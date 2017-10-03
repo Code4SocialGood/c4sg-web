@@ -181,8 +181,9 @@
             </div>
           </div>      
             <br>
-          <div class="col s12" *ngIf="displayApplicationForm">              
-              <div class="info-title">Application</div>
+          <div class="col s12" *ngIf="displayApplicationForm"> 
+              <edit-application [application]="application" (onApplicationCreated)="onApplicationCreated($event)"></edit-application>
+              <!--<div class="info-title">Application</div>
               <form>
                   <div class="row">
                       <div class="input-field col s12">
@@ -203,7 +204,7 @@
                           <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(currentUserId, 'A')">Submit</button>
                       </div>
                   </div>
-              </form>
+              </form>-->
           </div>          
         </div>
       </div>

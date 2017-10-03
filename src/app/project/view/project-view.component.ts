@@ -271,6 +271,26 @@ export class ProjectViewComponent implements OnInit {
     }
     
   }
+  
+  onApplicationCreated(applicationCreated: boolean): void {
+    if(applicationCreated) {
+        this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
+        
+        //update the display of applied check mark and application form
+        this.projectStatusApplied = true;        
+        this.toggleApplicationForm();
+        
+        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied for another project
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + this.project.id));
+                
+        //this.router.navigate(['/project/view', this.project.id]);
+        
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in application', 4000]});
+        this.projectStatusApplied = false;
+    }
+  }
 
   saveUserProject(userId, status, applicant) {
 

@@ -5,7 +5,7 @@ export class Application {
     public status: string,   
     public resumeFlag: boolean,   
     public comment?: string,
-    public appliedTime?: string,
+    public appliedTime?: Date,
     public acceptedTime?: string,
     public declinedTime?: string
   ) { }
