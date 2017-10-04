@@ -165,14 +165,6 @@ export class UserService {
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
-  public getApplicants(id: number): Observable<Applicant[]> {
-    const url = userUrl + '/applicant/' + id;
-    return this.http
-               .get(url)
-               .map( res => { return res.json() as Applicant[]; })
-               .catch(this.handleError);
-  }
-
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

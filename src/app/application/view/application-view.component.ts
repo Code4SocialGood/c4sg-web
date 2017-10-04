@@ -10,15 +10,19 @@ import { ApplicationService } from '../common/application.service';
 })
 export class ApplicationViewComponent implements OnInit {
     
-    @Input() applicants: Applicant[];
+    @Input() projectId: number;
     @Output() onApplicationAccepted = new EventEmitter<boolean>();
     @Output() onApplicationDeclined = new EventEmitter<boolean>();
+    
+    applicants: Applicant[];
     
     constructor(private applicationService: ApplicationService){
     
     }
     
     ngOnInit() {
+    
+        this.getApplicants(this.projectId);
     
     }
     
@@ -37,6 +41,17 @@ export class ApplicationViewComponent implements OnInit {
         
          return application;
         
+    }
+    
+    // Gets applicants for this project
+      getApplicants(projectId): void {
+
+        this.applicationService.getApplicants(projectId)
+              .subscribe(
+                res => {
+                  this.applicants = res;
+                }
+              );
     }
     
     acceptApplication(applicant: Applicant): void {

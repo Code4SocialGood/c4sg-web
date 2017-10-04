@@ -213,7 +213,7 @@
       <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
         <div class="row">
           <div class="col s12">
-              <application-view [applicants]="applicants" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></application-view>
+              <application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></application-view>
             <!--<h4 class="content-title">Applicants</h4>
             <div class="items-list-wrapper">
               <ul class="user-list" *ngIf="applicants">

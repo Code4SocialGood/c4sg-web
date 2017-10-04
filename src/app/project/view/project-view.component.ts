@@ -95,7 +95,7 @@ export class ProjectViewComponent implements OnInit {
             this.displayButtons();
             this.getOrganization(res.organizationId);
             this.getProjects(res.organizationId);
-            this.getApplicants(id);
+            
           },
           error => console.log(error)
           );
@@ -163,20 +163,7 @@ export class ProjectViewComponent implements OnInit {
               this.setCategoryName();
             }
             );
-  }
-
-  // Gets applicants for this project
-  getApplicants(projectId): void {
-
-    this.userService.getApplicants(projectId)
-          .subscribe(
-            res => {
-              this.applicants = res;
-            }
-          );
-  }
-  
- 
+  } 
 
   displayButtons(): void {
 
