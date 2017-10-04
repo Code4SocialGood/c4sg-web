@@ -43,11 +43,13 @@ export class ApplicationViewComponent implements OnInit {
     
         let application: Application = this.getApplicationFromApplicant(applicant);
         application.status = "C";
+        application.resumeFlag = false; //To DO: remove this line
         application.acceptedTime = new Date();
         this.applicationService.updateApplication(application)
             .subscribe(res => {
                 this.onApplicationAccepted.emit(true);
                 applicant.applicationStatus = 'C';
+                applicant.acceptedTime = application.acceptedTime;
                 console.log('Application accepted');
             }, error => {
                 this.onApplicationAccepted.emit(false);
@@ -59,11 +61,13 @@ export class ApplicationViewComponent implements OnInit {
     
         let application: Application = this.getApplicationFromApplicant(applicant);
         application.status = "D";
+        application.resumeFlag = false; //To DO: remove this line
         application.declinedTime = new Date();
         this.applicationService.updateApplication(application)
             .subscribe(res => {
                 this.onApplicationDeclined.emit(true);
                 applicant.applicationStatus = 'D';
+                applicant.declinedTime = application.declinedTime;
                 console.log('Application declined');
             }, error => {
                 this.onApplicationDeclined.emit(false);

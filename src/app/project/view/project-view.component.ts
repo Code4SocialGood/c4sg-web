@@ -300,7 +300,7 @@ export class ProjectViewComponent implements OnInit {
         localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
         
     } else {
-        this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});        
+        this.globalActions.emit({action: 'toast', params: ['Error in accepting the applicant', 4000]});        
     }
   }
   
