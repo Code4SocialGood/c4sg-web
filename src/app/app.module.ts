@@ -21,6 +21,7 @@ import {PartnersComponent} from './partners/partners.component';
 import {StoriesComponent} from './stories/stories.component';
 
 import {ApplicationEditComponent} from './application/edit/application-edit.component';
+import {ApplicationViewComponent} from './application/view/application-view.component';
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -104,6 +105,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HeaderComponent,
     FooterComponent,
 
+    ApplicationEditComponent,
+    ApplicationViewComponent,
+
     ProjectListComponent,
     ProjectViewComponent,
     ProjectEditComponent,
@@ -129,7 +133,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
     MyPaginationControlsComponent,
-    ApplicationEditComponent,
+    
   ],
   providers: [ProjectService,
     OrganizationService,

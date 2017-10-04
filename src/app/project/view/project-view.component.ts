@@ -6,7 +6,7 @@ import { Application } from '../common/application';
 import { Organization } from '../../organization/common/organization';
 import { User } from '../../user/common/user';
 import { JobTitle } from '../../job-title';
-import { Applicant } from '../../user/common/applicant';
+import { Applicant } from '../../application/common/applicant';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { UserService } from '../../user/common/user.service';
@@ -284,11 +284,37 @@ export class ProjectViewComponent implements OnInit {
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + this.project.id));
                 
-        //this.router.navigate(['/project/view', this.project.id]);
-        
     } else {
         this.globalActions.emit({action: 'toast', params: ['Error in application', 4000]});
         this.projectStatusApplied = false;
+    }
+  }
+  
+  onApplicationAccepted(applicationAccepted: boolean): void {
+    if(applicationAccepted) {
+        this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
+        //this.applicant.applicationStatus = 'C';         
+        
+        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied for another project
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
+        
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});        
+    }
+  }
+  
+  onApplicationDeclined(applicationDeclined: boolean): void {
+    if(applicationDeclined) {
+        this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
+        //this.applicant.applicationStatus = 'D';         
+        
+        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied for another project
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + this.project.id));
+        
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});        
     }
   }
 

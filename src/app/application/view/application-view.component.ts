@@ -1,0 +1,73 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Applicant } from '../common/applicant';
+import { Application } from '../common/application';
+import { ApplicationService } from '../common/application.service';
+
+@Component({
+    selector: 'application-view',
+    templateUrl: './application-view.component.html',
+    styleUrls: ['./application-view.component.scss']
+})
+export class ApplicationViewComponent implements OnInit {
+    
+    @Input() applicants: Applicant[];
+    @Output() onApplicationAccepted = new EventEmitter<boolean>();
+    @Output() onApplicationDeclined = new EventEmitter<boolean>();
+    
+    constructor(private applicationService: ApplicationService){
+    
+    }
+    
+    ngOnInit() {
+    
+    }
+    
+    getApplicationFromApplicant(applicant: Applicant): Application {
+
+        let application = new Application(
+                applicant.projectId,
+                applicant.userId,
+                applicant.applicationStatus,
+                applicant.resumeFlag,   
+                applicant.comment,
+                applicant.appliedTime,
+                applicant.acceptedTime,
+                applicant.declinedTime);
+            
+        
+         return application;
+        
+    }
+    
+    acceptApplication(applicant: Applicant): void {
+    
+        let application: Application = this.getApplicationFromApplicant(applicant);
+        application.status = "C";
+        application.acceptedTime = new Date();
+        this.applicationService.updateApplication(application)
+            .subscribe(res => {
+                this.onApplicationAccepted.emit(true);
+                applicant.applicationStatus = 'C';
+                console.log('Application accepted');
+            }, error => {
+                this.onApplicationAccepted.emit(false);
+                console.log('Error accepting application');
+            });        
+    }
+    
+    declineApplication(applicant: Applicant): void {
+    
+        let application: Application = this.getApplicationFromApplicant(applicant);
+        application.status = "D";
+        application.declinedTime = new Date();
+        this.applicationService.updateApplication(application)
+            .subscribe(res => {
+                this.onApplicationDeclined.emit(true);
+                applicant.applicationStatus = 'D';
+                console.log('Application declined');
+            }, error => {
+                this.onApplicationDeclined.emit(false);
+                console.log('Error declining application');
+            });        
+    }
+}
