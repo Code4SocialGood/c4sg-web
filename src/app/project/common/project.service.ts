@@ -150,32 +150,7 @@ export class ProjectService {
             .post(url, { headers: this.headers })
             .map(res => res.json())
             .catch(this.handleError);        
-    }
-
-  /*linkUserProject(projectId: number, userId: string, status: string, comment: string, resumeFlag: boolean) {
-    //const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status + '&comment=some //comment&resumeFlag=N';
-    
-    const url = `${projectUrl}/${projectId}/users/${userId}`;
-    return this.authHttp
-      .post(url, {status:status, comment:comment, resumeFlag:resumeFlag}, { headers: this.headers })
-      .do(() => {
-        const projectsIDs = this.getUserProjectStatusFromLocalStorage();
-        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied or bookmarked another project
-        if (status === 'A') {
-          localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'B') {
-          localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'C') {
-          localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'D') {
-          localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + projectId));
-        }
-      })
-      .catch(this.handleError);
-  }*/
+  }  
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

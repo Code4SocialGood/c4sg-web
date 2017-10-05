@@ -10,17 +10,21 @@ import { ApplicationService } from '../common/application.service';
 
 export class ApplicationEditComponent implements OnInit {
 
-    @Input() application: Application;
+    
+    @Input() projectId: number;
+    @Input() userId: number;
     @Output() onApplicationCreated = new EventEmitter<boolean>();
     @Output() onApplicationAccepted = new EventEmitter<boolean>();
     @Output() onApplicationDeclined = new EventEmitter<boolean>();
    
+    application: Application;
+    
     constructor(private applicationService: ApplicationService){
 
     }
     
     ngOnInit() {
-        
+       this.application = new Application(this.projectId,+this.userId,'',false,'',new Date(),new Date(),new Date()); 
     }
     
     createApplication(application: Application): void {

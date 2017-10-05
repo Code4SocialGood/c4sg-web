@@ -5,7 +5,6 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
 import { JobTitle } from '../../job-title';
-import { Applicant } from '../../application/common/applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 import { AuthHttp } from 'angular2-jwt';

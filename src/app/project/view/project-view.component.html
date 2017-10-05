@@ -182,29 +182,7 @@
           </div>      
             <br>
           <div class="col s12" *ngIf="displayApplicationForm"> 
-              <edit-application [application]="application" (onApplicationCreated)="onApplicationCreated($event)"></edit-application>
-              <!--<div class="info-title">Application</div>
-              <form>
-                  <div class="row">
-                      <div class="input-field col s12">
-                          <textarea id="comment" class="materialize-textarea" maxlength="10000" [(ngModel)]="application.comment" name="comment"></textarea>
-                          <label for="comment">Application Comment</label>
-                        </div>
-                  </div>
-                  <div class="row">
-                      <div class="col s12">
-                          <input type="checkbox" id="resumeFlag" name="resumeFlag" disabled="disabled" 
-                                [checked]="application.resumeFlag" />
-                          <label for="resumeFlag" class="tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Coming soon">Resume</label>
-                      </div>
-                  </div>
-                  <br>
-                  <div class="row">
-                      <div class="col s12 offset-s5">
-                          <button type="button" class="btn waves-effect waves-light" (click)="saveUserProject(currentUserId, 'A')">Submit</button>
-                      </div>
-                  </div>
-              </form>-->
+              <edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></edit-application>              
           </div>          
         </div>
       </div>
@@ -212,48 +190,7 @@
       <!-- Nonprofit User - Applicants -->
       <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
         <div class="row">          
-              <application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></application-view>
-            <!--<h4 class="content-title">Applicants</h4>
-            <div class="items-list-wrapper">
-              <ul class="user-list" *ngIf="applicants">
-                <li class="user-wrapper" *ngFor="let applicant of applicants">
-                  <div class="user">
-                    <div class="user-info col s4">
-                      <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
-                      <div>{{applicant.title}}</div>
-                    </div>
-                    <div class="user-info col s4">
-                      <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
-                      <div *ngIf="applicant.acceptedTime">
-                        Accepted on: {{applicant.acceptedTime | slice: 0:10}}
-                      </div>
-                      <div *ngIf="applicant.declinedTime">
-                        Declined on: {{applicant.declinedTime | slice: 0:10}}
-                      </div>
-                    </div>
-                    <div class="user-info col s4 buttons-margin"
-                    *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
-                      <div class="button-col-padding">
-                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
-                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
-                      </div>
-                    </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
-                      <div>ACCEPTED</div>
-                    </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'D'">
-                      <div>DECLINED</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="row" *ngIf="applicants && applicants.length == 0">
-              <div class="col s12">
-                <div class="info">No applicants found</div>
-              </div>
-            </div>-->
-          
+              <application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></application-view>          
         </div>
       </div>
     </div>
