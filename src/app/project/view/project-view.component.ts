@@ -251,14 +251,21 @@ export class ProjectViewComponent implements OnInit {
   }
 
   toggleApplicationForm(): void {
-    if(this.displayApplicationForm === false) {
-        this.displayApplicationForm = true;
-    } else {
-        this.displayApplicationForm = false;
-    }
+      if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+        if(this.displayApplicationForm === false) {
+            this.displayApplicationForm = true;
+        } else {
+            this.displayApplicationForm = false;
+        }
+      } else {
+        localStorage.setItem('redirectAfterLogin', this.router.url);
+        this.authService.login();
+      }
+    
     
   }
   
+  //refer application service
   onApplicationCreated(applicationCreated: boolean): void {
     if(applicationCreated) {
         this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
@@ -277,11 +284,11 @@ export class ProjectViewComponent implements OnInit {
     }
   }
   
+  //refer application service
   onApplicationAccepted(applicationAccepted: boolean): void {
     if(applicationAccepted) {
         this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
-        //this.applicant.applicationStatus = 'C';         
-        
+                
         // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied for another project
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
@@ -291,11 +298,11 @@ export class ProjectViewComponent implements OnInit {
     }
   }
   
+  //refer application service
   onApplicationDeclined(applicationDeclined: boolean): void {
     if(applicationDeclined) {
         this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-        //this.applicant.applicationStatus = 'D';         
-        
+            
         // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied for another project
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + this.project.id));
@@ -304,8 +311,26 @@ export class ProjectViewComponent implements OnInit {
         this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});        
     }
   }
+  
+  createBookmark(): void {
+        if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+            this.projectService.createBookmark(this.project.id, this.currentUserId)
+            .subscribe(res => {
+                const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+                localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
+                this.projectStatusBookmarked = true; 
+                this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
+            }, (error) => {
+                this.globalActions.emit({action: 'toast', params: ['Error creating bookmark', 4000]});
+            });
+        }
+        else {
+          localStorage.setItem('redirectAfterLogin', this.router.url);
+          this.authService.login();
+        }
+    }
 
-  saveUserProject(userId, status, applicant) {
+  /*saveUserProject(userId, status, applicant) {
 
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
         console.log("resume flag - " + this.application.resumeFlag);
@@ -339,7 +364,7 @@ export class ProjectViewComponent implements OnInit {
       localStorage.setItem('redirectAfterLogin', this.router.url);
       this.authService.login();
     }
-  }
+  }*/
 
   edit(): void {
     this.router.navigate(['project/edit', this.project.id]);

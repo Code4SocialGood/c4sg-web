@@ -147,7 +147,7 @@
             <div class="col s12 action-btns">
               <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
+                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()">
                 Apply
               </button>
               <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
@@ -160,10 +160,10 @@
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
-                *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
+                *ngIf="displayBookmark && !authService.authenticated()" (click)="createBookmark(currentUserId)">
                 Bookmark
               </button>
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')"
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="createBookmark(currentUserId)"
                 [disabled]="projectStatusBookmarked">
                 Bookmark
               </button>

@@ -95,8 +95,9 @@ export class ProjectService {
     }
   }
 
-  getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
-    return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
+  //also gets the application and bookmark data
+  getProjectByUser(id: number, status: string): Observable<Response> {
+    return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
   }
 
   public getAllJobTitles(): Observable<JobTitle[]> {
@@ -141,8 +142,17 @@ export class ProjectService {
       'declinedProjectsIDs': declinedProjectsIDs
     };
   }
+  
+  createBookmark(projectId: number, userId: string): Observable<Response> {        
+        
+        const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
+        return this.authHttp
+            .post(url, { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);        
+    }
 
-  linkUserProject(projectId: number, userId: string, status: string, comment: string, resumeFlag: boolean) {
+  /*linkUserProject(projectId: number, userId: string, status: string, comment: string, resumeFlag: boolean) {
     //const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status + '&comment=some //comment&resumeFlag=N';
     
     const url = `${projectUrl}/${projectId}/users/${userId}`;
@@ -165,7 +175,7 @@ export class ProjectService {
         }
       })
       .catch(this.handleError);
-  }
+  }*/
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
