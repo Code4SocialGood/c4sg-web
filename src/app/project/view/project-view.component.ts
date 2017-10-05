@@ -77,7 +77,7 @@ export class ProjectViewComponent implements OnInit {
     const id = params['projectId'];
     this.projectId = id;
     this.prevPage = localStorage.getItem('prevPage');
-    localStorage.setItem('prevPage','');
+    localStorage.setItem('prevPage', '');
       this.projectService.getProject(id)
         .subscribe(
           res => {
@@ -304,7 +304,7 @@ export class ProjectViewComponent implements OnInit {
   }
 
   goBack(): void {
-    localStorage.setItem('prevPage','ProjectList');
+    localStorage.setItem('prevPage', 'ProjectList');
     this.location.back();
 
   }

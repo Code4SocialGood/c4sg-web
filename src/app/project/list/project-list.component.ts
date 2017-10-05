@@ -70,7 +70,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
-    localStorage.setItem('prevPage','');
+    localStorage.setItem('prevPage', '');
     this.route.params.subscribe(
       params => {
         this.skillsArray.controls.forEach(skillControl => {
@@ -86,13 +86,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           // this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
-          localStorage.setItem('prevPage','ProjectList');
+          localStorage.setItem('prevPage', 'ProjectList');
         }
         if (this.from === 'projects') {
-          localStorage.setItem('prevPage','ProjectList');
+          localStorage.setItem('prevPage', 'ProjectList');
         }
         if (this.from === 'myProjects') {
-          localStorage.setItem('prevPage','');
+          localStorage.setItem('prevPage', '');
         }
         this.getProjects(this.paginationConfig.currentPage);
       });
