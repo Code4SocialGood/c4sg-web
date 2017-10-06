@@ -182,7 +182,7 @@
           </div>      
             <br>
           <div class="col s12" *ngIf="displayApplicationForm"> 
-              <edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></edit-application>              
+              <my-edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></my-edit-application>              
           </div>          
         </div>
       </div>
@@ -190,7 +190,7 @@
       <!-- Nonprofit User - Applicants -->
       <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
         <div class="row">          
-              <application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></application-view>          
+              <my-application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)"></my-application-view>          
         </div>
       </div>
     </div>

@@ -95,7 +95,7 @@ export class ProjectService {
     }
   }
 
-  //also gets the application and bookmark data
+  // also gets the application and bookmark data
   getProjectByUser(id: number, status: string): Observable<Response> {
     return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
   }
@@ -142,15 +142,15 @@ export class ProjectService {
       'declinedProjectsIDs': declinedProjectsIDs
     };
   }
-  
-  createBookmark(projectId: number, userId: string): Observable<Response> {        
-        
+
+  createBookmark(projectId: number, userId: string): Observable<Response> {
+
         const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
         return this.authHttp
             .post(url, { headers: this.headers })
             .map(res => res.json())
-            .catch(this.handleError);        
-  }  
+            .catch(this.handleError);
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
