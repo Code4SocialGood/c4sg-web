@@ -54,8 +54,7 @@ export class ProjectViewComponent implements OnInit {
   projectStatusBookmarked = false;
   projectStatusAccepted = false;
 
-  projectStatusDeclined = false;
-  applicants: Applicant[];
+  projectStatusDeclined = false;  
   prevPage: string;
   projectId;
 
