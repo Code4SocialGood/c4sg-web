@@ -54,9 +54,8 @@ export class ProjectViewComponent implements OnInit {
   projectStatusBookmarked = false;
   projectStatusAccepted = false;
   projectStatusDeclined = false;
-
   applicants: Applicant[];
-
+  prevPage: string;
   projectId;
 
   constructor(private projectService: ProjectService,
@@ -74,13 +73,13 @@ export class ProjectViewComponent implements OnInit {
 
     this.auth = this.authService;
     this.currentUserId = this.authService.getCurrentUserId();
-
     this.route.params.subscribe(params => {
-      const id = params['projectId'];
-      this.projectId = id;
-
+    const id = params['projectId'];
+    this.projectId = id;
+    this.prevPage = localStorage.getItem('prevPage');
+    localStorage.setItem('prevPage', '');
       this.projectService.getProject(id)
-      .subscribe(
+        .subscribe(
           res => {
             this.project = res;
             this.getSkills(id);
@@ -305,7 +304,9 @@ export class ProjectViewComponent implements OnInit {
   }
 
   goBack(): void {
+    localStorage.setItem('prevPage', 'ProjectList');
     this.location.back();
+
   }
 
   onClose(): void {

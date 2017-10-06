@@ -1,12 +1,16 @@
 
- <div class="page-title clearfix" *ngIf="project && project.status === 'A'">
-    <h1>Project</h1>
+<div class="page-title clearfix" *ngIf="project && project.status === 'A' ">
+  <h1>Project</h1>
+  <div *ngIf="prevPage === 'ProjectList'">
     <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
-  <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
-    <h1>Project- CLOSED</h1>
+</div>
+<div class="page-title clearfix" *ngIf="project && project.status === 'C'">
+  <h1>Project- CLOSED</h1>
+  <div *ngIf="prevPage === 'ProjectList'">
     <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
+</div>
 
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
