@@ -1,0 +1,22 @@
+<h4 class="content-title">Application</h4>
+<form>
+  <div class="row">
+      <div class="input-field col s12">
+          <textarea id="comment" class="materialize-textarea" maxlength="10000" [(ngModel)]="application.comment" name="comment"></textarea>
+          <label for="comment">Application Comment</label>
+        </div>
+  </div>
+  <div class="row">
+      <div class="col s12">
+          <input type="checkbox" id="resumeFlag" name="resumeFlag" disabled="disabled" 
+                [checked]="application.resumeFlag" />
+          <label for="resumeFlag" class="tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Coming soon">Resume</label>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col s12 offset-s5">
+          <button type="button" class="btn waves-effect waves-light" (click)="createApplication(application)">Submit</button>
+      </div>
+  </div>
+</form>

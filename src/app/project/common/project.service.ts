@@ -95,8 +95,9 @@ export class ProjectService {
     }
   }
 
-  getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
-    return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
+  // also gets the application and bookmark data
+  getProjectByUser(id: number, status: string): Observable<Response> {
+    return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
   }
 
   public getAllJobTitles(): Observable<JobTitle[]> {
@@ -142,27 +143,13 @@ export class ProjectService {
     };
   }
 
-  linkUserProject(projectId: number, userId: string, status: string) {
-    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
-    return this.authHttp
-      .post(url, { headers: this.headers })
-      .do(() => {
-        const projectsIDs = this.getUserProjectStatusFromLocalStorage();
-        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied or bookmarked another project
-        if (status === 'A') {
-          localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'B') {
-          localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'C') {
-          localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'D') {
-          localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + projectId));
-        }
-      })
-      .catch(this.handleError);
+  createBookmark(projectId: number, userId: string): Observable<Response> {
+
+        const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
+        return this.authHttp
+            .post(url, { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
