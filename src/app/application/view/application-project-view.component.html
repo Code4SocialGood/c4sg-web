@@ -1,20 +1,23 @@
 <h4 class="content-title">Applications</h4>
+<br>
 <div class="items-list-wrapper">
   <ul class="user-list" *ngIf="appliedProjects">
     <li class="user-wrapper" *ngFor="let project of appliedProjects">
       <div class="user">
         <div class="user-info col s9">
           <div><b>Project</b></div>
-          <a [routerLink]="['/project/view',project.projectId]">
-              &nbsp;&nbsp;&nbsp;&nbsp;{{project.projectName}}</a>
+          <div style="padding-left: 8px; text-align: justify">
+              <a [routerLink]="['/project/view',project.projectId]">
+              {{project.projectName}}</a>
+          </div>
             
           <div style="padding: 2px;"></div>       
           <div><b>Application Comment</b></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;{{project.comment}}</div>
+          <div style="padding-left: 8px; text-align: justify">{{project.comment}}</div>
             
            <div style="padding: 2px;"></div> 
           <div><b>Resume</b></div>
-          <div> &nbsp;&nbsp;&nbsp;&nbsp;<u>Resume.pdf</u></div>
+          <div style="padding-left: 8px; text-align: justify"><u>Resume.pdf</u></div>
         </div>
         <div class="project-marked user-info col s3">
             <div *ngIf="project.applicationStatus === 'A'">
@@ -61,3 +64,4 @@
     <div class="info">No applications found</div>
   </div>
 </div>
+<br>
