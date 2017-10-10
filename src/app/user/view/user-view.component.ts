@@ -26,6 +26,7 @@ declare var Materialize: any;
 export class UserViewComponent implements OnInit {
 
   user: User;
+  loggedInUserId: number;
   projects: Project[];
   organization: Organization;
   avatar: any = '';
@@ -52,6 +53,7 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['userId'];
+    this.loggedInUserId = +this.authService.getCurrentUserId();
     this.getUser(id);
     this.displayButtons(id);
     this.userService.getAllJobTitles()
