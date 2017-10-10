@@ -15,9 +15,9 @@
           <div><b>Application Comment</b></div>
           <div style="padding-left: 8px; text-align: justify">{{project.comment}}</div>
             
-           <div style="padding: 2px;"></div> 
-          <div><b>Resume</b></div>
-          <div style="padding-left: 8px; text-align: justify"><u>Resume.pdf</u></div>
+          <div style="padding: 2px;"></div> 
+          <div *ngIf="project.resumeFlag"><b>Resume</b></div>
+          <div style="padding-left: 8px; text-align: justify" *ngIf="project.resumeFlag"><u>Resume.pdf</u></div>
         </div>
         <div class="project-marked user-info col s3">
             <div *ngIf="project.applicationStatus === 'A'">
