@@ -62,12 +62,12 @@ export class ApplicationProjectViewComponent implements OnInit {
         application.acceptedTime = new Date();
         this.applicationService.updateApplication(application)
             .subscribe(res => {
-                //this.onApplicationAccepted.emit(true);
+
                 applicationProject.applicationStatus = 'C';
                 applicationProject.acceptedTime = application.acceptedTime;
                 console.log('Application accepted');
             }, error => {
-                //this.onApplicationAccepted.emit(false);
+
                 console.log('Error accepting application');
             });
     }
@@ -80,12 +80,12 @@ export class ApplicationProjectViewComponent implements OnInit {
         application.declinedTime = new Date();
         this.applicationService.updateApplication(application)
             .subscribe(res => {
-                //this.onApplicationDeclined.emit(true);
+
                 applicationProject.applicationStatus = 'D';
                 applicationProject.declinedTime = application.declinedTime;
                 console.log('Application declined');
             }, error => {
-                //this.onApplicationDeclined.emit(false);
+
                 console.log('Error declining application');
             });
     }

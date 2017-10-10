@@ -19,23 +19,22 @@ export class ApplicationViewComponent implements OnInit, OnChanges {
     constructor(private applicationService: ApplicationService) {
 
     }
-    
+
     ngOnChanges(changes: SimpleChanges) {
-        console.log('On changes called');
-        for(let inputProp in changes){
-            if(inputProp === 'projectId') {
+
+        for (const inputProp in changes) {
+            if (inputProp === 'projectId') {
                 this.projectId = changes[inputProp].currentValue;
-            }           
+            }
         }
         this.getApplicants(this.projectId);
     }
 
     ngOnInit() {
-        
-        //console.log(this.projectId);
-        //this.getApplicants(this.projectId);
 
-    }    
+        // this.getApplicants(this.projectId);
+
+    }
 
     getApplicationFromApplicant(applicant: Applicant): Application {
 

@@ -39,9 +39,11 @@ export class ApplicationService {
                    .map(res => res.json())
                    .catch(this.handleError);
       }
-      
-    public getApplicationsByOrgAndApplicant(nonProfitUserId: number, applicantId: number, status: string): Observable<ApplicationProject[]> {
-    
+
+    public getApplicationsByOrgAndApplicant(
+            nonProfitUserId: number, applicantId: number, status: string
+            ): Observable<ApplicationProject[]> {
+
         const url = `${applicantUrl}/applicants/${applicantId}/users/${nonProfitUserId}?status=${status}`;
         return this.http
                    .get(url)

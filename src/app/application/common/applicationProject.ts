@@ -5,7 +5,7 @@ constructor (
     public projectId: number,
     public applicationStatus: string,
     public resumeFlag: boolean,
-    public projectName?: string,    
+    public projectName?: string,
     public comment?: string,
     public appliedTime?: Date,
     public acceptedTime?: Date,
