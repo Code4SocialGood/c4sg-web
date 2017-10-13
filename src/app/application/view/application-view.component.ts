@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Applicant } from '../common/applicant';
 import { Application } from '../common/application';
 import { ApplicationService } from '../common/application.service';
@@ -8,7 +8,7 @@ import { ApplicationService } from '../common/application.service';
     templateUrl: './application-view.component.html',
     styleUrls: ['./application-view.component.scss']
 })
-export class ApplicationViewComponent implements OnInit {
+export class ApplicationViewComponent implements OnInit, OnChanges {
 
     @Input() projectId: number;
     @Output() onApplicationAccepted = new EventEmitter<boolean>();
@@ -20,9 +20,19 @@ export class ApplicationViewComponent implements OnInit {
 
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+
+        for (const inputProp in changes) {
+            if (inputProp === 'projectId') {
+                this.projectId = changes[inputProp].currentValue;
+            }
+        }
+        this.getApplicants(this.projectId);
+    }
+
     ngOnInit() {
 
-        this.getApplicants(this.projectId);
+        // this.getApplicants(this.projectId);
 
     }
 
@@ -44,9 +54,11 @@ export class ApplicationViewComponent implements OnInit {
     // Gets applicants for this project
       getApplicants(projectId): void {
 
+        console.log('get applicants called');
         this.applicationService.getApplicants(projectId)
               .subscribe(
                 res => {
+                  console.log(res);
                   this.applicants = res;
                 }
               );

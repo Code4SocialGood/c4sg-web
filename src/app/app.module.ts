@@ -22,6 +22,8 @@ import {StoriesComponent} from './stories/stories.component';
 
 import {ApplicationEditComponent} from './application/edit/application-edit.component';
 import {ApplicationViewComponent} from './application/view/application-view.component';
+import {ApplicationProjectViewComponent} from './application/view/application-project-view.component';
+
 
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
@@ -107,6 +109,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 
     ApplicationEditComponent,
     ApplicationViewComponent,
+    ApplicationProjectViewComponent,
 
     ProjectListComponent,
     ProjectViewComponent,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Application } from './application';
 import { Applicant } from './applicant';
+import { ApplicationProject } from './applicationProject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { AuthHttp } from 'angular2-jwt';
@@ -38,6 +39,17 @@ export class ApplicationService {
                    .map(res => res.json())
                    .catch(this.handleError);
       }
+
+    public getApplicationsByOrgAndApplicant(
+            nonProfitUserId: number, applicantId: number, status: string
+            ): Observable<ApplicationProject[]> {
+
+        const url = `${applicantUrl}/applicants/${applicantId}/users/${nonProfitUserId}?status=${status}`;
+        return this.http
+                   .get(url)
+                   .map(res => res.json())
+                   .catch(this.handleError);
+    }
 
     createApplication(application: Application): Observable<Application> {
 

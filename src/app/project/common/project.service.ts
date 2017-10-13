@@ -96,7 +96,8 @@ export class ProjectService {
     }
   }
 
-  // also gets the application and bookmark data
+  // This method gets the project by application status and also gets the bookmarked projects
+  // But it only returns project object. Application details are not returned
   getProjectByUser(id: number, status: string): Observable<Response> {
     return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
   }
