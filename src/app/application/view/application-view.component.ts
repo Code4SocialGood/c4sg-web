@@ -87,4 +87,13 @@ export class ApplicationViewComponent implements OnInit {
                 console.log('Error declining application');
             });
     }
+
+    giveBadge(applicant: Applicant): void   {
+        this.applicationService.saveHero(applicant.projectId, applicant.userId)
+            .subscribe(res =>   {
+                    console.log('Badge is given out to the applicant.');
+            }, error =>    {
+                 console.log('Error giving Badge');
+            });
+    }
 }
