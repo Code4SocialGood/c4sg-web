@@ -74,6 +74,10 @@ export class ApplicationService {
         return Promise.reject(error.message || error);
     }
 
-
+    saveHero(projectId: number, userId: number)  {
+        return this.authHttp
+            .post(`${applicantUrl}/${projectId}/users/${userId}/badge`, {})
+            .catch(this.handleError);
+    }
 
 }
