@@ -1,0 +1,67 @@
+<h4 class="content-title">Applications</h4>
+<br>
+<div class="items-list-wrapper">
+  <ul class="user-list" *ngIf="appliedProjects">
+    <li class="user-wrapper" *ngFor="let project of appliedProjects">
+      <div class="user">
+        <div class="user-info col s9">
+          <div><b>Project</b></div>
+          <div style="padding-left: 8px; text-align: justify">
+              <a [routerLink]="['/project/view',project.projectId]">
+              {{project.projectName}}</a>
+          </div>
+            
+          <div style="padding: 2px;"></div>       
+          <div><b>Application Comment</b></div>
+          <div style="padding-left: 8px; text-align: justify">{{project.comment}}</div>
+            
+          <div style="padding: 2px;"></div> 
+          <div *ngIf="project.resumeFlag"><b>Resume</b></div>
+          <div style="padding-left: 8px; text-align: justify" *ngIf="project.resumeFlag"><u>Resume.pdf</u></div>
+        </div>
+        <div class="project-marked user-info col s3">
+            <div *ngIf="project.applicationStatus === 'A'">
+                <i class="material-icons icon applied-symbol">done</i>          
+                <span>Applied</span>
+            </div>
+            <div *ngIf="project.applicationStatus === 'C'">
+                <i class="material-icons icon applied-symbol">done_all</i>
+                <span>Accepted</span>
+            </div>
+            <div *ngIf="project.applicationStatus === 'D'">
+                <i class="material-icons icon applied-symbol">clear</i>
+                <span>Declined</span>
+            </div>  
+          <div style="padding: 2px;"></div>
+          <div>Applied on: <br>{{project.appliedTime | date: 'dd/MM/yyyy'}}</div>
+          <div *ngIf="project.acceptedTime">
+            Accepted on: <br>{{project.acceptedTime | date: 'dd/MM/yyyy'}}
+          </div>
+          <div *ngIf="project.declinedTime">
+            Declined on: <br>{{project.declinedTime | date: 'dd/MM/yyyy'}}
+          </div>
+        <div style="padding: 2px;"></div>
+            <div class="user-info" *ngIf="project.applicationStatus === 'A'">
+              <div class="padding-bottom-5">             
+                <button type="button" class="btn waves-effect waves-light button-width" (click)="acceptApplication(project)">Accept</button>            
+              </div>
+                <div class="padding-bottom-5">
+                    <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(project)">Decline</button>
+                </div> 
+            </div>
+            <div class="user-info" *ngIf="project.applicationStatus === 'C'">      
+                <div class="padding-bottom-5">
+                    <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(project)">Decline</button>
+                </div> 
+            </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="row" *ngIf="appliedProjects && appliedProjects.length == 0">
+  <div class="col s12">
+    <div class="info">No applications found</div>
+  </div>
+</div>
+<br>

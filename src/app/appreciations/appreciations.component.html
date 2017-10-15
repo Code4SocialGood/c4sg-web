@@ -11,87 +11,29 @@
       </div>
     </div>
   </div>
-  <div class="row users">
-    <div class="col s3">
+
+  <div class="row users" *ngFor="let i of rowsArray" >
+    <div class="col s3" *ngFor="let hero of heroes | slice:(i*4):(i+1)*4">
       <div class="user">
-        <img src="../../assets/default_avatar.png" alt="" class="avatar">
-        <div class="fullname">John Smith</div>
-        <div class="title">Web Developer</div>
-        <div class="location clearfix"><span class="label">Location</span> <span class="label-content">California, USA</span></div>
+        <img class='avatar' [src]="hero.avatarUrl">
+        <div class="fullname">{{hero.firstName +" "+ hero.lastName}}</div>
+        <div class="title">{{hero.title}}</div>
+        <div class="location clearfix">
+          <span class="label">Location</span>
+          <span class="label-content" *ngIf="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
+          <span class="label-content" *ngIf="!hero.state && hero.country">{{hero.country}}</span>
+          <span class="label-content" *ngIf="!hero.country && hero.state">{{hero.state}}</span>
+        </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>
-          <span class="label-content"><i class="material-icons">stars</i>&nbsp;12</span>
+          <span class="label-content"><i class="material-icons">stars</i>&nbsp;{{hero.badgeCount}}</span>
         </div>
-        <ul class="skills-tag-wrapper clearfix">
-          <li class="chip">HTML</li>
-          <li class="chip">AWS</li>
-          <li class="chip">CSS</li>
-          <li class="chip">NodeJS</li>
-          <li class="chip">MongoDB</li>
+        <ul class="skills-tag-wrapper clearfix" *ngIf="hero.skill">
+          <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
         </ul>
-        <a href="#" class="btn">View Profile</a>
-      </div>
-    </div>
-    <div class="col s3">
-      <div class="user">
-        <img src="../../assets/default_avatar.png" alt="" class="avatar">
-        <div class="fullname">John Smith</div>
-        <div class="title">Web Developer</div>
-        <div class="location clearfix"><span class="label">Location</span> <span class="label-content">California, USA</span></div>
-        <div class="badges clearfix">
-          <span class="label">Badges</span>
-          <span class="label-content"><i class="material-icons">stars</i>&nbsp;12</span>
-        </div>
-        <ul class="skills-tag-wrapper clearfix">
-          <li class="chip">HTML</li>
-          <li class="chip">AWS</li>
-          <li class="chip">CSS</li>
-          <li class="chip">NodeJS</li>
-          <li class="chip">MongoDB</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
-      </div>
-    </div>
-    <div class="col s3">
-      <div class="user">
-        <img src="../../assets/default_avatar.png" alt="" class="avatar">
-        <div class="fullname">John Smith</div>
-        <div class="title">Web Developer</div>
-        <div class="location clearfix"><span class="label">Location</span> <span class="label-content">California, USA</span></div>
-        <div class="badges clearfix">
-          <span class="label">Badges</span>
-          <span class="label-content"><i class="material-icons">stars</i>&nbsp;12</span>
-        </div>
-        <ul class="skills-tag-wrapper clearfix">
-          <li class="chip">HTML</li>
-          <li class="chip">AWS</li>
-          <li class="chip">CSS</li>
-          <li class="chip">NodeJS</li>
-          <li class="chip">MongoDB</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
-      </div>
-    </div>
-    <div class="col s3">
-      <div class="user">
-        <img src="../../assets/default_avatar.png" alt="" class="avatar">
-        <div class="fullname">John Smith</div>
-        <div class="title">Web Developer</div>
-        <div class="location clearfix"><span class="label">Location</span> <span class="label-content">California, USA</span></div>
-        <div class="badges clearfix">
-          <span class="label">Badges</span>
-          <span class="label-content"><i class="material-icons">stars</i>&nbsp;12</span>
-        </div>
-        <ul class="skills-tag-wrapper clearfix">
-          <li class="chip">HTML</li>
-          <li class="chip">AWS</li>
-          <li class="chip">CSS</li>
-          <li class="chip">NodeJS</li>
-          <li class="chip">MongoDB</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
+        <button type="button" class="btn waves-effect waves-light"  [disabled]="hero.publishFlag ==='N' " [routerLink]="['/user/view',hero.userId]">View Profile</button>
       </div>
     </div>
   </div>
-  <h2>Under Construction!</h2>
+
 </div>
