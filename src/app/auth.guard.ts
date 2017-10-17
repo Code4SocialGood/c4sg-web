@@ -13,6 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const appMetaData = 'http://app_metadata';
+    debugger;
     if (this.auth.authenticated()) {
         const roles = next.data['roles'] as Array<string>;
         // Check if roles have NOT been set along with [AuthGuard] marker in auth.routing.ts
@@ -47,6 +48,7 @@ export class AuthGuard implements CanActivate {
         }
         return true;
     } else {
+      debugger;
       // Save URL to redirect to after login and fetching profile to get roles
       localStorage.setItem('redirect_url', state.url);
       this.auth.login();
