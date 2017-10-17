@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const appMetaData = 'http://app_metadata';
-    
+
     if (this.auth.authenticated()) {
         const roles = next.data['roles'] as Array<string>;
         // Check if roles have NOT been set along with [AuthGuard] marker in auth.routing.ts
