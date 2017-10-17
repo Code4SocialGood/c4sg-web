@@ -238,7 +238,6 @@ export class AuthService {
                   // Create a user
                   this.userService.add(newUser).subscribe(
                     res1 => {
-                      debugger;
                       user = res1;
                       localStorage.setItem('currentUserId', user.id);
                       this.setlocalStorageItems();
@@ -249,8 +248,7 @@ export class AuthService {
                       }
                       localStorage.setItem('currentUserAvatar', user.avatarUrl);
                     },
-                    error1 => {
-                      debugger;
+                    error1 => {                
                       console.log("aqui o erro : " + error1);
                       this.logout();
                     });
