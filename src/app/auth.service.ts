@@ -248,8 +248,7 @@ export class AuthService {
                       }
                       localStorage.setItem('currentUserAvatar', user.avatarUrl);
                     },
-                    error1 => {                
-                      console.log("aqui o erro : " + error1);
+                    error1 => {                      
                       this.logout();
                     });
                   this.router.navigate(['/user/edit/0']);
