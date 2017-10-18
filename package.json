@@ -15,7 +15,6 @@
     "start:staging:remote": "ng serve --aot --environment=staging_remote",
     "start:prod:remote": "ng serve --aot --prod --environment=prod_remote",
     "build": "ng build",
-    "build:prod:local": "ng build --prod --aot --environment=prod_local",
     "build:prod:heroku": "ng build --prod --aot --environment=prod_remote",
     "test": "ng test",
     "test_single_run": "ng test --single-run",
