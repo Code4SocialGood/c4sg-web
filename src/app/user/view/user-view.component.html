@@ -1,8 +1,8 @@
-<button (click)="goBack()">Back to Search Results</button>
-<div class="page-title"  *ngIf="user">
+<div class="page-title clearfix"  *ngIf="user">
   <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
   <h1 *ngIf="user.role === 'O'">Organization User</h1>
   <h1 *ngIf="user.role === 'A'">Admin User</h1>
+  <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
 </div>
 <div class="container">
   <div class="row main-row">
@@ -26,8 +26,8 @@
                     target="_blank"></a></li>
                 <!--<li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" [href]="user.chatUsername"
                     target="_blank"> </a></li>-->
-                <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/"
-                  target="_blank"></a></li>
+                <!-- <li><a class="mdi mdi-slack" [class.not-active]="!user.chatUsername" name="chatUsername" href="https://code4socialgood.slack.com/messages/@{{user.chatUsername}}/"
+                  target="_blank"></a></li> -->
                 <li><a class="mdi mdi-link-variant" [class.not-active]="!user.personalUrl" name="personalUrl" [href]="user.personalUrl"
                     target="_blank"> </a></li>
               </ul>
@@ -57,7 +57,10 @@
           <div class="col m12" *ngIf="user.introduction">
             <br>
             <div class="info-title">Introduction</div>
-            <div class="info-description">{{ user.introduction }}</div>
+            <div>
+                <pre class="info-description">{{ user.introduction }}
+                  </pre>
+                </div>
           </div>
           <div class="col m12">
             <div class="col s12 action-btns">
@@ -65,7 +68,10 @@
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
             </div>
           </div>
-        </div>
+          <div class="col s12">
+              <my-application-project-view [applicantId]="user.id" [nonProfitUserId]="loggedInUserId"></my-application-project-view>
+          </div>
+        </div>          
       </div>
     </div>
 

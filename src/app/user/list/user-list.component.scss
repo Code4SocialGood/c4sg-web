@@ -1,7 +1,14 @@
 @import "../../_style/app.theme";
 
-.card-avatar, .card-avatar-content {
+/* .card-avatar, .card-avatar-content {
   border-radius: 50% !important;
+} */
+
+.info {
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	font-weight: bold;
 }
 
 .skills-list {
@@ -16,3 +23,21 @@
     }
   }
 }
+
+.text-overflow {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.card-info .card-header .card-metainfo.location {
+  text-align: right;
+  margin-left: -1em;
+}
+
+.card-info .card-header {
+  margin-bottom: .5em;
+}
+
+

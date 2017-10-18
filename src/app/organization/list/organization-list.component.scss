@@ -4,12 +4,32 @@
     height:auto;
 }
 
-.skills-list{
+/* .skills-list{
     height:auto;
+} */
+
+.skills-list {
+  height:auto;
+  ul {
+    li {
+      display: block;
+      // width: 45%;
+      margin-right: 3.6%;
+    }
+    li:nth-of-type(2n) {
+      margin-right: 0;
+    }
+  }
 }
 
-.info{
+/* .info{
   margin-left:15px;
+} */
+.info {
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	font-weight: bold;
 }
 
 .card-info .card-header .card-metainfo.location {
@@ -19,4 +39,11 @@
 
 .card-info .card-header {
   margin-bottom: .5em;
+}
+
+.text-overflow {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

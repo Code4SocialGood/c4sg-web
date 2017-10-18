@@ -75,7 +75,7 @@
           <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
         </ul>
       </div>
-      <p class="description" *ngIf="project && project.description">{{ project && project.description | slice:0:200 }} ...</p>
+      <p class="description text-overflow" *ngIf="project && project.description">{{ project && project.description }}</p>
     </div>
   </div>
 </div>

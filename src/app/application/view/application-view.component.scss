@@ -1,0 +1,117 @@
+@import "../../_style/app.theme";
+
+.organization-name {
+  @include content-subtitle-font;
+  a:hover {
+    text-decoration: underline #84c44c;
+    }
+}
+.project-marked {
+  display: inline-block;
+ //padding-left: 1em;
+  //margin-bottom: 1em;
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    //width: 1.2em;
+    //height: 1.2em;
+    stroke-width: 0;
+    stroke: $secondary-color;
+    fill: $secondary-color;
+    margin-right: 0.5em;
+    color: $secondary-color;
+  }
+
+  span {
+   // color: #84c44c;
+      font-weight: bold;
+  }
+}
+
+.square-container{
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  margin-bottom: 0.75em;
+
+  .square{
+    width: auto!important;
+    position: absolute;
+    height: 100%;
+    left: -100%;
+    right: -100%;
+    margin: auto;
+  }
+}
+
+.user-list {
+  margin: 0;
+  .user-wrapper {
+    display: inline-block;
+    width: 100%;
+    border-bottom: $border-width $border-color solid;
+  }
+
+  .user {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: 0 0 0;
+    background: $main-bg-color;
+    background-color: white;
+
+    .user-info {
+      //float: right;
+      //display: inline-block;
+      //padding: 0 2em;
+      //padding-bottom: 15px;
+      font-size: 0.9em;
+      color: $main-color;
+      .name {
+        cursor: pointer;
+        //display: inline-block;
+        font-size: 1em;
+        font-weight: bold;
+        .name:hover {
+          text-decoration: underline #84c44c;
+        }
+      }
+    }
+  }
+}
+
+#right-col, .sidebar{
+  border-bottom: none;
+  padding-bottom: 0px;
+}
+
+.button-col-padding{
+  padding-top:10px;
+}
+
+.button-width{
+  width:80px;
+  padding:1px;
+}
+
+.buttons-margin{
+  margin-top:-10px;
+}
+
+.name:hover {
+  text-decoration-line: underline;
+  text-decoration-color: #84c44c;
+}
+
+.divalign {
+margin-left: -15px;
+font-size: 12px;
+}
+
+.padding-bottom-5 {
+    padding-bottom: 5px;
+}

@@ -14,7 +14,7 @@ a {
 body {
   font-family: $main-font;
   font-size: 14px;
-  color: $main-color;
+  color: main-bg-color;
   background: $main-bg-color;
 }
 
@@ -34,7 +34,7 @@ hr {
 }
 
 .footer {
-  background-color: $footer-bg-color;
+  background-color: $main-color;
   padding-left: 50px;
 }
 
@@ -121,7 +121,7 @@ hr {
       margin-bottom: 0.75em;
 
       img{
-        width: auto;
+        width: 100%;
         max-width: none;
         height: 100%;
         position: absolute;
@@ -222,6 +222,13 @@ hr {
 
 }
 
+.login_button{
+background-color: $login-button-bg-color;
+color: #fff;
+font-family: $main-font;
+font-size: 1em;
+}
+
 .image-upload-button {
   float: none;
   display: inherit;
@@ -251,7 +258,7 @@ hr {
 .page-title {
   padding-left: 10%;
   border-bottom: $border-width $page-title-bg-color solid;
-  background: $page-title-bg-color;
+  background-color: $page-title-bg-color;
   padding-top: 5px;
   padding-bottom: 0px;
   h1 {
@@ -318,5 +325,109 @@ select.browser-default {
 }
 
 .backdrop {
-  background-color: #a9a9a9;
+  background-color: $secondary-color;
 }
+
+.page-title {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  h1 {
+    float: left;
+  }
+  .btn {
+    float: right;
+    margin-right: 8.5rem;
+    background: #fff;
+    color: $secondary-bg-color;
+  }
+}
+
+.panel{
+background-color: #FFFFFF;
+border: 3px solid $border-color;
+}
+
+.chat_button{
+background-color: $content-title-color;
+color: #ffffff;
+font-family: $main-font;
+font-size: 1em;
+}
+
+.feedback_button{
+background-color: $login-button-bg-color;
+color: #fff;
+font-family: $main-font;
+font-size: 1em;
+}
+
+.skills_button{
+linear-gradient:(to bottom right,#d8eecb,#d8eecb);
+color: $skills-button-color;
+font-family: $main-font;
+font-size: .7em;
+}
+
+.keyword_section{
+border: 2px solid $content-title-color;
+font-family: $main-font;
+}
+
+.keyword_button{
+border: 2px solid $content-title-color;
+background-color: $content-title-color;
+}
+
+.divider
+hr{
+width: 90%; height: 3px; background: $border-color;
+}
+
+.check_box{
+background-color: transparent;
+border: 2px solid $check-box-border-color;
+}
+
+h1{
+font-size: 25px;
+font-weight: bold;
+color: #FFFFFF;
+
+}
+
+h2{
+font-size: 17px;
+font-weight: bold;
+color: $content-title-color;
+}
+
+h3{
+font-size: 15px;
+font-weight: bold;
+color: $main-color;
+}
+
+h4{
+  font-size: 12px;
+  font-weight: bold;
+  color: $content-title-color;
+}
+
+h5{
+  font-size: 10px;
+  font-weight: bold;
+  color: $main-color;
+}
+
+p1{
+font-size: 10px;
+font-weight: normal;
+color: $main-color;
+}
+
+p2{
+font-size: 8px;
+font-weight: normal;
+color: $main-color;
+}
+

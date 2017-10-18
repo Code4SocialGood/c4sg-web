@@ -12,12 +12,10 @@
     //width: 1.2em;
     //height: 1.2em;
     stroke-width: 0;
-    //stroke: #84c44c;
-    //fill: #84c44c;
-    stroke: #ff4f00;
-    fill: #ff4f00;
+    stroke: $secondary-color;
+    fill: $secondary-color;
     margin-right: 0.5em;
-    color: #ff4f00;
+    color: $secondary-color;
   }
 
 }
@@ -38,4 +36,11 @@
   float: right;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.text-overflow {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

@@ -70,6 +70,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
 
   ngOnInit(): void {
     this.userId = +this.auth.getCurrentUserId();
+    localStorage.setItem('prevPage', '');
     this.route.params.subscribe(
       params => {
         this.skillsArray.controls.forEach(skillControl => {
@@ -85,6 +86,13 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
           // this.filterForm.controls.jobTitle.setValue(false);
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
+          localStorage.setItem('prevPage', 'ProjectList');
+        }
+        if (this.from === 'projects') {
+          localStorage.setItem('prevPage', 'ProjectList');
+        }
+        if (this.from === 'myProjects') {
+          localStorage.setItem('prevPage', '');
         }
         this.getProjects(this.paginationConfig.currentPage);
       });
@@ -177,19 +185,10 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
   }
 
   showSkills(): void {
-    let addedSkills;
-    if (this.skillsShowed.length < this.skills.length) {
-      if (!this.skillsShowed.length) {
-        addedSkills = this.skills.slice(0, 10);
-      } else {
-        addedSkills = this.skills
-          .filter(i => !this.skillsShowed.includes(i));
-        addedSkills = addedSkills.filter((i, index) => index < 10);
-      }
-      for (const addedSkill of addedSkills) {
-        this.skillsShowed.push(addedSkill);
-        this.skillsArray.push(new FormControl(false));
-      }
+    const addedSkills = this.skills;
+    for (const addedSkill of addedSkills) {
+      this.skillsShowed.push(addedSkill);
+      this.skillsArray.push(new FormControl(false));
     }
   }
 

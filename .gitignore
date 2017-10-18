@@ -49,3 +49,9 @@ testem.log
 Thumbs.db
 
 .vscode/settings.json
+
+# Gradle
+.gradle/
+gradle
+gradlew.bat
+gradlew

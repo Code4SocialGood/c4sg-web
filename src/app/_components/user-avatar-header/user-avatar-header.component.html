@@ -1,0 +1,6 @@
+<!-- Loads user initials when no avatar URL is set -->
+<div class="avatar-circle-header profile-img" *ngIf="!authSvc.currentUserHasAvatar()">
+  <span class="initials">{{authSvc.getCurrentUserFName() | slice:0:1}}{{authSvc.getCurrentUserLName() | slice:0:1}}</span>
+</div>
+<!-- Loads default image if not logged in or avatar URL cannot load -->
+<img *ngIf="authSvc.currentUserHasAvatar()" [src]="authSvc.getCurrentUserAvatar()" onError="this.src='../../assets/default_avatar.png'" alt="" class="circle responsive-img profile-img">

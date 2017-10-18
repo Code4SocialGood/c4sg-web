@@ -1,4 +1,4 @@
-<div class="page-title">
+<div class="page-title clearfix">
   <h1>My Settings</h1>
 </div>
 <div class="container">
@@ -27,13 +27,13 @@
           </div>
         </div>
         <div class="row single-info" *ngIf="isVolunteer && isUserInfoIncomplete">
-          <hr>
+          <div class="sidebar-wrapper-divider"></div>
           <div class="col s12 m12 l12 highlight-title">Please complete your user profile before applying for projects.</div>
         </div>
         <div class="row single-info" *ngIf="isOrganization && isUserInfoIncomplete">
-          <hr>
+          <div class="sidebar-wrapper-divider"></div>
           <div class="col s12 m12 l12 highlight-title">Please complete your user profile before posting projects.</div>
-        </div>   
+        </div>
       </div>
     </div>
 
@@ -90,13 +90,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m6">
+            <!-- <div class="col s12 m6">
                 <div class="input-field">
                   <label materialize="tooltip" [materializeParams]="[{html: true}]" data-position="bottom" data-delay="50"  for="githubUrl" id="slack-label"
                   data-tooltip="This is your username in Slack team of Code for Social Good.<br />To join the team, click Chat from the footer on the web site.<br />">C4SG Slack Username <i class="tiny material-icons">info</i></label>
                   <input [maxlength]="25" class="theme-input tootipped" id="chatUsername" type="text" formControlName="chatUsername" >
                 </div>
-              </div>
+              </div> -->
             <div *ngIf="isOrganization">
               <div class="col s12 m6">
                 <div class="input-field">

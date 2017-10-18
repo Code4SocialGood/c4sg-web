@@ -38,23 +38,39 @@
     font-weight: bold;
   }
   .left-col {
-    //border-right: solid $line-sep-width $line-sep-color;
+      //border-right: solid $line-sep-width $line-sep-color;
   }
   .right-col {
     //border-left: solid $line-sep-width $line-sep-color;
     margin-left: - $line-sep-width;
   }
-  .info-avatar {
-    text-align: center;
-    img {
+  .info-avatar{
       width: 100%;
+      position: relative;
+      padding-bottom: 100%;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 0.75em;
+
+      img{
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        margin: auto;
+      }
     }
-  }
   .info-title {
     height: 40px;
     @include content-subtitle-font;
   }
   .info-description {
     padding-bottom: 20px;
+    font-family: MyriadPro-Regular, "Myriad Pro Regular", MyriadPro, "Myriad Pro", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #4B4B4C;
+    white-space: pre-wrap;
   }
 }

@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { Injectable, enableProdMode } from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { myConfig } from './auth.config';
 import { User } from './user/common/user';
 import { UserService } from './user/common/user.service';
@@ -41,20 +41,20 @@ export class AuthService {
   defDurationInSec = 86400;
 
   webauth = new auth0.WebAuth({
-    domain: environment.auth_domain,
     clientID: environment.auth_clientID,
+    domain: environment.auth_domain,
     responseType: 'token',
-    scope: 'openid profile email scope',
     audience: environment.auth_api,
+    scope: 'openid profile email scope',
     env: environment.auth_callback_env
   });
 
   constructor(private userService: UserService,
-    private organizationService: OrganizationService,
-    private projectService: ProjectService,
-    private router: Router,
-    private http: Http,
-    private optionArgs: RequestOptions) {
+              private organizationService: OrganizationService,
+              private projectService: ProjectService,
+              private router: Router,
+              private http: Http,
+              private optionArgs: RequestOptions) {
   }
 
   public setlocalStorageItems() {
@@ -94,14 +94,28 @@ export class AuthService {
             localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
           },
           error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
+          res => {
+            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
+          },
+          error => console.log(error));
+        this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
+          res => {
+            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
+          },
+          error => console.log(error));
       }
     }
 
   }
+
   private setOrganizationId(organizationId: string): void {
     // this.organizationId = organizationId;
     localStorage.setItem('userOrganizationId', organizationId);
   }
+
   public getUserOrganizationId() {
     return localStorage.getItem('userOrganizationId');
   }
@@ -143,17 +157,23 @@ export class AuthService {
         this.setSession(authResult);
         // set uset profile of already saved profile
         this.userProfile = JSON.parse(localStorage.getItem('profile'));
-
       // Add callback for lock `authenticated` event
       // Get the user profile
       this.webauth.client.userInfo(authResult.accessToken, (error, profile) => {
         let user;
         if (!error) {
-          if (authResult.accessToken.length < 20) {
-            // console.log('idtoken: ' + authResult.idToken);
-            // workaround : do not delete below line as its needed for email signup
-            localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
+          const jwtHelper = new JwtHelper();
+
+          // email signups do not readily return a usable JWT, so we need to grab
+          // the temporary token. social sign ups, however, do return the jwt, so we
+          // don't do anything special in this case.
+
+          try {
+              jwtHelper.decodeToken(authResult.accessToken);
+          } catch (e) {
+              localStorage.setItem('access_token', authResult.idTokenPayload['http://tempToken']);
           }
+
           // Signed up via email/pwd
           const profIsSocialIDP = profile[this.isSocial] === undefined ?
             profile.identities[0].isSocial : profile[this.isSocial];
@@ -162,112 +182,114 @@ export class AuthService {
           const profAppMetadataRole = profile[this.apiRole] === undefined ?
             profile.app_metadata.roles : profile[this.apiRole];
 
-          if (!profIsSocialIDP) {
-            // this.userName = profile.user_metadata.user_name;
-            this.userRole = profAppMetadataRole[0];
-          } else { // Signed up via social providers
-            // this.userName = profile.email;
-            // ATM: assumption is there will always be only 1 role per user
-            this.userRole = profAppMetadataRole[0];
-            this.firstName = profile.given_name;
-            this.lastName = profile.family_name;
-          }
-          // Store user profile
-          localStorage.setItem('profile', JSON.stringify(profile));
-          localStorage.setItem('delgId', profAppMetadata.amzid);
-          localStorage.setItem('delgSecId', profAppMetadata.amzsecid);
-          this.userProfile = profile;
+            if (!profIsSocialIDP) {
+              // this.userName = profile.user_metadata.user_name;
+              this.userRole = profAppMetadataRole[0];
+            } else { // Signed up via social providers
+              // this.userName = profile.email;
+              // ATM: assumption is there will always be only 1 role per user
+              this.userRole = profAppMetadataRole[0];
+              this.firstName = profile.given_name;
+              this.lastName = profile.family_name;
+            }
+            // Store user profile
+            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('delgId', profAppMetadata.amzid);
+            localStorage.setItem('delgSecId', profAppMetadata.amzsecid);
+            this.userProfile = profile;
 
-          this.email = profile.email;
+            this.email = profile.email;
 
-          this.userService.getUserByEmail(this.email).subscribe(
-            res => {
-              const lemail = this.email;
-              const luserRole = this.userRole;
-              // const luserName = this.userName;
-              const firstName = this.firstName !== undefined ? this.firstName : '';
-              const lastName = this.lastName !== undefined ? this.lastName : '';
-              // Check if response is undefined
-              if (res) {
-                user = res;
-              }
-              localStorage.setItem('currentUserEmail', this.email);
-              // If user not found, then create the user
-              if (user === undefined) {
-                console.log('User does not exist');
-                const newUser: User = ({
-                  id: 0,
-                  email: lemail,
-                  role: luserRole.toUpperCase().substr(0, 1),
-                  // userName: luserName,
-                  firstName: firstName,
-                  lastName: lastName,
-                  // publishFlag: 'N',
-                  // notifyFlag: 'N',
-                  // status: 'ACTIVE'
-                  title: '',
-                  introduction: ''
-                });
-
-                const curTime = new Date();
-                localStorage.setItem('currentUserEmail', lemail);
-                localStorage.setItem('currentUserRole', luserRole);
-                localStorage.setItem('currentUserFName', firstName);
-                localStorage.setItem('currentUserLName', lastName);
-                // Create a user
-                this.userService.add(newUser).subscribe(
-                  res1 => {
-                    user = res1;
-                    localStorage.setItem('currentUserId', user.id);
-                    this.setlocalStorageItems();
-                    if (user.firstName !== '' && user.lastName !== '') {
-                      localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
-                    } else {
-                      localStorage.setItem('currentDisplayName', user.email);
-                    }
-                    localStorage.setItem('currentUserAvatar', user.avatarUrl);
-                  },
-                  error1 => {
-                    console.log(error1);
-                    this.logout();
+            this.userService.getUserByEmail(this.email).subscribe(
+              res => {
+                const lemail = this.email;
+                const luserRole = this.userRole;
+                // const luserName = this.userName;
+                const firstName = this.firstName !== undefined ? this.firstName : '';
+                const lastName = this.lastName !== undefined ? this.lastName : '';
+                // Check if response is undefined
+                if (res) {
+                  user = res;
+                }
+                localStorage.setItem('currentUserEmail', this.email);
+                // If user not found, then create the user
+                if (user === undefined) {
+                  console.log('User does not exist');
+                  const newUser: User = ({
+                    id: 0,
+                    email: lemail,
+                    role: luserRole.toUpperCase().substr(0, 1),
+                    // userName: luserName,
+                    firstName: firstName,
+                    lastName: lastName,
+                    // publishFlag: 'N',
+                    // notifyFlag: 'N',
+                    // status: 'ACTIVE'
+                    title: '',
+                    introduction: ''
                   });
+
+                  const curTime = new Date();
+                  localStorage.setItem('currentUserEmail', lemail);
+                  localStorage.setItem('currentUserRole', luserRole);
+                  localStorage.setItem('currentUserFName', firstName);
+                  localStorage.setItem('currentUserLName', lastName);
+
+                  // Create a user
+                  this.userService.add(newUser).subscribe(
+                    res1 => {
+                      user = res1;
+                      localStorage.setItem('currentUserId', user.id);
+                      this.setlocalStorageItems();
+                      if (user.firstName !== '' && user.lastName !== '') {
+                        localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                      } else {
+                        localStorage.setItem('currentDisplayName', user.email);
+                      }
+                      localStorage.setItem('currentUserAvatar', user.avatarUrl);
+                    },
+                    error1 => {
+                      this.logout();
+                    });
                   this.router.navigate(['/user/edit/0']);
                   localStorage.setItem('redirectAfterLogin', this.router.url);
-              } else {
-                // Store user id and display name
-                localStorage.setItem('currentUserId', user.id);
-                if (user.firstName !== '' && user.lastName !== '') {
-                  localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
                 } else {
-                  localStorage.setItem('currentDisplayName', user.email);
-                }
-                localStorage.setItem('currentUserAvatar', user.avatarUrl);
-                this.setlocalStorageItems();
-                if (user.userName === null) {
+                  // Store user id and display name
+                  localStorage.setItem('currentUserId', user.id);
+                  if (user.firstName !== '' && user.lastName !== '') {
+                    localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                  } else {
+                    localStorage.setItem('currentDisplayName', user.email);
+                  }
+                  localStorage.setItem('currentUserAvatar', user.avatarUrl);
+                  this.setlocalStorageItems();
+                  if (user.userName === null) {
                     this.router.navigate(['/user/edit/' + user.id]);
                     localStorage.setItem('redirectAfterLogin', '/user/edit/' + user.id);
                   }
-              }
+                }
 
-              if (environment.production && !environment.auth_tenant_shared) {
-                this.getDelegationToken();
-              }
+                if (environment.production && !environment.auth_tenant_shared) {
+                  this.getDelegationToken();
+                }
 
-              // schedule renewal here
-              this.scheduleRenewal();
+                // schedule renewal here
+                this.scheduleRenewal();
 
-              // Issue 356 - redirect user back to the page that requested login - project view page
-              this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-              if (this.redirectAfterLogin) {
-                setTimeout(() => { this.router.navigate([this.redirectAfterLogin]); }, 100);
-              } else {
-                setTimeout(() => this.router.navigate(['/']));
-              }
-            },
-            error1 => console.log(error1)
-          );
-        }
-      });
+                // Issue 356 - redirect user back to the page that requested login - project view page
+                this.redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                if (this.redirectAfterLogin) {
+                  setTimeout(() => {
+                    this.router.navigate([this.redirectAfterLogin]);
+                  }, 100);
+                } else {
+                  setTimeout(() => this.router.navigate(['/']));
+                }
+              },
+              error1 => console.log(error1)
+            );
+          }
+        });
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);
@@ -281,7 +303,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     if (authResult.idToken !== null) {
       this.idToken = authResult.idToken;
-     // localStorage.setItem('id_token', authResult.idToken);
+      // localStorage.setItem('id_token', authResult.idToken);
     }
     const stime = `${(new Date().getTime() / 1000) + this.defDurationInSec}`;
     localStorage.setItem('expires_at', expiresAt == null ? stime : expiresAt);
@@ -292,7 +314,7 @@ export class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return Math.round(new Date().getTime() / 1000)  < expiresAt;
+    return Math.round(new Date().getTime() / 1000) < expiresAt;
   }
 
   public logout() {
@@ -343,8 +365,18 @@ export class AuthService {
   getCurrentDisplayName() {
     return localStorage.getItem('currentDisplayName');
   }
+
   getCurrentUserAvatar() {
     return localStorage.getItem('currentUserAvatar');
+  }
+  currentUserHasAvatar() {
+    return (localStorage.getItem('currentUserAvatar') !== '');
+  }
+  getCurrentUserFName() {
+    return localStorage.getItem('currentUserFName');
+  }
+  getCurrentUserLName() {
+    return localStorage.getItem('currentUserLName');
   }
 
   // Code below is used to override role
@@ -456,14 +488,14 @@ export class AuthService {
     const expiresAt$ = JSON.parse(window.localStorage.getItem('expires_at')) * 1000;
     const source = Observable.of(expiresAt$).flatMap(
       expiresAt => {
-      const now = Date.now();
-      const refreshAt = expiresAt - 30000;
-      const doWhen = (refreshAt - now) > 300000 ? (this.defDurationInSec * 1000) : (refreshAt - now);
-      return Observable.timer(Math.max(1, doWhen), doWhen);
-    });
+        const now = Date.now();
+        const refreshAt = expiresAt - 30000;
+        const doWhen = (refreshAt - now) > 300000 ? (this.defDurationInSec * 1000) : (refreshAt - now);
+        return Observable.timer(Math.max(1, doWhen), doWhen);
+      });
 
     this.refreshSubscription = source.subscribe(t => {
-        this.renewToken();
+      this.renewToken();
     });
   }
 
@@ -480,7 +512,7 @@ export class AuthService {
     }
     name = name.replace(/[\[\]]/g, '\\$&');
     const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
+      results = regex.exec(url);
     if (!results) {
       return null;
     }

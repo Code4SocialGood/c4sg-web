@@ -19,3 +19,19 @@
     }
   }
 }
+
+.card-info .card-header .card-metainfo.location {
+  text-align: right;
+  margin-left: -1em;
+}
+
+.card-info .card-header {
+  margin-bottom: .5em;
+}
+
+.text-overflow {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

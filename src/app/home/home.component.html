@@ -1,3 +1,16 @@
+<div class="maindiv">
+  <div class="action">
+    <div class="aniSlogan-background">
+      <div id="aniSlogan">
+        It doesn't matter if you
+        <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+        <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="maindiv">
 <div class="action">
     <div class="aniSlogan-background">
         <div id="aniSlogan">
@@ -5,8 +18,10 @@
             <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
         </div>
+
     </div>
 </div>
+</div>-->
 
 <!--<div class="section no-padding">
 
@@ -30,9 +45,11 @@
 
 </div>-->
 <div class="section no-padding">
+    <div class="row">
     <div class="green-ribbon">
-            GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
-    </div>
+        GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
+      </div>
+      </div>
     <br><br>
     <div class="container">
         <div class="row">
@@ -93,7 +110,7 @@
     </div>
     <!--<div class="container">-->
         <div class="row">
-            <div class="col s12 m12">
+            <div class="col s10 m10">
                 <div class="map" *ngIf="developers || organizations">
                     <agm-map
                             [latitude]="lat "
@@ -116,31 +133,33 @@
                                 <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
                               </div>
                               <div class="user-name ">
-                                {{d.userName}}
+                                {{d.firstName}}
                               </div>
-                              <div class="user-location ">
+                              <div class="user-name ">
+                                  {{d.title}}
+                                </div>
+                             <!-- <div class="user-location ">
                                 <span *ngIf="d.state ">{{d.state}}</span>
                                 <span *ngIf="d.state && d.country ">,</span>
                                 <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
-                              </div>
+                              </div>-->
                             </a>
                           </div>
                         </agm-info-window>
                       </agm-marker>
-
                       <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) "
                         iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
 
                         <agm-info-window>
                           <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/user/view',o.id] ">
+                            <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
                               <div class="info-avatar ">
-                                <img [src]="o.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                                <img [src]="o.logoUrl " onError="this.src='../../assets/default_image.png' ">
                               </div>
-                              <div class="user-name ">
-                                {{o.userName}}
+                              <div class="content-title ">
+                                {{o.name}}
                               </div>
-                              <div class="user-location ">
+                              <div class="state ">
                                 <span *ngIf="o.state ">{{o.state}}</span>
                                 <span *ngIf="o.state && o.country ">,</span>
                                 <span *ngIf="o.country ">{{getCountryName(o.country)}}</span>
@@ -152,12 +171,36 @@
                     </agm-map>
                   </div>
             </div>
+            <div class="col s2 m2">
+              <div class="divStats">
+                <table class="tableStats">
+                  <tr>
+                    <td>
+                      <div>Volunteers: {{numberOfVolunteers}}</div>
+                      <div class="spanPublicVolunteer">
+                        ({{numberOfPublicProfiles}} with public profile)
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>Projects: {{numberOfProjects}}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>Organizations: {{numberOfOrganization}}</div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
         </div>
     <!--</div>-->
 </div>
 <br>
 <div class="section no-padding container">
-    <div class="white-ribbon">    
+    <div class="white-ribbon">
       ONE PROJECT AT A TIME, WE ARE CHANGING THE WORLD
     </div><br>
     <!--<div class="container">-->
@@ -189,23 +232,21 @@
     <div class="row" *ngIf="topThreeProjects">
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div class="card">
-                    <div class="card-image" *ngIf="project.imageUrl">
-                      <img [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
+                    <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
+                      <img class="activator" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
                     </div>
-                    <div class="card-image" *ngIf="!project.imageUrl">
-                      <img [src]="constantsService.defaultImage">
+                    <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl">
+                      <img class="activator" [src]="constantsService.defaultImage">
                     </div><br>
                 <div class="card-content" *ngIf="project">
-                    <div class="featured-project-heading">{{project.name}}</div>
-                    <div class="featured-project-text" *ngIf="project.description.length > 200">
-                        {{ project && project.description | slice:0:200 }} ...
-                    </div>
-                    <div class="featured-project-text" *ngIf="project.description.length <= 200">
-                        {{ project && project.description }}
-                    </div><br>
-                    <div>
-                        <button class="button-colored" type="submit" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
-                    </div>
+                    <span class="card-title activator grey-text text-darken-4">{{project.name}}<i class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{project.name}}<i class="material-icons right">close</i></span>
+                    <p>{{project.description}}</p>
+                </div>
+                <div class="card-action">
+                    <button type="submit" class="btn waves-effect waves-light button-colored" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
                 </div>
             </div>
          <br><br>
@@ -227,5 +268,3 @@
         </div>
     </div>
 </div>
-
-
