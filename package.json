@@ -11,6 +11,7 @@
     "serve": "ng serve",
     "start": "node server.js",
     "start:dev:local": "ng serve --environment=dev_local",
+    "start:dev:heroku": "ng serve --environment=dev_local_heroku",
     "build": "ng build",
     "test": "ng test",
     "test_single_run": "ng test --single-run",

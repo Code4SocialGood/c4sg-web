@@ -31,6 +31,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev_local": "environments/environment.dev-local.ts",
+        "dev_local_heroku": "environments/environment.dev-heroku.ts",
         "dev_remote": "environments/environment.dev-remote.ts",
         "staging_remote": "environments/environment.staging-remote.ts",
         "prod_remote": "environments/environment.prod-remote.ts"
