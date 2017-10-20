@@ -1,13 +1,13 @@
 <div class="maindiv">
-  <div class="action">
-    <div class="aniSlogan-background">
-      <div id="aniSlogan">
-        It doesn't matter if you
-        <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-        <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
-      </div>
+    <div class="action">
+        <div class="aniSlogan-background">
+            <div id="aniSlogan">
+                It doesn't matter if you
+                <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+                <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!--<div class="maindiv">
@@ -46,23 +46,20 @@
 </div>-->
 <div class="section no-padding">
     <div class="row">
-    <div class="green-ribbon">
-        GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
-      </div>
-      </div>
+        <div class="green-ribbon">
+            GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
+        </div>
+    </div>
     <br><br>
     <div class="container">
         <div class="row">
             <div class="col s12 m5">
-              <div class="second-section">
-                  <div class="second-section-heading volunteer-heading">VOLUNTEERS</div>
-                  <div class="second-section-text">
-                    Browse and apply for projects<br>
-                    Receive notification on new projects<br>
-                    Get contacted by potential nonprofits<br>
-                    Access to consultants on technical challenges
-                  </div>
-              </div>
+                <div class="second-section">
+                    <div class="second-section-heading volunteer-heading">VOLUNTEERS</div>
+                    <div class="second-section-text">
+                        Browse and apply for projects<br> Receive notification on new projects<br> Get contacted by potential nonprofits<br> Access to consultants on technical challenges
+                    </div>
+                </div>
                 <br>
                 <div class="center second-section-text">
                     <button class="button-bordered" type="submit" (click)="authSvc.login()">SIGN UP</button>
@@ -74,15 +71,12 @@
             </div>
 
             <div class="col s12 m5 offset-m2">
-              <div class="second-section">
-                <div class="second-section-heading organization-heading">ORGANIZATIONS</div>
-                <div class="second-section-text">
-                  Post projects<br>
-                  Review and accept applicants<br>
-                  Reach out to potential volunteers<br>
-                  Access to consultants on technical directions
+                <div class="second-section">
+                    <div class="second-section-heading organization-heading">ORGANIZATIONS</div>
+                    <div class="second-section-text">
+                        Post projects<br> Review and accept applicants<br> Reach out to potential volunteers<br> Access to consultants on technical directions
+                    </div>
                 </div>
-              </div>
                 <br>
                 <div class="center second-section-text">
                     <button class="button-bordered" type="submit" (click)="authSvc.login()">REGISTER</button>
@@ -92,119 +86,108 @@
                     <img src="../../assets/Organizations_icons.svg">
                 </div>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 <div class="section no-padding">
     <!--<div class="container">-->
-        <div class="row">
-                <div class="col s12 m2 offset-m5">
-                    <img src="../../assets/GreenArrow.svg" class="green-arrow-img">
-                </div>
-            </div>
+    <div class="row">
+        <div class="col s12 m2 offset-m5">
+            <img src="../../assets/GreenArrow.svg" class="green-arrow-img">
+        </div>
+    </div>
     <!--</div>-->
 </div>
 <div class="section no-padding">
     <div class="green-ribbon white-text">
-            STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD
+        STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD
     </div>
     <!--<div class="container">-->
-        <div class="row">
-            <div class="col s10 m10">
-                <div class="map" *ngIf="developers || organizations">
-                    <agm-map
-                            [latitude]="lat "
-                            [longitude]="lng "
-                            [zoom]="zoom "
-                            [scrollwheel]="false">
+    <div class="row">
+        <div class="col s10 m10">
+            <div class="map" *ngIf="developers || organizations">
+                <agm-map [latitude]="lat " [longitude]="lng " [zoom]="zoom " [scrollwheel]="false">
 
-                      <agm-marker
-                          *ngFor="let d of developers "
-                          [latitude]="d.latitude "
-                          [longitude]="d.longitude "
-                          (mouseOver)="handleMarkerMouseOver($event) "
-                          iconUrl="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                          >
+                    <agm-marker *ngFor="let d of developers " [latitude]="d.latitude " [longitude]="d.longitude " (mouseOver)="handleMarkerMouseOver($event) " iconUrl="http://maps.google.com/mapfiles/ms/icons/red-dot.png">
 
                         <agm-info-window>
-                          <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
-                              <div class="info-avatar ">
-                                <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
-                              </div>
-                              <div class="user-name ">
-                                {{d.firstName}}
-                              </div>
-                              <div class="user-name ">
-                                  {{d.title}}
-                                </div>
-                             <!-- <div class="user-location ">
+                            <div class="info-window ">
+                                <a class="info-container " [routerLink]="[ '/user/view',d.id] ">
+                                    <div class="info-avatar ">
+                                        <img [src]="d.avatarUrl " onError="this.src='../../assets/default_avatar.png' ">
+                                    </div>
+                                    <div class="user-name ">
+                                        {{d.firstName}}
+                                    </div>
+                                    <div class="user-name ">
+                                        {{d.title}}
+                                    </div>
+                                    <!-- <div class="user-location ">
                                 <span *ngIf="d.state ">{{d.state}}</span>
                                 <span *ngIf="d.state && d.country ">,</span>
                                 <span *ngIf="d.country ">{{getCountryName(d.country)}}</span>
                               </div>-->
-                            </a>
-                          </div>
+                                </a>
+                            </div>
                         </agm-info-window>
-                      </agm-marker>
-                      <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) "
-                        iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
+                    </agm-marker>
+                    <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) " iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
 
                         <agm-info-window>
-                          <div class="info-window ">
-                            <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
-                              <div class="info-avatar ">
-                                <img [src]="o.logoUrl " onError="this.src='../../assets/default_image.png' ">
-                              </div>
-                              <div class="content-title ">
-                                {{o.name}}
-                              </div>
-                              <div class="state ">
-                                <span *ngIf="o.state ">{{o.state}}</span>
-                                <span *ngIf="o.state && o.country ">,</span>
-                                <span *ngIf="o.country ">{{getCountryName(o.country)}}</span>
-                              </div>
-                            </a>
-                          </div>
+                            <div class="info-window ">
+                                <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
+                                    <div class="info-avatar ">
+                                        <img [src]="o.logoUrl " onError="this.src='../../assets/default_image.png' ">
+                                    </div>
+                                    <div class="content-title ">
+                                        {{o.name}}
+                                    </div>
+                                    <div class="state ">
+                                        <span *ngIf="o.state ">{{o.state}}</span>
+                                        <span *ngIf="o.state && o.country ">,</span>
+                                        <span *ngIf="o.country ">{{getCountryName(o.country)}}</span>
+                                    </div>
+                                </a>
+                            </div>
                         </agm-info-window>
-                      </agm-marker>
-                    </agm-map>
-                  </div>
-            </div>
-            <div class="col s2 m2">
-              <div class="divStats">
-                <table class="tableStats">
-                  <tr>
-                    <td>
-                      <div>Volunteers: {{numberOfVolunteers}}</div>
-                      <div class="spanPublicVolunteer">
-                        ({{numberOfPublicProfiles}} with public profile)
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div>Projects: {{numberOfProjects}}</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div>Organizations: {{numberOfOrganization}}</div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
+                    </agm-marker>
+                </agm-map>
             </div>
         </div>
+        <div class="col s2 m2">
+            <div class="divStats">
+                <table class="tableStats">
+                    <tr>
+                        <td>
+                            <div>Volunteers: {{numberOfVolunteers}}</div>
+                            <div class="spanPublicVolunteer">
+                                ({{numberOfPublicProfiles}} with public profile)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>Projects: {{numberOfProjects}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>Organizations: {{numberOfOrganization}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
     <!--</div>-->
 </div>
 <br>
 <div class="section no-padding container">
     <div class="white-ribbon">
-      ONE PROJECT AT A TIME, WE ARE CHANGING THE WORLD
+        ONE PROJECT AT A TIME, WE ARE CHANGING THE WORLD
     </div><br>
     <!--<div class="container">-->
-      <!--<div class="row" *ngIf="topThreeProjects">
+    <!--<div class="row" *ngIf="topThreeProjects">
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div>
                 <div class="featured-project-img-div center-align" *ngIf="project.imageUrl">
@@ -232,14 +215,15 @@
     <div class="row" *ngIf="topThreeProjects">
         <div class="col s12 m4" *ngFor="let project of topThreeProjects">
             <div class="card">
-                    <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
-                      <img class="activator" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
-                    </div>
-                    <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl">
-                      <img class="activator" [src]="constantsService.defaultImage">
-                    </div><br>
+                <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
+                    <img class="activator" [src]="project.imageUrl" onError="this.src='../../assets/default_image.png'">
+                </div>
+                <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl">
+                    <img class="activator" [src]="constantsService.defaultImage">
+                </div><br>
                 <div class="card-content" *ngIf="project">
-                    <span class="card-title activator grey-text text-darken-4">{{project.name}}<i class="material-icons right">more_vert</i></span>
+                    <span class="card-title activator grey-text text-darken-4">{{project.name}}</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">{{project.name}}<i class="material-icons right">close</i></span>
@@ -249,19 +233,18 @@
                     <button type="submit" class="btn waves-effect waves-light button-colored" [routerLink]="['/project/view',project.id]">LEARN MORE</button>
                 </div>
             </div>
-         <br><br>
+            <br><br>
         </div>
-      </div>
+    </div>
 </div>
 <div class="section no-padding">
     <div class="green-ribbon white-text">
         <div class="row">
             <div class="col s12">
-                A platform by volunteers, for volunteers<br>
-                Contribute to our open source project
+                A platform by volunteers, for volunteers<br> Contribute to our open source project
             </div>
             <div class="col s12">
-              <a class="btn_github btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
+                <a class="btn_github btn-large" href="https://github.com/Code4SocialGood/" target="_blank">
                 Github Project<i class="mdi mdi-github-circle mdi-36px left" name="github"></i>
               </a>
             </div>
