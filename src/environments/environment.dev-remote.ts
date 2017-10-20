@@ -6,7 +6,7 @@ export const environment = {
     auth_tenant_shared: false,
     auth_api: 'https://c4sg-api',
     auth_callback_env: 'dev',
-    auth_silenturl: 'silent-dev.html',
+    auth_silenturl: 'silent-dev-remote.html',
     AWS_IMAGE_BUCKET: 'c4sg.dev.images',
     AWS_DOCS_BUCKET: 'c4sg.dev.docs',
     AWS_REGION: 'us-west-2',

@@ -122,11 +122,12 @@ export class UserService {
   }
 
   add(user: User): Observable<User> {
+    // debugger;
     const url = userUrl;
     return this.authHttp
                .post(url, user, {headers: this.headers})
                .map(res => res.json())
-               .catch(this.handleError);
+                  .catch(this.handleError);
   }
 
   delete(id: number)  {

@@ -5,14 +5,5 @@ cache:
   directories:
   - node_modules
 script:
-- npm run test_single_run
 - npm run lint
-- npm run build:prod:heroku
-deploy:
-  provider: heroku
-  api_key:
-    secure: "$HEROKU_API_KEY"
-  app:
-    master: c4sg-web-dev
-    staging: c4sg-web-staging
-    prod: c4sg-web-prod
+- npm run test_single_run
