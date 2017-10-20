@@ -26,6 +26,18 @@
 
 .footer{
     background-color: #4B4B4C;
+    p{
+        color: #fff;
+        //text-align: center;
+    }
+    a{
+      color: #fff;
+      //text-align: center;
+    }
+}
+
+.footer{
+    background-color: #4B4B4C;
    .topContent{
         color: #fff;
         //text-align: center;
@@ -33,14 +45,8 @@
 		padding: 0px;
 		margin: 0px;
     }
-    p{
-      color: #fff;
-    }
     a{
       color: #fff;
       //text-align: center;
     }
-  bottom: 30px;
-  position: absolute;
-  width: 100%;
 }
