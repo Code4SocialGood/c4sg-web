@@ -298,6 +298,15 @@ export class ProjectViewComponent implements OnInit {
     }
   }
 
+  // refer application component
+  isBadgeGiven(badgeGiven: boolean): void {
+    if (badgeGiven) {
+        this.globalActions.emit({action: 'toast', params: ['You have given out a badge to the volunteer.', 4000]});
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in giving a badge to the volunteer', 4000]});
+    }
+  }
+
   createBookmark(): void {
         if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
             this.projectService.createBookmark(this.project.id, this.currentUserId)

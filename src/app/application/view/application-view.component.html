@@ -6,9 +6,7 @@
         <div class="user-info col s3">
           <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
           <div>{{applicant.title}}</div>
-          <div class="button-col-padding">
-            <button type="button" class="btn waves-effect waves-light button-width" *ngIf="applicant.applicationStatus === 'C' " (click)="giveBadge(applicant)">Give Badge </button>
-          </div>
+          
         </div>
         <div class="project-marked user-info col s3">
             <div *ngIf="applicant.applicationStatus === 'A'">
@@ -43,7 +41,13 @@
         </div>
         <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'C'">      
             <div class="padding-bottom-5">
-                <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'N'" (click)="giveBadge(applicant)">Give Badge </button>
+            </div>
+            <div class="padding-bottom-5">
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'Y'" [disabled]=true (click)="giveBadge(applicant)">Give Badge </button>
+            </div>
+            <div class="padding-bottom-5">
+              <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
             </div> 
         </div>
       </div>

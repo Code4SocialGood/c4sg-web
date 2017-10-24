@@ -15,7 +15,7 @@
   <div class="row users" *ngFor="let i of rowsArray" >
     <div class="col s3" *ngFor="let hero of heroes | slice:(i*4):(i+1)*4">
       <div class="user">
-        <img class='avatar' [src]="hero.avatarUrl">
+        <my-user-avatar-small [user]="hero"></my-user-avatar-small>
         <div class="fullname">{{hero.firstName +" "+ hero.lastName}}</div>
         <div class="title">{{hero.title}}</div>
         <div class="location clearfix">
@@ -26,7 +26,13 @@
         </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>
-          <span class="label-content"><i class="material-icons">stars</i>&nbsp;{{hero.badgeCount}}</span>
+          <span class="label-content"><a> <i class="material-icons" >stars</i>&nbsp;{{hero.badgeCount}}</a>
+          <div id="projects">
+            <span class="name" *ngIf="hero.project">
+              <h5 *ngFor="let project of hero.project " [routerLink]="['/project/view/', project.id]">{{project.name}}</h5>
+            </span>
+          </div>
+          </span>
         </div>
         <ul class="skills-tag-wrapper clearfix" *ngIf="hero.skill">
           <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
