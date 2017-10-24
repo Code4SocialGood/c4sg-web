@@ -20,6 +20,11 @@
   }
 }
 
+#card-img{
+  margin-bottom:20px;
+  margin-top:20px;
+}
+
 .card-title{
   font-size:1.5em;
   font-weight:bold;
@@ -34,8 +39,45 @@
 }
 
 .aboutus-card{
- margin-top: 90px;
- margin-bottom: 90px;
- margin-left:30px;
- margin-right: 30px;
+ margin:90px 30px 90px 30px;
 }
+
+
+/********** small/medium devices only **********/
+@media (min-width: 601px) and (max-width: 991px) {
+
+.aboutus-card{
+ margin:30px 30px 50px 30px;
+}
+
+.card-title{
+  font-size:1.26em;
+  font-weight:bold;
+}
+
+.section-text{
+  font-size:1.25em;
+}
+}
+
+/********** small devices only **********/
+@media (max-width: 600px) {
+.row{
+  margin-top:20px;
+  margin-bottom:40px;
+}
+
+.aboutus-card{
+  margin:30px 20px 30px 20px;
+  }
+
+.card-title{
+  font-size:1.3em;
+  font-weight:bold;
+}
+
+.section-text{
+  font-size:1.25em;
+}
+}
+
