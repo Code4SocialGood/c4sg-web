@@ -1,5 +1,6 @@
-export class Hero {
+import { Project } from '../../project/common/project';
 
+export class Hero {
 constructor (
     public userId: number,
     public firstName: string,
@@ -10,6 +11,7 @@ constructor (
     public country: string,
     public skill: string[],
     public badgeCount: number,
+    public project: Project[],
     public publishFlag: string
   ) { }
 }
