@@ -236,6 +236,7 @@
     font-size: 1.3em;
     //font-size: 18px;
     //font-weight: bold;
+	
 }
 .volunteer-heading{
     color: #0BAFAA;
@@ -245,11 +246,17 @@
 }
 
 .button-bordered {
-    background-color: transparent;
+    background-color: white;
     color: black;
-    border: 2px solid;
+    border: 2px solid black;
     padding: 5px 60px;
 }
+
+.button-bordered:hover { 
+    background-color: $secondary-bg-color;
+	color: white;
+}
+
 @media screen and (max-width: 915px) {
   .second-section-heading {
         font-size: 1.5em;
