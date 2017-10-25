@@ -20,6 +20,11 @@
   }
 }
 
+.row{
+  margin-left:auto;
+  margin-right:auto;
+}
+
 #card-img{
   margin-bottom:20px;
   margin-top:20px;
@@ -39,7 +44,7 @@
 }
 
 .aboutus-card{
- margin:90px 30px 90px 30px;
+ margin:30px 30px 50px 30px;
 }
 
 
@@ -63,8 +68,7 @@
 /********** small devices only **********/
 @media (max-width: 600px) {
 .row{
-  margin-top:20px;
-  margin-bottom:40px;
+  margin:20px 0px 40px 0px;
 }
 
 .aboutus-card{
