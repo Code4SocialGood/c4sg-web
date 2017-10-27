@@ -41,10 +41,10 @@
         </div>
         <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'C'">      
             <div class="padding-bottom-5">
-              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'N'" (click)="giveBadge(applicant)">Give Badge </button>
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'N'" (click)="giveBadge(applicant)">BADGE</button>
             </div>
             <div class="padding-bottom-5">
-              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'Y'" [disabled]=true (click)="giveBadge(applicant)">Give Badge </button>
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'Y'" [disabled]=true (click)="giveBadge(applicant)">BADGE</button>
             </div>
             <div class="padding-bottom-5">
               <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
