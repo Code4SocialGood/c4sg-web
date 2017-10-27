@@ -65,7 +65,7 @@
           text-decoration-line: underline;
           text-decoration-color: #84c44c;
         }
-        .label-content:hover + div#projects {
+        a:hover + div#projects {
           display: block;
         }
         #projects {
