@@ -74,9 +74,17 @@ export class ApplicationService {
         return Promise.reject(error.message || error);
     }
 
-    saveHero(projectId: number, userId: number)  {
+    saveHero(applicant: Applicant): Observable<any>  {
         return this.authHttp
-            .post(`${applicantUrl}/${projectId}/users/${userId}/badge`, {})
+            .post(`${applicantUrl}/${applicant.projectId}/users/${applicant.userId}/badge`, {})
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getApplicantHeroMap(projectId: number):  Observable<Map<number, string>>   {
+        return this.http
+            .get(`${applicantUrl}/${projectId}/applicantHeroMap`)
+            .map(res => res.json())
             .catch(this.handleError);
     }
 

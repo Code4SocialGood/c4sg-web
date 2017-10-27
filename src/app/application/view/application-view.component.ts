@@ -13,8 +13,10 @@ export class ApplicationViewComponent implements OnInit, OnChanges {
     @Input() projectId: number;
     @Output() onApplicationAccepted = new EventEmitter<boolean>();
     @Output() onApplicationDeclined = new EventEmitter<boolean>();
+    @Output() isBadgeGiven = new EventEmitter<boolean>();
 
     applicants: Applicant[];
+    heroMap: Map<number, string>;
 
     constructor(private applicationService: ApplicationService) {
 
@@ -28,6 +30,7 @@ export class ApplicationViewComponent implements OnInit, OnChanges {
             }
         }
         this.getApplicants(this.projectId);
+        this.getApplicantHeroMap();
     }
 
     ngOnInit() {
@@ -101,11 +104,28 @@ export class ApplicationViewComponent implements OnInit, OnChanges {
     }
 
     giveBadge(applicant: Applicant): void   {
-        this.applicationService.saveHero(applicant.projectId, applicant.userId)
+        console.log('Give Badge called');
+        this.applicationService.saveHero(applicant)
             .subscribe(res =>   {
-                    console.log('Badge is given out to the applicant.');
+                console.log('Badge is given out to the applicant.');
+                this.isBadgeGiven.emit(true);
+                this.getApplicantHeroMap();
             }, error =>    {
                  console.log('Error giving Badge');
+                 this.isBadgeGiven.emit(false);
             });
+    }
+
+    getApplicantHeroMap(): void {
+        console.log('get applicants hero map called');
+        this.heroMap = new Map<number, string>();
+        this.applicationService.getApplicantHeroMap(this.projectId)
+              .subscribe(
+                res => {
+                  console.log(res);
+                  this.heroMap = res as Map<number, string>;
+                  Object.keys(this.heroMap).forEach((key) => {console.log(this.heroMap[key] + ', ' + key); });
+                }
+              );
     }
 }
