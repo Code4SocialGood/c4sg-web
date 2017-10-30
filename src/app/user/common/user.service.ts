@@ -5,7 +5,6 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
 import { JobTitle } from '../../job-title';
-import { Applicant } from './applicant';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 import { AuthHttp } from 'angular2-jwt';
@@ -123,11 +122,12 @@ export class UserService {
   }
 
   add(user: User): Observable<User> {
+    // debugger;
     const url = userUrl;
     return this.authHttp
                .post(url, user, {headers: this.headers})
                .map(res => res.json())
-               .catch(this.handleError);
+                  .catch(this.handleError);
   }
 
   delete(id: number)  {
@@ -163,14 +163,6 @@ export class UserService {
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
     return this.authHttp
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
-  }
-
-  public getApplicants(id: number): Observable<Applicant[]> {
-    const url = userUrl + '/applicant/' + id;
-    return this.http
-               .get(url)
-               .map( res => { return res.json() as Applicant[]; })
-               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

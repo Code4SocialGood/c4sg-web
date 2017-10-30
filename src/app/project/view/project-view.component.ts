@@ -5,7 +5,6 @@ import { Project } from '../common/project';
 import { Organization } from '../../organization/common/organization';
 import { User } from '../../user/common/user';
 import { JobTitle } from '../../job-title';
-import { Applicant } from '../../user/common/applicant';
 import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { UserService } from '../../user/common/user.service';
@@ -48,15 +47,15 @@ export class ProjectViewComponent implements OnInit {
   displayReopen = false;
   displayClose = false;
   displayApplicants = false;
+  displayApplicationForm = false;
 
   userProfileIncomplete = false;
   projectStatusApplied = false;
   projectStatusBookmarked = false;
   projectStatusAccepted = false;
+
   projectStatusDeclined = false;
-
-  applicants: Applicant[];
-
+  prevPage: string;
   projectId;
 
   constructor(private projectService: ProjectService,
@@ -75,19 +74,22 @@ export class ProjectViewComponent implements OnInit {
     this.auth = this.authService;
     this.currentUserId = this.authService.getCurrentUserId();
 
-    this.route.params.subscribe(params => {
-      const id = params['projectId'];
-      this.projectId = id;
 
-      this.projectService.getProject(id)
-      .subscribe(
+    this.route.params.subscribe(params => {
+    const id = params['projectId'];
+    this.projectId = id;
+    this.prevPage = localStorage.getItem('prevPage');
+    localStorage.setItem('prevPage', '');
+
+    this.projectService.getProject(id)
+        .subscribe(
           res => {
             this.project = res;
             this.getSkills(id);
             this.displayButtons();
             this.getOrganization(res.organizationId);
             this.getProjects(res.organizationId);
-            this.getApplicants(id);
+
           },
           error => console.log(error)
           );
@@ -155,17 +157,6 @@ export class ProjectViewComponent implements OnInit {
               this.setCategoryName();
             }
             );
-  }
-
-  // Gets applicants for this project
-  getApplicants(projectId): void {
-
-    this.userService.getApplicants(projectId)
-          .subscribe(
-            res => {
-              this.applicants = res;
-            }
-          );
   }
 
   displayButtons(): void {
@@ -253,37 +244,84 @@ export class ProjectViewComponent implements OnInit {
     }
   }
 
-  saveUserProject(userId, status, applicant) {
+  toggleApplicationForm(): void {
+      if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+        if (this.displayApplicationForm === false) {
+            this.displayApplicationForm = true;
+        } else {
+            this.displayApplicationForm = false;
+        }
+      } else {
+        localStorage.setItem('redirectAfterLogin', this.router.url);
+        this.authService.login();
+      }
+  }
 
-    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        return this.projectService
-            .linkUserProject(this.project.id, userId, status)
-            .subscribe(
-                response => {
-                  // display toast
-                  if (status === 'A') {
-                    this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
-                    this.projectStatusApplied = true;
-                  } else if (status === 'B') {
-                    this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
-                    this.projectStatusBookmarked = true;
-                  } else if (status === 'C') {
-                    this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
-                    applicant.applicationStatus = 'C';
-                  } else if (status === 'D') {
-                    this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
-                    applicant.applicationStatus = 'D';
-                  }
-                    this.router.navigate(['/project/view', this.project.id]);
-                },
-                error => {
-                    this.globalActions.emit({action: 'toast', params: [JSON.parse(error._body).message, 4000]});
-                }
-            );
+  // refer application component
+  onApplicationCreated(applicationCreated: boolean): void {
+    if (applicationCreated) {
+        this.projectStatusApplied = true;
+        this.toggleApplicationForm();
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + this.project.id));
+        this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
+
     } else {
-      localStorage.setItem('redirectAfterLogin', this.router.url);
-      this.authService.login();
+        this.globalActions.emit({action: 'toast', params: ['Error in application', 4000]});
+        this.projectStatusApplied = false;
     }
+  }
+
+  // refer application component
+  onApplicationAccepted(applicationAccepted: boolean): void {
+    if (applicationAccepted) {
+
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
+        this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
+
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in accepting the applicant', 4000]});
+    }
+  }
+
+  // refer application component
+  onApplicationDeclined(applicationDeclined: boolean): void {
+    if (applicationDeclined) {
+
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + this.project.id));
+        this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
+
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});
+    }
+  }
+
+  // refer application component
+  isBadgeGiven(badgeGiven: boolean): void {
+    if (badgeGiven) {
+        this.globalActions.emit({action: 'toast', params: ['You have given out a badge to the volunteer.', 4000]});
+    } else {
+        this.globalActions.emit({action: 'toast', params: ['Error in giving a badge to the volunteer', 4000]});
+    }
+  }
+
+  createBookmark(): void {
+        if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+            this.projectService.createBookmark(this.project.id, this.currentUserId)
+            .subscribe(res => {
+                const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+                localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
+                this.projectStatusBookmarked = true;
+                this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
+            }, (error) => {
+                this.globalActions.emit({action: 'toast', params: ['Error creating bookmark', 4000]});
+            });
+        } else {
+          localStorage.setItem('redirectAfterLogin', this.router.url);
+          this.authService.login();
+        }
   }
 
   edit(): void {
@@ -305,7 +343,9 @@ export class ProjectViewComponent implements OnInit {
   }
 
   goBack(): void {
+    localStorage.setItem('prevPage', 'ProjectList');
     this.location.back();
+
   }
 
   onClose(): void {

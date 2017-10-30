@@ -20,6 +20,11 @@ import {ContactComponent} from './contact/contact.component';
 import {PartnersComponent} from './partners/partners.component';
 import {StoriesComponent} from './stories/stories.component';
 
+import {ApplicationEditComponent} from './application/edit/application-edit.component';
+import {ApplicationViewComponent} from './application/view/application-view.component';
+import {ApplicationProjectViewComponent} from './application/view/application-project-view.component';
+
+
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectViewComponent} from './project/view/project-view.component';
 import {ProjectEditComponent} from './project/edit/project-edit.component';
@@ -45,6 +50,7 @@ import {OrganizationService} from './organization/common/organization.service';
 import {ProjectService} from './project/common/project.service';
 import {UserService} from './user/common/user.service';
 import {SkillService} from './skill/common/skill.service';
+import {ApplicationService} from './application/common/application.service';
 import {AuthService} from './auth.service';
 import {AuthGuard} from './auth.guard';
 import {FormConstantsService} from './_services/form-constants.service';
@@ -55,6 +61,7 @@ import {DataService} from './_services/data.service';
 import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
+
 import { AgmCoreModule } from '@agm/core';
 import { ProjectCardComponent } from './_components/project-card/project-card.component';
 import { ProjectListSmallComponent } from './_components/project-card-small/project-card-small.component';
@@ -100,6 +107,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HeaderComponent,
     FooterComponent,
 
+    ApplicationEditComponent,
+    ApplicationViewComponent,
+    ApplicationProjectViewComponent,
+
     ProjectListComponent,
     ProjectViewComponent,
     ProjectEditComponent,
@@ -125,6 +136,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
     MyPaginationControlsComponent,
+
   ],
   providers: [ProjectService,
     OrganizationService,
@@ -138,6 +150,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     DataService,
     ValidationService,
     SkillService,
+    ApplicationService,
     ExtFileHandlerService,
     {
       provide: AuthHttp,

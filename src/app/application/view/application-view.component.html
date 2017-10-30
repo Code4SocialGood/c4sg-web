@@ -1,0 +1,61 @@
+<h4 class="content-title">Applicants</h4>
+<div class="items-list-wrapper">
+  <ul class="user-list" *ngIf="applicants">
+    <li class="user-wrapper" *ngFor="let applicant of applicants">
+      <div class="user">
+        <div class="user-info col s3">
+          <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
+          <div>{{applicant.title}}</div>
+          
+        </div>
+        <div class="project-marked user-info col s3">
+            <div *ngIf="applicant.applicationStatus === 'A'">
+                <i class="material-icons icon applied-symbol">done</i>          
+                <span>Applied</span>
+            </div>
+            <div *ngIf="applicant.applicationStatus === 'C'">
+                <i class="material-icons icon applied-symbol">done_all</i>
+                <span>Accepted</span>
+            </div>
+            <div *ngIf="applicant.applicationStatus === 'D'">
+                <i class="material-icons icon applied-symbol">clear</i>
+                <span>Declined</span>
+            </div>            
+        </div>        
+        <div class="user-info col s3">
+          <div>Applied on: <br>{{applicant.appliedTime | date: 'dd/MM/yyyy'}}</div>
+          <div *ngIf="applicant.acceptedTime">
+            Accepted on: <br>{{applicant.acceptedTime | date: 'dd/MM/yyyy'}}
+          </div>
+          <div *ngIf="applicant.declinedTime">
+            Declined on: <br>{{applicant.declinedTime | date: 'dd/MM/yyyy'}}
+          </div>
+        </div>
+        <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
+          <div class="padding-bottom-5">             
+            <button type="button" class="btn waves-effect waves-light button-width" (click)="acceptApplication(applicant)">Accept</button>            
+          </div>
+            <div class="padding-bottom-5">
+                <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
+            </div> 
+        </div>
+        <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'C'">      
+            <div class="padding-bottom-5">
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'N'" (click)="giveBadge(applicant)">BADGE</button>
+            </div>
+            <div class="padding-bottom-5">
+              <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'Y'" [disabled]=true (click)="giveBadge(applicant)">BADGE</button>
+            </div>
+            <div class="padding-bottom-5">
+              <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
+            </div> 
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="row" *ngIf="applicants && applicants.length == 0">
+  <div class="col s12">
+    <div class="info">No applicants found</div>
+  </div>
+</div>

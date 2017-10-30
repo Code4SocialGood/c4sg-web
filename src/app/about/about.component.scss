@@ -19,3 +19,71 @@
     margin-bottom: 3rem;
   }
 }
+
+.row{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#card-img{
+  margin-bottom:20px;
+  margin-top:20px;
+}
+
+.card-title{
+  font-size:1.5em;
+  font-weight:bold;
+  color:#4B4B4C;
+}
+
+.section-text{
+  text-align: left;
+  font-family: MyriadPro-Regular, "Myriad Pro Regular", MyriadPro, "Myriad Pro", Helvetica, Arial, sans-serif;
+  font-size: 1.3em;
+  display: flex;
+  margin-top:20px;
+  color:#4B4B4C;
+}
+
+.aboutus-card{
+ margin:30px 30px 50px 30px;
+}
+
+
+/********** small/medium devices only **********/
+@media (min-width: 601px) and (max-width: 991px) {
+
+.aboutus-card{
+ margin:30px 30px 50px 30px;
+}
+
+.card-title{
+  font-size:1.26em;
+  font-weight:bold;
+}
+
+.section-text{
+  font-size:1.25em;
+}
+}
+
+/********** small devices only **********/
+@media (max-width: 600px) {
+.row{
+  margin:20px 0px 40px 0px;
+}
+
+.aboutus-card{
+  margin:30px 20px 30px 20px;
+  }
+
+.card-title{
+  font-size:1.3em;
+  font-weight:bold;
+}
+
+.section-text{
+  font-size:1.25em;
+}
+}
+

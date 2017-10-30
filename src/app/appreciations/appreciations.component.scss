@@ -43,6 +43,7 @@
       }
       .label-content {
         float: right;
+        text-align:right;
       }
       .location {
         font-size: 1rem;
@@ -60,6 +61,17 @@
         i.material-icons {
           font-size: 20px;
         }
+        .name:hover {
+          text-decoration-line: underline;
+          text-decoration-color: #84c44c;
+        }
+        a:hover + div#projects {
+          display: block;
+        }
+        #projects {
+          display: none;
+        }
+
       }
       .skills-tag-wrapper {
         padding: 5px;

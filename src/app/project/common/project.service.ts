@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import { JobTitle } from '../../job-title';
 import { Project } from './project';
+import { Hero } from '../../user/common/hero';
 import { environment } from '../../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
 
@@ -95,8 +96,10 @@ export class ProjectService {
     }
   }
 
-  getProjectByUser(id: number, userProjectStatus: string): Observable<Response> {
-    return this.http.get(`${projectUrl}/user?userId=${id}&userProjectStatus=${userProjectStatus}`);
+  // This method gets the project by application status and also gets the bookmarked projects
+  // But it only returns project object. Application details are not returned
+  getProjectByUser(id: number, status: string): Observable<Response> {
+    return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
   }
 
   public getAllJobTitles(): Observable<JobTitle[]> {
@@ -142,27 +145,13 @@ export class ProjectService {
     };
   }
 
-  linkUserProject(projectId: number, userId: string, status: string) {
-    const url = projectUrl + '/' + projectId + '/users/' + userId + '?userProjectStatus=' + status;
-    return this.authHttp
-      .post(url, { headers: this.headers })
-      .do(() => {
-        const projectsIDs = this.getUserProjectStatusFromLocalStorage();
-        // update appliedProjectIDs and bookmarkedProjectIDs in local storage when user applied or bookmarked another project
-        if (status === 'A') {
-          localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'B') {
-          localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'C') {
-          localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + projectId));
-        }
-        if (status === 'D') {
-          localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + projectId));
-        }
-      })
-      .catch(this.handleError);
+  createBookmark(projectId: number, userId: string): Observable<Response> {
+
+        const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
+        return this.authHttp
+            .post(url, { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
@@ -178,5 +167,13 @@ export class ProjectService {
     requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
     return this.authHttp
       .put(`${projectUrl}/${id}/image`, '', requestOptions);
+  }
+
+  public getHeroes(): Observable<Hero[]> {
+    const url = projectUrl + '/heroes';
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as Hero[]; })
+               .catch(this.handleError);
   }
 }

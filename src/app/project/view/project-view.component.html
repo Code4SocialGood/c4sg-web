@@ -1,12 +1,16 @@
 
- <div class="page-title clearfix" *ngIf="project && project.status === 'A'">
-    <h1>Project</h1>
+<div class="page-title clearfix" *ngIf="project && project.status === 'A' ">
+  <h1>Project</h1>
+  <div *ngIf="prevPage === 'ProjectList'">
     <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
-  <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
-    <h1>Project- CLOSED</h1>
+</div>
+<div class="page-title clearfix" *ngIf="project && project.status === 'C'">
+  <h1>Project- CLOSED</h1>
+  <div *ngIf="prevPage === 'ProjectList'">
     <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
   </div>
+</div>
 
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
@@ -143,7 +147,7 @@
             <div class="col s12 action-btns">
               <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'A')">
+                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()">
                 Apply
               </button>
               <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
@@ -151,15 +155,15 @@
                 Apply
               </button>
               <!-- Apply button is enabled for login user -->
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="saveUserProject(currentUserId, 'A')"
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="toggleApplicationForm()"
                 [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
-                *ngIf="displayBookmark && !authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')">
+                *ngIf="displayBookmark && !authService.authenticated()" (click)="createBookmark(currentUserId)">
                 Bookmark
               </button>
-              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="saveUserProject(currentUserId, 'B')"
+              <button type="button" class="btn waves-effect waves-light" *ngIf="displayBookmark && authService.authenticated()" (click)="createBookmark(currentUserId)"
                 [disabled]="projectStatusBookmarked">
                 Bookmark
               </button>
@@ -175,55 +179,18 @@
               Delete</button>-->
               <my-shared-btn [displayShare]="displayShare" [project]="project"></my-shared-btn>
             </div>
-          </div>
+          </div>      
+            <br>
+          <div class="col s12" *ngIf="displayApplicationForm"> 
+              <my-edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></my-edit-application>              
+          </div>          
         </div>
       </div>
 
       <!-- Nonprofit User - Applicants -->
       <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
-        <div class="row">
-          <div class="col s12">
-            <h4 class="content-title">Applicants</h4>
-            <div class="items-list-wrapper">
-              <ul class="user-list" *ngIf="applicants">
-                <li class="user-wrapper" *ngFor="let applicant of applicants">
-                  <div class="user">
-                    <div class="user-info col s4">
-                      <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
-                      <div>{{applicant.title}}</div>
-                    </div>
-                    <div class="user-info col s4">
-                      <div>Applied on: {{applicant.appliedTime | slice: 0:10}}</div>
-                      <div *ngIf="applicant.acceptedTime">
-                        Accepted on: {{applicant.acceptedTime | slice: 0:10}}
-                      </div>
-                      <div *ngIf="applicant.declinedTime">
-                        Declined on: {{applicant.declinedTime | slice: 0:10}}
-                      </div>
-                    </div>
-                    <div class="user-info col s4 buttons-margin"
-                    *ngIf="applicant.applicationStatus === 'A' && project.status === 'A' ">
-                      <div class="button-col-padding">
-                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'C', applicant)">Accept</button>
-                        <button type="button" class="btn waves-effect waves-light button-width" (click)="saveUserProject(applicant.userId, 'D', applicant)">Decline</button>
-                      </div>
-                    </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'C'">
-                      <div>ACCEPTED</div>
-                    </div>
-                    <div class="user-info col s4" *ngIf="applicant.applicationStatus === 'D'">
-                      <div>DECLINED</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="row" *ngIf="applicants && applicants.length == 0">
-              <div class="col s12">
-                <div class="info">No applicants found</div>
-              </div>
-            </div>
-          </div>
+        <div class="row">          
+              <my-application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)" (isBadgeGiven)="isBadgeGiven($event)"></my-application-view>          
         </div>
       </div>
     </div>

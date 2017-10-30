@@ -407,6 +407,18 @@ font-weight: bold;
 color: $main-color;
 }
 
+h4{
+  font-size: 12px;
+  font-weight: bold;
+  color: $content-title-color;
+}
+
+h5{
+  font-size: 10px;
+  font-weight: bold;
+  color: $main-color;
+}
+
 p1{
 font-size: 10px;
 font-weight: normal;
@@ -416,6 +428,6 @@ color: $main-color;
 p2{
 font-size: 8px;
 font-weight: normal;
-color: #4B4B4C;
+color: $main-color;
 }
 

@@ -68,7 +68,10 @@
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
             </div>
           </div>
-        </div>
+          <div class="col s12">
+              <my-application-project-view [applicantId]="user.id" [nonProfitUserId]="loggedInUserId"></my-application-project-view>
+          </div>
+        </div>          
       </div>
     </div>
 
