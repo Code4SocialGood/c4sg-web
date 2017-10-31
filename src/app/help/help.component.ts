@@ -1,5 +1,5 @@
-import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
-import {Component, EventEmitter} from "@angular/core"
+import {MaterializeDirective, MaterializeAction} from 'angular2-materialize';
+import {Component, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'my-collapsible',
@@ -14,15 +14,15 @@ export class HelpComponent {
     params = [
       {
         onOpen: (el) => {
-          console.log("Collapsible open", el);
+          console.log('Collapsible open', el);
         },
         onClose: (el) => {
-          console.log("Collapsible close", el);
+          console.log('Collapsible close', el);
         }
       }
     ];
 
-    values = ["First", "Second", "Third"];
+    /*values = ["First", "Second", "Third"];*/
 
    /* openFirst() {
       this.actions1.emit({action:"collapsible",params:['open',0]});
