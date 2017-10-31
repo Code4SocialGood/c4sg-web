@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HttpModule, JsonpModule} from '@angular/http';
 import {NavScrollDirective} from './navscroll.directive';
-
 import {MaterializeModule} from 'angular2-materialize';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -19,6 +18,9 @@ import {ConsultantsComponent} from './consultants/consultants.component';
 import {ContactComponent} from './contact/contact.component';
 import {PartnersComponent} from './partners/partners.component';
 import {StoriesComponent} from './stories/stories.component';
+import {BlogsComponent} from './blogs/blogs.component';
+import {VolunteerstoriesComponent} from './volunteerstories/volunteerstories.component';
+import {NonprofitstoriesComponent} from './nonprofitstories/nonprofitstories.component';
 
 import {ApplicationEditComponent} from './application/edit/application-edit.component';
 import {ApplicationViewComponent} from './application/view/application-view.component';
@@ -103,6 +105,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ContactComponent,
     PartnersComponent,
     StoriesComponent,
+	BlogsComponent,
+	VolunteerstoriesComponent,
+	NonprofitstoriesComponent,
 
     HeaderComponent,
     FooterComponent,
