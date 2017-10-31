@@ -1,28 +1,45 @@
-import { Component, OnInit, Input, trigger, state, style, transition, animate, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { Project } from '../project/common/project';
-import { ProjectService } from '../project/common/project.service';
-import { DataService } from '../_services/data.service';
-import { AuthService } from '../auth.service';
-import { Subscription } from 'rxjs/Rx';
-import { User } from '../user/common/user';
-import { UserService } from '../user/common/user.service';
-import { OrganizationService } from '../organization/common/organization.service';
-import { Organization } from '../organization/common/organization';
-import { FormConstantsService } from '../_services/form-constants.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  OnDestroy
+} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Rx';
+import {Project} from '../project/common/project';
+import {ProjectService} from '../project/common/project.service';
+import {DataService} from '../_services/data.service';
+import {AuthService} from '../auth.service';
+import {Subscription} from 'rxjs/Rx';
+import {User} from '../user/common/user';
+import {UserService} from '../user/common/user.service';
+import {OrganizationService} from '../organization/common/organization.service';
+import {Organization} from '../organization/common/organization';
+import {FormConstantsService} from '../_services/form-constants.service';
+
 require('./agmMarkerProto.js');
+
+enum Status {
+  Active = 'A',
+  Volunteer = 'V',
+  Yes = 'Y',
+}
 
 @Component({
   selector: 'my-home',
   templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.scss' ],
-   animations: [
+  styleUrls: ['home.component.scss'],
+  animations: [
     trigger('buttonState', [
       state('inactive', style({
         transform: 'scale(1)'
       })),
-      state('active',   style({
+      state('active', style({
         transform: 'scale(1.05)'
       })),
       transition('inactive => active', animate('100ms ease-in')),
@@ -58,7 +75,6 @@ require('./agmMarkerProto.js');
     ])
   ]
 })
-
 export class HomeComponent implements OnInit {
 
   // search button
@@ -90,6 +106,7 @@ export class HomeComponent implements OnInit {
   numberOfVolunteers: number;
   numberOfPublicProfiles: number;
   numberOfProjects: number;
+  numberOfCountries: number;
   zoom = 2;
   // initial center position for the map
   lat = 0;
@@ -124,12 +141,13 @@ export class HomeComponent implements OnInit {
 
     this.getProjects();
 
+    this.getTotalCountries();
     // Featured projects
     this.getTopThreeProjects();
   }
 
   // search button
-   toggleState() {
+  toggleState() {
     this.state = (this.state === 'inactive' ? 'active' : 'inactive');
   }
 
@@ -144,15 +162,16 @@ export class HomeComponent implements OnInit {
   }
 
   private getTopThreeProjects(): void {
-    this.projectService.searchProjects(null, null, null, 'A', null, 1, 10)
-        .subscribe(
-        res => {
-          this.projects = res.data;
-          this.topThreeProjects = this.projects.slice(0, 3);
-        },
-        error => console.log(error)
-        );
+    this.projectService.searchProjects(null, null, null, Status.Active, null, 1, 10)
+    .subscribe(
+      res => {
+        this.projects = res.data;
+        this.topThreeProjects = this.projects.slice(0, 3);
+      },
+      error => console.log(error)
+    );
   }
+
   // cursor and aniSlogan
   // animation word
   switchWord(time) {
@@ -186,30 +205,43 @@ export class HomeComponent implements OnInit {
     this.usersSubscription = this.uService.getAllUsers()
     .subscribe(
       res => {
-        this.developers = res.filter(vol => vol.role === 'V');
+        this.developers = res.filter(vol => vol.role === Status.Volunteer);
         this.numberOfVolunteers = this.developers.length;
-        this.numberOfPublicProfiles = res.filter(vol => vol.status === 'A' && vol.role === 'V' && vol.publishFlag === 'Y').length;
+        this.numberOfPublicProfiles = res.filter(vol => vol.status === Status.Active &&
+          vol.role === Status.Volunteer && vol.publishFlag === Status.Yes).length;
       },
       error => console.error(error)
     );
   }
+
   // Google maps
   private getOrganizations(): void {
     this.usersSubscription = this.oService.getOrganizations()
     .subscribe(
       res => {
-        this.organizations = res.filter(org => org.status === 'A');
+        this.organizations = res.filter(org => org.status === Status.Active);
         this.numberOfOrganization = this.organizations.length;
       },
       error => console.error(error)
     );
   }
+
   private getProjects(): void {
     this.usersSubscription = this.projectService.getAllProjects()
     .subscribe(
       res => {
-        this.allProjects = res.filter(vol => vol.status === 'A');
+        this.allProjects = res.filter(vol => vol.status === Status.Active);
         this.numberOfProjects = this.allProjects.length;
+      },
+      error => console.error(error)
+    );
+  }
+
+  private getTotalCountries(): void {
+    this.usersSubscription = this.oService.getTotalCountries()
+    .subscribe(
+      res => {
+        this.numberOfCountries = res.total;
       },
       error => console.error(error)
     );
@@ -219,24 +251,24 @@ export class HomeComponent implements OnInit {
     const countries = this.constantsService.getCountries();
     const country = countries.find(c => c.code === countryCode);
     if (country) {
-        return country.name;
+      return country.name;
     } else {
-        return '';
+      return '';
     }
   }
 
   handleMarkerMouseOver(event): void {
     if (this.activeInfoWindow) {
-      this.activeInfoWindow.forEach(function(infoWindow){
+      this.activeInfoWindow.forEach(function (infoWindow) {
         return infoWindow.close();
       });
     }
 
     const window = event.target.infoWindow;
     this.activeInfoWindow = window;
-    window.forEach(function(infoWindow){
+    window.forEach(function (infoWindow) {
       return infoWindow.open();
     });
   }
 
- }
+}
