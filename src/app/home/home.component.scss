@@ -301,34 +301,63 @@
 
 //featured projects section
 .card{
-    max-height: 100%;
+    min-height: 370px;
     background-color: white;
     border: 1px $secondary-color solid;
+    position: relative;
     .card-content{
         text-align: center;
-        position: relative;
+        position: absolute;
+        top: 160px;
+        left:10px;
+        right:10px;
+        height: 130px;
         .material-icons{
           position: absolute;
-          right: 0;
+          right: 0;          
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+        }
+        .card-title {
+          font-size: 18px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          width: 80%;
+          line-height: 30px;
         }
     }
     .card-reveal{
       .material-icons{
         position: absolute;
-        top: 10px;
         right: 10px;
+        top: 10px;                           
       }
     }
-}
-.card-image{
-    height: 150px;
-    img{
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
+    
 
+    .card-image{
+      height: 150px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;      
+      img{
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+      }  
+  }
+  .card-action {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    left:10px;
+  }
 }
+
 .featured-project-heading{
     font-family: $main-font;
     font-size: 1.3em;
