@@ -2,7 +2,7 @@
 
 .content {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: 0;
   background-color: #F9F9F9;
   h4 {
     margin-bottom: -.5rem;
@@ -13,7 +13,6 @@
     background-color: darken($footer-bg-color, 5%);
     padding: 1rem;
     font-size: 1.5rem;
-    border-radius: 5px;
     a {
       font-weight: bold;
       text-decoration: underline;
