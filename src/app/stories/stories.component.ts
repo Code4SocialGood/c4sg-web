@@ -40,7 +40,10 @@ export class StoriesComponent implements OnInit {
 
     /** DUMMY DATA */
     for (let i = 0; i < 3; i++) {
-      stories.push(new Story(i, "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut" + type, "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut", type, "../../assets/image.jpeg"));
+      stories.push(
+        new Story(i, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut' + type,
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut',
+           type, '../../assets/image.jpeg'));
     }
 
     return stories;

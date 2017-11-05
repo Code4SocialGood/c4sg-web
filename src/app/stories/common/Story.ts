@@ -1,4 +1,4 @@
-import {StoryType} from "./StoryType";
+import { StoryType } from "./StoryType";
 export class Story {
   constructor(
     public id: number,
@@ -10,8 +10,8 @@ export class Story {
     public author?: string,
 
 
-    public status?: string,    
+    public status?: string,
     public createdTime?: string,
-    public updatedTime?: string    
+    public updatedTime?: string
   ) { }
 }
