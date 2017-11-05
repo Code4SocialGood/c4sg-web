@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StoryType } from "./common/StoryType";
-import { Story } from "./common/Story";
+import { StoryType } from './common/StoryType';
+import { Story } from './common/Story';
 
 @Component({
   selector: 'my-stories',
