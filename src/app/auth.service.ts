@@ -243,6 +243,8 @@ export class AuthService {
                       this.setlocalStorageItems();
                       if (user.firstName !== '' && user.lastName !== '') {
                         localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                        localStorage.setItem('currentUserFName',  user.firstName);
+                        localStorage.setItem('currentUserLName', user.lastName);
                       } else {
                         localStorage.setItem('currentDisplayName', user.email);
                       }
@@ -258,6 +260,8 @@ export class AuthService {
                   localStorage.setItem('currentUserId', user.id);
                   if (user.firstName !== '' && user.lastName !== '') {
                     localStorage.setItem('currentDisplayName', user.firstName + ' ' + user.lastName);
+                    localStorage.setItem('currentUserFName',  user.firstName);
+                    localStorage.setItem('currentUserLName', user.lastName);
                   } else {
                     localStorage.setItem('currentDisplayName', user.email);
                   }
