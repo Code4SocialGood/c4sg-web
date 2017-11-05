@@ -1,10 +1,62 @@
-<div class="page-title-center">
-  <h1>Our Stories</h1>
+<div class="title"> Our stories</div>
+<div class="top-image">
+  <img src="../../assets/ourstories.jpg" />
+  <button type="submit" class="btn waves-effect waves-light button-colored">SHARE YOUR HISTORY
+  </button>
 </div>
-<div class="container content">
-  <div class="row">
-    <div class="col s8 offset-s2">
-      <h5>Coming soon</h5>
+<div class="main-stories-container">
+  <div class="most-recent-container">
+    <div class="image">
+      <img src="../../assets/treeinventory.jpg" />
+    </div>
+    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+      irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+    <div class="full-story-bar">
+      <div class="most-recent-success">MOST RECENT SUCCESS</div>
+      <div class="full-story">READ FULL STORY</div>
+      <div class="share-icon mdi mdi-share-variant mdi-24px left"></div>
     </div>
   </div>
+  <div class="signup-container">
+    <div class="want-to-join">WANT TO JOIN GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS?</div>
+    <div class="signup-bar">SIGN UP</div>
+  </div>
+</div>
+
+<div class="volunteer-stories-container">
+  <div class="separator volunteer">VOLUNTEER STORIES</div>
+  <div class="cards-container">
+    <div class="story-card" *ngFor="let card of volunteerStories">
+      <div class="story-card-container">
+        <div class="card-image">
+          <img [src]="card.imageUrl" onError="this.src='../../assets/default_image.png'">
+        </div>
+        <div class="card-title" [textContent]="card.title"></div>
+      </div>
+      <div class="card-read-story-bar volunteer">READ FULL STORY</div>
+    </div>
+  </div>
+  <div class="see-more-btn">
+    <button type="submit" class="btn waves-effect waves-light button-colored">SEE MORE</button>
+  </div>
+</div>
+
+<div class="organizations-stories-container">
+  <div class="separator organization">ORGANIZATIONS STORIES</div>
+  <div class="cards-container">
+    <div class="story-card" *ngFor="let card of organizationsStories">
+      <div class="story-card-container">
+        <div class="card-image">
+          <img [src]="card.imageUrl" onError="this.src='../../assets/default_image.png'">
+        </div>
+        <div class="card-title" [textContent]="card.title"></div>
+      </div>
+      <div class="card-read-story-bar organization">READ FULL STORY</div>
+    </div>
+  </div>
+  <div class="see-more-btn margin-bottom">
+      <button type="submit" class="btn waves-effect waves-light button-colored">SEE MORE</button>
+    </div>
 </div>
