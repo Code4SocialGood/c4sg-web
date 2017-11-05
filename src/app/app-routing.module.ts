@@ -29,7 +29,7 @@ import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
 
-  {path: '', redirectTo: 'stories', pathMatch: 'full'},
+  {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'help', component: HelpComponent},
   {path: 'consultants', component: ConsultantsComponent},
