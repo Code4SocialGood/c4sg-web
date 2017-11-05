@@ -46,10 +46,10 @@
         <a class="hidden-link" routerLink='/organization'></a>
       </li>
 
-      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
+      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownprojectcollapse">
           <my-user-avatar-header [authSvc]="authSvc"></my-user-avatar-header>
           <i class="material-icons right">arrow_drop_down</i></a>
-        <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
+        <ul class="dropdown-content dropdown-content-width" id="dropdownprojectcollapse">
           <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{authSvc.getUserOrganizationId()}}" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
