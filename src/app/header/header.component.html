@@ -1,7 +1,33 @@
 
 <nav [ngClass]="isAtHome()">
   <div class="nav-wrapper">
-    <a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a>
+    <a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a> 
+    
+    <ul class="side-nav" id="slide-out">
+      <li class="nav-link-container" routerLinkActive="active">
+          <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>          
+      </li>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" (click)="loadVolunteers()"><span>Volunteers</span></a>        
+      </li>
+      <li class="nav-link-container" routerLinkActive="active">
+        <a class="nav-link" (click)="loadOrganizations()"><span>Organizations</span></a>        
+      </li>
+
+      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
+          <my-user-avatar-header [authSvc]="authSvc"></my-user-avatar-header>
+          <i class="material-icons right">arrow_drop_down</i></a>
+        <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
+          <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>
+          <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{authSvc.getUserOrganizationId()}}" routerLinkactive="active">My Organization</a></li>
+          <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
+          <li *ngIf="authSvc.isOrganization()"><a routerLink="project/edit/0" routerLinkActive="active">Create Project</a></li>
+          <li *ngIf="authSvc.isAdmin()"><a routerLink="organization/list/approve" routerLinkActive="active">Approve Organizations</a></li>
+          <li><a class="log-reg" (click)="authSvc.logout()" *ngIf="authSvc.authenticated()">Log Out</a></li>
+        </ul>
+      </li>
+      <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span><button class="button-colored" type="button">Log In / Sign Up</button></span></a></li>
+    </ul>    
 
     <ul class="right hide-on-med-and-down">
       <li class="nav-link-container" routerLinkActive="active">
@@ -20,10 +46,10 @@
         <a class="hidden-link" routerLink='/organization'></a>
       </li>
 
-      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
+      <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownprojectcollapse">
           <my-user-avatar-header [authSvc]="authSvc"></my-user-avatar-header>
           <i class="material-icons right">arrow_drop_down</i></a>
-        <ul class="dropdown-content dropdown-content-width" id="dropdownproject">
+        <ul class="dropdown-content dropdown-content-width" id="dropdownprojectcollapse">
           <li><a routerLink="/user/edit/{{authSvc.getCurrentUserId()}}" routerLinkActive="active">My Settings</a></li>
           <li *ngIf="authSvc.isOrganization()"><a routerLink="/organization/edit/{{authSvc.getUserOrganizationId()}}" routerLinkactive="active">My Organization</a></li>
           <li *ngIf="!authSvc.isAdmin()"><a routerLink="/project/list/myProjects" routerLinkActive="active">My Projects</a></li>
@@ -33,7 +59,8 @@
         </ul>
       </li>
       <li class="nav-link-container"><a class="log-reg nav-link " (click)="authSvc.login()" *ngIf="!authSvc.authenticated()"><span><button class="button-colored" type="button">Log In / Sign Up</button></span></a></li>
-    </ul>
-
+    </ul>    
+      
+      <a materialize="sideNav" [materializeParams]="[{edge:'right', closeOnClick: true}]" href="#" data-activates="slide-out" class="button-collapse"><i class="mdi mdi-menu mdi-dark"></i></a>   
   </div>
 </nav>

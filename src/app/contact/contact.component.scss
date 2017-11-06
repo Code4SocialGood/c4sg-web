@@ -1,1 +1,56 @@
 @import "../_style/app.theme";
+
+form{
+	margin-bottom:60px;
+}
+
+.row{
+	margin-left:45px;
+	margin-right:45px;
+}
+p{
+    position:relative;
+    font-size:1.3rem;
+	font-weight:bold;
+	color:#4B4B4C;
+}
+
+.material-icons{
+	font-size:60px;
+	margin-top:30px;
+}
+
+#submit_btn{
+	margin-left:10px;
+}
+
+#reachus_link{
+	margin-top:30px;
+	margin-bottom:1vw;
+	margin-left:155px;
+}
+
+/********** small/medium devices only **********/
+@media (min-width: 601px) and (max-width: 991px){
+
+#reachus_link{
+   margin-left:130px;
+}
+}
+
+/********** small devices only **********/
+@media (max-width: 600px){
+
+p{
+	font-size:1rem;
+}
+
+.material-icons{
+	font-size:40px;
+}
+
+#reachus_link{
+ font-size:10px;
+ margin-left:40px;
+}
+}

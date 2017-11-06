@@ -1,13 +1,15 @@
 @import "../_style/app.theme";
+@import "../_components/user-avatar/user-avatar.component";
 
 .content {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: 0;
   background-color: #F9F9F9;
   .thanks {
     font-size: 1.8rem;
     line-height: 2.2rem;
-    h3 {
+    padding-top: 1.5rem;
+    h2 {
       color: $secondary-bg-color;
       font-weight: bold;
       margin-top: 5px;
@@ -25,6 +27,9 @@
         height: 40%;
         border-radius: 50%;
         border: 1px #ccc solid;
+      }
+      .avatar-circle  {
+         margin: 0 auto 1rem;
       }
       .fullname {
         font-size: 1.5rem;

@@ -2,22 +2,27 @@
   <h1>Heroes</h1>
 </div>
 <div class="container content">
-  <div class="row">
+  <div class="row white z-depth-2">
     <div class="col s10 offset-s1">
       <div class="thanks">
-        If the technical volunteering world becomes a better place tomorrow,<br>
-        it will happen because of volunteers like you.<br>
-        <h3>Thank you!</h3>
+        If the technical volunteering world becomes a better place tomorrow,
+        it will happen <br>because of volunteers like you.<br>
+        <h2>Thank you!</h2>
       </div>
     </div>
   </div>
 
   <div class="row users" *ngFor="let i of rowsArray" >
     <div class="col s3" *ngFor="let hero of heroes | slice:(i*4):(i+1)*4">
-      <div class="user">
-        <my-user-avatar-small [user]="hero"></my-user-avatar-small>
-        <div class="fullname">{{hero.firstName +" "+ hero.lastName}}</div>
-        <div class="title">{{hero.title}}</div>
+      <div class="user  white z-depth-2">
+        <div *ngIf="hero.avatarUrl">
+          <img [src]="hero.avatarUrl" class="avatar">
+        </div>
+        <div class="avatar-circle" *ngIf="!hero.avatarUrl">
+          <span class="initials">{{hero.firstName | slice:0:1}}{{hero.lastName | slice:0:1}}</span>
+        </div>
+        <div class="mg-top-10px content-title ">{{hero.firstName +" "+ hero.lastName}}</div>
+        <div class="user-title">{{hero.title}}</div>
         <div class="location clearfix">
           <span class="label">Location</span>
           <span class="label-content" *ngIf="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
@@ -34,9 +39,11 @@
           </div>
           </span>
         </div>
-        <ul class="skills-tag-wrapper clearfix" *ngIf="hero.skill">
-          <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
-        </ul>
+        <div class="skills-tag-wrapper" >
+          <ul *ngIf="hero.skill">
+            <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
+          </ul>
+        </div>
         <button type="button" class="btn waves-effect waves-light"  [disabled]="hero.publishFlag ==='N' " [routerLink]="['/user/view',hero.userId]">View Profile</button>
       </div>
     </div>

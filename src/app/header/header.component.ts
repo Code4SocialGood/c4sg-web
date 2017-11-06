@@ -6,6 +6,7 @@ import { Organization } from '../organization/common/organization';
 import { Project } from '../project/common/project';
 import { ProjectService} from '../project/common/project.service';
 import { Subscription} from 'rxjs/Rx';
+import {MaterializeDirective} from 'angular2-materialize';
 
 @Component({
 // moduleId: module.id,  // For webpack, remove this
