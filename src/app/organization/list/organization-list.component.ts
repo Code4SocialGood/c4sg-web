@@ -29,6 +29,9 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   }, {
     name: 'Open Source',
     value: 'O'
+  }, {
+    name: 'Social Enterprise',
+    value: 'S'
   }];
 
   categoriesArray = new FormArray([
