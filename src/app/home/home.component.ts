@@ -143,10 +143,10 @@ export class HomeComponent implements OnInit {
     this.numberOfCountries = this.constantsService.getCountriesCount();
     this.numberOfProjects = this.constantsService.getProjectsCount();
 
-    //this.getDevelopers();
-    //this.getOrganizations();
-    //this.getProjects();
-    //this.getTotalCountries();
+    // this.getDevelopers();
+    // this.getOrganizations();
+    // this.getProjects();
+    // this.getTotalCountries();
 
     // Featured projects
     this.getTopThreeProjects();
