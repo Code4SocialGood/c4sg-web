@@ -101,6 +101,7 @@ export class HomeComponent implements OnInit {
   usersSubscription: Subscription;
   developers: User[];
   organizations: Organization[];
+  countries: any[];
   allProjects: Project[];
   numberOfOrganization: number;
   numberOfVolunteers: number;
@@ -135,13 +136,18 @@ export class HomeComponent implements OnInit {
     cursorTimer.subscribe(u => this.cursorFlash(u));
 
     // Google maps
-    this.getDevelopers();
-    // Google maps
-    this.getOrganizations();
+    this.numberOfVolunteers = this.constantsService.getDevelopersCount();
+    this.numberOfPublicProfiles = this.constantsService.getDevelopersPublicProfileCount();
+    this.numberOfOrganization = this.constantsService.getOrganizationsCount();
+    this.countries = this.constantsService.getCountriesForMap();
+    this.numberOfCountries = this.constantsService.getCountriesCount();
+    this.numberOfProjects = this.constantsService.getProjectsCount();
 
-    this.getProjects();
+    //this.getDevelopers();
+    //this.getOrganizations();
+    //this.getProjects();
+    //this.getTotalCountries();
 
-    this.getTotalCountries();
     // Featured projects
     this.getTopThreeProjects();
   }
