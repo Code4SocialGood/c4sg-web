@@ -105,6 +105,20 @@
     text-align: center;
     //position: relative;
 }*/
+
+//cursor and aniSlogan
+/*@font-face {
+  font-family: "aniFont";
+  src: url("/assets/fonts/Gotham-Black-Regular.ttf");
+  //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
+  // src: url("/assets/fonts/Thruster-Regular.ttf");
+}*/
+
+.maindiv{
+  height: 100%;
+  position: relative;
+}
+
 .action {
   background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
 
@@ -115,14 +129,30 @@
 
 }
 
-//cursor and aniSlogan
-/*@font-face {
-  font-family: "aniFont";
-  src: url("/assets/fonts/Gotham-Black-Regular.ttf");
-  //src: url("/assets/fonts/Myriad-Pro-Regular.ttf");
-  // src: url("/assets/fonts/Thruster-Regular.ttf");
-}*/
+.actionvideo {
+    
+    //height: 70vh;
+    height: 510px;
+}
 
+video {  
+    
+    position: relative;
+    top: 40%;
+    left: 50%;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;    
+    
+    background: url('/assets/image_1.jpeg') no-repeat;
+    background-size: cover;
+    //transition: 1s opacity;
+    
+}
 
 .aniSlogan-background{
     background-color: rgba(0, 0, 0, 0.4);
@@ -130,8 +160,8 @@
     text-align: center;
     position: absolute;
     bottom: 0%;
-    top: 68%;
-    height: 32%;
+    top: 50%;
+    height: 36%;
 }
 
 #aniSlogan {
@@ -573,7 +603,3 @@ agm-map {
   }
 }
 
-.maindiv{
-  height: 100%;
-  position: relative;
-}
