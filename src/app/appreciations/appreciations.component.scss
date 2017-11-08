@@ -23,13 +23,14 @@
       border: .5px #ccc solid;
       padding: 1rem 1rem 1.5rem;
       .avatar {
-        width: 40%;
-        height: 40%;
+        
+         width: 100px;
+         height: 100px;
         border-radius: 50%;
         border: 1px #ccc solid;
       }
       .avatar-circle  {
-         margin: 0 auto 1rem;
+         margin: 0 auto 0.47rem;
       }
       .fullname {
         font-size: 1.5rem;

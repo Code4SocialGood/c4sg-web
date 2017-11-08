@@ -38,12 +38,12 @@
             </span>
           </div>
           </span>
-        </div>
-        <div class="skills-tag-wrapper" >
+        </div><br/>
+        <!--<div class="skills-tag-wrapper" >
           <ul *ngIf="hero.skill">
             <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
           </ul>
-        </div>
+        </div>-->
         <button type="button" class="btn waves-effect waves-light"  [disabled]="hero.publishFlag ==='N' " [routerLink]="['/user/view',hero.userId]">View Profile</button>
       </div>
     </div>
