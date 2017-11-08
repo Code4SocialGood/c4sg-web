@@ -313,7 +313,7 @@ export class FormConstantsService {
     { code: 'CCK', name: 'Cocos (Keeling) Islands', latitude: -12.164165, longitude: 96.870956, volunteers: 0, organizations: 0 },
     { code: 'CHE', name: 'Switzerland', latitude: 46.818188, longitude: 8.227512, volunteers: 2, organizations: 0 },
     { code: 'CHL', name: 'Chile', latitude: -35.675147, longitude: -71.542969, volunteers: 1, organizations: 0 },
-    { code: 'CHN', name: 'China', latitude: 35.86166, longitude: 104.195397, volunteers: 1, organizations: 0 },
+    { code: 'CHN', name: 'China', latitude: 35.86166, longitude: 104.195397, volunteers: 2, organizations: 0 },
     { code: 'CIV', name: 'Côte d\'Ivoire', latitude: 7.539989, longitude: -5.54708, volunteers: 0, organizations: 0 },
     { code: 'CMR', name: 'Cameroon', latitude: 7.369722, longitude: 12.354722, volunteers: 0, organizations: 0 },
     { code: 'COD', name: 'Congo, the Democratic Republic of the', latitude: -4.038333, longitude: 21.758664, volunteers: 0,
