@@ -534,6 +534,22 @@ agm-map {
   font-size: 0.6em;
 }
 
+.spanPublicVolunteer:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
+.spanPublicProject:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
+.spanPublicOrganization:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
+
 .tableStats{
   height: 100%;
   .tr{

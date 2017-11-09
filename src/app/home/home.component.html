@@ -177,19 +177,28 @@
                   <tr>
                     <td>
                       <div>Volunteers: {{numberOfVolunteers}}</div>
-                      <div class="spanPublicVolunteer">
-                        ({{numberOfPublicProfiles}} with public profile)
+                      <div class="spanPublicVolunteer ">
+                        
+						<!-- <div><a class="hidden-link white-text" routerLink='/user'><div>({{numberOfPublicProfiles}} with public profile)</div></a></div> -->
+						<div><a class="hidden-link white-text" href="http://localhost:4200/user/list"><div>({{numberOfPublicProfiles}} with public profile)</div></a></div>
+						
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <div>Projects: {{numberOfProjects}}</div>
+					  <div class="spanPublicProject">
+					  <!-- <a class="hidden-link white-text" routerLink='/project'><div>Projects: {{numberOfProjects}}</div></a> -->
+					  <a class="hidden-link white-text" href="http://localhost:4200/project/list/projects"><div>Projects: {{numberOfProjects}}</div></a>
+                      </div>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <div>Organizations: {{numberOfOrganization}}</div>
+					 <div class="spanPublicOrganization">
+                      <!-- <a class="hidden-link white-text" routerLink='/organization'><div>Organizations: {{numberOfOrganization}}</div></a> -->
+					  <a class="hidden-link white-text" href="http://localhost:4200/organization/list/organizations"><div>Organizations: {{numberOfOrganization}}</div></a>
+					 </div>
                     </td>
                   </tr>
                 </table>
