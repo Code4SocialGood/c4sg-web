@@ -119,20 +119,13 @@
   position: relative;
 }
 
+
+
 .action {
-  background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
-
-  //background-image: url("/assets/image_1.jpeg");
-  background-repeat: no-repeat;
-  height: 90vh;
-  background-size: cover;
-
-}
-
-.actionvideo {
     
-    //height: 70vh;
-    height: 510px;
+    height: 93vh;
+    //height: auto;
+    //height: 510px;
 }
 
 video {  
@@ -148,9 +141,11 @@ video {
     width: auto;
     height: auto;    
     
-    background: url('/assets/image_1.jpeg') no-repeat;
+    //background: url('/assets/image_1.jpeg') no-repeat;
     background-size: cover;
     //transition: 1s opacity;
+    
+    pointer-events: none;
     
 }
 
@@ -176,6 +171,39 @@ video {
   letter-spacing: 1px;
 }
 
+#aniWord {
+  font-family: inherit;
+  color: #383838;
+}
+
+@media screen and (max-width: 1150px) and (min-width: 993px)  {
+    
+    .action {      
+      height: 80vh;
+    }    
+    
+    .aniSlogan-background {
+        height: 42%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    
+    .action {
+      background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+           
+      background-repeat: no-repeat;
+      height: 90vh;
+      background-size: cover;
+
+    }
+    
+    video {
+        display: none;
+    }
+    
+}
+
 @media screen and (max-width: 915px) {
   #aniSlogan {
       font-size: 2em;
@@ -187,11 +215,6 @@ video {
       font-size: 2em;
     }
   }
-
-#aniWord {
-  font-family: inherit;
-  color: #383838;
-}
 
 /*#aniSlogan.vol_slogan {
   position: absolute;
