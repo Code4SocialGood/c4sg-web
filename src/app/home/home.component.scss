@@ -14,6 +14,7 @@
   z-index: -1;
 }
 
+
 .cover img{
   position:relative;
   object-fit: contain;
@@ -532,6 +533,22 @@ agm-map {
 
 .spanPublicVolunteer{
   font-size: 0.6em;
+}
+
+.spanPublicVolunteer:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
+.spanPublicProject:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
+.spanPublicOrganization:hover {
+  text-decoration: underline;
+  color: white;
+  
 }
 
 .tableStats{
