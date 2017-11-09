@@ -136,17 +136,17 @@ export class HomeComponent implements OnInit {
     cursorTimer.subscribe(u => this.cursorFlash(u));
 
     // Google maps
-    this.numberOfVolunteers = this.constantsService.getDevelopersCount();
-    this.numberOfPublicProfiles = this.constantsService.getDevelopersPublicProfileCount();
-    this.numberOfOrganization = this.constantsService.getOrganizationsCount();
+    // this.numberOfVolunteers = this.constantsService.getDevelopersCount();
+    // this.numberOfPublicProfiles = this.constantsService.getDevelopersPublicProfileCount();
+    // this.numberOfOrganization = this.constantsService.getOrganizationsCount();
     this.countries = this.constantsService.getCountriesForMap();
-    this.numberOfCountries = this.constantsService.getCountriesCount();
-    this.numberOfProjects = this.constantsService.getProjectsCount();
+    // this.numberOfCountries = this.constantsService.getCountriesCount();
+    // this.numberOfProjects = this.constantsService.getProjectsCount();
 
-    // this.getDevelopers();
-    // this.getOrganizations();
-    // this.getProjects();
-    // this.getTotalCountries();
+    this.getDevelopers();
+    this.getOrganizations();
+    this.getProjects();
+    this.getTotalCountries();
 
     // Featured projects
     this.getTopThreeProjects();
