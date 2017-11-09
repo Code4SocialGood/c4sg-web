@@ -22,8 +22,9 @@
         background-color: transparent;
         border: none;
         white-space: nowrap;
+        color: white;
         &:hover {
-          border-color: $navbar-border-color;
+          color: $navbar-border-color;
         }
         &.active {
           color: $navbar-fg-color;
@@ -172,7 +173,7 @@ ul.right.hide-on-med-and-down{
 }
 .side-nav {
     //height: auto;
-    background: #F9F9F9;
+    background: #E0E0E0;
     .button-colored {
         background-color: $secondary-color;
         color: white;
