@@ -123,7 +123,7 @@
 
 .action {
     
-    height: 93vh;
+    height: 94vh;
     //height: auto;
     //height: 510px;
 }
@@ -619,16 +619,35 @@ agm-map {
 .divStats{
   background-color: $secondary-color;
   color: white;
-  border: none;
-  font-size: 1.8em;
-  font-weight: bold;
-  height: 500px;
-  margin-left: -22px;
+  border: none;  
+  font-weight: bold;  
   text-align: center;
-  //line-height: 500%;
-
 }
 
+.largeScreen {
+    margin-left: -22px;
+    font-size: 1.8em;
+    height: 500px;
+}
+
+@media screen and (min-width: 401px) {
+    .hide-on-extra-small-and-up {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .hide-on-extra-small-and-down {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .show-on-extra-small-and-down {
+        display: block !important;
+    }
+}
+    
 .spanPublicVolunteer{
   font-size: 0.6em;
 }
