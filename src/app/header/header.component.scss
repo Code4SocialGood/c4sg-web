@@ -9,6 +9,15 @@
     height: 80%;
     margin: 0px 20px;
   }
+  .button-colored{
+    background-color: transparent;
+    border-color: $secondary-bg-color;
+    color: white;
+    border-radius: 2px;
+    font-size: 1em;
+    margin-bottom: 5px;
+    padding: 5px 5px;
+  }
   ul {
     border-bottom: 2px solid #84C44C;
     li {
@@ -59,6 +68,14 @@
   .brand-logo {
     height: 60%;
     margin: 0px 20px;
+  }
+  .button-colored{
+    background-color: $secondary-color;
+    color: white;
+    border: none;
+    font-size: 1em;
+    margin-bottom: 5px;
+    padding: 5px 5px;
   }
   ul {
       li {
@@ -156,16 +173,6 @@ ul.right.hide-on-med-and-down{
         min-width: 180px;
      }
   }
-}
-
-
-.button-colored{
-    background-color: $secondary-color;
-    color: white;
-    border: none;
-    font-size: 1em;
-    margin-bottom: 5px;
-    padding: 5px 5px;
 }
 
 .button-collapse {

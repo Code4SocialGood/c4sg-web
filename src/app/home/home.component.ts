@@ -277,4 +277,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  loadProjects(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/project/list', 'reload'], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/project/list/projects']));
+  }
+
+  loadVolunteers(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/user/list', { from: 'reload' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/user/list']));
+  }
+
 }
