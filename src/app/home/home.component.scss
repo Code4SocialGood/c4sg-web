@@ -105,15 +105,6 @@
     text-align: center;
     //position: relative;
 }*/
-.action {
-  background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
-
-  //background-image: url("/assets/image_1.jpeg");
-  background-repeat: no-repeat;
-  height: 90vh;
-  background-size: cover;
-
-}
 
 //cursor and aniSlogan
 /*@font-face {
@@ -123,15 +114,49 @@
   // src: url("/assets/fonts/Thruster-Regular.ttf");
 }*/
 
+.maindiv{
+  height: 100%;
+  position: relative;
+}
+
+
+
+.action {
+    
+    height: 93vh;
+    //height: auto;
+    //height: 510px;
+}
+
+video {  
+    
+    position: relative;
+    top: 40%;
+    left: 50%;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;    
+    
+    //background: url('/assets/image_1.jpeg') no-repeat;
+    background-size: cover;
+    //transition: 1s opacity;
+    
+    pointer-events: none;
+    
+}
 
 .aniSlogan-background{
-    background-color: rgba(0, 0, 0, 0.4);
+    // background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
     text-align: center;
     position: absolute;
     bottom: 0%;
-    top: 68%;
-    height: 32%;
+    top: 45%;
+    height: 36%;
 }
 
 #aniSlogan {
@@ -146,6 +171,39 @@
   letter-spacing: 1px;
 }
 
+#aniWord {
+  font-family: inherit;
+  color: #383838;
+}
+
+@media screen and (max-width: 1150px) and (min-width: 993px)  {
+    
+    .action {      
+      height: 80vh;
+    }    
+    
+    .aniSlogan-background {
+        height: 42%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    
+    .action {
+      background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+           
+      background-repeat: no-repeat;
+      height: 90vh;
+      background-size: cover;
+
+    }
+    
+    video {
+        display: none;
+    }
+    
+}
+
 @media screen and (max-width: 915px) {
   #aniSlogan {
       font-size: 2em;
@@ -157,11 +215,6 @@
       font-size: 2em;
     }
   }
-
-#aniWord {
-  font-family: inherit;
-  color: #383838;
-}
 
 /*#aniSlogan.vol_slogan {
   position: absolute;
@@ -255,6 +308,20 @@
 .button-bordered:hover { 
     background-color: $secondary-bg-color;
 	color: white;
+}
+
+.btn-bordered {
+    background-color: $secondary-color;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-bordered:hover { 
+    background-color: $secondary-bg-color;
+  color: white;
 }
 
 @media screen and (max-width: 915px) {
@@ -573,7 +640,3 @@ agm-map {
   }
 }
 
-.maindiv{
-  height: 100%;
-  position: relative;
-}

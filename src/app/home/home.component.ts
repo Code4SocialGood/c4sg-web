@@ -136,17 +136,17 @@ export class HomeComponent implements OnInit {
     cursorTimer.subscribe(u => this.cursorFlash(u));
 
     // Google maps
-    this.numberOfVolunteers = this.constantsService.getDevelopersCount();
-    this.numberOfPublicProfiles = this.constantsService.getDevelopersPublicProfileCount();
-    this.numberOfOrganization = this.constantsService.getOrganizationsCount();
+    // this.numberOfVolunteers = this.constantsService.getDevelopersCount();
+    // this.numberOfPublicProfiles = this.constantsService.getDevelopersPublicProfileCount();
+    // this.numberOfOrganization = this.constantsService.getOrganizationsCount();
     this.countries = this.constantsService.getCountriesForMap();
-    this.numberOfCountries = this.constantsService.getCountriesCount();
-    this.numberOfProjects = this.constantsService.getProjectsCount();
+    // this.numberOfCountries = this.constantsService.getCountriesCount();
+    // this.numberOfProjects = this.constantsService.getProjectsCount();
 
-    // this.getDevelopers();
-    // this.getOrganizations();
-    // this.getProjects();
-    // this.getTotalCountries();
+    this.getDevelopers();
+    this.getOrganizations();
+    this.getProjects();
+    this.getTotalCountries();
 
     // Featured projects
     this.getTopThreeProjects();
@@ -275,6 +275,18 @@ export class HomeComponent implements OnInit {
     window.forEach(function (infoWindow) {
       return infoWindow.open();
     });
+  }
+
+  loadProjects(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/project/list', 'reload'], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/project/list/projects']));
+  }
+
+  loadVolunteers(): void {
+    // This URL is used as dummy URL
+    this.router.navigate(['/user/list', { from: 'reload' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/user/list']));
   }
 
 }
