@@ -446,6 +446,19 @@ video {
     width: 100%;
 }
 
+
+// SEE MORE Button
+
+.btn-see-more{
+  background-color: #84c44c;
+  width:30%;
+  position: relative;
+  top:50%;
+  left:35%;
+  margin: 0 0 35px 0;
+  padding-bottom: 10px;
+}
+
 @media screen and (max-width: 915px){
 
     .featured-project-heading{
