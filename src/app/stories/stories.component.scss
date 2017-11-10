@@ -1,12 +1,13 @@
 @import "../_style/app.theme";
 @import "../_style/variables";
+@import "../_style/app.mixins";
 
 .title {
 	height: 53.5px;
 	font-size: 25px;
 	font-weight: bold;
 	color: #FFF;
-	padding: 5px;	
+	padding: 5px;
 	text-align: center;
 	background-color: $page-title-bg-color;
 	margin-top: -2px; // hack to hide the border from header.
@@ -32,7 +33,7 @@
 	justify-content: space-between;
 }
 .most-recent-container{
-	display: inline-block; 
+	display: inline-block;
 	width: 60%;
 	height: 280px;
 	margin-top: 20px;
@@ -66,7 +67,7 @@
 	}
 	.most-recent-success {
 		position: absolute;
-		left: 40px;		
+		left: 40px;
 		color: white;
 		font-size: 16px;
 		font-weight: bold;
@@ -93,12 +94,12 @@
 		color: white;
 		cursor:pointer;
 	}
-	
+
 }
 .signup-container {
 	display: inline-block;
 	height: 284px;
-	margin-top: 20px;	
+	margin-top: 20px;
 	padding: 20px;
 	box-sizing: content-box;
 	width: 28%;
@@ -124,13 +125,13 @@
 	line-height: 40px;
 	cursor: pointer;
 }
-.want-to-join {	    			
-	height: calc(284px - 40px);			
+.want-to-join {
+	height: calc(284px - 40px);
 	display: flex;
 	align-items: center;
 }
 
-.volunteer-stories-container, 
+.volunteer-stories-container,
 .organizations-stories-container {
 	margin-top: 40px;
 }
@@ -155,7 +156,7 @@
 	margin: 10px auto;
 	text-align: center;
 }
-.story-card {	
+.story-card {
 	height: 400px;
 	width: 26%;
 	display: inline-block;
@@ -163,10 +164,10 @@
 	box-sizing: border-box;
 	border: 3px solid #DADADA;
 	margin: 0 15px;
-	
+
 	.story-card-container{
 		padding:20px;
-		width: 100%;		
+		width: 100%;
 		height: 354px;
 	}
 
@@ -194,7 +195,11 @@
 				object-fit: cover;
 		}
 
-	}
+  }
+
+  .text {
+    @include multiLineEllipsis($lineHeight: 21px, $lineCount: 8, $bgColor: white);
+  }
 
 	.card-title {
 		text-align: justify;
@@ -203,7 +208,7 @@
 		height: calc(100% - 150px);
 		margin-top:20px;
 	}
-	.card-read-story-bar{		
+	.card-read-story-bar{
 		height:40px;
 		line-height:40px;
 		color: white;
@@ -217,8 +222,72 @@
 	margin-top: 10px;
 	&.margin-bottom {
 		margin-bottom: 50px;
-	}	
+	}
 	button {
 		width: 23%;
 	}
+}
+
+/**
+ * Tooltip Styles
+ */
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
 }
