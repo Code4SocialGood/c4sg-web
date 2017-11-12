@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StoryType } from './common/StoryType';
 import { Story } from './common/Story';
-import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'my-stories',
@@ -13,7 +12,7 @@ export class StoriesComponent implements OnInit {
   volunteerStories: Story[] = [];
   organizationsStories: Story[] = [];
 
-  constructor(public authSvc: AuthService
+  constructor(
   ) { }
 
   ngOnInit(): void {
