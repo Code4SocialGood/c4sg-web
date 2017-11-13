@@ -221,18 +221,18 @@
             <td>
               <div>Volunteers: {{numberOfVolunteers}}</div>
               <div class="spanPublicVolunteer">
-                ({{numberOfPublicProfiles}} with public profile)
+                <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
               </div>
             </td>
           </tr>
           <tr>
             <td>
-              <div>Projects: {{numberOfProjects}}</div>
+              <div><a routerLink="/project/list/projects">Projects: {{numberOfProjects}}</a></div>
             </td>
           </tr>
           <tr>
             <td>
-              <div>Organizations: {{numberOfOrganization}}</div>
+                <div><a routerLink="/organization/list/organizations">Organizations: {{numberOfOrganization}}</a></div>
             </td>
           </tr>
           <tr>
@@ -251,16 +251,16 @@
                   <div>{{numberOfVolunteers}}</div>
                   <div>Volunteers</div>
                   <div class="spanPublicVolunteer">
-                    ({{numberOfPublicProfiles}} with public profile)
+                      <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
                   </div>
               </div>
               <div class="col s3">
                   <div>{{numberOfProjects}}</div>
-                  <div>Projects</div>
+                  <div><a routerLink="/project/list/projects">Projects</a></div>
               </div>
               <div class="col s3">
                   <div>{{numberOfOrganization}}</div>
-                  <div>Organizations</div>
+                  <div><a routerLink="/organization/list/organizations">Organizations</a></div>
               </div>
               <div class="col s3">
                   <div>{{numberOfCountries}}</div>
@@ -274,18 +274,18 @@
                   <div>{{numberOfVolunteers}}</div>
                   <div>Volunteers</div>
                   <div class="spanPublicVolunteer">
-                    ({{numberOfPublicProfiles}} with public profile)
+                      <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
                   </div>
               </div>
               <div class="col s6">
                   <div>{{numberOfProjects}}</div>
-                  <div>Projects</div>
+                  <div><a routerLink="/project/list/projects">Projects</a></div>
               </div>
           </div>
           <div class="row">
               <div class="col s6">
                   <div>{{numberOfOrganization}}</div>
-                  <div>Organizations</div>
+                  <div><a routerLink="/organization/list/organizations">Organizations</a></div>
               </div>
               <div class="col s6">
                   <div>{{numberOfCountries}}</div>
