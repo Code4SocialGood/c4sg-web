@@ -54,9 +54,15 @@
             Your browser does not support the video tag.
         </video>
         <div class="aniSlogan-background">
-          <div id="aniSlogan">
+          <div class="aniSlogan hide-on-small-and-down show-on-medium-and-up">
             It doesn't matter if you
-            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <br> code for <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+          </div>
+          <div class="aniSlogan show-on-small hide-on-med-and-up">
+            It doesn't matter if you
+            <br> code for 
+            <br> <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
           </div>
           <div><br><button class="btn-bordered" type="submit" (click)="loadProjects()">Find Projects</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-bordered" (click)="loadVolunteers()" type="submit" >Find Volunteers</button></div>
