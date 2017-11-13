@@ -18,6 +18,9 @@
     margin-bottom: 5px;
     padding: 5px 5px;
   }
+  .button-colored:hover{
+    background-color: $secondary-bg-color;
+  }  
   ul {
     border-bottom: 2px solid #84C44C;
     li {

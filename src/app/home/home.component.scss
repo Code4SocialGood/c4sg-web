@@ -123,7 +123,7 @@
 
 .action {
     
-    height: 93vh;
+    height: 94vh;
     //height: auto;
     //height: 510px;
 }
@@ -262,7 +262,9 @@ video {
         color: white;
         letter-spacing: 1px;
     }
-
+.ribbon-padding-top{
+padding: 30px 0px;
+}
 .white-ribbon {
     background-color: transparent;
     text-align: center;
@@ -460,6 +462,21 @@ video {
     width: 100%;
 }
 
+
+// SEE MORE Button
+
+.btn-see-more{
+  background-color: #84c44c;
+  width:30%;
+  position: relative;
+  padding: 0 2rem;
+  display: block;
+  margin:0 auto;
+}
+#see-more{
+margin-bottom:35px;
+}
+
 @media screen and (max-width: 915px){
 
     .featured-project-heading{
@@ -619,16 +636,35 @@ agm-map {
 .divStats{
   background-color: $secondary-color;
   color: white;
-  border: none;
-  font-size: 1.8em;
-  font-weight: bold;
-  height: 500px;
-  margin-left: -22px;
+  border: none;  
+  font-weight: bold;  
   text-align: center;
-  //line-height: 500%;
-
 }
 
+.largeScreen {
+    margin-left: -22px;
+    font-size: 1.8em;
+    height: 500px;
+}
+
+@media screen and (min-width: 401px) {
+    .hide-on-extra-small-and-up {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .hide-on-extra-small-and-down {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .show-on-extra-small-and-down {
+        display: block !important;
+    }
+}
+    
 .spanPublicVolunteer{
   font-size: 0.6em;
 }
