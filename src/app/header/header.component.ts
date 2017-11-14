@@ -67,6 +67,13 @@ export class HeaderComponent implements  OnInit, OnDestroy {
     return 'off-home';
   }
 
+  getLogo() {
+    if (this.router.url === '/' || this.router.url === '/#!') {
+      return 'assets/logo_home_video.png';
+    }
+    return 'assets/logo.png';
+  }
+
   ngOnDestroy() {
     if (this.projectsSubscription) {
       this.projectsSubscription.unsubscribe();
