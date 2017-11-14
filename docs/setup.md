@@ -113,79 +113,83 @@ Some of the components may fail to install. Make sure you have the following ins
 MySQL Root Password:
 * Enter the password that C4SG configuration uses: mysql
 * If you use a different password, please change the config setting in application.properties:
-> # Username and secret
+> Username and secret
 > spring.datasource.username = root
 > spring.datasource.password = mysql
 
 ### 3.2 Create the Database 
 
 Launch MySQL Workbench.
+
 Create Schema: c4sg
 	
-	Note:
-You don’t need to create tables. Table creation is handled by Flyway database migration tool. Tables will 
-be create automatically when you first run the Spring Boot application.
+Note: You don’t need to create tables. Table creation is handled by Flyway database migration tool. Tables will be create automatically when you first run the Spring Boot application.
 
-4. Backend
 
-4.1 Setup in IDE
+## 4. Backend
 
-Install your preferred IDE: Eclipse, STS, IntelliJ Idea, etc.
-Import c4sg-services source code.
-Run the application in IDE.
-Make sure MySQL is running.
+### 4.1 Setup in IDE
 
-4.2 Test Backend
+* Install your preferred IDE: Eclipse, STS, IntelliJ Idea, etc.
+* Import c4sg-services source code.
+* Run the application in IDE.
+* Make sure MySQL is running.
+
+### 4.2 Test Backend
 
 Test Rest API from  browser: http://localhost:8080/swagger-ui.html
 
-4.3 Eclipse Specific Setup
+### 4.3 Eclipse Specific Setup
 
-4.3.1 Download Java JDK
-Link: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-Version: 8u112 ( as of 1/2/2017)
-Accept all the default configuration during installation
+#### 4.3.1 Download Java JDK
 
-4.3.2 Download Eclipse
-Link: https://eclipse.org/downloads/
-Version: Neon (as of 1/2/2017)
-Type: Eclipse IDE for Java EE Developers
+* Link: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+* Version: 8u112 ( as of 1/2/2017)
+* Accept all the default configuration during installation
 
-4.3.3 Launch Eclipse
+#### 4.3.2 Download Eclipse
+
+* Link: https://eclipse.org/downloads/
+* Version: Neon (as of 1/2/2017)
+* Type: Eclipse IDE for Java EE Developers
+
+#### 4.3.3 Launch Eclipse
+
 Select a directory as workspace: Click "browse" to create a new folder as your workspace
 
-4.3.4 Install Plugin
-Help -> Eclipse Marketplace
-Install Plugin: 
-Spring Tool Suite (STS) for Eclipse 3.8.3.RELEASE
-Buildship
+#### 4.3.4 Install Plugin
 
-4.3.5 Import project
-File -> Import -> Gradle -> Existing Gradle Project
-Import Source: c4sg-services
-Take all the default settings.
+* Help -> Eclipse Marketplace
+* Install Plugin: 
+  * Spring Tool Suite (STS) for Eclipse 3.8.3.RELEASE
+  * Buildship
 
-4.3.6 Run application
-Right click on project: C4SGSvc
-Run as: Run Configurations
-In theSpring Boot tab, add prpperties:
+#### 4.3.5 Import project
 
-property
-value
-c4sg_web_url
-localhost:4200
-google_map_api_key
-you can put any dummy value here, unless you work on gencoding.
-sendgrid_api_key
-you can put any dummy value here, unless you work on email delivery.
-slack.auth.token
-you can put any dummy value here
+* File -> Import -> Gradle -> Existing Gradle Project
+* Import Source: c4sg-services
+* Take all the default settings.
 
-Click Run.
-	
+#### 4.3.6 Run application
 
-Verify Last line in console: org.c4sg.C4SgApplication : Started C4SgApplication in 9.852 seconds
+* Right click on project: C4SGSvc
+* Run as: Run Configurations
+* In theSpring Boot tab, add properties:
 
-5. Development
+Property | Value
+---|---
+c4sg_web_url | localhost:4200
+google_map_api_key | you can put any dummy value here, unless you work on gencoding.
+sendgrid_api_key | you can put any dummy value here, unless you work on email delivery.
+slack.auth.token | you can put any dummy value here
+
+* Click Run.
+
+![run config image]()
+
+Verify Last line in console: `org.c4sg.C4SgApplication : Started C4SgApplication in 9.852 seconds`
+
+
+## 5. Development
 
 If you are interested in collaborating on this project, please contact: info@code4socialgood.org
