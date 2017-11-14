@@ -58,14 +58,15 @@ Install your preferred IDE: Sublime, WebStorm, etc
 
 Click Windows Start button, launch "Node.js command prompt"
 
-Run the commands
-    cd <path_to_local_repository>\c4sg-web
-    npm install
+Run the commands:
+```
+cd <path_to_local_repository>\c4sg-web
+npm install
+```
 
 A new folder is created under C4SGWeb: \node_modules
 
-If you experience this error during npm install, just ignore it: 
-    Environment "${C4SG_NG_ENV-'staging_remote'}" does not exist.
+If you experience this error during npm install, just ignore it: `Environment "${C4SG_NG_ENV-'staging_remote'}" does not exist.`
 
 ### 2.4 Test Frontend
 
@@ -94,12 +95,7 @@ Then run the command: `npm run start:dev:local`
 * Link: http://dev.mysql.com/downloads/
 * Click: 		MySQL Community Server
 * Version: 	5.7.17 (as of 1/2/2017)
-
-https://dev.mysql.com/downloads/windows/installer/5.7.html
-
-(mysql-installer-web-community-5.7.17.0.msi)
-
-1.7M
+* File: https://dev.mysql.com/downloads/windows/installer/5.7.html - (mysql-installer-web-community-5.7.17.0.msi) - 1.7M
 
 #### Installation
 
@@ -113,9 +109,11 @@ Some of the components may fail to install. Make sure you have the following ins
 MySQL Root Password:
 * Enter the password that C4SG configuration uses: mysql
 * If you use a different password, please change the config setting in application.properties:
-> Username and secret
-> spring.datasource.username = root
-> spring.datasource.password = mysql
+```
+Username and secret
+spring.datasource.username = root
+spring.datasource.password = mysql
+```
 
 ### 3.2 Create the Database 
 
@@ -193,3 +191,13 @@ Verify Last line in console: `org.c4sg.C4SgApplication : Started C4SgApplication
 ## 5. Development
 
 If you are interested in collaborating on this project, please contact: info@code4socialgood.org
+
+***
+
+## Appendix A: Revision History
+
+Date | Version | Description | Author
+---|---|---|---
+10/18/2017 | 1.0 | Update commands to launch the application in local environment: `npm run start:dev:heroku`, `npm run start:dev:local` | C4SG
+10/18/2017 | 1.1 | Remove the property on backend server: `auth0.issuer=https://c4sg-local.auth0.com/` | C4SG
+11/14/2017 | 1.2 | Moved this document to github and converted to markdown | SunyataZero
