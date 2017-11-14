@@ -1,8 +1,8 @@
 
 <nav [ngClass]="isAtHome()">
   <div class="nav-wrapper">
-    <a class="brand-logo" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a> 
-    
+    <a class="brand-logo largeScreen hide-on-med-and-down" [routerLink]="'/'"><img [src]="getLogo()" height="90"></a> 
+    <a class="brand-logo hide-on-med-and-up show-on-medium-and-down" [routerLink]="'/'"><img src="assets/logo.png" height="90"></a> 
     <ul class="side-nav" id="slide-out">
       <li class="nav-link-container" routerLinkActive="active">
           <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>          
