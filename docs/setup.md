@@ -185,7 +185,7 @@ slack.auth.token | you can put any dummy value here
 
 * Click Run.
 
-![run config image]()
+![run config image](_img/setup_run-config.png)
 
 Verify Last line in console: `org.c4sg.C4SgApplication : Started C4SgApplication in 9.852 seconds`
 
