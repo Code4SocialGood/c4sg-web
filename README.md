@@ -1,7 +1,7 @@
 # Code for Social Good
 [![Build Status](https://travis-ci.org/Code4SocialGood/c4sg-web.svg?branch=master)](https://travis-ci.org/Code4SocialGood/c4sg-web)
 
-For setup information, please see [this guide](https://github.com/Code4SocialGood/c4sg-services/wiki)
+For setup information, please see [this guide](docs/setup.md)
 
 Code for Social Good is a global platform to connect nonprofits and open source developers with technical volunteers.
 
@@ -18,7 +18,14 @@ We welcome technical volunteers to help build this platform. Contact: info@code4
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.0.
 
 ## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+To test a patch you're working on:
+
+Run `npm run start:dev:heroku` for a dev server. Navigate to `http://localhost:4200/`.
+The app will automatically reload if you change any of the source files.
+
+To view a development version of the web site (built from code presently in the
+repository), go to http://dev.code4socialgood.org/
 
 ## Code scaffolding
 

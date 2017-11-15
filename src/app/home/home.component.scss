@@ -119,8 +119,6 @@
   position: relative;
 }
 
-
-
 .action {
     
     height: 94vh;
@@ -159,7 +157,7 @@ video {
     height: 36%;
 }
 
-#aniSlogan {
+.aniSlogan {
   //font-family: "aniFont";
   font-size: 3em;
   //font-weight: 100;
@@ -171,58 +169,16 @@ video {
   letter-spacing: 1px;
 }
 
-#aniWord {
+.aniWord {
   font-family: inherit;
   color: #383838;
 }
-
-@media screen and (max-width: 1150px) and (min-width: 993px)  {
-    
-    .action {      
-      height: 80vh;
-    }    
-    
-    .aniSlogan-background {
-        height: 42%;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    
-    .action {
-      background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
-           
-      background-repeat: no-repeat;
-      height: 90vh;
-      background-size: cover;
-
-    }
-    
-    video {
-        display: none;
-    }
-    
-}
-
-@media screen and (max-width: 915px) {
-  #aniSlogan {
-      font-size: 2em;
-      padding-top:2%;
-    }
-}
-  @media screen and (max-width: 650px) {
-   #aniSlogan {
-      font-size: 2em;
-    }
-  }
 
 /*#aniSlogan.vol_slogan {
   position: absolute;
   top: 11rem;
   left: 28rem;
 }*/
-
-
 
 //classes for project search
 .input-pre {
@@ -251,7 +207,7 @@ video {
     background-color: $secondary-bg-color;
     text-align: center;
     font-family: $main-font;
-    font-size: 22px;
+    font-size: 1.6em;
     font-weight: bolder;
     padding: 10px 0px;
     text-transform: uppercase;
@@ -326,28 +282,7 @@ padding: 30px 0px;
   color: white;
 }
 
-@media screen and (max-width: 915px) {
-  .second-section-heading {
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-    .second-section-text{
-        font-size: 1em;
-        //font-size: 18px;
-        //font-weight: bold;
-    }
-}
-  @media screen and (max-width: 650px) {
-    .second-section-heading {
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-    .second-section-text{
-        font-size: 1em;
-        //font-size: 18px;
-        //font-weight: bold;
-    }
-  }
+
 
 //Green Arrow image
 .green-arrow-img{
@@ -356,16 +291,6 @@ padding: 30px 0px;
     margin: auto;
 }
 
-@media screen and (max-width: 915px) {
-  .green-arrow-img{
-        max-width: 30%;
-      }
-}
-  @media screen and (max-width: 650px) {
-    .green-arrow-img{
-        max-width: 30%;
-      }
-  }
 
 
 //featured projects section
@@ -462,7 +387,6 @@ padding: 30px 0px;
     width: 100%;
 }
 
-
 // SEE MORE Button
 
 .btn-see-more{
@@ -477,30 +401,7 @@ padding: 30px 0px;
 margin-bottom:35px;
 }
 
-@media screen and (max-width: 915px){
 
-    .featured-project-heading{
-        font-size: 1.1em;
-    }
-    .featured-project-text{
-        font-size: 1em;
-    }
-    .button-colored{
-        font-size: 0.9em;
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .featured-project-heading{
-        font-size: 1.1em;
-    }
-    .featured-project-text{
-        font-size: 1em;
-    }
-    .button-colored{
-        font-size: 0.9em;
-    }
-  }
 
 
 //github
@@ -529,20 +430,6 @@ margin-bottom:35px;
 	height: 48px;
 
 }
-
-@media screen and (max-width: 915px) {
-    .btn_github {
-        font-size: 1rem;
-        //margin: 10px;
-    }
-  }
-@media screen and (max-width: 650px) {
-    .btn_github {
-        font-size: 1rem;
-        //margin: 10px;
-    }
-  }
-
 
 /* google map */
 
@@ -623,8 +510,6 @@ agm-map {
   }
 }
 
-
-
 //copied from materialize template
 .icon-block {
   padding: 0 15px;
@@ -639,12 +524,142 @@ agm-map {
   border: none;  
   font-weight: bold;  
   text-align: center;
+    a {
+        color: white;
+    }
 }
 
 .largeScreen {
     margin-left: -22px;
     font-size: 1.8em;
     height: 500px;
+}
+
+@media screen and (max-width: 400px) {
+    .show-on-extra-small-and-down {
+        display: block !important;
+    }
+}
+    
+.spanPublicVolunteer{
+  font-size: 0.6em;
+}
+
+.tableStats{
+  height: 100%;
+  .tr{
+    height: 25%;
+  }
+}
+
+/*********************
+  Media Query Classes
+**********************/
+
+@media screen and (max-width: 1150px) and (min-width: 993px)  {
+    
+    .action {      
+      height: 80vh;
+    }    
+    
+    .aniSlogan-background {
+        height: 42%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    
+    .action {
+      background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
+        
+      background-repeat: no-repeat;
+      height: 90vh;
+      background-size: cover;
+
+    }
+    
+    video {
+        display: none;
+    }
+    
+    .aniSlogan {
+      font-size: 2.2em;
+      padding-top:2%;
+    }
+     .featured-project-heading{
+        font-size: 1.1em;
+    }
+    .featured-project-text{
+        font-size: 1em;
+    }
+    .button-colored{
+        font-size: 0.9em;
+    }
+     .btn_github {
+        font-size: 1rem;
+        //margin: 10px;
+    }
+    .green-arrow-img{
+        max-width: 70%;
+    }
+    .green-ribbon {
+        font-size: 1.5em;
+    }
+    .white-ribbon {
+        font-size: 1.5em;
+    }
+    .second-section-heading {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .second-section-text{
+        font-size: 1em;
+        //font-size: 18px;
+        //font-weight: bold;
+    }
+    
+}
+
+@media screen and (max-width: 650px) {
+   
+    .aniSlogan-background{
+        top: 38%;
+        height: 36%;
+    }
+    .aniSlogan {
+      font-size: 1.8em;
+    }
+    .featured-project-heading{
+        font-size: 1.1em;
+    }
+    .featured-project-text{
+        font-size: 1em;
+    }
+    .button-colored{
+        font-size: 0.9em;
+    }
+    .green-arrow-img{
+        max-width: 30%;
+    } 
+    .green-ribbon {
+        font-size: 1.3em;
+    }
+    .white-ribbon {
+        font-size: 1.3em;
+    }
+    .btn_github {
+        font-size: 1rem;
+        //margin: 10px;
+    }
+    .second-section-heading {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .second-section-text{
+        font-size: 1em;
+        //font-size: 18px;
+        //font-weight: bold;
+    }
 }
 
 @media screen and (min-width: 401px) {
@@ -663,16 +678,5 @@ agm-map {
     .show-on-extra-small-and-down {
         display: block !important;
     }
-}
-    
-.spanPublicVolunteer{
-  font-size: 0.6em;
-}
-
-.tableStats{
-  height: 100%;
-  .tr{
-    height: 25%;
-  }
 }
 
