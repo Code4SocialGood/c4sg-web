@@ -54,11 +54,18 @@
             Your browser does not support the video tag.
         </video>
         <div class="aniSlogan-background">
-          <div id="aniSlogan">
+          <div class="aniSlogan hide-on-small-and-down show-on-medium-and-up">
             It doesn't matter if you
-            <br> code for <span id="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <br> code for <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
             <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
           </div>
+          <div class="aniSlogan show-on-small hide-on-med-and-up">
+            It doesn't matter if you
+            <br> code for 
+            <br> <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+          </div>
+          <div><br><button class="btn-bordered" type="submit" (click)="loadProjects()">Find Projects</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-bordered" (click)="loadVolunteers()" type="submit" >Find Volunteers</button></div>
         </div>        
     </div>    
 </div>   
@@ -132,7 +139,7 @@
 
   <!--<div class="container">-->
   <div class="row">
-    <div class="col s10 m10">
+    <div class="col s12 m12 l10">
       <div class="map" *ngIf="countries">
         <agm-map
           [latitude]="lat "
@@ -213,26 +220,25 @@
         </agm-map>
       </div>
     </div>
-
-    <div class="col s2 m2">
-      <div class="divStats">
+    <div class="col l2">
+      <div class="divStats largeScreen  hide-on-med-and-down">
         <table class="tableStats">
           <tr>
             <td>
               <div>Volunteers: {{numberOfVolunteers}}</div>
               <div class="spanPublicVolunteer">
-                ({{numberOfPublicProfiles}} with public profile)
+                <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
               </div>
             </td>
           </tr>
           <tr>
             <td>
-              <div>Projects: {{numberOfProjects}}</div>
+              <div><a routerLink="/project/list/projects">Projects: {{numberOfProjects}}</a></div>
             </td>
           </tr>
           <tr>
             <td>
-              <div>Organizations: {{numberOfOrganization}}</div>
+                <div><a routerLink="/organization/list/organizations">Organizations: {{numberOfOrganization}}</a></div>
             </td>
           </tr>
           <tr>
@@ -241,8 +247,58 @@
             </td>
           </tr>
         </table>
-      </div>
+      </div>      
     </div>
+  </div>
+  <div class="row">
+      <div id="mediumToSmallScreen" class="divStats hide-on-med-and-up show-on-medium-and-down hide-on-extra-small-and-down">
+          <div class="row">
+              <div class="col s3">
+                  <div>{{numberOfVolunteers}}</div>
+                  <div>Volunteers</div>
+                  <div class="spanPublicVolunteer">
+                      <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
+                  </div>
+              </div>
+              <div class="col s3">
+                  <div>{{numberOfProjects}}</div>
+                  <div><a routerLink="/project/list/projects">Projects</a></div>
+              </div>
+              <div class="col s3">
+                  <div>{{numberOfOrganization}}</div>
+                  <div><a routerLink="/organization/list/organizations">Organizations</a></div>
+              </div>
+              <div class="col s3">
+                  <div>{{numberOfCountries}}</div>
+                  <div>Countries</div>
+              </div>
+          </div>
+      </div>
+      <div id="verySmallScreen" class="divStats hide-on-extra-small-and-up show-on-extra-small-and-down">
+          <div class="row">
+              <div class="col s6">
+                  <div>{{numberOfVolunteers}}</div>
+                  <div>Volunteers</div>
+                  <div class="spanPublicVolunteer">
+                      <a routerLink="/user/list">({{numberOfPublicProfiles}} with public profile)</a>
+                  </div>
+              </div>
+              <div class="col s6">
+                  <div>{{numberOfProjects}}</div>
+                  <div><a routerLink="/project/list/projects">Projects</a></div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col s6">
+                  <div>{{numberOfOrganization}}</div>
+                  <div><a routerLink="/organization/list/organizations">Organizations</a></div>
+              </div>
+              <div class="col s6">
+                  <div>{{numberOfCountries}}</div>
+                  <div>Countries</div>
+              </div>
+          </div>
+      </div>
   </div>
   <!--</div>-->
 </div>
@@ -307,9 +363,13 @@
       <br><br>
     </div>
   </div>
+  <div class="card-action" id="see-more">
+    <button type="submit" class="btn waves-effect waves-light button-colored btn-see-more"
+    [routerLink]="['/project/list/projects']">SEE MORE</button>
+  </div>
 </div>
 <div class="section no-padding">
-  <div class="green-ribbon white-text">
+  <div class="green-ribbon white-text ribbon-padding-top">
     <div class="row">
       <div class="col s12">
         A platform by volunteers, for volunteers<br>

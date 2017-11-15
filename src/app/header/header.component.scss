@@ -9,6 +9,18 @@
     height: 80%;
     margin: 0px 20px;
   }
+  .button-colored{
+    background-color: transparent;
+    border-color: $secondary-bg-color;
+    color: white;
+    border-radius: 2px;
+    font-size: 1em;
+    margin-bottom: 5px;
+    padding: 5px 5px;
+  }
+  .button-colored:hover{
+    background-color: $secondary-bg-color;
+  }  
   ul {
     border-bottom: 2px solid #84C44C;
     li {
@@ -22,8 +34,9 @@
         background-color: transparent;
         border: none;
         white-space: nowrap;
+        color: white;
         &:hover {
-          border-color: $navbar-border-color;
+          color: $navbar-border-color;
         }
         &.active {
           color: $navbar-fg-color;
@@ -58,6 +71,14 @@
   .brand-logo {
     height: 60%;
     margin: 0px 20px;
+  }
+  .button-colored{
+    background-color: $secondary-color;
+    color: white;
+    border: none;
+    font-size: 1em;
+    margin-bottom: 5px;
+    padding: 5px 5px;
   }
   ul {
       li {
@@ -157,22 +178,12 @@ ul.right.hide-on-med-and-down{
   }
 }
 
-
-.button-colored{
-    background-color: $secondary-color;
-    color: white;
-    border: none;
-    font-size: 1em;
-    margin-bottom: 5px;
-    padding: 5px 5px;
-}
-
 .button-collapse {
     float: right;
 }
 .side-nav {
     //height: auto;
-    background: #F9F9F9;
+    background: #E0E0E0;
     .button-colored {
         background-color: $secondary-color;
         color: white;
