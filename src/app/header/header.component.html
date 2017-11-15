@@ -5,13 +5,13 @@
     
     <ul class="side-nav" id="slide-out">
       <li class="nav-link-container" routerLinkActive="active">
-          <a class="nav-link" href="#"  (click)="loadProjects()"><span>Projects</span></a>          
+          <a class="nav-link" href="/project/list/projects"  (click)="loadProjects()"><span>Projects</span></a>          
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" href="#" (click)="loadVolunteers()"><span>Volunteers</span></a>        
+        <a class="nav-link" href="/user/list" (click)="loadVolunteers()"><span>Volunteers</span></a>        
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" href="#" (click)="loadOrganizations()"><span>Organizations</span></a>        
+        <a class="nav-link" href="/organization/list/organizations" (click)="loadOrganizations()"><span>Organizations</span></a>        
       </li>
 
       <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">
@@ -31,17 +31,17 @@
 
     <ul class="right hide-on-med-and-down">
       <li class="nav-link-container" routerLinkActive="active">
-          <a class="nav-link"  href="#"(click)="loadProjects()"><span>Projects</span></a>
+          <a class="nav-link"  href="/project/list/projects" (click)="loadProjects()"><span>Projects</span></a>
           <img class="active-header-icon" src="../../assets/header-active-icon.png" />
           <a class="hidden-link" routerLink='/project'></a>
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" href="#" (click)="loadVolunteers()"><span>Volunteers</span></a>
+        <a class="nav-link" href="/user/list" (click)="loadVolunteers()"><span>Volunteers</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <a class="hidden-link" routerLink='/user'></a>
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" href= "#" (click)="loadOrganizations()"><span>Organizations</span></a>
+        <a class="nav-link" href= "/organization/list/organizations" (click)="loadOrganizations()"><span>Organizations</span></a>
         <img class="active-header-icon" src="../../assets/header-active-icon.png" />
         <a class="hidden-link" routerLink='/organization'></a>
       </li>
