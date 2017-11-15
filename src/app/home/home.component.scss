@@ -387,7 +387,6 @@ padding: 30px 0px;
     width: 100%;
 }
 
-
 // SEE MORE Button
 
 .btn-see-more{
@@ -536,6 +535,12 @@ agm-map {
     height: 500px;
 }
 
+@media screen and (max-width: 400px) {
+    .show-on-extra-small-and-down {
+        display: block !important;
+    }
+}
+    
 .spanPublicVolunteer{
   font-size: 0.6em;
 }
