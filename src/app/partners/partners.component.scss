@@ -1,21 +1,70 @@
 @import "../_style/app.theme";
-
 .content {
+  line-height: 1.3333;
+  // font-size: 2rem;
   text-align: center;
   padding-top: 0;
+    font-family: "Segoe UI",
+    "Segoe WP",
+    "Helvetica Neue",
+    Tahoma,
+    "Lucida Grande",
+    Helvetica,
+    sans-serif;
+
   background-color: #F9F9F9;
   h4 {
     margin-bottom: -.5rem;
-    font-size: 2rem;
+    font-size: 2rem; 
+    line-height: 1.3333; 
+    font-family: 'Raleway',
+    cursive;
   }
   .contact {
     margin-top: 2rem;
     background-color: darken($footer-bg-color, 5%);
     padding: 1rem;
     font-size: 1.5rem;
+
     a {
-      font-weight: bold;
+      font-weight: 300;
       text-decoration: underline;
+      color:#84C44C;
+
+
+    }
+    .partners{
+      font-size: 1em;
     }
   }
+} 
+
+
+.card {
+    margin: auto;
+    border: solid #d9d9d9;
+    max-height: 450px;
+    .card-image{
+      height: 150px;
+      //position: absolute;
+      //top: 10px;
+      //left: 10px;
+      //right: 10px;      
+      img{
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+      }
+    }
+    
+    .card-content{
+        text-align: center;        
+        height: 160px;
+        
+        .card-title {
+          font-size: 18px;           
+        }
+    }
+    
 }
+

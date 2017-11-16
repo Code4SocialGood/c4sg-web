@@ -21,13 +21,13 @@
         <div class="avatar-circle" *ngIf="!hero.avatarUrl">
           <span class="initials">{{hero.firstName | slice:0:1}}{{hero.lastName | slice:0:1}}</span>
         </div>
-        <div class="mg-top-10px content-title ">{{hero.firstName +" "+ hero.lastName}}</div>
+        <div class="mg-top-10px content-title ">{{hero.firstName}}</div>
         <div class="user-title">{{hero.title}}</div>
         <div class="location clearfix">
           <span class="label">Location</span>
-          <span class="label-content" *ngIf="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
+          <span class="label-content" [class.hide]="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
           <span class="label-content" *ngIf="!hero.state && hero.country">{{hero.country}}</span>
-          <span class="label-content" *ngIf="!hero.country && hero.state">{{hero.state}}</span>
+          <span class="label-content" [class.hide]="!hero.country && hero.state">{{hero.state}}</span>
         </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>
