@@ -1,12 +1,11 @@
 <div class="page-title-center">
-  <h1>Volunteer Heroes</h1>
+  <h1>Our Top Volunteers</h1>
 </div>
 <div class="container content">
   <div class="row white z-depth-2">
     <div class="col s10 offset-s1">
       <div class="thanks">
-        If the technical volunteering world becomes a better place tomorrow,
-        it will happen <br>because of volunteers like you.<br>
+        Together, we are making the world a better place.<br>We appreciate the help of all our volunteers!<br>
         <h2>THANK YOU!</h2>
       </div>
     </div>
@@ -21,13 +20,13 @@
         <div class="avatar-circle" *ngIf="!hero.avatarUrl">
           <span class="initials">{{hero.firstName | slice:0:1}}{{hero.lastName | slice:0:1}}</span>
         </div>
-        <div class="mg-top-10px content-title ">{{hero.firstName +" "+ hero.lastName}}</div>
+        <div class="mg-top-10px content-title ">{{hero.firstName}}</div>
         <div class="user-title">{{hero.title}}</div>
         <div class="location clearfix">
           <span class="label">Location</span>
-          <span class="label-content" *ngIf="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
+          <span class="label-content" [class.hide]="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
           <span class="label-content" *ngIf="!hero.state && hero.country">{{hero.country}}</span>
-          <span class="label-content" *ngIf="!hero.country && hero.state">{{hero.state}}</span>
+          <span class="label-content" [class.hide]="!hero.country && hero.state">{{hero.state}}</span>
         </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>

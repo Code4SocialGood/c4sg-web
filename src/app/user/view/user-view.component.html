@@ -48,6 +48,9 @@
             <span *ngIf="!user.state">
             {{pad(user.country, "&nbsp;", 3)}}</span>
             </div>
+            <div class="email" *ngIf="authService.authenticated() && (authService.isAdmin()|| authService.isOrganization())">
+              Email: <span>{{pad(user.email,"&nbsp;",6)}}</span>
+            </div>
             <div class="skills-tag-wrapper">
               <ul *ngIf="user.skills">
                 <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
