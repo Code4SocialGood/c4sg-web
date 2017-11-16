@@ -35,7 +35,8 @@ export class HeaderComponent implements  OnInit, OnDestroy {
       this.setOrganizationId(res);
     });
   }
-
+  
+  /* //below code is commented and can be removed eventually
   loadProjects(): void {
     // This URL is used as dummy URL
     this.router.navigate(['/project/list', 'reload'], {skipLocationChange: true});
@@ -53,6 +54,7 @@ export class HeaderComponent implements  OnInit, OnDestroy {
     this.router.navigate(['/organization/list', 'reload'], {skipLocationChange: true});
     setTimeout(() => this.router.navigate(['/organization/list/organizations']));
   }
+  */
 
   private setOrganizationId(organizationId: string): void {
     this.organizationId = organizationId;
