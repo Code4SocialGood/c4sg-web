@@ -38,3 +38,33 @@
     }
   }
 } 
+
+
+.card {
+    margin: auto;
+    border: solid #d9d9d9;
+    max-height: 450px;
+    .card-image{
+      height: 150px;
+      //position: absolute;
+      //top: 10px;
+      //left: 10px;
+      //right: 10px;      
+      img{
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+      }
+    }
+    
+    .card-content{
+        text-align: center;        
+        height: 160px;
+        
+        .card-title {
+          font-size: 18px;           
+        }
+    }
+    
+}
+
