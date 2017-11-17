@@ -1,23 +1,16 @@
-.main-container{
-  width:80%;
-  margin: auto;
-}
+//@import "../_style/app.theme";
 
 .row{
   margin-top:15px;
   padding:10px;
-}
-
-.separator-content {
-  background-color: white;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  background-color:white;
 }
 
 h2{
   padding:10px;
   margin:0px;
   color:#84c44c;
-  font-size:1.6em;
+  font-size:1.6rem;
   font-weight:bold;
   text-transform:Capitalize;
   font-family:raleway;
@@ -27,7 +20,7 @@ h3{
   padding:10px;
   margin:0px;
   font-weight:bold;
-  font-size:1.3em;
+  font-size:1.3rem;
   font-family:raleway;
 }
 
@@ -42,15 +35,19 @@ p{
 
   .card{
        margin-bottom:20px;
-       height:170px;
+       height:160px;
        overflow:auto;
         }
 
   .card-title{
-        font-size:1.3em;
+        font-size:1.3rem;
         font-weight:bold;
         padding:10px;
         background-color:#84c44c;
+         }
+
+  .card-content{
+        padding:0px;
          }
 }
 

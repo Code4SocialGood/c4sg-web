@@ -24,9 +24,9 @@
         <div class="user-title">{{hero.title}}</div>
         <div class="location clearfix">
           <span class="label">Location</span>
-          <span class="label-content" [class.hide]="hero.state && hero.country">{{hero.state+", "+hero.country}}</span>
-          <span class="label-content" *ngIf="!hero.state && hero.country">{{hero.country}}</span>
-          <span class="label-content" [class.hide]="!hero.country && hero.state">{{hero.state}}</span>
+          <span class="label-content" *ngIf="hero.country">{{hero.country}}</span>
+          <span class="label-content" *ngIf="!hero.country && hero.state">{{hero.state}}</span>
+          <span class="label-content" *ngIf="!hero.country && !hero.state">UNKNOWN</span>
         </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>
