@@ -169,7 +169,7 @@
                     data-tooltip="Enter a skill with all small case, and one single word (could be multi words connected with dash)">info</i>
                   </label>
                   <input [maxlength]="100" id="newSkill" type="text" placeholder="" class="validate" #inputSkill [(ngModel)]="inputValue"
-                  inputFormatter [ngModelOptions]="{standalone: true}">
+                  myInputFormatter [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col s2 skills-margin">
                   <a class="btn-floating btn waves-effect waves-light add-button" (click)="onAddOwnSkill(inputSkill)"><i
