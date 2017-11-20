@@ -49,7 +49,6 @@ testem.log
 Thumbs.db
 
 .vscode/settings.json
-package-lock.json
 
 # Gradle
 .gradle/

@@ -149,12 +149,8 @@
             </div>
             <div class="col s6">
               <div class="input-field col s10 skills-margin">
-                <label [ngClass]="{active: inputValue}" for="newSkill">Enter additional skills
-                  <i class="material-icons tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" 
-                  data-tooltip="Enter a skill with all small case, and one single word (could be multi words connected with dash)">info</i>
-                </label>
-               
-                <input [maxlength]="100" id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" myInputFormatter [ngModelOptions]="{standalone: true}">
+                <label [ngClass]="{active: inputValue}" for="newSkill">Enter additional skills</label>
+                <input [maxlength]="100" id="newSkill" type="text" placeholder="" #inputSkill [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s2 skills-margin">
                 <a class="btn-floating btn waves-effect waves-light" (click)="onAddOwnSkill(inputSkill)"><i
