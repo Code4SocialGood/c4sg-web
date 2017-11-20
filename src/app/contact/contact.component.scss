@@ -1,6 +1,6 @@
 @import "../_style/app.theme";
 
-form{
+.container{
 	margin-bottom:60px;
 }
 
@@ -8,6 +8,7 @@ form{
 	margin-left:45px;
 	margin-right:45px;
 }
+
 p{
     position:relative;
     font-size:1.3rem;
@@ -24,18 +25,11 @@ p{
 	margin-left:10px;
 }
 
-#reachus_link{
-	margin-top:30px;
-	margin-bottom:1vw;
-	margin-left:155px;
-}
-
-/********** small/medium devices only **********/
-@media (min-width: 601px) and (max-width: 991px){
-
-#reachus_link{
-   margin-left:130px;
-}
+#reachus-link{
+	padding:20px;
+	//margin-bottom:10px;
+	font-size:1.3rem;
+	font-weight:bold;
 }
 
 /********** small devices only **********/
@@ -49,8 +43,7 @@ p{
 	font-size:40px;
 }
 
-#reachus_link{
- font-size:10px;
- margin-left:40px;
+#reachus-link{
+ font-size:1rem;
 }
 }
