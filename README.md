@@ -1,6 +1,13 @@
 # Code for Social Good
 [![Build Status](https://travis-ci.org/Code4SocialGood/c4sg-web.svg?branch=master)](https://travis-ci.org/Code4SocialGood/c4sg-web)
 
+## We are live! Join Us
+
+[Code4SocialGood website](https://app.code4socialgood.org/)
+
+[Join our Slack, come say Hi!](http://join-our-slack.code4socialgood.org/)
+
+
 For setup information, please see [this guide](docs/setup.md)
 
 Code for Social Good is a global platform to connect nonprofits and open source developers with technical volunteers.
@@ -10,10 +17,11 @@ The application is buit with the following architecture:
 - Back End: Java Spring Framework
 - Database: MySQL
 
+
 We welcome technical volunteers to help build this platform. Contact: info@code4socialgood.org
 
 
-# c4sg-web
+## c4sg-web
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.0.
 
