@@ -73,6 +73,7 @@ import { UserAvatarHeaderComponent } from './_components/user-avatar-header/user
 import {MyPaginationControlsComponent} from './_components/my-pagination-controls/my-pagination-controls.component';
 import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
+import { InputFormatterDirective } from './project/common/input.formatter.directive';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -138,7 +139,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
     MyPaginationControlsComponent,
-
+    InputFormatterDirective
   ],
   providers: [ProjectService,
     OrganizationService,

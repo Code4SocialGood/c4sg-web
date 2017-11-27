@@ -44,3 +44,8 @@
   border-bottom: none;
   padding-bottom: 0px;
 }
+
+.btn-back {
+  background-color: $main-color;
+  @include button-font;
+}

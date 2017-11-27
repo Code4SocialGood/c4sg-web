@@ -6,11 +6,11 @@
         <div class="user-info col s3">
           <div class='name' [routerLink]="['/user/view',applicant.userId]">{{applicant.firstName + ' ' + applicant.lastName}}</div>
           <div>{{applicant.title}}</div>
-          
+
         </div>
         <div class="project-marked user-info col s3">
             <div *ngIf="applicant.applicationStatus === 'A'">
-                <i class="material-icons icon applied-symbol">done</i>          
+                <i class="material-icons icon applied-symbol">done</i>
                 <span>Applied</span>
             </div>
             <div *ngIf="applicant.applicationStatus === 'C'">
@@ -20,8 +20,8 @@
             <div *ngIf="applicant.applicationStatus === 'D'">
                 <i class="material-icons icon applied-symbol">clear</i>
                 <span>Declined</span>
-            </div>            
-        </div>        
+            </div>
+        </div>
         <div class="user-info col s3">
           <div>Applied on: <br>{{applicant.appliedTime | date: 'dd/MM/yyyy'}}</div>
           <div *ngIf="applicant.acceptedTime">
@@ -32,14 +32,14 @@
           </div>
         </div>
         <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'A'">
-          <div class="padding-bottom-5">             
-            <button type="button" class="btn waves-effect waves-light button-width" (click)="acceptApplication(applicant)">Accept</button>            
+          <div class="padding-bottom-5">
+            <button type="button" class="btn waves-effect waves-light button-width" (click)="acceptApplication(applicant)">Accept</button>
           </div>
             <div class="padding-bottom-5">
                 <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
-            </div> 
+            </div>
         </div>
-        <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'C'">      
+        <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'C'">
             <div class="padding-bottom-5">
               <button type="button" class="btn waves-effect waves-light button-width" *ngIf="heroMap[applicant.userId] === 'N'" (click)="giveBadge(applicant)">BADGE</button>
             </div>
@@ -48,7 +48,12 @@
             </div>
             <div class="padding-bottom-5">
               <button type="button" class="btn waves-effect waves-light button-width" (click)="declineApplication(applicant)">Decline</button>
-            </div> 
+            </div>
+        </div>
+        <div class="user-info col s3 buttons-margin" *ngIf="applicant.applicationStatus === 'D'">
+          <div class="padding-bottom-5">
+            <button type="button" class="btn waves-effect waves-light button-width" (click)="acceptApplication(applicant)">Accept</button>
+          </div>
         </div>
       </div>
     </li>
