@@ -1,4 +1,5 @@
 @import "../../_style/app.theme";
+@import "../../_style/variables.scss";
 
 .organization-name {
   @include content-subtitle-font;
@@ -109,4 +110,10 @@
 
 .divalign {
 font-size: 12px;
+}
+
+.btn-back {
+  background-color: $main-color;
+  @include button-font;
+
 }
