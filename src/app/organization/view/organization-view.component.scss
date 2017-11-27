@@ -61,3 +61,9 @@
 .icon-tiny{
   font-size: 15px;
 }
+
+.btn-back {
+  background-color: $main-color;
+  @include button-font;
+
+}

@@ -32,7 +32,7 @@ export class UserViewComponent implements OnInit {
   avatar: any = '';
   public jobTitlesArray: JobTitle[] = [];
   categoryName: string;
-
+  
   displayEdit = false;
   displayDelete = false;
 
@@ -61,7 +61,7 @@ export class UserViewComponent implements OnInit {
       res => {
         this.jobTitlesArray = res;
       }, error => console.log(error)
-      );
+      );    
   }
 
   pad(str: string, padValue: string, max: number): string {
@@ -169,7 +169,7 @@ export class UserViewComponent implements OnInit {
       );
   }
 
-  goBack(): void {
+  goBack(): void {    
     this.location.back();
   }
 
