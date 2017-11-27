@@ -32,7 +32,6 @@ export class UserViewComponent implements OnInit {
   avatar: any = '';
   public jobTitlesArray: JobTitle[] = [];
   categoryName: string;
-
   displayEdit = false;
   displayDelete = false;
 

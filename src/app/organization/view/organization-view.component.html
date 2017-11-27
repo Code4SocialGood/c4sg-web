@@ -1,6 +1,5 @@
 <div class="page-title clearfix">
-  <h1>Organization</h1>
-  <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
+  <h1>Organization</h1>  
 </div>
 <div class="container">
   <div class="row main-row">
@@ -58,6 +57,7 @@
           </div>
           <div class="col m12">
             <div class="col s12 action-btns">
+              <a class="btn btn-back" (click)="goBack()">Back to Search</a>
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="delete()">Delete</a>
               <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="approve()">Approve</button>
