@@ -419,6 +419,9 @@ margin-bottom:35px;
     font-size: 1.2rem;
   }
 }*/
+.padding{
+    padding-bottom: 20px;
+}
 
 .btn_github {
     background: #fff;
@@ -427,7 +430,15 @@ margin-bottom:35px;
     font-size: 1rem;
     margin: 10px;
     //padding-top: -10px;
-	height: 48px;
+    height: 48px;
+    width: 270px;
+}
+
+.toLower{
+    text-transform: lowercase;
+}
+.toLower::first-letter{
+    text-transform: uppercase;
 
 }
 
