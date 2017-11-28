@@ -1,10 +1,15 @@
 <div class="card">
   <div class="card-content">
-    <div class="card-avatar-wrapper" *ngIf="project.imageUrl">
-      <div class="card-avatar"><img class="card-avatar-content" [src]="project.imageUrl"></div>
-    </div>
-    <div class="card-avatar-wrapper" *ngIf="!project.imageUrl">
-      <div class="card-avatar"><img class="card-avatar-content" [src]="constantsService.defaultImage"></div>
+    <div class="card-avatar-wrapper">
+      <div class="card-avatar" *ngIf="project.imageUrl">
+        <img class="card-avatar-content" [src]="project.imageUrl">
+      </div>
+      <div class="card-avatar" *ngIf="!project.imageUrl && project.organizationLogoUrl">
+        <img class="card-avatar-content" [src]="project.organizationLogoUrl">
+      </div>
+      <div class="card-avatar" *ngIf="!project.imageUrl && !project.organizationLogoUrl">
+        <img class="card-avatar-content" [src]="constantsService.defaultImage">
+      </div>
     </div>
     <div class="card-info">
       <div class="card-header">

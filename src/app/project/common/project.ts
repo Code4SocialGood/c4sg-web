@@ -20,6 +20,7 @@ export class Project {
     public updatedTime?: string,
 
     public skills?: string[],
-    public organizationName?: string
+    public organizationName?: string,
+    public organizationLogoUrl?: string
   ) { }
 }
