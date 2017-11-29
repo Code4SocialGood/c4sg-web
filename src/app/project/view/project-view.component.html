@@ -13,8 +13,9 @@
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
           <div class="col s6 m3 l3">
-            <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
-            <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
+            <div class="info-avatar z-depth-2">
+              <my-project-image [project]="project"></my-project-image>
+            </div>
           </div>
           <div class="col s12 m9 l9">
             <div class="row">
