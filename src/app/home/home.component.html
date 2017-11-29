@@ -337,12 +337,8 @@
   <div class="row" *ngIf="topThreeProjects">
     <div class="col s12 m4" *ngFor="let project of topThreeProjects">
       <div class="card">
-        <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
-          <img class="activator" [src]="project.imageUrl"
-               onError="this.src='../../assets/default_image.png'">
-        </div>
-        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl">
-          <img class="activator" [src]="constantsService.defaultImage">
+        <div class="card-image waves-effect waves-block waves-light">
+          <my-project-image cssClass="activator" [project]="project"></my-project-image>
         </div>
         <br>
         <div class="card-content" *ngIf="project">
