@@ -1,15 +1,9 @@
 
 <div class="page-title clearfix" *ngIf="project && project.status === 'A' ">
-  <h1>Project</h1>
-  <div *ngIf="prevPage === 'ProjectList'">
-    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
-  </div>
+  <h1>Project</h1>  
 </div>
 <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
-  <h1>Project- CLOSED</h1>
-  <div *ngIf="prevPage === 'ProjectList'">
-    <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
-  </div>
+  <h1>Project- CLOSED</h1> 
 </div>
 
 <div class="container">
@@ -19,8 +13,9 @@
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
           <div class="col s6 m3 l3">
-            <div class="info-avatar z-depth-2" *ngIf="project.imageUrl"><img [src]="project.imageUrl"></div>
-            <div class="info-avatar z-depth-2" *ngIf="!project.imageUrl"><img [src]="constantsService.defaultImage"></div>
+            <div class="info-avatar z-depth-2">
+              <my-project-image [project]="project"></my-project-image>
+            </div>
           </div>
           <div class="col s12 m9 l9">
             <div class="row">
@@ -145,6 +140,12 @@
           </div>
           <div class="row">
             <div class="col s12 action-btns">
+              <!-- Does not matter if is logger or is volunteer, the function back is always enabled -->
+              <!-- The button is enabled only if previous page is the project list -->
+              <button type="button" class="btn btn-back"  data-position="bottom" data-delay="10" 
+              *ngIf="prevPage === 'ProjectList'" (click)="goBack()">
+               Back To Search
+            </button>
               <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
                 *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()">

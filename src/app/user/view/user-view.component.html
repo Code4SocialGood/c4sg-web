@@ -1,8 +1,7 @@
 <div class="page-title clearfix"  *ngIf="user">
   <h1 *ngIf="user.role === 'V'">Volunteer User</h1>
   <h1 *ngIf="user.role === 'O'">Organization User</h1>
-  <h1 *ngIf="user.role === 'A'">Admin User</h1>
-  <button class="btn" (click)="goBack()"><i class="mdi mdi-arrow-left-drop-circle-outline left"></i>Back to Search Results</button>
+  <h1 *ngIf="user.role === 'A'">Admin User</h1>  
 </div>
 <div class="container">
   <div class="row main-row">
@@ -66,7 +65,8 @@
                 </div>
           </div>
           <div class="col m12">
-            <div class="col s12 action-btns">
+            <div class="col s12 action-btns">              
+              <a class="btn btn-back" (click)="goBack()">Back to Search</a>
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
             </div>
