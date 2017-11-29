@@ -60,17 +60,17 @@
             <br>
             <div class="info-title">Introduction</div>
             <div>
-                <pre class="info-description">{{ user.introduction }}
-                  </pre>
-                </div>
+                <pre class="info-description">{{ user.introduction }}</pre>
+            </div>
           </div>
           <div class="row">
-            <div class="col s12 action-btns">              
+            <div class="col s12 action-btns">     
               <a class="btn btn-back" (click)="goBack()">Back to Search</a>
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
               <a class="btn" *ngIf="displayDelete" (click)="openModal()" materialize [materializeActions]="modalActions">Delete</a>
             </div>
           </div>
+          <br>
           <div class="col s12" *ngIf="authService.authenticated() && (authService.isAdmin() || authService.isOrganization())">              
               <my-application-project-view [applicantId]="user.id" [nonProfitUserId]="loggedInUserId"></my-application-project-view>
           </div>
