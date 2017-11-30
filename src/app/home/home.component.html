@@ -342,11 +342,11 @@
           <img class="activator" [src]="project.imageUrl"
                 onError="this.src='../../assets/default_image.png'">
         </div>
-        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && organizationLogoUrl">
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && project.organizationLogoUrl">
           <img class="activator" [src]="project.organizationLogoUrl"
                 onError="this.src='../../assets/default_image.png'">
         </div>
-        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && !organizationLogoUrl">
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && !project.organizationLogoUrl">
           <img class="activator" [src]="constantsService.defaultImage">
         </div>
         <br>
