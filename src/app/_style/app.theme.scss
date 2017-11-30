@@ -181,12 +181,26 @@ hr {
       text-align: center;
       font-size: 0.7em;
       margin: 5px 2px;
-      //cursor: pointer;
-      //&:hover {
-      //  background: #8dcdc1;
-      //}
       &:first-child {
         margin-left: 0;
+      }
+    }
+    .chip-more {
+      float: left;
+      display: inline-block;
+      color: #5ba55b;
+      font-weight: bold;
+      background: white;
+      text-align: center;
+      font-size: 0.7em;
+      margin: 5px 2px;
+      a {
+        color: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        &:hover {
+            text-decoration: underline;
+        }
       }
     }
   }
@@ -235,7 +249,7 @@ font-size: 1em;
   padding: 0;
 }
 
-.chip {
+.chip, .chip-more {
   height: 18px;
   line-height: 18px;
   padding: 0 5px;

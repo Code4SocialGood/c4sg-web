@@ -51,11 +51,10 @@
             <br>
             <div class="info-title">Introduction</div>
             <div>
-                <pre class="info-description">{{ organization.description }}
-                  </pre>
-                </div>
+                <pre class="info-description">{{ organization.description }}</pre>
+            </div>
           </div>
-          <div class="col m12">
+          <div class="row">
             <div class="col s12 action-btns">
               <a class="btn btn-back" (click)="goBack()">Back to Search</a>
               <a class="btn" *ngIf="displayEdit" (click)="edit()">Edit</a>
@@ -64,6 +63,7 @@
               <button class="btn waves-effect waves-light" *ngIf="displayApprove" (click)="decline()">Decline</button>
             </div>
           </div>
+          <br>
         </div>
       </div>
     </div>

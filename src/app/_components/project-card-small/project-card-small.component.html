@@ -10,13 +10,7 @@
         <div class="name">
           <a [routerLink]="['/project/view/', project.id]">{{project.name}}</a>
         </div>
-        <div>
-          <div class="skills-tag-wrapper">
-            <ul *ngIf="project.skills">
-              <li class="chip" *ngFor="let skill of project.skills">{{ skill }}</li>
-            </ul>
-          </div>
-        </div>
+        <my-tags [tags]="project.skills" [max]="3" moreUrl="project/view/{{project.id}}"></my-tags>
       </div>
     </div>
     <p class="description" *ngIf="project && project.description">{{ project && project.description | slice:0:100 }} ...</p>
