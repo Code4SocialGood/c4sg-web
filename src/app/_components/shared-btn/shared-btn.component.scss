@@ -18,9 +18,12 @@
   }
   .btn.share-btn {
     padding: 0 1rem;
-    background-color: $main-color;
+    background-color: #fff;
+    border: 2px solid $secondary-bg-color;
+    color: $secondary-bg-color;
     &:hover {
-      background-color: $main-color;
+      background-color: $secondary-bg-color;
+      color: #fff;
     }
   }
   .btn-floating {
