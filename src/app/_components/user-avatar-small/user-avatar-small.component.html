@@ -2,5 +2,6 @@
   <img class="circle" [src]="user.avatarUrl">
 </div>
 <div class="avatar-circle-sm" *ngIf="!user.avatarUrl">
-  <span class="initials">{{user.firstName | slice:0:1}}{{user.lastName | slice:0:1}}</span>
+<!--  <span class="initials">{{user.firstName | slice:0:1}}{{user.lastName | slice:0:1}}</span> -->
+  <img class="circle" [src]="'../../assets/default_avatar.png'">
 </div>
