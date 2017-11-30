@@ -88,11 +88,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="skills-tag-wrapper">
-                        <ul *ngIf="user.skills">
-                          <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
-                        </ul>
-                      </div>
+                      <my-tags [tags]="user.skills" [max]="5" moreUrl="user/view/{{user.id}}"></my-tags>
                       <p class="description text-overflow" *ngIf="user && user.introduction">{{ user && user.introduction }}</p>
                     </div>
                   </div>

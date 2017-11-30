@@ -1,0 +1,8 @@
+<div class="skills-tag-wrapper">
+  <ul *ngIf="tags">
+    <li class="chip" *ngFor="let tag of visibleTags">{{tag}}</li>
+    <li class="chip-more" *ngIf="remainingTagsCount">
+        <a [href]="moreUrl">{{remainingTagsCount}} more</a>
+    </li>
+  </ul>
+</div>
