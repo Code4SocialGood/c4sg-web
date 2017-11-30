@@ -49,12 +49,7 @@
     <div class="action">
         <video autoplay playsinline loop muted>
             <source src="/assets/video/small-overlay-texture.mp4" type="video/mp4">
-            <!--<source src="/assets/video/videobackground.mp4" type="video/mp4">
-            <source src="/assets/video/videobackground.webm" type="video/webm">-->
-            <!--<source src="/assets/video/no-overlay.mp4" type="video/mp4">-->
-            <!--<source src="/assets/video/overlay-no-texture.mp4" type="video/mp4">-->            
-            <!--<source src="/assets/video/big-overlay-texture.mp4" type="video/mp4">-->
-            <!--<source src="movie.ogg" type="video/ogg">-->
+            <!--<source src="/assets/video/small-overlay-texture.webm" type="video/webm">-->
             Your browser does not support the video tag.
         </video>
         <div class="aniSlogan-background">
@@ -74,8 +69,6 @@
     </div>    
 </div>   
     
-
-
 <div class="section no-padding">
   <div class="row">
     <div class="green-ribbon">
@@ -340,9 +333,21 @@
 
   <div class="row" *ngIf="topThreeProjects">
     <div class="col s12 m4" *ngFor="let project of topThreeProjects">
-      <div class="card">
+      <div class="card"> 
+        <!--
         <div class="card-image waves-effect waves-block waves-light">
           <my-project-image cssClass="activator" [project]="project"></my-project-image>
+        </div>-->
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="project.imageUrl">
+          <img class="activator" [src]="project.imageUrl"
+                onError="this.src='../../assets/default_image.png'">
+        </div>
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && organizationLogoUrl">
+          <img class="activator" [src]="project.organizationLogoUrl"
+                onError="this.src='../../assets/default_image.png'">
+        </div>
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="!project.imageUrl && !organizationLogoUrl">
+          <img class="activator" [src]="constantsService.defaultImage">
         </div>
         <br>
         <div class="card-content" *ngIf="project">
