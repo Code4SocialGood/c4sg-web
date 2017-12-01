@@ -5,6 +5,7 @@ import { FormConstantsService } from '../../_services/form-constants.service';
 @Component({
   selector: 'my-project-image',
   template: `<img [ngClass]="cssClass" [src]="imageUrl">`,
+  styleUrls: [ './project-image.component.scss' ]
 })
 export class ProjectImageComponent implements OnInit {
 
