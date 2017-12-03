@@ -38,6 +38,15 @@ Accessability | Medium
 
 This is a person that can provide more detailed requirements, handle logistics, etc. Ideally this is someone from your organization
 
+Here are some things that the person with this role can do:
+* Recruit volunteers
+* Writing the business requirement
+* Creating a draft for the user interface
+* Follow up with volunteers
+* etc
+
+A dedicated volunteer might take over some of these tasks later on
+
 ### Tech Lead
 
 * Interviews and picks candidates
@@ -55,9 +64,16 @@ Please make sure to include the following: TBD
 
 #### Reasonable Expectations
 
-Experience: Some volunteers are experienced, many volunteers are new and want experience from working on a project
+##### Experience
 
-Commitment: Some volunteers may contribute a lot, many volunteers will make a contribution here and there
+Some volunteers are experienced, many volunteers are new and want experience from working on a project
+
+##### Commitment
+
+Some volunteers may contribute a lot, many volunteers will make a contribution here and there. Unfortunately many volunteers will not be as dedicated as they seem at the beginning. It might take a few weeks before you can see if a volunteer is dedicated to the project
+
+**Because of this it's recommended to accept many more volunteers than you need**
+
 
 #### Gratitude
 
