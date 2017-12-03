@@ -74,6 +74,8 @@ import {MyPaginationControlsComponent} from './_components/my-pagination-control
 import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import { InputFormatterDirective } from './project/common/input.formatter.directive';
+import { ProjectImageComponent } from './project/common/project-image.component';
+import { TagsComponent } from './_components/tags/tags.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -139,7 +141,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserAvatarSmallComponent,
     UserAvatarHeaderComponent,
     MyPaginationControlsComponent,
-    InputFormatterDirective
+    InputFormatterDirective,
+    ProjectImageComponent,
+    TagsComponent
   ],
   providers: [ProjectService,
     OrganizationService,

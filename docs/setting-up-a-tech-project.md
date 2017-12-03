@@ -74,7 +74,6 @@ Some volunteers may contribute a lot, many volunteers will make a contribution h
 
 **Because of this it's recommended to accept many more volunteers than you need**
 
-
 #### Gratitude
 
 Please express gratitude towards the volunteers for contributing
