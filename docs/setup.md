@@ -84,10 +84,11 @@ Start the backend application locally.
 
 Then run the command: `npm run start:dev:local`
 
+## 3. Backend
 
-## 3. Database
+## 3.1. Database
 
-### 3.1 Install MySQL
+### 3.1.1 Install MySQL
 
 #### Software
 
@@ -115,7 +116,7 @@ spring.datasource.username = root
 spring.datasource.password = mysql
 ```
 
-### 3.2 Create the Database 
+### 3.1.2 Create the Database 
 
 Launch MySQL Workbench.
 
@@ -123,52 +124,49 @@ Create Schema: c4sg
 	
 Note: You don’t need to create tables. Table creation is handled by Flyway database migration tool. Tables will be create automatically when you first run the Spring Boot application.
 
-
-## 4. Backend
-
-### 4.1 Setup in IDE
+### 3.2 Setup in IDE
 
 * Install your preferred IDE: Eclipse, STS, IntelliJ Idea, etc.
 * Import c4sg-services source code.
 * Run the application in IDE.
 * Make sure MySQL is running.
 
-### 4.2 Test Backend
+### 3.3 Test Backend
 
 Test Rest API from  browser: http://localhost:8080/swagger-ui.html
 
-### 4.3 Eclipse Specific Setup
+### 3.4 Eclipse Specific Setup
 
-#### 4.3.1 Download Java JDK
+#### 3.4.1 Download Java JDK
 
 * Link: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 * Version: 8u112 ( as of 1/2/2017)
 * Accept all the default configuration during installation
 
-#### 4.3.2 Download Eclipse
+#### 3.4.2 Download Eclipse
 
 * Link: https://eclipse.org/downloads/
 * Version: Neon (as of 1/2/2017)
 * Type: Eclipse IDE for Java EE Developers
 
-#### 4.3.3 Launch Eclipse
+#### 3.4.3 Launch Eclipse
 
 Select a directory as workspace: Click "browse" to create a new folder as your workspace
 
-#### 4.3.4 Install Plugin
+#### 3.4.4 Install Plugin
 
 * Help -> Eclipse Marketplace
 * Install Plugin: 
   * Spring Tool Suite (STS) for Eclipse 3.8.3.RELEASE
   * Buildship
 
-#### 4.3.5 Import project
+#### 3.4.5 Import project
 
 * File -> Import -> Gradle -> Existing Gradle Project
 * Import Source: c4sg-services
 * Take all the default settings.
 
-#### 4.3.6 Run application
+#### 3.4.6 Run application
 
 * Right click on project: C4SGSvc
 * Run as: Run Configurations
@@ -187,8 +185,23 @@ slack.auth.token | you can put any dummy value here
 
 Verify Last line in console: `org.c4sg.C4SgApplication : Started C4SgApplication in 9.852 seconds`
 
+## 5. Test Account
 
-## 5. Development
+### 5.1 DEV Server
+http://dev.code4socialgood.org/
+
+### 5.2 Email Login
+Volunteer User: testvolunteeruser2@gmail.com / Opensource5social!
+Organization User: testnonprofituser2@gmail.com / Opensource5social!
+
+### 5.2 Gmail Login
+Volunteer User: testvolunteeruser1@gmail.com / Opensource4social! 
+Organization User: testnonprofituser1@gmail.com / Opensource4social! 
+ 
+### 5.3 Facebook Login
+Volunteer User: andysmith3099@gmail.com / C4SGfacebook1!
+
+## 6. Development
 
 If you are interested in collaborating on this project, please contact: info@code4socialgood.org
 
