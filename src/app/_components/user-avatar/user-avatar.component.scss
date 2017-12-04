@@ -40,6 +40,10 @@ $avatar-font-color: #fff;
   border-radius: 50%;
 }
 
+.card-avatar-content {
+    object-fit: cover;
+}
+
 .profile-img{
   left: -50px;
   right: 0;
