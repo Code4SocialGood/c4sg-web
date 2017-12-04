@@ -41,7 +41,7 @@ In the top right corner of the repository page, click the button "Fork"
 Clone the repository of c4sg-services
 
 
-## 2. Frontend
+## 2. Frontend Development
 
 ### 2.1 Install IDE
 
@@ -76,15 +76,7 @@ Launch the applicaiton in browser: http://localhost:4200/
 
 Click Projects, verify that you can see test projects retrieved from database.
 
-### 2.5 Full Stack Development
-
-For full stack development, complete Section 3: Database and Section4: Backend.
-
-Start the backend application locally.
-
-Then run the command: `npm run start:dev:local`
-
-## 3. Backend
+## 3. Backend Development
 
 ## 3.1. Database
 
@@ -185,7 +177,15 @@ slack.auth.token | you can put any dummy value here
 
 Verify Last line in console: `org.c4sg.C4SgApplication : Started C4SgApplication in 9.852 seconds`
 
-## 5. Test Account
+## 4 Full Stack Development
+
+For full stack development, complete Section 2: Frontend Development and Section 3: Backend Development.
+
+Start the backend application locally.
+
+Then run the command: `npm run start:dev:local`
+
+## 5. Test Server and Accounts
 
 ### 5.1 DEV Server
 http://dev.code4socialgood.org/
