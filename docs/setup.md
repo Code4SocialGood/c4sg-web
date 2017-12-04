@@ -204,7 +204,9 @@ Volunteer User: andysmith3099@gmail.com / C4SGfacebook1!
 ## 6. Development
 
 You are welcome to contribute by working on any issues listed in Github that intereste you.
+
 Questions on collaboration, please contact: info@code4socialgood.org
+
 Join development communication: http://join-our-slack.code4socialgood.org/
 
 ***
