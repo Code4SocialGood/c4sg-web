@@ -43,6 +43,7 @@
 .card {
     margin: auto;
     border: solid #d9d9d9;
+    min-height: 350px;
     max-height: 500px;
     .card-image{
       height: 150px;
@@ -59,10 +60,14 @@
     
     .card-content{
         text-align: center;        
-        max-height: 200px;
+        max-height: 400px;
         
         .card-title {
           font-size: 18px;           
+        }
+
+        .card-description{
+          font-size: 14px;
         }
     }
     
