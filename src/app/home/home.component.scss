@@ -120,31 +120,31 @@
 }
 
 .action {
-    
+
     height: 94vh;
     //height: auto;
     //height: 510px;
 }
 
-video {  
-    
+video {
+
     position: relative;
     top: 40%;
     left: 50%;
     z-index: -100;
     transform: translateX(-50%) translateY(-50%);
-    
+
     min-width: 100%;
     min-height: 100%;
     width: auto;
-    height: auto;    
-    
+    height: auto;
+
     //background: url('/assets/image_1.jpeg') no-repeat;
     background-size: cover;
     //transition: 1s opacity;
-    
+
     pointer-events: none;
-    
+
 }
 
 .aniSlogan-background{
@@ -247,7 +247,7 @@ padding: 30px 0px;
     font-size: 1.3em;
     //font-size: 18px;
     //font-weight: bold;
-	
+
 }
 .volunteer-heading{
     color: #0BAFAA;
@@ -263,7 +263,7 @@ padding: 30px 0px;
     padding: 5px 60px;
 }
 
-.button-bordered:hover { 
+.button-bordered:hover {
     background-color: $secondary-bg-color;
 	color: white;
 }
@@ -277,7 +277,7 @@ padding: 30px 0px;
     font-weight: bold;
 }
 
-.btn-bordered:hover { 
+.btn-bordered:hover {
     background-color: $secondary-bg-color;
   color: white;
 }
@@ -308,7 +308,7 @@ padding: 30px 0px;
         height: 130px;
         .material-icons{
           position: absolute;
-          right: 0;          
+          right: 0;
           top: 50%;
           transform: translateY(-50%);
           cursor: pointer;
@@ -327,22 +327,22 @@ padding: 30px 0px;
       .material-icons{
         position: absolute;
         right: 10px;
-        top: 10px;                           
+        top: 10px;
       }
     }
-    
+
 
     .card-image{
       height: 150px;
       position: absolute;
       top: 10px;
       left: 10px;
-      right: 10px;      
+      right: 10px;
       img{
           max-width: 100%;
           max-height: 100%;
           object-fit: contain;
-      }  
+      }
   }
   .card-action {
     position:absolute;
@@ -350,8 +350,8 @@ padding: 30px 0px;
     right:10px;
     left:10px;
     .btn {
-      padding: 0 5px; 
-    }    
+      padding: 0 5px;
+    }
   }
 }
 
@@ -532,8 +532,8 @@ agm-map {
 .divStats{
   background-color: $secondary-color;
   color: white;
-  border: none;  
-  font-weight: bold;  
+  border: none;
+  font-weight: bold;
   text-align: center;
     a {
         color: white;
@@ -555,7 +555,7 @@ agm-map {
         display: block !important;
     }
 }
-    
+
 .spanPublicVolunteer{
   font-size: 0.6em;
 }
@@ -572,31 +572,31 @@ agm-map {
 **********************/
 
 @media screen and (max-width: 1150px) and (min-width: 993px)  {
-    
-    .action {      
+
+    .action {
       height: 80vh;
-    }    
-    
+    }
+
     .aniSlogan-background {
         height: 42%;
     }
 }
 
 @media screen and (max-width: 992px) {
-    
+
     .action {
       background: linear-gradient(rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.6),rgba(121, 195, 253, 0)), url("/assets/image_1.jpeg") no-repeat center center;
-        
+
       background-repeat: no-repeat;
       height: 90vh;
       background-size: cover;
 
     }
-    
+
     video {
         display: none;
     }
-    
+
     .aniSlogan {
       font-size: 2.2em;
       padding-top:2%;
@@ -632,11 +632,11 @@ agm-map {
         //font-size: 18px;
         //font-weight: bold;
     }
-    
+
 }
 
 @media screen and (max-width: 650px) {
-   
+
     .aniSlogan-background{
         top: 38%;
         height: 36%;
@@ -655,7 +655,7 @@ agm-map {
     }
     .green-arrow-img{
         max-width: 30%;
-    } 
+    }
     .green-ribbon {
         font-size: 1.3em;
     }
@@ -674,6 +674,9 @@ agm-map {
         font-size: 1em;
         //font-size: 18px;
         //font-weight: bold;
+    }
+    .btn-see-more{
+      width: 50%;
     }
 }
 
@@ -694,4 +697,3 @@ agm-map {
         display: block !important;
     }
 }
-
