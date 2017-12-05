@@ -34,6 +34,7 @@ export class UserViewComponent implements OnInit {
   categoryName: string;
   displayEdit = false;
   displayDelete = false;
+  prevPage: string;
 
   globalActions = new EventEmitter<string | MaterializeAction>();
   modalActions = new EventEmitter<string | MaterializeAction>();
@@ -52,6 +53,8 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['userId'];
+    this.prevPage = localStorage.getItem('prevPage');
+    localStorage.setItem('prevPage', 'UserView');
     this.loggedInUserId = +this.authService.getCurrentUserId();
     this.getUser(id);
     this.displayButtons(id);
@@ -169,6 +172,7 @@ export class UserViewComponent implements OnInit {
   }
 
   goBack(): void {
+    localStorage.setItem('prevPage', 'UserView');
     this.location.back();
   }
 
