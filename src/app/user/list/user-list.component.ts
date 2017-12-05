@@ -78,6 +78,7 @@ export class UserListComponent implements OnInit, OnDestroy {
           return jobTitleControl.setValue(false);
         });
         if (params['from'] === 'reload') {
+          localStorage.setItem('prevPage', 'UserList');
           this.paginationConfig.currentPage = 1;
           this.filterForm.controls.keyword.setValue('');
           this.filterForm.controls.skills = this.skillsArray;
@@ -90,6 +91,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getJobTitles();
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
+      localStorage.setItem('prevPage', 'UserList');
       this.getUsers(this.paginationConfig.currentPage);
     });
   }
