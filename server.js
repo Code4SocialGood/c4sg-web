@@ -3,6 +3,7 @@
 
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
 const app = express();
 
 // force SSL
@@ -22,7 +23,7 @@ const forceSSL = function () {
 // instruct app to use forceSSL middleware
 // todo: enable this when SSL is enabled for the servers
 // app.use(forceSSL());
-
+app.use(compression());
 app.use(express.static(__dirname + '/dist'));
 
 app.get('/*', function(req, res) {
