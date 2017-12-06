@@ -392,4 +392,15 @@ export class ProjectViewComponent implements OnInit {
       this.categoryName = 'Startup';
     }
   }
+
+  getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+      return country.name;
+    } else {
+      return '';
+    }
+  }
+
 }

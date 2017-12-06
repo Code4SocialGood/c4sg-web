@@ -132,6 +132,16 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     );
   }
 
+  getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+      return country.name;
+    } else {
+      return '';
+    }
+  }
+
   edit(organization): void {
     this.router.navigate(['/organization/edit', this.organization.id]);
   }
