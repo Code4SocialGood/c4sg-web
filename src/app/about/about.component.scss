@@ -1,11 +1,9 @@
-.main-container{
-  width:80%;
-  margin: auto;
-}
+//@import "../_style/app.theme";
 
 .row{
   margin-top:15px;
   padding:10px;
+  background-color:white;
 }
 
 .separator-content {
@@ -17,7 +15,7 @@ h2{
   padding:10px;
   margin:0px;
   color:#84c44c;
-  font-size:1.6em;
+  font-size:1.6rem;
   font-weight:bold;
   text-transform:Capitalize;
   font-family:raleway;
@@ -27,7 +25,7 @@ h3{
   padding:10px;
   margin:0px;
   font-weight:bold;
-  font-size:1.3em;
+  font-size:1.3rem;
   font-family:raleway;
 }
 
@@ -42,15 +40,19 @@ p{
 
   .card{
        margin-bottom:20px;
-       height:170px;
+       height:160px;
        overflow:auto;
         }
 
   .card-title{
-        font-size:1.3em;
+        font-size:1.3rem;
         font-weight:bold;
         padding:10px;
         background-color:#84c44c;
+         }
+
+  .card-content{
+        padding:0px;
          }
 }
 

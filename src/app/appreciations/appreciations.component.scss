@@ -6,14 +6,17 @@
   padding-top: 0;
   background-color: #F9F9F9;
   .thanks {
-    font-size: 1.8rem;
+    font-size:1.3rem;
+    font-weight:bold;
+    color:#4B4B4C;
     line-height: 2.2rem;
     padding-top: 1.5rem;
+    font-family: $main-font;
     h2 {
       color: $secondary-bg-color;
       font-weight: bold;
       margin-top: 5px;
-      font-family: Raleway;
+      //font-family: $main-font;
     }
   }
   .users {

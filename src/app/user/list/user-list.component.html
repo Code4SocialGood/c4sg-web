@@ -78,9 +78,9 @@
                         </div>
                         <div class="row">
                           <div class="card-metainfo col m6">
-                            <p>{{user.title}}</p>
+                            <p class="user-title">{{user.title}}</p>
                           </div>
-                          <div class="card-metainfo col m6">
+                          <div class="card-metainfo col m6 user-country">
                             <!--<span class="card-location float: right" *ngIf="user.country">{{user.country}}</span>-->
                             <span class="card-location float: right" *ngIf="user.state">{{user.state}}, {{user.country}}</span>
                             <span class="card-location float: right" *ngIf="!user.state">
@@ -88,11 +88,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="skills-tag-wrapper">
-                        <ul *ngIf="user.skills">
-                          <li class="chip" *ngFor="let skill of user.skills">{{ skill }}</li>
-                        </ul>
-                      </div>
+                      <my-tags [tags]="user.skills" [max]="5" moreUrl="user/view/{{user.id}}"></my-tags>
                       <p class="description text-overflow" *ngIf="user && user.introduction">{{ user && user.introduction }}</p>
                     </div>
                   </div>
