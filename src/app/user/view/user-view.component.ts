@@ -176,6 +176,16 @@ export class UserViewComponent implements OnInit {
     this.location.back();
   }
 
+  getCountryName(countryCode): string {
+    const countries = this.constantsService.getCountries();
+    const country = countries.find(c => c.code === countryCode);
+    if (country) {
+      return country.name;
+    } else {
+      return '';
+    }
+  }
+
   getAcceptedProjects(id: number) {
     this.projectService.getProjectByUser(id, 'C').subscribe(
       res => {
