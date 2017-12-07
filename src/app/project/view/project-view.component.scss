@@ -114,7 +114,11 @@ font-size: 12px;
 
 .btn-back {
   background-color: white;
-  color: $secondary-bg-color;  
+  color: $secondary-bg-color; 
+  line-height:24px;
+  vertical-align:middle;
+  text-transform: uppercase;
+  cursor: pointer; 
   // border: 2px solid $secondary-bg-color;
   // @include button-font;
 }

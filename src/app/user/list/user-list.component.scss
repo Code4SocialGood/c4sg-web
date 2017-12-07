@@ -44,3 +44,8 @@
   text-transform:uppercase;
 }
 
+.user-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
