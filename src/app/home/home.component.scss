@@ -635,6 +635,21 @@ agm-map {
     
 }
 
+@media screen and (max-width: 670px) {
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .row .col.s6 {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
 @media screen and (max-width: 650px) {
    
     .aniSlogan-background{
