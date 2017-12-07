@@ -61,6 +61,7 @@ import {ImageUploaderService} from './_services/image-uploader.service';
 import {DataService} from './_services/data.service';
 import {ExtFileHandlerService} from './_services/extfilehandler.service';
 import {ValidationService} from './_services/validation.service';
+import { EmailService } from './email.service';
 import {ScrollSkillsDirective} from './skill/scroll-skills.directive';
 
 import { AgmCoreModule } from '@agm/core';
@@ -145,7 +146,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProjectImageComponent,
     TagsComponent
   ],
-  providers: [ProjectService,
+  providers: [
+    ProjectService,
     OrganizationService,
     UserService,
     FormConstantsService,
@@ -159,6 +161,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SkillService,
     ApplicationService,
     ExtFileHandlerService,
+    EmailService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

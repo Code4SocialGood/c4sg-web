@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../_services/validation.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { EmailService, Email } from '../email.service';
 
 @Component({
   selector: 'my-contact',
@@ -21,21 +22,22 @@ export class ContactComponent implements OnInit {
   public emailMaxLengthEntered = false;
   public emailValueLength: number;
   public emailFieldFocused = false;
-
   public contactForm: FormGroup;
+  private sent: boolean;
 
-
-  constructor(public fb: FormBuilder,
-    private validationService: ValidationService) {
-  }
+  constructor(private fb: FormBuilder,
+              private validationService: ValidationService,
+              private emailService: EmailService) {}
 
   ngOnInit(): void {
+    this.sent = false;
     this.contactForm = this.fb.group({
-      'name': ['', []],
-      'email': ['', []],
-      'comment': ['', []]
+      'name': ['', [Validators.required]],
+      'email': ['', [Validators.required]],
+      'comment': ['', [Validators.required]]
     });
   }
+
   // Name methods
   onCountCharName() {
     this.nameValueLength = this.contactForm.value.name.length;
@@ -91,10 +93,24 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  onSubmit(updatedData: any, event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const formData = this.contactForm.value;
+  onSubmit(): void {
+    if ( this.contactForm.valid ) {
+      const form = this.contactForm.value;
+      const email = new Email({
+        to: this.emailService.infoEmail,
+        from: form.email,
+        replyTo: form.email,
+        subject: 'Request for Contact Us',
+        body: `<p>${form.name} said:</p>
+               <p><pre>${form.comment}</pre></p>`
+      });
+
+      this.emailService.send(email).subscribe(sent => this.sent = sent);
+    }
+  }
+
+  get isSent() {
+    return this.sent;
   }
 
 }
