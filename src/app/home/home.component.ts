@@ -92,9 +92,9 @@ export class HomeComponent implements OnInit {
   cursorState = 'inactive';
   wordColorIndex = 0;
 
-  aniWordGroup = ['social good', 'fun', 'experience', 'interest', 'a better world'];
+  aniWordGroup = ['social good!', 'fun!', 'experience!', 'interest!', 'a better world!'];
   aniWord = '';
-  aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
+  aniWordGroupOrg = ['social good!', 'better future!', 'a better world!'];
   aniWordOrg = '';
 
   // Google maps
