@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row main-row">
     <!-- Left Panel: User -->
-    <div class="col s8" id="left-col">
+    <div class="col s12 m8 l8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="user">
         <div class="row single-info">
           <div class="col s6 m3 l3">
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Right Panel -->
-    <div class="col m4" id="right-col">
+    <div class="col s12 m4 l4" id="right-col">
       <div class="sidebar"  *ngIf="user">
         <!-- Volunteer User: display volunteer history -->
         <div class="section" *ngIf="user.role === 'V'">
