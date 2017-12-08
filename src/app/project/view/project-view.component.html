@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
-    <div class="col s8" id="left-col">
+    <div class="col s12 m8 l8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
           <div class="col s6 m3 l3">
@@ -201,7 +201,7 @@
     </div>
 
     <!-- Right Panel: Organization and projects -->
-    <div class="col m4" id="right-col">
+    <div class="col s12 m4 l4" id="right-col">
       <div class="sidebar">
         <div class="section">
           <h4>Organization</h4>
@@ -209,15 +209,15 @@
             <div class="card">
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">
-                  <div class="col m4">
+                  <div class="col s4 m6 l4">
                     <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
                     <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="constantsService.defaultImage"></div>
                   </div>
-                  <div class="col m8 organization-name">
+                  <div class="col s8 m8 l8 organization-name">
                     <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
                     <p *ngIf="!organization.id">{{organization.name}}</p>
                   </div>
-                  <div class="col m8">
+                  <div class="col s8 m8 l8">
                     <p>Category: {{categoryName}}</p>
                     <p>
                       Location:
