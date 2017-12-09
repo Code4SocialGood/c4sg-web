@@ -79,36 +79,11 @@ p {
   padding-top: 5px;
 }
 
-/********** large devices only **********/
-@media (min-width: 992px) and (max-width:1200px) {
-
-  #subjectarea {
-    font-size:1em;
-    margin-top:25px;
-  }
-}
-
-/********** small/medium devices only **********/
-@media (min-width: 601px) and (max-width: 991px) {
-
-  #subjectarea {
-    font-size:.9em;
-    width:100px;
-    margin-top:25px;
-  }
-
-  .ulSubjectArea{
-    margin-left: 25px;
-    padding-top:0px;
-  }
-}
-
 /********** small devices only **********/
 @media (max-width: 600px) {
 
   #askimage {
     width:40px;
-    heigth:46px;
     margin-top:25px;
     margin-left:15px;
   }
@@ -122,15 +97,6 @@ p {
   #last-section i {
     padding-left:10px;
   }
-
-  #subjectarea {
-    font-size:1em;
-  }
-
-  .ulSubjectArea {
-    padding-left:10px;
-    padding-top:1px;
-   }
 
   #last-section i {
     margin-top:20px;
