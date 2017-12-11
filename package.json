@@ -23,15 +23,15 @@
   "dependencies": {
     "@agm/core": "^1.0.0-beta.0",
     "@angular/cli": "1.0.0",
-    "@angular/common": "^2.4.0",
-    "@angular/compiler": "^2.4.0",
-    "@angular/compiler-cli": "^2.4.0",
-    "@angular/core": "^2.4.0",
-    "@angular/forms": "^2.4.0",
-    "@angular/http": "^2.4.0",
-    "@angular/platform-browser": "^2.4.0",
-    "@angular/platform-browser-dynamic": "^2.4.0",
-    "@angular/router": "^3.4.0",
+    "@angular/common": "~4.3.4",
+    "@angular/compiler": "~4.3.4",
+    "@angular/compiler-cli": "~4.3.4",
+    "@angular/core": "~4.3.4",
+    "@angular/forms": "~4.3.4",
+    "@angular/http": "~4.3.4",
+    "@angular/platform-browser": "~4.3.4",
+    "@angular/platform-browser-dynamic": "~4.3.4",
+    "@angular/router": "~4.3.4",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "angular2-jwt": "^0.1.28",
@@ -51,7 +51,7 @@
     "ts-node": "~2.0.0",
     "typescript": "~2.5.3",
     "underscore": "^1.8.3",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "codelyzer": "~2.1.1",
