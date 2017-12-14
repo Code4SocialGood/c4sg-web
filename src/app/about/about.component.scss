@@ -7,8 +7,8 @@
 }
 
 .separator-content {
-  background-color: white;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  //background-color: white;
+  //box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
 h2{
@@ -85,6 +85,13 @@ p{
 @media (max-width: 991px){
 .card{
   min-height:300px;
+}
+}
+
+/********** medium devices only **********/
+@media (max-width: 720px){
+.card{
+  min-height:400px;
 }
 }
 
