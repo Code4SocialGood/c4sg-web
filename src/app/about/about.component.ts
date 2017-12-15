@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'my-about',
@@ -14,3 +13,4 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
   }
 }
+
