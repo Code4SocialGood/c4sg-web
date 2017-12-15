@@ -8,8 +8,8 @@ import {AuthService} from '../auth.service';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(public authSvc: AuthService) { 
-}
+  constructor(public authSvc: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
