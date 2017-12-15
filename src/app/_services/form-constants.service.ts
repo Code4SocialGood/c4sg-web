@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FormConstantsService {
 
+  readonly infoEmail = 'info@code4socialgood.org';
+
   defaultLogo = '../../assets/default_image.png';
   defaultAvatar = '../../assets/default_avatar.png';
   defaultImage = '../../assets/default_image.png';

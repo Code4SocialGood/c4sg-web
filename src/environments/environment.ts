@@ -15,6 +15,5 @@ export const environment = {
     AWS_IMAGE_BUCKET: 'c4sg.dev.images',
     AWS_DOCS_BUCKET: 'c4sg.dev.docs',
     AWS_REGION: 'us-west-2',
-    AWS_SIGNATURE_VERSION: 'v4',
-    info_email: 'c4sg-dev-info@mailinator.com'
+    AWS_SIGNATURE_VERSION: 'v4'
 };

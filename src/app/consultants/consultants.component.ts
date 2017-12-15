@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../_services/validation.service';
+import { FormConstantsService } from '../_services/form-constants.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { EmailService, Email } from '../email.service';
+import { EmailService, Email } from '../_services/email.service';
 
 @Component({
   selector: 'my-consultants',
@@ -21,6 +22,7 @@ export class ConsultantsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private validationService: ValidationService,
+              private formConstantsService: FormConstantsService,
               private emailService: EmailService
   ) {}
 
@@ -65,7 +67,7 @@ export class ConsultantsComponent implements OnInit {
   onSubmit(): void {
     const form = this.consultantForm.value;
     const email = new Email({
-      to: this.emailService.infoEmail,
+      to: this.formConstantsService.infoEmail,
       from: form.email,
       replyTo: form.email,
       subject: 'Request for consultants',

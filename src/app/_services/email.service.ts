@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class EmailService {
 
   readonly sendUrl = `${environment.backend_url}/api/email/send`;
-  readonly infoEmail = environment['info_email'];
 
   constructor(private http: Http) { }
 
