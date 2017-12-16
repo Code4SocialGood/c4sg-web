@@ -2,7 +2,7 @@
 
 .row{
   margin-top:15px;
-  padding:10px;
+  padding-bottom:10px;
   background-color:white;
 }
 
@@ -12,9 +12,10 @@
 }
 
 h2{
-  padding:10px;
+  padding:.2em;
   margin:0px;
-  color:#84c44c;
+  color:white;
+  background-color:#31b1ab;
   font-size:1.6rem;
   font-weight:bold;
   text-transform:Capitalize;
@@ -22,7 +23,7 @@ h2{
 }
 
 h3{
-  padding:10px;
+  padding:15px;
   margin:0px;
   font-weight:bold;
   font-size:1.3rem;
@@ -32,30 +33,71 @@ h3{
 p{
   font-size:1rem;
   margin:0px;
-  padding:10px;
+  padding:0px 10px 10px 10px;
 }
 
 .cards{
-  padding:10px;
-
+   //padding:10px;
+  
   .card{
        margin-bottom:20px;
-       height:160px;
-       overflow:auto;
+       padding:0px;
+       background-color: #84c44c;
         }
 
   .card-title{
         font-size:1.3rem;
         font-weight:bold;
-        padding:10px;
+        padding:10px 10px 0px 10px;
+        color:white;
         background-color:#84c44c;
+        text-transform:uppercase;
          }
 
   .card-content{
-        padding:0px;
+        margin-bottom:20px;
+        background-color:#84c44c;
          }
 }
 
-.container-final{
-  margin:30px;
+#join-section{
+  margin-bottom:15px;
+
+  h2{
+    background-color: #ee7253;
+  }
+
+  #signup-btn a{
+  background-color: #ee7253;
+  padding:0px 40px 0px 40px;
+  margin-bottom:10px;
+}
+}
+
+/********** large devices only **********/
+@media (min-width: 992px){
+.card{
+  min-height:210px;
+}
+}
+
+/********** medium devices only **********/
+@media (max-width: 991px){
+.card{
+  min-height:300px;
+}
+}
+
+/********** medium devices only **********/
+@media (max-width: 720px){
+.card{
+  min-height:400px;
+}
+}
+
+/********** small devices only **********/
+@media (max-width: 600px){
+.card{
+  min-height:150px;
+}
 }
