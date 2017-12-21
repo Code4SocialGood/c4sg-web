@@ -204,10 +204,12 @@
                   </div>
                   <div class="divider" style="margin-top: 0.5em; margin-bottom: 0.5em;"></div>
                   <div class="name">
-                    <span *ngIf="c.volunteers" style="font-weight: bold;">Volunteers: {{c.volunteers}}</span>
+                    <span *ngIf="c.volunteers" style="font-weight: bold;">
+                      <a class="map_link" (click)="loadVolunteers(c.code)" target="_blank">Volunteers: {{c.volunteers}}</a></span>
                   </div>
                   <div class="name ">
-                    <span *ngIf="c.organizations" style="font-weight: bold;">Organizations: {{c.organizations}}</span>
+                    <span *ngIf="c.organizations" style="font-weight: bold;">
+                      <a class="map_link" (click)="loadOrganizations(c.code)" target="_blank">Organizations: {{c.organizations}}</a></span>
                   </div>
                 </a>
               </div>
