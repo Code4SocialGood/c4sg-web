@@ -291,8 +291,8 @@ export class HomeComponent implements OnInit {
 
   loadOrganizations(countryCode): void {
     // This URL is used as dummy URL
-    this.router.navigate(['/organization/list', { keyword: countryCode, from: 'reload' }], {skipLocationChange: true});
-    setTimeout(() => this.router.navigate(['/organization/list/organizations', { keyword: countryCode, from: 'reload' }]));
+    this.router.navigate(['/organization/list/organizations', { keyword: countryCode, from: 'reload' }], {skipLocationChange: true});
+    setTimeout(() => this.router.navigate(['/organization/list/organizations']));
   }
 
 }

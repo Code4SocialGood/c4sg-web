@@ -52,6 +52,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
+  keyword: string;
 
   organizationsSubscription: Subscription;
   organizationsCache: any[];
@@ -79,9 +80,13 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         });
 
         this.from = params['from']; // from can be: organizations, reload, pending
+        
         if (this.from === 'reload') {
           this.paginationConfig.currentPage = 1;
-          this.filterForm.controls.keyword.setValue('');
+          if(params['keyword'] != null) {
+            this.filterForm.controls.keyword.setValue(params['keyword']);
+          } else
+            this.filterForm.controls.keyword.setValue('');
           this.filterForm.controls.hasProjects.setValue(false);
           this.filterForm.controls.categories = this.categoriesArray;
         }
