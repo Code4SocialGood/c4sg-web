@@ -52,7 +52,6 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
   selectedOrganization?: Organization;
   projects: Project[];
   from: string;
-  keyword: string;
 
   organizationsSubscription: Subscription;
   organizationsCache: any[];
@@ -80,7 +79,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
         });
 
         this.from = params['from']; // from can be: organizations, reload, pending
-        
+
         if (this.from === 'reload') {
           this.paginationConfig.currentPage = 1;
           if(params['keyword'] != null) {
