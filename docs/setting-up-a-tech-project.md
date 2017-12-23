@@ -4,8 +4,6 @@ Below is a step by step process for how a tech project can be set up
 
 The goal in this section is to create a list of user requirements. The user requirements will work as an interface (connection point) between tech and non-tech people.
 
-An example of a user requirement is
-
 ### Understanding the users
 
 What groups are you wanting to target? Old, young? Computer litarate or not?
