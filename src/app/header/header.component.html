@@ -5,13 +5,13 @@
     
     <ul class="side-nav" id="slide-out">
       <li class="nav-link-container" routerLinkActive="active">
-          <a class="nav-link" (click)="loadProjects()"><span>Projects</span></a>          
+          <a class="nav-link" (click)="loadProjects()"><span class="mobile">Projects</span></a>          
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" (click)="loadVolunteers()"><span>Volunteers</span></a>        
+        <a class="nav-link" (click)="loadVolunteers()"><span class="mobile">Volunteers</span></a>        
       </li>
       <li class="nav-link-container" routerLinkActive="active">
-        <a class="nav-link" (click)="loadOrganizations()"><span>Organizations</span></a>        
+        <a class="nav-link" (click)="loadOrganizations()"><span class="mobile">Organizations</span></a>        
       </li>
 
       <li *ngIf="authSvc.authenticated()" class="nav-link-container"><a class="dropdown-button nav-link" materialize="dropdown" data-beloworigin="true" data-hover="true" data-activates="dropdownproject">

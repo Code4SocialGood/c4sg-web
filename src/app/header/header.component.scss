@@ -62,6 +62,27 @@
   }
 }
 
+ @media screen and (max-width: 650px) {
+   .mobile {
+      
+	    text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1px;
+        font-weight: bold;
+        border-color: none;
+        background-color: transparent;
+        border: none;
+        white-space: nowrap;
+        color: black;
+        &:hover {
+          color: $navbar-border-color;
+        }
+        &.active {
+          color: $navbar-fg-color;
+        }
+    }
+  }
+
 .off-home {
   background-color: rgba(255, 255, 255, 1);
   background-image: none;
