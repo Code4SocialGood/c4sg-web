@@ -36,7 +36,6 @@ hr {
 .footer {
   background-color: $main-color;
   padding-left: 50px;
-  margin-top: 16px;
 }
 
 .modal {
@@ -288,7 +287,6 @@ font-size: 1em;
   background: $page-title-bg-color;
   padding-top: 5px;
   padding-bottom: 0px;
-  margin-bottom: 16px;
   h1 {
     @include page-title-font;
     padding: 0px;
@@ -446,3 +444,4 @@ font-size: 8px;
 font-weight: normal;
 color: $main-color;
 }
+
