@@ -20,11 +20,6 @@
 
 }
 
-
-.organization-name {
-  cursor: pointer;
-}
-
 .card-header {
   .organization-name:hover, .name:hover {
   text-decoration: underline;
@@ -44,3 +39,18 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.organization-name {
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+
+.project-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

@@ -76,10 +76,15 @@
                     </div>
                     <div class="card-info">
                       <div class="card-header">
-                        <div class='name'>
-                         <!-- <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>-->
-                         <a class='name' href="organization/view/{{org.id}}">{{org.name}}</a>
+                        <div class="row">                        
+                            <div class="name">
+                                <div class="col m8 s12 organization-name">
+                                    <!-- <span class='name' [routerLink]="['/organization/view/'+org.id]">{{org.name}}</span>-->
+                                    <a href="organization/view/{{org.id}}">{{org.name}}</a>
+                                </div>                                                             
+                            </div>
                         </div>
+                        
                         <div class="row">
                           <div class="card-metainfo col m6">
                             <p>{{org.projects}} projects</p>
