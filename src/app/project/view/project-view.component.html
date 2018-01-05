@@ -142,16 +142,18 @@
             <div class="col s12 action-btns">
               <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()">
+                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()"
+                [disabled]="project.status === 'C'">
                 Apply
               </button>
               <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
-              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()"
+                [disabled]="project.status === 'C'">
                 Apply
               </button>
               <!-- Apply button is enabled for login user -->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="toggleApplicationForm()"
-                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
+                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined || project.status === 'C'">
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
