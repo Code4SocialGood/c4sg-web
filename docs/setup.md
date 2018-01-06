@@ -15,7 +15,7 @@ Installation: accept all the default configuration during installation
 ### 1.2 Join the repositories
 You should receive an email inviting you to collaborate on the repositories. Accept the invitation. There are two Github repositories for this application:
 * Frontend Repository: https://github.com/Code4SocialGood/c4sg-web
-* Backend Repository: https://github.com/Code4SocialGood/c4sg-web
+* Backend Repository: https://github.com/Code4SocialGood/c4sg-services
 
 ### 1.3 Fork the repositories
 
