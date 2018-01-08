@@ -42,10 +42,20 @@
 }
 
 .text-overflow {
-  overflow: hidden;
+ 
+ 
+  display: block;
   display: -webkit-box;
+  word-wrap: break-word;
   -webkit-line-clamp: 3;
+  margin: 0 auto;
+  line-height: 1.8em;
+ 
   -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
 }
 
 .organization-name {
