@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
 import { JobTitle } from '../../job-title';
+import { Country } from '../../country';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 import { AuthHttp } from 'angular2-jwt';
@@ -68,6 +69,7 @@ export class UserService {
     // jobTitle?: number,
     jobTitles?: number[],
     skills?: string[],
+    countries?: number[],
     status?: string,
     role?: string,
     publishFlag?: string,
@@ -92,6 +94,12 @@ export class UserService {
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
+      }
+    }
+
+    if (countries) {
+      for (let i = 0; i < countries.length; i++) {
+        params.append('countries', String(countries[i]));
       }
     }
 
@@ -183,6 +191,14 @@ export class UserService {
     return this.http
                .get(url)
                .map( res => { return res.json() as JobTitle[]; })
+               .catch(this.handleError);
+  }
+  
+  public getAllCountries(): Observable<Country[]> {
+    const url = userUrl + '/countries';
+    return this.http
+               .get(url)
+               .map( res => { return res.json() as Country[]; })
                .catch(this.handleError);
   }
   /* obsolete
