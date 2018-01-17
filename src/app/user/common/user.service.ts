@@ -5,7 +5,6 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user';
 import { JobTitle } from '../../job-title';
-import { Country } from '../../country';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
 import { AuthHttp } from 'angular2-jwt';
@@ -192,15 +191,7 @@ export class UserService {
                .get(url)
                .map( res => { return res.json() as JobTitle[]; })
                .catch(this.handleError);
-  }
-  
-  public getAllCountries(): Observable<Country[]> {
-    const url = userUrl + '/countries';
-    return this.http
-               .get(url)
-               .map( res => { return res.json() as Country[]; })
-               .catch(this.handleError);
-  }
+  }  
   /* obsolete
   // Page data always starts at offset zero (0)
   // Only active users are retrieved

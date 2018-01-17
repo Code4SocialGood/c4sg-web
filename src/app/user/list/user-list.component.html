@@ -41,11 +41,11 @@
               <div class="section">
                 <h4>Countries</h4>
                 <div class="section-body-projects">
-                  <div class="project-list">
-                    <ul *ngIf="contries" formArrayName="contries">
-                      <li *ngFor="let contry of countriesShowed, let i = index">
-                        <input class="filled-in" type="checkbox" [id]="country.name" [value]="country.id" [formControlName]="i">
-                        <label [for]="country.name">{{contry.name}}</label>
+                  <div class="skills-list" myScrollSkills >
+                    <ul *ngIf="countries" formArrayName="countries">
+                      <li *ngFor="let country of countriesShowed, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="country.code" [value]="country.name" [formControlName]="i">
+                        <label [for]="country.code">{{country.name}}</label>
                       </li>
                     </ul>
                   </div>

@@ -98,6 +98,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getSkills();
     this.getKeywords();
     this.getJobTitles();
+    this.countries = this.constantsService.getCountries();
     this.getCountries();
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
@@ -132,7 +133,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     if (countries) {
       for (let i = 0; i < countries.length; i++) {
         if (countries[i]) {
-          countriesParam.push(this.countries[i].id.toString());
+          countriesParam.push(this.countries[i].code);
         }
       }
     }
@@ -178,15 +179,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     );
   }
   getCountries(): void {
-    this.userService.getAllCountries().subscribe(res => {
-      this.countries = res.map(contry => {
-        return { id: contry.id, checked: false, country: contry.name };
-      });
-      this.showCountries();
-
-    },
-      error => console.error(error)
-    );
+    this.showCountries();
   }
   getKeywords(): void {
     // TODO: Need REST API & userService to provide a list of getKeywords
@@ -240,19 +233,10 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
   showCountries(): void {
-    let addedCountries;
-    if (this.countriesShowed.length < this.countries.length) {
-      if (!this.countriesShowed.length) {
-        addedCountries = this.countries.slice(0, 10);
-      } else {
-        addedCountries = this.countries
-          .filter(i => !this.countriesShowed.includes(i));
-          addedCountries = addedCountries.filter((i, index) => index < 10);
-      }
-      for (const addedCountry of addedCountries) {
-        this.countriesShowed.push(addedCountry);
-        this.countriesArray.push(new FormControl(false));
-      }
+    let addedCountries = this.countries;
+    for (const addedCountry of addedCountries) {
+      this.countriesShowed.push(addedCountry);
+      this.countriesArray.push(new FormControl(false));
     }
   }
 
