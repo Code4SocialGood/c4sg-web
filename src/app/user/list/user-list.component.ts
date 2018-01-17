@@ -81,7 +81,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.jobTitleFormArray.controls.forEach(jobTitleControl => {
           return jobTitleControl.setValue(false);
         });
-        
+
         this.countriesArray.controls.forEach(countryControl => {
           return countryControl.setValue(false);
         });
@@ -112,7 +112,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     const skills = this.filterForm.value.skills;
     const jobTitles = this.filterForm.value.jobTitles;
     const countries = this.filterForm.value.countries;
-    const skillsParam = []; 
+    const skillsParam = [];
     const jobTitlesParam = [];
     const countriesParam = [];
     window.scrollTo(0, 0);
@@ -233,7 +233,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
   showCountries(): void {
-    let addedCountries = this.countries;
+    const addedCountries = this.countries;
     for (const addedCountry of addedCountries) {
       this.countriesShowed.push(addedCountry);
       this.countriesArray.push(new FormControl(false));

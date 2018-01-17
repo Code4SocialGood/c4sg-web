@@ -191,7 +191,7 @@ export class UserService {
                .get(url)
                .map( res => { return res.json() as JobTitle[]; })
                .catch(this.handleError);
-  }  
+  }
   /* obsolete
   // Page data always starts at offset zero (0)
   // Only active users are retrieved
