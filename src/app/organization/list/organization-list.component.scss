@@ -47,3 +47,9 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.organization-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
