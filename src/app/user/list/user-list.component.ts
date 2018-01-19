@@ -77,10 +77,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.jobTitleFormArray.controls.forEach(jobTitleControl => {
           return jobTitleControl.setValue(false);
         });
+
         if (params['from'] === 'reload') {
           localStorage.setItem('prevPage', 'UserList');
           this.paginationConfig.currentPage = 1;
-          this.filterForm.controls.keyword.setValue('');
+          if(params['keyword'] != null) {
+            this.filterForm.controls.keyword.setValue(params['keyword']);
+          } else
+            this.filterForm.controls.keyword.setValue('');
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
         }
