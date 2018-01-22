@@ -165,6 +165,26 @@ export class UserService {
       .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
+  retrieveResume(id: number) {
+    return this.http
+               .get(`${userUrl}/${id}/resume`);
+  }
+
+  saveResume(id: number, formData: FormData) {
+    return this.authHttp
+               .post(`${userUrl}/${id}/resume`, formData);
+  }
+
+  /*
+    Http call to save the resume
+  */
+  saveResumeFile(id: number, resumeUrl: string) {
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`resumeUrl=${resumeUrl}`);
+    return this.authHttp
+      .put(`${userUrl}/${id}/resume`, '', requestOptions);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

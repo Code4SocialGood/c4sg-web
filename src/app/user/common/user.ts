@@ -19,6 +19,7 @@ constructor (
     public linkedinUrl?: string,
     public personalUrl?: string,
     public githubUrl?: string,
+    public resumeURL?: string,
     public chatUsername?: string,
     public avatarUrl?: string,
     public publishFlag?: string,

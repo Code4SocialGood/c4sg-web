@@ -5,7 +5,7 @@ import { ApplicationProject } from './applicationProject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { AuthHttp } from 'angular2-jwt';
-import { Http } from '@angular/http';
+import { Http, RequestOptions,URLSearchParams } from '@angular/http';
 import { environment } from '../../../environments/environment';
 
 const applicationUrl = `${environment.backend_url}/api/projects/applications`;
@@ -87,5 +87,4 @@ export class ApplicationService {
             .map(res => res.json())
             .catch(this.handleError);
     }
-
 }
