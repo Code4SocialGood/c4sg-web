@@ -29,11 +29,15 @@ export class UserListComponent implements OnInit, OnDestroy {
   jobTitlesShowed = [];
   jobTitleFormArray = new FormArray([]);
   jobTitles: any[];
+  countriesShowed = [];
+  countriesArray = new FormArray([]);
+  countries: any[];
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
     jobTitles: this.jobTitleFormArray,
-    skills: this.skillsArray
+    skills: this.skillsArray,
+    countries: this.countriesArray
   });
 
   keyword: string;
@@ -77,18 +81,25 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.jobTitleFormArray.controls.forEach(jobTitleControl => {
           return jobTitleControl.setValue(false);
         });
+
+        this.countriesArray.controls.forEach(countryControl => {
+          return countryControl.setValue(false);
+        });
         if (params['from'] === 'reload') {
           localStorage.setItem('prevPage', 'UserList');
           this.paginationConfig.currentPage = 1;
           this.filterForm.controls.keyword.setValue('');
           this.filterForm.controls.skills = this.skillsArray;
           this.filterForm.controls.jobTitles = this.jobTitleFormArray;
+          this.filterForm.controls.countries = this.countriesArray;
         }
       });
     this.getUsers(this.paginationConfig.currentPage);
     this.getSkills();
     this.getKeywords();
     this.getJobTitles();
+    this.countries = this.constantsService.getCountries();
+    this.getCountries();
     // Watch for changes to the form and update the list
     this.filterForm.valueChanges.debounceTime(500).subscribe((value) => {
       localStorage.setItem('prevPage', 'UserList');
@@ -100,8 +111,10 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.paginationConfig.currentPage = newPage;
     const skills = this.filterForm.value.skills;
     const jobTitles = this.filterForm.value.jobTitles;
+    const countries = this.filterForm.value.countries;
     const skillsParam = [];
     const jobTitlesParam = [];
+    const countriesParam = [];
     window.scrollTo(0, 0);
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
@@ -117,9 +130,16 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
       }
     }
+    if (countries) {
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i]) {
+          countriesParam.push(this.countries[i].code);
+        }
+      }
+    }
     this.filterForm.value.keyword = this.filterForm.value.keyword.trim();
     this.usersSubscription = this.userService.searchUsers(
-      this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', 'V', 'Y', newPage, 10)
+      this.filterForm.value.keyword, jobTitlesParam, skillsParam, countriesParam, 'A', 'V', 'Y', newPage, 10)
       .subscribe(
       res => {
         // the service returns a JSON object consist of the array of pageable data
@@ -157,6 +177,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     },
       error => console.error(error)
     );
+  }
+  getCountries(): void {
+    this.showCountries();
   }
   getKeywords(): void {
     // TODO: Need REST API & userService to provide a list of getKeywords
@@ -207,6 +230,13 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.jobTitlesShowed.push(addedJobTitle);
         this.jobTitleFormArray.push(new FormControl(false));
       }
+    }
+  }
+  showCountries(): void {
+    const addedCountries = this.countries;
+    for (const addedCountry of addedCountries) {
+      this.countriesShowed.push(addedCountry);
+      this.countriesArray.push(new FormControl(false));
     }
   }
 
