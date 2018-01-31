@@ -87,11 +87,26 @@
                     </div>
                     <div class="card-info">
                       <div class="card-header">
-                        <div class='name'>
-                       <!--   <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>-->
-                       <a class='name' href="user/view/{{user.id}}">
-                        {{user.firstName + ' ' + user.lastName}}</a>
-
+                        <div class="row">
+                          <div class="card-metainfo col m6">
+                            <div class='name'>
+                              <!--   <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>-->
+                              <a class='name' href="user/view/{{user.id}}">
+                              {{user.firstName + ' ' + user.lastName}}</a>
+                            </div>
+                          </div>
+                          <div style="line-height:50px" class="card-metainfo col m6">
+                            <div class="projects">
+                              <span class="card-location float: right" *ngIf="user.projects">
+                                <i style="vertical-align: middle" class="small material-icons">assignment</i>
+                                {{user.projects.length}} Projects
+                              </span>
+                              <span class="card-location float: right" *ngIf="!user.projects">
+                                <i style="vertical-align: middle" class="small material-icons">assignment</i>
+                                  0 Projects
+                              </span>
+                            </div>                            
+                          </div>
                         </div>
                         <div class="row">
                           <div class="card-metainfo col m6">

@@ -27,6 +27,7 @@ constructor (
     public status?: string,
     public createdTime?: string,
     public updatedTime?: string,
-    public skills?: string[]
+    public skills?: string[],
+    public projects?: string[]
   ) { }
 }
