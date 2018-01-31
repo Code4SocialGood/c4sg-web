@@ -4,8 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { User } from '../common/user';
+import { Project } from '../../project/common/project';
 import { JobTitle } from '../../job-title';
 import { UserService } from '../common/user.service';
+import { ProjectService} from '../../project/common/project.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { AuthService } from '../../auth.service';
 
@@ -32,6 +34,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   countriesShowed = [];
   countriesArray = new FormArray([]);
   countries: any[];
+  projects: any[];
 
   filterForm = new FormGroup({
     keyword: new FormControl(''),
@@ -50,6 +53,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   usersSubscription: Subscription;
   constructor(private userService: UserService,
     private router: Router,
+    private projectService: ProjectService,
     private skillService: SkillService,
     public constantsService: FormConstantsService,
     public auth: AuthService,
@@ -151,6 +155,11 @@ export class UserListComponent implements OnInit, OnDestroy {
             result => {
               e.skills = result;
             });
+          this.projectService.getProjectByUser(e.id, 'C').subscribe(
+            result => {
+              e.projects = result.json();
+            }
+          );
         });
       },
       error => console.error(error)
