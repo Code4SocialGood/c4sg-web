@@ -79,6 +79,7 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import { InputFormatterDirective } from './project/common/input.formatter.directive';
 import { ProjectImageComponent } from './project/common/project-image.component';
 import { TagsComponent } from './_components/tags/tags.component';
+import { StoryViewComponent } from './stories/story-view/story-view.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -147,7 +148,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MyPaginationControlsComponent,
     InputFormatterDirective,
     ProjectImageComponent,
-    TagsComponent
+    TagsComponent,
+    StoryViewComponent
   ],
   providers: [
     ProjectService,
