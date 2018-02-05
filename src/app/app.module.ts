@@ -52,6 +52,7 @@ import {SkillSelectComponent} from './_components/select-skill/skill-select.comp
 import {OrganizationService} from './organization/common/organization.service';
 import {ProjectService} from './project/common/project.service';
 import {UserService} from './user/common/user.service';
+import {StoryService} from './stories/common/story.service';
 import {SkillService} from './skill/common/skill.service';
 import {ApplicationService} from './application/common/application.service';
 import {AuthService} from './auth.service';
@@ -155,6 +156,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProjectService,
     OrganizationService,
     UserService,
+    StoryService,
     FormConstantsService,
     AuthService,
     AuthGuard,
