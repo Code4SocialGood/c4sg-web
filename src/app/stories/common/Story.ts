@@ -1,4 +1,5 @@
 import { StoryType } from './StoryType';
+
 export class Story {
   constructor(
     public id: number,
