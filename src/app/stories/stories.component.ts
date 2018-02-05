@@ -28,7 +28,7 @@ export class StoriesComponent implements OnInit {
    */
   private getFirstVolunteerStories(): void {
      this.storyService.getStories(StoryType.VOLUNTEER)
-    .subscribe(volunteerStories => this.volunteerStories = volunteerStories);;
+    .subscribe(volunteerStories => this.volunteerStories = volunteerStories);
   }
 
   /**
@@ -36,7 +36,7 @@ export class StoriesComponent implements OnInit {
    */
   private getFirstOrganizationsStories(): void {
     this.storyService.getStories(StoryType.ORGANIZATION)
-   .subscribe(organizationsStories => this.organizationsStories = organizationsStories);;
+   .subscribe(organizationsStories => this.organizationsStories = organizationsStories);
   }
 
 }

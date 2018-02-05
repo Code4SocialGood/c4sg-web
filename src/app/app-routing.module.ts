@@ -39,7 +39,7 @@ const routes: Routes = [
   {path: 'appreciations', component: AppreciationsComponent},
   {path: 'partners', component: PartnersComponent},
   {path: 'stories', component: StoriesComponent},
-  {path: 'story/view/:storyId', component: StoryViewComponent},
+  {path: 'stories/view/:storyId', component: StoryViewComponent},
 
   {path: 'project/list/:from', component: ProjectListComponent},
   {path: 'project/view/:projectId', component: ProjectViewComponent},
