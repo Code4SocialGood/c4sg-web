@@ -49,8 +49,7 @@ export class SharedBtnComponent implements OnInit {
     const subject: string = encodeURIComponent(this.project.name);
     const body: string = encodeURIComponent(`${this.project.description}\n\n${this.origin}${location.pathname}`
     );
-    const href = `mailto:?subject=${subject}&body=${body}`;
-    this.openSharePopup(href);
+    location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 
   shareOnLinkedin(event: MouseEvent): void {
