@@ -9,6 +9,7 @@ export class Story {
     public type: StoryType,
     public imageUrl?: string,
     public author?: string,
+    public authorInfo?: string,
 
 
     public status?: string,
