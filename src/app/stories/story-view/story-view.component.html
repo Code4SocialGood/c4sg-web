@@ -13,7 +13,7 @@
           <div id="authorInfo" class="text" [textContent]="story.authorInfo"></div>
           <div id="title" class="title-phrase" [textContent]="story.title"></div>
         </div>
-        <a href="stories/view/{{story.id}}">
+        <a (click)="goBack()">
           <div class="card-read-story-bar volunteer"><- Previous Volunteer Stories</div>
         </a>
       </div>
@@ -23,7 +23,7 @@
               {{story.description}}
             </p>
         </div>
-        <a class="back-stories-container" href="#">
+        <a class="back-stories-container" href="stories">
           <div class="back-stories-icon previous round"><</div>
           <div class="back-stories-text">BACK TO OUR STORIES</div>
         </a>
@@ -44,7 +44,7 @@
   
             <div id="title" class="title-phrase" [textContent]="story.title"></div>
           </div>
-          <a href="stories/view/{{story.id}}">
+          <a (click)="goBack()">
             <div class="card-read-story-bar organization"><- Previous Organization Stories</div>
           </a>
         </div>
@@ -54,7 +54,7 @@
                 {{story.description}}
               </p>
           </div>
-          <a class="back-stories-container" href="#">
+          <a class="back-stories-container" href="stories">
             <div class="back-stories-icon previous round"><</div>
             <div class="back-stories-text">BACK TO OUR STORIES</div>
           </a>

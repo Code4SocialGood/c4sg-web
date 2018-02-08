@@ -176,7 +176,7 @@
 	border: 3px solid #EE7253;
 }
 .story-card {
-	height: 400px;
+	height: auto;
 	width: 26%;
 	display: inline-block;
 	vertical-align:top;
@@ -186,7 +186,7 @@
 	.story-card-container{
 		padding:20px;
 		width: 100%;
-		height: 354px;
+		height: 500px;
 	}
 	.previous-story-card-container{
 		padding:20px;
@@ -214,13 +214,13 @@
 		width: 130px;
 		height:130px;
 		overflow: hidden;
-		display: inline-block;
+		margin: 0 auto;
+		text-align:center;
 		img{
 				width:100%;
 				height:100%;
 				object-fit: cover;
 		}
-		text-align:center;
 
   }
 

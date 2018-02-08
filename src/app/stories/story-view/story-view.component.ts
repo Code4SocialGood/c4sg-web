@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { StoryService } from '../common/story.service';
 import { StoryType } from '../common/StoryType';
@@ -18,7 +19,8 @@ export class StoryViewComponent implements OnInit {
   constructor(
     private storyService: StoryService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private location: Location) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['storyId'];
@@ -32,6 +34,11 @@ export class StoryViewComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  goBack(): void {
+    localStorage.setItem('prevPage', 'StoryView');
+    this.location.back();
   }
 
 }
