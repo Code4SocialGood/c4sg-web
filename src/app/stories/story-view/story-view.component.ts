@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { StoryService } from '../common/story.service';
+import { StoryType } from '../common/StoryType';
 import { Story } from '../common/Story';
 
 @Component({
@@ -12,6 +13,7 @@ import { Story } from '../common/Story';
 export class StoryViewComponent implements OnInit {
 
   story: Story;
+  StoryType = StoryType;
 
   constructor(
     private storyService: StoryService,

@@ -162,12 +162,18 @@
 }
 .description-card {
 	height: 600px;
-	display: inline-block;
+	width:100%;
+	float: left;
 	vertical-align:top;
 	box-sizing: border-box;
 	margin: 15px 15px;
 	text-align:justify;
+}
+.volunteer-border {
 	border: 3px solid #31B1AB;
+}
+.organization-border {
+	border: 3px solid #EE7253;
 }
 .story-card {
 	height: 400px;
@@ -176,13 +182,11 @@
 	vertical-align:top;
 	box-sizing: border-box;
 	margin: 15px 15px;
-	text-align:center;
 
 	.story-card-container{
 		padding:20px;
 		width: 100%;
 		height: 354px;
-		border: 3px solid #31B1AB;
 	}
 	.previous-story-card-container{
 		padding:20px;
@@ -196,6 +200,7 @@
 		height:130px;
 		overflow: hidden;
 		margin: 0 auto;
+		text-align:center;
 
 		img{
 				width:100%;
@@ -207,25 +212,29 @@
 
 	.organization-image {
 		width: 130px;
-    height:130px;
-    overflow: hidden;
+		height:130px;
+		overflow: hidden;
 		display: inline-block;
 		img{
 				width:100%;
 				height:100%;
 				object-fit: cover;
 		}
+		text-align:center;
 
   }
 
   .text {
-    @include multiLineEllipsis($lineHeight: 21px, $lineCount: 8, $bgColor: white);
+	  font-size: 18px;
+	  float: left;
+	  clear:right;
+	  padding-left: 5px;
   }
 
 	.card-title {
 		text-align: justify;
     font-size: 20px;
-    color: #808080;
+    color: #805D5D;
 		height: calc(100% - 150px);
 		margin-top:20px;
 	}
@@ -340,4 +349,33 @@
 
 .back-stories-container {
 	margin-left: 22px;
+	clear:left;
+	float:left;
+}
+
+label {
+	font-size: 18px;
+	float:left;
+	text-align:left;
+	clear:left;
+}
+
+.title-phrase {
+	font-size: 18px;
+	background-color:#e7e7e7;
+	color:darkgray;
+	float:left;
+	clear: both;
+	font-style:italic;
+	font-weight: bold;
+	padding:20px;
+	margin-top: 20px;
+	width:100%;
+}
+.title-phrase::after {
+	content: "\"";
+}
+.title-phrase::before {
+	content: "\"";
+
 }

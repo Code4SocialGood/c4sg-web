@@ -16,5 +16,9 @@ export const STORIES: Story[] = [
                 // tslint:disable-next-line:max-line-length
                 'A couple of years ago i read the book "Producing Open Source Software", one of the ideas in the book is to have different responsibilities for volunteers, so for example someone may want to be the documentation manager, another person can be the issue list manager. One nice thing with this approach is that people ...',
                 '2', StoryType.ORGANIZATION, 'https://s3-us-west-2.amazonaws.com/c4sg.images/662full-size-logo.png'),
-                new Story(5, 'Coming soon ...', '3', StoryType.ORGANIZATION, '../../assets/default_image.png')
+                new Story(5, 'Coming soon ...', '3', StoryType.ORGANIZATION, '../../assets/default_image.png'),
+                new Story(6,
+                    'Is All About coding and help people!',
+                    'A couple years ago i start to get involved and fascinated about open source software, people sharing code, collaborating and making new stuff for free.', StoryType.VOLUNTEER, 'https://s3-us-west-2.amazonaws.com/c4sg.images/662full-size-logo.png', "Luis Kimura", "Software Developer"),
+                    new Story(7, 'Coming soon ...', '3', StoryType.ORGANIZATION, '../../assets/default_image.png')
 ];
