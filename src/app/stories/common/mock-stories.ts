@@ -1,4 +1,4 @@
-import { Story } from './story';
+import { Story } from './Story';
 import { StoryType } from './StoryType';
 
 export const STORIES: Story[] = [
