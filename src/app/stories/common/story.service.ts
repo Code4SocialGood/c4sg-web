@@ -5,7 +5,7 @@ import { Story } from './Story';
 import { StoryType } from './StoryType';
 
 // temporary mocked backend
-import { STORIES } from './mock-Stories';
+import { STORIES } from './mock-stories';
 
 @Injectable()
 export class StoryService {
