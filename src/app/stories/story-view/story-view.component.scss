@@ -371,6 +371,8 @@ label {
 	padding:20px;
 	margin-top: 20px;
 	width:100%;
+	max-height: 50%;
+	overflow: auto;
 }
 .title-phrase::after {
 	content: "\"";
