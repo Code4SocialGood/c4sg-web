@@ -9,7 +9,7 @@ import { ProjectService } from '../common/project.service';
 import { OrganizationService } from '../../organization/common/organization.service';
 import { UserService } from '../../user/common/user.service';
 import { AuthService } from '../../auth.service';
-import { SkillService} from '../../skill/common/skill.service';
+import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { FormConstantsService } from '../../_services/form-constants.service';
 
@@ -37,8 +37,8 @@ export class ProjectViewComponent implements OnInit {
   auth: AuthService;
   categoryName: string;
 
-  globalActions = new EventEmitter<string|MaterializeAction>();
-  modalActions = new EventEmitter<string|MaterializeAction>();
+  globalActions = new EventEmitter<string | MaterializeAction>();
+  modalActions = new EventEmitter<string | MaterializeAction>();
 
   displayShare = true;
   displayApply = false;
@@ -76,29 +76,29 @@ export class ProjectViewComponent implements OnInit {
 
 
     this.route.params.subscribe(params => {
-    const id = params['projectId'];
-    this.projectId = id;
-    this.prevPage = localStorage.getItem('prevPage');
-    localStorage.setItem('prevPage', 'ProjectView');
+      const id = params['projectId'];
+      this.projectId = id;
+      this.prevPage = localStorage.getItem('prevPage');
+      localStorage.setItem('prevPage', 'ProjectView');
 
-    this.projectService.getProject(id)
-        .subscribe(
-          res => {
-            this.project = res;
-            this.getSkills(id);
-            this.displayButtons();
-            this.getOrganization(res.organizationId);
-            this.getProjects(res.organizationId);
-
-          },
-          error => console.log(error)
-          );
-
-          this.userService.getAllJobTitles()
+      this.projectService.getProject(id)
       .subscribe(
-      res => {
-        this.jobTitlesArray = res;
-      }, error => console.log(error)
+        res => {
+          this.project = res;
+          this.getSkills(id);
+          this.displayButtons();
+          this.getOrganization(res.organizationId);
+          this.getProjects(res.organizationId);
+
+        },
+        error => console.log(error)
+      );
+
+      this.userService.getAllJobTitles()
+      .subscribe(
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
       );
     });
   }
@@ -109,54 +109,53 @@ export class ProjectViewComponent implements OnInit {
   }
 
 
-
   // Skills for this project
   getSkills(projectId): void {
     this.skillService.getSkillsByProject(projectId)
-      .subscribe(
-        result => {
-          this.project.skills = result;
-        }
-      );
+    .subscribe(
+      result => {
+        this.project.skills = result;
+      }
+    );
   }
 
   // Projects for this organization
   getProjects(organizationId): void {
     this.projectService.getProjectByOrg(organizationId, 'A')
-          .subscribe(
-            resProjects => {
-              this.projects = resProjects.json();
-              this.projects.forEach((e: Project) => {
-                this.skillService.getSkillsByProject(e.id).subscribe(
-                  response => {
-                    e.skills = response;
-                  });
-              });
-            },
-              errorProjects => console.log(errorProjects)
-          );
+    .subscribe(
+      resProjects => {
+        this.projects = resProjects.json();
+        this.projects.forEach((e: Project) => {
+          this.skillService.getSkillsByProject(e.id).subscribe(
+            response => {
+              e.skills = response;
+            });
+        });
+      },
+      errorProjects => console.log(errorProjects)
+    );
   }
 
   // Organization for this project
   getOrganization(organizationId): void {
 
     this.organizationService.getOrganization(organizationId)
-        .subscribe(
-            resi => {
-              this.organization = resi;
+    .subscribe(
+      resi => {
+        this.organization = resi;
 
-              // Validation rules should force websiteUrl to start with http but add check just in case
-              if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
-                this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
-              }
+        // Validation rules should force websiteUrl to start with http but add check just in case
+        if (this.organization.websiteUrl && this.organization.websiteUrl.indexOf('http') !== 0) {
+          this.organization.websiteUrl = `http://${this.organization.websiteUrl}`;
+        }
 
-              if (this.organization.description != null && this.organization.description.length > 100) {
-                  this.organization.description = this.organization.description.slice(0, 100) + '...';
-              }
+        if (this.organization.description != null && this.organization.description.length > 100) {
+          this.organization.description = this.organization.description.slice(0, 100) + '...';
+        }
 
-              this.setCategoryName();
-            }
-            );
+        this.setCategoryName();
+      }
+    );
   }
 
   displayButtons(): void {
@@ -245,43 +244,44 @@ export class ProjectViewComponent implements OnInit {
   }
 
   toggleApplicationForm(): void {
-      if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-        if (this.displayApplicationForm === false) {
-            this.displayApplicationForm = true;
-        } else {
-            this.displayApplicationForm = false;
-        }
+    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+      if (this.displayApplicationForm === false) {
+        this.displayApplicationForm = true;
       } else {
-        localStorage.setItem('redirectAfterLogin', this.router.url);
-        this.authService.login();
+        this.displayApplicationForm = false;
       }
+    } else {
+      localStorage.setItem('redirectAfterLogin', this.router.url);
+      this.authService.login();
+    }
   }
 
   // refer application component
   onApplicationCreated(applicationCreated: boolean): void {
     if (applicationCreated) {
-        this.projectStatusApplied = true;
-        this.toggleApplicationForm();
-        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + this.project.id));
-        this.globalActions.emit({action: 'toast', params: ['You have applied for the project', 4000]});
-
+      this.projectStatusApplied = true;
+      this.toggleApplicationForm();
+      const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+      localStorage.setItem('appliedProjectsIDs', (projectsIDs.appliedProjectsIDs + ',' + this.project.id));
+      const value = '{action: "toast", params: ["You have applied for the project", 4000]}';
+      this.globalActions.emit(value);
     } else {
-        this.globalActions.emit({action: 'toast', params: ['Error in application', 4000]});
-        this.projectStatusApplied = false;
+      const value = '{action: "toast", params: ["Error in application", 4000]}';
+      this.globalActions.emit(value);
+      this.projectStatusApplied = false;
     }
   }
 
   // refer application component
   onApplicationAccepted(applicationAccepted: boolean): void {
     if (applicationAccepted) {
-
-        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
-        this.globalActions.emit({action: 'toast', params: ['You have accepted the applicant', 4000]});
-
+      const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+      localStorage.setItem('acceptedProjectsIDs', (projectsIDs.acceptedProjectsIDs + ',' + this.project.id));
+      const value = '{action: "toast", params: ["You have accepted the applicant", 4000]}';
+      this.globalActions.emit(value);
     } else {
-        this.globalActions.emit({action: 'toast', params: ['Error in accepting the applicant', 4000]});
+      const value = '{action: "toast", params: ["Error in accepting the applicant", 4000]}';
+      this.globalActions.emit(value);
     }
   }
 
@@ -289,39 +289,44 @@ export class ProjectViewComponent implements OnInit {
   onApplicationDeclined(applicationDeclined: boolean): void {
     if (applicationDeclined) {
 
-        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-        localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + this.project.id));
-        this.globalActions.emit({action: 'toast', params: ['You have declined the applicant', 4000]});
+      const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+      localStorage.setItem('declinedProjectsIDs', (projectsIDs.declinedProjectsIDs + ',' + this.project.id));
+      const value = '{action: "toast", params: ["You have declined the applicant", 4000]}';
+      this.globalActions.emit(value);
 
     } else {
-        this.globalActions.emit({action: 'toast', params: ['Error in declining the applicant', 4000]});
+      this.globalActions.emit('{action: "toast", params: ["Error in declining the applicant", 4000]}');
     }
   }
 
   // refer application component
   isBadgeGiven(badgeGiven: boolean): void {
     if (badgeGiven) {
-        this.globalActions.emit({action: 'toast', params: ['You have given out a badge to the volunteer.', 4000]});
+      const value = '{action: "toast", params: ["You have given out a badge to the volunteer.", 4000]}';
+      this.globalActions.emit(value);
     } else {
-        this.globalActions.emit({action: 'toast', params: ['Error in giving a badge to the volunteer', 4000]});
+      const value = '{action: "toast", params: ["Error in giving a badge to the volunteer.", 4000]}';
+      this.globalActions.emit(value);
     }
   }
 
   createBookmark(): void {
-        if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
-            this.projectService.createBookmark(this.project.id, this.currentUserId)
-            .subscribe(res => {
-                const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
-                localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
-                this.projectStatusBookmarked = true;
-                this.globalActions.emit({action: 'toast', params: ['You have bookmarked the project', 4000]});
-            }, (error) => {
-                this.globalActions.emit({action: 'toast', params: ['Error creating bookmark', 4000]});
-            });
-        } else {
-          localStorage.setItem('redirectAfterLogin', this.router.url);
-          this.authService.login();
-        }
+    if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
+      this.projectService.createBookmark(this.project.id, this.currentUserId)
+      .subscribe(res => {
+        const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
+        localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
+        this.projectStatusBookmarked = true;
+        const value = '{action: "toast", params: ["You have bookmarked the project", 4000]}';
+        this.globalActions.emit(value);
+      }, (error) => {
+        const value = '{action: "toast", params: ["Error creating bookmark", 4000]}';
+        this.globalActions.emit(value);
+      });
+    } else {
+      localStorage.setItem('redirectAfterLogin', this.router.url);
+      this.authService.login();
+    }
   }
 
   edit(): void {
@@ -331,15 +336,15 @@ export class ProjectViewComponent implements OnInit {
   reOpen(): void {
     this.project.status = 'A';
     this.projectService
-      .update(this.project)
-      .subscribe(res => {
-        this.router.navigate(['/project/view/' + this.project.id]);
-        Materialize.toast('The project is reopened', 4000);
-        this.displayEdit = true;
-        this.displayClose = true;
-        this.displayApplicants = true;
-        this.displayReopen = false;
-      }, error => console.log(error));
+    .update(this.project)
+    .subscribe(res => {
+      this.router.navigate(['/project/view/' + this.project.id]);
+      Materialize.toast('The project is reopened', 4000);
+      this.displayEdit = true;
+      this.displayClose = true;
+      this.displayApplicants = true;
+      this.displayReopen = false;
+    }, error => console.log(error));
   }
 
   goBack(): void {
@@ -350,23 +355,23 @@ export class ProjectViewComponent implements OnInit {
 
   onClose(): void {
     this.projectService
-      .delete(this.project.id)
-      .subscribe(
-        response => {
-          this.router.navigate(['/project/view', this.project.id]);
-          Materialize.toast('The project is closed', 4000);
-          this.project.status = 'C';
-          this.displayClose = false;
-          this.displayShare = false;
-          this.displayEdit = false;
-          this.displayReopen = true;
-          // this.router.navigate(['/project/view', this.project.id]);
-        },
-        error => {
-            Materialize.toast('Error closing the project', 4000);
-            console.log(error);
-        }
-      );
+    .delete(this.project.id)
+    .subscribe(
+      response => {
+        this.router.navigate(['/project/view', this.project.id]);
+        Materialize.toast('The project is closed', 4000);
+        this.project.status = 'C';
+        this.displayClose = false;
+        this.displayShare = false;
+        this.displayEdit = false;
+        this.displayReopen = true;
+        // this.router.navigate(['/project/view', this.project.id]);
+      },
+      error => {
+        Materialize.toast('Error closing the project', 4000);
+        console.log(error);
+      }
+    );
   }
 
   redirectToMySettings(): void {
