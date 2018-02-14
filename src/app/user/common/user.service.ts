@@ -68,6 +68,7 @@ export class UserService {
     // jobTitle?: number,
     jobTitles?: number[],
     skills?: string[],
+    countries?: number[],
     status?: string,
     role?: string,
     publishFlag?: string,
@@ -92,6 +93,12 @@ export class UserService {
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
         params.append('skills', skills[i]);
+      }
+    }
+
+    if (countries) {
+      for (let i = 0; i < countries.length; i++) {
+        params.append('countries', String(countries[i]));
       }
     }
 

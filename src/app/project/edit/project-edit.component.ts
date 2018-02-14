@@ -298,14 +298,16 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
 
     if ( this.skillCounter > 10 ) {
       this.isSkillLimit = true;
-      this.globalActions.emit({action: 'toast', params: ['Skill list exceeds limit 10', 4000]});
+      const value = '{action: "toast", params: ["Skill list exceeds limit 10", 4000]}';
+      this.globalActions.emit(value);
     }
 
     if (!this.isSkillLimit) {
       for (this.skill of this.projectSkillsArray) {
         if (selectedSkill === this.skill) {
           this.isSkillExists = true;
-          this.globalActions.emit({action: 'toast', params: ['Selected skill already in the list', 4000]});
+          const value = '{action: "toast", params: ["Selected skill already in the list", 4000]}';
+          this.globalActions.emit(value);
         }
       }
     }
