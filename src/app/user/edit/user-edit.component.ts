@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser/';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../common/user';
-import { JobTitle } from '../../job-title';
+import { JobTitle } from '../../_components/job-title/job-title';
 import { UserService } from '../common/user.service';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { AuthService } from '../../auth.service';

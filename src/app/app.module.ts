@@ -44,6 +44,8 @@ import {UserListComponent} from './user/list/user-list.component';
 import {UserViewComponent} from './user/view/user-view.component';
 import {UserEditComponent} from './user/edit/user-edit.component';
 
+import {JobTitleComponent} from './_components/job-title/job-title.component';
+
 import {AuthRoleSelectionComponent} from './auth.role.component';
 
 import {SharedBtnComponent} from './_components/shared-btn/shared-btn.component';
@@ -135,6 +137,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UserListComponent,
     UserViewComponent,
     UserEditComponent,
+
+    JobTitleComponent,
 
     AuthRoleSelectionComponent,
     SkillSelectComponent,

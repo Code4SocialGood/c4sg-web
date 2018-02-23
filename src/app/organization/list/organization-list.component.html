@@ -73,6 +73,14 @@
                       <div class="card-avatar z-depth-2" *ngIf="!org.logoUrl">
                         <img class="card-avatar-content" [src]="constantsService.defaultLogo">
                       </div>
+                      <div class="organization-category">
+                          <div>
+                              <i class="small material-icons">{{org.categoryIcon}}</i>
+                          </div>
+                          <div class="category-name">
+                              {{org.categoryName}}
+                          </div>
+                      </div>
                     </div>
                     <div class="card-info">
                       <div class="card-header">

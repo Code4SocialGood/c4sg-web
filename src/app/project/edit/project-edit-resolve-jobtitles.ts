@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import { UserService } from '../../user/common/user.service';
 import { Project } from '../common/project';
-import { JobTitle } from '../../job-title';
+import { JobTitle } from '../../_components/job-title/job-title';
 
 @Injectable()
 export class ProjectEditJobTitleResolve implements Resolve<any> {
