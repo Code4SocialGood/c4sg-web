@@ -1,0 +1,66 @@
+<div class="title"> Our Stories</div>
+<div class="cards-container">
+  <div *ngIf="story.type == StoryType.VOLUNTEER">
+    <div class="separator volunteer">VOLUNTEER STORIES</div>
+      <div class="story-card" >
+        <div class="story-card-container volunteer-border">
+          <div class="volunteer-image" style="margin-bottom: 1em;">
+            <img [src]="story.imageUrl" onError="this.src='../../assets/default_image.png'">
+          </div>
+          <label for="author">Author:</label>
+          <div id="author" class="text" [textContent]="story.author"></div>
+          <label for="authorInfo">Title:</label>
+          <div id="authorInfo" class="text" [textContent]="story.authorInfo"></div>
+          <div id="title" class="title-phrase" [textContent]="story.title"></div>
+        </div>
+        <a (click)="goBack()">
+          <div class="card-read-story-bar volunteer"><- Previous Volunteer Stories</div>
+        </a>
+      </div>
+      <div class="description-container">
+        <div class="description-card volunteer-border">
+            <p>
+              {{story.description}}
+            </p>
+        </div>
+        <a class="back-stories-container" href="stories">
+          <div class="back-stories-icon previous round"><</div>
+          <div class="back-stories-text">BACK TO OUR STORIES</div>
+        </a>
+        <!-- <my-shared-btn [displayShare]="true" [project]="story"></my-shared-btn> -->
+    </div>
+  </div>
+  <div *ngIf="story.type == StoryType.ORGANIZATION">
+      <div class="separator organization">ORGANIZATION STORIES</div>
+        <div class="story-card" >
+          <div class="story-card-container organization-border">
+            <div class="organization-image" style="margin-bottom: 1em;">
+              <img [src]="story.imageUrl" onError="this.src='../../assets/default_image.png'">
+            </div>
+            <label for="author">Author:</label>
+            <div id="author" class="text" [textContent]="story.author"></div>
+            <label for="authorInfo">Organization:</label>
+            <div id="authorInfo" class="text" [textContent]="story.authorInfo"></div>
+  
+            <div id="title" class="title-phrase" [textContent]="story.title"></div>
+          </div>
+          <a (click)="goBack()">
+            <div class="card-read-story-bar organization"><- Previous Organization Stories</div>
+          </a>
+        </div>
+        <div class="description-container">
+          <div class="description-card organization-border">
+              <p>
+                {{story.description}}
+              </p>
+          </div>
+          <a class="back-stories-container" href="stories">
+            <div class="back-stories-icon previous round"><</div>
+            <div class="back-stories-text">BACK TO OUR STORIES</div>
+          </a>
+          <!-- TO DO -->
+          <!-- <my-shared-btn [displayShare]="true" [project]="story"></my-shared-btn> -->
+      </div>
+    </div>
+</div>
+
