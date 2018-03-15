@@ -2,13 +2,15 @@ import {
   Component,
   OnInit,
   Input,
+  OnDestroy
+} from '@angular/core';
+import {
   trigger,
   state,
   style,
-  transition,
   animate,
-  OnDestroy
-} from '@angular/core';
+  transition
+} from '@angular/animations';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Project} from '../project/common/project';

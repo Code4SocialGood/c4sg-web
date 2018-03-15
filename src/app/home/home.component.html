@@ -186,7 +186,7 @@
           </agm-marker>
 
           <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) "
-            iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
+            iconUrl="https://maps.google.com/mapfiles/ms/icons/green-dot.png">
             <agm-info-window>
               <div class="info-window ">
                 <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
@@ -207,7 +207,7 @@
           </agm-marker> -->
           <div *ngFor="let c of countries ">
           <agm-marker *ngIf="c.volunteers || c.organizations" [latitude]="c.latitude " [longitude]="c.longitude " (mouseOver)="handleMarkerMouseOver($event) "
-            iconUrl="http://maps.google.com/mapfiles/ms/icons/red-dot.png">
+            iconUrl="https://maps.google.com/mapfiles/ms/icons/red-dot.png">
             <agm-info-window>
               <div class="info-window ">
                 <a class="info-container ">

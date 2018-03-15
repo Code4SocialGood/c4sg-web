@@ -39,6 +39,23 @@
           <div class="row">
             <div class="col s12">
               <div class="section">
+                <h4>Countries</h4>
+                <div class="section-body-projects">
+                  <div class="skills-list" myScrollSkills >
+                    <ul *ngIf="countries" formArrayName="countries">
+                      <li *ngFor="let country of countriesShowed, let i = index">
+                        <input class="filled-in" type="checkbox" [id]="country.code" [value]="country.name" [formControlName]="i">
+                        <label [for]="country.code">{{country.name}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="section">
                 <h4>Skills</h4>
                 <div class="section-body-skills">
                   <div class="skills-list" myScrollSkills >
@@ -70,11 +87,29 @@
                     </div>
                     <div class="card-info">
                       <div class="card-header">
-                        <div class='name'>
-                       <!--   <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>-->
-                       <a class='name' href="user/view/{{user.id}}">
-                        {{user.firstName + ' ' + user.lastName}}</a>
-
+                        <div class="row">
+                          <div class="card-metainfo col m6">
+                            <div class='name'>
+                              <!--   <span class='name' [routerLink]="['/user/view',user.id]">{{user.firstName + ' ' + user.lastName}}</span>-->
+                              <a class='name' href="user/view/{{user.id}}">
+                              {{user.firstName + ' ' + user.lastName}}</a>
+                            </div>
+                          </div>
+                          <div style="line-height:50px" class="card-metainfo col m6">
+                            <div class="projects">
+                              <span class="card-location float: right">
+                                  <i style="vertical-align: middle" class="small material-icons">assignment</i>
+                                  <ng-template [ngIf]="user.projects"> 
+                                    <ng-template [ngIf]="user.projects.length == 0">0 Projects</ng-template>
+                                    <ng-template [ngIf]="user.projects.length == 1">1 Project</ng-template>
+                                    <ng-template [ngIf]="user.projects.length > 1">{{user.projects.length}} Projects</ng-template>
+                                  </ng-template>
+                                  <ng-template [ngIf]="!user.projects">
+                                    0 Projects
+                                  </ng-template>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                         <div class="row">
                           <div class="card-metainfo col m6">

@@ -1,0 +1,383 @@
+@import "../../_style/app.theme";
+@import "../../_style/variables";
+@import "../../_style/app.mixins";
+
+.title {
+	height: 53.5px;
+	font-size: 25px;
+	font-weight: bold;
+	color: #FFF;
+	padding: 5px;
+	text-align: center;
+	background-color: $page-title-bg-color;
+	margin-top: -2px; // hack to hide the border from header.
+}
+.top-image {
+	width: 75%;
+	text-align: center;
+	margin: 0 auto;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	button {
+		font-size: 16px;
+		margin-top: 20px;
+	}
+}
+.main-stories-container{
+	width: 75%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+.most-recent-container{
+	display: inline-block;
+	width: 60%;
+	height: 280px;
+	margin-top: 20px;
+	border: 3px solid #DADADA;
+	padding: 20px;
+	box-sizing: content-box;
+	text-align: justify;
+	position: relative;
+	.image {
+		width: 200px;
+		display: inline-block;
+		img {
+				width:100%;
+				height:100%;
+				object-fit: cover;
+		}
+	}
+	.text {
+		display: inline-block;
+		max-width: calc(100% - 225px);
+    vertical-align: top;
+    margin-left: 20px;
+	}
+	.full-story-bar {
+		position: absolute;
+    bottom: 0;
+    left: 0;
+		right: 0;
+		height: 40px;
+		background-color: #80BD4C;
+	}
+	.most-recent-success {
+		position: absolute;
+		left: 40px;
+		color: white;
+		font-size: 16px;
+		font-weight: bold;
+		line-height: 40px;
+
+	}
+	.full-story {
+		position:absolute;
+		right: 80px;
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 40px;
+		cursor: pointer;
+	}
+	.share-icon{
+		position:absolute;
+		right: 0;
+		width: 50px;
+		height: 100%;
+		background-color: #4B4B4C;
+		text-align: center;
+		line-height: 40px;
+		color: white;
+		cursor:pointer;
+	}
+
+}
+.signup-container {
+	display: inline-block;
+	height: 284px;
+	margin-top: 20px;
+	padding: 20px;
+	box-sizing: content-box;
+	width: 28%;
+	vertical-align: top;
+	position: relative;
+	background-color: #EE7253;
+	color: white;
+	font-size: 28px;
+	text-align: center;
+	font-weight: bold;
+}
+.signup-bar{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	height: 40px;
+	background-color: #80BD4C;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	font-weight: bold;
+	line-height: 40px;
+	cursor: pointer;
+}
+.want-to-join {
+	height: calc(284px - 40px);
+	display: flex;
+	align-items: center;
+}
+
+.volunteer-stories-container,
+.organizations-stories-container {
+	margin-top: 40px;
+}
+
+.separator{
+	font-weight: bold;
+	font-size: 25px;
+	text-align: center;
+	height: 40px;
+	width:100%;
+	color: white;
+}
+.volunteer {
+	background-color: #31B1AB;
+}
+.organization {
+	background-color: #EE7253;
+}
+
+.cards-container {
+	width: 90%;
+	margin: 10px auto;
+}
+.description-container {
+	display: inline-block;
+	width: 70%;
+
+}
+.description-card {
+	height: 600px;
+	width:100%;
+	float: left;
+	vertical-align:top;
+	box-sizing: border-box;
+	margin: 15px 15px;
+	text-align:justify;
+}
+.volunteer-border {
+	border: 3px solid #31B1AB;
+}
+.organization-border {
+	border: 3px solid #EE7253;
+}
+.story-card {
+	height: auto;
+	width: 26%;
+	display: inline-block;
+	vertical-align:top;
+	box-sizing: border-box;
+	margin: 15px 15px;
+
+	.story-card-container{
+		padding:20px;
+		width: 100%;
+		height: 500px;
+	}
+	.previous-story-card-container{
+		padding:20px;
+		width: 100%;
+		height: 50px;;
+	}
+
+	.volunteer-image {
+		border-radius:50%;
+		width:130px;
+		height:130px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align:center;
+
+		img{
+				width:100%;
+				height:100%;
+				object-fit: cover;
+		}
+
+	}
+
+	.organization-image {
+		width: 130px;
+		height:130px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align:center;
+		img{
+				width:100%;
+				height:100%;
+				object-fit: cover;
+		}
+
+  }
+
+  .text {
+	  font-size: 18px;
+	  float: left;
+	  clear:right;
+	  padding-left: 5px;
+  }
+
+	.card-title {
+		text-align: justify;
+    font-size: 20px;
+    color: #805D5D;
+		height: calc(100% - 150px);
+		margin-top:20px;
+	}
+	.card-read-story-bar{
+		height:40px;
+		line-height:40px;
+		color: white;
+		font-size: 14px;
+		font-weight: bold;
+		cursor:pointer;
+		margin-top:15px;
+	}
+}
+.see-more-btn{
+	text-align:center;
+	margin-top: 10px;
+	&.margin-bottom {
+		margin-bottom: 50px;
+	}
+	button {
+		width: 23%;
+	}
+}
+
+/**
+ * Tooltip Styles
+ */
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}
+
+.previous {
+    background-color: #80BD4C;
+	color: #f1f1f1;	
+}
+
+.round {
+	border-radius: 50%;
+}
+.back-stories-icon {
+	font-size: 18px;
+	clear: left;	
+	padding: 5px 10px;
+	font-weight:bold;
+    text-decoration: none;
+    display: inline-block;
+}
+.back-stories-text {
+	font-size: 18px;
+	padding: 5px 10px;
+	font-weight:bold;
+	color:#80BD4C;
+	display:inline-block;
+}
+
+.back-stories-container {
+	margin-left: 22px;
+	clear:left;
+	float:left;
+}
+
+label {
+	font-size: 18px;
+	float:left;
+	text-align:left;
+	clear:left;
+}
+
+.title-phrase {
+	font-size: 18px;
+	background-color:#e7e7e7;
+	color:darkgray;
+	float:left;
+	clear: both;
+	font-style:italic;
+	font-weight: bold;
+	padding:20px;
+	margin-top: 20px;
+	width:100%;
+	max-height: 50%;
+	overflow: auto;
+}
+.title-phrase::after {
+	content: "\"";
+}
+.title-phrase::before {
+	content: "\"";
+
+}
