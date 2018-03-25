@@ -12,6 +12,7 @@ constructor (
     public skill: string[],
     public badgeCount: number,
     public project: Project[],
-    public publishFlag: string
+    public publishFlag: string,
+    public introduction: string
   ) { }
 }
