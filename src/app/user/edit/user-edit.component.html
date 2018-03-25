@@ -147,6 +147,8 @@
           <div *ngIf="isVolunteer">
             <div class="row">
               <div class="content-title">My Skills</div>
+              <p *ngIf="userSkillsArray.length < 10">Select up to 10 skills.</p>
+              <p *ngIf="userSkillsArray.length == 10">You have reached the maximum allowed number of skills.</p>
             </div>
             <div class="row">
               <div class="col s10">
@@ -154,7 +156,7 @@
                 </my-select-skill>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf="userSkillsArray.length < 10" class="row">
               <div class="col s12 m6 theme-select dropdown">
                 <label for="skillSelect">Choose from popular skills below</label>
                 <select class="browser-default" id="skillSelect" materialize="material_select" (change)="onAddListedSkill($event)">
