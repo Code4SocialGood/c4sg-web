@@ -14,7 +14,7 @@ For setup information, please see [this guide](docs/setup.md)
 Code for Social Good is a global platform to connect nonprofits and open source developers with technical volunteers.
 
 The application is buit with the following architecture:
-- Front End: Angular 2, CSS, HTML
+- Front End: Angular 4, CSS, HTML
 - Back End: Java Spring Framework
 - Database: MySQL
 
