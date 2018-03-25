@@ -8,9 +8,19 @@
   </div>
   <div class="row">
       <div class="col s12">
-          <input type="checkbox" id="resumeFlag" name="resumeFlag" disabled="disabled" 
-                [checked]="application.resumeFlag" />
-          <label for="resumeFlag" class="tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Coming soon">Resume</label>
+          <input type="checkbox" id="resumeFlag" name="resumeFlag"
+                [(checked)]="application.resumeFlag" (click)="resumeChecked()" />
+          <label for="resumeFlag" class="tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Upload your resume">Resume</label>
+      </div>
+      <br>
+      <div class="row" *ngIf="application.resumeFlag">
+          <div>
+              <div class="input-field file-field row">
+                <div class="btn image-upload-button">Upload Resume
+                  <input #input type="file" name="file" accept=".pdf,.doc,.docx" (change)="onUploadResume($event)">
+                </div>
+              </div>
+            </div>
       </div>
   </div>
   <br>
