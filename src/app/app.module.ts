@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HttpModule, JsonpModule} from '@angular/http';
+import {HttpClientModule } from '@angular/common/http';
 import {NavScrollDirective} from './navscroll.directive';
 
 import {MaterializeModule} from 'angular2-materialize';
@@ -95,6 +96,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     MaterializeModule,
     JsonpModule,

@@ -147,10 +147,10 @@ export class UserListComponent implements OnInit, OnDestroy {
       .subscribe(
       res => {
         // the service returns a JSON object consist of the array of pageable data
-        this.users = res.data;
-        this.paginationConfig.totalItems = res.totalItems;
+        this.users = res.content;
+        this.paginationConfig.totalItems = res.totalElements;
         this.usersCache = this.users.slice(0);
-        res.data.forEach((e: User) => {
+        res.content.forEach((e: User) => {
           this.skillService.getSkillsForUser(e.id).subscribe(
             result => {
               e.skills = result;

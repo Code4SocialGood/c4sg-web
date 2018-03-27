@@ -381,9 +381,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       const upload$ = this.extfilehandler.uploadFile(fileInput, Number(this.currentUserId), 'image');
       // Calls the function to save the avatar image url to the user's row
       upload$.switchMap((res) => this.userService.saveAvatarImg(Number(this.currentUserId), res),
-        (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
-        .subscribe(res => {
-          if (res.innerValue.text() === '') {
+      (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
+        .subscribe((res) => {
+          if (res.innerValue===null) {
             this.avatar = res.outerValue;
             // this.user.avatarUrl = this.avatar;
           } else {
