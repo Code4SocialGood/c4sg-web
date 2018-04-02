@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpRequest, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import { JobTitle } from '../../job-title';
 import { Project } from './project';
 import { Hero } from '../../user/common/hero';
 import { environment } from '../../../environments/environment';
-import { AuthHttp } from 'angular2-jwt';
 
 const projectUrl = `${environment.backend_url}/api/projects`;
 
@@ -14,9 +13,7 @@ const projectUrl = `${environment.backend_url}/api/projects`;
 @Injectable()
 export class ProjectService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-
-  constructor(private http: Http, private authHttp: AuthHttp) {
+  constructor(private http: HttpClient) {
   }
 
   searchProjects(
@@ -28,10 +25,10 @@ export class ProjectService {
     remote?: string,
     page?: number,
     size?: number): Observable<any> {
-    const params = new URLSearchParams();
+    let params = new HttpParams();
 
     if (keyword) {
-      params.append('keyWord', keyword);
+      params = params.append('keyWord', keyword);
     }
 
     // if (jobTitle) {
@@ -40,35 +37,34 @@ export class ProjectService {
 
     if (jobTitles) {
       for (let i = 0; i < jobTitles.length; i++) {
-        params.append('jobTitles', String(jobTitles[i]));
+        params = params.append('jobTitles', String(jobTitles[i]));
       }
     }
 
     if (skills) {
       for (let i = 0; i < skills.length; i++) {
-        params.append('skills', skills[i]);
+        params = params.append('skills', skills[i]);
       }
     }
 
     if (status) {
-      params.append('status', status);
+      params = params.append('status', status);
     }
 
     if (remote) {
-      params.append('remote', remote);
+      params = params.append('remote', remote);
     }
 
     if (page) {
-      params.append('page', String(page - 1));
+      params = params.append('page', String(page - 1));
     }
 
     if (size) {
-      params.append('size', String(size));
+      params = params.append('size', String(size));
     }
 
     return this.http
-      .get(`${projectUrl}/search`, { search: params })
-      .map(res => ({ data: res.json().content, totalItems: res.json().totalElements }))
+      .get(`${projectUrl}/search`, { params: params })
       .catch(this.handleError);
   }
 
@@ -77,58 +73,66 @@ export class ProjectService {
     const url = projectUrl + '/' + id;
 
     return this.http.get(url)
-      .map(res => res.json())
       .catch(this.handleError);
   }
 
   getAllProjects(): Observable<Project[]> {
         const url = projectUrl;
         return this.http.get(url)
-          .map(res => res.json())
           .catch(this.handleError);
       }
 
-  getProjectByOrg(id: number, projectStatus: string): Observable<Response> {
+  getProjectByOrg(id: number, projectStatus: string): Observable<Project[]> {
     if (projectStatus) {
-      return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`);
+      return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`)
+      .catch(this.handleError);
     } else {
-      return this.http.get(`${projectUrl}/organization?organizationId=${id}`);
+      return this.http.get(`${projectUrl}/organization?organizationId=${id}`)
+      .catch(this.handleError);;
     }
   }
 
   // This method gets the project by application status and also gets the bookmarked projects
   // But it only returns project object. Application details are not returned
-  getProjectByUser(id: number, status: string): Observable<Response> {
-    return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`);
+  getProjectByUser(id: number, status: string): Observable<Project[]> {
+    return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`)
+    .catch(this.handleError);
   }
 
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = projectUrl + '/jobTitles';
     return this.http
                .get(url)
-               .map( res => { return res.json() as JobTitle[]; })
                .catch(this.handleError);
   }
 
   add(project: Project): Observable<{ project: Project }> {
-    return this.authHttp.post(
+    return this.http.post(
       `${projectUrl}`,
-      project
-    ).map(res => res.json());
+      project,
+      {headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)}
+    ).catch(this.handleError);;
   }
 
   delete(id: number) {
     const url = projectUrl + '/' + id;
-    return this.authHttp
-      .delete(url, { headers: this.headers })
+    return this.http
+      .delete(url, { 
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }).append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType:'text'
+      })
       .catch(this.handleError);
   }
 
   update(project: Project) {
 
-    return this.authHttp.put(
+    return this.http.put(
       `${projectUrl}/${project.id}`,
-      project
+      project,
+      {
+        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType:'text'
+      }
     );
   }
 
@@ -145,12 +149,16 @@ export class ProjectService {
     };
   }
 
-  createBookmark(projectId: number, userId: string): Observable<Response> {
+  createBookmark(projectId: number, userId: string){
 
         const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
-        return this.authHttp
-            .post(url, { headers: this.headers })
-            .map(res => res.json())
+        
+        return this.http
+            .post(url, '', { 
+              headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+              .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+              responseType:'text'
+            })
             .catch(this.handleError);
   }
 
@@ -163,17 +171,19 @@ export class ProjectService {
     Http call to save the project image
   */
   saveProjectImg(id: number, imgUrl: string) {
-    const requestOptions = new RequestOptions();
-    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
-    return this.authHttp
-      .put(`${projectUrl}/${id}/image`, '', requestOptions);
+    let params = new HttpParams().append('imgUrl',`${imgUrl}`);
+    return this.http
+      .put(`${projectUrl}/${id}/image`, '', {
+        params:params,
+        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType:'text'
+      });
   }
 
   public getHeroes(): Observable<Hero[]> {
     const url = projectUrl + '/heroes';
     return this.http
                .get(url)
-               .map( res => { return res.json() as Hero[]; })
                .catch(this.handleError);
   }
 }

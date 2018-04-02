@@ -157,7 +157,7 @@ export class UserListComponent implements OnInit, OnDestroy {
             });
           this.projectService.getProjectByUser(e.id, 'C').subscribe(
             result => {
-              e.projects = result.json();
+              e.projects = result.map<string>((value,index,array)=>{return value.name});
             }
           );
         });

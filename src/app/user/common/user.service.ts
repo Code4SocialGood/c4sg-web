@@ -7,7 +7,6 @@ import { User } from './user';
 import { JobTitle } from '../../job-title';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
-import { AuthHttp } from 'angular2-jwt';
 
 const userUrl = `${environment.backend_url}/api/users`;
 const skillsUrl = `${environment.backend_url}/api/skills`;
@@ -16,7 +15,7 @@ const skillsUrl = `${environment.backend_url}/api/skills`;
 export class UserService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  constructor(private http:HttpClient, private authHttp: AuthHttp) { }
+  constructor(private http:HttpClient) { }
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;

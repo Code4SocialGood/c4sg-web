@@ -284,7 +284,9 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
             Materialize.toast('Your account is saved', 4000);
             this.router.navigate(['/user/view', this.user.id]);
           },
-            err => { console.error(err, 'An error occurred'); }
+            err => { 
+              console.error(err, 'An error occurred'); 
+            }
           );
 
           if (this.userSkillsArray.length > 0) {

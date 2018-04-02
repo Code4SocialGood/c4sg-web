@@ -173,7 +173,7 @@ export class HomeComponent implements OnInit {
     this.projectService.searchProjects(null, null, null, Status.Active, null, 1, 10)
     .subscribe(
       res => {
-        this.projects = res.data;
+        this.projects = res.content;
         this.topThreeProjects = this.projects.slice(0, 3);
       },
       error => console.log(error)

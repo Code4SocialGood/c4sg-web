@@ -1,7 +1,7 @@
 ///<reference path="../../../node_modules/@types/node/index.d.ts"/>
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Request, RequestOptions } from '@angular/http';
+import { HttpClient,HttpResponse,HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
@@ -15,7 +15,7 @@ const allowedTypesDocs = ['doc', 'pdf', 'docx', 'csv', 'xls', 'xlsx'];
 @Injectable()
 export class ExtFileHandlerService {
 
-  constructor (private http: Http, private optionArgs: RequestOptions) {}
+  constructor (private http: HttpClient) {}
 
   /*
     Returns a file with the given file name and type
@@ -58,14 +58,10 @@ export class ExtFileHandlerService {
     }
     // get pre-signed url based on parms
     const url = s3.getSignedUrl('putObject', params);
-    // create request options for url, body and method
-    this.optionArgs.url = url;
-    this.optionArgs.body = fileInput.target.files[0];
-    this.optionArgs.method = 'PUT';
 
     // submit an http request
-    return this.http.request(new Request(this.optionArgs))
-      .map(res => res.url.substr(0, res.url.indexOf('?'))) // a put request does not have any data in the body
+    return this.http.request('PUT',url,{body:fileInput.target.files[0],observe:'response',responseType:'text'})
+      .map(res => res.url.substr(0, res.url.indexOf('?'))) 
       .catch(this.handleError);
   }
 

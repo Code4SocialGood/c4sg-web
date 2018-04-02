@@ -16,7 +16,6 @@ import { AppRoles } from './roles';
 import { Subscription, Observable } from 'rxjs/Rx';
 import { Project } from './project/common/project';
 import { ProjectService } from './project/common/project.service';
-import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 
 declare const Auth0Lock: any;
 declare const auth0: any;
@@ -52,9 +51,7 @@ export class AuthService {
   constructor(private userService: UserService,
               private organizationService: OrganizationService,
               private projectService: ProjectService,
-              private router: Router,
-              private http: Http,
-              private optionArgs: RequestOptions) {
+              private router: Router) {
   }
 
   public setlocalStorageItems() {
@@ -84,25 +81,25 @@ export class AuthService {
         // Save the appliedProjectIDs and bookmarkedProjectIDs in local storage
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'B').subscribe(
           res => {
-            const bookmarkedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            const bookmarkedProjectsIDs = (res).map((project) => project.id);
             localStorage.setItem('bookmarkedProjectsIDs', bookmarkedProjectsIDs.toString());
           },
           error => console.log(error));
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'A').subscribe(
           res => {
-            const appliedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            const appliedProjectsIDs = (res).map((project) => project.id);
             localStorage.setItem('appliedProjectsIDs', appliedProjectsIDs.toString());
           },
           error => console.log(error));
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'C').subscribe(
           res => {
-            const acceptedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            const acceptedProjectsIDs = (res).map((project) => project.id);
             localStorage.setItem('acceptedProjectsIDs', acceptedProjectsIDs.toString());
           },
           error => console.log(error));
         this.projectsSubscription = this.projectService.getProjectByUser(+this.currentUserId, 'D').subscribe(
           res => {
-            const declinedProjectsIDs = (JSON.parse(JSON.parse(JSON.stringify(res))._body)).map((project) => project.id);
+            const declinedProjectsIDs = (res).map((project) => project.id);
             localStorage.setItem('declinedProjectsIDs', declinedProjectsIDs.toString());
           },
           error => console.log(error));
