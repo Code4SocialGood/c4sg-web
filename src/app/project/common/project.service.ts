@@ -32,7 +32,7 @@ export class ProjectService {
     }
 
     // if (jobTitle) {
-      // params.append('jobTitle', String(jobTitle));
+    // params.append('jobTitle', String(jobTitle));
     // }
 
     if (jobTitles) {
@@ -77,18 +77,18 @@ export class ProjectService {
   }
 
   getAllProjects(): Observable<Project[]> {
-        const url = projectUrl;
-        return this.http.get(url)
-          .catch(this.handleError);
-      }
+    const url = projectUrl;
+    return this.http.get(url)
+      .catch(this.handleError);
+  }
 
   getProjectByOrg(id: number, projectStatus: string): Observable<Project[]> {
     if (projectStatus) {
       return this.http.get(`${projectUrl}/organization?organizationId=${id}&projectStatus=${projectStatus}`)
-      .catch(this.handleError);
+        .catch(this.handleError);
     } else {
       return this.http.get(`${projectUrl}/organization?organizationId=${id}`)
-      .catch(this.handleError);;
+        .catch(this.handleError);;
     }
   }
 
@@ -96,30 +96,31 @@ export class ProjectService {
   // But it only returns project object. Application details are not returned
   getProjectByUser(id: number, status: string): Observable<Project[]> {
     return this.http.get(`${projectUrl}/user?userId=${id}&status=${status}`)
-    .catch(this.handleError);
+      .catch(this.handleError);
   }
 
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = projectUrl + '/jobTitles';
     return this.http
-               .get(url)
-               .catch(this.handleError);
+      .get(url)
+      .catch(this.handleError);
   }
 
   add(project: Project): Observable<{ project: Project }> {
     return this.http.post(
       `${projectUrl}`,
       project,
-      {headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)}
+      { headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) }
     ).catch(this.handleError);;
   }
 
   delete(id: number) {
     const url = projectUrl + '/' + id;
     return this.http
-      .delete(url, { 
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }).append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType:'text'
+      .delete(url, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
       })
       .catch(this.handleError);
   }
@@ -130,8 +131,8 @@ export class ProjectService {
       `${projectUrl}/${project.id}`,
       project,
       {
-        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType:'text'
+        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
       }
     );
   }
@@ -149,17 +150,17 @@ export class ProjectService {
     };
   }
 
-  createBookmark(projectId: number, userId: string){
+  createBookmark(projectId: number, userId: string) {
 
-        const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
-        
-        return this.http
-            .post(url, '', { 
-              headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-              .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-              responseType:'text'
-            })
-            .catch(this.handleError);
+    const url = `${projectUrl}/${projectId}/users/${userId}/bookmarks`;
+
+    return this.http
+      .post(url, '', {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
+      })
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
@@ -171,19 +172,19 @@ export class ProjectService {
     Http call to save the project image
   */
   saveProjectImg(id: number, imgUrl: string) {
-    let params = new HttpParams().append('imgUrl',`${imgUrl}`);
+    const params = new HttpParams().append('imgUrl', `${imgUrl}`);
     return this.http
       .put(`${projectUrl}/${id}/image`, '', {
-        params:params,
-        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType:'text'
+        params: params,
+        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
       });
   }
 
   public getHeroes(): Observable<Hero[]> {
     const url = projectUrl + '/heroes';
     return this.http
-               .get(url)
-               .catch(this.handleError);
+      .get(url)
+      .catch(this.handleError);
   }
 }

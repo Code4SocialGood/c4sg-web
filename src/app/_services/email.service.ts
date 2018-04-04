@@ -14,8 +14,8 @@ export class EmailService {
   send(email: Email): Observable<boolean> {
     return this.http
       .post(this.sendUrl, email, {
-        headers: new HttpHeaders({'Content-Type': 'application/json'}),
-        responseType:'text'
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        responseType: 'text'
       })
       .map(res => { return res === null; })
       .catch((error: any) => Observable.of(false));

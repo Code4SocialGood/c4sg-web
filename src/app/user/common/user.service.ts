@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
@@ -14,14 +14,14 @@ const skillsUrl = `${environment.backend_url}/api/skills`;
 @Injectable()
 export class UserService {
 
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  constructor(private http:HttpClient) { }
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  constructor(private http: HttpClient) { }
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
     return this.http
-               .get(url)
-               .catch(this.handleError);
+      .get(url)
+      .catch(this.handleError);
   }
 
   getUser(id: number): Observable<User> {
@@ -29,21 +29,21 @@ export class UserService {
     const url = userUrl + '/' + index;
 
     return this.http
-               .get(url, {headers: this.headers})
-               .catch(this.handleError);
+      .get(url, { headers: this.headers })
+      .catch(this.handleError);
   }
 
   getUserByEmail(name: string): Observable<User> {
     const url = userUrl + '/email/' + [name] + '/';
     return this.http.get(url)
-               .catch(this.handleError);
+      .catch(this.handleError);
   }
 
   getUsersByOrganization(organizationId: number): Observable<User[]> {
     const url = userUrl + '/organization/' + [organizationId];
     return this.http
-               .get(url)
-               .catch(this.handleError);
+      .get(url)
+      .catch(this.handleError);
   }
 
   // Page data always starts at offset zero (0)
@@ -68,8 +68,8 @@ export class UserService {
     }
     // if (jobTitle) {
     //  params.append('jobTitle', String(jobTitle));
-   // }
-   if (jobTitles) {
+    // }
+    if (jobTitles) {
       for (let i = 0; i < jobTitles.length; i++) {
         params.append('jobTitles', String(jobTitles[i]));
       }
@@ -108,50 +108,50 @@ export class UserService {
     }
 
     return this.http
-               .get(`${userUrl}/search`, {headers: this.headers,params: params})
-               .catch(this.handleError);
+      .get(`${userUrl}/search`, { headers: this.headers, params: params })
+      .catch(this.handleError);
   }
 
   add(user: User): Observable<User> {
     // debugger;
     const url = userUrl;
     return this.http
-               .post(url, user, {headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)})
-               .catch(this.handleError);
+      .post(url, user, { headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) })
+      .catch(this.handleError);
   }
 
-  delete(id: number)  {
+  delete(id: number) {
     const url = userUrl + '/' + id;
     return this.http
-               .delete(url, {
-                headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-                responseType: 'text'
-               })
-               .catch(this.handleError);
+      .delete(url, {
+        headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
+      })
+      .catch(this.handleError);
   }
 
   update(user: User) {
     const url = userUrl;
     return this.http
-               .put(url, user, {
-                 headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-                 responseType: 'text'
-                })
-               .catch(this.handleError);
+      .put(url, user, {
+        headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
+      })
+      .catch(this.handleError);
   }
 
   retrieveAvatar(id: number) {
     return this.http
-               .get(`${userUrl}/${id}/avatar`,{responseType: 'text'});
+      .get(`${userUrl}/${id}/avatar`, { responseType: 'text' });
   }
 
   saveAvatar(id: number, formData: FormData) {
     return this.http
-               .post(`${userUrl}/${id}/avatar`, formData,{
-                 headers:new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-                 responseType: 'text'
-                })
-               .catch(this.handleError);
+      .post(`${userUrl}/${id}/avatar`, formData, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        responseType: 'text'
+      })
+      .catch(this.handleError);
   }
 
   /*
@@ -160,8 +160,8 @@ export class UserService {
   saveAvatarImg(id: number, imgUrl: string) {
     return this.http
       .put(`${userUrl}/${id}/avatar`, '', {
-        headers:new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        params:new HttpParams().set('imgUrl',`${imgUrl}`),
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        params: new HttpParams().set('imgUrl', `${imgUrl}`),
         responseType: 'text'
       });
   }
@@ -173,17 +173,17 @@ export class UserService {
   public getAllJobTitlesBeforePageInit(): Promise<JobTitle[]> {
     const url = userUrl + '/jobTitles';
     return this.http
-               .get(url).toPromise()
-            .then(res => { return res as JobTitle[]; })
-            .catch(this.handleError);
-              // .map( res => { return res.json() as JobTitle[]; })
-              // .catch(this.handleError);
+      .get(url).toPromise()
+      .then(res => { return res as JobTitle[]; })
+      .catch(this.handleError);
+    // .map( res => { return res.json() as JobTitle[]; })
+    // .catch(this.handleError);
   }
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = userUrl + '/jobTitles';
     return this.http
-               .get(url)
-               .catch(this.handleError);
+      .get(url)
+      .catch(this.handleError);
   }
   /* obsolete
   // Page data always starts at offset zero (0)
