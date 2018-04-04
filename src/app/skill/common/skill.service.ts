@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse, HttpParams} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
 
 const skillUrl = `${environment.backend_url}/api/skills`;
 
@@ -32,15 +32,15 @@ export class SkillService {
 
   updateProjectSkills(projectSkillsArray, id) {
     let params: HttpParams = new HttpParams();
-    params=params.append('id', id);
-    params=params.append('skillsList', projectSkillsArray.join(','));
+    params = params.append('id', id);
+    params = params.append('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
     return this.http
       .put(url, null, {
-        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
         params: params,
-        observe:'response',
-        responseType:'text'
+        observe: 'response',
+        responseType: 'text'
       })
       .map((res: HttpResponse<string>) => {
         if (res.status !== 200 || res.type !== 2) {
@@ -53,15 +53,15 @@ export class SkillService {
 
   updateUserSkills(userSkillsArray, id) {
     let params: HttpParams = new HttpParams();
-    params=params.append('id', id);
-    params=params.append('skillsList', userSkillsArray.join(','));
+    params = params.append('id', id);
+    params = params.append('skillsList', userSkillsArray.join(','));
     const url = skillUrl + '/user/skills';
     return this.http
       .put(url, null, {
-        headers:new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
         params: params,
-        observe:'response',
-        responseType:'text'
+        observe: 'response',
+        responseType: 'text'
       })
       .map((res: HttpResponse<string>) => {
         if (res.status !== 200) {

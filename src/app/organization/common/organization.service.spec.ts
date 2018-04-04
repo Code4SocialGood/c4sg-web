@@ -7,7 +7,7 @@
  */
 
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { OrganizationService } from './organization.service';
 import { AuthService } from '../../auth.service';
 
@@ -29,7 +29,7 @@ describe('OrganizationService', () => {
 
   afterEach(() => {
     httpMock.verify();
-  })
+  });
 
   it('getOrganizations should return an observable', () => {
     // our API returns data as an array of organizations, so mock that structure

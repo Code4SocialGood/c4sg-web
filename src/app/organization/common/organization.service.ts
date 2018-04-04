@@ -128,7 +128,7 @@ export class OrganizationService {
   }
 
   delete(id: number) {
-    return this.http.delete(`${organizationUrl}/${id}`, { responseType: 'text' }).catch(this.handleError);;
+    return this.http.delete(`${organizationUrl}/${id}`, { responseType: 'text' }).catch(this.handleError);
   }
 
   /*

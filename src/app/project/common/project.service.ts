@@ -88,7 +88,7 @@ export class ProjectService {
         .catch(this.handleError);
     } else {
       return this.http.get(`${projectUrl}/organization?organizationId=${id}`)
-        .catch(this.handleError);;
+        .catch(this.handleError);
     }
   }
 
@@ -111,7 +111,7 @@ export class ProjectService {
       `${projectUrl}`,
       project,
       { headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) }
-    ).catch(this.handleError);;
+    ).catch(this.handleError);
   }
 
   delete(id: number) {
