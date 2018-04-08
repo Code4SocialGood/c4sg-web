@@ -527,6 +527,9 @@ agm-map {
   .problem {
     margin-bottom: 3rem;
   }
+  .name a:hover {
+    text-decoration: underline;
+  }
 }
 
 //copied from materialize template
