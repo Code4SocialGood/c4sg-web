@@ -61,8 +61,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
 
   public userForm: FormGroup;
   public formPlaceholder: { [key: string]: any } = {};
-  public globalActions = new EventEmitter<string|MaterializeAction>();
-  public modalActions = new EventEmitter<string|MaterializeAction>();
+  public globalActions = new EventEmitter<string | MaterializeAction>();
+  public modalActions = new EventEmitter<string | MaterializeAction>();
 
   constructor(
     public fb: FormBuilder,
@@ -99,71 +99,71 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
         }, error => console.log(error)
       );
 
-//    this.route.params.subscribe(params => {
-//      this.userId = +params['userId'];
+    //    this.route.params.subscribe(params => {
+    //      this.userId = +params['userId'];
     this.userService.getAllJobTitles()
       .subscribe(
-      res => {
-        this.jobTitlesArray = res;
-      }, error => console.log(error)
+        res => {
+          this.jobTitlesArray = res;
+        }, error => console.log(error)
       );
 
     if (this.currentUserId === null) {
-        this.fillForm();
+      this.fillForm();
     } else {
-        this.route.params.subscribe(params => {
+      this.route.params.subscribe(params => {
         this.userId = +params['userId'];
-       // Populate user
+        // Populate user
         this.populateUser();
         // Populate skills list
         this.skillService.getSkillsForUser(this.userId)
-        .subscribe(
-          res => {
-            this.userSkillsArray = res;
-          }, error => console.log(error)
-        );
+          .subscribe(
+            res => {
+              this.userSkillsArray = res;
+            }, error => console.log(error)
+          );
       });
     }
   }
 
   private populateUser(): void {
     this.userService.getUser(this.userId)
-    .subscribe(
-      res => {
-        this.user = res;
-        this.avatar = this.user.avatarUrl;
-        if (this.user === null || this.user === undefined) {
-          this.isUserInfoIncomplete = true;
-        } else {
-          if (this.user.userName === null || this.user.userName === ''
-            || this.user.firstName === null || this.user.firstName === ''
-            || this.user.lastName === null || this.user.lastName === ''
-            || this.user.country === null || this.user.country === ''
-            || this.user.title === null || this.user.title === '') {
+      .subscribe(
+        res => {
+          this.user = res;
+          this.avatar = this.user.avatarUrl;
+          if (this.user === null || this.user === undefined) {
             this.isUserInfoIncomplete = true;
+          } else {
+            if (this.user.userName === null || this.user.userName === ''
+              || this.user.firstName === null || this.user.firstName === ''
+              || this.user.lastName === null || this.user.lastName === ''
+              || this.user.country === null || this.user.country === ''
+              || this.user.title === null || this.user.title === '') {
+              this.isUserInfoIncomplete = true;
+            }
           }
-        }
 
-        /*
-        if (this.user.status === 'N') {
-          this.isNew = true;
-        } */
+          /*
+          if (this.user.status === 'N') {
+            this.isNew = true;
+          } */
 
-        if (this.user.publishFlag === 'Y') {
-          this.checkPublish = true;
-        } else {
-         this.checkPublish = false;
-        }
+          if (this.user.publishFlag === 'Y') {
+            this.checkPublish = true;
+          } else {
+            this.checkPublish = false;
+          }
 
-        if (this.user.notifyFlag === 'Y' ) {
-          this.checkNotify = true;
-        } else {
-        this.checkNotify = false;
-        }
+          if (this.user.notifyFlag === 'Y') {
+            this.checkNotify = true;
+          } else {
+            this.checkNotify = false;
+          }
 
-        this.fillForm();
-      }, error => console.log(error)
-    );
+          this.fillForm();
+        }, error => console.log(error)
+      );
   }
 
   private getFormConstants(): void {
@@ -195,44 +195,44 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     if (this.user === null || this.user === undefined) {
       this.checkPublish = true;
       this.checkNotify = true;
-          this.userForm = this.fb.group({
-             'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
-             'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
-             'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
-             'userName': ['', [Validators.required]],
-             'title': ['', [Validators.required]],
-             'introduction': [ '', [Validators.compose([Validators.maxLength(1000)])]],
-             'jobTitleId': ['', []],
-             'state': ['', []],
-             'country': [this.countries, []],
-             'phone': ['', []],
-             'linkedinUrl': ['', []],
-             'personalUrl': ['', []],
-             'githubUrl': ['', []],
-             'chatUsername': ['', []],
-             'publishFlag': [this.checkPublish, []],
-             'notifyFlag': [this.checkNotify, []]
-              });
+      this.userForm = this.fb.group({
+        'email': [localStorage.getItem('currentUserEmail') || '', [Validators.required]],
+        'firstName': [localStorage.getItem('currentUserFName') || '', [Validators.required]],
+        'lastName': [localStorage.getItem('currentUserLName') || '', [Validators.required]],
+        'userName': ['', [Validators.required]],
+        'title': ['', [Validators.required]],
+        'introduction': ['', [Validators.compose([Validators.maxLength(1000)])]],
+        'jobTitleId': ['', []],
+        'state': ['', []],
+        'country': [this.countries, []],
+        'phone': ['', []],
+        'linkedinUrl': ['', []],
+        'personalUrl': ['', []],
+        'githubUrl': ['', []],
+        'chatUsername': ['', []],
+        'publishFlag': [this.checkPublish, []],
+        'notifyFlag': [this.checkNotify, []]
+      });
     } else {
-    this.userForm = this.fb.group({
-      'email': [this.user.email || '', [Validators.required]],
-      'jobTitleId': [this.user.jobTitleId || '', []],
-      'userName': [this.user.userName || '', [Validators.required]],
-      'firstName': [this.user.firstName || '', [Validators.required]],
-      'lastName': [this.user.lastName || '', [Validators.required]],
-      'state': [this.user.state || '', []],
-      'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
-      'phone': [this.user.phone || '', []],
-      'title': [this.user.title || '', [Validators.required]],
-      'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(10000)])]],
-      'linkedinUrl': [this.user.linkedinUrl || '', []],
-      'personalUrl': [this.user.personalUrl || '', []],
-      'githubUrl': [this.user.githubUrl || '', []],
-      'chatUsername': [this.user.chatUsername || '', []],
-      'publishFlag': [this.checkPublish || '', []],
-      'notifyFlag': [this.checkNotify || '', []]
-    });
-  }
+      this.userForm = this.fb.group({
+        'email': [this.user.email || '', [Validators.required]],
+        'jobTitleId': [this.user.jobTitleId || '', []],
+        'userName': [this.user.userName || '', [Validators.required]],
+        'firstName': [this.user.firstName || '', [Validators.required]],
+        'lastName': [this.user.lastName || '', [Validators.required]],
+        'state': [this.user.state || '', []],
+        'country': [this.user.country || '', []], // validation on country cause red line shown, ignore validation
+        'phone': [this.user.phone || '', []],
+        'title': [this.user.title || '', [Validators.required]],
+        'introduction': [this.user.introduction || '', [Validators.compose([Validators.maxLength(10000)])]],
+        'linkedinUrl': [this.user.linkedinUrl || '', []],
+        'personalUrl': [this.user.personalUrl || '', []],
+        'githubUrl': [this.user.githubUrl || '', []],
+        'chatUsername': [this.user.chatUsername || '', []],
+        'publishFlag': [this.checkPublish || '', []],
+        'notifyFlag': [this.checkNotify || '', []]
+      });
+    }
   }
 
   onSubmit(updatedData: any, event): void {
@@ -240,63 +240,65 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     event.stopPropagation();
     this.currentUserId = this.auth.getCurrentUserId();
     this.userService.getUser(Number(this.currentUserId))
-    .subscribe(
-      res => {
-        this.user = res;
+      .subscribe(
+        res => {
+          this.user = res;
 
-        this.user.email = this.userForm.value.email;
-        this.user.userName = this.userForm.value.userName;
-        this.user.firstName = this.userForm.value.firstName;
-        this.user.lastName = this.userForm.value.lastName;
-        this.user.title = this.userForm.value.title;
-        this.user.introduction = this.userForm.value.introduction;
-        this.user.state = this.userForm.value.state;
-        this.user.country = this.userForm.value.country;
-        this.user.phone = this.userForm.value.phone;
-        this.user.linkedinUrl = this.userForm.value.linkedinUrl;
-        this.user.personalUrl = this.userForm.value.personalUrl;
-        this.user.githubUrl = this.userForm.value.githubUrl;
-        this.user.chatUsername = this.userForm.value.chatUsername;
-        this.user.jobTitleId = this.userForm.value.jobTitleId;
+          this.user.email = this.userForm.value.email;
+          this.user.userName = this.userForm.value.userName;
+          this.user.firstName = this.userForm.value.firstName;
+          this.user.lastName = this.userForm.value.lastName;
+          this.user.title = this.userForm.value.title;
+          this.user.introduction = this.userForm.value.introduction;
+          this.user.state = this.userForm.value.state;
+          this.user.country = this.userForm.value.country;
+          this.user.phone = this.userForm.value.phone;
+          this.user.linkedinUrl = this.userForm.value.linkedinUrl;
+          this.user.personalUrl = this.userForm.value.personalUrl;
+          this.user.githubUrl = this.userForm.value.githubUrl;
+          this.user.chatUsername = this.userForm.value.chatUsername;
+          this.user.jobTitleId = this.userForm.value.jobTitleId;
 
-        if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y' ) {
-          this.user.publishFlag = 'Y';
-        } else {
-          this.user.publishFlag = 'N';
-        }
-        if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y' ) {
-          this.user.notifyFlag = 'Y';
-        } else {
-          this.user.notifyFlag = 'N';
-        }
+          if (this.userForm.value.publishFlag === true || this.userForm.value.publishFlag === 'Y') {
+            this.user.publishFlag = 'Y';
+          } else {
+            this.user.publishFlag = 'N';
+          }
+          if (this.userForm.value.notifyFlag === true || this.userForm.value.notifyFlag === 'Y') {
+            this.user.notifyFlag = 'Y';
+          } else {
+            this.user.notifyFlag = 'N';
+          }
 
-        if (this.isOrganization === true) {
-          this.user.publishFlag = 'N';
-          this.user.notifyFlag = 'N';
-        }
-        if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
-          this.user.status = 'A';
-          // this.isNew = false;
-        }
-        this.user.avatarUrl = this.avatar;
-        this.userService.update(this.user)
-          .subscribe(() => {
-            Materialize.toast('Your account is saved', 4000);
-            this.router.navigate(['/user/view', this.user.id]);
-          },
-            err => { console.error(err, 'An error occurred'); }
-          );
+          if (this.isOrganization === true) {
+            this.user.publishFlag = 'N';
+            this.user.notifyFlag = 'N';
+          }
+          if (this.user.status === 'N') { // For new user, set status from 'N' (New) to 'A' (Active)
+            this.user.status = 'A';
+            // this.isNew = false;
+          }
+          this.user.avatarUrl = this.avatar;
+          this.userService.update(this.user)
+            .subscribe(() => {
+              Materialize.toast('Your account is saved', 4000);
+              this.router.navigate(['/user/view', this.user.id]);
+            },
+              err => {
+                console.error(err, 'An error occurred');
+              }
+            );
 
           if (this.userSkillsArray.length > 0) {
-          // Update skills for user
+            // Update skills for user
             this.skillService.updateUserSkills(this.userSkillsArray, this.user.id)
-            .subscribe(
-            res1 => {
-              },
-              err => { console.error(err, 'An error occurred'); }
-            );
+              .subscribe(
+                res1 => {
+                },
+                err => { console.error(err, 'An error occurred'); }
+              );
           }
-      });
+        });
   }
 
   onDeleteSkill(skillToDelete) {
@@ -308,7 +310,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   onAddListedSkill(optionValue) {
     this.skillCounter = this.userSkillsArray.length;
     console.log(optionValue.target.value);
-    this.checkSkillList (optionValue.target.value);
+    this.checkSkillList(optionValue.target.value);
     if (!this.isSkillExists && !this.isSkillLimit) {
       this.userSkillsArray.push(optionValue.target.value);
     }
@@ -318,7 +320,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.skillCounter = this.userSkillsArray.length;
     console.log(inputSkill.value);
     if (inputSkill.value && inputSkill.value.trim()) {
-      this.checkSkillList (inputSkill.value);
+      this.checkSkillList(inputSkill.value);
       if (!this.isSkillExists && !this.isSkillLimit) {
         this.userSkillsArray.push(inputSkill.value);
         this.inputValue = '';
@@ -330,13 +332,13 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.isSkillExists = false;
     this.isSkillLimit = false;
     this.skillCounter = this.skillCounter + 1;
-    if ( this.skillCounter > 10 ) {
+    if (this.skillCounter > 10) {
       this.isSkillLimit = true;
       const value = '{action: "toast", params: [Skill list exceeds limit 10", 4000]}';
       this.globalActions.emit(value);
     }
     if (!this.isSkillLimit) {
-      for ( this.skill of this.userSkillsArray ) {
+      for (this.skill of this.userSkillsArray) {
         if (selectedSkill === this.skill) {
           this.isSkillExists = true;
           const value = '{action: "toast", params: ["Selected skill already in the list", 4000]}';
@@ -382,8 +384,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       // Calls the function to save the avatar image url to the user's row
       upload$.switchMap((res) => this.userService.saveAvatarImg(Number(this.currentUserId), res),
         (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
-        .subscribe(res => {
-          if (res.innerValue.text() === '') {
+        .subscribe((res) => {
+          if (res.innerValue === null) {
             this.avatar = res.outerValue;
             // this.user.avatarUrl = this.avatar;
           } else {
@@ -401,8 +403,8 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
     this.avatar = '';
     this.userService.saveAvatarImg(this.userId, this.avatar)
       .subscribe(res => {
-          this.user.avatarUrl = this.avatar;
-        },
+        this.user.avatarUrl = this.avatar;
+      },
         (error) => {
           console.log('Image not deleted successfully');
         }
@@ -425,11 +427,11 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   }
 
   openModal() {
-    this.modalActions.emit({action: 'modal', params: ['open']});
+    this.modalActions.emit({ action: 'modal', params: ['open'] });
   }
 
   closeModal() {
-    this.modalActions.emit({action: 'modal', params: ['close']});
+    this.modalActions.emit({ action: 'modal', params: ['close'] });
   }
 
   ngAfterViewChecked(): void {

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {HttpModule, JsonpModule} from '@angular/http';
+import {HttpClientModule } from '@angular/common/http';
 import {NavScrollDirective} from './navscroll.directive';
 
 import {MaterializeModule} from 'angular2-materialize';
@@ -75,18 +75,12 @@ import { UserAvatarComponent } from './_components/user-avatar/user-avatar.compo
 import { UserAvatarSmallComponent } from './_components/user-avatar-small/user-avatar-small.component';
 import { UserAvatarHeaderComponent } from './_components/user-avatar-header/user-avatar-header.component';
 import {MyPaginationControlsComponent} from './_components/my-pagination-controls/my-pagination-controls.component';
-import { Http, RequestOptions } from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import { InputFormatterDirective } from './project/common/input.formatter.directive';
 import { ProjectImageComponent } from './project/common/project-image.component';
 import { TagsComponent } from './_components/tags/tags.component';
 import { StoryViewComponent } from './stories/story-view/story-view.component';
 
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenGetter: (() => localStorage.getItem('access_token'))
-  }), http, options);
-}
 
 @NgModule({
   imports: [
@@ -94,10 +88,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     MaterializeModule,
-    JsonpModule,
     NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAq8AkZC-7OkXqM7bLjJ5OQQNDn1hW92o0'
@@ -168,12 +161,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SkillService,
     ApplicationService,
     ExtFileHandlerService,
-    EmailService,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
-    }],
+    EmailService
+  ],
 
   bootstrap: [AppComponent]
 })

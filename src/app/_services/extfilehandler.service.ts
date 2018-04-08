@@ -1,7 +1,7 @@
 ///<reference path="../../../node_modules/@types/node/index.d.ts"/>
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Request, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
@@ -15,7 +15,7 @@ const allowedTypesDocs = ['doc', 'pdf', 'docx', 'csv', 'xls', 'xlsx'];
 @Injectable()
 export class ExtFileHandlerService {
 
-  constructor (private http: Http, private optionArgs: RequestOptions) {}
+  constructor(private http: HttpClient) { }
 
   /*
     Returns a file with the given file name and type
@@ -34,12 +34,12 @@ export class ExtFileHandlerService {
     };
 
     // declare an aws service
-    const AWSService = (<any> window).AWS;
+    const AWSService = (<any>window).AWS;
     if (environment.production && !environment.auth_tenant_shared) {
       const creds: any = JSON.parse(localStorage.getItem('delgcred'));
       credentials = new AWSService.Credentials(creds.AccessKeyId,
-                                creds.SecretAccessKey,
-                                creds.SessionToken);
+        creds.SecretAccessKey,
+        creds.SessionToken);
     }
     // assign the file to upload
     const file = fileInput.target.files[0];
@@ -48,24 +48,22 @@ export class ExtFileHandlerService {
     // determine which bucket based on file type
     const bucketName = (filetype === 'doc' ? environment.AWS_DOCS_BUCKET : environment.AWS_IMAGE_BUCKET);
     // create an s3 service
-    const s3 = new AWSService.S3({signatureVersion: 'v4',
+    const s3 = new AWSService.S3({
+      signatureVersion: 'v4',
       credentials: credentials,
-      region: environment.AWS_REGION});
+      region: environment.AWS_REGION
+    });
     // define params
-    const params = {ACL: 'public-read', Bucket: bucketName, Key: keyName, Expires: 180};
+    const params = { ACL: 'public-read', Bucket: bucketName, Key: keyName, Expires: 180 };
     if (filetype === 'doc') {
       delete params['ACL']; // remove public read if file is not an image
     }
     // get pre-signed url based on parms
     const url = s3.getSignedUrl('putObject', params);
-    // create request options for url, body and method
-    this.optionArgs.url = url;
-    this.optionArgs.body = fileInput.target.files[0];
-    this.optionArgs.method = 'PUT';
 
     // submit an http request
-    return this.http.request(new Request(this.optionArgs))
-      .map(res => res.url.substr(0, res.url.indexOf('?'))) // a put request does not have any data in the body
+    return this.http.request('PUT', url, { body: fileInput.target.files[0], observe: 'response', responseType: 'text' })
+      .map(res => res.url.substr(0, res.url.indexOf('?')))
       .catch(this.handleError);
   }
 
