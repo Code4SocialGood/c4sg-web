@@ -43,8 +43,8 @@
               </div>
             </div>
             <div class="location">Location:
-            <span *ngIf="user.state">{{pad(user.state, "&nbsp;", 3)}}, {{getCountryName(user.country)}}</span>
-            <span *ngIf="!user.state">
+            <span class="alignment" *ngIf="user.state">{{pad(user.state)}}, {{getCountryName(user.country)}}</span>
+            <span class="alignment" *ngIf="!user.state">
             {{getCountryName(user.country)}}</span>
             </div>
             <div class="email" *ngIf="authService.authenticated() && (authService.isAdmin()|| authService.isOrganization())">
