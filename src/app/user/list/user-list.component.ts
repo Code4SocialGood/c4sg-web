@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Rx';
 import { FormConstantsService } from '../../_services/form-constants.service';
 import { User } from '../common/user';
 import { Project } from '../../project/common/project';
-import { JobTitle } from '../../job-title';
+import { JobTitle } from '../../_components/job-title/job-title';
 import { UserService } from '../common/user.service';
 import { ProjectService} from '../../project/common/project.service';
 import { SkillService } from '../../skill/common/skill.service';

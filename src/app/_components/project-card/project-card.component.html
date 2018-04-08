@@ -4,6 +4,9 @@
       <div class="card-avatar">
         <my-project-image cssClass="card-avatar-content" [project]="project"></my-project-image>
       </div>
+      <div class="jobtitle">
+        <my-job-title [titleHolder]="project"></my-job-title>
+      </div>
     </div>
     <div class="card-info">
       <div class="card-header">
@@ -12,7 +15,7 @@
               <div class="col m8 s12 project-name">
                 <!-- <span [routerLink]="['/project/view',project.id]">{{project.name}}</span>-->
                 <a href="project/view/{{project.id}}">{{project.name}}</a>
-            </div>            
+            </div>
             <div class="col m4 s12 right"  *ngIf="from!=='myProjects'">
               <div *ngIf="userProjectStatus === 'applied'">
                 <div class="project-marked">
@@ -55,13 +58,13 @@
               </div>
             </div>
           </div>
-            
-      </div>       
+
+      </div>
       <div class="row info-row">
         <div class="col s12">
         <div class="card-metainfo col m6 ">
-          <p [routerLink]="['/organization/view/', project.organizationId]" class="organization-name">{{
-            project.organizationName }}</p>
+          <p [routerLink]="['/organization/view/', project.organizationId]" class="organization-name">
+            {{project.organizationName }}</p>
         </div>
         <div class="card-metainfo col m6">
           <div class="nowrapalign">

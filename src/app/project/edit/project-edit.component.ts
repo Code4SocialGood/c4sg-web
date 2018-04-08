@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../common/project.service';
 import { Project } from '../common/project';
 import { User } from '../../user/common/user';
-import { JobTitle } from '../../job-title';
+import { JobTitle } from '../../_components/job-title/job-title';
 import { Organization } from '../../organization/common/organization';
 import { UserService } from '../../user/common/user.service';
 import { OrganizationService } from '../../organization/common/organization.service';

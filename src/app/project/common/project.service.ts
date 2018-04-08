@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-import { JobTitle } from '../../job-title';
+import { JobTitle } from '../../_components/job-title/job-title';
 import { Project } from './project';
 import { Hero } from '../../user/common/hero';
 import { environment } from '../../../environments/environment';
