@@ -143,7 +143,7 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         .subscribe(
         res => {
           this.projects = res.content;
-          this.paginationConfig.totalItems = res.totalItems;
+          this.paginationConfig.totalItems = res.totalElements;
           this.projectsCache = this.projects.slice(0);
           res.content.forEach((e: Project) => {
             this.skillService.getSkillsByProject(e.id).subscribe(

@@ -121,13 +121,13 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       this.organizationsSubscription = this.organizationService.searchOrganizations(
         this.filterForm.value.keyword, null, this.filterForm.value.hasProjects, 'A', categoriesParam, newPage, 10)
         .subscribe(res => {
-          this.organizations = res.data;
-          this.paginationConfig.totalItems = res.totalItems;
+          this.organizations = res.content;
+          this.paginationConfig.totalItems = res.totalElements;
           this.organizationsCache = this.organizations.slice(0);
-          res.data.forEach((o: Organization) => {
+          res.content.forEach((o: Organization) => {
             this.projectService.getProjectByOrg(o.id, 'A')
               .subscribe(response => {
-                this.projects = JSON.parse(JSON.parse(JSON.stringify(response))._body);
+                this.projects = response;
                 o.projects = this.projects.length;
               },
               error => console.log(error));
@@ -139,7 +139,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       this.organizationsSubscription = this.organizationService.searchOrganizations(
         null, null, null, 'P', null, null, null) // Pending organizations
         .subscribe(res => {
-          this.pendingOrganizations = res.data;
+          this.pendingOrganizations = res.content;
         },
         error => console.log(error)
         );
@@ -147,7 +147,7 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
       this.organizationsSubscription = this.organizationService.searchOrganizations(
         null, null, null, 'C', null, null, null) // Declined organizations
         .subscribe(res => {
-          this.declinedOrganizations = res.data;
+          this.declinedOrganizations = res.content;
         },
         error => console.log(error)
         );
