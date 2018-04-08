@@ -1,48 +1,47 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../environments/environment';
+import { AuthHttp } from 'angular2-jwt';
 
 const skillUrl = `${environment.backend_url}/api/skills`;
 
 @Injectable()
 export class SkillService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
   getSkills(): Observable<any> {
     return this.http
       .get(skillUrl)
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
   getSkillsByProject(id: number): Observable<any> {
     const url = skillUrl + '/project?id=' + id;
     return this.http.get(url)
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
   getSkillsForUser(id: number): Observable<any> {
     const url = skillUrl + '/user?id=' + id;
     return this.http.get(url)
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
   updateProjectSkills(projectSkillsArray, id) {
-    let params: HttpParams = new HttpParams();
-    params = params.append('id', id);
-    params = params.append('skillsList', projectSkillsArray.join(','));
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('id', id);
+    params.set('skillsList', projectSkillsArray.join(','));
     const url = skillUrl + '/project/skills';
-    return this.http
-      .put(url, null, {
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        params: params,
-        observe: 'response',
-        responseType: 'text'
-      })
-      .map((res: HttpResponse<string>) => {
+    return this.authHttp
+      .put(url, null, {search: params})
+      .map((res: Response) => {
         if (res.status !== 200 || res.type !== 2) {
           console.error('An error occurred');
           return Promise.reject('An error occurred');
@@ -52,19 +51,14 @@ export class SkillService {
   }
 
   updateUserSkills(userSkillsArray, id) {
-    let params: HttpParams = new HttpParams();
-    params = params.append('id', id);
-    params = params.append('skillsList', userSkillsArray.join(','));
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('id', id);
+    params.set('skillsList', userSkillsArray.join(','));
     const url = skillUrl + '/user/skills';
-    return this.http
-      .put(url, null, {
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        params: params,
-        observe: 'response',
-        responseType: 'text'
-      })
-      .map((res: HttpResponse<string>) => {
-        if (res.status !== 200) {
+    return this.authHttp
+      .put(url, null, {search: params})
+      .map((res: Response) => {
+        if (res.status !== 200 || res.type !== 2) {
           console.error('An error occurred');
           return Promise.reject('An error occurred');
         }

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { environment } from '../../../environments/environment';
-import { Organization } from './organization';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {environment} from '../../../environments/environment';
+import {Organization} from './organization';
+import {AuthHttp} from 'angular2-jwt';
 
 const organizationUrl = `${environment.backend_url}/api/organizations`;
 
@@ -12,137 +13,126 @@ export class OrganizationService {
   private organizationLinkedSource = new Subject<string>();
   public organizationLinkedSource$ = this.organizationLinkedSource.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http, private jsonp: Jsonp, private authHttp: AuthHttp) {
   }
 
   getOrganizations(): Observable<Organization[]> {
     return this.http
-      .get(organizationUrl)
-      .catch(this.handleError);
+    .get(organizationUrl)
+    .map(res => res.json());
   }
 
   getOrganization(id: number): Observable<Organization> {
     return this.http
-      .get(`${organizationUrl}/${id}`)
-      .catch(this.handleError);
+    .get(`${organizationUrl}/${id}`)
+    .map(res => res.json());
   }
 
   getUserOrganization(id: number): Observable<Organization[]> {
     return this.http
-      .get(`${organizationUrl}/user/${id}`)
-      .catch(this.handleError);
+    .get(`${organizationUrl}/user/${id}`)
+    .map(res => res.json());
   }
 
   approve(organizationId: number, status: string) {
-    return this.http
-      .put(`${organizationUrl}/${organizationId}/approve`, '',
-        {
-          responseType: 'text',
-          params: new HttpParams().append('status', `${status}`)
-        });
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`status=${status}`);
+    return this.authHttp
+    .put(`${organizationUrl}/${organizationId}/approve`, '', requestOptions);
   }
 
   searchOrganizations(keyword?: string,
-    countries?: string[],
-    open?: boolean,
-    status?: string,
-    category?: string[],
-    page?: number,
-    size?: number): Observable<any> {
-    let params = new HttpParams();
+                      countries?: string[],
+                      open?: boolean,
+                      status?: string,
+                      category?: string[],
+                      page?: number,
+                      size?: number): Observable<any> {
+    const params = new URLSearchParams();
 
     if (keyword) {
-      params = params.append('keyWord', keyword);
+      params.set('keyWord', keyword);
     }
 
     if (countries) {
       for (let i = 0; i < countries.length; i++) {
-        params = params.append('countries', countries[i]);
+        params.append('countries', countries[i]);
       }
     }
 
     if (open) {
-      params = params.append('open', open.toString());
+      params.set('open', open.toString());
     }
 
     if (status) {
-      params = params.append('status', status);
+      params.append('status', status);
     }
 
     if (category) {
       for (let i = 0; i < category.length; i++) {
-        params = params.append('category', category[i]);
+        params.append('category', category[i]);
       }
     }
 
     if (page) {
-      params = params.append('page', String(page - 1));
+      params.append('page', String(page - 1));
     }
 
     if (size) {
-      params = params.append('size', String(size));
+      params.append('size', String(size));
     }
 
     return this.http
-      .get(`${organizationUrl}/search`, { params: params })
-      .catch(this.handleError);
+    .get(`${organizationUrl}/search`, {search: params})
+    .map(res => ({data: res.json().content, totalItems: res.json().totalElements}))
+    .catch(this.handleError);
   }
 
-  createOrganization(organization: Organization): Observable<Organization> {
-    return this.http.post(
+  createOrganization(organization: Organization): Observable<{ organization: Organization }> {
+    return this.authHttp.post(
       `${organizationUrl}`,
-      organization,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-      }
-    ).catch(this.handleError);
+      organization
+    ).map(res => res.json());
   }
 
   linkUserOrganization(userId: String, organizationId: number) {
-    const observable = this.http.post(
-      `${organizationUrl}/${organizationId}/users/${userId}`, '',
-      {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }),
-        responseType: 'text'
-      }
-    ).catch(this.handleError);
+    const observable = this.authHttp.post(
+      `${organizationUrl}/${organizationId}/users/${userId}`,
+      {}
+    );
 
-    observable.subscribe(() => {
+    observable.subscribe(res => {
       this.organizationLinkedSource.next(organizationId.toString());
     });
 
     return observable;
   }
 
-  updateOrganization(organization: Organization) {
-    return this.http.put(
+  updateOrganization(organization: Organization): Observable<Response> {
+    return this.authHttp.put(
       `${organizationUrl}/${organization.id}`,
-      organization,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType: 'text'
-      }
-    ).catch(this.handleError);
+      organization
+    );
   }
 
-  delete(id: number) {
-    return this.http.delete(`${organizationUrl}/${id}`, { responseType: 'text' }).catch(this.handleError);
+  delete(id: number): Observable<Response> {
+    return this.authHttp.delete(`${organizationUrl}/${id}`);
   }
 
   /*
     Http call to save the logo image
   */
   saveLogoImg(id: number, imgUrl: string) {
-    return this.http
-      .put(`${organizationUrl}/${id}/logo`, '', { params: new HttpParams().append('imgUrl', `${imgUrl}`), responseType: 'text' });
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.authHttp
+    .put(`${organizationUrl}/${id}/logo`, '', requestOptions);
   }
 
   getTotalCountries(): Observable<any> {
     return this.http
-      .get(`${organizationUrl}/countries/total`, { responseType: 'text' })
-      .catch(this.handleError);
+    .get(`${organizationUrl}/countries/total`)
+    .map(res => res.json());
   }
 
   private handleError(error: any): Promise<any> {

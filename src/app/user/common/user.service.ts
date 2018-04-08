@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +7,7 @@ import { User } from './user';
 import { JobTitle } from '../../job-title';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../project/common/project';
+import { AuthHttp } from 'angular2-jwt';
 
 const userUrl = `${environment.backend_url}/api/users`;
 const skillsUrl = `${environment.backend_url}/api/skills`;
@@ -14,14 +15,16 @@ const skillsUrl = `${environment.backend_url}/api/skills`;
 @Injectable()
 export class UserService {
 
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  constructor(private http: HttpClient) { }
+  private headers = new Headers({'Content-Type': 'application/json'});
+
+  constructor(private http: Http, private jsonp: Jsonp, private authHttp: AuthHttp) { }
 
   public getAllUsers(): Observable<User[]> {
     const url = userUrl;
     return this.http
-      .get(url)
-      .catch(this.handleError);
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
   }
 
   getUser(id: number): Observable<User> {
@@ -29,21 +32,33 @@ export class UserService {
     const url = userUrl + '/' + index;
 
     return this.http
-      .get(url, { headers: this.headers })
-      .catch(this.handleError);
+               .get(url, {headers: this.headers})
+               .map(res => res.json())
+               .catch(this.handleError);
   }
 
   getUserByEmail(name: string): Observable<User> {
     const url = userUrl + '/email/' + [name] + '/';
+    const options = new RequestOptions({ headers: this.headers });
     return this.http.get(url)
-      .catch(this.handleError);
+               .map(res =>  {
+                  // Check below is for the scenario when nothing was sent back
+                  // The '_body' has a an empty string
+                  if (res.text() === '') {
+                      return undefined;
+                  } else {
+                    return res.json();
+                  }}
+               )
+               .catch(this.handleError);
   }
 
   getUsersByOrganization(organizationId: number): Observable<User[]> {
     const url = userUrl + '/organization/' + [organizationId];
     return this.http
-      .get(url)
-      .catch(this.handleError);
+               .get(url)
+               .map( res => { return res.json() as User[]; })
+               .catch(this.handleError);
   }
 
   // Page data always starts at offset zero (0)
@@ -59,7 +74,7 @@ export class UserService {
     publishFlag?: string,
     page?: number,
     size?: number): Observable<any> {
-    const params = new HttpParams();
+    const params = new URLSearchParams();
 
     // TODO Append page, sort here
 
@@ -68,8 +83,8 @@ export class UserService {
     }
     // if (jobTitle) {
     //  params.append('jobTitle', String(jobTitle));
-    // }
-    if (jobTitles) {
+   // }
+   if (jobTitles) {
       for (let i = 0; i < jobTitles.length; i++) {
         params.append('jobTitles', String(jobTitles[i]));
       }
@@ -108,62 +123,53 @@ export class UserService {
     }
 
     return this.http
-      .get(`${userUrl}/search`, { headers: this.headers, params: params })
-      .catch(this.handleError);
+               .get(`${userUrl}/search`, {search: params, headers: this.headers})
+               .map( res => ({data: res.json().content, totalItems: res.json().totalElements}))
+               .catch(this.handleError);
   }
 
   add(user: User): Observable<User> {
     // debugger;
     const url = userUrl;
-    return this.http
-      .post(url, user, { headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) })
-      .catch(this.handleError);
+    return this.authHttp
+               .post(url, user, {headers: this.headers})
+               .map(res => res.json())
+                  .catch(this.handleError);
   }
 
-  delete(id: number) {
+  delete(id: number)  {
     const url = userUrl + '/' + id;
-    return this.http
-      .delete(url, {
-        headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType: 'text'
-      })
-      .catch(this.handleError);
+    return this.authHttp
+               .delete(url, {headers: this.headers})
+               .catch(this.handleError);
   }
 
   update(user: User) {
     const url = userUrl;
-    return this.http
-      .put(url, user, {
-        headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType: 'text'
-      })
-      .catch(this.handleError);
+    return this.authHttp
+               .put(url, user, {headers: this.headers})
+               .map((res: Response) => res.json())
+               .catch(this.handleError);
   }
 
   retrieveAvatar(id: number) {
     return this.http
-      .get(`${userUrl}/${id}/avatar`, { responseType: 'text' });
+               .get(`${userUrl}/${id}/avatar`);
   }
 
   saveAvatar(id: number, formData: FormData) {
-    return this.http
-      .post(`${userUrl}/${id}/avatar`, formData, {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType: 'text'
-      })
-      .catch(this.handleError);
+    return this.authHttp
+               .post(`${userUrl}/${id}/avatar`, formData);
   }
 
   /*
     Http call to save the avatar image
   */
   saveAvatarImg(id: number, imgUrl: string) {
-    return this.http
-      .put(`${userUrl}/${id}/avatar`, '', {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        params: new HttpParams().set('imgUrl', `${imgUrl}`),
-        responseType: 'text'
-      });
+    const requestOptions = new RequestOptions();
+    requestOptions.search = new URLSearchParams(`imgUrl=${imgUrl}`);
+    return this.authHttp
+      .put(`${userUrl}/${id}/avatar`, '', requestOptions);
   }
 
   private handleError(error: any): Promise<any> {
@@ -173,17 +179,18 @@ export class UserService {
   public getAllJobTitlesBeforePageInit(): Promise<JobTitle[]> {
     const url = userUrl + '/jobTitles';
     return this.http
-      .get(url).toPromise()
-      .then(res => { return res as JobTitle[]; })
-      .catch(this.handleError);
-    // .map( res => { return res.json() as JobTitle[]; })
-    // .catch(this.handleError);
+               .get(url).toPromise()
+            .then(res => { return res.json() as JobTitle[]; })
+            .catch(this.handleError);
+              // .map( res => { return res.json() as JobTitle[]; })
+              // .catch(this.handleError);
   }
   public getAllJobTitles(): Observable<JobTitle[]> {
     const url = userUrl + '/jobTitles';
     return this.http
-      .get(url)
-      .catch(this.handleError);
+               .get(url)
+               .map( res => { return res.json() as JobTitle[]; })
+               .catch(this.handleError);
   }
   /* obsolete
   // Page data always starts at offset zero (0)

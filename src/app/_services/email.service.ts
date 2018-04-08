@@ -2,22 +2,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class EmailService {
 
   readonly sendUrl = `${environment.backend_url}/api/email/send`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: Http) { }
 
   send(email: Email): Observable<boolean> {
+    const options = {
+      headers: new Headers({'Content-Type': 'application/json'})
+    };
+
     return this.http
-      .post(this.sendUrl, email, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        responseType: 'text'
-      })
-      .map(res => { return res === null; })
+      .post(this.sendUrl, email, options)
+      .map(res => { return res.status === 200; })
       .catch((error: any) => Observable.of(false));
   }
 }

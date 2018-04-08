@@ -4,7 +4,8 @@ import { Applicant } from './applicant';
 import { ApplicationProject } from './applicationProject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthHttp } from 'angular2-jwt';
+import { Http } from '@angular/http';
 import { environment } from '../../../environments/environment';
 
 const applicationUrl = `${environment.backend_url}/api/projects/applications`;
@@ -13,7 +14,7 @@ const applicantUrl = `${environment.backend_url}/api/projects`;
 @Injectable()
 export class ApplicationService {
 
-    constructor(private http: HttpClient) {
+    constructor(private authHttp: AuthHttp, private http: Http) {
 
     }
 
@@ -27,45 +28,43 @@ export class ApplicationService {
 
     getApplicationsByUser(userId: number, status: string): void {
 
-        // not implemented in back end
+       // not implemented in back end
 
     }
 
     public getApplicants(projectId: number): Observable<Applicant[]> {
         const url = `${applicantUrl}/${projectId}/applicants`;
         return this.http
-            .get(url)
-            .catch(this.handleError);
-    }
+                   .get(url)
+                   .map(res => res.json())
+                   .catch(this.handleError);
+      }
 
     public getApplicationsByOrgAndApplicant(
-        nonProfitUserId: number, applicantId: number, status: string
-    ): Observable<ApplicationProject[]> {
+            nonProfitUserId: number, applicantId: number, status: string
+            ): Observable<ApplicationProject[]> {
 
         const url = `${applicantUrl}/applicants/${applicantId}/users/${nonProfitUserId}?status=${status}`;
         return this.http
-            .get(url)
-            .catch(this.handleError);
+                   .get(url)
+                   .map(res => res.json())
+                   .catch(this.handleError);
     }
 
     createApplication(application: Application): Observable<Application> {
 
-        return this.http
-            .post(applicationUrl, application, {
-                headers: new HttpHeaders()
-                    .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-            })
+        return this.authHttp
+            .post(applicationUrl, application)
+            .map(res => res.json())
             .catch(this.handleError);
 
     }
 
     updateApplication(application: Application): Observable<Application> {
 
-        return this.http
-            .post(applicationUrl, application, {
-                headers: new HttpHeaders()
-                    .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-            })
+        return this.authHttp
+            .put(applicationUrl, application)
+            .map(res => res.json())
             .catch(this.handleError);
 
     }
@@ -75,16 +74,17 @@ export class ApplicationService {
         return Promise.reject(error.message || error);
     }
 
-    saveHero(applicant: Applicant): Observable<any> {
-        return this.http
-            .post(`${applicantUrl}/${applicant.projectId}/users/${applicant.userId}/badge`, {},
-                { headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) })
+    saveHero(applicant: Applicant): Observable<any>  {
+        return this.authHttp
+            .post(`${applicantUrl}/${applicant.projectId}/users/${applicant.userId}/badge`, {})
+            .map(res => res.json())
             .catch(this.handleError);
     }
 
-    getApplicantHeroMap(projectId: number): Observable<Map<number, string>> {
+    getApplicantHeroMap(projectId: number):  Observable<Map<number, string>>   {
         return this.http
             .get(`${applicantUrl}/${projectId}/applicantHeroMap`)
+            .map(res => res.json())
             .catch(this.handleError);
     }
 

@@ -142,10 +142,10 @@ export class ProjectListComponent implements AfterViewChecked, OnInit, OnDestroy
         this.filterForm.value.keyword, jobTitlesParam, skillsParam, 'A', null, newPage, 10)
         .subscribe(
         res => {
-          this.projects = res.content;
+          this.projects = res.data;
           this.paginationConfig.totalItems = res.totalItems;
           this.projectsCache = this.projects.slice(0);
-          res.content.forEach((e: Project) => {
+          res.data.forEach((e: Project) => {
             this.skillService.getSkillsByProject(e.id).subscribe(
               result => {
                 e.skills = result;
