@@ -18,8 +18,8 @@ export class EmailService {
         observe: 'response',
         responseType: 'text'
       })
-      .map(res => { 
-        return res.status === 200; 
+      .map(res => {
+        return res.status === 200;
       })
       .catch((error: any) => Observable.of(false));
   }

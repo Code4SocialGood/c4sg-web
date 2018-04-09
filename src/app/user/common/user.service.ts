@@ -144,7 +144,7 @@ export class UserService {
 
   retrieveAvatar(id: number) {
     return this.http
-      .get(`${userUrl}/${id}/avatar`, { observe: 'response',responseType: 'text' });
+      .get(`${userUrl}/${id}/avatar`, { observe: 'response', responseType: 'text' });
   }
 
   saveAvatar(id: number, formData: FormData) {
