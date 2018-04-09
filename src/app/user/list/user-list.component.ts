@@ -7,7 +7,7 @@ import { User } from '../common/user';
 import { Project } from '../../project/common/project';
 import { JobTitle } from '../../_components/job-title/job-title';
 import { UserService } from '../common/user.service';
-import { ProjectService} from '../../project/common/project.service';
+import { ProjectService } from '../../project/common/project.service';
 import { SkillService } from '../../skill/common/skill.service';
 import { AuthService } from '../../auth.service';
 
@@ -145,24 +145,23 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.usersSubscription = this.userService.searchUsers(
       this.filterForm.value.keyword, jobTitlesParam, skillsParam, countriesParam, 'A', 'V', 'Y', newPage, 10)
       .subscribe(
-      res => {
-        // the service returns a JSON object consist of the array of pageable data
-        this.users = res.data;
-        this.paginationConfig.totalItems = res.totalItems;
-        this.usersCache = this.users.slice(0);
-        res.data.forEach((e: User) => {
-          this.skillService.getSkillsForUser(e.id).subscribe(
-            result => {
-              e.skills = result;
-            });
-          this.projectService.getProjectByUser(e.id, 'C').subscribe(
-            result => {
-              e.projects = result.json();
-            }
-          );
-        });
-      },
-      error => console.error(error)
+        res => {
+          // the service returns a JSON object consist of the array of pageable data
+          this.users = res.content;
+          this.paginationConfig.totalItems = res.totalElements;
+          this.usersCache = this.users.slice(0);
+          res.content.forEach((e: User) => {
+            this.skillService.getSkillsForUser(e.id).subscribe(
+              result => {
+                e.skills = result;
+              });
+            this.projectService.getProjectByUser(e.id, 'C').subscribe(
+              result => {
+                e.projects = result.map<string>((value, index, array) => { return value.name; });
+              });
+          });
+        },
+        error => console.error(error)
       );
   }
 

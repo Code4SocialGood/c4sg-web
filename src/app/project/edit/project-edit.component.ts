@@ -114,7 +114,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
           .subscribe(
             res => {
               let projects: Project[];
-              projects = res.json();
+              projects = res;
               projects.forEach((e: Project) => {
                 this.projectId = e.id.toString();
                 this.project = e;
@@ -323,7 +323,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     upload$.switchMap( (res) => this.projectService.saveProjectImg(this.project.id, res),
       (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
       .subscribe(res => {
-        if (res.innerValue.text() === '') {
+        if (res.innerValue.status === 200) {
             this.imageUrl = res.outerValue;
             this.project.imageUrl = this.imageUrl;
         } else {

@@ -43,7 +43,7 @@ export class ProjectListNonprofitComponent implements OnInit, OnDestroy {
         // Returns project of any status: 'A' and' 'C'
         this.projectsSubscription = this.projectService.getProjectByOrg(this.orgId, null).subscribe(
           res => {
-            this.projects = res.json();
+            this.projects = res;
             this.totalItems = this.projects.length;
             this.projects.forEach((e: Project) => {
               this.skillService.getSkillsByProject(e.id).subscribe(

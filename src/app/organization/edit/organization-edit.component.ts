@@ -155,7 +155,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
 
     this.organizationService
       .updateOrganization(this.organization)
-      .subscribe(res => {
+      .subscribe((response) => {
         Materialize.toast('Your organization is saved', 4000);
          // For active organization, forward to organization view page
         if (this.organization.status === 'A') {
@@ -175,7 +175,7 @@ export class OrganizationEditComponent implements OnInit, AfterViewChecked {
     upload$.switchMap( (res) => this.organizationService.saveLogoImg(this.organization.id, res),
       (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
       .subscribe(res => {
-        if (res.innerValue.text() === '') {
+        if (res.innerValue.status === 200) {
             this.logoUrl = res.outerValue;
             this.organization.logoUrl = this.logoUrl;
             console.log('Logo successfully uploaded!');

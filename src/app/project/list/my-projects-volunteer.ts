@@ -34,16 +34,16 @@ export class ProjectListVolunteerComponent implements OnInit, OnDestroy {
     this.userId = +this.auth.getCurrentUserId();
     this.from = 'myProjects';
     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'B').subscribe(
-      res => this.bookmarkedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+      res => this.bookmarkedProjects = res,
       error => console.log(error));
     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'A').subscribe(
-      res => this.appliedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+      res => this.appliedProjects = res,
       error => console.log(error));
     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'C').subscribe(
-      res => this.acceptedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+      res => this.acceptedProjects = res,
       error => console.log(error));
     this.projectsSubscription = this.projectService.getProjectByUser(this.userId, 'D').subscribe(
-      res => this.declinedProjects = JSON.parse(JSON.parse(JSON.stringify(res))._body),
+      res => this.declinedProjects = res,
       error => console.log(error));
   }
   ngOnDestroy() {

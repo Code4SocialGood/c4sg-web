@@ -124,7 +124,7 @@ export class ProjectViewComponent implements OnInit {
     this.projectService.getProjectByOrg(organizationId, 'A')
     .subscribe(
       resProjects => {
-        this.projects = resProjects.json();
+        this.projects = resProjects;
         this.projects.forEach((e: Project) => {
           this.skillService.getSkillsByProject(e.id).subscribe(
             response => {
@@ -313,7 +313,7 @@ export class ProjectViewComponent implements OnInit {
   createBookmark(): void {
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
       this.projectService.createBookmark(this.project.id, this.currentUserId)
-      .subscribe(res => {
+      .subscribe((response) => {
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
         this.projectStatusBookmarked = true;

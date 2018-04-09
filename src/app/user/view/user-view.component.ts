@@ -115,7 +115,7 @@ export class UserViewComponent implements OnInit {
             this.projectService.getProjectByOrg(this.organization.id, 'A')
               .subscribe(
                 resProjects => {
-                  this.projects = resProjects.json();
+                  this.projects = resProjects;
                   this.projects.forEach((e: Project) => {
                     this.skillService.getSkillsByProject(e.id).subscribe(
                       response => {
@@ -189,7 +189,7 @@ export class UserViewComponent implements OnInit {
   getAcceptedProjects(id: number) {
     this.projectService.getProjectByUser(id, 'C').subscribe(
       res => {
-        this.projects = res.json();
+        this.projects = res;
         this.projects.forEach((project) => {
           if (project.description && project.description.length > 100) {
             project.description = project.description.slice(0, 100) + '...';

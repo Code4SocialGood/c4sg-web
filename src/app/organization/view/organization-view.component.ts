@@ -109,7 +109,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
   getProjects(id: number): void {
     this.projectService.getProjectByOrg(id, 'A').subscribe(
       res => {
-        this.projects = res.json();
+        this.projects = res;
         this.projects.forEach((project) => {
           if (project.description && project.description.length > 100) {
             project.description = project.description.slice(0, 100) + '...';
@@ -171,7 +171,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     this.organizationService
       .approve(this.organization.id, 'A') // A for Active
       .subscribe(
-        response => {
+        (repsponse) => {
           this.organization.status = 'A'; // Removes the flag on web page after refreshing the page
           this.displayApprove = false; // Removes the button on web page after refreshing the page
           this.router.navigate(['/organization/view/' + this.organization.id]);

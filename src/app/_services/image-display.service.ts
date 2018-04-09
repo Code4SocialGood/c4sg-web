@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
@@ -21,13 +21,13 @@ export class ImageDisplayService {
     console.error(err, 'An error occurred');
   }
 
-  displayImage(id: number,  load: (a: number) => Observable<Response>): Observable<ImageDisplay> {
+  displayImage(id: number,  load: (a: number) => Observable<HttpResponse<string>>): Observable<ImageDisplay> {
     const imageDisplay = new ImageDisplay();
     imageDisplay.url = '';
     const stream = <BehaviorSubject<ImageDisplay>>new BehaviorSubject(imageDisplay);
 
     load(id).subscribe(res => {
-      imageDisplay.url = this.toURI(res.text());
+      imageDisplay.url = this.toURI(res.body);
       stream.next(imageDisplay);
     }, this.handleError);
 
