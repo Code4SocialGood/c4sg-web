@@ -20,6 +20,8 @@ export class Organization {
     public longitude?: number,
     public status?: string,
     public createdTime?: string,
-    public updatedTime?: string
+    public updatedTime?: string,
+    public categoryName?: string,
+    public categoryIcon?: string
   ) { }
 }
