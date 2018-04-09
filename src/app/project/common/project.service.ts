@@ -110,7 +110,10 @@ export class ProjectService {
     return this.http.post(
       `${projectUrl}`,
       project,
-      { headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`) }
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+      }
     ).catch(this.handleError);
   }
 
@@ -120,6 +123,7 @@ export class ProjectService {
       .delete(url, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
           .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       })
       .catch(this.handleError);
@@ -131,7 +135,9 @@ export class ProjectService {
       `${projectUrl}/${project.id}`,
       project,
       {
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+          observe: 'response',
         responseType: 'text'
       }
     );
@@ -158,7 +164,7 @@ export class ProjectService {
       .post(url, '', {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
           .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
-        responseType: 'text'
+        observe: 'response'
       })
       .catch(this.handleError);
   }
@@ -176,7 +182,9 @@ export class ProjectService {
     return this.http
       .put(`${projectUrl}/${id}/image`, '', {
         params: params,
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       });
   }

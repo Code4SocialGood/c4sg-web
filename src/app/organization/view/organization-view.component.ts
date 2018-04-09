@@ -171,7 +171,7 @@ export class OrganizationViewComponent implements OnInit, OnDestroy {
     this.organizationService
       .approve(this.organization.id, 'A') // A for Active
       .subscribe(
-        () => {
+        (repsponse) => {
           this.organization.status = 'A'; // Removes the flag on web page after refreshing the page
           this.displayApprove = false; // Removes the button on web page after refreshing the page
           this.router.navigate(['/organization/view/' + this.organization.id]);

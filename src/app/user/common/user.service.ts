@@ -125,6 +125,7 @@ export class UserService {
     return this.http
       .delete(url, {
         headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       })
       .catch(this.handleError);
@@ -135,6 +136,7 @@ export class UserService {
     return this.http
       .put(url, user, {
         headers: this.headers.append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       })
       .catch(this.handleError);
@@ -142,13 +144,14 @@ export class UserService {
 
   retrieveAvatar(id: number) {
     return this.http
-      .get(`${userUrl}/${id}/avatar`, { responseType: 'text' });
+      .get(`${userUrl}/${id}/avatar`, { observe: 'response',responseType: 'text' });
   }
 
   saveAvatar(id: number, formData: FormData) {
     return this.http
       .post(`${userUrl}/${id}/avatar`, formData, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       })
       .catch(this.handleError);
@@ -162,6 +165,7 @@ export class UserService {
       .put(`${userUrl}/${id}/avatar`, '', {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
         params: new HttpParams().set('imgUrl', `${imgUrl}`),
+        observe: 'response',
         responseType: 'text'
       });
   }

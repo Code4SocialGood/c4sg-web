@@ -323,7 +323,7 @@ export class ProjectEditComponent implements OnInit, AfterViewChecked {
     upload$.switchMap( (res) => this.projectService.saveProjectImg(this.project.id, res),
       (outerValue, innerValue, outerIndex, innerIndex) => ({outerValue, innerValue, outerIndex, innerIndex}))
       .subscribe(res => {
-        if (res.innerValue === null) {
+        if (res.innerValue.status === 200) {
             this.imageUrl = res.outerValue;
             this.project.imageUrl = this.imageUrl;
         } else {

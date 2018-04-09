@@ -313,7 +313,7 @@ export class ProjectViewComponent implements OnInit {
   createBookmark(): void {
     if (this.authService.authenticated() && this.currentUserId !== null && this.currentUserId !== '0') {
       this.projectService.createBookmark(this.project.id, this.currentUserId)
-      .subscribe(() => {
+      .subscribe((response) => {
         const projectsIDs = this.projectService.getUserProjectStatusFromLocalStorage();
         localStorage.setItem('bookmarkedProjectsIDs', (projectsIDs.bookmarkedProjectsIDs + ',' + this.project.id));
         this.projectStatusBookmarked = true;

@@ -37,13 +37,14 @@ export class SkillService {
     const url = skillUrl + '/project/skills';
     return this.http
       .put(url, null, {
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
         params: params,
         observe: 'response',
         responseType: 'text'
       })
       .map((res: HttpResponse<string>) => {
-        if (res.status !== 200 || res.type !== 2) {
+        if (res.status !== 200) {
           console.error('An error occurred');
           return Promise.reject('An error occurred');
         }
@@ -58,7 +59,8 @@ export class SkillService {
     const url = skillUrl + '/user/skills';
     return this.http
       .put(url, null, {
-        headers: new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
         params: params,
         observe: 'response',
         responseType: 'text'

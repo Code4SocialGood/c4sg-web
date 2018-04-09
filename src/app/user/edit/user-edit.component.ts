@@ -12,6 +12,7 @@ import { SkillService } from '../../skill/common/skill.service';
 import { MaterializeAction } from 'angular2-materialize';
 import { ExtFileHandlerService } from '../../_services/extfilehandler.service';
 import { ValidationService } from '../../_services/validation.service';
+import { HttpResponse } from '@angular/common/http';
 
 declare var Materialize: any;
 
@@ -280,7 +281,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
           }
           this.user.avatarUrl = this.avatar;
           this.userService.update(this.user)
-            .subscribe(() => {
+            .subscribe((response) => {
               Materialize.toast('Your account is saved', 4000);
               this.router.navigate(['/user/view', this.user.id]);
             },
@@ -385,7 +386,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
       upload$.switchMap((res) => this.userService.saveAvatarImg(Number(this.currentUserId), res),
         (outerValue, innerValue, outerIndex, innerIndex) => ({ outerValue, innerValue, outerIndex, innerIndex }))
         .subscribe((res) => {
-          if (res.innerValue === null) {
+          if (res.innerValue.status === 200) {
             this.avatar = res.outerValue;
             // this.user.avatarUrl = this.avatar;
           } else {
@@ -414,7 +415,7 @@ export class UserEditComponent implements OnInit, AfterViewChecked {
   onDelete() {
 
     this.userService.delete(this.userId)
-      .subscribe(() => {
+      .subscribe((response) => {
         Materialize.toast('The user is deleted', 4000);
         this.auth.logout();
         this.router.navigate(['/']);

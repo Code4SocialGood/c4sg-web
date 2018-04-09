@@ -15,9 +15,12 @@ export class EmailService {
     return this.http
       .post(this.sendUrl, email, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        observe: 'response',
         responseType: 'text'
       })
-      .map(res => { return res === null; })
+      .map(res => { 
+        return res.status === 200; 
+      })
       .catch((error: any) => Observable.of(false));
   }
 }

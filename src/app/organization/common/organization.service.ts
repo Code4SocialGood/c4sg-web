@@ -122,13 +122,19 @@ export class OrganizationService {
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
           .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        observe: 'response',
         responseType: 'text'
       }
     ).catch(this.handleError);
   }
 
   delete(id: number) {
-    return this.http.delete(`${organizationUrl}/${id}`, { responseType: 'text' }).catch(this.handleError);
+    return this.http.delete(`${organizationUrl}/${id}`, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+      observe: 'response',
+      responseType: 'text'
+    }).catch(this.handleError);
   }
 
   /*
@@ -136,12 +142,18 @@ export class OrganizationService {
   */
   saveLogoImg(id: number, imgUrl: string) {
     return this.http
-      .put(`${organizationUrl}/${id}/logo`, '', { params: new HttpParams().append('imgUrl', `${imgUrl}`), responseType: 'text' });
+      .put(`${organizationUrl}/${id}/logo`, '', {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+          .append('Authorization', `Bearer ${localStorage.getItem('access_token')}`),
+        params: new HttpParams().append('imgUrl', `${imgUrl}`),
+        observe: 'response',
+        responseType: 'text'
+      });
   }
 
   getTotalCountries(): Observable<any> {
     return this.http
-      .get(`${organizationUrl}/countries/total`, { responseType: 'text' })
+      .get(`${organizationUrl}/countries/total`)
       .catch(this.handleError);
   }
 
