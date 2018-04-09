@@ -53,3 +53,19 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.organization-category {
+  color: #488fe2;
+	margin-top: .5em;
+	font-weight: bold;
+	font-size: 0.8rem;
+  display: flex;
+  justify-content: left;
+}
+
+.category-name {
+  margin-left: .5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

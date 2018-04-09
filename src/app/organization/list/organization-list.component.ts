@@ -125,6 +125,16 @@ export class OrganizationListComponent implements OnInit, AfterViewInit {
           this.paginationConfig.totalItems = res.totalElements;
           this.organizationsCache = this.organizations.slice(0);
           res.content.forEach((o: Organization) => {
+            if (o.category === 'N') {
+              o.categoryName = 'Nonprofit';
+              o.categoryIcon = 'money_off';
+            } else if (o.category === 'O') {
+              o.categoryName = 'Open Source';
+              o.categoryIcon = 'device_hub';
+            } else if (o.category === 'S') {
+              o.categoryName = 'Social Enterprise';
+              o.categoryIcon = 'location_city';
+            }
             this.projectService.getProjectByOrg(o.id, 'A')
               .subscribe(response => {
                 this.projects = response;

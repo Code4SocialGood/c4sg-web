@@ -44,6 +44,8 @@ import {UserListComponent} from './user/list/user-list.component';
 import {UserViewComponent} from './user/view/user-view.component';
 import {UserEditComponent} from './user/edit/user-edit.component';
 
+import {JobTitleComponent} from './_components/job-title/job-title.component';
+
 import {AuthRoleSelectionComponent} from './auth.role.component';
 
 import {SharedBtnComponent} from './_components/shared-btn/shared-btn.component';
@@ -128,6 +130,8 @@ import { StoryViewComponent } from './stories/story-view/story-view.component';
     UserListComponent,
     UserViewComponent,
     UserEditComponent,
+
+    JobTitleComponent,
 
     AuthRoleSelectionComponent,
     SkillSelectComponent,

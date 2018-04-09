@@ -11,17 +11,21 @@
     </div>
   </div>
 
-  <div class="row users" *ngFor="let i of rowsArray" >
+  <div class="row users" *ngFor="let i of rowsArray">
     <div class="col s3" *ngFor="let hero of heroes | slice:(i*4):(i+1)*4">
-      <div class="user  white z-depth-2">
+      <div class="user  white z-depth-2 card">
         <div *ngIf="hero.avatarUrl">
-          <img [src]="hero.avatarUrl" class="avatar">
+          <img [src]="hero.avatarUrl" class="avatar activator">
         </div>
-        <div class="avatar-circle" *ngIf="!hero.avatarUrl">
-          <span class="initials">{{hero.firstName | slice:0:1}}{{hero.lastName | slice:0:1}}</span>
+        <div class="avatar-circle activator" *ngIf="!hero.avatarUrl">
+          <span class="initials activator">{{hero.firstName | slice:0:1}}{{hero.lastName | slice:0:1}}</span>
         </div>
-        <div class="mg-top-10px content-title ">{{hero.firstName}}</div>
-        <div class="user-title">{{hero.title}}</div>
+        <div class="card-content">
+          <div class="mg-top-10px content-title">{{hero.firstName}}</div>
+          <div class="user-title activator">{{hero.title}}</div>
+          <i class="activator material-icons right">more_vert</i>
+        </div>
+
         <div class="location clearfix">
           <span class="label">Location</span>
           <!-- country is mandatory field for user, already has value-->
@@ -29,20 +33,25 @@
         </div>
         <div class="badges clearfix">
           <span class="label">Badges</span>
-          <span class="label-content"><a> <i class="material-icons" >stars</i>&nbsp;{{hero.badgeCount}}</a>
+          <span class="label-content"><a> <i class="material-icons">stars</i>&nbsp;{{hero.badgeCount}}</a>
           <div id="projects">
             <span class="name" *ngIf="hero.project">
               <h5 *ngFor="let project of hero.project " [routerLink]="['/project/view/', project.id]">{{project.name}}</h5>
             </span>
           </div>
           </span>
-        </div><br/>
+        </div>
+        <br/>
         <!--<div class="skills-tag-wrapper" >
           <ul *ngIf="hero.skill">
             <li class="chip" *ngFor="let skill of hero.skill ">{{skill}}</li>
           </ul>
         </div>-->
-        <button type="button" class="btn waves-effect waves-light"  [disabled]="hero.publishFlag ==='N' " [routerLink]="['/user/view',hero.userId]">View Profile</button>
+        <button type="button" class="btn waves-effect waves-light" [disabled]="hero.publishFlag ==='N' " [routerLink]="['/user/view',hero.userId]">View Profile</button>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">{{hero.firstName}} {{hero.lastName}}<i class="material-icons right">close</i></span>
+          <p>{{hero.introduction}}</p>
+        </div>
       </div>
     </div>
   </div>

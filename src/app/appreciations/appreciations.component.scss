@@ -6,9 +6,9 @@
   padding-top: 0;
   background-color: #F9F9F9;
   .thanks {
-    font-size:1.3rem;
-    font-weight:bold;
-    color:#4B4B4C;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #4B4B4C;
     line-height: 2.2rem;
     padding-top: 1.5rem;
     font-family: $main-font;
@@ -23,17 +23,40 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
     .user {
-      border: .5px #ccc solid;
+      border: 1px #ccc solid;
       padding: 1rem 1rem 1.5rem;
       .avatar {
-        
-         width: 100px;
-         height: 100px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         border: 1px #ccc solid;
       }
-      .avatar-circle  {
-         margin: 0 auto 0.47rem;
+      .avatar-circle {
+        margin: 0 auto 0.47rem;
+      }
+      &.card {
+        /**
+        Card specific styles
+        */
+        min-height: 352px;
+        .card-content .material-icons.right {
+          margin-top: -21px;
+        }
+        .card-reveal {
+          text-align: left;
+          margin: 1px;
+          .material-icons.right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+          }
+          .card-title {
+            margin-bottom: 10px;
+          }
+        }
+        .activator {
+          cursor: pointer;
+        }
       }
       .fullname {
         font-size: 1.5rem;
@@ -41,7 +64,7 @@
         text-transform: uppercase;
         font-weight: 600;
       }
-      .hide{
+      .hide {
         display: none;
       }
       .title {
@@ -55,7 +78,7 @@
       }
       .label-content {
         float: right;
-        text-align:right;
+        text-align: right;
       }
       .location {
         font-size: 1rem;

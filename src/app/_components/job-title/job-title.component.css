@@ -1,0 +1,16 @@
+.job-title {
+	color: #488fe2;
+	margin-top: .5em;
+	font-weight: bold;
+	font-size: 0.8rem;
+	display: flex;
+	justify-content: left;
+}
+
+.job-title-name {
+	margin-left: .5em;
+	vertical-align: middle;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
