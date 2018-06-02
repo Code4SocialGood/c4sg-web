@@ -60,7 +60,7 @@ export class ApplicationService {
     }
 
     updateApplication(application: Application): Observable<Application> {
-        
+
         return this.http
             .put(applicationUrl, application, {
                 headers: new HttpHeaders()
