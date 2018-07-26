@@ -39,6 +39,9 @@
   text-align: center;
   font-size: 1em;
 }
+.chip{
+margin-top: 5px;
+}
 
 #right-col, .sidebar{
   border-bottom: none;
@@ -48,6 +51,10 @@
 .btn-back {
   background-color: white;
   color: $secondary-bg-color;  
+  line-height:24px;
+  vertical-align:middle;
+  text-transform: uppercase;
+  cursor: pointer;
   // border: 2px solid $secondary-bg-color;
   // @include button-font;
 }

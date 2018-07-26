@@ -32,13 +32,8 @@ h5 {
   color:#33e033 !important;
 }
 
-.subjectDeselected{
-  color: #5ba55b !important;
-}
-
-#subjectarea{
-  font-size:1.2em;
-  padding-left:10px;
+#subjectarea {
+  top: 0;
 }
 
 .ulSubjectArea{
@@ -54,85 +49,57 @@ h5 {
   margin-top:20px;
 }
 
-p{
+p {
   position:relative;
   font-size:1.3rem;
   font-weight:bold;
   color:#4B4B4C;
   margin-top:20px;
-  padding-left:5px;
 }
 
-#submitbtn{
-  margin-top:25px;
-  margin-bottom:35px;
-  padding-left:20px;
+#submitbtn {
+  margin-bottom: 1rem;
 }
 
-#last_section{
+#last-section {
   margin-top:20px;
   margin-bottom:40px;
 }
 
-#last_section i{
+#last-section i {
   margin-top:15px;
 }
 
-/********** large devices only **********/
-@media (min-width: 992px) and (max-width:1200px){
-
-#subjectarea{
- font-size:1em;
- margin-top:25px;
-  }
+.chip {
+  cursor: pointer;
 }
 
-/********** small/medium devices only **********/
-@media (min-width: 601px) and (max-width: 991px){
-
-#subjectarea{
-  font-size:.9em;
-  width:100px;
-  margin-top:25px;
- }
-
-.ulSubjectArea{
-  margin-left: 25px;
-  padding-top:0px;
- }
+.thanks p {
+  margin-top: 0;
+  padding-top: 5px;
 }
 
 /********** small devices only **********/
-@media (max-width: 600px){
+@media (max-width: 600px) {
 
-#askimage{
-  width:40px;
-  heigth:46px;
-  margin-top:25px;
-  margin-left:15px;
- }
+  #askimage {
+    width:40px;
+    margin-top:25px;
+    margin-left:15px;
+  }
 
-p{
-  font-size:1rem;
-  font-weight:bold;
-  padding-left:10px;
- }
+  p {
+    font-size:1rem;
+    font-weight:bold;
+    padding-left:10px;
+  }
 
-#last_section i{
-  padding-left:10px;  
- }
+  #last-section i {
+    padding-left:10px;
+  }
 
-#subjectarea{
-  font-size:1em;
- }
-
-.ulSubjectArea{
-  padding-left:10px;
-  padding-top:1px;
- }
-
-#last_section i{
-  margin-top:20px;
-  font-size:40px;
- }
+  #last-section i {
+    margin-top:20px;
+    font-size:40px;
+  }
 }

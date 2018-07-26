@@ -38,7 +38,9 @@
         </div>
         <div class="text" [textContent]="card.title"></div>
       </div>
-      <div class="card-read-story-bar volunteer">READ FULL STORY</div>
+      <a href="stories/view/{{card.id}}">
+        <div class="card-read-story-bar volunteer">READ FULL STORY</div>
+      </a>
     </div>
   </div>
   <div class="see-more-btn">
@@ -56,7 +58,9 @@
         </div>
         <div class="text" [textContent]="card.title"></div>
       </div>
-      <div class="card-read-story-bar organization">READ FULL STORY</div>
+      <a href="stories/view/{{card.id}}">
+        <div class="card-read-story-bar organization">READ FULL STORY</div>
+      </a>
     </div>
   </div>
   <div class="see-more-btn margin-bottom">

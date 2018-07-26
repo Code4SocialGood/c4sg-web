@@ -47,22 +47,22 @@
 
 <div class="maindiv">
     <div class="action">
-        <video autoplay playsinline loop muted>
+        <video *ngIf="true" autoplay playsinline loop muted onloadedmetadata="this.muted = true">
             <source src="/assets/video/small-overlay-texture.mp4" type="video/mp4">
             <!--<source src="/assets/video/small-overlay-texture.webm" type="video/webm">-->
             Your browser does not support the video tag.
         </video>
         <div class="aniSlogan-background">
           <div class="aniSlogan hide-on-small-and-down show-on-medium-and-up">
-            It doesn't matter if you
+            Join us and
             <br> code for <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br><div class="get_started"><br>Get started now!</div>
           </div>
           <div class="aniSlogan show-on-small hide-on-med-and-up">
-            It doesn't matter if you
-            <br> code for 
+            Join us and
+            <br> code for
             <br> <span class="aniWord" [@toggleColor]="wordColorIndex">{{aniWord}}</span>
-            <span [@cursorFlash]="cursorState">&nbsp;_</span><br> Get started now!
+            <span [@cursorFlash]="cursorState">&nbsp;_</span><br><div class="get_started"><br>Get started now!</div>
           </div>
           <div><br><button class="btn-bordered" type="submit" (click)="loadProjects()">Find Projects</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-bordered" (click)="loadVolunteers()" type="submit" >Find Volunteers</button></div>
         </div>        
@@ -72,7 +72,7 @@
 <div class="section no-padding">
   <div class="row">
     <div class="green-ribbon">
-      GLOBAL NETWORK WHERE SOCIAL GOOD HAPPENS
+      GLOBAL NETWORK FOR VOLUNTEERS AND NONPROFITS
     </div>
   </div>
   <br><br>
@@ -81,40 +81,52 @@
       <div class="col s12 m5">
         <div class="second-section">
           <div class="second-section-heading volunteer-heading">VOLUNTEERS</div>
+          <div class="second-section-sub">Apply your technical skills<br>
+            in service of others</div>
           <div class="second-section-text">
-            Browse and apply for projects<br>
-            Receive notification on new projects<br>
-            Get contacted by potential nonprofits<br>
-            Access to consultants on technical challenges
+            Volunteers with C4SG provide free <br>
+            assistance with tech projects to <br>
+            nonprofits in need. As a volunteer, <br>
+            you control what projects you take <br>
+            and how you become involved with <br>
+            those projects. Whatever your skill <br>
+            and experience level, we will have a <br>
+            project for you.
           </div>
-        </div>
-        <br>
-        <div class="center second-section-text">
-          <button class="button-bordered" type="submit" (click)="authSvc.login()">SIGN UP</button>
         </div>
         <br>
         <div>
           <img src="../../assets/Volunteers_icons.svg">
         </div>
+        <br>
+        <div class="center second-section-text">
+          <button class="button-bordered" type="submit" (click)="authSvc.login()">SIGN UP</button>
+        </div>
       </div>
 
       <div class="col s12 m5 offset-m2">
         <div class="second-section">
-          <div class="second-section-heading organization-heading">ORGANIZATIONS</div>
+          <div class="second-section-heading organization-heading">NONPROFITS</div>
+          <div class="second-section-sub">Find volunteer help for <br>
+            tech projects and services</div>
           <div class="second-section-text">
-            Post projects<br>
-            Review and accept applicants<br>
-            Reach out to potential volunteers<br>
-            Access to consultants on technical directions
+            Nonprofits can register with C4SG to<br>
+            obtain free volunteer help with tech<br>
+            projects and services. Simply make a <br>
+            listing and you will be free to reach <br>
+            out to volunteers and select from a <br>
+            list of qualified applicants. As an <br>
+            organization, we are here to help you <br>
+            help others.
           </div>
-        </div>
-        <br>
-        <div class="center second-section-text">
-          <button class="button-bordered" type="submit" (click)="authSvc.login()">REGISTER</button>
         </div>
         <br>
         <div>
           <img src="../../assets/Organizations_icons.svg">
+        </div>
+        <br>
+        <div class="center second-section-text">
+          <button class="button-bordered" type="submit" (click)="authSvc.login()">REGISTER</button>
         </div>
       </div>
     </div>
@@ -131,7 +143,7 @@
 </div>
 <div class="section no-padding">
   <div class="green-ribbon white-text">
-    STAY CONNECTED AND MAKE AN IMPACT FOR BETTER WORLD
+    STAY CONNECTED AND MAKE AN IMPACT
   </div>
 
   <!--<div class="container">-->
@@ -174,7 +186,7 @@
           </agm-marker>
 
           <agm-marker *ngFor="let o of organizations " [latitude]="o.latitude " [longitude]="o.longitude " (mouseOver)="handleMarkerMouseOver($event) "
-            iconUrl="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
+            iconUrl="https://maps.google.com/mapfiles/ms/icons/green-dot.png">
             <agm-info-window>
               <div class="info-window ">
                 <a class="info-container " [routerLink]="[ '/organization/view',o.id] ">
@@ -195,7 +207,7 @@
           </agm-marker> -->
           <div *ngFor="let c of countries ">
           <agm-marker *ngIf="c.volunteers || c.organizations" [latitude]="c.latitude " [longitude]="c.longitude " (mouseOver)="handleMarkerMouseOver($event) "
-            iconUrl="http://maps.google.com/mapfiles/ms/icons/red-dot.png">
+            iconUrl="https://maps.google.com/mapfiles/ms/icons/red-dot.png">
             <agm-info-window>
               <div class="info-window ">
                 <a class="info-container ">
@@ -244,7 +256,7 @@
             </td>
           </tr>
         </table>
-      </div>      
+      </div>
     </div>
   </div>
   <div class="row">
@@ -375,22 +387,22 @@
 </div>
 <div class="section no-padding">
   <div class="green-ribbon white-text ribbon-padding-top">
-    <div class="row">
+    <div class="row button-container">
       <div class="col s12 padding">
-        A platform by volunteers, for volunteers<br>        
-      </div>      
+        A platform by volunteers, for volunteers<br>
+      </div>
       <div class="col s6 toLower">
           <span style="font-size: 18px">Contribute to our open source project</span><br>
         <a class="btn btn_github" href="https://github.com/Code4SocialGood/" target="_blank">
-          Github Project<i class="mdi mdi-github-circle mdi-36px left" name="github"></i>
-        </a>        
+          Github Project<i class="mdi mdi-github-circle mdi-24px left" name="github"></i>
+        </a>
       </div>
 
       <div class="col s6 toLower">
         <span style="font-size: 18px">Join our volunteer community</span><br>
         <a class="btn btn_github" href="http://join-our-slack.code4socialgood.org/" target="_blank">
-          Chat Room<i class="mdi mdi-slack mdi-36px left" name="slack"></i>
-        </a>        
+          Chat Room<i class="mdi mdi-slack mdi-24px left" name="slack"></i>
+        </a>
       </div>
     </div>
   </div>

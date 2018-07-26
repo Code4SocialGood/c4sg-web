@@ -1,5 +1,6 @@
 # Code for Social Good
 [![Build Status](https://travis-ci.org/Code4SocialGood/c4sg-web.svg?branch=master)](https://travis-ci.org/Code4SocialGood/c4sg-web)
+[![Help Contribute to Open Source](https://www.codetriage.com/code4socialgood/c4sg-web/badges/users.svg)](https://www.codetriage.com/code4socialgood/c4sg-web)
 
 ## We are live! Join Us
 

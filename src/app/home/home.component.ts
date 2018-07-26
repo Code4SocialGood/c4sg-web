@@ -2,13 +2,15 @@ import {
   Component,
   OnInit,
   Input,
+  OnDestroy
+} from '@angular/core';
+import {
   trigger,
   state,
   style,
-  transition,
   animate,
-  OnDestroy
-} from '@angular/core';
+  transition
+} from '@angular/animations';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Project} from '../project/common/project';
@@ -92,9 +94,9 @@ export class HomeComponent implements OnInit {
   cursorState = 'inactive';
   wordColorIndex = 0;
 
-  aniWordGroup = ['interest !', 'fun~', 'a better world.', 'social good !'];
+  aniWordGroup = ['social good!', 'fun!', 'experience!', 'interest!', 'a better world!'];
   aniWord = '';
-  aniWordGroupOrg = ['social good !', 'better future~', 'a better world.'];
+  aniWordGroupOrg = ['social good!', 'better future!', 'a better world!'];
   aniWordOrg = '';
 
   // Google maps

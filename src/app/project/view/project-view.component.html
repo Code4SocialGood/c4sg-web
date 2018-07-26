@@ -1,15 +1,15 @@
 
 <div class="page-title clearfix" *ngIf="project && project.status === 'A' ">
-  <h1>Project</h1>  
+  <h1>Project</h1>
 </div>
 <div class="page-title clearfix" *ngIf="project && project.status === 'C'">
-  <h1>Project- CLOSED</h1> 
+  <h1>Project- CLOSED</h1>
 </div>
 
 <div class="container">
   <div class="row main-row" materialize="toast" [materializeParams]="[]" [materializeActions]="globalActions">
     <!-- Left Panel: Project -->
-    <div class="col s8" id="left-col">
+    <div class="col s12 m8 l8" id="left-col">
       <div class="content  sidebar-wrapper" *ngIf="project">
         <div class="row single-info">
           <div class="col s6 m3 l3">
@@ -33,7 +33,7 @@
                 <div class="row">
                   <div class="col s12 content-subtitle" *ngIf="project.remoteFlag === 'Y'">Location: {{pad("Remote", "&nbsp;", 2)}}</div>
                   <div class="col s12 content-subtitle state" *ngIf="project.remoteFlag !== 'Y'">
-                    Location: <span *ngIf="project.state">{{pad(project.state, "&nbsp;", 2)}}, </span>{{project.country}}
+                    Location: <span *ngIf="project.state">{{pad(project.state, "&nbsp;", 2)}}, </span>{{getCountryName(project.country)}}
                   </div>
                 </div>
                 <div class="row">
@@ -142,16 +142,18 @@
             <div class="col s12 action-btns">
               <!-- If the user hasn't login, display tooltip that user needs to login to apply -->
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Apply"
-                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()">
+                *ngIf="displayApply && !authService.authenticated()" (click)="toggleApplicationForm()"
+                [disabled]="project.status === 'C'">
                 Apply
               </button>
               <!-- If the user is volunteer and hasn't complete user profile, redirect to My Settings -->
-              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()">
+              <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Complete user profile before apply for project" *ngIf="displayApply && authService.authenticated() && userProfileIncomplete" (click)="redirectToMySettings()"
+                [disabled]="project.status === 'C'">
                 Apply
               </button>
               <!-- Apply button is enabled for login user -->
               <button type="button" class="btn waves-effect waves-light" *ngIf="displayApply && authService.authenticated() && !userProfileIncomplete" (click)="toggleApplicationForm()"
-                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined">
+                [disabled]="projectStatusApplied || projectStatusAccepted || projectStatusDeclined || project.status === 'C'">
                 Apply
               </button>
               <button type="button" class="btn waves-effect waves-light tooltipped" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Login to Bookmark"
@@ -174,35 +176,34 @@
               Delete</button>-->
               <my-shared-btn [displayShare]="displayShare" [project]="project"></my-shared-btn>
             </div>
-          </div>      
+          </div>
           <br>
           <div class="row">
             <div class="col s12 action-btns">
               <!-- Does not matter if is logger or is volunteer, the function back is always enabled -->
               <!-- The button is enabled only if previous page is the project list -->
-              <button type="button" class="btn btn-back"  data-position="bottom" data-delay="10" 
-              *ngIf="prevPage === 'ProjectList'" (click)="goBack()">
-               Back To Search
-              </button>
+              <a class="btn-back"  data-position="bottom" data-delay="10" *ngIf="prevPage === 'ProjectList'" (click)="goBack()">
+               <i class="mdi mdi-arrow-left-bold-circle mdi-24px left"></i>Back To Projects
+              </a>
             </div>
           </div>
           <br>
-          <div class="col s12" *ngIf="displayApplicationForm"> 
-              <my-edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></my-edit-application>              
-          </div>          
+          <div class="col s12" *ngIf="displayApplicationForm">
+              <my-edit-application [projectId]="projectId" [userId]="currentUserId" (onApplicationCreated)="onApplicationCreated($event)"></my-edit-application>
+          </div>
         </div>
       </div>
 
       <!-- Nonprofit User - Applicants -->
       <div class="content sidebar-wrapper" *ngIf="displayApplicants === true ">
-        <div class="row">          
-              <my-application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)" (isBadgeGiven)="isBadgeGiven($event)"></my-application-view>          
+        <div class="row">
+              <my-application-view [projectId]="projectId" (onApplicationAccepted)="onApplicationAccepted($event)" (onApplicationDeclined)="onApplicationDeclined($event)" (isBadgeGiven)="isBadgeGiven($event)"></my-application-view>
         </div>
       </div>
     </div>
 
     <!-- Right Panel: Organization and projects -->
-    <div class="col m4" id="right-col">
+    <div class="col s12 m4 l4" id="right-col">
       <div class="sidebar">
         <div class="section">
           <h4>Organization</h4>
@@ -210,15 +211,15 @@
             <div class="card">
               <div class="card-content" *ngIf="organization">
                 <div class="row single-info">
-                  <div class="col m4">
+                  <div class="col s4 m6 l4">
                     <div class="info-avatar square-container" *ngIf="organization.logoUrl"><img class="square" [src]="organization.logoUrl"></div>
                     <div class="info-avatar square-container" *ngIf="!organization.logoUrl"><img class="square" [src]="constantsService.defaultImage"></div>
                   </div>
-                  <div class="col m8 organization-name">
+                  <div class="col s8 m8 l8 organization-name">
                     <p *ngIf="organization.id"><a [routerLink]="['/organization/view/', organization.id]">{{organization.name}}</a></p>
                     <p *ngIf="!organization.id">{{organization.name}}</p>
                   </div>
-                  <div class="col m8">
+                  <div class="col s8 m8 l8">
                     <p>Category: {{categoryName}}</p>
                     <p>
                       Location:

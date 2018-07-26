@@ -1,5 +1,20 @@
 <div class="share-button-block right" *ngIf="displayShare">
-  <div class="fixed-action-btn horizontal click-to-toggle">
+  <div class="fixed-action-btn horizontal click-to-toggle hide-on-small-only">
+    <a class="btn share-btn">
+      <i class="mdi mdi-share-variant mdi-24px left"></i>share
+    </a>
+    <ul>
+      <li><a (click)="shareOnFacebook($event)" class="btn-floating"><i
+        class="mdi mdi-facebook mdi-24px"></i></a></li>
+      <li><a (click)="shareOnTwitter($event)" class="btn-floating"><i
+        class="mdi mdi-twitter mdi-24px"></i></a></li>
+      <li><a (click)="shareByEmail($event)" class="btn-floating"><i
+        class="mdi mdi-email mdi-24px"></i></a></li>
+      <li><a (click)="shareOnLinkedin($event)" class="btn-floating"><i
+        class="mdi mdi-linkedin mdi-24px"></i></a></li>
+    </ul>
+  </div>
+  <div class="fixed-action-btn click-to-toggle show-on-small hide-on-med-and-up">
     <a class="btn share-btn">
       <i class="mdi mdi-share-variant mdi-24px left"></i>share
     </a>

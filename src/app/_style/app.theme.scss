@@ -38,6 +38,11 @@ hr {
   padding-left: 50px;
 }
 
+.partners-page{
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 .modal {
   padding: 0;
   .modal-content {
@@ -287,6 +292,7 @@ font-size: 1em;
   background: $page-title-bg-color;
   padding-top: 5px;
   padding-bottom: 0px;
+  margin-bottom: 16px;
   h1 {
     @include page-title-font;
     padding: 0px;
@@ -444,4 +450,3 @@ font-size: 8px;
 font-weight: normal;
 color: $main-color;
 }
-
