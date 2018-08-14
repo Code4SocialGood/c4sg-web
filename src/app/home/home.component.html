@@ -47,7 +47,8 @@
 
 <div class="maindiv">
     <div class="action">
-        <video autoplay playsinline loop muted>
+        <!--video autoplay playsinline loop muted-->
+        <video *ngIf="true" autoplay playsinline loop muted onloadedmetadata="this.muted = true">
             <source src="/assets/video/small-overlay-texture.mp4" type="video/mp4">
             <!--<source src="/assets/video/small-overlay-texture.webm" type="video/webm">-->
             Your browser does not support the video tag.
