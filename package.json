@@ -41,7 +41,7 @@
     "express": "^4.15.3",
     "fs-extra": "^2.1.2",
     "intl": "^1.2.5",
-    "jquery": "^2.2.4",
+    "jquery": "^3.5.0",
     "leaflet": "^1.0.3",
     "materialize-css": "^0.97.8",
     "mdi": "^1.8.36",
