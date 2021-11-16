@@ -36,7 +36,7 @@
     "@types/node": "~6.0.60",
     "angular2-jwt": "^0.1.28",
     "angular2-materialize": "^6.7.1",
-    "aws-sdk": "^2.57.0",
+    "aws-sdk": "^2.814.0",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
     "fs-extra": "^2.1.2",
