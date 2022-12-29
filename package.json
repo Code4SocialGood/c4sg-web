@@ -22,7 +22,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.0",
-    "@angular/cli": "1.0.0",
+    "@angular/cli": "15.0.4",
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",
     "@angular/compiler-cli": "^2.4.0",
